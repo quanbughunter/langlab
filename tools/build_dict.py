@@ -27,6 +27,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT  = ROOT / 'js' / 'dict-ko.js'
 KEY_FILE = ROOT / 'tools' / 'krdict-key.txt'
 API = 'https://krdict.korean.go.kr/api/search'
+API_VIEW = 'https://krdict.korean.go.kr/api/view'
 
 # Tên ngôn ngữ tiếng Việt như KRDict trả về trong thẻ <trans_lang>.
 # Lọc theo TÊN nên không phụ thuộc mã số trans_lang (vốn không chắc chắn).
@@ -140,6 +141,7 @@ def parse(xml_text, want_word):
         pos = _txt(item, 'pos')
         origin = _txt(item, 'origin')            # Hanja nếu là từ gốc Hán, ví dụ 圖書館
         hanja = origin if re.search(r'[㐀-鿿]', origin) else ''
+        target_code = _txt(item, 'target_code')  # mã để gọi API chi tiết lấy ví dụ
 
         level = _txt(item, 'word_grade')          # 초급 / 중급 / 고급 (nếu có)
 
@@ -186,8 +188,34 @@ def parse(xml_text, want_word):
         }
         if level:
             entry['level'] = level
+        if target_code:
+            entry['_tc'] = target_code            # tạm để gọi API chi tiết, xoá trước khi xuất
         items.append(entry)
     return items
+
+
+def fetch_view(target_code, key, timeout=20):
+    q = urllib.parse.urlencode({'key': key, 'method': 'target_code',
+                                'target_code': target_code,
+                                'translated': 'y', 'trans_lang': '7'})
+    req = urllib.request.Request(API_VIEW + '?' + q, headers={'User-Agent': 'LangLab-dict/1'})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return r.read().decode('utf-8')
+
+
+def parse_examples(xml_text):
+    """Lấy câu ví dụ (용례) từ phản hồi API chi tiết. Trả về danh sách chuỗi tiếng Hàn."""
+    try:
+        root = ET.fromstring(xml_text)
+    except ET.ParseError:
+        return []
+    out, seen = [], set()
+    for exel in root.iter('example'):
+        txt = html.unescape(exel.text.strip()) if exel.text and exel.text.strip() else ''
+        # bỏ mẫu quá ngắn (chỉ là cụm), giữ câu có chữ Hàn
+        if txt and re.search(r'[가-힣]', txt) and len(txt) >= 4 and txt not in seen:
+            seen.add(txt); out.append(txt)
+    return out
 
 
 # ── danh sách từ cần kéo ────────────────────────────────────────────────
@@ -217,13 +245,27 @@ ATTRIB = (
 
 def write_out(entries):
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    body = 'window.DICT_KO = ' + json.dumps(entries, ensure_ascii=False, separators=(',', ':')) + ';\n'
+    clean = [{k: v for k, v in e.items() if k != '_tc'} for e in entries]   # bỏ trường tạm
+    body = 'window.DICT_KO = ' + json.dumps(clean, ensure_ascii=False, separators=(',', ':')) + ';\n'
     OUT.write_text(ATTRIB + body, encoding='utf-8')
 
 
 PROGRESS = ROOT / 'tools' / '.dict-progress.json'
 
-def build(top, resume=False):
+def enrich_examples(entry, key):
+    """Gọi API chi tiết lấy tối đa 3 câu ví dụ, gắn vào entry['examples']."""
+    tc = entry.get('_tc')
+    if not tc:
+        return
+    try:
+        ex = parse_examples(fetch_view(tc, key))
+        if ex:
+            entry['examples'] = ex[:3]
+    except Exception:
+        pass
+
+
+def build(top, resume=False, examples=False):
     key = read_key()
     if not key:
         sys.exit('Chưa có khoá KRDict.\n'
@@ -272,12 +314,17 @@ def build(top, resume=False):
         for m in got:
             if m['ko'] in seen:
                 continue
+            if examples:                          # gọi thêm API chi tiết lấy câu ví dụ
+                enrich_examples(m, key)
+                time.sleep(0.2)
             seen.add(m['ko']); entries.append(m)
         if not got:
             miss += 1
         if i % 25 == 0 or i == len(todo):
-            print('  %4d/%d  · tổng %d mục · không có VN %d · lỗi %d'
-                  % (i, len(todo), len(entries), miss, fail))
+            nex = sum(1 for e in entries if e.get('examples'))
+            print('  %4d/%d  · tổng %d mục%s · không có VN %d · lỗi %d'
+                  % (i, len(todo), len(entries),
+                     (' · có ví dụ %d' % nex) if examples else '', miss, fail))
             save_progress()                       # lưu định kỳ để chịu được ngắt giữa chừng
         time.sleep(0.2)                           # lịch sự với máy chủ
 
@@ -346,6 +393,14 @@ def self_test():
     check(b and b[0]['vi'] == 'ăn', '먹다 → ăn (bỏ qua 食べる)')
     check(b and b[0]['hanja'] == '', '먹다 không có Hanja')
 
+    print('3) Parser ví dụ từ API chi tiết:')
+    VIEW = ('<channel><item><word>도서관</word><sense>'
+            '<example_info><example>도서관에서 책을 읽어요.</example></example_info>'
+            '<example_info><example>학교 도서관이 넓다.</example></example_info>'
+            '</sense></item></channel>')
+    exs = parse_examples(VIEW)
+    check(len(exs) == 2 and exs[0] == '도서관에서 책을 읽어요.', 'lấy 2 câu ví dụ từ API chi tiết')
+
     print('\n' + ('TẤT CẢ ĐẠT' if ok else 'CÓ LỖI'))
     return 0 if ok else 1
 
@@ -354,11 +409,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--top', type=int, default=1000, help='số từ phổ biến cần kéo (5000 phủ gần hết từ hay dùng)')
     ap.add_argument('--resume', action='store_true', help='tiếp tục cú kéo dở dang (an toàn khi ngắt giữa chừng)')
+    ap.add_argument('--examples', action='store_true', help='gọi thêm API chi tiết lấy câu ví dụ thật (chậm hơn ~2×)')
     ap.add_argument('--self-test', action='store_true', help='kiểm parser, không cần mạng')
     a = ap.parse_args()
     if a.self_test:
         sys.exit(self_test())
-    build(a.top, resume=a.resume)
+    build(a.top, resume=a.resume, examples=a.examples)
 
 
 if __name__ == '__main__':

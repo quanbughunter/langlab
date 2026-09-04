@@ -1321,6 +1321,22 @@ function dictEntryHtml(hit){
           </li>`).join('')}
       </ol>
       ${senses.length > 1 ? `<p class="de-hint">${senses.length} nghĩa theo ngữ cảnh khác nhau.</p>` : ''}
+      ${(hit.examples && hit.examples.length) ? `
+        <div class="de-usage">
+          <span class="de-lbl">Cách dùng</span>
+          <div class="de-ex-list">
+            ${hit.examples.map(e => {
+              const ko = typeof e === 'string' ? e : e.ko;
+              return `<div class="de-ex">
+                <span class="ko">${Words.mark(ko)}</span>
+                ${(e && e.vi) ? `<span class="de-ex-vi">${esc(e.vi)}</span>` : ''}
+                <button class="icon-btn de-ex-play" data-speak="${esc(ko)}" title="Nghe">
+                  <svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+                </button>
+              </div>`;
+            }).join('')}
+          </div>
+        </div>` : ''}
     </div>`;
 }
 
