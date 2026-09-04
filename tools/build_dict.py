@@ -194,11 +194,14 @@ def parse(xml_text, want_word):
     return items
 
 
+def view_url(target_code, key):
+    # API chi tiết: method=target_code, mã số đưa vào tham số 'q' (KHÔNG phải 'target_code').
+    q = urllib.parse.urlencode({'key': key, 'method': 'target_code', 'q': target_code})
+    return API_VIEW + '?' + q
+
+
 def fetch_view(target_code, key, timeout=20):
-    q = urllib.parse.urlencode({'key': key, 'method': 'target_code',
-                                'target_code': target_code,
-                                'translated': 'y', 'trans_lang': '7'})
-    req = urllib.request.Request(API_VIEW + '?' + q, headers={'User-Agent': 'LangLab-dict/1'})
+    req = urllib.request.Request(view_url(target_code, key), headers={'User-Agent': 'LangLab-dict/1'})
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return r.read().decode('utf-8')
 
@@ -252,17 +255,55 @@ def write_out(entries):
 
 PROGRESS = ROOT / 'tools' / '.dict-progress.json'
 
+_view_warned = [False]
+
 def enrich_examples(entry, key):
-    """Gọi API chi tiết lấy tối đa 3 câu ví dụ, gắn vào entry['examples']."""
+    """Gọi API chi tiết lấy tối đa 3 câu ví dụ, gắn vào entry['examples'].
+    In một dòng chẩn đoán ở lần trục trặc ĐẦU TIÊN để dễ soi nếu vẫn 0 ví dụ."""
     tc = entry.get('_tc')
     if not tc:
+        if not _view_warned[0]:
+            _view_warned[0] = True
+            print('  [chẩn đoán] mục %r không có target_code trong phản hồi tìm kiếm.' % entry.get('ko'))
         return
     try:
-        ex = parse_examples(fetch_view(tc, key))
+        xml = fetch_view(tc, key)
+        ex = parse_examples(xml)
         if ex:
             entry['examples'] = ex[:3]
-    except Exception:
-        pass
+        elif not _view_warned[0]:
+            _view_warned[0] = True
+            print('  [chẩn đoán] API chi tiết không có <example> cho %r (mã %s). '
+                  'Trích phản hồi: %s' % (entry.get('ko'), tc, xml[:300].replace('\n', ' ')))
+    except Exception as e:
+        if not _view_warned[0]:
+            _view_warned[0] = True
+            print('  [chẩn đoán] lỗi gọi API chi tiết cho %r (mã %s): %r'
+                  % (entry.get('ko'), tc, e))
+
+
+def try_word(word):
+    """Thử 1 từ để xác nhận API chi tiết trả về câu ví dụ. Không ghi đè js/dict-ko.js."""
+    key = read_key()
+    if not key:
+        sys.exit('Chưa có khoá KRDict (tools/krdict-key.txt).')
+    try:
+        got = parse(fetch(word, key), word)
+    except Exception as e:
+        sys.exit('Lỗi gọi API tìm kiếm: %r' % e)
+    if not got:
+        print('Không tìm thấy « %s » (hoặc mục không có bản dịch tiếng Việt).' % word)
+        return 0
+    for m in got:
+        enrich_examples(m, key)
+        print('\n%s  [%s]  →  %s' % (m['ko'], m.get('pos', ''), m.get('vi', '')))
+        exs = m.get('examples', [])
+        if exs:
+            for ex in exs:
+                print('   • ví dụ:', ex)
+        else:
+            print('   (không lấy được câu ví dụ — mã %s)' % m.get('_tc', '?'))
+    return 0
 
 
 def build(top, resume=False, examples=False):
@@ -400,6 +441,8 @@ def self_test():
             '</sense></item></channel>')
     exs = parse_examples(VIEW)
     check(len(exs) == 2 and exs[0] == '도서관에서 책을 읽어요.', 'lấy 2 câu ví dụ từ API chi tiết')
+    u = view_url('32750', 'DEMOKEY')
+    check('q=32750' in u and 'method=target_code' in u, 'URL API chi tiết dùng đúng tham số q')
 
     print('\n' + ('TẤT CẢ ĐẠT' if ok else 'CÓ LỖI'))
     return 0 if ok else 1
@@ -411,9 +454,13 @@ def main():
     ap.add_argument('--resume', action='store_true', help='tiếp tục cú kéo dở dang (an toàn khi ngắt giữa chừng)')
     ap.add_argument('--examples', action='store_true', help='gọi thêm API chi tiết lấy câu ví dụ thật (chậm hơn ~2×)')
     ap.add_argument('--self-test', action='store_true', help='kiểm parser, không cần mạng')
+    ap.add_argument('--try', dest='try_word', metavar='TỪ',
+                    help='thử 1 từ: in nghĩa + câu ví dụ lấy được, KHÔNG ghi đè từ điển')
     a = ap.parse_args()
     if a.self_test:
         sys.exit(self_test())
+    if a.try_word:
+        sys.exit(try_word(a.try_word))
     build(a.top, resume=a.resume, examples=a.examples)
 
 
