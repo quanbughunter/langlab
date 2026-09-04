@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kiến trúc LangLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Lexend:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#EDF0F3; --surface:#FFFFFF; --surface-2:#E4E9EE;
+  --ink:#10161C; --muted:#54626F; --faint:#8593A0;
+  --line:#D6DDE4; --line-strong:#B9C4CF;
+  --front:#1B4D8F; --front-soft:#DCE8F6;
+  --back:#7A3EA6; --back-soft:#ECE0F6;
+  --data:#1F7A5A; --data-soft:#DCEFE7;
+  --ext:#A6641E; --ext-soft:#F3E6D2;
+  --seal:#C8402F; --seal-soft:#F8E4E0;
+  --shadow:0 1px 3px rgba(16,22,28,.07), 0 12px 30px -18px rgba(16,22,28,.3);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0D1216; --surface:#141B21; --surface-2:#1D252C;
+  --ink:#E4EBF1; --muted:#94A3B0; --faint:#6E7C89;
+  --line:#232D35; --line-strong:#35424D;
+  --front:#71ABEA; --front-soft:#14293F;
+  --back:#C29BE6; --back-soft:#281733;
+  --data:#5FC79D; --data-soft:#122C24;
+  --ext:#DDA05B; --ext-soft:#2C2013;
+  --seal:#F0796A; --seal-soft:#33201D;
+  --shadow:0 1px 3px rgba(0,0,0,.5), 0 14px 34px -20px rgba(0,0,0,.85);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --ground:#0D1216; --surface:#141B21; --surface-2:#1D252C;
+  --ink:#E4EBF1; --muted:#94A3B0; --faint:#6E7C89;
+  --line:#232D35; --line-strong:#35424D;
+  --front:#71ABEA; --front-soft:#14293F;
+  --back:#C29BE6; --back-soft:#281733;
+  --data:#5FC79D; --data-soft:#122C24;
+  --ext:#DDA05B; --ext-soft:#2C2013;
+  --seal:#F0796A; --seal-soft:#33201D;
+  --shadow:0 1px 3px rgba(0,0,0,.5), 0 14px 34px -20px rgba(0,0,0,.85);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:"Lexend",system-ui,-apple-system,sans-serif;font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px;margin:0 auto;padding:44px 24px 72px}
+h1,h2,h3{font-family:"Fraunces","Lexend",Georgia,serif;font-weight:600;margin:0;line-height:1.15;text-wrap:balance}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:500}
+
+header h1{font-size:clamp(28px,4vw,40px);letter-spacing:-.01em;margin-top:8px}
+header p{color:var(--muted);max-width:66ch;margin-top:12px;font-size:16px}
+
+/* câu trả lời lớn */
+.verdict{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.vcard{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:20px 22px;box-shadow:var(--shadow)}
+.vcard .q{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.vcard .a{font-family:"Fraunces",serif;font-size:20px;font-weight:600;margin:8px 0 0}
+.vcard.front .a{color:var(--front)} .vcard.back .a{color:var(--back)}
+.vcard p{font-size:13.5px;color:var(--muted);margin:9px 0 0}
+
+section{margin-top:44px}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.sec-head h2{font-size:22px}
+.sec-head span{color:var(--muted);font-size:14px}
+
+/* ===== sơ đồ luồng ===== */
+.diagram{border:1px solid var(--line);border-radius:16px;background:
+  linear-gradient(180deg,var(--surface),color-mix(in srgb,var(--surface) 90%,var(--ground)));
+  padding:8px;box-shadow:var(--shadow);overflow-x:auto}
+.band{border-radius:12px;padding:16px 18px;margin:8px;position:relative}
+.band.front{background:var(--front-soft);border:1px solid color-mix(in srgb,var(--front) 30%,transparent)}
+.band.back{background:var(--back-soft);border:1px solid color-mix(in srgb,var(--back) 30%,transparent)}
+.band.ext{background:var(--ext-soft);border:1px dashed color-mix(in srgb,var(--ext) 40%,transparent)}
+.band-tag{position:absolute;top:-9px;left:16px;font-family:"JetBrains Mono",monospace;font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:2px 9px;border-radius:99px}
+.band.front .band-tag{background:var(--front);color:#fff}
+.band.back .band-tag{background:var(--back);color:#fff}
+.band.ext .band-tag{background:var(--ext);color:#fff}
+:root[data-theme="dark"] .band-tag,:root:not([data-theme="light"]) .band-tag{color:#0D1216}
+.band-note{font-size:12px;color:var(--muted);margin:2px 0 12px}
+
+.boxrow{display:flex;gap:12px;flex-wrap:wrap}
+.box{flex:1;min-width:180px;background:var(--surface);border:1px solid var(--line-strong);border-radius:10px;padding:13px 15px}
+.box .bt{font-size:14px;font-weight:500}
+.box .bd{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5}
+.box.wide{flex-basis:100%}
+.chip{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--ink);
+  background:var(--surface-2);border-radius:5px;padding:2px 6px;margin:6px 5px 0 0}
+
+.link{display:flex;align-items:center;justify-content:center;gap:10px;padding:7px 0}
+.link .lbl{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);
+  background:var(--ground);border:1px solid var(--line);border-radius:99px;padding:3px 12px}
+.link .ar{color:var(--line-strong);font-size:16px;line-height:1}
+
+/* ===== dữ liệu nằm đâu ===== */
+.data{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.dcard{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:18px;border-top:3px solid var(--data)}
+.dcard.b2{border-top-color:var(--front)} .dcard.b3{border-top-color:var(--back)}
+.dcard h3{font-size:15px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.dcard .where{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--faint);letter-spacing:.05em}
+.dcard p{font-size:13px;color:var(--muted);margin:9px 0 0}
+.dcard ul{margin:9px 0 0;padding-left:16px;font-size:12.5px;color:var(--muted)}
+.dcard li{margin-bottom:3px}
+.dcard .rw{font-family:"JetBrains Mono",monospace;font-size:10.5px;padding:2px 8px;border-radius:99px;font-weight:600;white-space:nowrap}
+.rw.read{background:var(--data-soft);color:var(--data)}
+.rw.write{background:var(--front-soft);color:var(--front)}
+.rw.secret{background:var(--back-soft);color:var(--back)}
+
+/* ===== bảng ánh xạ ===== */
+.tbl{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:500;background:var(--surface-2)}
+tbody tr:last-child td{border-bottom:none}
+td .layer{font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:600;padding:2px 7px;border-radius:99px}
+.L-front{background:var(--front-soft);color:var(--front)}
+.L-back{background:var(--back-soft);color:var(--back)}
+.L-data{background:var(--data-soft);color:var(--data)}
+
+.note{margin-top:18px;border:1px solid var(--line);border-left:3px solid var(--front);border-radius:0 10px 10px 0;background:var(--front-soft);padding:15px 17px}
+.note h3{font-size:15px;color:var(--front)}
+.note p{font-size:13.5px;color:var(--ink);margin:7px 0 0}
+.note.warn{border-left-color:var(--seal);background:var(--seal-soft)}
+.note.warn h3{color:var(--seal)}
+
+@media (max-width:680px){ .verdict{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">LangLab · sơ đồ kiến trúc web app</span>
+    <h1>Frontend, backend, và dữ liệu nằm đâu</h1>
+    <p>Toàn bộ chạy trên đám mây Cloudflare, không có máy nào của bạn phải bật. Trang này trả lời ba câu: cái gì là frontend, cái gì là backend, và dữ liệu sống ở đâu.</p>
+  </header>
+
+  <div class="verdict">
+    <div class="vcard front">
+      <div class="q">App này chủ yếu là gì?</div>
+      <div class="a">90% Frontend</div>
+      <p>Gần như mọi thứ chạy ngay trong trình duyệt: giao diện, logic học, dữ liệu bài học, thuật toán ôn tập, tách câu, nhận ngữ pháp. Không cần server để làm những việc này.</p>
+    </div>
+    <div class="vcard back">
+      <div class="q">Có backend không?</div>
+      <div class="a">Có, nhưng bé xíu</div>
+      <p>Một Cloudflare Worker duy nhất, làm đúng một việc: <b>dịch</b>. Nó tồn tại chỉ vì không được đặt khoá Gemini vào code frontend. Không database, không tài khoản, không server 24/7.</p>
+    </div>
+  </div>
+
+  <!-- ===== sơ đồ luồng ===== -->
+  <section>
+    <div class="sec-head"><h2>Sơ đồ luồng</h2><span>ai gọi ai, chạy ở đâu</span></div>
+    <div class="diagram">
+
+      <div class="band front">
+        <span class="band-tag">Frontend — chạy trong trình duyệt người dùng</span>
+        <div class="band-note">Cloudflare Pages gửi các tệp tĩnh này về máy người xem; từ đó mọi thứ chạy bằng JavaScript ngay trên trình duyệt.</div>
+        <div class="boxrow">
+          <div class="box">
+            <div class="bt">Giao diện &amp; điều hướng</div>
+            <div class="bd">6 màn hình, dựng bằng JS thuần, không framework.</div>
+            <span class="chip">index.html</span><span class="chip">app.js</span><span class="chip">langlab.css</span>
+          </div>
+          <div class="box">
+            <div class="bt">Logic học — chạy ngay tại chỗ</div>
+            <div class="bd">Nét viết, xếp lịch ôn tập, tách câu, gỡ đuôi, nhận ngữ pháp. Không gọi server.</div>
+            <span class="chip">strokes.js</span><span class="chip">words.js</span><span class="chip">tts.js</span>
+          </div>
+          <div class="box">
+            <div class="bt">Dữ liệu nội dung (tĩnh)</div>
+            <div class="bd">Từ vựng, 15 bài, bộ nét, và audio của bạn — nằm sẵn trong tệp, tải cùng app.</div>
+            <span class="chip">course-ko.js</span><span class="chip">vocab-common.js</span><span class="chip">audio/</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="link">
+        <span class="ar">▲▼</span>
+        <span class="lbl">chỉ khi bấm « Dịch cả đoạn » → gọi HTTPS tới Worker</span>
+        <span class="ar">▲▼</span>
+      </div>
+
+      <div class="band back">
+        <span class="band-tag">Backend — Cloudflare Worker (serverless)</span>
+        <div class="band-note">Một hàm nhỏ, chỉ thức dậy khi có yêu cầu dịch. Không chạy liên tục, không lưu gì.</div>
+        <div class="boxrow">
+          <div class="box wide">
+            <div class="bt">Dịch vụ dịch · POST /_translate</div>
+            <div class="bd">Nhận cả đoạn tiếng Hàn → dựng prompt → gọi Gemini → trả về mảng bản dịch tiếng Việt. Giữ khoá Gemini trong « secret », không lộ ra frontend.</div>
+            <span class="chip">worker/translate-worker.js</span><span class="chip">env.GEMINI_API_KEY</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="link">
+        <span class="ar">▲▼</span>
+        <span class="lbl">Worker gọi API bên ngoài</span>
+        <span class="ar">▲▼</span>
+      </div>
+
+      <div class="band ext">
+        <span class="band-tag">Dịch vụ ngoài</span>
+        <div class="boxrow">
+          <div class="box">
+            <div class="bt">Google Gemini API</div>
+            <div class="bd">Mô hình ngôn ngữ dịch tự nhiên. Bậc miễn phí, dùng chung quota theo khoá của bạn.</div>
+          </div>
+          <div class="box">
+            <div class="bt">Từ điển ngoài</div>
+            <div class="bd">KRDict, Tatoeba, Youglish… — chỉ là link mở tab mới, không phải backend.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== dữ liệu nằm đâu ===== -->
+  <section>
+    <div class="sec-head"><h2>Dữ liệu nằm ở đâu</h2><span>không có database — dữ liệu chia ba nơi</span></div>
+    <div class="data">
+      <div class="dcard b2">
+        <h3>Nội dung bài học <span class="rw read">CHỈ ĐỌC</span></h3>
+        <div class="where">Cloudflare Pages · CDN</div>
+        <p>Từ vựng, 15 bài, dữ liệu nét, audio của bạn. Cố định, không đổi khi dùng — nên nhét thẳng vào tệp tĩnh, không cần database.</p>
+        <ul><li>480 mục từ điển</li><li>Dữ liệu nét cho 11.172 âm tiết</li><li>Audio giọng neural + 153 track của bạn</li></ul>
+      </div>
+      <div class="dcard">
+        <h3>Tiến độ người học <span class="rw write">ĐỌC · GHI</span></h3>
+        <div class="where">localStorage · trình duyệt mỗi người</div>
+        <p>Thẻ đã lưu, đoạn shadowing, bản dịch đã cache, chuỗi ngày học, cài đặt. Nằm trên máy từng người, không gửi đi đâu.</p>
+        <ul><li>Mỗi trình duyệt giữ dữ liệu riêng</li><li>Đổi máy / xoá cache là mất</li><li>Không có tài khoản đăng nhập</li></ul>
+      </div>
+      <div class="dcard b3">
+        <h3>Khoá API <span class="rw secret">BÍ MẬT</span></h3>
+        <div class="where">Cloudflare Worker · secret</div>
+        <p>Khoá Gemini của bạn. Nằm trong kho secret của Worker, không có trong code, không lên GitHub, frontend không thấy được.</p>
+        <ul><li>Chỉ Worker đọc được lúc chạy</li><li>Đổi khoá không cần sửa code</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ánh xạ tệp → lớp ===== -->
+  <section>
+    <div class="sec-head"><h2>Tệp nào thuộc lớp nào</h2></div>
+    <div class="tbl" style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Tệp / thành phần</th><th>Lớp</th><th>Vai trò</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">index.html · app.js · langlab.css</td><td><span class="layer L-front">FRONTEND</span></td><td>Giao diện và điều hướng 6 màn hình</td></tr>
+          <tr><td class="mono">strokes.js · words.js</td><td><span class="layer L-front">FRONTEND</span></td><td>Logic nét viết, tách câu, nhận ngữ pháp — chạy trong trình duyệt</td></tr>
+          <tr><td class="mono">course-ko.js · vocab-common.js</td><td><span class="layer L-data">DỮ LIỆU</span></td><td>Nội dung bài học và từ vựng, đóng gói dạng tĩnh</td></tr>
+          <tr><td class="mono">audio/</td><td><span class="layer L-data">DỮ LIỆU</span></td><td>Giọng neural + 153 track của bạn, phục vụ tĩnh qua CDN</td></tr>
+          <tr><td class="mono">tts.js · translate.js · config.js</td><td><span class="layer L-front">FRONTEND</span></td><td>Gọi tới backend/giọng máy; quyết định dùng nguồn nào</td></tr>
+          <tr><td class="mono">worker/translate-worker.js</td><td><span class="layer L-back">BACKEND</span></td><td>Dịch vụ dịch serverless — chỗ duy nhất là backend</td></tr>
+          <tr><td class="mono">localStorage</td><td><span class="layer L-data">DỮ LIỆU</span></td><td>Tiến độ người học, trên máy từng người</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <h3>Vì sao không cần một backend đầy đủ?</h3>
+      <p>Vì nội dung học là cố định (nhét vào tệp tĩnh được) và dữ liệu người dùng thì mỗi người tự giữ trong trình duyệt. Chỉ có việc gọi Gemini là bắt buộc phải giấu khoá, nên mới cần một mẩu backend — và Cloudflare Worker vừa đủ cho việc đó, miễn phí. Đây là kiểu <b>« web app tĩnh + một hàm serverless »</b>: nhẹ, rẻ, không phải quản lý server.</p>
+    </div>
+
+    <div class="note warn">
+      <h3>Cái giá của kiến trúc này</h3>
+      <p>Không có database nghĩa là không đồng bộ được tiến độ giữa các máy, và không có trang quản trị để xem ai đang học gì. Muốn những thứ đó thì phải thêm một backend thật kèm database (ví dụ Cloudflare D1 hoặc KV) và hệ thống tài khoản — một dự án riêng, không còn miễn phí trọn vẹn.</p>
+    </div>
+  </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kế hoạch từ điển LangLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Lexend:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@500&display=swap">
+<style>
+:root{
+  --ground:#EDF0F3; --surface:#FFFFFF; --surface-2:#E4E9EE;
+  --ink:#10161C; --muted:#54626F; --faint:#8593A0;
+  --line:#D6DDE4; --line-strong:#B9C4CF;
+  --accent:#1B4D8F; --accent-soft:#DCE8F6;
+  --gold:#A6641E; --gold-soft:#F3E6D2;
+  --ok:#1F7A5A; --ok-soft:#DCEFE7;
+  --seal:#C8402F; --seal-soft:#F8E4E0;
+  --shadow:0 1px 3px rgba(16,22,28,.07), 0 12px 30px -18px rgba(16,22,28,.3);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0D1216; --surface:#141B21; --surface-2:#1D252C;
+  --ink:#E4EBF1; --muted:#94A3B0; --faint:#6E7C89;
+  --line:#232D35; --line-strong:#35424D;
+  --accent:#71ABEA; --accent-soft:#14293F;
+  --gold:#DDA05B; --gold-soft:#2C2013;
+  --ok:#5FC79D; --ok-soft:#122C24;
+  --seal:#F0796A; --seal-soft:#33201D;
+  --shadow:0 1px 3px rgba(0,0,0,.5), 0 14px 34px -20px rgba(0,0,0,.85);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --ground:#0D1216; --surface:#141B21; --surface-2:#1D252C;
+  --ink:#E4EBF1; --muted:#94A3B0; --faint:#6E7C89;
+  --line:#232D35; --line-strong:#35424D;
+  --accent:#71ABEA; --accent-soft:#14293F;
+  --gold:#DDA05B; --gold-soft:#2C2013;
+  --ok:#5FC79D; --ok-soft:#122C24;
+  --seal:#F0796A; --seal-soft:#33201D;
+  --shadow:0 1px 3px rgba(0,0,0,.5), 0 14px 34px -20px rgba(0,0,0,.85);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:"Lexend",system-ui,-apple-system,sans-serif;font-weight:300;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto;padding:44px 24px 72px}
+h1,h2,h3{font-family:"Fraunces","Lexend",Georgia,serif;font-weight:600;margin:0;line-height:1.15;text-wrap:balance}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.ko{font-family:"Noto Sans KR",sans-serif;font-weight:500}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:500}
+header h1{font-size:clamp(28px,4vw,40px);letter-spacing:-.01em;margin-top:8px}
+header p{color:var(--muted);max-width:66ch;margin-top:12px;font-size:16px}
+section{margin-top:44px}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.sec-head h2{font-size:22px}
+.sec-head span{color:var(--muted);font-size:14px}
+p.body{max-width:74ch}
+
+/* câu trả lời server */
+.verdict{border:1px solid var(--line);border-left:3px solid var(--ok);border-radius:0 14px 14px 0;
+  background:var(--ok-soft);padding:20px 22px;margin-top:26px}
+.verdict .q{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ok);font-weight:600}
+.verdict .a{font-family:"Fraunces",serif;font-size:22px;font-weight:600;margin:8px 0 0;color:var(--ink)}
+.verdict p{font-size:14px;color:var(--ink);margin:10px 0 0;max-width:78ch}
+
+/* thang quy mô */
+.scale{display:flex;flex-direction:column;gap:12px}
+.tier{display:grid;grid-template-columns:130px 1fr auto;gap:16px;align-items:center;
+  border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:15px 18px}
+.tier .size{font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:600;color:var(--accent)}
+.tier .size small{display:block;color:var(--faint);font-weight:400;font-size:10.5px;margin-top:2px}
+.tier .desc{font-size:13.5px;color:var(--muted)}
+.tier .desc b{color:var(--ink);font-weight:500}
+.tier .server{font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:600;padding:3px 10px;border-radius:99px;white-space:nowrap}
+.server.no{background:var(--ok-soft);color:var(--ok)}
+.server.yes{background:var(--seal-soft);color:var(--seal)}
+.tier.pick{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.tier .badge-pick{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.08em;background:var(--accent);color:#fff;padding:2px 7px;border-radius:99px;margin-left:8px}
+:root[data-theme="dark"] .tier .badge-pick,:root:not([data-theme="light"]) .tier .badge-pick{color:#0D1216}
+
+/* nguồn dữ liệu */
+.sources{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.src{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:17px;border-top:3px solid var(--line-strong)}
+.src.star{border-top-color:var(--ok)}
+.src h3{font-size:15px}
+.src .meta{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--faint);margin:4px 0 9px;letter-spacing:.03em}
+.src p{font-size:12.5px;color:var(--muted)}
+
+/* pipeline */
+.pipe{display:flex;flex-wrap:wrap;align-items:stretch;gap:0;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:18px;overflow-x:auto}
+.step{flex:1;min-width:130px;padding:6px 12px}
+.step .n{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--faint)}
+.step .t{font-size:13.5px;font-weight:500;margin-top:3px}
+.step .d{font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.45}
+.step .tool{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--accent);margin-top:6px;display:inline-block}
+.step-sep{display:flex;align-items:center;color:var(--line-strong);font-size:18px;padding:0 2px}
+
+.schema{border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow-x:auto;margin-top:4px}
+.schema pre{margin:0;padding:20px;font-family:"JetBrains Mono",monospace;font-size:12px;line-height:1.7;color:var(--ink)}
+.schema .k{color:var(--accent);font-weight:600}
+.schema .c{color:var(--faint)}
+
+/* lộ trình */
+.road{display:flex;flex-direction:column}
+.phase{display:grid;grid-template-columns:96px 1fr;gap:20px;padding:18px 0;border-top:1px solid var(--line)}
+.phase:first-child{border-top:none}
+.phase .ph{font-family:"Fraunces",serif;font-size:13px;font-weight:600;color:var(--accent);letter-spacing:.06em}
+.phase .ph small{display:block;font-family:"Lexend",sans-serif;font-size:11px;color:var(--faint);font-weight:400;margin-top:3px}
+.phase h3{font-size:16px}
+.phase p{font-size:13.5px;color:var(--muted);margin:6px 0 0;max-width:74ch}
+.phase .tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.tag{font-family:"JetBrains Mono",monospace;font-size:10px;background:var(--surface-2);border:1px solid var(--line);color:var(--muted);border-radius:99px;padding:2px 8px}
+
+.note{margin-top:18px;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;background:var(--gold-soft);padding:15px 17px}
+.note h3{font-size:15px;color:var(--gold)}
+.note p{font-size:13.5px;color:var(--ink);margin:7px 0 0;max-width:80ch}
+
+@media (max-width:640px){
+  .tier{grid-template-columns:1fr;gap:8px}
+  .phase{grid-template-columns:1fr;gap:6px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">LangLab · kế hoạch phát triển từ điển</span>
+    <h1>Xây bộ từ điển tiếng Hàn của riêng bạn</h1>
+    <p>Từ 480 mục tự soạn lên một từ điển thật. Trang này trả lời câu hỏi máy chủ, chỉ ra nguồn dữ liệu, và vạch lộ trình bốn giai đoạn — vẫn giữ nguyên tinh thần « không server » của LangLab.</p>
+  </header>
+
+  <div class="verdict">
+    <div class="q">Có cần máy chủ không?</div>
+    <div class="a">Không — cho tới vài chục nghìn mục</div>
+    <p>Một từ điển tra được vẫn chạy trọn trong trình duyệt: dữ liệu là tệp tĩnh, tìm kiếm bằng JavaScript ngay tại máy người dùng. Y hệt kiến trúc bạn đang có, chỉ là từ điển to hơn. Chỉ khi vượt ~100.000 mục (cỡ đại từ điển) mới đáng cân nhắc backend.</p>
+  </div>
+
+  <!-- thang quy mô -->
+  <section>
+    <div class="sec-head"><h2>Chọn cách theo quy mô</h2><span>to tới đâu thì đổi cách tới đó</span></div>
+    <div class="scale">
+      <div class="tier">
+        <div class="size">≤ 5.000 từ<small>hiện tại: 480</small></div>
+        <div class="desc"><b>JSON tĩnh, lọc thẳng trong JS.</b> Đúng cách LangLab đang làm, chỉ nhiều dữ liệu hơn. Vài trăm KB, mở tức thì.</div>
+        <div class="server no">KHÔNG server</div>
+      </div>
+      <div class="tier pick">
+        <div class="size">5.000 – 50.000<small>mục tiêu thực tế</small></div>
+        <div class="desc"><b>SQLite biên dịch WASM (sql.js) đọc tệp .sqlite tĩnh</b>, hoặc chỉ mục tìm kiếm phía client (MiniSearch / FlexSearch). Mẹo <span class="mono">sql.js-httpvfs</span>: truy vấn tệp DB lớn qua HTTP bằng range-request — chỉ tải phần cần, không tải cả tệp. <span class="badge-pick">NÊN CHỌN</span></div>
+        <div class="server no">KHÔNG server</div>
+      </div>
+      <div class="tier">
+        <div class="size">≥ 100.000<small>toàn bộ StDict ~1 triệu</small></div>
+        <div class="desc"><b>Cloudflare D1 (SQLite ở edge) + một Worker /dict.</b> Lúc này mới thật sự cần backend — hoặc vẫn cố dùng sql.js-httpvfs nếu chịu được tệp lớn.</div>
+        <div class="server yes">CẦN backend</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- nguồn dữ liệu -->
+  <section>
+    <div class="sec-head"><h2>Phần khó thật sự: dữ liệu, không phải công nghệ</h2><span>đừng gõ tay 50.000 từ</span></div>
+    <p class="body" style="color:var(--muted);font-size:14.5px;margin-bottom:18px">Viết code tìm kiếm chỉ mất vài ngày. Cái tốn công là nội dung. May mắn là đã có sẵn nguồn Hàn–Việt chính thống, tải hàng loạt được.</p>
+    <div class="sources">
+      <div class="src star">
+        <h3>KRDict — 한국어기초사전</h3>
+        <div class="meta">국립국어원 · ~50.000 mục · CC-BY-SA</div>
+        <p>Từ điển cho người học của Viện Quốc ngữ Hàn Quốc. <b>Có bản dịch tiếng Việt chính thức</b> (1 trong 11 thứ tiếng), kèm định nghĩa, cấp độ, câu ví dụ. Tải cả bộ dạng XML. Đây là mỏ vàng.</p>
+      </div>
+      <div class="src">
+        <h3>표준국어대사전 · StDict</h3>
+        <div class="meta">국립국어원 · đơn ngữ · lấy Hanja</div>
+        <p>Đại từ điển chuẩn. Dùng để bổ sung Hanja (漢字) — thứ giúp người Việt nhớ từ Hán-Hàn cực nhanh qua âm Hán-Việt.</p>
+      </div>
+      <div class="src">
+        <h3>wordfreq</h3>
+        <div class="meta">Python · tần suất từ</div>
+        <p>Xếp hạng độ phổ biến của từ, để sắp thứ tự kết quả và đánh dấu « từ hay dùng » lên trước.</p>
+      </div>
+      <div class="src">
+        <h3>Tatoeba</h3>
+        <div class="meta">CC-BY · câu ví dụ</div>
+        <p>Câu song ngữ Hàn–Việt do người thật đóng góp, để làm phần « dùng trong câu » cho mỗi mục từ.</p>
+      </div>
+    </div>
+    <div class="note">
+      <h3>Nghĩa vụ giấy phép — đọc kỹ</h3>
+      <p>KRDict theo <b>CC-BY-SA 2.0 KR</b>: bạn được dùng tự do, nhưng phải (1) <b>ghi công 국립국어원</b>, và (2) vì là « share-alike », bản từ điển phái sinh của bạn cũng phải mở dưới cùng giấy phép. Tatoeba là CC-BY (chỉ cần ghi công). Nhớ để một trang « Nguồn &amp; giấy phép » trong app.</p>
+    </div>
+  </section>
+
+  <!-- pipeline -->
+  <section>
+    <div class="sec-head"><h2>Dây chuyền dựng dữ liệu</h2><span>chạy offline trên máy — KHÔNG phải server</span></div>
+    <p class="body" style="color:var(--muted);font-size:14px;margin-bottom:16px">Một script Python chạy một lần (hoặc định kỳ), biến dữ liệu thô thành tệp tĩnh để ship. Giống hệt <span class="mono">make_audio.py</span> đã có — build sẵn rồi đưa lên, chứ không xử lý lúc người dùng tra.</p>
+    <div class="pipe">
+      <div class="step"><div class="n">01</div><div class="t">Tải KRDict</div><div class="d">Kéo bộ XML từ trang tải của Viện Quốc ngữ.</div><span class="tool">tools/build_dict.py</span></div>
+      <div class="step-sep">→</div>
+      <div class="step"><div class="n">02</div><div class="t">Lọc &amp; trích</div><div class="d">Giữ mục có bản dịch tiếng Việt; bóc nghĩa, cấp độ, ví dụ.</div><span class="tool">ElementTree</span></div>
+      <div class="step-sep">→</div>
+      <div class="step"><div class="n">03</div><div class="t">Làm giàu</div><div class="d">Thêm phiên âm La-tinh, Hanja, thứ hạng tần suất.</div><span class="tool">es-hangul · wordfreq</span></div>
+      <div class="step-sep">→</div>
+      <div class="step"><div class="n">04</div><div class="t">Xuất tệp tĩnh</div><div class="d">Ra .sqlite (hoặc JSON chia mảnh) để app đọc.</div><span class="tool">sqlite3</span></div>
+    </div>
+  </section>
+
+  <!-- schema -->
+  <section>
+    <div class="sec-head"><h2>Cấu trúc mỗi mục từ</h2><span>mở rộng từ schema hiện có, giữ tương thích ngược</span></div>
+    <div class="schema">
+<pre><span class="c">// tương thích với {ko, rom, vi, pos, hanja, hv} đang dùng, chỉ thêm chiều sâu</span>
+<span class="k">word</span> {
+  ko           <span class="c">// 도서관</span>
+  rom          <span class="c">// doseogwan</span>
+  hanja, hv    <span class="c">// 圖書館 · đồ thư quán</span>
+  pos          <span class="c">// danh từ</span>
+  topik_level  <span class="c">// sơ / trung / cao cấp</span>
+  freq_rank    <span class="c">// xếp hạng phổ biến, để sắp kết quả</span>
+  senses[] {
+    def_vi     <span class="c">// nghĩa tiếng Việt</span>
+    def_ko     <span class="c">// định nghĩa tiếng Hàn (cho người khá)</span>
+    examples[] { ko, vi }
+    synonyms[], antonyms[]
+  }
+}</pre>
+    </div>
+  </section>
+
+  <!-- lộ trình -->
+  <section>
+    <div class="sec-head"><h2>Lộ trình bốn giai đoạn</h2><span>mỗi bước dùng được ngay, không phải làm hết mới thấy kết quả</span></div>
+    <div class="road">
+      <div class="phase">
+        <div class="ph">GĐ 1<small>1 tuần</small></div>
+        <div>
+          <h3>Chốt schema + dựng pipeline, kéo thử 1.000 từ</h3>
+          <p>Viết <span class="mono">build_dict.py</span>, kéo 1.000 mục KRDict phổ biến nhất có tiếng Việt, xuất JSON, thay cho <span class="mono">vocab-common.js</span>. Chưa đổi kiến trúc — từ điển vẫn lọc trong JS như hiện tại, chỉ giàu hơn hẳn.</p>
+          <div class="tags"><span class="tag">build_dict.py</span><span class="tag">KRDict XML</span><span class="tag">JSON tĩnh</span></div>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="ph">GĐ 2<small>1–2 tuần</small></div>
+        <div>
+          <h3>Kéo toàn bộ ~50k, chuyển sang tìm kiếm nhanh</h3>
+          <p>Xuất ra <span class="mono">.sqlite</span>, dùng <span class="mono">sql.js-httpvfs</span> để tra 50k mục ngay trong trình duyệt mà không tải cả tệp. Vẫn 100% tĩnh, không server. Tìm theo Hàn, Việt, phiên âm, Hán-Việt.</p>
+          <div class="tags"><span class="tag">sql.js-httpvfs</span><span class="tag">.sqlite tĩnh</span><span class="tag">R2 lưu tệp lớn</span></div>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="ph">GĐ 3<small>2 tuần</small></div>
+        <div>
+          <h3>Tra sâu — biến từ điển thành công cụ học</h3>
+          <p>Nghĩa nhiều tầng, câu ví dụ, từ đồng/trái nghĩa, lọc theo cấp TOPIK, nút « thêm vào bộ thẻ », « từ trong ngày ». Nối thẳng với phần ôn tập FSRS và shadowing đã có.</p>
+          <div class="tags"><span class="tag">senses nhiều tầng</span><span class="tag">lọc TOPIK</span><span class="tag">nối với SRS</span></div>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="ph">GĐ 4<small>tuỳ chọn</small></div>
+        <div>
+          <h3>Nếu cần lớn hơn — mới thêm backend</h3>
+          <p>Chỉ khi muốn toàn bộ đại từ điển ~1 triệu mục, hoặc cho người dùng đóng góp/sửa nghĩa, hoặc đồng bộ nhiều máy: thêm Cloudflare D1 + Worker. Đây là lúc « web tĩnh » trở thành « web có backend » — cân nhắc kỹ vì đánh đổi sự đơn giản.</p>
+          <div class="tags"><span class="tag">Cloudflare D1</span><span class="tag">Worker /dict</span><span class="tag">đóng góp cộng đồng</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="note" style="border-left-color:var(--accent);background:var(--accent-soft)">
+    <h3 style="color:var(--accent)">Điểm mấu chốt</h3>
+    <p>Bạn không xây từ điển bằng cách gõ từng từ, mà bằng cách <b>viết một script kéo KRDict về rồi làm giàu</b>. Công nghệ tra cứu thì nhẹ và không cần server tới tận vài chục nghìn mục. Nút thắt duy nhất là công sức làm sạch dữ liệu và tôn trọng giấy phép CC-BY-SA.</p>
+  </div>
+</div>
+</body>
+</html>

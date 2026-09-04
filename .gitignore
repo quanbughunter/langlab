@@ -1,0 +1,27 @@
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+
+# Audio đĩa CD của giáo trình — có bản quyền, chỉ để trên máy
+audio/
+
+# Không đưa sách, file nghe hay bản quét giáo trình lên repo
+*.pdf
+*.docx
+*.rar
+*.zip
+*.wma
+*.mp3
+
+# Khoa API va cache ban dich - chi nam tren may minh
+api-key.txt
+cache/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Khoa KRDict - chi tren may minh
+tools/krdict-key.txt
+tools/.dict-progress.json

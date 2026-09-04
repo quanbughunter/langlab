@@ -1,0 +1,1790 @@
+[
+ {
+  "text": "초급 1",
+  "kind": "sentence",
+  "lesson": 0,
+  "hash": "9ffeab57"
+ },
+ {
+  "text": "초급 2",
+  "kind": "sentence",
+  "lesson": 0,
+  "hash": "a0feacea"
+ },
+ {
+  "text": "중급 1",
+  "kind": "sentence",
+  "lesson": 0,
+  "hash": "6c941912"
+ },
+ {
+  "text": "중급 2",
+  "kind": "sentence",
+  "lesson": 0,
+  "hash": "6b94177f"
+ },
+ {
+  "text": "고급 1",
+  "kind": "sentence",
+  "lesson": 0,
+  "hash": "2824aaf4"
+ },
+ {
+  "text": "고급 2",
+  "kind": "sentence",
+  "lesson": 0,
+  "hash": "2b24afad"
+ },
+ {
+  "text": "소개",
+  "kind": "word",
+  "lesson": 0,
+  "hash": "ebac50bd"
+ },
+ {
+  "text": "저는 팜 당 히엔입니다.",
+  "kind": "sentence",
+  "lesson": 1,
+  "hash": "b5f77331"
+ },
+ {
+  "text": "저는 베트남 사람입니다.",
+  "kind": "sentence",
+  "lesson": 1,
+  "hash": "54e3b8ef"
+ },
+ {
+  "text": "안녕하세요",
+  "kind": "word",
+  "lesson": 1,
+  "hash": "32f56b7b"
+ },
+ {
+  "text": "이름",
+  "kind": "word",
+  "lesson": 1,
+  "hash": "c0b303c9"
+ },
+ {
+  "text": "나라",
+  "kind": "word",
+  "lesson": 1,
+  "hash": "624f8e48"
+ },
+ {
+  "text": "사람",
+  "kind": "word",
+  "lesson": 1,
+  "hash": "f4a53c70"
+ },
+ {
+  "text": "한국",
+  "kind": "word",
+  "lesson": 1,
+  "hash": "fd5a2cc3"
+ },
+ {
+  "text": "베트남",
+  "kind": "word",
+  "lesson": 1,
+  "hash": "ba838050"
+ },
+ {
+  "text": "학생",
+  "kind": "word",
+  "lesson": 1,
+  "hash": "feba7f7a"
+ },
+ {
+  "text": "선생님",
+  "kind": "word",
+  "lesson": 1,
+  "hash": "361b0925"
+ },
+ {
+  "text": "회사원",
+  "kind": "word",
+  "lesson": 1,
+  "hash": "e3c81e37"
+ },
+ {
+  "text": "친구",
+  "kind": "word",
+  "lesson": 1,
+  "hash": "72f23de5"
+ },
+ {
+  "text": "반갑습니다",
+  "kind": "word",
+  "lesson": 1,
+  "hash": "204dd0e4"
+ },
+ {
+  "text": "저",
+  "kind": "word",
+  "lesson": 1,
+  "hash": "352d0523"
+ },
+ {
+  "text": "씨",
+  "kind": "word",
+  "lesson": 1,
+  "hash": "850f6dff"
+ },
+ {
+  "text": "안녕하세요? 저는 김민수입니다.",
+  "kind": "sentence",
+  "lesson": 1,
+  "hash": "98a297ff"
+ },
+ {
+  "text": "안녕하세요? 저는 히엔입니다.",
+  "kind": "sentence",
+  "lesson": 1,
+  "hash": "3efa8a6c"
+ },
+ {
+  "text": "히엔 씨는 어느 나라 사람입니까?",
+  "kind": "sentence",
+  "lesson": 1,
+  "hash": "d3c8581a"
+ },
+ {
+  "text": "저는 베트남 사람입니다. 반갑습니다.",
+  "kind": "sentence",
+  "lesson": 1,
+  "hash": "0cfea4a6"
+ },
+ {
+  "text": "학교",
+  "kind": "word",
+  "lesson": 1,
+  "hash": "fbbf094d"
+ },
+ {
+  "text": "이것은 한국어 책입니다.",
+  "kind": "sentence",
+  "lesson": 2,
+  "hash": "6e50c56b"
+ },
+ {
+  "text": "교실에 칠판이 있습니다.",
+  "kind": "sentence",
+  "lesson": 2,
+  "hash": "5282f704"
+ },
+ {
+  "text": "저것은 공책이 아닙니다.",
+  "kind": "sentence",
+  "lesson": 2,
+  "hash": "d79818cc"
+ },
+ {
+  "text": "교실",
+  "kind": "word",
+  "lesson": 2,
+  "hash": "15189f83"
+ },
+ {
+  "text": "책",
+  "kind": "word",
+  "lesson": 2,
+  "hash": "6c53bf91"
+ },
+ {
+  "text": "공책",
+  "kind": "word",
+  "lesson": 2,
+  "hash": "950193b9"
+ },
+ {
+  "text": "연필",
+  "kind": "word",
+  "lesson": 2,
+  "hash": "62598682"
+ },
+ {
+  "text": "가방",
+  "kind": "word",
+  "lesson": 2,
+  "hash": "60196d55"
+ },
+ {
+  "text": "의자",
+  "kind": "word",
+  "lesson": 2,
+  "hash": "bfc48808"
+ },
+ {
+  "text": "책상",
+  "kind": "word",
+  "lesson": 2,
+  "hash": "a977a7f7"
+ },
+ {
+  "text": "칠판",
+  "kind": "word",
+  "lesson": 2,
+  "hash": "73994769"
+ },
+ {
+  "text": "도서관",
+  "kind": "word",
+  "lesson": 2,
+  "hash": "39947c03"
+ },
+ {
+  "text": "여기",
+  "kind": "word",
+  "lesson": 2,
+  "hash": "83a7287e"
+ },
+ {
+  "text": "저것",
+  "kind": "word",
+  "lesson": 2,
+  "hash": "c1e207c8"
+ },
+ {
+  "text": "여기가 우리 교실이에요.",
+  "kind": "sentence",
+  "lesson": 2,
+  "hash": "f11d5225"
+ },
+ {
+  "text": "그것은 무엇입니까?",
+  "kind": "sentence",
+  "lesson": 2,
+  "hash": "b5c4b0f4"
+ },
+ {
+  "text": "도서관도 학교 안에 있습니까?",
+  "kind": "sentence",
+  "lesson": 2,
+  "hash": "13f09b40"
+ },
+ {
+  "text": "일상생활",
+  "kind": "word",
+  "lesson": 2,
+  "hash": "fdb78ca4"
+ },
+ {
+  "text": "저는 매일 한국어를 공부합니다.",
+  "kind": "sentence",
+  "lesson": 3,
+  "hash": "497d52d5"
+ },
+ {
+  "text": "친구가 커피를 마십니다.",
+  "kind": "sentence",
+  "lesson": 3,
+  "hash": "ed7a0ac7"
+ },
+ {
+  "text": "도서관에서 책을 읽습니다.",
+  "kind": "sentence",
+  "lesson": 3,
+  "hash": "5044960e"
+ },
+ {
+  "text": "가다",
+  "kind": "word",
+  "lesson": 3,
+  "hash": "b4db8a65"
+ },
+ {
+  "text": "오다",
+  "kind": "word",
+  "lesson": 3,
+  "hash": "8bbf560b"
+ },
+ {
+  "text": "먹다",
+  "kind": "word",
+  "lesson": 3,
+  "hash": "d808b4ed"
+ },
+ {
+  "text": "마시다",
+  "kind": "word",
+  "lesson": 3,
+  "hash": "f214a59a"
+ },
+ {
+  "text": "보다",
+  "kind": "word",
+  "lesson": 3,
+  "hash": "634790fd"
+ },
+ {
+  "text": "읽다",
+  "kind": "word",
+  "lesson": 3,
+  "hash": "0e528aad"
+ },
+ {
+  "text": "자다",
+  "kind": "word",
+  "lesson": 3,
+  "hash": "d05f232d"
+ },
+ {
+  "text": "사다",
+  "kind": "word",
+  "lesson": 3,
+  "hash": "12760d75"
+ },
+ {
+  "text": "좋다",
+  "kind": "word",
+  "lesson": 3,
+  "hash": "d5a5599e"
+ },
+ {
+  "text": "많다",
+  "kind": "word",
+  "lesson": 3,
+  "hash": "401c21df"
+ },
+ {
+  "text": "식당",
+  "kind": "word",
+  "lesson": 3,
+  "hash": "fe6d988c"
+ },
+ {
+  "text": "커피",
+  "kind": "word",
+  "lesson": 3,
+  "hash": "570d2a0b"
+ },
+ {
+  "text": "히엔 씨는 아침에 무엇을 합니까?",
+  "kind": "sentence",
+  "lesson": 3,
+  "hash": "3323b6a0"
+ },
+ {
+  "text": "저는 도서관에서 한국어를 공부합니다.",
+  "kind": "sentence",
+  "lesson": 3,
+  "hash": "c7589b3f"
+ },
+ {
+  "text": "점심에는 어디에서 밥을 먹습니까?",
+  "kind": "sentence",
+  "lesson": 3,
+  "hash": "2c72c31a"
+ },
+ {
+  "text": "학교 식당에서 먹습니다.",
+  "kind": "sentence",
+  "lesson": 3,
+  "hash": "cb212964"
+ },
+ {
+  "text": "날짜와 요일",
+  "kind": "sentence",
+  "lesson": 3,
+  "hash": "0ef20d0b"
+ },
+ {
+  "text": "오늘은 십일 월 이십오 일입니다.",
+  "kind": "sentence",
+  "lesson": 4,
+  "hash": "50692fe2"
+ },
+ {
+  "text": "토요일과 일요일에 쉽니다.",
+  "kind": "sentence",
+  "lesson": 4,
+  "hash": "7fc94d55"
+ },
+ {
+  "text": "금요일에 시험이 있습니다.",
+  "kind": "sentence",
+  "lesson": 4,
+  "hash": "dd9e1670"
+ },
+ {
+  "text": "오늘",
+  "kind": "word",
+  "lesson": 4,
+  "hash": "31bc89c6"
+ },
+ {
+  "text": "내일",
+  "kind": "word",
+  "lesson": 4,
+  "hash": "491c6c59"
+ },
+ {
+  "text": "어제",
+  "kind": "word",
+  "lesson": 4,
+  "hash": "4338c6e3"
+ },
+ {
+  "text": "월요일",
+  "kind": "word",
+  "lesson": 4,
+  "hash": "29f25407"
+ },
+ {
+  "text": "화요일",
+  "kind": "word",
+  "lesson": 4,
+  "hash": "58222b6a"
+ },
+ {
+  "text": "수요일",
+  "kind": "word",
+  "lesson": 4,
+  "hash": "195d4264"
+ },
+ {
+  "text": "목요일",
+  "kind": "word",
+  "lesson": 4,
+  "hash": "1d729c8c"
+ },
+ {
+  "text": "금요일",
+  "kind": "word",
+  "lesson": 4,
+  "hash": "cd84617a"
+ },
+ {
+  "text": "토요일",
+  "kind": "word",
+  "lesson": 4,
+  "hash": "a06d52e5"
+ },
+ {
+  "text": "일요일",
+  "kind": "word",
+  "lesson": 4,
+  "hash": "66a80349"
+ },
+ {
+  "text": "생일",
+  "kind": "word",
+  "lesson": 4,
+  "hash": "2e695500"
+ },
+ {
+  "text": "시험",
+  "kind": "word",
+  "lesson": 4,
+  "hash": "f5f95f14"
+ },
+ {
+  "text": "오늘이 며칠입니까?",
+  "kind": "sentence",
+  "lesson": 4,
+  "hash": "4105c421"
+ },
+ {
+  "text": "십일 월 이십오 일입니다.",
+  "kind": "sentence",
+  "lesson": 4,
+  "hash": "69564136"
+ },
+ {
+  "text": "그럼 무슨 요일입니까?",
+  "kind": "sentence",
+  "lesson": 4,
+  "hash": "1fcb5045"
+ },
+ {
+  "text": "화요일입니다. 내일은 수요일입니다.",
+  "kind": "sentence",
+  "lesson": 4,
+  "hash": "349311c8"
+ },
+ {
+  "text": "하루 일과",
+  "kind": "sentence",
+  "lesson": 4,
+  "hash": "09f05bc5"
+ },
+ {
+  "text": "저는 일곱 시에 일어납니다.",
+  "kind": "sentence",
+  "lesson": 5,
+  "hash": "f5ae2aba"
+ },
+ {
+  "text": "아홉 시에 수업이 시작해요.",
+  "kind": "sentence",
+  "lesson": 5,
+  "hash": "f87d9e40"
+ },
+ {
+  "text": "주말에는 학교에 안 가요.",
+  "kind": "sentence",
+  "lesson": 5,
+  "hash": "9f28cddc"
+ },
+ {
+  "text": "아침",
+  "kind": "word",
+  "lesson": 5,
+  "hash": "eab890ab"
+ },
+ {
+  "text": "점심",
+  "kind": "word",
+  "lesson": 5,
+  "hash": "6d1babba"
+ },
+ {
+  "text": "저녁",
+  "kind": "word",
+  "lesson": 5,
+  "hash": "ecbb8112"
+ },
+ {
+  "text": "시간",
+  "kind": "word",
+  "lesson": 5,
+  "hash": "aec9192e"
+ },
+ {
+  "text": "시",
+  "kind": "word",
+  "lesson": 5,
+  "hash": "eec43494"
+ },
+ {
+  "text": "분",
+  "kind": "word",
+  "lesson": 5,
+  "hash": "99b87c70"
+ },
+ {
+  "text": "일어나다",
+  "kind": "word",
+  "lesson": 5,
+  "hash": "6e5b0fcf"
+ },
+ {
+  "text": "씻다",
+  "kind": "word",
+  "lesson": 5,
+  "hash": "16401a2c"
+ },
+ {
+  "text": "출발하다",
+  "kind": "word",
+  "lesson": 5,
+  "hash": "7ebd41fe"
+ },
+ {
+  "text": "도착하다",
+  "kind": "word",
+  "lesson": 5,
+  "hash": "f2f23290"
+ },
+ {
+  "text": "시작하다",
+  "kind": "word",
+  "lesson": 5,
+  "hash": "0a4696f9"
+ },
+ {
+  "text": "끝나다",
+  "kind": "word",
+  "lesson": 5,
+  "hash": "f97555b3"
+ },
+ {
+  "text": "쉬다",
+  "kind": "word",
+  "lesson": 5,
+  "hash": "520cbcf8"
+ },
+ {
+  "text": "보통 몇 시에 일어나요?",
+  "kind": "sentence",
+  "lesson": 5,
+  "hash": "5f46bcd4"
+ },
+ {
+  "text": "일곱 시에 일어나요.",
+  "kind": "sentence",
+  "lesson": 5,
+  "hash": "dbb2641e"
+ },
+ {
+  "text": "수업은 몇 시에 끝나요?",
+  "kind": "sentence",
+  "lesson": 5,
+  "hash": "da99ac07"
+ },
+ {
+  "text": "네 시 삼십 분에 끝나요.",
+  "kind": "sentence",
+  "lesson": 5,
+  "hash": "7776d2ed"
+ },
+ {
+  "text": "주말",
+  "kind": "word",
+  "lesson": 5,
+  "hash": "350fa682"
+ },
+ {
+  "text": "지난 주말에 영화를 봤어요.",
+  "kind": "sentence",
+  "lesson": 6,
+  "hash": "a87c3891"
+ },
+ {
+  "text": "친구하고 등산을 했어요.",
+  "kind": "sentence",
+  "lesson": 6,
+  "hash": "9cfb3f99"
+ },
+ {
+  "text": "토요일에 같이 만납시다.",
+  "kind": "sentence",
+  "lesson": 6,
+  "hash": "fcff8cdf"
+ },
+ {
+  "text": "영화",
+  "kind": "word",
+  "lesson": 6,
+  "hash": "7ffcb842"
+ },
+ {
+  "text": "등산",
+  "kind": "word",
+  "lesson": 6,
+  "hash": "9e601564"
+ },
+ {
+  "text": "여행",
+  "kind": "word",
+  "lesson": 6,
+  "hash": "533a6106"
+ },
+ {
+  "text": "만나다",
+  "kind": "word",
+  "lesson": 6,
+  "hash": "21a80f52"
+ },
+ {
+  "text": "놀다",
+  "kind": "word",
+  "lesson": 6,
+  "hash": "88709e8a"
+ },
+ {
+  "text": "청소하다",
+  "kind": "word",
+  "lesson": 6,
+  "hash": "4f65bcac"
+ },
+ {
+  "text": "운동하다",
+  "kind": "word",
+  "lesson": 6,
+  "hash": "faa9095e"
+ },
+ {
+  "text": "어디",
+  "kind": "word",
+  "lesson": 6,
+  "hash": "78cef306"
+ },
+ {
+  "text": "무엇",
+  "kind": "word",
+  "lesson": 6,
+  "hash": "886e3ef0"
+ },
+ {
+  "text": "누구",
+  "kind": "word",
+  "lesson": 6,
+  "hash": "b879e5fd"
+ },
+ {
+  "text": "왜",
+  "kind": "word",
+  "lesson": 6,
+  "hash": "72f090fe"
+ },
+ {
+  "text": "지난 주말에 뭐 했어요?",
+  "kind": "sentence",
+  "lesson": 6,
+  "hash": "94e5c075"
+ },
+ {
+  "text": "친구하고 영화를 봤어요.",
+  "kind": "sentence",
+  "lesson": 6,
+  "hash": "89c59e88"
+ },
+ {
+  "text": "재미있었어요?",
+  "kind": "sentence",
+  "lesson": 6,
+  "hash": "c0d0abad"
+ },
+ {
+  "text": "네, 아주 좋았어요. 이번 주말에 같이 봅시다.",
+  "kind": "sentence",
+  "lesson": 6,
+  "hash": "683a373d"
+ },
+ {
+  "text": "물건 사기 (1)",
+  "kind": "sentence",
+  "lesson": 6,
+  "hash": "9d836981"
+ },
+ {
+  "text": "저는 김치를 사고 싶어요.",
+  "kind": "sentence",
+  "lesson": 7,
+  "hash": "899658ee"
+ },
+ {
+  "text": "이것은 싸요. 그런데 저것은 비싸요.",
+  "kind": "sentence",
+  "lesson": 7,
+  "hash": "762520b5"
+ },
+ {
+  "text": "가격이 너무 비싸요.",
+  "kind": "sentence",
+  "lesson": 7,
+  "hash": "96681760"
+ },
+ {
+  "text": "얼마",
+  "kind": "word",
+  "lesson": 7,
+  "hash": "594d6e89"
+ },
+ {
+  "text": "원",
+  "kind": "word",
+  "lesson": 7,
+  "hash": "22eb95e0"
+ },
+ {
+  "text": "개",
+  "kind": "word",
+  "lesson": 7,
+  "hash": "c1d07831"
+ },
+ {
+  "text": "병",
+  "kind": "word",
+  "lesson": 7,
+  "hash": "1aaf65be"
+ },
+ {
+  "text": "권",
+  "kind": "word",
+  "lesson": 7,
+  "hash": "8dcba927"
+ },
+ {
+  "text": "가격",
+  "kind": "word",
+  "lesson": 7,
+  "hash": "2b31c12c"
+ },
+ {
+  "text": "싸다",
+  "kind": "word",
+  "lesson": 7,
+  "hash": "8033e616"
+ },
+ {
+  "text": "비싸다",
+  "kind": "word",
+  "lesson": 7,
+  "hash": "2b5fc21c"
+ },
+ {
+  "text": "주세요",
+  "kind": "word",
+  "lesson": 7,
+  "hash": "2c82823e"
+ },
+ {
+  "text": "시장",
+  "kind": "word",
+  "lesson": 7,
+  "hash": "0fe03525"
+ },
+ {
+  "text": "가게",
+  "kind": "word",
+  "lesson": 7,
+  "hash": "08318a13"
+ },
+ {
+  "text": "돈",
+  "kind": "word",
+  "lesson": 7,
+  "hash": "ebcec3d5"
+ },
+ {
+  "text": "이 사과는 얼마예요?",
+  "kind": "sentence",
+  "lesson": 7,
+  "hash": "ffa5c65b"
+ },
+ {
+  "text": "한 개에 이천 원이에요.",
+  "kind": "sentence",
+  "lesson": 7,
+  "hash": "d4ab39bc"
+ },
+ {
+  "text": "조금 비싸요. 세 개 주세요.",
+  "kind": "sentence",
+  "lesson": 7,
+  "hash": "b56fd1aa"
+ },
+ {
+  "text": "네, 육천 원입니다.",
+  "kind": "sentence",
+  "lesson": 7,
+  "hash": "671b2813"
+ },
+ {
+  "text": "음식",
+  "kind": "word",
+  "lesson": 7,
+  "hash": "71a47512"
+ },
+ {
+  "text": "여기 앉으세요.",
+  "kind": "sentence",
+  "lesson": 8,
+  "hash": "a22ef864"
+ },
+ {
+  "text": "이 음식은 맵지 않아요.",
+  "kind": "sentence",
+  "lesson": 8,
+  "hash": "fa6636ae"
+ },
+ {
+  "text": "저는 비빔밥을 먹겠습니다.",
+  "kind": "sentence",
+  "lesson": 8,
+  "hash": "7acf220c"
+ },
+ {
+  "text": "밥",
+  "kind": "word",
+  "lesson": 8,
+  "hash": "2eb356d1"
+ },
+ {
+  "text": "김치",
+  "kind": "word",
+  "lesson": 8,
+  "hash": "541a5df1"
+ },
+ {
+  "text": "불고기",
+  "kind": "word",
+  "lesson": 8,
+  "hash": "fce3c291"
+ },
+ {
+  "text": "비빔밥",
+  "kind": "word",
+  "lesson": 8,
+  "hash": "6a054535"
+ },
+ {
+  "text": "냉면",
+  "kind": "word",
+  "lesson": 8,
+  "hash": "1b82e74a"
+ },
+ {
+  "text": "물",
+  "kind": "word",
+  "lesson": 8,
+  "hash": "3580320a"
+ },
+ {
+  "text": "맵다",
+  "kind": "word",
+  "lesson": 8,
+  "hash": "6d792370"
+ },
+ {
+  "text": "짜다",
+  "kind": "word",
+  "lesson": 8,
+  "hash": "3f1bdfb6"
+ },
+ {
+  "text": "달다",
+  "kind": "word",
+  "lesson": 8,
+  "hash": "e0b18c2d"
+ },
+ {
+  "text": "맛있다",
+  "kind": "word",
+  "lesson": 8,
+  "hash": "c01c3fc8"
+ },
+ {
+  "text": "주문하다",
+  "kind": "word",
+  "lesson": 8,
+  "hash": "c5f748b9"
+ },
+ {
+  "text": "식사하다",
+  "kind": "word",
+  "lesson": 8,
+  "hash": "f56c2707"
+ },
+ {
+  "text": "어서 오세요. 뭘 드시겠어요?",
+  "kind": "sentence",
+  "lesson": 8,
+  "hash": "9d38216f"
+ },
+ {
+  "text": "비빔밥 하나 주세요.",
+  "kind": "sentence",
+  "lesson": 8,
+  "hash": "b40b9297"
+ },
+ {
+  "text": "맵게 해 드릴까요?",
+  "kind": "sentence",
+  "lesson": 8,
+  "hash": "0b57d2f7"
+ },
+ {
+  "text": "아니요, 맵지 않게 해 주세요.",
+  "kind": "sentence",
+  "lesson": 8,
+  "hash": "55b21336"
+ },
+ {
+  "text": "집",
+  "kind": "word",
+  "lesson": 8,
+  "hash": "6c312d4f"
+ },
+ {
+  "text": "오른쪽으로 가세요.",
+  "kind": "sentence",
+  "lesson": 9,
+  "hash": "e25a2bf0"
+ },
+ {
+  "text": "우리 집에 올래요?",
+  "kind": "sentence",
+  "lesson": 9,
+  "hash": "613816f9"
+ },
+ {
+  "text": "제 방에는 책상도 있어요.",
+  "kind": "sentence",
+  "lesson": 9,
+  "hash": "31437409"
+ },
+ {
+  "text": "방",
+  "kind": "word",
+  "lesson": 9,
+  "hash": "2ab35085"
+ },
+ {
+  "text": "부엌",
+  "kind": "word",
+  "lesson": 9,
+  "hash": "d8b96b0b"
+ },
+ {
+  "text": "화장실",
+  "kind": "word",
+  "lesson": 9,
+  "hash": "817faf79"
+ },
+ {
+  "text": "거실",
+  "kind": "word",
+  "lesson": 9,
+  "hash": "a16f3e9f"
+ },
+ {
+  "text": "침대",
+  "kind": "word",
+  "lesson": 9,
+  "hash": "f4168327"
+ },
+ {
+  "text": "냉장고",
+  "kind": "word",
+  "lesson": 9,
+  "hash": "065f315c"
+ },
+ {
+  "text": "오른쪽",
+  "kind": "word",
+  "lesson": 9,
+  "hash": "5c64ea0e"
+ },
+ {
+  "text": "왼쪽",
+  "kind": "word",
+  "lesson": 9,
+  "hash": "0d46e88b"
+ },
+ {
+  "text": "앞",
+  "kind": "word",
+  "lesson": 9,
+  "hash": "310e3e2c"
+ },
+ {
+  "text": "뒤",
+  "kind": "word",
+  "lesson": 9,
+  "hash": "a9fdba24"
+ },
+ {
+  "text": "옆",
+  "kind": "word",
+  "lesson": 9,
+  "hash": "aaf194bd"
+ },
+ {
+  "text": "수진 씨, 우리 집에 올래요?",
+  "kind": "sentence",
+  "lesson": 9,
+  "hash": "b70a119e"
+ },
+ {
+  "text": "좋아요. 집이 어디예요?",
+  "kind": "sentence",
+  "lesson": 9,
+  "hash": "dbdef2e4"
+ },
+ {
+  "text": "학교 앞에서 왼쪽으로 가세요.",
+  "kind": "sentence",
+  "lesson": 9,
+  "hash": "d71ab8e3"
+ },
+ {
+  "text": "은행 옆에 있는 아파트예요?",
+  "kind": "sentence",
+  "lesson": 9,
+  "hash": "eddb6396"
+ },
+ {
+  "text": "가족",
+  "kind": "word",
+  "lesson": 9,
+  "hash": "b71e3fcd"
+ },
+ {
+  "text": "할아버지께서 신문을 읽으세요.",
+  "kind": "sentence",
+  "lesson": 10,
+  "hash": "bbdd4d04"
+ },
+ {
+  "text": "어머니께서 요리를 하세요.",
+  "kind": "sentence",
+  "lesson": 10,
+  "hash": "3555adba"
+ },
+ {
+  "text": "우리 가족은 네 명이에요.",
+  "kind": "sentence",
+  "lesson": 10,
+  "hash": "565061c4"
+ },
+ {
+  "text": "아버지",
+  "kind": "word",
+  "lesson": 10,
+  "hash": "df55914c"
+ },
+ {
+  "text": "어머니",
+  "kind": "word",
+  "lesson": 10,
+  "hash": "fba08ae4"
+ },
+ {
+  "text": "형",
+  "kind": "word",
+  "lesson": 10,
+  "hash": "babd3eef"
+ },
+ {
+  "text": "오빠",
+  "kind": "word",
+  "lesson": 10,
+  "hash": "a3e20e15"
+ },
+ {
+  "text": "누나",
+  "kind": "word",
+  "lesson": 10,
+  "hash": "5c04ea95"
+ },
+ {
+  "text": "언니",
+  "kind": "word",
+  "lesson": 10,
+  "hash": "40080069"
+ },
+ {
+  "text": "동생",
+  "kind": "word",
+  "lesson": 10,
+  "hash": "1d5d60f2"
+ },
+ {
+  "text": "할아버지",
+  "kind": "word",
+  "lesson": 10,
+  "hash": "68c59bfc"
+ },
+ {
+  "text": "할머니",
+  "kind": "word",
+  "lesson": 10,
+  "hash": "64779620"
+ },
+ {
+  "text": "계시다",
+  "kind": "word",
+  "lesson": 10,
+  "hash": "484f9f75"
+ },
+ {
+  "text": "연세",
+  "kind": "word",
+  "lesson": 10,
+  "hash": "d01602dc"
+ },
+ {
+  "text": "가족이 몇 명이에요?",
+  "kind": "sentence",
+  "lesson": 10,
+  "hash": "7cda91cf"
+ },
+ {
+  "text": "네 명이에요. 부모님하고 여동생이 있어요.",
+  "kind": "sentence",
+  "lesson": 10,
+  "hash": "da180352"
+ },
+ {
+  "text": "부모님께서는 무슨 일을 하세요?",
+  "kind": "sentence",
+  "lesson": 10,
+  "hash": "29d520cb"
+ },
+ {
+  "text": "아버지께서는 선생님이세요.",
+  "kind": "sentence",
+  "lesson": 10,
+  "hash": "a67fe20b"
+ },
+ {
+  "text": "날씨",
+  "kind": "word",
+  "lesson": 10,
+  "hash": "3bf19400"
+ },
+ {
+  "text": "내일은 비가 올 거예요.",
+  "kind": "sentence",
+  "lesson": 11,
+  "hash": "70af2965"
+ },
+ {
+  "text": "유월부터 팔월까지 아주 더워요.",
+  "kind": "sentence",
+  "lesson": 11,
+  "hash": "5d965ceb"
+ },
+ {
+  "text": "한국의 겨울은 정말 추워요.",
+  "kind": "sentence",
+  "lesson": 11,
+  "hash": "d2c35993"
+ },
+ {
+  "text": "봄",
+  "kind": "word",
+  "lesson": 11,
+  "hash": "edbd7dda"
+ },
+ {
+  "text": "여름",
+  "kind": "word",
+  "lesson": 11,
+  "hash": "44dd81ab"
+ },
+ {
+  "text": "가을",
+  "kind": "word",
+  "lesson": 11,
+  "hash": "923c1aa2"
+ },
+ {
+  "text": "겨울",
+  "kind": "word",
+  "lesson": 11,
+  "hash": "f55ec933"
+ },
+ {
+  "text": "덥다",
+  "kind": "word",
+  "lesson": 11,
+  "hash": "2a8c4c9e"
+ },
+ {
+  "text": "춥다",
+  "kind": "word",
+  "lesson": 11,
+  "hash": "dc5b8190"
+ },
+ {
+  "text": "따뜻하다",
+  "kind": "word",
+  "lesson": 11,
+  "hash": "8e870d2a"
+ },
+ {
+  "text": "시원하다",
+  "kind": "word",
+  "lesson": 11,
+  "hash": "95f88a6b"
+ },
+ {
+  "text": "비",
+  "kind": "word",
+  "lesson": 11,
+  "hash": "4ba23b57"
+ },
+ {
+  "text": "눈",
+  "kind": "word",
+  "lesson": 11,
+  "hash": "89c5daca"
+ },
+ {
+  "text": "바람",
+  "kind": "word",
+  "lesson": 11,
+  "hash": "fccb826d"
+ },
+ {
+  "text": "오늘 날씨가 어때요?",
+  "kind": "sentence",
+  "lesson": 11,
+  "hash": "8ce4792c"
+ },
+ {
+  "text": "바람이 불고 조금 추워요.",
+  "kind": "sentence",
+  "lesson": 11,
+  "hash": "d0b0a88c"
+ },
+ {
+  "text": "베트남 겨울도 추워요?",
+  "kind": "sentence",
+  "lesson": 11,
+  "hash": "12eb187a"
+ },
+ {
+  "text": "하노이는 춥지만 눈은 안 와요.",
+  "kind": "sentence",
+  "lesson": 11,
+  "hash": "e1342e4d"
+ },
+ {
+  "text": "전화 (1)",
+  "kind": "sentence",
+  "lesson": 11,
+  "hash": "78543c25"
+ },
+ {
+  "text": "친구한테 전화했어요.",
+  "kind": "sentence",
+  "lesson": 12,
+  "hash": "6769bb48"
+ },
+ {
+  "text": "전화했지만 안 받았어요.",
+  "kind": "sentence",
+  "lesson": 12,
+  "hash": "d4e054ab"
+ },
+ {
+  "text": "내일 선생님께 연락하려고 해요.",
+  "kind": "sentence",
+  "lesson": 12,
+  "hash": "f477a33c"
+ },
+ {
+  "text": "전화",
+  "kind": "word",
+  "lesson": 12,
+  "hash": "530be13b"
+ },
+ {
+  "text": "전화번호",
+  "kind": "word",
+  "lesson": 12,
+  "hash": "e45c7d0d"
+ },
+ {
+  "text": "걸다",
+  "kind": "word",
+  "lesson": 12,
+  "hash": "8ce19082"
+ },
+ {
+  "text": "받다",
+  "kind": "word",
+  "lesson": 12,
+  "hash": "fab21b33"
+ },
+ {
+  "text": "바꾸다",
+  "kind": "word",
+  "lesson": 12,
+  "hash": "bf7cd6c4"
+ },
+ {
+  "text": "통화",
+  "kind": "word",
+  "lesson": 12,
+  "hash": "666b1b8d"
+ },
+ {
+  "text": "문자",
+  "kind": "word",
+  "lesson": 12,
+  "hash": "439e3a18"
+ },
+ {
+  "text": "여보세요",
+  "kind": "word",
+  "lesson": 12,
+  "hash": "1d6429c4"
+ },
+ {
+  "text": "잠깐만요",
+  "kind": "word",
+  "lesson": 12,
+  "hash": "9b7354c0"
+ },
+ {
+  "text": "끊다",
+  "kind": "word",
+  "lesson": 12,
+  "hash": "f5675151"
+ },
+ {
+  "text": "연락하다",
+  "kind": "word",
+  "lesson": 12,
+  "hash": "de219717"
+ },
+ {
+  "text": "부탁하다",
+  "kind": "word",
+  "lesson": 12,
+  "hash": "930be4c3"
+ },
+ {
+  "text": "여보세요, 거기 민수 씨 집이지요?",
+  "kind": "sentence",
+  "lesson": 12,
+  "hash": "9ee2fed4"
+ },
+ {
+  "text": "네, 제가 민수인데요.",
+  "kind": "sentence",
+  "lesson": 12,
+  "hash": "ee830b85"
+ },
+ {
+  "text": "내일 같이 공부하려고 전화했어요.",
+  "kind": "sentence",
+  "lesson": 12,
+  "hash": "abba1131"
+ },
+ {
+  "text": "좋아요. 그럼 두 시에 만나요.",
+  "kind": "sentence",
+  "lesson": 12,
+  "hash": "653d7b1d"
+ },
+ {
+  "text": "생일이어서 친구들을 초대했어요.",
+  "kind": "sentence",
+  "lesson": 13,
+  "hash": "01be6cda"
+ },
+ {
+  "text": "무슨 선물을 살까요?",
+  "kind": "sentence",
+  "lesson": 13,
+  "hash": "2d518188"
+ },
+ {
+  "text": "바빠서 파티에 못 갔어요.",
+  "kind": "sentence",
+  "lesson": 13,
+  "hash": "d8f962b0"
+ },
+ {
+  "text": "선물",
+  "kind": "word",
+  "lesson": 13,
+  "hash": "58ef4c0c"
+ },
+ {
+  "text": "축하하다",
+  "kind": "word",
+  "lesson": 13,
+  "hash": "f3e485f8"
+ },
+ {
+  "text": "파티",
+  "kind": "word",
+  "lesson": 13,
+  "hash": "6702645c"
+ },
+ {
+  "text": "케이크",
+  "kind": "word",
+  "lesson": 13,
+  "hash": "ad3b8da2"
+ },
+ {
+  "text": "초대하다",
+  "kind": "word",
+  "lesson": 13,
+  "hash": "fd7bf944"
+ },
+ {
+  "text": "촛불",
+  "kind": "word",
+  "lesson": 13,
+  "hash": "7a4b4edd"
+ },
+ {
+  "text": "카드",
+  "kind": "word",
+  "lesson": 13,
+  "hash": "84e20990"
+ },
+ {
+  "text": "꽃",
+  "kind": "word",
+  "lesson": 13,
+  "hash": "e2aec579"
+ },
+ {
+  "text": "노래하다",
+  "kind": "word",
+  "lesson": 13,
+  "hash": "ec0474f6"
+ },
+ {
+  "text": "나이",
+  "kind": "word",
+  "lesson": 13,
+  "hash": "5afc14dd"
+ },
+ {
+  "text": "돌",
+  "kind": "word",
+  "lesson": 13,
+  "hash": "e7cebd89"
+ },
+ {
+  "text": "히엔 씨, 생일 축하해요!",
+  "kind": "sentence",
+  "lesson": 13,
+  "hash": "daa325e0"
+ },
+ {
+  "text": "고마워요. 와 주셔서 감사합니다.",
+  "kind": "sentence",
+  "lesson": 13,
+  "hash": "cf214c3b"
+ },
+ {
+  "text": "이거 작은 선물이에요.",
+  "kind": "sentence",
+  "lesson": 13,
+  "hash": "d7bc0ef2"
+ },
+ {
+  "text": "민수 씨는 바빠서 못 왔어요.",
+  "kind": "sentence",
+  "lesson": 13,
+  "hash": "e4f1d51a"
+ },
+ {
+  "text": "취미",
+  "kind": "word",
+  "lesson": 13,
+  "hash": "de34ceba"
+ },
+ {
+  "text": "저는 수영할 수 있어요.",
+  "kind": "sentence",
+  "lesson": 14,
+  "hash": "77b212d3"
+ },
+ {
+  "text": "제 취미는 사진 찍기예요.",
+  "kind": "sentence",
+  "lesson": 14,
+  "hash": "bf1d5ed7"
+ },
+ {
+  "text": "저는 음악을 자주 들어요.",
+  "kind": "sentence",
+  "lesson": 14,
+  "hash": "09d3d153"
+ },
+ {
+  "text": "운동",
+  "kind": "word",
+  "lesson": 14,
+  "hash": "d9091ba2"
+ },
+ {
+  "text": "수영",
+  "kind": "word",
+  "lesson": 14,
+  "hash": "2eba33ca"
+ },
+ {
+  "text": "축구",
+  "kind": "word",
+  "lesson": 14,
+  "hash": "00193eed"
+ },
+ {
+  "text": "노래",
+  "kind": "word",
+  "lesson": 14,
+  "hash": "89b385da"
+ },
+ {
+  "text": "그림",
+  "kind": "word",
+  "lesson": 14,
+  "hash": "adef74e1"
+ },
+ {
+  "text": "자주",
+  "kind": "word",
+  "lesson": 14,
+  "hash": "1176af24"
+ },
+ {
+  "text": "가끔",
+  "kind": "word",
+  "lesson": 14,
+  "hash": "20f5cc4f"
+ },
+ {
+  "text": "보통",
+  "kind": "word",
+  "lesson": 14,
+  "hash": "d7576695"
+ },
+ {
+  "text": "잘하다",
+  "kind": "word",
+  "lesson": 14,
+  "hash": "829c1dcd"
+ },
+ {
+  "text": "못하다",
+  "kind": "word",
+  "lesson": 14,
+  "hash": "d68e9891"
+ },
+ {
+  "text": "듣다",
+  "kind": "word",
+  "lesson": 14,
+  "hash": "8d61b036"
+ },
+ {
+  "text": "취미가 뭐예요?",
+  "kind": "sentence",
+  "lesson": 14,
+  "hash": "7287d98f"
+ },
+ {
+  "text": "제 취미는 음악 듣기예요.",
+  "kind": "sentence",
+  "lesson": 14,
+  "hash": "4d7cb37f"
+ },
+ {
+  "text": "악기도 연주할 수 있어요?",
+  "kind": "sentence",
+  "lesson": 14,
+  "hash": "4e54bfb0"
+ },
+ {
+  "text": "기타를 조금 칠 수 있어요.",
+  "kind": "sentence",
+  "lesson": 14,
+  "hash": "693255f1"
+ },
+ {
+  "text": "교통 (1)",
+  "kind": "sentence",
+  "lesson": 14,
+  "hash": "e98b8c50"
+ },
+ {
+  "text": "집에서 학교까지 삼십 분 걸려요.",
+  "kind": "sentence",
+  "lesson": 15,
+  "hash": "d0904667"
+ },
+ {
+  "text": "저는 지하철로 학교에 가요.",
+  "kind": "sentence",
+  "lesson": 15,
+  "hash": "74a122ea"
+ },
+ {
+  "text": "책을 빌리러 도서관에 가요.",
+  "kind": "sentence",
+  "lesson": 15,
+  "hash": "d7f54cda"
+ },
+ {
+  "text": "버스",
+  "kind": "word",
+  "lesson": 15,
+  "hash": "ed128d76"
+ },
+ {
+  "text": "지하철",
+  "kind": "word",
+  "lesson": 15,
+  "hash": "7cf38624"
+ },
+ {
+  "text": "택시",
+  "kind": "word",
+  "lesson": 15,
+  "hash": "253ca5ff"
+ },
+ {
+  "text": "기차",
+  "kind": "word",
+  "lesson": 15,
+  "hash": "840e7573"
+ },
+ {
+  "text": "자전거",
+  "kind": "word",
+  "lesson": 15,
+  "hash": "4096f736"
+ },
+ {
+  "text": "정류장",
+  "kind": "word",
+  "lesson": 15,
+  "hash": "c590c609"
+ },
+ {
+  "text": "역",
+  "kind": "word",
+  "lesson": 15,
+  "hash": "2009a63b"
+ },
+ {
+  "text": "타다",
+  "kind": "word",
+  "lesson": 15,
+  "hash": "fe4c84e7"
+ },
+ {
+  "text": "내리다",
+  "kind": "word",
+  "lesson": 15,
+  "hash": "fa20488b"
+ },
+ {
+  "text": "갈아타다",
+  "kind": "word",
+  "lesson": 15,
+  "hash": "98f953c8"
+ },
+ {
+  "text": "얼마나",
+  "kind": "word",
+  "lesson": 15,
+  "hash": "73215f7c"
+ },
+ {
+  "text": "걸리다",
+  "kind": "word",
+  "lesson": 15,
+  "hash": "b1a664bb"
+ },
+ {
+  "text": "명동에 어떻게 가요?",
+  "kind": "sentence",
+  "lesson": 15,
+  "hash": "ef82e72a"
+ },
+ {
+  "text": "지하철 사호선을 타세요.",
+  "kind": "sentence",
+  "lesson": 15,
+  "hash": "1a1e99d4"
+ },
+ {
+  "text": "여기에서 명동까지 얼마나 걸려요?",
+  "kind": "sentence",
+  "lesson": 15,
+  "hash": "3840cdf8"
+ },
+ {
+  "text": "이십 분쯤 걸려요. 서울역에서 갈아타세요.",
+  "kind": "sentence",
+  "lesson": 15,
+  "hash": "62d8b482"
+ }
+]
