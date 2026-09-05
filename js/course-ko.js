@@ -1476,6 +1476,290 @@ COURSE_KO.lessons.push(
 /* Cập nhật trạng thái: Trung cấp 1 đã có nội dung */
 (COURSE_KO.levels.find(x => x.id === 'trung-cap-1') || {}).status = 'active';
 
+/* ============================================================
+   Bổ sung từ vựng + ngữ pháp cho Sơ cấp 1 (bám sát chủ đề giáo trình).
+   Gộp thêm vào các bài đã có, khử trùng lặp theo chữ Hàn.
+   ============================================================ */
+const SC1_EXTRA = {
+  1: {
+    grammar:[
+      { form:'N + 이/가', vi:'trợ từ chủ ngữ', note:'Đánh dấu chủ ngữ; có patchim dùng 이, không patchim dùng 가.',
+        ex:{ko:'친구가 학생입니다.', vi:'Bạn tôi là học sinh.'} },
+      { form:'N + 도', vi:'cũng', note:'Thêm một đối tượng có cùng tính chất.',
+        ex:{ko:'저도 베트남 사람입니다.', vi:'Tôi cũng là người Việt Nam.'} }
+    ],
+    vocab:[
+      {ko:'나이', rom:'nai', vi:'tuổi', pos:'danh từ'},
+      {ko:'직업', rom:'jigeop', vi:'nghề nghiệp', pos:'danh từ', hanja:'職業', hv:'chức nghiệp'},
+      {ko:'전공', rom:'jeongong', vi:'chuyên ngành', pos:'danh từ', hanja:'專攻', hv:'chuyên công'},
+      {ko:'국적', rom:'gukjeok', vi:'quốc tịch', pos:'danh từ', hanja:'國籍', hv:'quốc tịch'},
+      {ko:'만나다', rom:'mannada', vi:'gặp', pos:'động từ'},
+      {ko:'알다', rom:'alda', vi:'biết', pos:'động từ'},
+      {ko:'모르다', rom:'moreuda', vi:'không biết', pos:'động từ'},
+      {ko:'인사하다', rom:'insahada', vi:'chào hỏi', pos:'động từ', hanja:'人事—', hv:'nhân sự'}
+    ]
+  },
+  2: {
+    grammar:[
+      { form:'N + 에 있다 / 없다', vi:'có / không có ở (nơi)', note:'Diễn tả sự tồn tại tại một vị trí.',
+        ex:{ko:'교실에 학생이 있습니다.', vi:'Trong lớp có học sinh.'} },
+      { form:'N + 하고', vi:'và, với', note:'Nối hai danh từ hoặc chỉ đối tượng cùng làm.',
+        ex:{ko:'책하고 공책이 있어요.', vi:'Có sách và vở.'} }
+    ],
+    vocab:[
+      {ko:'교실', rom:'gyosil', vi:'lớp học', pos:'danh từ', hanja:'敎室', hv:'giáo thất'},
+      {ko:'칠판', rom:'chilpan', vi:'bảng', pos:'danh từ', hanja:'漆板', hv:'tất bản'},
+      {ko:'책상', rom:'chaeksang', vi:'bàn học', pos:'danh từ', hanja:'冊床', hv:'sách sàng'},
+      {ko:'의자', rom:'uija', vi:'ghế', pos:'danh từ', hanja:'椅子', hv:'ỷ tử'},
+      {ko:'공책', rom:'gongchaek', vi:'vở', pos:'danh từ', hanja:'空冊', hv:'không sách'},
+      {ko:'연필', rom:'yeonpil', vi:'bút chì', pos:'danh từ', hanja:'鉛筆', hv:'duyên bút'},
+      {ko:'지우개', rom:'jiugae', vi:'cục tẩy', pos:'danh từ'},
+      {ko:'가방', rom:'gabang', vi:'cặp, túi', pos:'danh từ'}
+    ]
+  },
+  3: {
+    grammar:[
+      { form:'N + 을/를', vi:'trợ từ tân ngữ', note:'Đánh dấu tân ngữ; có patchim dùng 을, không patchim dùng 를.',
+        ex:{ko:'저는 밥을 먹어요.', vi:'Tôi ăn cơm.'} },
+      { form:'V + 아/어요', vi:'đuôi câu thân mật lịch sự', note:'Dạng nói thông dụng hằng ngày.',
+        ex:{ko:'학교에 가요.', vi:'Tôi đi học.'} }
+    ],
+    vocab:[
+      {ko:'일어나다', rom:'ireonada', vi:'thức dậy', pos:'động từ'},
+      {ko:'씻다', rom:'ssitda', vi:'rửa', pos:'động từ'},
+      {ko:'입다', rom:'ipda', vi:'mặc', pos:'động từ'},
+      {ko:'자다', rom:'jada', vi:'ngủ', pos:'động từ'},
+      {ko:'쉬다', rom:'swida', vi:'nghỉ ngơi', pos:'động từ'},
+      {ko:'청소하다', rom:'cheongsohada', vi:'dọn dẹp', pos:'động từ', hanja:'淸掃—', hv:'thanh tảo'},
+      {ko:'세수하다', rom:'sesuhada', vi:'rửa mặt', pos:'động từ', hanja:'洗手—', hv:'tẩy thủ'},
+      {ko:'매일', rom:'maeil', vi:'mỗi ngày', pos:'trạng từ', hanja:'每日', hv:'mỗi nhật'}
+    ]
+  },
+  4: {
+    grammar:[
+      { form:'N + 에 (thời gian)', vi:'vào (lúc)', note:'Gắn với mốc thời gian: giờ, ngày, thứ, tháng.',
+        ex:{ko:'월요일에 만나요.', vi:'Gặp nhau vào thứ Hai.'} },
+      { form:'무슨 / 며칠 / 언제', vi:'gì / ngày mấy / khi nào', note:'Từ để hỏi về ngày tháng, thời gian.',
+        ex:{ko:'생일이 며칠이에요?', vi:'Sinh nhật là ngày mấy?'} }
+    ],
+    vocab:[
+      {ko:'달력', rom:'dallyeok', vi:'lịch (tờ)', pos:'danh từ'},
+      {ko:'오늘', rom:'oneul', vi:'hôm nay', pos:'danh từ'},
+      {ko:'내일', rom:'naeil', vi:'ngày mai', pos:'danh từ', hanja:'來日', hv:'lai nhật'},
+      {ko:'어제', rom:'eoje', vi:'hôm qua', pos:'danh từ'},
+      {ko:'그저께', rom:'geujeokke', vi:'hôm kia', pos:'danh từ'},
+      {ko:'평일', rom:'pyeongil', vi:'ngày thường', pos:'danh từ', hanja:'平日', hv:'bình nhật'},
+      {ko:'지난주', rom:'jinanju', vi:'tuần trước', pos:'danh từ'},
+      {ko:'다음 주', rom:'daeum ju', vi:'tuần sau', pos:'danh từ'}
+    ]
+  },
+  5: {
+    grammar:[
+      { form:'V + 고 (nối tiếp)', vi:'và, rồi', note:'Nối hai hành động theo trình tự hoặc liệt kê.',
+        ex:{ko:'밥을 먹고 학교에 가요.', vi:'Ăn cơm rồi đi học.'} },
+      { form:'N + 부터 ~ N + 까지', vi:'từ ~ đến', note:'Chỉ khoảng thời gian bắt đầu và kết thúc.',
+        ex:{ko:'아홉 시부터 여섯 시까지 일해요.', vi:'Làm việc từ 9 giờ đến 6 giờ.'} }
+    ],
+    vocab:[
+      {ko:'출근하다', rom:'chulgeunhada', vi:'đi làm', pos:'động từ', hanja:'出勤—', hv:'xuất cần'},
+      {ko:'퇴근하다', rom:'toegeunhada', vi:'tan làm', pos:'động từ', hanja:'退勤—', hv:'thoái cần'},
+      {ko:'수업', rom:'sueop', vi:'tiết học, giờ học', pos:'danh từ', hanja:'授業', hv:'thụ nghiệp'},
+      {ko:'시작하다', rom:'sijakhada', vi:'bắt đầu', pos:'động từ', hanja:'始作—', hv:'thuỷ tác'},
+      {ko:'끝나다', rom:'kkeunnada', vi:'kết thúc', pos:'động từ'},
+      {ko:'점심', rom:'jeomsim', vi:'bữa trưa', pos:'danh từ', hanja:'點心', hv:'điểm tâm'},
+      {ko:'저녁', rom:'jeonyeok', vi:'bữa tối, buổi tối', pos:'danh từ'},
+      {ko:'보통', rom:'botong', vi:'thường, thông thường', pos:'trạng từ', hanja:'普通', hv:'phổ thông'}
+    ]
+  },
+  6: {
+    grammar:[
+      { form:'V/A + 았/었어요', vi:'(thì quá khứ)', note:'Diễn tả việc đã xảy ra; chọn 았/었 theo nguyên âm gốc.',
+        ex:{ko:'주말에 영화를 봤어요.', vi:'Cuối tuần tôi đã xem phim.'} },
+      { form:'V + 아/어서 (trình tự)', vi:'... rồi ...', note:'Hành động trước nối tiếp hành động sau, cùng chủ ngữ.',
+        ex:{ko:'친구를 만나서 밥을 먹었어요.', vi:'Gặp bạn rồi đi ăn cơm.'} }
+    ],
+    vocab:[
+      {ko:'영화', rom:'yeonghwa', vi:'phim', pos:'danh từ', hanja:'映畵', hv:'ánh hoạ'},
+      {ko:'공원', rom:'gongwon', vi:'công viên', pos:'danh từ', hanja:'公園', hv:'công viên'},
+      {ko:'산책하다', rom:'sanchaekhada', vi:'đi dạo', pos:'động từ', hanja:'散策—', hv:'tản sách'},
+      {ko:'놀다', rom:'nolda', vi:'chơi', pos:'động từ'},
+      {ko:'쇼핑하다', rom:'syopinghada', vi:'mua sắm', pos:'động từ'},
+      {ko:'여행하다', rom:'yeohaenghada', vi:'du lịch', pos:'động từ', hanja:'旅行—', hv:'lữ hành'},
+      {ko:'즐겁다', rom:'jeulgeopda', vi:'vui vẻ', pos:'tính từ'},
+      {ko:'특별하다', rom:'teukbyeolhada', vi:'đặc biệt', pos:'tính từ', hanja:'特別—', hv:'đặc biệt'}
+    ]
+  },
+  7: {
+    grammar:[
+      { form:'이 / 그 / 저 + N', vi:'này / đó / kia', note:'이 (gần người nói), 그 (gần người nghe), 저 (xa cả hai).',
+        ex:{ko:'이 사과 주세요.', vi:'Cho tôi quả táo này.'} },
+      { form:'N + 주세요', vi:'cho tôi ...', note:'Yêu cầu, mua hàng một cách lịch sự.',
+        ex:{ko:'물 한 병 주세요.', vi:'Cho tôi một chai nước.'} }
+    ],
+    vocab:[
+      {ko:'가게', rom:'gage', vi:'cửa hàng', pos:'danh từ'},
+      {ko:'물건', rom:'mulgeon', vi:'đồ vật, hàng hoá', pos:'danh từ', hanja:'物件', hv:'vật kiện'},
+      {ko:'돈', rom:'don', vi:'tiền', pos:'danh từ'},
+      {ko:'값', rom:'gap', vi:'giá tiền', pos:'danh từ'},
+      {ko:'원', rom:'won', vi:'won (tiền Hàn)', pos:'danh từ'},
+      {ko:'모두', rom:'modu', vi:'tất cả', pos:'danh từ'},
+      {ko:'그리고', rom:'geurigo', vi:'và, với lại', pos:'trạng từ'},
+      {ko:'얼마', rom:'eolma', vi:'bao nhiêu (tiền)', pos:'danh từ'}
+    ]
+  },
+  8: {
+    grammar:[
+      { form:'V + 고 싶다', vi:'muốn (làm)', note:'Diễn tả mong muốn của bản thân.',
+        ex:{ko:'불고기를 먹고 싶어요.', vi:'Tôi muốn ăn thịt nướng.'} },
+      { form:'V/A + 지 않다', vi:'không (phủ định dài)', note:'Cách phủ định trang trọng hơn 안.',
+        ex:{ko:'저는 맵지 않아요.', vi:'Tôi không (ăn) cay.'} }
+    ],
+    vocab:[
+      {ko:'식당', rom:'sikdang', vi:'nhà hàng, quán ăn', pos:'danh từ', hanja:'食堂', hv:'thực đường'},
+      {ko:'메뉴', rom:'menyu', vi:'thực đơn', pos:'danh từ'},
+      {ko:'주문하다', rom:'jumunhada', vi:'gọi món, đặt hàng', pos:'động từ', hanja:'注文—', hv:'chú văn'},
+      {ko:'배고프다', rom:'baegopeuda', vi:'đói', pos:'tính từ'},
+      {ko:'배부르다', rom:'baebureuda', vi:'no', pos:'tính từ'},
+      {ko:'맛있다', rom:'masitda', vi:'ngon', pos:'tính từ'},
+      {ko:'맛없다', rom:'madeopda', vi:'dở, không ngon', pos:'tính từ'},
+      {ko:'시키다', rom:'sikida', vi:'gọi món', pos:'động từ'}
+    ]
+  },
+  9: {
+    grammar:[
+      { form:'N + 에 (vị trí)', vi:'ở (nơi tồn tại)', note:'Chỉ nơi có/đặt vật gì, đi với 있다/없다.',
+        ex:{ko:'책이 책상 위에 있어요.', vi:'Sách ở trên bàn.'} },
+      { form:'N + 만', vi:'chỉ, chỉ mỗi', note:'Giới hạn duy nhất một đối tượng.',
+        ex:{ko:'방에 저만 있어요.', vi:'Trong phòng chỉ có mình tôi.'} }
+    ],
+    vocab:[
+      {ko:'방', rom:'bang', vi:'phòng', pos:'danh từ', hanja:'房', hv:'phòng'},
+      {ko:'거실', rom:'geosil', vi:'phòng khách', pos:'danh từ', hanja:'居室', hv:'cư thất'},
+      {ko:'부엌', rom:'bueok', vi:'nhà bếp', pos:'danh từ'},
+      {ko:'화장실', rom:'hwajangsil', vi:'nhà vệ sinh', pos:'danh từ', hanja:'化粧室', hv:'hoá trang thất'},
+      {ko:'위', rom:'wi', vi:'trên', pos:'danh từ'},
+      {ko:'아래', rom:'arae', vi:'dưới', pos:'danh từ'},
+      {ko:'앞', rom:'ap', vi:'phía trước', pos:'danh từ'},
+      {ko:'뒤', rom:'dwi', vi:'phía sau', pos:'danh từ'}
+    ]
+  },
+  10: {
+    grammar:[
+      { form:'N + 께서', vi:'trợ từ chủ ngữ kính ngữ', note:'Thay cho 이/가 khi chủ ngữ là người đáng kính.',
+        ex:{ko:'아버지께서 오세요.', vi:'Bố tôi đến.'} },
+      { form:'Số đếm + 명 / 분', vi:'(đơn vị đếm người)', note:'명 dùng thường, 분 dùng kính trọng.',
+        ex:{ko:'가족이 네 명이에요.', vi:'Gia đình tôi có bốn người.'} }
+    ],
+    vocab:[
+      {ko:'부모님', rom:'bumonim', vi:'bố mẹ', pos:'danh từ', hanja:'父母—', hv:'phụ mẫu'},
+      {ko:'아버지', rom:'abeoji', vi:'bố', pos:'danh từ'},
+      {ko:'어머니', rom:'eomeoni', vi:'mẹ', pos:'danh từ'},
+      {ko:'형', rom:'hyeong', vi:'anh trai (của nam)', pos:'danh từ'},
+      {ko:'누나', rom:'nuna', vi:'chị gái (của nam)', pos:'danh từ'},
+      {ko:'오빠', rom:'oppa', vi:'anh trai (của nữ)', pos:'danh từ'},
+      {ko:'언니', rom:'eonni', vi:'chị gái (của nữ)', pos:'danh từ'},
+      {ko:'동생', rom:'dongsaeng', vi:'em', pos:'danh từ'}
+    ]
+  },
+  11: {
+    grammar:[
+      { form:'A/V + 지요? (죠?)', vi:'... nhỉ? / phải không?', note:'Xác nhận điều mình cho là đúng.',
+        ex:{ko:'오늘 춥지요?', vi:'Hôm nay lạnh nhỉ?'} },
+      { form:'V/A + 겠 (dự đoán)', vi:'chắc là, sẽ', note:'Phỏng đoán hoặc dự báo.',
+        ex:{ko:'내일 비가 오겠어요.', vi:'Ngày mai chắc trời mưa.'} }
+    ],
+    vocab:[
+      {ko:'맑다', rom:'makda', vi:'quang, trong', pos:'tính từ'},
+      {ko:'흐리다', rom:'heurida', vi:'âm u', pos:'tính từ'},
+      {ko:'덥다', rom:'deopda', vi:'nóng', pos:'tính từ'},
+      {ko:'춥다', rom:'chupda', vi:'lạnh', pos:'tính từ'},
+      {ko:'따뜻하다', rom:'ttatteutada', vi:'ấm áp', pos:'tính từ'},
+      {ko:'시원하다', rom:'siwonhada', vi:'mát mẻ', pos:'tính từ'},
+      {ko:'바람', rom:'baram', vi:'gió', pos:'danh từ'},
+      {ko:'구름', rom:'gureum', vi:'mây', pos:'danh từ'}
+    ]
+  },
+  12: {
+    grammar:[
+      { form:'V + (으)ㄹ까요?', vi:'... nhé? / có nên ... không?', note:'Rủ rê hoặc hỏi ý người nghe.',
+        ex:{ko:'내일 만날까요?', vi:'Mai gặp nhau nhé?'} },
+      { form:'V + 아/어 주세요', vi:'làm ơn ... giúp', note:'Nhờ người khác làm việc gì lịch sự.',
+        ex:{ko:'다시 전화해 주세요.', vi:'Làm ơn gọi lại giúp tôi.'} }
+    ],
+    vocab:[
+      {ko:'여보세요', rom:'yeoboseyo', vi:'a lô', pos:'thán từ'},
+      {ko:'통화', rom:'tonghwa', vi:'cuộc gọi', pos:'danh từ', hanja:'通話', hv:'thông thoại'},
+      {ko:'번호', rom:'beonho', vi:'số', pos:'danh từ', hanja:'番號', hv:'phiên hiệu'},
+      {ko:'바쁘다', rom:'bappeuda', vi:'bận', pos:'tính từ'},
+      {ko:'나중에', rom:'najunge', vi:'lát nữa, sau này', pos:'trạng từ'},
+      {ko:'다시', rom:'dasi', vi:'lại, lần nữa', pos:'trạng từ'},
+      {ko:'연락하다', rom:'yeollakhada', vi:'liên lạc', pos:'động từ', hanja:'連絡—', hv:'liên lạc'},
+      {ko:'약속', rom:'yaksok', vi:'cuộc hẹn', pos:'danh từ', hanja:'約束', hv:'ước thúc'}
+    ]
+  },
+  13: {
+    grammar:[
+      { form:'N + 에게 / 한테', vi:'cho, đến (ai)', note:'Chỉ người nhận; 한테 dùng thân mật.',
+        ex:{ko:'친구에게 선물을 줘요.', vi:'Tôi tặng quà cho bạn.'} },
+      { form:'V + (으)ㄹ 거예요', vi:'sẽ (dự định)', note:'Kế hoạch, dự định trong tương lai.',
+        ex:{ko:'생일 파티를 할 거예요.', vi:'Tôi sẽ tổ chức tiệc sinh nhật.'} }
+    ],
+    vocab:[
+      {ko:'축하하다', rom:'chukhahada', vi:'chúc mừng', pos:'động từ', hanja:'祝賀—', hv:'chúc hạ'},
+      {ko:'선물', rom:'seonmul', vi:'quà', pos:'danh từ', hanja:'膳物', hv:'thiện vật'},
+      {ko:'케이크', rom:'keikeu', vi:'bánh kem', pos:'danh từ'},
+      {ko:'파티', rom:'pati', vi:'tiệc', pos:'danh từ'},
+      {ko:'초', rom:'cho', vi:'nến', pos:'danh từ'},
+      {ko:'노래', rom:'norae', vi:'bài hát', pos:'danh từ'},
+      {ko:'준비하다', rom:'junbihada', vi:'chuẩn bị', pos:'động từ', hanja:'準備—', hv:'chuẩn bị'},
+      {ko:'초대하다', rom:'chodaehada', vi:'mời', pos:'động từ', hanja:'招待—', hv:'chiêu đãi'}
+    ]
+  },
+  14: {
+    grammar:[
+      { form:'V + 거나', vi:'hoặc (làm gì)', note:'Nối hai hành động để chọn một.',
+        ex:{ko:'주말에 책을 읽거나 영화를 봐요.', vi:'Cuối tuần tôi đọc sách hoặc xem phim.'} },
+      { form:'A/V + 지만', vi:'nhưng', note:'Nối hai vế trái ngược.',
+        ex:{ko:'운동을 좋아하지만 잘 못해요.', vi:'Tôi thích vận động nhưng không giỏi.'} }
+    ],
+    vocab:[
+      {ko:'운동', rom:'undong', vi:'thể thao', pos:'danh từ', hanja:'運動', hv:'vận động'},
+      {ko:'음악', rom:'eumak', vi:'âm nhạc', pos:'danh từ', hanja:'音樂', hv:'âm nhạc'},
+      {ko:'독서', rom:'dokseo', vi:'đọc sách', pos:'danh từ', hanja:'讀書', hv:'độc thư'},
+      {ko:'그림', rom:'geurim', vi:'tranh, vẽ', pos:'danh từ'},
+      {ko:'사진', rom:'sajin', vi:'ảnh', pos:'danh từ', hanja:'寫眞', hv:'tả chân'},
+      {ko:'게임', rom:'geim', vi:'trò chơi', pos:'danh từ'},
+      {ko:'좋아하다', rom:'joahada', vi:'thích', pos:'động từ'},
+      {ko:'관심', rom:'gwansim', vi:'sự quan tâm', pos:'danh từ', hanja:'關心', hv:'quan tâm'}
+    ]
+  },
+  15: {
+    grammar:[
+      { form:'N + (으)로 (phương tiện)', vi:'bằng (phương tiện)', note:'Chỉ phương tiện di chuyển.',
+        ex:{ko:'버스로 학교에 가요.', vi:'Tôi đi học bằng xe buýt.'} },
+      { form:'N + 에서 ~ N + 까지', vi:'từ ~ đến (nơi chốn)', note:'Chỉ điểm đầu và điểm cuối của quãng đường.',
+        ex:{ko:'집에서 회사까지 멀어요.', vi:'Từ nhà đến công ty xa.'} }
+    ],
+    vocab:[
+      {ko:'버스', rom:'beoseu', vi:'xe buýt', pos:'danh từ'},
+      {ko:'지하철', rom:'jihacheol', vi:'tàu điện ngầm', pos:'danh từ', hanja:'地下鐵', hv:'địa hạ thiết'},
+      {ko:'자동차', rom:'jadongcha', vi:'ô tô', pos:'danh từ', hanja:'自動車', hv:'tự động xa'},
+      {ko:'자전거', rom:'jajeongeo', vi:'xe đạp', pos:'danh từ', hanja:'自轉車', hv:'tự chuyển xa'},
+      {ko:'걸어서', rom:'georeoseo', vi:'đi bộ', pos:'trạng từ'},
+      {ko:'빠르다', rom:'ppareuda', vi:'nhanh', pos:'tính từ'},
+      {ko:'느리다', rom:'neurida', vi:'chậm', pos:'tính từ'},
+      {ko:'걸리다', rom:'geollida', vi:'mất, tốn (thời gian)', pos:'động từ'}
+    ]
+  }
+};
+COURSE_KO.lessons.forEach(l => {
+  if (l.level === 'so-cap-1' && SC1_EXTRA[l.no]){
+    const ex = SC1_EXTRA[l.no];
+    (ex.grammar || []).forEach(g => { if (!l.grammar.some(x => x.form === g.form)) l.grammar.push(g); });
+    (ex.vocab || []).forEach(v => { if (!l.vocab.some(x => x.ko === v.ko)) l.vocab.push(v); });
+  }
+});
+
 /* Các ngôn ngữ sẽ mở tiếp — khung dữ liệu giống hệt COURSE_KO */
 const LANGUAGES = [
   { code:'ko', label:'Tiếng Hàn',  native:'한국어',   mark:'한', status:'active',  note:'Sơ cấp 1 · 15 bài' },
