@@ -672,8 +672,8 @@ function render(){
 
   const l = state.lesson && COURSE_KO.lessons.find(x => x.no === state.lesson);
   $('#crumb').innerHTML = state.view === 'lesson' && l
-    ? `Tiếng Hàn <span>›</span> Sơ cấp 1 <span>›</span> <b>Bài ${String(l.no).padStart(2,'0')} · ${esc(l.vi)}</b>`
-    : `Tiếng Hàn <span>›</span> <b>${CRUMBS[state.view]}</b>`;
+    ? `<button class="crumb-link" data-go="home">Tiếng Hàn</button> <span>›</span> <button class="crumb-link" data-go="home">Sơ cấp 1</button> <span>›</span> <b>Bài ${String(l.no).padStart(2,'0')} · ${esc(l.vi)}</b>`
+    : `<button class="crumb-link" data-go="home">Tiếng Hàn</button> <span>›</span> <b>${CRUMBS[state.view]}</b>`;
 
   if (state.view === 'write') mountWrite();
   if (state.view === 'dict'){ mountDict(); loadDict(added => { if (added && state.view === 'dict') render(); }); }
@@ -1054,9 +1054,7 @@ function openSentence(text){
         ${state.shadow.trans[Translate.hash(text)]
           ? `<div class="wp-sent-vi">${esc(state.shadow.trans[Translate.hash(text)])}</div>` : ''}
       </div>
-      <button class="icon-btn wp-close" id="wpClose" title="Đóng">
-        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
-      </button>
+${WP_TOOLS}
     </div>
 
     <div class="wp-actions">
@@ -1106,8 +1104,7 @@ function openSentence(text){
       khi đó hãy bấm vào một từ riêng ở trên.</p>
     </div>`;
 
-  el.classList.add('open');
-  document.body.classList.add('wp-open');
+  showPanel(el);
 }
 
 /* ============================================================
@@ -1186,6 +1183,68 @@ function dictEntryHtml(hit){
    ============================================================ */
 let wordState = { token:'', query:'' };
 
+/* ---------- cửa sổ tra từ: nổi, kéo-thả, thu gọn ---------- */
+const WP_DESKTOP = 641;   // từ 641px mới cho kéo-thả (khớp breakpoint mobile 640)
+const WP_TOOLS = `
+      <div class="wp-tools">
+        <button class="icon-btn wp-min" id="wpMin" title="Thu gọn / mở rộng">
+          <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <button class="icon-btn wp-close" id="wpClose" title="Đóng">
+          <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>`;
+
+function clampPanel(el, left, top){
+  const w = el.offsetWidth || 384;
+  const maxL = Math.max(8, window.innerWidth  - w - 8);
+  const maxT = Math.max(8, window.innerHeight - 46 - 8);   // luôn chừa header để kéo lại được
+  return { left: Math.max(8, Math.min(left, maxL)), top: Math.max(8, Math.min(top, maxT)) };
+}
+
+function showPanel(el){
+  el.classList.add('open');
+  el.classList.toggle('collapsed', !!store.get('wpanelCollapsed', false));
+  if (window.innerWidth >= WP_DESKTOP){
+    const saved = store.get('wpanelPos', null);
+    const pos = saved || { left: window.innerWidth - 384 - 24, top: 76 };
+    const c = clampPanel(el, pos.left, pos.top);
+    el.style.left = c.left + 'px'; el.style.top = c.top + 'px';
+    el.style.right = 'auto'; el.style.bottom = 'auto';
+  } else {
+    el.style.left = el.style.top = el.style.right = el.style.bottom = '';
+  }
+  document.body.classList.add('wp-open');
+}
+
+/* kéo cửa sổ bằng thanh tiêu đề (chuột hoặc cảm ứng) */
+let wpDrag = null;
+document.addEventListener('pointerdown', e => {
+  if (window.innerWidth < WP_DESKTOP) return;
+  const head = e.target.closest && e.target.closest('.wp-head');
+  if (!head) return;
+  if (e.target.closest('button, a, input, textarea, select')) return;   // bấm nút thì không kéo
+  const el = head.closest('.wpanel');
+  if (!el) return;
+  const r = el.getBoundingClientRect();
+  wpDrag = { el, dx: e.clientX - r.left, dy: e.clientY - r.top };
+  el.classList.add('dragging');
+});
+document.addEventListener('pointermove', e => {
+  if (!wpDrag) return;
+  const c = clampPanel(wpDrag.el, e.clientX - wpDrag.dx, e.clientY - wpDrag.dy);
+  wpDrag.el.style.left = c.left + 'px'; wpDrag.el.style.top = c.top + 'px';
+  wpDrag.el.style.right = 'auto'; wpDrag.el.style.bottom = 'auto';
+});
+function wpDragEnd(){
+  if (!wpDrag) return;
+  const el = wpDrag.el; el.classList.remove('dragging');
+  store.set('wpanelPos', { left: parseInt(el.style.left, 10) || 0, top: parseInt(el.style.top, 10) || 0 });
+  wpDrag = null;
+}
+document.addEventListener('pointerup', wpDragEnd);
+document.addEventListener('pointercancel', wpDragEnd);
+
 function wordPanel(){
   let el = $('#wordPanel');
   if (!el){
@@ -1224,9 +1283,7 @@ function openWord(token, queryOverride){
         <div class="wp-word ko">${esc(token)}</div>
         ${hit ? `<div class="wp-rom">${esc(hit.rom)}</div>` : ''}
       </div>
-      <button class="icon-btn wp-close" id="wpClose" title="Đóng">
-        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
-      </button>
+${WP_TOOLS}
     </div>
 
     <div class="wp-actions">
@@ -1278,8 +1335,7 @@ function openWord(token, queryOverride){
       <div class="src-list compact">${rest.map(srcBtn).join('')}</div>
     </div>`;
 
-  el.classList.add('open');
-  document.body.classList.add('wp-open');
+  showPanel(el);
 }
 
 function closeWord(){
@@ -1435,6 +1491,11 @@ document.addEventListener('click', e => {
   const kwf = t.closest('[data-kw-form]');
   if (kwf){ openWord(wordState.token, kwf.dataset.kwForm); return; }
 
+  if (t.closest('#wpMin')){
+    const p = $('#wordPanel');
+    if (p){ const c = !p.classList.contains('collapsed'); p.classList.toggle('collapsed', c); store.set('wpanelCollapsed', c); }
+    return;
+  }
   if (t.closest('#wpClose')){ closeWord(); return; }
 
   if (t.closest('[data-stop]')){ stopAudio(); return; }

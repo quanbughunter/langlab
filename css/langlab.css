@@ -671,13 +671,26 @@ body:has(.mplayer.open) .view{padding-bottom:110px}
 
 /* ================= bảng tra từ ================= */
 .wpanel{
-  position:fixed;top:0;right:0;bottom:0;width:380px;max-width:92vw;z-index:70;
-  background:var(--surface);border-left:1px solid var(--line);box-shadow:-14px 0 40px -24px rgba(0,0,0,.45);
-  overflow-y:auto;transform:translateX(102%);transition:transform .22s cubic-bezier(.3,.7,.3,1);
-  overscroll-behavior:contain;
+  position:fixed;top:76px;right:24px;width:384px;max-width:92vw;z-index:70;
+  max-height:82vh;overflow-y:auto;overscroll-behavior:contain;
+  background:var(--surface);border:1px solid var(--line-strong);border-radius:14px;
+  box-shadow:0 24px 64px -22px rgba(0,0,0,.55);
+  opacity:0;visibility:hidden;transform:translateY(8px);
+  transition:opacity .18s ease, transform .18s ease;
 }
-.wpanel.open{transform:none}
-.wp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:20px 20px 14px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--surface);z-index:2}
+.wpanel.open{opacity:1;visibility:visible;transform:none}
+.wpanel.dragging{transition:none}
+.wpanel.collapsed{overflow:hidden}
+.wpanel.collapsed > *:not(.wp-head){display:none}
+.wp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:15px 14px 13px 18px;
+  border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--surface);z-index:2;
+  cursor:move;user-select:none;touch-action:none;border-radius:14px 14px 0 0}
+.wpanel.collapsed .wp-head{border-bottom:none;border-radius:14px}
+.wp-tools{display:flex;gap:3px;flex:none}
+.wp-min svg{transition:transform .15s ease}
+.wpanel.collapsed .wp-min svg{transform:rotate(180deg)}
+.crumb-link{background:none;border:none;padding:0;margin:0;font:inherit;color:var(--muted);cursor:pointer}
+.crumb-link:hover{color:var(--accent);text-decoration:underline}
 .wp-word{font-family:"Noto Sans KR",sans-serif;font-size:30px;font-weight:700;line-height:1.15}
 .wp-rom{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--faint);letter-spacing:.09em;text-transform:uppercase;margin-top:2px}
 .wp-actions{display:flex;flex-wrap:wrap;gap:6px;padding:14px 20px}
@@ -800,11 +813,12 @@ body:has(.mplayer.open) .view{padding-bottom:110px}
 }
 @media (max-width:640px){
   .wpanel{
-    top:auto;left:0;right:0;bottom:0;width:auto;max-width:none;height:84vh;
-    border-left:none;border-top:1px solid var(--line);border-radius:18px 18px 0 0;
-    transform:translateY(102%);
+    top:auto!important;left:0!important;right:0;bottom:0;width:auto;max-width:none;max-height:84vh;
+    border:none;border-top:1px solid var(--line);border-radius:18px 18px 0 0;
+    opacity:1;visibility:hidden;transform:translateY(102%);transition:transform .24s cubic-bezier(.3,.7,.3,1);
   }
-  .wpanel.open{transform:none}
+  .wpanel.open{transform:none;visibility:visible}
+  .wp-head{cursor:default;touch-action:auto;border-radius:18px 18px 0 0}
   .dlg-row{grid-template-columns:64px minmax(0,1fr)}
   .row-tools{grid-column:1 / -1;opacity:1;margin-top:6px}
   .opts{grid-template-columns:1fr}
