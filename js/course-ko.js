@@ -2357,6 +2357,611 @@ COURSE_KO.lessons.push(
 );
 (COURSE_KO.levels.find(x => x.id === 'trung-cap-2') || {}).status = 'active';
 
+/* ============ Cao cấp 1 (고급 1) — 15 bài, tự soạn theo khung 종합 한국어 고급1 ============ */
+COURSE_KO.lessons.push(
+  {
+    no:1, level:'cao-cap-1', ko:'언어와 사고', vi:'Ngôn ngữ và tư duy', rom:'eoneo-wa sago',
+    skill:'Trình bày quan điểm về mối liên hệ ngôn ngữ - tư duy', pron:'Ngữ điệu văn nghị luận',
+    culture:'Sức mạnh của lời nói trong văn hoá Hàn (말의 힘)',
+    grammar:[
+      { form:'N + (으)로써', vi:'bằng, thông qua (phương tiện)', note:'Nêu phương tiện/ cách thức đạt kết quả (văn viết).',
+        ex:{ko:'대화로써 문제를 풀 수 있어요.', vi:'Có thể giải quyết vấn đề bằng đối thoại.'} },
+      { form:'A/V + (으)ㄴ/는 바', vi:'điều mà, như đã', note:'Chỉ nội dung/ sự việc, văn phong trang trọng.',
+        ex:{ko:'앞에서 말한 바와 같이 언어는 중요해요.', vi:'Như đã nói ở trên, ngôn ngữ rất quan trọng.'} },
+      { form:'A/V + 기 마련이다', vi:'tất yếu, đương nhiên', note:'Quy luật hiển nhiên.',
+        ex:{ko:'생각은 말로 드러나기 마련이에요.', vi:'Suy nghĩ tất yếu bộc lộ qua lời nói.'} },
+      { form:'A/V + (느)ㄴ다기보다(는)', vi:'hơn là nói rằng', note:'Điều chỉnh lại cách diễn đạt cho chính xác hơn.',
+        ex:{ko:'어렵다기보다 낯설어요.', vi:'Hơn là khó thì đúng ra là lạ lẫm.'} }
+    ],
+    vocab:[
+      {ko:'사고', rom:'sago', vi:'tư duy, suy nghĩ', pos:'danh từ', hanja:'思考', hv:'tư khảo', examples:[{ko:'논리적 사고가 필요해요.', vi:'Cần tư duy logic.'}]},
+      {ko:'언어', rom:'eoneo', vi:'ngôn ngữ', pos:'danh từ', hanja:'言語', hv:'ngôn ngữ', examples:[{ko:'언어는 문화를 담아요.', vi:'Ngôn ngữ chứa đựng văn hoá.'}]},
+      {ko:'개념', rom:'gaenyeom', vi:'khái niệm', pos:'danh từ', hanja:'槪念', hv:'khái niệm', examples:[{ko:'추상적인 개념을 설명했어요.', vi:'Tôi giải thích khái niệm trừu tượng.'}]},
+      {ko:'논리', rom:'nolli', vi:'logic, lý lẽ', pos:'danh từ', hanja:'論理', hv:'luận lý', examples:[{ko:'논리가 부족해요.', vi:'Lập luận thiếu logic.'}]},
+      {ko:'표현하다', rom:'pyohyeonhada', vi:'biểu đạt', pos:'động từ', hanja:'表現—', hv:'biểu hiện', examples:[{ko:'생각을 정확히 표현해요.', vi:'Tôi diễn đạt suy nghĩ chính xác.'}]},
+      {ko:'인식', rom:'insik', vi:'nhận thức', pos:'danh từ', hanja:'認識', hv:'nhận thức', examples:[{ko:'세상에 대한 인식이 달라졌어요.', vi:'Nhận thức về thế giới đã đổi khác.'}]},
+      {ko:'관점', rom:'gwanjeom', vi:'quan điểm, góc nhìn', pos:'danh từ', hanja:'觀點', hv:'quan điểm', examples:[{ko:'다양한 관점이 있어요.', vi:'Có nhiều góc nhìn khác nhau.'}]},
+      {ko:'추상적', rom:'chusangjeok', vi:'trừu tượng', pos:'danh từ', hanja:'抽象的', hv:'trừu tượng đích', examples:[{ko:'설명이 너무 추상적이에요.', vi:'Lời giải thích quá trừu tượng.'}]},
+      {ko:'구체적', rom:'guchejeok', vi:'cụ thể', pos:'danh từ', hanja:'具體的', hv:'cụ thể đích', examples:[{ko:'구체적인 예를 들어요.', vi:'Hãy nêu ví dụ cụ thể.'}]},
+      {ko:'영향을 미치다', rom:'yeonghyangeul michida', vi:'gây ảnh hưởng', pos:'cụm từ', examples:[{ko:'언어가 사고에 영향을 미쳐요.', vi:'Ngôn ngữ ảnh hưởng đến tư duy.'}]},
+      {ko:'모국어', rom:'mogugeo', vi:'tiếng mẹ đẻ', pos:'danh từ', hanja:'母國語', hv:'mẫu quốc ngữ', examples:[{ko:'모국어로 사고해요.', vi:'Tôi tư duy bằng tiếng mẹ đẻ.'}]},
+      {ko:'어휘', rom:'eohwi', vi:'từ vựng', pos:'danh từ', hanja:'語彙', hv:'ngữ vị', examples:[{ko:'어휘력을 늘려야 해요.', vi:'Phải mở rộng vốn từ.'}]},
+      {ko:'의미', rom:'uimi', vi:'ý nghĩa', pos:'danh từ', hanja:'意味', hv:'ý vị', examples:[{ko:'단어의 의미가 미묘해요.', vi:'Ý nghĩa của từ khá tinh tế.'}]},
+      {ko:'사고방식', rom:'sagobangsik', vi:'lối tư duy', pos:'danh từ', hanja:'思考方式', hv:'tư khảo phương thức', examples:[{ko:'사고방식이 유연해요.', vi:'Lối tư duy linh hoạt.'}]},
+      {ko:'드러나다', rom:'deureonada', vi:'bộc lộ, lộ ra', pos:'động từ', examples:[{ko:'속마음이 말에 드러나요.', vi:'Tâm ý lộ ra qua lời nói.'}]},
+      {ko:'미묘하다', rom:'mimyohada', vi:'tinh tế, tế nhị', pos:'tính từ', hanja:'微妙—', hv:'vi diệu', examples:[{ko:'차이가 미묘해요.', vi:'Khác biệt rất tinh tế.'}]}
+    ],
+    dialogue:[
+      {sp:'교수', ko:'언어가 사고를 지배한다고 생각하세요?', vi:'Em nghĩ ngôn ngữ chi phối tư duy không?'},
+      {sp:'꾸언', ko:'지배한다기보다 서로 영향을 미친다고 봐요.', vi:'Hơn là chi phối, em cho là chúng ảnh hưởng lẫn nhau.'},
+      {sp:'교수', ko:'근거를 들어 설명해 보세요.', vi:'Em hãy nêu căn cứ để giải thích.'},
+      {sp:'꾸언', ko:'앞에서 말한 바와 같이 어휘가 인식을 넓혀 줘요.', vi:'Như đã nói, từ vựng mở rộng nhận thức.'},
+      {sp:'교수', ko:'좋은 관점이에요. 예시로써 더 설득력을 높여 보세요.', vi:'Góc nhìn tốt. Hãy tăng sức thuyết phục bằng ví dụ.'}
+    ]
+  },
+  {
+    no:2, level:'cao-cap-1', ko:'경제와 소비 생활', vi:'Kinh tế và đời sống tiêu dùng', rom:'gyeongje-wa sobi saenghwal',
+    skill:'Bàn về kinh tế, lạm phát, thói quen chi tiêu', pron:'Đọc thuật ngữ kinh tế',
+    culture:'Văn hoá 짠테크 (tiết kiệm khôn ngoan) của giới trẻ Hàn',
+    grammar:[
+      { form:'A/V + (으)ㅁ에도 불구하고', vi:'mặc dù ... vẫn', note:'Nhượng bộ mạnh, văn viết.',
+        ex:{ko:'노력했음에도 불구하고 적자가 났어요.', vi:'Dù đã cố gắng vẫn bị thâm hụt.'} },
+      { form:'A/V + 기 십상이다', vi:'dễ (dẫn tới điều xấu)', note:'Khả năng cao xảy ra kết quả không tốt.',
+        ex:{ko:'계획 없이 쓰면 낭비하기 십상이에요.', vi:'Tiêu không kế hoạch thì dễ lãng phí.'} },
+      { form:'N + 에 달려 있다', vi:'phụ thuộc vào, tuỳ vào', note:'Kết quả quyết định bởi yếu tố nào đó.',
+        ex:{ko:'성공은 소비 습관에 달려 있어요.', vi:'Thành công tuỳ ở thói quen chi tiêu.'} },
+      { form:'A/V + (으)ㄴ/는 데 비해', vi:'so với việc, trong khi', note:'So sánh đối chiếu (văn viết).',
+        ex:{ko:'수입이 적은 데 비해 지출이 많아요.', vi:'Thu nhập ít trong khi chi tiêu nhiều.'} }
+    ],
+    vocab:[
+      {ko:'경제', rom:'gyeongje', vi:'kinh tế', pos:'danh từ', hanja:'經濟', hv:'kinh tế', examples:[{ko:'경제가 회복되고 있어요.', vi:'Kinh tế đang hồi phục.'}]},
+      {ko:'물가', rom:'mulga', vi:'vật giá', pos:'danh từ', hanja:'物價', hv:'vật giá', examples:[{ko:'물가가 계속 올라요.', vi:'Vật giá liên tục tăng.'}]},
+      {ko:'소득', rom:'sodeuk', vi:'thu nhập', pos:'danh từ', hanja:'所得', hv:'sở đắc', examples:[{ko:'소득이 늘지 않아요.', vi:'Thu nhập không tăng.'}]},
+      {ko:'지출', rom:'jichul', vi:'chi tiêu, chi ra', pos:'danh từ', hanja:'支出', hv:'chi xuất', examples:[{ko:'지출을 줄였어요.', vi:'Tôi đã giảm chi tiêu.'}]},
+      {ko:'투자하다', rom:'tujahada', vi:'đầu tư', pos:'động từ', hanja:'投資—', hv:'đầu tư', examples:[{ko:'주식에 투자했어요.', vi:'Tôi đầu tư vào cổ phiếu.'}]},
+      {ko:'저축하다', rom:'jeochukhada', vi:'tiết kiệm (gửi), để dành', pos:'động từ', hanja:'貯蓄—', hv:'trữ súc', examples:[{ko:'매달 저축해요.', vi:'Tôi để dành hàng tháng.'}]},
+      {ko:'소비하다', rom:'sobihada', vi:'tiêu dùng', pos:'động từ', hanja:'消費—', hv:'tiêu phí', examples:[{ko:'현명하게 소비해요.', vi:'Tôi tiêu dùng khôn ngoan.'}]},
+      {ko:'적자', rom:'jeokja', vi:'thâm hụt, lỗ', pos:'danh từ', hanja:'赤字', hv:'xích tự', examples:[{ko:'이번 달은 적자예요.', vi:'Tháng này bị âm.'}]},
+      {ko:'흑자', rom:'heukja', vi:'thặng dư, lãi', pos:'danh từ', hanja:'黑字', hv:'hắc tự', examples:[{ko:'드디어 흑자로 돌아섰어요.', vi:'Cuối cùng đã có lãi.'}]},
+      {ko:'절약', rom:'jeoryak', vi:'sự tiết kiệm', pos:'danh từ', hanja:'節約', hv:'tiết ước', examples:[{ko:'절약이 몸에 뱄어요.', vi:'Tiết kiệm đã thành thói quen.'}]},
+      {ko:'예산', rom:'yesan', vi:'ngân sách', pos:'danh từ', hanja:'豫算', hv:'dự toán', examples:[{ko:'예산을 세워요.', vi:'Tôi lập ngân sách.'}]},
+      {ko:'대출', rom:'daechul', vi:'khoản vay', pos:'danh từ', hanja:'貸出', hv:'thải xuất', examples:[{ko:'대출을 갚고 있어요.', vi:'Tôi đang trả nợ vay.'}]},
+      {ko:'금리', rom:'geumni', vi:'lãi suất', pos:'danh từ', hanja:'金利', hv:'kim lợi', examples:[{ko:'금리가 올랐어요.', vi:'Lãi suất đã tăng.'}]},
+      {ko:'현명하다', rom:'hyeonmyeonghada', vi:'khôn ngoan, sáng suốt', pos:'tính từ', hanja:'賢明—', hv:'hiền minh', examples:[{ko:'현명한 선택이었어요.', vi:'Đó là lựa chọn sáng suốt.'}]},
+      {ko:'부담', rom:'budam', vi:'gánh nặng', pos:'danh từ', hanja:'負擔', hv:'phụ đảm', examples:[{ko:'생활비 부담이 커요.', vi:'Gánh nặng sinh hoạt phí lớn.'}]},
+      {ko:'낭비하다', rom:'nangbihada', vi:'lãng phí', pos:'động từ', hanja:'浪費—', hv:'lãng phí', examples:[{ko:'시간을 낭비하지 마세요.', vi:'Đừng lãng phí thời gian.'}]}
+    ],
+    dialogue:[
+      {sp:'수진', ko:'요즘 물가가 너무 올라서 힘들어요.', vi:'Dạo này vật giá tăng quá nên chật vật.'},
+      {sp:'꾸언', ko:'소득은 그대로인 데 비해 지출만 늘었어요.', vi:'Thu nhập giữ nguyên mà chi tiêu chỉ tăng.'},
+      {sp:'수진', ko:'예산 없이 쓰면 낭비하기 십상이에요.', vi:'Tiêu không ngân sách thì dễ lãng phí.'},
+      {sp:'꾸언', ko:'그래서 매달 예산을 세워 저축하고 있어요.', vi:'Nên tôi lập ngân sách để dành mỗi tháng.'},
+      {sp:'수진', ko:'결국 미래는 소비 습관에 달려 있네요.', vi:'Rốt cuộc tương lai tuỳ ở thói quen chi tiêu nhỉ.'}
+    ]
+  },
+  {
+    no:3, level:'cao-cap-1', ko:'세계화와 국제 사회', vi:'Toàn cầu hoá và xã hội quốc tế', rom:'segyehwa-wa gukje sahoe',
+    skill:'Bàn về toàn cầu hoá, giao lưu quốc tế', pron:'Đọc từ ngoại lai và tên riêng',
+    culture:'Làn sóng Hallyu và vị thế văn hoá Hàn Quốc',
+    grammar:[
+      { form:'A/V + (으)ㄹ 뿐(만) 아니라', vi:'không những ... mà còn', note:'Bổ sung, nâng cấp mức độ.',
+        ex:{ko:'경제뿐 아니라 문화도 교류해요.', vi:'Không chỉ kinh tế mà văn hoá cũng giao lưu.'} },
+      { form:'N + 에 따라(서)', vi:'tuỳ theo, theo', note:'Biến đổi theo yếu tố.',
+        ex:{ko:'나라에 따라 문화가 달라요.', vi:'Tuỳ theo quốc gia mà văn hoá khác nhau.'} },
+      { form:'A/V + (으)ㄴ/는 만큼', vi:'vì, tương ứng với', note:'Lý do/ mức độ tương xứng.',
+        ex:{ko:'세계가 가까워진 만큼 경쟁도 심해요.', vi:'Thế giới gần lại bao nhiêu thì cạnh tranh gay bấy nhiêu.'} },
+      { form:'V + (으)ㅁ으로써', vi:'bằng cách, qua đó', note:'Phương tiện đạt kết quả (văn viết).',
+        ex:{ko:'교류함으로써 서로 이해해요.', vi:'Qua giao lưu mà hiểu nhau.'} }
+    ],
+    vocab:[
+      {ko:'세계화', rom:'segyehwa', vi:'toàn cầu hoá', pos:'danh từ', hanja:'世界化', hv:'thế giới hoá', examples:[{ko:'세계화가 빠르게 진행돼요.', vi:'Toàn cầu hoá diễn ra nhanh.'}]},
+      {ko:'국제', rom:'gukje', vi:'quốc tế', pos:'danh từ', hanja:'國際', hv:'quốc tế', examples:[{ko:'국제 회의에 참석했어요.', vi:'Tôi dự hội nghị quốc tế.'}]},
+      {ko:'교류', rom:'gyoryu', vi:'giao lưu', pos:'danh từ', hanja:'交流', hv:'giao lưu', examples:[{ko:'문화 교류가 활발해요.', vi:'Giao lưu văn hoá sôi nổi.'}]},
+      {ko:'경쟁', rom:'gyeongjaeng', vi:'sự cạnh tranh', pos:'danh từ', hanja:'競爭', hv:'cạnh tranh', examples:[{ko:'경쟁이 치열해요.', vi:'Cạnh tranh gay gắt.'}]},
+      {ko:'협력', rom:'hyeomnyeok', vi:'sự hợp tác', pos:'danh từ', hanja:'協力', hv:'hiệp lực', examples:[{ko:'국가 간 협력이 필요해요.', vi:'Cần hợp tác giữa các quốc gia.'}]},
+      {ko:'무역', rom:'muyeok', vi:'thương mại, mậu dịch', pos:'danh từ', hanja:'貿易', hv:'mậu dịch', examples:[{ko:'무역이 늘어났어요.', vi:'Thương mại tăng lên.'}]},
+      {ko:'수출', rom:'suchul', vi:'xuất khẩu', pos:'danh từ', hanja:'輸出', hv:'thâu xuất', examples:[{ko:'수출이 증가했어요.', vi:'Xuất khẩu tăng.'}]},
+      {ko:'수입', rom:'suip', vi:'nhập khẩu', pos:'danh từ', hanja:'輸入', hv:'thâu nhập', examples:[{ko:'원자재를 수입해요.', vi:'Nhập khẩu nguyên liệu.'}]},
+      {ko:'다문화', rom:'damunhwa', vi:'đa văn hoá', pos:'danh từ', hanja:'多文化', hv:'đa văn hoá', examples:[{ko:'다문화 사회가 됐어요.', vi:'Đã thành xã hội đa văn hoá.'}]},
+      {ko:'선진국', rom:'seonjinguk', vi:'nước phát triển', pos:'danh từ', hanja:'先進國', hv:'tiên tiến quốc', examples:[{ko:'선진국의 제도를 배워요.', vi:'Học thể chế của nước phát triển.'}]},
+      {ko:'경계', rom:'gyeonggye', vi:'ranh giới, biên giới', pos:'danh từ', hanja:'境界', hv:'cảnh giới', examples:[{ko:'국경의 경계가 흐려져요.', vi:'Ranh giới biên giới mờ dần.'}]},
+      {ko:'정체성', rom:'jeongcheseong', vi:'bản sắc, căn tính', pos:'danh từ', hanja:'正體性', hv:'chính thể tính', examples:[{ko:'문화 정체성을 지켜요.', vi:'Giữ gìn bản sắc văn hoá.'}]},
+      {ko:'진행되다', rom:'jinhaengdoeda', vi:'diễn ra, tiến hành', pos:'động từ', hanja:'進行—', hv:'tiến hành', examples:[{ko:'회담이 순조롭게 진행돼요.', vi:'Hội đàm diễn ra thuận lợi.'}]},
+      {ko:'활발하다', rom:'hwalbalhada', vi:'sôi nổi, tích cực', pos:'tính từ', hanja:'活潑—', hv:'hoạt bát', examples:[{ko:'토론이 활발해요.', vi:'Buổi thảo luận sôi nổi.'}]},
+      {ko:'확산되다', rom:'hwaksandoeda', vi:'lan rộng, khuếch tán', pos:'động từ', hanja:'擴散—', hv:'khuếch tán', examples:[{ko:'한류가 세계로 확산돼요.', vi:'Làn sóng Hàn lan ra thế giới.'}]},
+      {ko:'치열하다', rom:'chiyeolhada', vi:'gay gắt, khốc liệt', pos:'tính từ', hanja:'熾烈—', hv:'sí liệt', examples:[{ko:'경쟁이 치열해졌어요.', vi:'Cạnh tranh trở nên khốc liệt.'}]}
+    ],
+    dialogue:[
+      {sp:'교수', ko:'세계화가 우리 삶을 어떻게 바꿨을까요?', vi:'Toàn cầu hoá đã thay đổi đời sống ta ra sao?'},
+      {sp:'꾸언', ko:'경제뿐 아니라 문화도 활발하게 교류하게 됐어요.', vi:'Không chỉ kinh tế mà văn hoá cũng giao lưu sôi nổi.'},
+      {sp:'교수', ko:'긍정적인 면만 있을까요?', vi:'Chỉ có mặt tích cực thôi sao?'},
+      {sp:'꾸언', ko:'세계가 가까워진 만큼 경쟁도 치열해졌어요.', vi:'Thế giới gần lại thì cạnh tranh cũng khốc liệt hơn.'},
+      {sp:'교수', ko:'그래도 교류함으로써 서로 이해가 깊어지겠지요.', vi:'Nhưng qua giao lưu, sự hiểu biết sẽ sâu hơn.'}
+    ]
+  },
+  {
+    no:4, level:'cao-cap-1', ko:'법과 제도', vi:'Luật pháp và thể chế', rom:'beop-gwa jedo',
+    skill:'Bàn về pháp luật, quyền lợi và nghĩa vụ công dân', pron:'Đọc văn bản trang trọng',
+    culture:'Ý thức tuân thủ pháp luật và 청원 (kiến nghị) ở Hàn',
+    grammar:[
+      { form:'V + (으)ㄴ 이상', vi:'một khi đã ... thì', note:'Điều kiện đã xác lập kéo theo hệ quả.',
+        ex:{ko:'약속한 이상 지켜야 해요.', vi:'Một khi đã hứa thì phải giữ.'} },
+      { form:'A/V + (으)ㄹ 수밖에 없다', vi:'buộc phải, không còn cách khác', note:'Kết quả tất yếu.',
+        ex:{ko:'법이 그러니 따를 수밖에 없어요.', vi:'Luật đã vậy nên đành phải theo.'} },
+      { form:'V + 도록 하다', vi:'quy định phải, hãy làm cho', note:'Đưa ra quy tắc/ chỉ thị.',
+        ex:{ko:'규칙을 지키도록 해야 해요.', vi:'Phải làm sao để tuân thủ quy tắc.'} },
+      { form:'A/V + (으)ㄹ지언정', vi:'thà ... chứ nhất định không', note:'Nhượng bộ cực đoan (văn viết).',
+        ex:{ko:'손해를 볼지언정 법은 어기지 않아요.', vi:'Thà chịu thiệt chứ không phạm luật.'} }
+    ],
+    vocab:[
+      {ko:'법', rom:'beop', vi:'luật, pháp luật', pos:'danh từ', hanja:'法', hv:'pháp', examples:[{ko:'모두 법 앞에 평등해요.', vi:'Mọi người bình đẳng trước pháp luật.'}]},
+      {ko:'제도', rom:'jedo', vi:'thể chế, chế độ', pos:'danh từ', hanja:'制度', hv:'chế độ', examples:[{ko:'새 제도가 시행됐어요.', vi:'Chế độ mới đã được thi hành.'}]},
+      {ko:'규칙', rom:'gyuchik', vi:'quy tắc', pos:'danh từ', hanja:'規則', hv:'quy tắc', examples:[{ko:'규칙을 어기면 안 돼요.', vi:'Không được vi phạm quy tắc.'}]},
+      {ko:'권리', rom:'gwolli', vi:'quyền lợi', pos:'danh từ', hanja:'權利', hv:'quyền lợi', examples:[{ko:'권리를 주장했어요.', vi:'Tôi đòi quyền lợi của mình.'}]},
+      {ko:'의무', rom:'uimu', vi:'nghĩa vụ', pos:'danh từ', hanja:'義務', hv:'nghĩa vụ', examples:[{ko:'납세는 국민의 의무예요.', vi:'Nộp thuế là nghĩa vụ công dân.'}]},
+      {ko:'시행하다', rom:'sihaenghada', vi:'thi hành, áp dụng', pos:'động từ', hanja:'施行—', hv:'thi hành', examples:[{ko:'법을 시행해요.', vi:'Thi hành luật.'}]},
+      {ko:'위반하다', rom:'wibanhada', vi:'vi phạm', pos:'động từ', hanja:'違反—', hv:'vi phản', examples:[{ko:'교통 법규를 위반했어요.', vi:'Tôi đã vi phạm luật giao thông.'}]},
+      {ko:'처벌하다', rom:'cheobeolhada', vi:'xử phạt', pos:'động từ', hanja:'處罰—', hv:'xử phạt', examples:[{ko:'위반자를 처벌해요.', vi:'Xử phạt người vi phạm.'}]},
+      {ko:'보장하다', rom:'bojanghada', vi:'bảo đảm', pos:'động từ', hanja:'保障—', hv:'bảo chướng', examples:[{ko:'자유를 보장해요.', vi:'Bảo đảm tự do.'}]},
+      {ko:'공정하다', rom:'gongjeonghada', vi:'công bằng, công chính', pos:'tính từ', hanja:'公正—', hv:'công chính', examples:[{ko:'재판이 공정해야 해요.', vi:'Phiên toà phải công bằng.'}]},
+      {ko:'평등', rom:'pyeongdeung', vi:'bình đẳng', pos:'danh từ', hanja:'平等', hv:'bình đẳng', examples:[{ko:'남녀 평등을 추구해요.', vi:'Hướng tới bình đẳng nam nữ.'}]},
+      {ko:'질서', rom:'jilseo', vi:'trật tự', pos:'danh từ', hanja:'秩序', hv:'trật tự', examples:[{ko:'공공 질서를 지켜요.', vi:'Giữ gìn trật tự công cộng.'}]},
+      {ko:'책임', rom:'chaegim', vi:'trách nhiệm', pos:'danh từ', hanja:'責任', hv:'trách nhiệm', examples:[{ko:'책임을 져야 해요.', vi:'Phải chịu trách nhiệm.'}]},
+      {ko:'준수하다', rom:'junsuhada', vi:'tuân thủ', pos:'động từ', hanja:'遵守—', hv:'tuân thủ', examples:[{ko:'법을 준수해요.', vi:'Tuân thủ pháp luật.'}]},
+      {ko:'개정하다', rom:'gaejeonghada', vi:'sửa đổi (luật)', pos:'động từ', hanja:'改正—', hv:'cải chính', examples:[{ko:'법을 개정했어요.', vi:'Luật đã được sửa đổi.'}]},
+      {ko:'엄격하다', rom:'eomgyeokhada', vi:'nghiêm khắc, chặt chẽ', pos:'tính từ', hanja:'嚴格—', hv:'nghiêm cách', examples:[{ko:'규정이 엄격해요.', vi:'Quy định nghiêm ngặt.'}]}
+    ],
+    dialogue:[
+      {sp:'민수', ko:'새로 생긴 제도가 좀 불편하지 않아요?', vi:'Chế độ mới có hơi bất tiện không?'},
+      {sp:'꾸언', ko:'불편해도 법이 그러니 따를 수밖에 없어요.', vi:'Bất tiện thì luật vậy nên đành theo thôi.'},
+      {sp:'민수', ko:'그래도 다 같이 지켜야 질서가 잡히겠죠.', vi:'Nhưng cùng tuân thủ thì mới có trật tự.'},
+      {sp:'꾸언', ko:'맞아요. 시민이 된 이상 의무를 다해야죠.', vi:'Đúng. Đã là công dân thì phải làm tròn nghĩa vụ.'},
+      {sp:'민수', ko:'저는 손해를 볼지언정 규칙은 어기지 않아요.', vi:'Tôi thà chịu thiệt chứ không phá luật.'}
+    ]
+  },
+  {
+    no:5, level:'cao-cap-1', ko:'과학 기술의 발달', vi:'Sự phát triển khoa học kỹ thuật', rom:'gwahak gisurui baldal',
+    skill:'Phân tích lợi - hại của tiến bộ công nghệ', pron:'Đọc thuật ngữ chuyên ngành',
+    culture:'Hàn Quốc: cường quốc bán dẫn và tự động hoá',
+    grammar:[
+      { form:'A/V + (으)ㄴ/는 나머지', vi:'vì quá ... nên (kết quả)', note:'Nguyên nhân thái quá dẫn tới hệ quả.',
+        ex:{ko:'편리함을 추구한 나머지 부작용이 생겼어요.', vi:'Vì mải theo đuổi tiện lợi mà sinh hệ luỵ.'} },
+      { form:'V + (으)ㅁ에 따라', vi:'theo (đà, quá trình)', note:'Cùng biến đổi theo tiến trình.',
+        ex:{ko:'기술이 발달함에 따라 일자리가 줄어요.', vi:'Công nghệ phát triển thì việc làm giảm.'} },
+      { form:'A/V + 는 한', vi:'chừng nào còn, miễn là', note:'Điều kiện duy trì.',
+        ex:{ko:'인간이 통제하는 한 안전해요.', vi:'Chừng nào con người còn kiểm soát thì an toàn.'} },
+      { form:'A/V + (으)ㄹ 따름이다', vi:'chỉ ... mà thôi (trang trọng)', note:'Giới hạn duy nhất, văn viết.',
+        ex:{ko:'우리는 대비할 따름이에요.', vi:'Chúng ta chỉ có thể chuẩn bị ứng phó mà thôi.'} }
+    ],
+    vocab:[
+      {ko:'발달', rom:'baldal', vi:'sự phát triển, phát đạt', pos:'danh từ', hanja:'發達', hv:'phát đạt', examples:[{ko:'기술 발달이 눈부셔요.', vi:'Sự phát triển công nghệ rực rỡ.'}]},
+      {ko:'혁신', rom:'hyeoksin', vi:'sự đổi mới, cách tân', pos:'danh từ', hanja:'革新', hv:'cách tân', examples:[{ko:'기술 혁신을 이뤘어요.', vi:'Đã đạt được đổi mới công nghệ.'}]},
+      {ko:'자동화', rom:'jadonghwa', vi:'tự động hoá', pos:'danh từ', hanja:'自動化', hv:'tự động hoá', examples:[{ko:'공장이 자동화됐어요.', vi:'Nhà máy đã tự động hoá.'}]},
+      {ko:'인공지능', rom:'ingongjineung', vi:'trí tuệ nhân tạo', pos:'danh từ', hanja:'人工知能', hv:'nhân công trí năng', examples:[{ko:'인공지능이 일상에 스며들어요.', vi:'AI thấm vào đời sống.'}]},
+      {ko:'첨단', rom:'cheomdan', vi:'tiên tiến, tối tân', pos:'danh từ', hanja:'尖端', hv:'tiêm đoan', examples:[{ko:'첨단 산업이 발전해요.', vi:'Ngành công nghiệp tối tân phát triển.'}]},
+      {ko:'통제하다', rom:'tongjehada', vi:'kiểm soát, khống chế', pos:'động từ', hanja:'統制—', hv:'thống chế', examples:[{ko:'위험을 통제해야 해요.', vi:'Phải kiểm soát rủi ro.'}]},
+      {ko:'대체하다', rom:'daechehada', vi:'thay thế', pos:'động từ', hanja:'代替—', hv:'đại thế', examples:[{ko:'기계가 노동을 대체해요.', vi:'Máy móc thay thế lao động.'}]},
+      {ko:'윤리', rom:'yulli', vi:'đạo đức, luân lý', pos:'danh từ', hanja:'倫理', hv:'luân lý', examples:[{ko:'과학 윤리가 중요해요.', vi:'Đạo đức khoa học rất quan trọng.'}]},
+      {ko:'위험성', rom:'wiheomseong', vi:'tính rủi ro, nguy cơ', pos:'danh từ', hanja:'危險性', hv:'nguy hiểm tính', examples:[{ko:'위험성을 간과했어요.', vi:'Đã xem nhẹ nguy cơ.'}]},
+      {ko:'혜택', rom:'hyetaek', vi:'lợi ích, ưu đãi', pos:'danh từ', hanja:'惠澤', hv:'huệ trạch', examples:[{ko:'기술의 혜택을 누려요.', vi:'Hưởng lợi ích của công nghệ.'}]},
+      {ko:'부작용', rom:'bujagyong', vi:'tác dụng phụ, hệ luỵ', pos:'danh từ', hanja:'副作用', hv:'phó tác dụng', examples:[{ko:'부작용을 최소화해요.', vi:'Giảm thiểu hệ luỵ.'}]},
+      {ko:'일자리', rom:'iljari', vi:'việc làm, chỗ làm', pos:'danh từ', examples:[{ko:'일자리가 줄어들어요.', vi:'Việc làm giảm đi.'}]},
+      {ko:'대비하다', rom:'daebihada', vi:'chuẩn bị ứng phó', pos:'động từ', hanja:'對備—', hv:'đối bị', examples:[{ko:'변화에 대비해요.', vi:'Chuẩn bị cho thay đổi.'}]},
+      {ko:'스며들다', rom:'seumyeodeulda', vi:'thấm vào, len lỏi', pos:'động từ', examples:[{ko:'기술이 생활에 스며들었어요.', vi:'Công nghệ đã thấm vào cuộc sống.'}]},
+      {ko:'간과하다', rom:'gangwahada', vi:'xem nhẹ, bỏ qua', pos:'động từ', hanja:'看過—', hv:'khán quá', examples:[{ko:'위험을 간과하면 안 돼요.', vi:'Không được xem nhẹ rủi ro.'}]},
+      {ko:'눈부시다', rom:'nunbusida', vi:'chói lọi, rực rỡ', pos:'tính từ', examples:[{ko:'성장이 눈부셔요.', vi:'Sự tăng trưởng rực rỡ.'}]}
+    ],
+    dialogue:[
+      {sp:'교수', ko:'인공지능의 발달을 어떻게 보세요?', vi:'Em nhìn nhận sự phát triển của AI thế nào?'},
+      {sp:'꾸언', ko:'혜택도 크지만 일자리가 줄어드는 게 걱정이에요.', vi:'Lợi ích lớn nhưng em lo việc làm giảm.'},
+      {sp:'교수', ko:'위험성은 없을까요?', vi:'Không có nguy cơ nào sao?'},
+      {sp:'꾸언', ko:'인간이 통제하는 한 큰 문제는 없다고 봐요.', vi:'Em cho rằng chừng nào con người còn kiểm soát thì không lớn.'},
+      {sp:'교수', ko:'결국 우리는 변화에 대비할 따름이지요.', vi:'Rốt cuộc chúng ta chỉ có thể chuẩn bị ứng phó.'}
+    ]
+  },
+  {
+    no:6, level:'cao-cap-1', ko:'환경과 지속 가능성', vi:'Môi trường và tính bền vững', rom:'hwangyeong-gwa jisok ganeungseong',
+    skill:'Đề xuất giải pháp phát triển bền vững', pron:'Nhấn mạnh trong bài thuyết trình',
+    culture:'Chính sách 탄소중립 (trung hoà carbon) của Hàn Quốc',
+    grammar:[
+      { form:'V + 지 않는 한', vi:'chừng nào chưa ... thì (không)', note:'Điều kiện phủ định cần thiết.',
+        ex:{ko:'노력하지 않는 한 나아지지 않아요.', vi:'Chừng nào chưa nỗ lực thì không khá lên.'} },
+      { form:'N + (으)로 말미암아', vi:'do, bởi (nguyên nhân)', note:'Nêu nguyên nhân trang trọng.',
+        ex:{ko:'온난화로 말미암아 재해가 늘었어요.', vi:'Do nóng lên mà thiên tai tăng.'} },
+      { form:'A/V + 기는커녕', vi:'nói gì đến ..., đừng nói', note:'Phủ định cả điều nhỏ hơn.',
+        ex:{ko:'줄기는커녕 오히려 늘었어요.', vi:'Đừng nói giảm, còn tăng thêm.'} },
+      { form:'V + 아/어야만', vi:'chỉ khi ... mới (nhấn mạnh)', note:'Điều kiện duy nhất, nhấn mạnh.',
+        ex:{ko:'함께 실천해야만 효과가 있어요.', vi:'Chỉ khi cùng hành động mới có hiệu quả.'} }
+    ],
+    vocab:[
+      {ko:'지속', rom:'jisok', vi:'sự duy trì, bền vững', pos:'danh từ', hanja:'持續', hv:'trì tục', examples:[{ko:'지속 가능한 발전이 목표예요.', vi:'Phát triển bền vững là mục tiêu.'}]},
+      {ko:'자원', rom:'jawon', vi:'tài nguyên', pos:'danh từ', hanja:'資源', hv:'tư nguyên', examples:[{ko:'자원이 고갈되고 있어요.', vi:'Tài nguyên đang cạn kiệt.'}]},
+      {ko:'에너지', rom:'eneoji', vi:'năng lượng', pos:'danh từ', examples:[{ko:'재생 에너지를 늘려요.', vi:'Tăng năng lượng tái tạo.'}]},
+      {ko:'온난화', rom:'onnanhwa', vi:'sự nóng lên (toàn cầu)', pos:'danh từ', hanja:'溫暖化', hv:'ôn noãn hoá', examples:[{ko:'지구 온난화가 심각해요.', vi:'Nóng lên toàn cầu nghiêm trọng.'}]},
+      {ko:'탄소', rom:'tanso', vi:'carbon', pos:'danh từ', hanja:'炭素', hv:'thán tố', examples:[{ko:'탄소 배출을 줄여요.', vi:'Giảm phát thải carbon.'}]},
+      {ko:'배출', rom:'baechul', vi:'sự phát thải, thải ra', pos:'danh từ', hanja:'排出', hv:'bài xuất', examples:[{ko:'배출량을 규제해요.', vi:'Quản lý lượng phát thải.'}]},
+      {ko:'오염', rom:'oyeom', vi:'ô nhiễm', pos:'danh từ', hanja:'汚染', hv:'ô nhiễm', examples:[{ko:'수질 오염이 문제예요.', vi:'Ô nhiễm nguồn nước là vấn đề.'}]},
+      {ko:'재생', rom:'jaesaeng', vi:'tái sinh, tái tạo', pos:'danh từ', hanja:'再生', hv:'tái sinh', examples:[{ko:'재생 에너지가 늘었어요.', vi:'Năng lượng tái tạo tăng.'}]},
+      {ko:'고갈되다', rom:'gogaldoeda', vi:'cạn kiệt', pos:'động từ', hanja:'枯渴—', hv:'khô kiệt', examples:[{ko:'석유가 고갈될 거예요.', vi:'Dầu mỏ sẽ cạn kiệt.'}]},
+      {ko:'보존하다', rom:'bojonhada', vi:'bảo tồn', pos:'động từ', hanja:'保存—', hv:'bảo tồn', examples:[{ko:'생태계를 보존해요.', vi:'Bảo tồn hệ sinh thái.'}]},
+      {ko:'규제하다', rom:'gyujehada', vi:'quản chế, hạn chế', pos:'động từ', hanja:'規制—', hv:'quy chế', examples:[{ko:'공해를 규제해요.', vi:'Hạn chế ô nhiễm.'}]},
+      {ko:'생태계', rom:'saengtaegye', vi:'hệ sinh thái', pos:'danh từ', hanja:'生態系', hv:'sinh thái hệ', examples:[{ko:'생태계가 파괴됐어요.', vi:'Hệ sinh thái bị phá huỷ.'}]},
+      {ko:'재해', rom:'jaehae', vi:'thiên tai, thảm hoạ', pos:'danh từ', hanja:'災害', hv:'tai hại', examples:[{ko:'자연 재해가 잦아요.', vi:'Thiên tai xảy ra thường xuyên.'}]},
+      {ko:'실천하다', rom:'silcheonhada', vi:'thực hành, hành động', pos:'động từ', hanja:'實踐—', hv:'thực tiễn', examples:[{ko:'작은 것부터 실천해요.', vi:'Hành động từ việc nhỏ.'}]},
+      {ko:'심각하다', rom:'simgakhada', vi:'nghiêm trọng', pos:'tính từ', hanja:'深刻—', hv:'thâm khắc', examples:[{ko:'상황이 심각해요.', vi:'Tình hình nghiêm trọng.'}]},
+      {ko:'파괴되다', rom:'pagoedoeda', vi:'bị phá huỷ', pos:'động từ', hanja:'破壞—', hv:'phá hoại', examples:[{ko:'환경이 파괴됐어요.', vi:'Môi trường bị phá huỷ.'}]}
+    ],
+    dialogue:[
+      {sp:'교수', ko:'탄소 배출이 줄고 있나요?', vi:'Lượng phát thải carbon có giảm không?'},
+      {sp:'꾸언', ko:'줄기는커녕 오히려 늘고 있어요.', vi:'Đừng nói giảm, còn đang tăng.'},
+      {sp:'교수', ko:'원인이 무엇일까요?', vi:'Nguyên nhân là gì?'},
+      {sp:'꾸언', ko:'산업화로 말미암아 소비가 늘었기 때문이에요.', vi:'Do công nghiệp hoá khiến tiêu thụ tăng.'},
+      {sp:'교수', ko:'모두가 함께 실천해야만 효과가 있겠지요.', vi:'Chỉ khi mọi người cùng hành động mới hiệu quả.'}
+    ]
+  },
+  {
+    no:7, level:'cao-cap-1', ko:'대중 매체와 여론', vi:'Truyền thông đại chúng và dư luận', rom:'daejung maeche-wa yeoron',
+    skill:'Phân tích vai trò truyền thông, phản biện tin tức', pron:'Ngữ điệu phản biện',
+    culture:'Báo chí, 가짜뉴스 và văn hoá kiểm chứng ở Hàn',
+    grammar:[
+      { form:'A/V + (으)ㄴ/는 척하다', vi:'giả vờ, tỏ ra', note:'Giả vờ trạng thái không thật.',
+        ex:{ko:'객관적인 척하지만 편향돼 있어요.', vi:'Tỏ ra khách quan nhưng lại thiên lệch.'} },
+      { form:'N + 에 불과하다', vi:'chỉ là, chẳng qua là', note:'Đánh giá thấp mức độ.',
+        ex:{ko:'그건 소문에 불과해요.', vi:'Đó chỉ là tin đồn thôi.'} },
+      { form:'A/V + (으)ㄹ 리(가) 없다', vi:'không thể nào, làm gì có chuyện', note:'Phủ định khả năng.',
+        ex:{ko:'그 뉴스가 사실일 리가 없어요.', vi:'Tin đó không thể là thật.'} },
+      { form:'V + 는 데(에) 있다', vi:'nằm ở việc, cốt ở', note:'Nêu bản chất/ trọng tâm.',
+        ex:{ko:'언론의 역할은 진실을 알리는 데에 있어요.', vi:'Vai trò báo chí nằm ở việc đưa sự thật.'} }
+    ],
+    vocab:[
+      {ko:'매체', rom:'maeche', vi:'phương tiện truyền thông', pos:'danh từ', hanja:'媒體', hv:'môi thể', examples:[{ko:'다양한 매체를 활용해요.', vi:'Tận dụng nhiều phương tiện.'}]},
+      {ko:'여론', rom:'yeoron', vi:'dư luận', pos:'danh từ', hanja:'輿論', hv:'dư luận', examples:[{ko:'여론이 들끓었어요.', vi:'Dư luận sục sôi.'}]},
+      {ko:'보도', rom:'bodo', vi:'sự đưa tin', pos:'danh từ', hanja:'報道', hv:'báo đạo', examples:[{ko:'과장 보도가 많아요.', vi:'Nhiều tin thổi phồng.'}]},
+      {ko:'객관적', rom:'gaekgwanjeok', vi:'khách quan', pos:'danh từ', hanja:'客觀的', hv:'khách quan đích', examples:[{ko:'객관적으로 판단해요.', vi:'Phán đoán khách quan.'}]},
+      {ko:'주관적', rom:'jugwanjeok', vi:'chủ quan', pos:'danh từ', hanja:'主觀的', hv:'chủ quan đích', examples:[{ko:'주관적인 의견이에요.', vi:'Đó là ý kiến chủ quan.'}]},
+      {ko:'편향', rom:'pyeonhyang', vi:'sự thiên lệch', pos:'danh từ', hanja:'偏向', hv:'thiên hướng', examples:[{ko:'보도에 편향이 있어요.', vi:'Bản tin có sự thiên lệch.'}]},
+      {ko:'왜곡하다', rom:'waegokhada', vi:'bóp méo, xuyên tạc', pos:'động từ', hanja:'歪曲—', hv:'oai khúc', examples:[{ko:'사실을 왜곡했어요.', vi:'Đã bóp méo sự thật.'}]},
+      {ko:'조작하다', rom:'jojakhada', vi:'nguỵ tạo, thao túng', pos:'động từ', hanja:'造作—', hv:'tạo tác', examples:[{ko:'여론을 조작해요.', vi:'Thao túng dư luận.'}]},
+      {ko:'검증하다', rom:'geomjeunghada', vi:'kiểm chứng', pos:'động từ', hanja:'檢證—', hv:'kiểm chứng', examples:[{ko:'사실을 검증해요.', vi:'Kiểm chứng sự thật.'}]},
+      {ko:'신뢰', rom:'silloe', vi:'sự tin cậy', pos:'danh từ', hanja:'信賴', hv:'tín lại', examples:[{ko:'언론의 신뢰가 떨어졌어요.', vi:'Niềm tin vào báo chí giảm.'}]},
+      {ko:'진실', rom:'jinsil', vi:'sự thật', pos:'danh từ', hanja:'眞實', hv:'chân thực', examples:[{ko:'진실을 밝혀요.', vi:'Làm sáng tỏ sự thật.'}]},
+      {ko:'소문', rom:'somun', vi:'tin đồn', pos:'danh từ', hanja:'所聞', hv:'sở văn', examples:[{ko:'소문이 퍼졌어요.', vi:'Tin đồn lan ra.'}]},
+      {ko:'영향력', rom:'yeonghyangnyeok', vi:'sức ảnh hưởng', pos:'danh từ', hanja:'影響力', hv:'ảnh hưởng lực', examples:[{ko:'매체의 영향력이 커요.', vi:'Sức ảnh hưởng của truyền thông lớn.'}]},
+      {ko:'비판하다', rom:'bipanhada', vi:'phê phán, phản biện', pos:'động từ', hanja:'批判—', hv:'phê phán', examples:[{ko:'날카롭게 비판했어요.', vi:'Phê phán sắc bén.'}]},
+      {ko:'과장하다', rom:'gwajanghada', vi:'phóng đại, thổi phồng', pos:'động từ', hanja:'誇張—', hv:'khoa trương', examples:[{ko:'사실을 과장해요.', vi:'Thổi phồng sự thật.'}]},
+      {ko:'퍼지다', rom:'peojida', vi:'lan ra, lan truyền', pos:'động từ', examples:[{ko:'가짜뉴스가 빨리 퍼져요.', vi:'Tin giả lan rất nhanh.'}]}
+    ],
+    dialogue:[
+      {sp:'수진', ko:'그 기사 봤어요? 충격적이던데요.', vi:'Cậu xem bài báo đó chưa? Gây sốc lắm.'},
+      {sp:'꾸언', ko:'글쎄요, 그게 사실일 리가 없어요.', vi:'Chưa chắc, tin đó không thể là thật.'},
+      {sp:'수진', ko:'객관적인 척하지만 편향된 것 같아요.', vi:'Tỏ ra khách quan nhưng có vẻ thiên lệch.'},
+      {sp:'꾸언', ko:'검증하기 전에는 소문에 불과해요.', vi:'Trước khi kiểm chứng thì chỉ là tin đồn.'},
+      {sp:'수진', ko:'언론의 역할은 진실을 알리는 데에 있는데 말이죠.', vi:'Mà vai trò báo chí cốt ở việc đưa sự thật chứ.'}
+    ]
+  },
+  {
+    no:8, level:'cao-cap-1', ko:'인간관계와 심리', vi:'Quan hệ con người và tâm lý', rom:'ingan-gwangye-wa simni',
+    skill:'Phân tích tâm lý trong quan hệ, đưa lời khuyên sâu', pron:'Ngữ điệu thấu cảm',
+    culture:'Văn hoá 눈치 (đọc ý) và giữ hoà khí ở Hàn',
+    grammar:[
+      { form:'A/V + 다시피', vi:'như (bạn) đã, đúng như', note:'Xác nhận điều người nghe đã biết/ thấy.',
+        ex:{ko:'아시다시피 관계는 노력이 필요해요.', vi:'Như anh biết, quan hệ cần nỗ lực.'} },
+      { form:'V + 았/었더라면', vi:'giá như đã ... thì', note:'Giả định trái quá khứ, tiếc nuối.',
+        ex:{ko:'조금만 배려했더라면 좋았을 거예요.', vi:'Giá quan tâm hơn chút thì đã tốt.'} },
+      { form:'A/V + (으)ㄹ 법하다', vi:'có lẽ, dễ hiểu khi', note:'Đánh giá điều gì hợp lý/ có khả năng.',
+        ex:{ko:'서운할 법도 해요.', vi:'Chạnh lòng cũng là điều dễ hiểu.'} },
+      { form:'V + 는 둥 마는 둥', vi:'làm cho có, qua loa', note:'Làm không dứt khoát, hời hợt.',
+        ex:{ko:'대답을 하는 둥 마는 둥 했어요.', vi:'Trả lời qua loa cho có.'} }
+    ],
+    vocab:[
+      {ko:'관계', rom:'gwangye', vi:'quan hệ', pos:'danh từ', hanja:'關係', hv:'quan hệ', examples:[{ko:'관계를 회복하고 싶어요.', vi:'Tôi muốn hàn gắn quan hệ.'}]},
+      {ko:'신뢰', rom:'silloe', vi:'sự tin tưởng', pos:'danh từ', hanja:'信賴', hv:'tín lại', examples:[{ko:'신뢰가 바탕이에요.', vi:'Niềm tin là nền tảng.'}]},
+      {ko:'배려', rom:'baeryeo', vi:'sự quan tâm, để ý', pos:'danh từ', hanja:'配慮', hv:'phối lự', examples:[{ko:'배려가 부족했어요.', vi:'Tôi đã thiếu quan tâm.'}]},
+      {ko:'공감', rom:'gonggam', vi:'sự đồng cảm', pos:'danh từ', hanja:'共感', hv:'cộng cảm', examples:[{ko:'공감 능력이 뛰어나요.', vi:'Khả năng đồng cảm nổi bật.'}]},
+      {ko:'갈등', rom:'galdeung', vi:'mâu thuẫn', pos:'danh từ', hanja:'葛藤', hv:'cát đằng', examples:[{ko:'갈등이 깊어졌어요.', vi:'Mâu thuẫn sâu thêm.'}]},
+      {ko:'오해', rom:'ohae', vi:'sự hiểu lầm', pos:'danh từ', hanja:'誤解', hv:'ngộ giải', examples:[{ko:'오해를 풀었어요.', vi:'Tôi đã gỡ hiểu lầm.'}]},
+      {ko:'상처', rom:'sangcheo', vi:'vết thương (lòng)', pos:'danh từ', hanja:'傷處', hv:'thương xứ', examples:[{ko:'말로 상처를 받았어요.', vi:'Tôi bị tổn thương vì lời nói.'}]},
+      {ko:'회복하다', rom:'hoebokhada', vi:'phục hồi, hàn gắn', pos:'động từ', hanja:'回復—', hv:'hồi phục', examples:[{ko:'관계를 회복했어요.', vi:'Đã hàn gắn quan hệ.'}]},
+      {ko:'심리', rom:'simni', vi:'tâm lý', pos:'danh từ', hanja:'心理', hv:'tâm lý', examples:[{ko:'상대의 심리를 이해해요.', vi:'Hiểu tâm lý đối phương.'}]},
+      {ko:'눈치', rom:'nunchi', vi:'sự tinh ý, đọc ý', pos:'danh từ', examples:[{ko:'눈치가 빨라요.', vi:'Cậu ấy rất tinh ý.'}]},
+      {ko:'거리감', rom:'georigam', vi:'sự xa cách', pos:'danh từ', hanja:'距離感', hv:'cự ly cảm', examples:[{ko:'거리감이 느껴져요.', vi:'Cảm thấy có sự xa cách.'}]},
+      {ko:'솔직하다', rom:'soljikhada', vi:'thẳng thắn, chân thành', pos:'tính từ', hanja:'率直—', hv:'suất trực', examples:[{ko:'솔직한 대화가 필요해요.', vi:'Cần trò chuyện chân thành.'}]},
+      {ko:'유대', rom:'yudae', vi:'sự gắn kết', pos:'danh từ', hanja:'紐帶', hv:'nữu đới', examples:[{ko:'가족 간의 유대가 깊어요.', vi:'Sự gắn kết gia đình sâu sắc.'}]},
+      {ko:'다가가다', rom:'dagagada', vi:'tiến lại gần, chủ động gần', pos:'động từ', examples:[{ko:'먼저 다가갔어요.', vi:'Tôi đã chủ động lại gần trước.'}]},
+      {ko:'서운하다', rom:'seounhada', vi:'chạnh lòng, phật ý', pos:'tính từ', examples:[{ko:'조금 서운했어요.', vi:'Tôi hơi chạnh lòng.'}]},
+      {ko:'예민하다', rom:'yeminhada', vi:'nhạy cảm', pos:'tính từ', hanja:'銳敏—', hv:'nhuệ mẫn', examples:[{ko:'요즘 좀 예민해요.', vi:'Dạo này tôi hơi nhạy cảm.'}]}
+    ],
+    dialogue:[
+      {sp:'수진', ko:'친구랑 사이가 좀 멀어진 것 같아요.', vi:'Hình như tôi với bạn xa cách rồi.'},
+      {sp:'꾸언', ko:'무슨 일 있었어요? 서운할 법도 하네요.', vi:'Có chuyện gì à? Chạnh lòng cũng dễ hiểu.'},
+      {sp:'수진', ko:'제가 바빠서 연락을 하는 둥 마는 둥 했거든요.', vi:'Tôi bận nên liên lạc qua loa cho có.'},
+      {sp:'꾸언', ko:'아시다시피 관계는 배려가 필요하잖아요.', vi:'Như cậu biết, quan hệ cần sự quan tâm mà.'},
+      {sp:'수진', ko:'먼저 다가갔더라면 좋았을 텐데 후회돼요.', vi:'Giá tôi chủ động trước thì tốt, giờ hối hận.'}
+    ]
+  },
+  {
+    no:9, level:'cao-cap-1', ko:'교육과 인재', vi:'Giáo dục và nhân tài', rom:'gyoyuk-gwa injae',
+    skill:'Bàn về giáo dục, đào tạo nhân tài, học suốt đời', pron:'Ngữ điệu thuyết trình học thuật',
+    culture:'Nhiệt huyết giáo dục (교육열) và 사교육 ở Hàn',
+    grammar:[
+      { form:'A/V + (으)ㄹ 뿐(만) 아니라', vi:'không những ... mà còn', note:'Bổ sung, nâng cấp.',
+        ex:{ko:'지식뿐 아니라 인성도 길러야 해요.', vi:'Không chỉ kiến thức mà nhân cách cũng phải rèn.'} },
+      { form:'V + 다시피 하다', vi:'gần như là', note:'Hành động ở mức gần đạt tới trạng thái.',
+        ex:{ko:'매일 밤을 새다시피 해요.', vi:'Hầu như đêm nào cũng thức trắng.'} },
+      { form:'A/V + (으)ㄴ/는 만큼', vi:'vì, tương xứng với', note:'Lý do/ mức độ tương ứng.',
+        ex:{ko:'투자한 만큼 성과가 나와요.', vi:'Đầu tư bao nhiêu thì thành quả bấy nhiêu.'} },
+      { form:'V + 기 나름이다', vi:'tuỳ ở cách, do mình', note:'Kết quả phụ thuộc cách làm.',
+        ex:{ko:'배움은 마음먹기 나름이에요.', vi:'Việc học tuỳ ở quyết tâm của mình.'} }
+    ],
+    vocab:[
+      {ko:'교육', rom:'gyoyuk', vi:'giáo dục', pos:'danh từ', hanja:'敎育', hv:'giáo dục', examples:[{ko:'교육의 질이 중요해요.', vi:'Chất lượng giáo dục quan trọng.'}]},
+      {ko:'인재', rom:'injae', vi:'nhân tài', pos:'danh từ', hanja:'人材', hv:'nhân tài', examples:[{ko:'인재를 양성해요.', vi:'Đào tạo nhân tài.'}]},
+      {ko:'양성하다', rom:'yangseonghada', vi:'đào tạo, bồi dưỡng', pos:'động từ', hanja:'養成—', hv:'dưỡng thành', examples:[{ko:'전문가를 양성해요.', vi:'Đào tạo chuyên gia.'}]},
+      {ko:'역량', rom:'yeongnyang', vi:'năng lực, tố chất', pos:'danh từ', hanja:'力量', hv:'lực lượng', examples:[{ko:'역량을 키워요.', vi:'Nâng cao năng lực.'}]},
+      {ko:'창의력', rom:'changuiryeok', vi:'sức sáng tạo', pos:'danh từ', hanja:'創意力', hv:'sáng ý lực', examples:[{ko:'창의력을 길러요.', vi:'Rèn óc sáng tạo.'}]},
+      {ko:'인성', rom:'inseong', vi:'nhân cách', pos:'danh từ', hanja:'人性', hv:'nhân tính', examples:[{ko:'인성 교육이 필요해요.', vi:'Cần giáo dục nhân cách.'}]},
+      {ko:'경쟁력', rom:'gyeongjaengnyeok', vi:'sức cạnh tranh', pos:'danh từ', hanja:'競爭力', hv:'cạnh tranh lực', examples:[{ko:'경쟁력을 갖춰야 해요.', vi:'Phải có sức cạnh tranh.'}]},
+      {ko:'주입식', rom:'juipsik', vi:'kiểu nhồi nhét', pos:'danh từ', hanja:'注入式', hv:'chú nhập thức', examples:[{ko:'주입식 교육을 벗어나요.', vi:'Thoát khỏi giáo dục nhồi nhét.'}]},
+      {ko:'평생교육', rom:'pyeongsaenggyoyuk', vi:'giáo dục suốt đời', pos:'danh từ', hanja:'平生敎育', hv:'bình sinh giáo dục', examples:[{ko:'평생교육이 중요해요.', vi:'Học suốt đời rất quan trọng.'}]},
+      {ko:'성적', rom:'seongjeok', vi:'thành tích, điểm số', pos:'danh từ', hanja:'成績', hv:'thành tích', examples:[{ko:'성적만 중시하면 안 돼요.', vi:'Không nên chỉ chú trọng điểm số.'}]},
+      {ko:'입시', rom:'ipsi', vi:'thi tuyển sinh', pos:'danh từ', hanja:'入試', hv:'nhập thí', examples:[{ko:'입시 경쟁이 치열해요.', vi:'Cạnh tranh thi cử khốc liệt.'}]},
+      {ko:'재능', rom:'jaeneung', vi:'tài năng', pos:'danh từ', hanja:'才能', hv:'tài năng', examples:[{ko:'재능을 발휘해요.', vi:'Phát huy tài năng.'}]},
+      {ko:'발휘하다', rom:'balhwihada', vi:'phát huy', pos:'động từ', hanja:'發揮—', hv:'phát huy', examples:[{ko:'실력을 발휘했어요.', vi:'Đã phát huy thực lực.'}]},
+      {ko:'길러 주다', rom:'gilleo juda', vi:'rèn giũa, nuôi dưỡng', pos:'động từ', examples:[{ko:'자신감을 길러 줘요.', vi:'Nuôi dưỡng sự tự tin.'}]},
+      {ko:'획일적', rom:'hoegiljeok', vi:'rập khuôn, đồng loạt', pos:'danh từ', hanja:'劃一的', hv:'hoạch nhất đích', examples:[{ko:'획일적인 교육이 문제예요.', vi:'Giáo dục rập khuôn là vấn đề.'}]},
+      {ko:'자율', rom:'jayul', vi:'sự tự chủ, tự giác', pos:'danh từ', hanja:'自律', hv:'tự luật', examples:[{ko:'자율 학습을 권장해요.', vi:'Khuyến khích tự học.'}]}
+    ],
+    dialogue:[
+      {sp:'교수', ko:'한국 교육의 문제가 뭐라고 생각하세요?', vi:'Em thấy vấn đề của giáo dục Hàn là gì?'},
+      {sp:'꾸언', ko:'성적만 중시하는 획일적 교육이 문제라고 봐요.', vi:'Em cho là giáo dục rập khuôn chỉ trọng điểm số.'},
+      {sp:'교수', ko:'그럼 어떻게 개선할 수 있을까요?', vi:'Vậy làm sao để cải thiện?'},
+      {sp:'꾸언', ko:'지식뿐 아니라 창의력과 인성도 길러야 해요.', vi:'Không chỉ kiến thức mà cả sáng tạo và nhân cách.'},
+      {sp:'교수', ko:'맞아요. 결국 배움은 마음먹기 나름이지요.', vi:'Đúng. Rốt cuộc việc học tuỳ ở quyết tâm.'}
+    ]
+  },
+  {
+    no:10, level:'cao-cap-1', ko:'문화 예술의 이해', vi:'Hiểu về văn hoá nghệ thuật', rom:'munhwa yesurui ihae',
+    skill:'Bình luận tác phẩm, bàn về vai trò của nghệ thuật', pron:'Ngữ điệu bình phẩm',
+    culture:'Nghệ thuật truyền thống (판소리, 한국화) và hiện đại',
+    grammar:[
+      { form:'A/V + (으)ㄹ 만큼', vi:'đến mức, đủ để', note:'Diễn tả mức độ.',
+        ex:{ko:'눈물이 날 만큼 아름다웠어요.', vi:'Đẹp đến mức rơi nước mắt.'} },
+      { form:'N + (이)야말로', vi:'chính là, mới thật là', note:'Nhấn mạnh đối tượng tiêu biểu.',
+        ex:{ko:'예술이야말로 마음의 양식이에요.', vi:'Nghệ thuật mới thật là món ăn tinh thần.'} },
+      { form:'A/V + 듯(이)', vi:'như thể, tựa như', note:'So sánh cách thức.',
+        ex:{ko:'물 흐르듯 자연스러워요.', vi:'Tự nhiên như nước chảy.'} },
+      { form:'V + 곤 하다', vi:'thường hay (lặp lại)', note:'Thói quen lặp lại.',
+        ex:{ko:'주말이면 미술관에 가곤 해요.', vi:'Cứ cuối tuần tôi thường đến bảo tàng.'} }
+    ],
+    vocab:[
+      {ko:'예술', rom:'yesul', vi:'nghệ thuật', pos:'danh từ', hanja:'藝術', hv:'nghệ thuật', examples:[{ko:'예술은 감동을 줘요.', vi:'Nghệ thuật đem lại cảm động.'}]},
+      {ko:'작품', rom:'jakpum', vi:'tác phẩm', pos:'danh từ', hanja:'作品', hv:'tác phẩm', examples:[{ko:'이 작품은 깊이가 있어요.', vi:'Tác phẩm này có chiều sâu.'}]},
+      {ko:'창작', rom:'changjak', vi:'sự sáng tác', pos:'danh từ', hanja:'創作', hv:'sáng tác', examples:[{ko:'창작 활동을 해요.', vi:'Tôi hoạt động sáng tác.'}]},
+      {ko:'영감', rom:'yeonggam', vi:'nguồn cảm hứng', pos:'danh từ', hanja:'靈感', hv:'linh cảm', examples:[{ko:'자연에서 영감을 얻어요.', vi:'Tôi lấy cảm hứng từ thiên nhiên.'}]},
+      {ko:'표현', rom:'pyohyeon', vi:'sự biểu đạt', pos:'danh từ', hanja:'表現', hv:'biểu hiện', examples:[{ko:'감정 표현이 섬세해요.', vi:'Biểu đạt cảm xúc tinh tế.'}]},
+      {ko:'감상', rom:'gamsang', vi:'sự cảm thụ, thưởng thức', pos:'danh từ', hanja:'鑑賞', hv:'giám thưởng', examples:[{ko:'그림 감상을 즐겨요.', vi:'Tôi thích thưởng thức tranh.'}]},
+      {ko:'미학', rom:'mihak', vi:'mỹ học', pos:'danh từ', hanja:'美學', hv:'mỹ học', examples:[{ko:'동양 미학을 공부해요.', vi:'Tôi học mỹ học phương Đông.'}]},
+      {ko:'전통', rom:'jeontong', vi:'truyền thống', pos:'danh từ', hanja:'傳統', hv:'truyền thống', examples:[{ko:'전통 예술을 계승해요.', vi:'Kế thừa nghệ thuật truyền thống.'}]},
+      {ko:'독창적', rom:'dokchangjeok', vi:'độc đáo, sáng tạo riêng', pos:'danh từ', hanja:'獨創的', hv:'độc sáng đích', examples:[{ko:'독창적인 발상이에요.', vi:'Đó là ý tưởng độc đáo.'}]},
+      {ko:'섬세하다', rom:'seomsehada', vi:'tinh tế, tỉ mỉ', pos:'tính từ', hanja:'纖細—', hv:'tiêm tế', examples:[{ko:'표현이 섬세해요.', vi:'Cách biểu đạt tinh tế.'}]},
+      {ko:'깊이', rom:'gipi', vi:'chiều sâu', pos:'danh từ', examples:[{ko:'작품에 깊이가 있어요.', vi:'Tác phẩm có chiều sâu.'}]},
+      {ko:'심미안', rom:'simmian', vi:'con mắt thẩm mỹ', pos:'danh từ', hanja:'審美眼', hv:'thẩm mỹ nhãn', examples:[{ko:'심미안이 뛰어나요.', vi:'Có con mắt thẩm mỹ tinh.'}]},
+      {ko:'대중적', rom:'daejungjeok', vi:'đại chúng, phổ thông', pos:'danh từ', hanja:'大衆的', hv:'đại chúng đích', examples:[{ko:'대중적인 작품이에요.', vi:'Là tác phẩm đại chúng.'}]},
+      {ko:'해석하다', rom:'haeseokhada', vi:'diễn giải, lý giải', pos:'động từ', hanja:'解釋—', hv:'giải thích', examples:[{ko:'작품을 새롭게 해석해요.', vi:'Diễn giải tác phẩm theo cách mới.'}]},
+      {ko:'담다', rom:'damda', vi:'chứa đựng, gói ghém', pos:'động từ', examples:[{ko:'작가의 철학을 담았어요.', vi:'Gói ghém triết lý của tác giả.'}]},
+      {ko:'풍요롭다', rom:'pungyoropda', vi:'phong phú, giàu có', pos:'tính từ', hanja:'豐饒—', hv:'phong nhiêu', examples:[{ko:'삶을 풍요롭게 해요.', vi:'Làm cuộc sống phong phú.'}]}
+    ],
+    dialogue:[
+      {sp:'수진', ko:'어제 본 전시회 어땠어요?', vi:'Triển lãm hôm qua thế nào?'},
+      {sp:'꾸언', ko:'눈물이 날 만큼 아름다웠어요.', vi:'Đẹp đến mức rơi nước mắt.'},
+      {sp:'수진', ko:'어떤 점이 가장 인상적이었어요?', vi:'Điểm nào ấn tượng nhất?'},
+      {sp:'꾸언', ko:'작가의 철학을 담은 섬세한 표현이요.', vi:'Cách biểu đạt tinh tế gói ghém triết lý tác giả.'},
+      {sp:'수진', ko:'역시 예술이야말로 마음의 양식이네요.', vi:'Quả nhiên nghệ thuật mới thật là món ăn tinh thần.'}
+    ]
+  },
+  {
+    no:11, level:'cao-cap-1', ko:'역사와 정체성', vi:'Lịch sử và bản sắc', rom:'yeoksa-wa jeongcheseong',
+    skill:'Bàn về ý nghĩa của lịch sử với bản sắc dân tộc', pron:'Đọc niên đại và tên lịch sử',
+    culture:'Ý thức lịch sử và di sản của người Hàn',
+    grammar:[
+      { form:'A/V + (으)ㄴ/는 데다(가)', vi:'thêm vào đó, vừa ... vừa', note:'Chồng thêm tính chất/ việc.',
+        ex:{ko:'유서 깊은 데다가 의미도 커요.', vi:'Vừa lâu đời lại vừa nhiều ý nghĩa.'} },
+      { form:'V + (으)ㄴ 채(로)', vi:'giữ nguyên (trạng thái)', note:'Duy trì trạng thái khi làm việc khác.',
+        ex:{ko:'원형을 간직한 채 보존됐어요.', vi:'Được bảo tồn giữ nguyên hình dạng gốc.'} },
+      { form:'A/V + (으)ㄹ수록', vi:'càng ... càng', note:'Tăng tiến song song.',
+        ex:{ko:'역사를 알수록 자부심이 생겨요.', vi:'Càng hiểu lịch sử càng thấy tự hào.'} },
+      { form:'N + (이)나 다름없다', vi:'chẳng khác gì, coi như', note:'Tương đương về bản chất.',
+        ex:{ko:'역사를 잊는 건 뿌리를 잃는 거나 다름없어요.', vi:'Quên lịch sử chẳng khác gì mất gốc.'} }
+    ],
+    vocab:[
+      {ko:'역사', rom:'yeoksa', vi:'lịch sử', pos:'danh từ', hanja:'歷史', hv:'lịch sử', examples:[{ko:'역사를 통해 배워요.', vi:'Học qua lịch sử.'}]},
+      {ko:'정체성', rom:'jeongcheseong', vi:'bản sắc, căn tính', pos:'danh từ', hanja:'正體性', hv:'chính thể tính', examples:[{ko:'민족 정체성을 지켜요.', vi:'Giữ gìn bản sắc dân tộc.'}]},
+      {ko:'유산', rom:'yusan', vi:'di sản', pos:'danh từ', hanja:'遺産', hv:'di sản', examples:[{ko:'문화 유산을 보호해요.', vi:'Bảo vệ di sản văn hoá.'}]},
+      {ko:'전통', rom:'jeontong', vi:'truyền thống', pos:'danh từ', hanja:'傳統', hv:'truyền thống', examples:[{ko:'전통을 계승해요.', vi:'Kế thừa truyền thống.'}]},
+      {ko:'자부심', rom:'jabusim', vi:'lòng tự hào', pos:'danh từ', hanja:'自負心', hv:'tự phụ tâm', examples:[{ko:'자부심을 느껴요.', vi:'Tôi thấy tự hào.'}]},
+      {ko:'뿌리', rom:'ppuri', vi:'cội nguồn, gốc rễ', pos:'danh từ', examples:[{ko:'뿌리를 잊으면 안 돼요.', vi:'Không được quên cội nguồn.'}]},
+      {ko:'조상', rom:'josang', vi:'tổ tiên', pos:'danh từ', hanja:'祖上', hv:'tổ thượng', examples:[{ko:'조상의 지혜를 배워요.', vi:'Học trí tuệ của tổ tiên.'}]},
+      {ko:'기록', rom:'girok', vi:'ghi chép, sử liệu', pos:'danh từ', hanja:'記錄', hv:'ký lục', examples:[{ko:'역사 기록이 남아 있어요.', vi:'Sử liệu vẫn còn lưu lại.'}]},
+      {ko:'보존하다', rom:'bojonhada', vi:'bảo tồn', pos:'động từ', hanja:'保存—', hv:'bảo tồn', examples:[{ko:'유적을 보존해요.', vi:'Bảo tồn di tích.'}]},
+      {ko:'계승하다', rom:'gyeseunghada', vi:'kế thừa', pos:'động từ', hanja:'繼承—', hv:'kế thừa', examples:[{ko:'정신을 계승해요.', vi:'Kế thừa tinh thần.'}]},
+      {ko:'왜곡', rom:'waegok', vi:'sự bóp méo, xuyên tạc', pos:'danh từ', hanja:'歪曲', hv:'oai khúc', examples:[{ko:'역사 왜곡을 막아야 해요.', vi:'Phải ngăn xuyên tạc lịch sử.'}]},
+      {ko:'교훈', rom:'gyohun', vi:'bài học, giáo huấn', pos:'danh từ', hanja:'敎訓', hv:'giáo huấn', examples:[{ko:'역사의 교훈을 새겨요.', vi:'Khắc ghi bài học lịch sử.'}]},
+      {ko:'유서 깊다', rom:'yuseo gipda', vi:'lâu đời, có bề dày', pos:'cụm từ', examples:[{ko:'유서 깊은 고장이에요.', vi:'Là vùng đất lâu đời.'}]},
+      {ko:'간직하다', rom:'ganjikhada', vi:'gìn giữ, lưu giữ', pos:'động từ', examples:[{ko:'추억을 간직해요.', vi:'Tôi lưu giữ kỷ niệm.'}]},
+      {ko:'민족', rom:'minjok', vi:'dân tộc', pos:'danh từ', hanja:'民族', hv:'dân tộc', examples:[{ko:'민족의 얼을 지켜요.', vi:'Giữ hồn cốt dân tộc.'}]},
+      {ko:'되새기다', rom:'doesaegida', vi:'ngẫm lại, khắc ghi', pos:'động từ', examples:[{ko:'의미를 되새겨요.', vi:'Ngẫm lại ý nghĩa.'}]}
+    ],
+    dialogue:[
+      {sp:'교수', ko:'왜 역사를 배워야 한다고 생각해요?', vi:'Vì sao em nghĩ cần học lịch sử?'},
+      {sp:'꾸언', ko:'역사를 잊는 건 뿌리를 잃는 거나 다름없으니까요.', vi:'Vì quên lịch sử chẳng khác gì mất gốc.'},
+      {sp:'교수', ko:'좋은 답이에요. 개인에게도 의미가 있을까요?', vi:'Câu trả lời hay. Với cá nhân có ý nghĩa không?'},
+      {sp:'꾸언', ko:'네, 역사를 알수록 자부심이 생겨요.', vi:'Có ạ, càng hiểu lịch sử càng thấy tự hào.'},
+      {sp:'교수', ko:'과거의 교훈을 되새기는 자세가 중요하지요.', vi:'Thái độ khắc ghi bài học quá khứ rất quan trọng.'}
+    ]
+  },
+  {
+    no:12, level:'cao-cap-1', ko:'복지와 삶의 질', vi:'Phúc lợi và chất lượng sống', rom:'bokji-wa salmui jil',
+    skill:'Bàn về phúc lợi xã hội, phân tích chính sách', pron:'Đọc số liệu chính sách',
+    culture:'Hệ thống phúc lợi và 저출산·고령화 ở Hàn',
+    grammar:[
+      { form:'V + 기 위해서(는)', vi:'để mà, nhằm (điều kiện)', note:'Mục đích và điều kiện đạt được nó.',
+        ex:{ko:'삶의 질을 높이기 위해서는 복지가 필요해요.', vi:'Để nâng chất lượng sống thì cần phúc lợi.'} },
+      { form:'A/V + (으)ㄴ/는 데도 (불구하고)', vi:'dù ... vẫn', note:'Nhượng bộ, trái với dự kiến.',
+        ex:{ko:'제도가 있는데도 혜택을 못 받아요.', vi:'Dù có chế độ vẫn không được hưởng.'} },
+      { form:'N + 을/를 비롯해(서)', vi:'bao gồm cả, bắt đầu từ', note:'Nêu ví dụ tiêu biểu đứng đầu danh sách.',
+        ex:{ko:'노인을 비롯해 약자를 도와요.', vi:'Giúp người yếu thế, bắt đầu từ người già.'} },
+      { form:'A/V + (으)ㄹ 뿐이다', vi:'chỉ ... mà thôi', note:'Giới hạn duy nhất.',
+        ex:{ko:'제도만으로는 부족할 뿐이에요.', vi:'Chỉ mỗi chế độ thì vẫn chưa đủ.'} }
+    ],
+    vocab:[
+      {ko:'복지', rom:'bokji', vi:'phúc lợi', pos:'danh từ', hanja:'福祉', hv:'phúc chỉ', examples:[{ko:'복지 정책을 확대해요.', vi:'Mở rộng chính sách phúc lợi.'}]},
+      {ko:'정책', rom:'jeongchaek', vi:'chính sách', pos:'danh từ', hanja:'政策', hv:'chính sách', examples:[{ko:'정책을 마련했어요.', vi:'Đã đưa ra chính sách.'}]},
+      {ko:'삶의 질', rom:'salmui jil', vi:'chất lượng cuộc sống', pos:'cụm từ', examples:[{ko:'삶의 질이 높아졌어요.', vi:'Chất lượng sống được nâng cao.'}]},
+      {ko:'혜택', rom:'hyetaek', vi:'ưu đãi, phúc lợi', pos:'danh từ', hanja:'惠澤', hv:'huệ trạch', examples:[{ko:'혜택을 받았어요.', vi:'Tôi được hưởng ưu đãi.'}]},
+      {ko:'격차', rom:'gyeokcha', vi:'khoảng cách, chênh lệch', pos:'danh từ', hanja:'隔差', hv:'cách sai', examples:[{ko:'빈부 격차가 커요.', vi:'Chênh lệch giàu nghèo lớn.'}]},
+      {ko:'소외', rom:'soe', vi:'sự bị gạt ra lề, cô lập', pos:'danh từ', hanja:'疏外', hv:'sơ ngoại', examples:[{ko:'소외 계층을 도와요.', vi:'Giúp tầng lớp yếu thế.'}]},
+      {ko:'약자', rom:'yakja', vi:'người yếu thế', pos:'danh từ', hanja:'弱者', hv:'nhược giả', examples:[{ko:'사회적 약자를 보호해요.', vi:'Bảo vệ người yếu thế.'}]},
+      {ko:'고령화', rom:'goryeonghwa', vi:'sự già hoá', pos:'danh từ', hanja:'高齡化', hv:'cao linh hoá', examples:[{ko:'고령화가 빨라져요.', vi:'Già hoá diễn ra nhanh.'}]},
+      {ko:'저출산', rom:'jeochulsan', vi:'tỉ lệ sinh thấp', pos:'danh từ', hanja:'低出産', hv:'đê xuất sản', examples:[{ko:'저출산이 심각해요.', vi:'Tỉ lệ sinh thấp nghiêm trọng.'}]},
+      {ko:'지원하다', rom:'jiwonhada', vi:'hỗ trợ, chi viện', pos:'động từ', hanja:'支援—', hv:'chi viện', examples:[{ko:'생계를 지원해요.', vi:'Hỗ trợ sinh kế.'}]},
+      {ko:'보장하다', rom:'bojanghada', vi:'bảo đảm', pos:'động từ', hanja:'保障—', hv:'bảo chướng', examples:[{ko:'노후를 보장해요.', vi:'Bảo đảm tuổi già.'}]},
+      {ko:'확대하다', rom:'hwakdaehada', vi:'mở rộng', pos:'động từ', hanja:'擴大—', hv:'khuếch đại', examples:[{ko:'지원을 확대해요.', vi:'Mở rộng hỗ trợ.'}]},
+      {ko:'세금', rom:'segeum', vi:'thuế', pos:'danh từ', hanja:'稅金', hv:'thuế kim', examples:[{ko:'세금으로 복지를 운영해요.', vi:'Vận hành phúc lợi bằng thuế.'}]},
+      {ko:'재정', rom:'jaejeong', vi:'tài chính (công)', pos:'danh từ', hanja:'財政', hv:'tài chính', examples:[{ko:'재정 부담이 커요.', vi:'Gánh nặng tài chính lớn.'}]},
+      {ko:'안정', rom:'anjeong', vi:'sự ổn định', pos:'danh từ', hanja:'安定', hv:'an định', examples:[{ko:'생활 안정을 도와요.', vi:'Giúp ổn định cuộc sống.'}]},
+      {ko:'취약하다', rom:'chwiyakhada', vi:'yếu ớt, dễ tổn thương', pos:'tính từ', hanja:'脆弱—', hv:'thuý nhược', examples:[{ko:'취약한 계층이에요.', vi:'Là tầng lớp dễ tổn thương.'}]}
+    ],
+    dialogue:[
+      {sp:'교수', ko:'복지 확대에 대해 어떻게 생각하세요?', vi:'Em nghĩ sao về mở rộng phúc lợi?'},
+      {sp:'꾸언', ko:'삶의 질을 높이기 위해서는 꼭 필요하다고 봐요.', vi:'Em thấy để nâng chất lượng sống thì rất cần.'},
+      {sp:'교수', ko:'하지만 재정 부담이 크지 않을까요?', vi:'Nhưng gánh nặng tài chính chẳng lớn sao?'},
+      {sp:'꾸언', ko:'그래도 소외 계층을 비롯해 약자를 도와야 해요.', vi:'Dù vậy phải giúp người yếu thế, kể cả tầng lớp bị bỏ rơi.'},
+      {sp:'교수', ko:'제도만으로는 부족할 뿐이니 인식도 바뀌어야겠지요.', vi:'Chỉ chế độ thì chưa đủ, nhận thức cũng phải đổi.'}
+    ]
+  },
+  {
+    no:13, level:'cao-cap-1', ko:'직업 세계의 변화', vi:'Sự thay đổi của thế giới nghề nghiệp', rom:'jigeop segyeui byeonhwa',
+    skill:'Bàn về nghề mới, làm việc từ xa, chuyển đổi nghề', pron:'Ngữ điệu phỏng vấn chuyên môn',
+    culture:'Văn hoá 워라밸 (cân bằng công việc - cuộc sống) ở Hàn',
+    grammar:[
+      { form:'A/V + (으)ㄹ 전망이다', vi:'dự kiến sẽ, có triển vọng', note:'Dự báo xu hướng.',
+        ex:{ko:'재택근무가 늘어날 전망이에요.', vi:'Dự kiến làm việc tại nhà sẽ tăng.'} },
+      { form:'N + (으)로 자리 잡다', vi:'định hình thành, trở thành', note:'Được xác lập ổn định.',
+        ex:{ko:'새로운 문화로 자리 잡았어요.', vi:'Đã định hình thành một văn hoá mới.'} },
+      { form:'A/V + 는 추세이다', vi:'đang có xu hướng', note:'Diễn tả khuynh hướng đang diễn ra.',
+        ex:{ko:'이직하는 사람이 느는 추세예요.', vi:'Người nhảy việc đang có xu hướng tăng.'} },
+      { form:'V + (으)ㄴ/는 만큼', vi:'vì, tương xứng', note:'Lý do/ mức độ tương ứng.',
+        ex:{ko:'변화가 빠른 만큼 준비가 필요해요.', vi:'Thay đổi nhanh nên càng cần chuẩn bị.'} }
+    ],
+    vocab:[
+      {ko:'직업', rom:'jigeop', vi:'nghề nghiệp', pos:'danh từ', hanja:'職業', hv:'chức nghiệp', examples:[{ko:'새로운 직업이 생겨요.', vi:'Nghề mới xuất hiện.'}]},
+      {ko:'변화', rom:'byeonhwa', vi:'sự thay đổi', pos:'danh từ', hanja:'變化', hv:'biến hoá', examples:[{ko:'변화에 적응해요.', vi:'Thích nghi với thay đổi.'}]},
+      {ko:'재택근무', rom:'jaetaekgeunmu', vi:'làm việc tại nhà', pos:'danh từ', hanja:'在宅勤務', hv:'tại trạch cần vụ', examples:[{ko:'재택근무가 편해요.', vi:'Làm việc ở nhà tiện.'}]},
+      {ko:'이직', rom:'ijik', vi:'sự chuyển việc', pos:'danh từ', hanja:'移職', hv:'di chức', examples:[{ko:'이직을 고민해요.', vi:'Tôi đang cân nhắc chuyển việc.'}]},
+      {ko:'전문성', rom:'jeonmunseong', vi:'tính chuyên môn', pos:'danh từ', hanja:'專門性', hv:'chuyên môn tính', examples:[{ko:'전문성을 키워요.', vi:'Nâng cao tính chuyên môn.'}]},
+      {ko:'유연하다', rom:'yuyeonhada', vi:'linh hoạt', pos:'tính từ', hanja:'柔軟—', hv:'nhu nhuyễn', examples:[{ko:'근무 시간이 유연해요.', vi:'Giờ làm linh hoạt.'}]},
+      {ko:'적응하다', rom:'jeogeunghada', vi:'thích nghi', pos:'động từ', hanja:'適應—', hv:'thích ứng', examples:[{ko:'빠르게 적응했어요.', vi:'Tôi thích nghi nhanh.'}]},
+      {ko:'경쟁력', rom:'gyeongjaengnyeok', vi:'sức cạnh tranh', pos:'danh từ', hanja:'競爭力', hv:'cạnh tranh lực', examples:[{ko:'경쟁력을 갖춰요.', vi:'Trang bị sức cạnh tranh.'}]},
+      {ko:'대체되다', rom:'daechedoeda', vi:'bị thay thế', pos:'động từ', hanja:'代替—', hv:'đại thế', examples:[{ko:'일부 직업이 대체돼요.', vi:'Một số nghề bị thay thế.'}]},
+      {ko:'창출하다', rom:'changchulhada', vi:'tạo ra, sản sinh', pos:'động từ', hanja:'創出—', hv:'sáng xuất', examples:[{ko:'일자리를 창출해요.', vi:'Tạo ra việc làm.'}]},
+      {ko:'프리랜서', rom:'peuriraenseo', vi:'người làm tự do', pos:'danh từ', examples:[{ko:'프리랜서로 일해요.', vi:'Tôi làm việc tự do.'}]},
+      {ko:'업무', rom:'eommu', vi:'công việc, nghiệp vụ', pos:'danh từ', hanja:'業務', hv:'nghiệp vụ', examples:[{ko:'업무 효율이 높아요.', vi:'Hiệu suất công việc cao.'}]},
+      {ko:'효율', rom:'hyoyul', vi:'hiệu suất', pos:'danh từ', hanja:'效率', hv:'hiệu suất', examples:[{ko:'효율을 높여요.', vi:'Nâng cao hiệu suất.'}]},
+      {ko:'균형', rom:'gyunhyeong', vi:'sự cân bằng', pos:'danh từ', hanja:'均衡', hv:'quân hành', examples:[{ko:'일과 삶의 균형이 중요해요.', vi:'Cân bằng công việc - cuộc sống quan trọng.'}]},
+      {ko:'추세', rom:'chuse', vi:'xu thế, xu hướng', pos:'danh từ', hanja:'趨勢', hv:'xu thế', examples:[{ko:'세계적인 추세예요.', vi:'Là xu thế toàn cầu.'}]},
+      {ko:'전망', rom:'jeonmang', vi:'triển vọng, dự báo', pos:'danh từ', hanja:'展望', hv:'triển vọng', examples:[{ko:'전망이 밝아요.', vi:'Triển vọng tươi sáng.'}]}
+    ],
+    dialogue:[
+      {sp:'수진', ko:'요즘 재택근무 하는 회사가 많아졌죠?', vi:'Dạo này nhiều công ty cho làm ở nhà nhỉ?'},
+      {sp:'꾸언', ko:'네, 하나의 문화로 자리 잡은 것 같아요.', vi:'Vâng, có vẻ đã thành một văn hoá.'},
+      {sp:'수진', ko:'앞으로도 계속될까요?', vi:'Sắp tới còn tiếp tục không?'},
+      {sp:'꾸언', ko:'유연 근무가 더 늘어날 전망이에요.', vi:'Dự kiến làm việc linh hoạt sẽ tăng thêm.'},
+      {sp:'수진', ko:'변화가 빠른 만큼 우리도 준비해야겠어요.', vi:'Thay đổi nhanh nên mình cũng phải chuẩn bị.'}
+    ]
+  },
+  {
+    no:14, level:'cao-cap-1', ko:'가치관과 윤리', vi:'Quan niệm giá trị và đạo đức', rom:'gachigwan-gwa yulli',
+    skill:'Tranh luận về giá trị, đạo đức, lựa chọn đúng - sai', pron:'Ngữ điệu tranh luận điềm tĩnh',
+    culture:'Sự thay đổi giá trị giữa các thế hệ ở Hàn',
+    grammar:[
+      { form:'A/V + (으)ㄴ/는 반면(에)', vi:'trong khi, ngược lại', note:'Đối chiếu hai mặt.',
+        ex:{ko:'자유를 중시하는 반면 책임은 소홀히 해요.', vi:'Coi trọng tự do nhưng lại xem nhẹ trách nhiệm.'} },
+      { form:'V + (으)ㄴ/는 법이다', vi:'lẽ thường là, ắt là', note:'Chân lý/ quy luật hiển nhiên.',
+        ex:{ko:'뿌린 대로 거두는 법이에요.', vi:'Gieo gì gặt nấy là lẽ thường.'} },
+      { form:'N + 을/를 막론하고', vi:'bất kể, không phân biệt', note:'Không loại trừ trường hợp nào.',
+        ex:{ko:'남녀노소를 막론하고 지켜야 해요.', vi:'Bất kể già trẻ gái trai đều phải tuân thủ.'} },
+      { form:'A/V + (으)ㄹ지라도', vi:'dù cho ... đi nữa', note:'Nhượng bộ mạnh, văn viết.',
+        ex:{ko:'손해일지라도 정직하게 살아요.', vi:'Dù có thiệt cũng sống trung thực.'} }
+    ],
+    vocab:[
+      {ko:'가치관', rom:'gachigwan', vi:'quan niệm giá trị', pos:'danh từ', hanja:'價値觀', hv:'giá trị quan', examples:[{ko:'가치관이 서로 달라요.', vi:'Quan niệm giá trị khác nhau.'}]},
+      {ko:'윤리', rom:'yulli', vi:'đạo đức, luân lý', pos:'danh từ', hanja:'倫理', hv:'luân lý', examples:[{ko:'윤리 의식이 필요해요.', vi:'Cần ý thức đạo đức.'}]},
+      {ko:'도덕', rom:'dodeok', vi:'đạo đức', pos:'danh từ', hanja:'道德', hv:'đạo đức', examples:[{ko:'도덕을 지켜요.', vi:'Giữ gìn đạo đức.'}]},
+      {ko:'양심', rom:'yangsim', vi:'lương tâm', pos:'danh từ', hanja:'良心', hv:'lương tâm', examples:[{ko:'양심에 따라 행동해요.', vi:'Hành động theo lương tâm.'}]},
+      {ko:'정직하다', rom:'jeongjikhada', vi:'trung thực', pos:'tính từ', hanja:'正直—', hv:'chính trực', examples:[{ko:'정직한 사람이에요.', vi:'Là người trung thực.'}]},
+      {ko:'책임', rom:'chaegim', vi:'trách nhiệm', pos:'danh từ', hanja:'責任', hv:'trách nhiệm', examples:[{ko:'책임을 다해요.', vi:'Làm tròn trách nhiệm.'}]},
+      {ko:'판단하다', rom:'pandanhada', vi:'phán đoán', pos:'động từ', hanja:'判斷—', hv:'phán đoán', examples:[{ko:'옳고 그름을 판단해요.', vi:'Phán đoán đúng sai.'}]},
+      {ko:'옳다', rom:'olta', vi:'đúng, phải', pos:'tính từ', examples:[{ko:'그 결정이 옳았어요.', vi:'Quyết định đó là đúng.'}]},
+      {ko:'그르다', rom:'geureuda', vi:'sai, không đúng', pos:'tính từ', examples:[{ko:'옳고 그름을 따져요.', vi:'Phân định đúng sai.'}]},
+      {ko:'존중하다', rom:'jonjunghada', vi:'tôn trọng', pos:'động từ', hanja:'尊重—', hv:'tôn trọng', examples:[{ko:'서로를 존중해요.', vi:'Tôn trọng lẫn nhau.'}]},
+      {ko:'편견', rom:'pyeongyeon', vi:'định kiến', pos:'danh từ', hanja:'偏見', hv:'thiên kiến', examples:[{ko:'편견을 버려요.', vi:'Bỏ định kiến.'}]},
+      {ko:'배려', rom:'baeryeo', vi:'sự quan tâm', pos:'danh từ', hanja:'配慮', hv:'phối lự', examples:[{ko:'배려하는 마음이 중요해요.', vi:'Tấm lòng quan tâm quan trọng.'}]},
+      {ko:'신념', rom:'sinnyeom', vi:'niềm tin, tín niệm', pos:'danh từ', hanja:'信念', hv:'tín niệm', examples:[{ko:'신념을 지켜요.', vi:'Giữ vững niềm tin.'}]},
+      {ko:'갈등하다', rom:'galdeunghada', vi:'giằng co, mâu thuẫn nội tâm', pos:'động từ', hanja:'葛藤—', hv:'cát đằng', examples:[{ko:'선택 앞에서 갈등했어요.', vi:'Tôi giằng co trước lựa chọn.'}]},
+      {ko:'소홀히 하다', rom:'sohorhi hada', vi:'lơ là, xem nhẹ', pos:'động từ', examples:[{ko:'의무를 소홀히 하면 안 돼요.', vi:'Không được lơ là nghĩa vụ.'}]},
+      {ko:'거두다', rom:'geoduda', vi:'gặt hái, thu về', pos:'động từ', examples:[{ko:'노력의 결실을 거둬요.', vi:'Gặt hái thành quả nỗ lực.'}]}
+    ],
+    dialogue:[
+      {sp:'교수', ko:'세대에 따라 가치관이 많이 다르죠?', vi:'Quan niệm giá trị khác nhau theo thế hệ nhỉ?'},
+      {sp:'꾸언', ko:'젊은 세대는 자유를 중시하는 반면 책임은 가볍게 보기도 해요.', vi:'Thế hệ trẻ trọng tự do nhưng đôi khi xem nhẹ trách nhiệm.'},
+      {sp:'교수', ko:'어떤 태도가 바람직할까요?', vi:'Thái độ nào là đáng mong muốn?'},
+      {sp:'꾸언', ko:'손해일지라도 정직하게 사는 게 옳다고 봐요.', vi:'Em cho là dù thiệt cũng nên sống trung thực.'},
+      {sp:'교수', ko:'맞아요. 뿌린 대로 거두는 법이니까요.', vi:'Đúng. Vì gieo gì gặt nấy là lẽ thường.'}
+    ]
+  },
+  {
+    no:15, level:'cao-cap-1', ko:'미래 사회의 전망', vi:'Triển vọng xã hội tương lai', rom:'mirae sahoeui jeonmang',
+    skill:'Dự báo tương lai, trình bày kịch bản xã hội', pron:'Ngữ điệu kết luận thuyết trình',
+    culture:'Hình dung về đô thị thông minh và xã hội siêu kết nối',
+    grammar:[
+      { form:'A/V + (으)ㄹ 것으로 보이다', vi:'dự kiến/ có vẻ sẽ', note:'Dự báo khách quan (văn viết).',
+        ex:{ko:'인구가 줄어들 것으로 보여요.', vi:'Dự kiến dân số sẽ giảm.'} },
+      { form:'A/V + 든(지)', vi:'dù ... hay', note:'Không phân biệt lựa chọn.',
+        ex:{ko:'좋든 나쁘든 변화는 와요.', vi:'Dù tốt hay xấu, thay đổi vẫn đến.'} },
+      { form:'V + 게 마련이다', vi:'đương nhiên sẽ', note:'Quy luật hiển nhiên (biến thể của 기 마련이다).',
+        ex:{ko:'사회는 변하게 마련이에요.', vi:'Xã hội đương nhiên sẽ thay đổi.'} },
+      { form:'A/V + (으)ㄹ지 (모르다)', vi:'không biết liệu có ...', note:'Nghi vấn gián tiếp, không chắc chắn.',
+        ex:{ko:'미래가 어떻게 될지 아무도 몰라요.', vi:'Không ai biết tương lai sẽ ra sao.'} }
+    ],
+    vocab:[
+      {ko:'미래', rom:'mirae', vi:'tương lai', pos:'danh từ', hanja:'未來', hv:'vị lai', examples:[{ko:'미래를 준비해요.', vi:'Chuẩn bị cho tương lai.'}]},
+      {ko:'전망', rom:'jeonmang', vi:'triển vọng', pos:'danh từ', hanja:'展望', hv:'triển vọng', examples:[{ko:'미래 전망을 분석해요.', vi:'Phân tích triển vọng tương lai.'}]},
+      {ko:'예측하다', rom:'yecheukhada', vi:'dự đoán', pos:'động từ', hanja:'豫測—', hv:'dự trắc', examples:[{ko:'변화를 예측해요.', vi:'Dự đoán thay đổi.'}]},
+      {ko:'인구', rom:'ingu', vi:'dân số', pos:'danh từ', hanja:'人口', hv:'nhân khẩu', examples:[{ko:'인구가 감소해요.', vi:'Dân số giảm.'}]},
+      {ko:'도시화', rom:'dosihwa', vi:'đô thị hoá', pos:'danh từ', hanja:'都市化', hv:'đô thị hoá', examples:[{ko:'도시화가 진행돼요.', vi:'Đô thị hoá đang diễn ra.'}]},
+      {ko:'첨단', rom:'cheomdan', vi:'tối tân', pos:'danh từ', hanja:'尖端', hv:'tiêm đoan', examples:[{ko:'첨단 도시가 생겨요.', vi:'Đô thị tối tân ra đời.'}]},
+      {ko:'변화하다', rom:'byeonhwahada', vi:'biến đổi', pos:'động từ', hanja:'變化—', hv:'biến hoá', examples:[{ko:'사회가 변화해요.', vi:'Xã hội biến đổi.'}]},
+      {ko:'대비하다', rom:'daebihada', vi:'chuẩn bị ứng phó', pos:'động từ', hanja:'對備—', hv:'đối bị', examples:[{ko:'위기에 대비해요.', vi:'Chuẩn bị cho khủng hoảng.'}]},
+      {ko:'지속되다', rom:'jisokdoeda', vi:'kéo dài, tiếp diễn', pos:'động từ', hanja:'持續—', hv:'trì tục', examples:[{ko:'추세가 지속돼요.', vi:'Xu thế tiếp diễn.'}]},
+      {ko:'혁명', rom:'hyeongmyeong', vi:'cuộc cách mạng', pos:'danh từ', hanja:'革命', hv:'cách mạng', examples:[{ko:'산업 혁명이 일어났어요.', vi:'Cách mạng công nghiệp xảy ra.'}]},
+      {ko:'초연결', rom:'choyeongyeol', vi:'siêu kết nối', pos:'danh từ', hanja:'超連結', hv:'siêu liên kết', examples:[{ko:'초연결 사회가 됐어요.', vi:'Đã thành xã hội siêu kết nối.'}]},
+      {ko:'불확실하다', rom:'bulhwaksilhada', vi:'không chắc chắn', pos:'tính từ', hanja:'不確實—', hv:'bất xác thực', examples:[{ko:'미래는 불확실해요.', vi:'Tương lai không chắc chắn.'}]},
+      {ko:'낙관적', rom:'nakgwanjeok', vi:'lạc quan', pos:'danh từ', hanja:'樂觀的', hv:'lạc quan đích', examples:[{ko:'낙관적으로 봐요.', vi:'Tôi nhìn lạc quan.'}]},
+      {ko:'비관적', rom:'bigwanjeok', vi:'bi quan', pos:'danh từ', hanja:'悲觀的', hv:'bi quan đích', examples:[{ko:'비관적일 필요는 없어요.', vi:'Không cần bi quan.'}]},
+      {ko:'대응하다', rom:'daeeunghada', vi:'ứng phó, đối phó', pos:'động từ', hanja:'對應—', hv:'đối ứng', examples:[{ko:'변화에 대응해요.', vi:'Ứng phó với thay đổi.'}]},
+      {ko:'실현되다', rom:'silhyeondoeda', vi:'trở thành hiện thực', pos:'động từ', hanja:'實現—', hv:'thực hiện', examples:[{ko:'꿈이 실현될 거예요.', vi:'Ước mơ sẽ thành hiện thực.'}]}
+    ],
+    dialogue:[
+      {sp:'교수', ko:'미래 사회는 어떻게 변할 것 같아요?', vi:'Em nghĩ xã hội tương lai sẽ đổi thế nào?'},
+      {sp:'꾸언', ko:'인구는 줄고 도시화는 더 진행될 것으로 보여요.', vi:'Dự kiến dân số giảm và đô thị hoá tiến thêm.'},
+      {sp:'교수', ko:'그런 변화가 걱정되지 않아요?', vi:'Em không lo về những thay đổi đó sao?'},
+      {sp:'꾸언', ko:'좋든 나쁘든 사회는 변하게 마련이니까요.', vi:'Dù tốt hay xấu, xã hội đương nhiên sẽ đổi.'},
+      {sp:'교수', ko:'결국 어떻게 대응하느냐가 중요하겠지요.', vi:'Rốt cuộc điều quan trọng là ứng phó ra sao.'}
+    ]
+  }
+);
+(COURSE_KO.levels.find(x => x.id === 'cao-cap-1') || {}).status = 'active';
+
 function mergeExtra(levelId, extraMap){
   COURSE_KO.lessons.forEach(l => {
     if (l.level === levelId && extraMap && extraMap[l.no]){
