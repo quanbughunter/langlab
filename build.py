@@ -26,7 +26,7 @@ html = html.replace(
 )
 
 # nhúng JS theo đúng thứ tự
-for src in ("js/strokes.js", "js/course-ko.js", "js/vocab-common.js", "js/audio-ko.js", "js/tts.js", "js/config.js", "js/translate.js",
+for src in ("js/strokes.js", "js/course-ko.js", "js/vocab-common.js", "js/tts.js", "js/config.js", "js/translate.js",
             "js/speech.js", "js/words.js", "js/app.js"):
     html = html.replace(
         f'<script src="{src}"></script>',

@@ -227,9 +227,10 @@ lesson(){
   if (!l) return VIEWS.home();
   const tabs = [
     ['vocab','어휘','Từ vựng'], ['gram','문법','Ngữ pháp'], ['talk','회화','Hội thoại'],
-    ['listen','듣기','Nghe đĩa'], ['write','쓰기','Tập viết'], ['pron','발음','Phát âm'],
+    ['write','쓰기','Tập viết'], ['pron','발음','Phát âm'],
     ['culture','문화','Văn hoá']
   ];
+  if (!tabs.some(t => t[0] === state.tab)) state.tab = 'vocab';
   return `
   <div class="lesson-hero">
     <div>
@@ -312,48 +313,6 @@ tab_talk(l){
         </button>
       </span>
     </div>`).join('')}</div>`;
-},
-
-tab_listen(l){
-  const tracks = AUDIO_KO.lessonTracks(l.no);
-  return `
-  <div class="note-card" style="margin-bottom:16px">
-    <span class="mark ko">듣</span>
-    <div>
-      <h4>Audio gốc của giáo trình — giọng người Hàn thật</h4>
-      <p>Đây là đĩa CD đi kèm sách, thu đúng cho bài ${String(l.no).padStart(2,'0')}. Tốt hơn hẳn giọng máy:
-      ngữ điệu thật, tốc độ thật, đúng nội dung bạn đang học. Chỉnh tốc độ xuống 0.75× để nghe theo và nhại lại.
-      <b>Bản xem trước trên web không kèm audio</b> — file có bản quyền nên chỉ nằm trên máy bạn.</p>
-    </div>
-  </div>
-
-  <div class="track-head">
-    <span class="eyebrow">${tracks.length} track · CD${AUDIO_KO.label(tracks[0]).cd}</span>
-    <div class="calib">
-      <span>Nghe thấy lệch bài?</span>
-      <button class="mini" data-offset="-1">− 1 track</button>
-      <button class="mini" data-offset="1">+ 1 track</button>
-      ${AUDIO_KO.offset ? `<b class="mono">đang lệch ${AUDIO_KO.offset > 0 ? '+' : ''}${AUDIO_KO.offset}</b>
-        <button class="mini" data-offset="0">đặt lại</button>` : ''}
-    </div>
-  </div>
-
-  <div class="track-list" id="trackList">
-    ${tracks.map((n, i) => {
-      const lb = AUDIO_KO.label(n);
-      return `<button class="track" data-track="${n}">
-        <span class="t-no mono">${String(i + 1).padStart(2,'0')}</span>
-        <span class="t-main">
-          <span class="t-name">Track ${i + 1} của bài ${String(l.no).padStart(2,'0')}</span>
-          <span class="t-sub mono">CD${lb.cd} · track ${lb.no} · tệp ${String(n).padStart(3,'0')}.mp3</span>
-        </span>
-        <span class="t-play"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg></span>
-      </button>`;
-    }).join('')}
-  </div>
-
-  <p class="wp-hint" style="margin-top:14px">Bản đồ track suy ra từ các nhãn <span class="ko">CD1 TRACK nn</span> in trong sách.
-  Nếu track đầu tiên không khớp bài, bấm <b>±1 track</b> vài lần cho tới khi khớp — thiết lập được nhớ lại.</p>`;
 },
 
 tab_write(l){
@@ -907,107 +866,6 @@ function mountDict(){
 }
 
 /* ============================================================
-   TRÌNH PHÁT AUDIO GỐC CỦA GIÁO TRÌNH
-   ============================================================ */
-const player = { el:null, n:null, rate:1, loop:false, missing:false, root:0 };
-
-function fmt(s){
-  if (!isFinite(s)) return '0:00';
-  const m = Math.floor(s / 60), r = Math.floor(s % 60);
-  return m + ':' + String(r).padStart(2, '0');
-}
-
-function playerBar(){
-  let bar = $('#miniPlayer');
-  if (!bar){
-    bar = document.createElement('div');
-    bar.id = 'miniPlayer'; bar.className = 'mplayer';
-    document.body.appendChild(bar);
-  }
-  return bar;
-}
-
-function renderPlayer(){
-  const bar = playerBar();
-  const a = player.el;
-  if (!a || player.n === null){ bar.classList.remove('open'); return; }
-
-  if (player.missing){
-    bar.innerHTML = `
-      <div class="mp-missing">
-        <b>Chưa tìm thấy tệp <span class="mono">${String(player.n).padStart(3,'0')}.mp3</span></b>
-        <p>Giải nén <span class="mono">nghe_gt_tieng_han_tong_hop_1…zip</span> rồi chép 153 tệp mp3 vào
-        thư mục <span class="mono">audio/ko/so-cap-1/</span> cạnh <span class="mono">index.html</span>,
-        đổi tên thành <span class="mono">001.mp3 … 153.mp3</span>.
-        Nếu đang xem bản trên web thì không có audio — file có bản quyền nên chỉ nằm trên máy bạn.</p>
-      </div>
-      <button class="icon-btn" data-mp="close" title="Đóng"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>`;
-    bar.classList.add('open');
-    return;
-  }
-
-  const lb = AUDIO_KO.label(player.n);
-  const pct = a.duration ? (a.currentTime / a.duration * 100) : 0;
-  bar.innerHTML = `
-    <button class="icon-btn mp-big" data-mp="toggle" title="${a.paused ? 'Phát' : 'Tạm dừng'}">
-      ${a.paused
-        ? '<svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>'
-        : '<svg viewBox="0 0 24 24"><path d="M8 4v16M16 4v16"/></svg>'}
-    </button>
-    <button class="icon-btn" data-mp="-5" title="Lùi 5 giây"><svg viewBox="0 0 24 24"><path d="M11 5L5 12l6 7"/><path d="M19 5l-6 7 6 7"/></svg></button>
-    <button class="icon-btn" data-mp="5" title="Tiến 5 giây"><svg viewBox="0 0 24 24"><path d="M13 5l6 7-6 7"/><path d="M5 5l6 7-6 7"/></svg></button>
-    <div class="mp-body">
-      <div class="mp-title">
-        <b>CD${lb.cd} · track ${lb.no}</b>
-        <span class="mono">${fmt(a.currentTime)} / ${fmt(a.duration)}</span>
-      </div>
-      <div class="mp-seek" data-mp="seek"><i style="width:${pct}%"></i></div>
-    </div>
-    <div class="mp-rates">
-      ${[0.6, 0.75, 1].map(r => `<button class="sp" data-rate-audio="${r}" aria-pressed="${player.rate === r}">${r}×</button>`).join('')}
-    </div>
-    <button class="icon-btn ${player.loop ? 'on' : ''}" data-mp="loop" title="Lặp lại track">
-      <svg viewBox="0 0 24 24"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
-    </button>
-    <button class="icon-btn" data-mp="close" title="Đóng"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>`;
-  bar.classList.add('open');
-}
-
-function playTrack(n){
-  Speech.stop();
-  if (!player.el){
-    player.el = new Audio();
-    player.el.preload = 'metadata';
-    ['timeupdate','play','pause','loadedmetadata','durationchange'].forEach(ev =>
-      player.el.addEventListener(ev, renderPlayer));
-    // Thử lần lượt các thư mục ứng viên trước khi kết luận là thiếu tệp
-    player.el.addEventListener('error', () => {
-      if (player.root < AUDIO_KO.roots.length - 1){
-        player.root++;
-        player.el.src = AUDIO_KO.file(player.n, player.root);
-        player.el.play().catch(() => {});
-        return;
-      }
-      player.missing = true; renderPlayer();
-    });
-    player.el.addEventListener('ended', () => {
-      if (player.loop){ player.el.currentTime = 0; player.el.play(); }
-      else renderPlayer();
-    });
-  }
-  if (player.n !== n){
-    player.missing = false;
-    player.n = n;
-    player.el.src = AUDIO_KO.file(n, player.root);
-    player.el.playbackRate = player.rate;
-  }
-  const p = player.el.play();
-  if (p && p.catch) p.catch(() => { player.missing = true; renderPlayer(); });
-  $$('.track').forEach(t => t.classList.toggle('on', +t.dataset.track === n));
-  renderPlayer();
-}
-
-/* ============================================================
    LUYỆN SHADOWING — bộ phát theo câu, theo ý, cả đoạn
    ============================================================ */
 
@@ -1123,10 +981,9 @@ function runTranslate(){
 
   const hasWorker = !!(window.LANGLAB_CONFIG && (window.LANGLAB_CONFIG.translateWorker || '').trim());
   if (!Translate.online() && !hasWorker){
-    transBox(`<b>Cần chạy qua máy chủ mới dịch được</b>
-      <p>Bạn đang mở LangLab bằng <span class="mono">file://</span> và chưa cấu hình Worker.
-      Đóng lại rồi bấm đúp <span class="mono">chay.bat</span> — bản dịch sẽ hiện ngay dưới từng câu.</p>
-      <p>Hoặc dùng tạm cách này, không cần cài gì:</p><div class="wp-actions" style="padding:10px 0 0">${gg}</div>`, 'warn');
+    transBox(`<b>Chưa dịch được ở chế độ này</b>
+      <p>Trang đang mở trực tiếp từ tệp và chưa nối máy dịch. Khi mở qua link web, phần dịch chạy bình thường.</p>
+      <p>Tạm thời dùng cách này, không cần cài gì:</p><div class="wp-actions" style="padding:10px 0 0">${gg}</div>`, 'warn');
     return;
   }
 
@@ -1156,26 +1013,13 @@ function runTranslate(){
     const partial = got ? `<p>Đã có ${got}/${total} câu, còn <b>${missing} câu chưa dịch được</b>.</p>` : '';
 
     if (err === 'no-key' || err === 'no-module'){
-      transBox(`<b>Chưa có khoá API — chưa dịch được</b>
+      transBox(`<b>Máy dịch của trang chưa sẵn sàng</b>
         ${partial}
-        <p>Dịch tự nhiên cần một mô hình ngôn ngữ. <b>Hai nơi cấp khoá miễn phí,
-        không cần thẻ tín dụng:</b></p>
-        <ul class="key-list">
-          <li><b><a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a></b>
-            — dễ nhất: bấm “Create API key”, khỏi chọn quyền gì cả. Khoá bắt đầu bằng
-            <span class="mono">AIza</span>. Hạn mức rộng, dịch tiếng Việt tốt.
-            <i>Lưu ý: Google có thể dùng dữ liệu bậc miễn phí để cải thiện mô hình.</i></li>
-          <li><b><a href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer">Groq</a></b>
-            — rất nhanh, chạy model nguồn mở. Khoá bắt đầu bằng <span class="mono">gsk_</span>.</li>
-        </ul>
-        <p>Chép khoá vào tệp <span class="mono">api-key.txt</span> ở thư mục
-        <span class="mono">langlab</span>, lưu lại rồi chạy lại <span class="mono">chay.bat</span>.
-        Máy chủ tự nhận nhà cung cấp theo tiền tố khoá — cũng nhận cả khoá trả phí của
-        Anthropic, OpenAI, OpenRouter.</p>
-        <p>Muốn kiểm tra khoá có chạy không thì bấm đúp
-        <span class="mono">tools\\kiem-tra-khoa.bat</span> — nó thử dịch hai câu và báo lỗi cụ thể.</p>
-        <p>Khoá chỉ nằm trên máy bạn và đã bị <span class="mono">.gitignore</span> chặn.</p>
-        <p>Chưa muốn dùng khoá thì dùng tạm:</p>
+        <p>Phần dịch chạy qua máy chủ dịch của trang (Cloudflare Worker) và máy chủ này chưa nhận được khoá API.</p>
+        <p><i>Nếu bạn là người quản trị trang:</i> vào Worker <span class="mono">langlab-translate</span> →
+        Settings → Variables and Secrets, thêm secret <span class="mono">GEMINI_API_KEY</span> (khoá lấy miễn phí ở
+        <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a>).</p>
+        <p>Trong lúc đó, dùng tạm:</p>
         <div class="wp-actions" style="padding:10px 0 0">${gg}</div>`, 'warn');
       return;
     }
@@ -1183,8 +1027,8 @@ function runTranslate(){
     transBox(`<b>Dịch không thành công</b>
       ${partial}
       <p class="mono" style="font-size:11px;word-break:break-all">${esc(String(err || 'không rõ lỗi'))}</p>
-      <p>Thường là do khoá sai, hết hạn mức, hoặc mất mạng. Xem thêm ở cửa sổ đen của
-      <span class="mono">chay.bat</span>.</p>
+      <p>Thường do hết hạn mức của khoá hoặc mạng chập chờn — thử lại sau ít phút.
+      Nếu bạn quản trị trang, kiểm tra khoá và hạn mức của Worker dịch.</p>
       <div class="wp-actions" style="padding:10px 0 0">${gg}</div>`, 'warn');
   });
 }
@@ -1565,38 +1409,29 @@ function openVoiceSheet(){
     </div>`;
   el.classList.add('open');
 
-  const cmd = s => `<p class="mono" style="background:var(--surface-2);padding:8px 10px;border-radius:6px;margin-top:8px;font-size:11px">${s}</p>`;
-
   TTS.probe(st => {
     const s = $('#ttsStatus'), hint = $('#freeHint');
     if (!s) return;
-    const tiers = `<p><b>1</b> tệp thu sẵn ${st.statics ? '✓' : '—'} &nbsp;·&nbsp;
-                      <b>2</b> máy chủ cục bộ ${st.server ? '✓' : '—'} &nbsp;·&nbsp;
-                      <b>3</b> giọng máy ${Speech.hasKorean() ? '✓' : '—'}</p>`;
+    const tiers = `<p><b>1</b> giọng neural thu sẵn ${st.statics ? '✓' : '—'} &nbsp;·&nbsp;
+                      <b>2</b> giọng trình duyệt ${Speech.hasKorean() ? '✓' : '—'}</p>`;
 
     if (st.server){
       s.className = 'src-status good';
-      s.innerHTML = `<b>Máy chủ cục bộ đang chạy — đọc được mọi văn bản</b>
-        <p>Dán đoạn nào vào cũng đọc được bằng giọng neural. Câu mới tự lưu vào
-        <span class="mono">audio/tts/</span> nên lần sau nghe lại không cần mạng.</p>${tiers}`;
-      if (hint) hint.textContent = 'Câu chưa từng đọc sẽ mất một hai giây để tổng hợp, sau đó lưu lại luôn.';
+      s.innerHTML = `<b>Máy chủ đang chạy — đọc được mọi văn bản bằng giọng neural</b>
+        <p>Dán đoạn nào vào cũng đọc được. Câu mới tự lưu lại nên lần sau nghe không cần mạng.</p>${tiers}`;
+      if (hint) hint.textContent = 'Câu chưa từng đọc mất một hai giây để tổng hợp, sau đó lưu lại luôn.';
     } else if (st.statics){
       s.className = 'src-status good';
-      s.innerHTML = `<b>Audio thu sẵn — giọng neural ✓</b>
-        <p>Từ và câu có trong khoá học đều phát từ tệp mp3 thu sẵn.
-        Nhưng <b>văn bản mới bạn dán vào thì chưa có tệp</b> — muốn đọc được mọi thứ,
-        hãy mở LangLab qua máy chủ cục bộ:</p>${cmd('python tools/serve.py')}${tiers}`;
-      if (hint) hint.textContent = 'Chưa có máy chủ nên đoạn lạ sẽ đọc bằng giọng máy.';
+      s.innerHTML = `<b>Giọng neural cho từ và câu của khoá học ✓</b>
+        <p>Các từ và câu có sẵn trong bài học phát bằng giọng neural thu trước.
+        Còn <b>văn bản bạn tự dán</b> (luyện shadowing, câu mới) thì đọc bằng giọng của trình duyệt.</p>${tiers}`;
+      if (hint) hint.textContent = 'Từ và câu của khoá học có giọng neural; đoạn tự dán dùng giọng trình duyệt.';
     } else {
       s.className = 'src-status warn';
-      s.innerHTML = `<b>Đang dùng giọng máy của trình duyệt</b>
-        <p>Đây là nguồn kém nhất. Có hai cách chữa, làm cách nào cũng được:</p>
-        <p><b>Thu sẵn một lần</b> — cho phần đã có trong khoá học, chạy offline:</p>
-        ${cmd('python tools/make_audio.py')}
-        <p><b>Hoặc chạy máy chủ</b> — đọc được cả văn bản mới bạn dán vào:</p>
-        ${cmd('python tools/serve.py')}
-        <p>Trên Windows bấm đúp <span class="mono">chay.bat</span> là xong cả hai.</p>${tiers}`;
-      if (hint) hint.textContent = 'Chưa có nguồn neural nào — đoạn dưới sẽ đọc bằng giọng máy.';
+      s.innerHTML = `<b>Đang dùng giọng của trình duyệt</b>
+        <p>Phần phát âm hiện dùng giọng tích hợp sẵn trong trình duyệt của bạn.
+        Muốn nghe hay hơn, mở bằng Microsoft Edge — Edge có sẵn giọng Hàn chất lượng cao tải từ mạng.</p>${tiers}`;
+      if (hint) hint.textContent = 'Đang đọc bằng giọng của trình duyệt.';
     }
   });
 }
@@ -1607,46 +1442,6 @@ function closeVoiceSheet(){ const el = $('#voiceSheet'); if (el) el.classList.re
    ============================================================ */
 document.addEventListener('click', e => {
   const t = e.target;
-
-  /* ----- audio giáo trình ----- */
-  const trk = t.closest('[data-track]');
-  if (trk){ playTrack(+trk.dataset.track); return; }
-
-  const off = t.closest('[data-offset]');
-  if (off){
-    const v = +off.dataset.offset;
-    AUDIO_KO.setOffset(v === 0 ? 0 : AUDIO_KO.offset + v);
-    const l = COURSE_KO.lessons.find(x => x.no === state.lesson);
-    $('#tabbody').innerHTML = VIEWS.tab_listen(l);
-    toast(AUDIO_KO.offset ? 'Đã dịch bản đồ track ' + (AUDIO_KO.offset > 0 ? '+' : '') + AUDIO_KO.offset : 'Đã đặt lại bản đồ track');
-    return;
-  }
-
-  const mp = t.closest('[data-mp]');
-  if (mp){
-    const a = player.el;
-    const act = mp.dataset.mp;
-    if (act === 'close'){ if (a) a.pause(); player.n = null; renderPlayer(); $$('.track').forEach(x => x.classList.remove('on')); return; }
-    if (!a) return;
-    if (act === 'toggle'){ a.paused ? a.play() : a.pause(); return; }
-    if (act === '-5'){ a.currentTime = Math.max(0, a.currentTime - 5); return; }
-    if (act === '5'){ a.currentTime = Math.min(a.duration || 0, a.currentTime + 5); return; }
-    if (act === 'loop'){ player.loop = !player.loop; renderPlayer(); return; }
-    if (act === 'seek' && a.duration){
-      const r = mp.getBoundingClientRect();
-      a.currentTime = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)) * a.duration;
-      return;
-    }
-    return;
-  }
-
-  const ra = t.closest('[data-rate-audio]');
-  if (ra){
-    player.rate = +ra.dataset.rateAudio;
-    if (player.el) player.el.playbackRate = player.rate;
-    renderPlayer();
-    return;
-  }
 
   /* ----- bảng tra từ ----- */
   // gồm cả span .kw trong câu và ô .tok trong bảng tra câu

@@ -3,8 +3,8 @@ node_modules/
 Thumbs.db
 *.log
 
-# Audio đĩa CD của giáo trình — có bản quyền, chỉ để trên máy
-audio/
+# Audio đĩa CD của giáo trình — có bản quyền, CHỈ để trên máy, không đưa lên
+audio/ko/
 
 # Không đưa sách, file nghe hay bản quét giáo trình lên repo
 *.pdf
@@ -13,6 +13,9 @@ audio/
 *.zip
 *.wma
 *.mp3
+# ...NHƯNG cho phép giọng neural tự tạo (nhẹ, máy tự sinh, không bản quyền) lên mạng:
+!audio/tts/
+!audio/tts/*.mp3
 
 # Khoa API va cache ban dich - chi nam tren may minh
 api-key.txt
