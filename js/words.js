@@ -258,6 +258,21 @@ function grammarIn(sentence){
 /* ---------- kho từ và câu của khoá học ---------- */
 let INDEX = null;
 
+/* Gộp dữ liệu KRDict (nhiều nghĩa + câu ví dụ 용례) vào một mục đã có.
+   Giữ nghĩa của khoá học làm đầu, thêm các nghĩa khác của KRDict. */
+function enrichWord(ex, v){
+  let senses = (ex.senses && ex.senses.length) ? ex.senses.slice()
+             : (ex.vi ? [{ def_vi: ex.vi, def_ko: '' }] : []);
+  (v.senses || []).forEach(s => {
+    if (s && s.def_vi && !senses.some(x => x.def_vi === s.def_vi)) senses.push(s);
+  });
+  if (senses.length) ex.senses = senses;
+  if ((!ex.examples || !ex.examples.length) && v.examples && v.examples.length) ex.examples = v.examples;
+  if (!ex.hanja && v.hanja) ex.hanja = v.hanja;
+  if (!ex.hv && v.hv) ex.hv = v.hv;
+  if (!ex.rom && v.rom) ex.rom = v.rom;
+}
+
 function build(course, common, dict){
   const words = [], sents = [];
   const byKo = {};
@@ -280,9 +295,10 @@ function build(course, common, dict){
     words.push(w); byKo[v.ko] = w;
   });
 
-  // Từ điển KRDict tự sinh (js/dict-ko.js) — lớn nhất, để sau cùng
+  // Từ điển KRDict tự sinh (js/dict-ko.js) — lớn nhất, để sau cùng.
+  // Nếu từ đã có (khoá học) thì GỘP nghĩa + ví dụ chứ không bỏ đi.
   (dict || []).forEach(v => {
-    if (byKo[v.ko]) return;
+    if (byKo[v.ko]){ enrichWord(byKo[v.ko], v); return; }
     const w = Object.assign({ theme: 'KRDict' }, v);
     words.push(w); byKo[v.ko] = w;
   });
@@ -293,12 +309,14 @@ function build(course, common, dict){
 }
 function index(){ return INDEX; }
 
-/** Gộp thêm một mẻ từ (dùng cho từ điển KRDict nạp muộn). Trả về số từ mới thêm. */
+/** Gộp thêm một mẻ từ (dùng cho từ điển KRDict nạp muộn). Trả về số mục thay đổi. */
 function addDict(list){
   if (!INDEX || !Array.isArray(list)) return 0;
   let n = 0;
   list.forEach(v => {
-    if (!v || !v.ko || INDEX.byKo[v.ko]) return;
+    if (!v || !v.ko) return;
+    const ex = INDEX.byKo[v.ko];
+    if (ex){ enrichWord(ex, v); n++; return; }   // đã có (khoá học) → gộp nghĩa + ví dụ
     const w = Object.assign({ theme: 'KRDict' }, v);
     INDEX.words.push(w); INDEX.byKo[v.ko] = w; n++;
   });
