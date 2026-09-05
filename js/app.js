@@ -1109,7 +1109,8 @@ function makeQuestion(type, depth){
     const options = _qshuffle([w.vi].concat(distr));
     return { kind, ko:w.ko, rom:w.rom, hideStem: kind === 'listen',
              prompt: kind === 'listen' ? 'Nghe rồi chọn nghĩa đúng' : 'Từ này nghĩa là gì?',
-             options, correct: options.indexOf(w.vi) };
+             options, correct: options.indexOf(w.vi),
+             explain: (kind === 'listen' ? 'Câu đọc là « ' + w.ko + ' »' : '« ' + w.ko + ' »') + ' nghĩa là « ' + w.vi + ' ».' };
   }
   if (kind === 'word'){
     const w = _qpick(P.vocab);
@@ -1117,7 +1118,8 @@ function makeQuestion(type, depth){
     if (distr.length < 3) return makeQuestion('meaning', depth + 1);
     const options = _qshuffle([w.ko].concat(distr));
     return { kind, vi:w.vi, prompt:'Chọn từ tiếng Hàn đúng', koOpts:true,
-             options, correct: options.indexOf(w.ko) };
+             options, correct: options.indexOf(w.ko),
+             explain: '« ' + w.vi + ' » trong tiếng Hàn là « ' + w.ko + ' ».' };
   }
   if (kind === 'fill'){
     for (const s of _qshuffle(P.sents)){
@@ -1130,7 +1132,8 @@ function makeQuestion(type, depth){
           if (distr.length < 3) return makeQuestion('meaning', depth + 1);
           const options = _qshuffle([w.ko].concat(distr));
           const stem = toks.map((t, k) => k === i ? '____' : t).join(' ');
-          return { kind, stem, hint:s.vi, koOpts:true, options, correct: options.indexOf(w.ko) };
+          return { kind, stem, hint:s.vi, koOpts:true, options, correct: options.indexOf(w.ko),
+                   explain: 'Từ đúng điền vào là « ' + w.ko + ' » (' + w.vi + '). Câu đầy đủ: ' + s.ko };
         }
       }
     }
@@ -1140,7 +1143,8 @@ function makeQuestion(type, depth){
     const cand = _qshuffle(P.sents).find(s => { const n = s.ko.split(/\s+/).length; return n >= 3 && n <= 6; });
     if (!cand) return makeQuestion('meaning', depth + 1);
     const tokens = cand.ko.split(/\s+/);
-    return { kind, tokens, hint:cand.vi, chips: _qshuffle(tokens.map((t, id) => ({ t, id }))), order: [] };
+    return { kind, tokens, hint:cand.vi, chips: _qshuffle(tokens.map((t, id) => ({ t, id }))), order: [],
+             explain: 'Trật tự đúng: ' + tokens.join(' ') + (cand.vi ? ' (' + cand.vi + ')' : '') };
   }
   return null;
 }
@@ -1149,84 +1153,97 @@ function quizStart(type){
   type = type || 'mix';
   const qs = [];
   let guard = 0;
-  while (qs.length < QUIZ_ROUND && guard++ < 80){ const q = makeQuestion(type); if (q) qs.push(q); }
-  state.quiz = { type, qs, idx:0, score:0, answered:false, chosen:null };
+  while (qs.length < QUIZ_ROUND && guard++ < 80){ const q = makeQuestion(type); if (q){ q.chosen = null; q.checked = false; qs.push(q); } }
+  state.quiz = { type, qs, idx:0 };
 }
 
 function paintQuiz(){ const a = $('#quizArea'); if (a) a.innerHTML = quizCard(); }
+
+function quizCorrect(q){
+  if (q.kind === 'order'){
+    if (q.order.length !== q.tokens.length) return false;
+    return q.order.map(id => q.chips.find(x => x.id === id).t).join(' ') === q.tokens.join(' ');
+  }
+  return q.chosen === q.correct;
+}
+function quizScore(){ return state.quiz.qs.reduce((n, q) => n + (quizCorrect(q) ? 1 : 0), 0); }
+
+function quizNav(){
+  const Q = state.quiz, q = Q.qs[Q.idx], last = Q.idx + 1 >= Q.qs.length;
+  return `<div class="q-nav">
+      <button class="pbtn" data-quiz-prev="1"${Q.idx === 0 ? ' disabled' : ''}>← Câu trước</button>
+      ${q.checked ? '' : '<button class="pbtn" data-quiz-check="1">Kiểm tra đáp án</button>'}
+      <button class="pbtn primary" data-quiz-next="1">${last ? 'Xem kết quả →' : 'Câu sau →'}</button>
+    </div>`;
+}
 
 function quizCard(){
   const Q = state.quiz;
   if (!Q || !Q.qs || !Q.qs.length) return '<div class="quiz-card"><p class="wp-empty">Chưa tạo được câu hỏi.</p></div>';
   if (Q.idx >= Q.qs.length) return quizSummary();
   const q = Q.qs[Q.idx];
-  const dots = Q.qs.map((_, k) => `<i class="${k < Q.idx ? 'done' : k === Q.idx ? 'now' : ''}"></i>`).join('');
+  const done = Q.qs.filter(x => x.checked).length;
+  const dots = Q.qs.map((x, k) => `<i class="${k === Q.idx ? 'now' : (x.checked ? 'done' : '')}"></i>`).join('');
   const top = `<div class="quiz-top">
       <span class="eyebrow">Câu ${Q.idx + 1} / ${Q.qs.length}</span>
       <div class="dots">${dots}</div>
-      <span class="quiz-score">${Q.score} điểm</span>
+      <span class="quiz-score">Đã kiểm tra ${done}/${Q.qs.length}</span>
     </div>`;
-  if (q.kind === 'order') return `<div class="quiz-card">${top}${quizOrder(q)}</div>`;
 
-  let stem;
-  if (q.kind === 'word'){
-    stem = `<p class="q-stem q-vi">${esc(q.vi)}</p>`;
-  } else if (q.kind === 'fill'){
-    stem = `<p class="q-stem ko">${esc(q.stem).replace('____', '<span class="blank">____</span>')}</p>`;
-  } else if (q.hideStem){
-    stem = `<div class="q-listen-wrap"><button class="pbtn primary" data-quiz-say="${esc(q.ko)}">
-        <svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg> Nghe từ</button></div>`;
+  let body;
+  if (q.kind === 'order'){
+    body = quizOrder(q);
   } else {
-    stem = `<p class="q-stem ko">${esc(q.ko)}${q.rom ? ` <span class="q-rom">[${esc(q.rom)}]</span>` : ''}</p>`;
+    let stem;
+    if (q.kind === 'word') stem = `<p class="q-stem q-vi">${esc(q.vi)}</p>`;
+    else if (q.kind === 'fill') stem = `<p class="q-stem ko">${esc(q.stem).replace('____', '<span class="blank">____</span>')}</p>`;
+    else if (q.hideStem) stem = `<div class="q-listen-wrap"><button class="pbtn primary" data-quiz-say="${esc(q.ko)}"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg> Nghe từ</button></div>`;
+    else stem = `<p class="q-stem ko">${esc(q.ko)}${q.rom ? ` <span class="q-rom">[${esc(q.rom)}]</span>` : ''}</p>`;
+    const prompt = q.prompt ? `<p class="q-prompt">${esc(q.prompt)}</p>` : '';
+    const hint = q.hint ? `<p class="q-hint">${esc(q.hint)}</p>` : '';
+    const opts = `<div class="opts" id="opts">${q.options.map((o, k) => {
+        let cls = 'opt' + (q.koOpts ? ' ko' : '');
+        if (q.checked){ if (k === q.correct) cls += ' ok'; else if (k === q.chosen) cls += ' no'; }
+        else if (k === q.chosen) cls += ' sel';
+        return `<button class="${cls}" data-quiz-opt="${k}"${q.checked ? ' disabled' : ''}>${esc(o)}</button>`;
+      }).join('')}</div>`;
+    body = stem + prompt + hint + opts;
   }
-  const prompt = q.prompt ? `<p class="q-prompt">${esc(q.prompt)}</p>` : '';
-  const hint = q.hint ? `<p class="q-hint">${esc(q.hint)}</p>` : '';
-  const opts = `<div class="opts" id="opts">${q.options.map((o, k) => {
-      let cls = 'opt' + (q.koOpts ? ' ko' : '');
-      if (Q.answered){ if (k === q.correct) cls += ' ok'; else if (k === Q.chosen) cls += ' no'; }
-      return `<button class="${cls}" data-quiz-opt="${k}"${Q.answered ? ' disabled' : ''}>${esc(o)}</button>`;
-    }).join('')}</div>`;
-  const fb = Q.answered ? quizFeedback(q) : '';
-  return `<div class="quiz-card">${top}${stem}${prompt}${hint}${opts}${fb}</div>`;
+  const fb = q.checked ? quizFeedback(q) : '';
+  return `<div class="quiz-card">${top}${body}${fb}${quizNav()}</div>`;
 }
 
 function quizFeedback(q){
-  const Q = state.quiz, right = Q.chosen === q.correct, last = Q.idx + 1 >= Q.qs.length;
+  const right = quizCorrect(q);
+  const ans = q.kind === 'order' ? q.tokens.join(' ') : q.options[q.correct];
+  const ansCls = q.kind === 'order' ? ' ko' : '';
+  const noChoice = q.kind === 'order' ? !q.order.length : (q.chosen === null || q.chosen === undefined);
   return `<div class="fb show" style="background:${right ? 'var(--ok-soft)' : 'var(--seal-soft)'}">
-      <b>${right ? 'Chính xác 👍' : 'Chưa đúng.'}</b> ${right ? '' : 'Đáp án: <b>' + esc(q.options[q.correct]) + '</b>'}
-      <div class="q-next"><button class="pbtn primary" data-quiz-next="1">${last ? 'Xem kết quả' : 'Câu tiếp →'}</button></div>
+      <b>${right ? 'Chính xác 👍' : (noChoice ? 'Chưa chọn đáp án.' : 'Chưa đúng.')}</b>
+      ${right ? '' : `Đáp án đúng: <b class="${ansCls}">${esc(ans)}</b>.`}
+      ${q.explain ? `<div class="q-explain"><b>Vì sao:</b> ${esc(q.explain)}</div>` : ''}
     </div>`;
 }
 
 function quizOrder(q){
-  const Q = state.quiz, done = Q.answered;
-  const chosen = q.order.map(id => { const c = q.chips.find(x => x.id === id); return `<button class="ochip" data-quiz-orm="${id}">${esc(c.t)}</button>`; }).join('');
+  const chosen = q.order.map(id => { const c = q.chips.find(x => x.id === id); return `<button class="ochip"${q.checked ? ' disabled' : ` data-quiz-orm="${id}"`}>${esc(c.t)}</button>`; }).join('');
   const remain = q.chips.filter(x => q.order.indexOf(x.id) < 0).map(x => `<button class="ochip pool" data-quiz-oadd="${x.id}">${esc(x.t)}</button>`).join('');
-  let tail;
-  if (done){
-    const built = q.order.map(id => q.chips.find(x => x.id === id).t).join(' ');
-    const right = built === q.tokens.join(' '), last = Q.idx + 1 >= Q.qs.length;
-    tail = `<div class="fb show" style="background:${right ? 'var(--ok-soft)' : 'var(--seal-soft)'}">
-        <b>${right ? 'Chính xác 👍' : 'Chưa đúng.'}</b> ${right ? '' : 'Câu đúng: <b class="ko">' + esc(q.tokens.join(' ')) + '</b>'}
-        <div class="q-next"><button class="pbtn primary" data-quiz-next="1">${last ? 'Xem kết quả' : 'Câu tiếp →'}</button></div>
-      </div>`;
-  } else {
-    tail = `<div class="q-next">
-        <button class="pbtn" data-quiz-oclear="1"${q.order.length ? '' : ' disabled'}>Xoá</button>
-        <button class="pbtn primary" data-quiz-ocheck="1"${q.order.length === q.tokens.length ? '' : ' disabled'}>Kiểm tra</button></div>`;
-  }
+  const tools = q.checked ? '' : `<div class="q-order-tools"><button class="mini" data-quiz-oclear="1"${q.order.length ? '' : ' disabled'}>Xoá hết</button></div>`;
   return `<p class="q-prompt">Sắp xếp các mảnh thành câu đúng</p><p class="q-hint">${esc(q.hint)}</p>
     <div class="obuild">${chosen || '<span class="obuild-ph">Bấm các mảnh bên dưới để ghép câu…</span>'}</div>
-    <div class="opool">${remain}</div>${tail}`;
+    ${q.checked ? '' : `<div class="opool">${remain}</div>`}${tools}`;
 }
 
 function quizSummary(){
-  const Q = state.quiz, pct = Math.round(Q.score / Q.qs.length * 100);
+  const Q = state.quiz, score = quizScore(), pct = Math.round(score / Q.qs.length * 100);
   const msg = pct >= 80 ? 'Xuất sắc! 🎉' : pct >= 50 ? 'Khá tốt — luyện thêm chút nữa nhé.' : 'Cứ luyện tiếp, nhớ dần thôi.';
   return `<div class="quiz-card quiz-done">
-      <div class="qd-score">${Q.score}<span>/ ${Q.qs.length}</span></div>
+      <div class="qd-score">${score}<span>/ ${Q.qs.length}</span></div>
       <p class="qd-msg">${msg}</p>
-      <div class="q-next" style="justify-content:center"><button class="pbtn primary" data-quiz-restart="1">Làm lại 10 câu</button></div>
+      <div class="q-nav" style="justify-content:center">
+        <button class="pbtn" data-quiz-review="1">Xem lại các câu</button>
+        <button class="pbtn primary" data-quiz-restart="1">Làm lại 10 câu</button>
+      </div>
     </div>`;
 }
 
@@ -1914,7 +1931,9 @@ ${WP_TOOLS}
             <svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
           </button>
         </div>`).join('')
-      : `<p class="wp-empty">Chưa có câu nào trong khoá dùng từ này. Tatoeba và 우리말샘 bên dưới có sẵn hàng trăm câu thật.</p>`}
+      : (hit && hit.examples && hit.examples.length)
+        ? `<p class="wp-empty">Từ này chưa xuất hiện trong câu nào của khoá học, nhưng có <b>${hit.examples.length} câu ví dụ thật</b> ở mục <b>Cách dùng</b> phía trên (có nút Dịch nghĩa).</p>`
+        : `<p class="wp-empty">Chưa có câu ví dụ sẵn cho từ này. Bấm <b>Tatoeba</b> hoặc <b>우리말샘</b> bên dưới để xem câu thật.</p>`}
     </div>
 
     <div class="wp-sec">
@@ -2261,27 +2280,16 @@ document.addEventListener('click', e => {
 
   /* ----- bài tập ----- */
   const qopt = t.closest('[data-quiz-opt]');
-  if (qopt){
-    const Q = state.quiz;
-    if (Q && !Q.answered){
-      Q.chosen = +qopt.dataset.quizOpt; Q.answered = true;
-      if (Q.chosen === Q.qs[Q.idx].correct) Q.score++;
-      paintQuiz();
-    }
-    return;
-  }
+  if (qopt){ const q = state.quiz.qs[state.quiz.idx]; if (q && !q.checked){ q.chosen = +qopt.dataset.quizOpt; paintQuiz(); } return; }
   const qadd = t.closest('[data-quiz-oadd]');
-  if (qadd){ const q = state.quiz.qs[state.quiz.idx]; q.order.push(+qadd.dataset.quizOadd); paintQuiz(); return; }
+  if (qadd){ const q = state.quiz.qs[state.quiz.idx]; if (!q.checked){ q.order.push(+qadd.dataset.quizOadd); paintQuiz(); } return; }
   const qorm = t.closest('[data-quiz-orm]');
-  if (qorm){ const q = state.quiz.qs[state.quiz.idx]; const id = +qorm.dataset.quizOrm; q.order = q.order.filter(x => x !== id); paintQuiz(); return; }
-  if (t.closest('[data-quiz-oclear]')){ state.quiz.qs[state.quiz.idx].order = []; paintQuiz(); return; }
-  if (t.closest('[data-quiz-ocheck]')){
-    const Q = state.quiz, q = Q.qs[Q.idx];
-    Q.answered = true;
-    if (q.order.map(id => q.chips.find(x => x.id === id).t).join(' ') === q.tokens.join(' ')) Q.score++;
-    paintQuiz(); return;
-  }
-  if (t.closest('[data-quiz-next]')){ const Q = state.quiz; Q.idx++; Q.answered = false; Q.chosen = null; paintQuiz(); return; }
+  if (qorm){ const q = state.quiz.qs[state.quiz.idx]; if (!q.checked){ const id = +qorm.dataset.quizOrm; q.order = q.order.filter(x => x !== id); paintQuiz(); } return; }
+  if (t.closest('[data-quiz-oclear]')){ const q = state.quiz.qs[state.quiz.idx]; if (!q.checked){ q.order = []; paintQuiz(); } return; }
+  if (t.closest('[data-quiz-check]')){ state.quiz.qs[state.quiz.idx].checked = true; paintQuiz(); return; }
+  if (t.closest('[data-quiz-prev]')){ const Q = state.quiz; if (Q.idx > 0){ Q.idx--; paintQuiz(); } return; }
+  if (t.closest('[data-quiz-next]')){ const Q = state.quiz; Q.idx++; paintQuiz(); window.scrollTo({ top:0, behavior:'instant' in window ? 'instant' : 'auto' }); return; }
+  if (t.closest('[data-quiz-review]')){ state.quiz.idx = 0; paintQuiz(); return; }
   if (t.closest('[data-quiz-restart]')){ quizStart(state.quiz.type); paintQuiz(); return; }
   const qsay = t.closest('[data-quiz-say]');
   if (qsay){ speak(qsay.dataset.quizSay); return; }

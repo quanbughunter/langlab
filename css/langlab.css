@@ -453,6 +453,12 @@ a{color:var(--accent)}
 .opt.ko{font-family:"Noto Sans KR",sans-serif}
 .opt:disabled{opacity:1;cursor:default}
 .q-next{display:flex;gap:8px;margin-top:14px}
+.q-nav{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;align-items:center}
+.q-nav .pbtn.primary{margin-left:auto}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+.q-explain{margin-top:10px;font-size:13px;line-height:1.6;color:var(--ink);border-top:1px dashed var(--line-strong);padding-top:9px}
+.q-explain b{color:var(--accent)}
+.q-order-tools{margin-top:10px}
 .obuild{min-height:54px;display:flex;flex-wrap:wrap;gap:7px;align-items:center;padding:12px;border:1px dashed var(--line-strong);border-radius:10px;margin:8px 0 12px}
 .obuild-ph{font-size:12.5px;color:var(--faint)}
 .opool{display:flex;flex-wrap:wrap;gap:7px}
