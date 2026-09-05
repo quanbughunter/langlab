@@ -2239,6 +2239,451 @@ COURSE_KO.lessons.push(
 /* Cập nhật trạng thái: Sơ cấp 2 đã có nội dung */
 (COURSE_KO.levels.find(x => x.id === 'so-cap-2') || {}).status = 'active';
 
+/* ============================================================
+   Trung cấp 1 (중급 1) — 15 bài (bậc B1). Khung bám bộ giáo trình
+   « Tiếng Hàn tổng hợp »; từ vựng, câu ví dụ, hội thoại do LangLab soạn.
+   ============================================================ */
+COURSE_KO.lessons.push(
+  {
+    no:1, level:'trung-cap-1', ko:'새로운 시작', vi:'Khởi đầu mới', rom:'saeroun sijak',
+    skill:'Kể về một thay đổi, khởi đầu mới trong cuộc sống', pron:'Nối âm và lược âm',
+    culture:'Văn hoá nhảy việc và học lại của người Hàn',
+    grammar:[
+      { form:'V + 게 되다', vi:'(hoàn cảnh đưa đẩy) trở nên, được', note:'Kết quả do hoàn cảnh chứ không do chủ ý.',
+        ex:{ko:'한국에서 일하게 됐어요.', vi:'Tôi (rốt cuộc) được làm việc ở Hàn Quốc.'} },
+      { form:'A/V + 잖아요', vi:'... mà, còn gì', note:'Nhắc lại điều người nghe vốn đã biết.',
+        ex:{ko:'어제 말했잖아요.', vi:'Hôm qua tôi nói rồi mà.'} }
+    ],
+    vocab:[
+      {ko:'시작', rom:'sijak', vi:'sự khởi đầu', pos:'danh từ', hanja:'始作', hv:'thuỷ tác'},
+      {ko:'새롭다', rom:'saeropda', vi:'mới mẻ', pos:'tính từ'},
+      {ko:'기회', rom:'gihoe', vi:'cơ hội', pos:'danh từ', hanja:'機會', hv:'cơ hội'},
+      {ko:'도전하다', rom:'dojeonhada', vi:'thử thách, thử sức', pos:'động từ', hanja:'挑戰—', hv:'khiêu chiến'},
+      {ko:'낯설다', rom:'natseolda', vi:'lạ lẫm', pos:'tính từ'},
+      {ko:'소개하다', rom:'sogaehada', vi:'giới thiệu', pos:'động từ', hanja:'紹介—', hv:'thiệu giới'},
+      {ko:'이사하다', rom:'isahada', vi:'chuyển nhà', pos:'động từ', hanja:'移徙—', hv:'di tỉ'},
+      {ko:'환경', rom:'hwangyeong', vi:'môi trường', pos:'danh từ', hanja:'環境', hv:'hoàn cảnh'},
+      {ko:'만족하다', rom:'manjokhada', vi:'hài lòng', pos:'tính từ', hanja:'滿足—', hv:'mãn túc'},
+      {ko:'기대하다', rom:'gidaehada', vi:'mong đợi', pos:'động từ', hanja:'期待—', hv:'kỳ đãi'}
+    ],
+    dialogue:[
+      {sp:'민수', ko:'꾸언 씨, 요즘 어떻게 지내요?', vi:'Quân ơi, dạo này sống thế nào?'},
+      {sp:'꾸언', ko:'새 회사에 다니게 됐어요.', vi:'Tôi được vào làm ở công ty mới rồi.'},
+      {sp:'민수', ko:'정말요? 축하해요!', vi:'Thật à? Chúc mừng nhé!'},
+      {sp:'꾸언', ko:'고마워요. 지난번에 도전하고 싶다고 말했잖아요.', vi:'Cảm ơn. Lần trước tôi nói muốn thử sức rồi mà.'}
+    ]
+  },
+  {
+    no:2, level:'trung-cap-1', ko:'성격과 인간관계', vi:'Tính cách và quan hệ', rom:'seonggyeok-gwa ingan-gwangye',
+    skill:'Nhận xét tính cách, nói về quan hệ với người khác', pron:'Trọng âm nhấn',
+    culture:'Cách xưng hô theo tuổi và thứ bậc ở Hàn Quốc',
+    grammar:[
+      { form:'A/V + 은/는 편이다', vi:'thuộc kiểu, thiên về', note:'Không khẳng định tuyệt đối, chỉ nghiêng về một tính chất.',
+        ex:{ko:'저는 조용한 편이에요.', vi:'Tôi thuộc kiểu trầm tính.'} },
+      { form:'A/V + (으)ㄴ/는 것 같다', vi:'có vẻ, hình như', note:'Phỏng đoán dựa trên quan sát.',
+        ex:{ko:'그 사람은 착한 것 같아요.', vi:'Người đó có vẻ hiền.'} }
+    ],
+    vocab:[
+      {ko:'성격', rom:'seonggyeok', vi:'tính cách', pos:'danh từ', hanja:'性格', hv:'tính cách'},
+      {ko:'관계', rom:'gwangye', vi:'quan hệ', pos:'danh từ', hanja:'關係', hv:'quan hệ'},
+      {ko:'사이', rom:'sai', vi:'mối quan hệ, khoảng', pos:'danh từ'},
+      {ko:'솔직하다', rom:'soljikhada', vi:'thẳng thắn', pos:'tính từ', hanja:'率直—', hv:'suất trực'},
+      {ko:'이해하다', rom:'ihaehada', vi:'hiểu, thông cảm', pos:'động từ', hanja:'理解—', hv:'lý giải'},
+      {ko:'오해하다', rom:'ohaehada', vi:'hiểu lầm', pos:'động từ', hanja:'誤解—', hv:'ngộ giải'},
+      {ko:'친해지다', rom:'chinhaejida', vi:'trở nên thân', pos:'động từ'},
+      {ko:'다투다', rom:'datuda', vi:'cãi nhau', pos:'động từ'},
+      {ko:'화해하다', rom:'hwahaehada', vi:'làm hoà', pos:'động từ', hanja:'和解—', hv:'hoà giải'},
+      {ko:'성실하다', rom:'seongsilhada', vi:'thành thật, chăm chỉ', pos:'tính từ', hanja:'誠實—', hv:'thành thực'}
+    ],
+    dialogue:[
+      {sp:'수진', ko:'새 동료는 어때요?', vi:'Đồng nghiệp mới thế nào?'},
+      {sp:'꾸언', ko:'좀 조용한 편인데 성실한 것 같아요.', vi:'Hơi trầm nhưng có vẻ chăm chỉ.'},
+      {sp:'수진', ko:'그럼 금방 친해지겠네요.', vi:'Vậy chắc sớm thân thôi.'},
+      {sp:'꾸언', ko:'네, 오해만 없으면 좋겠어요.', vi:'Vâng, chỉ mong đừng có hiểu lầm.'}
+    ]
+  },
+  {
+    no:3, level:'trung-cap-1', ko:'실수와 후회', vi:'Sai lầm và hối tiếc', rom:'silsu-wa huhoe',
+    skill:'Nói về lỗi lầm, bày tỏ hối tiếc', pron:'Ngữ điệu tiếc nuối',
+    culture:'Cách xin lỗi và nhận lỗi trong văn hoá Hàn',
+    grammar:[
+      { form:'V + 았/었어야 했다', vi:'đáng lẽ phải ...', note:'Hối tiếc vì đã không làm việc gì.',
+        ex:{ko:'미리 준비했어야 했어요.', vi:'Đáng lẽ tôi phải chuẩn bị trước.'} },
+      { form:'V + 는 바람에', vi:'vì (nguyên nhân ngoài ý muốn)', note:'Nguyên nhân dẫn tới kết quả xấu.',
+        ex:{ko:'늦게 일어나는 바람에 지각했어요.', vi:'Vì dậy muộn nên tôi đi trễ.'} }
+    ],
+    vocab:[
+      {ko:'실수', rom:'silsu', vi:'sai sót', pos:'danh từ', hanja:'失手', hv:'thất thủ'},
+      {ko:'후회하다', rom:'huhoehada', vi:'hối tiếc', pos:'động từ', hanja:'後悔—', hv:'hậu hối'},
+      {ko:'잘못', rom:'jalmot', vi:'lỗi, sai', pos:'danh từ'},
+      {ko:'사과하다', rom:'sagwahada', vi:'xin lỗi', pos:'động từ', hanja:'謝過—', hv:'tạ quá'},
+      {ko:'용서하다', rom:'yongseohada', vi:'tha thứ', pos:'động từ', hanja:'容恕—', hv:'dung thứ'},
+      {ko:'반성하다', rom:'banseonghada', vi:'tự kiểm điểm', pos:'động từ', hanja:'反省—', hv:'phản tỉnh'},
+      {ko:'깜빡하다', rom:'kkamppakhada', vi:'lỡ quên', pos:'động từ'},
+      {ko:'놓치다', rom:'nochida', vi:'bỏ lỡ', pos:'động từ'},
+      {ko:'조심하다', rom:'josimhada', vi:'cẩn thận', pos:'động từ', hanja:'操心—', hv:'thao tâm'},
+      {ko:'다행이다', rom:'dahaengida', vi:'may là', pos:'tính từ', hanja:'多幸—', hv:'đa hạnh'}
+    ],
+    dialogue:[
+      {sp:'민수', ko:'시험 잘 봤어요?', vi:'Thi tốt không?'},
+      {sp:'꾸언', ko:'아니요, 미리 공부했어야 했어요.', vi:'Không, đáng lẽ tôi phải học trước.'},
+      {sp:'민수', ko:'무슨 일 있었어요?', vi:'Có chuyện gì à?'},
+      {sp:'꾸언', ko:'늦게 자는 바람에 시험에 늦었어요.', vi:'Vì ngủ muộn nên tôi đến thi trễ.'}
+    ]
+  },
+  {
+    no:4, level:'trung-cap-1', ko:'건강 관리', vi:'Chăm sóc sức khoẻ', rom:'geongang gwalli',
+    skill:'Nói về thói quen giữ gìn sức khoẻ', pron:'Âm căng',
+    culture:'Văn hoá tập thể dục và ăn uống lành mạnh ở Hàn',
+    grammar:[
+      { form:'V + 다가', vi:'đang ... thì (chuyển sang việc khác)', note:'Ngắt một hành động để chuyển sang hành động/kết quả khác.',
+        ex:{ko:'운동하다가 다쳤어요.', vi:'Đang tập thể dục thì bị thương.'} },
+      { form:'V + 지 않으면 안 되다', vi:'nhất định phải', note:'Nhấn mạnh sự bắt buộc (không làm thì không được).',
+        ex:{ko:'약을 먹지 않으면 안 돼요.', vi:'Nhất định phải uống thuốc.'} }
+    ],
+    vocab:[
+      {ko:'건강', rom:'geongang', vi:'sức khoẻ', pos:'danh từ', hanja:'健康', hv:'kiện khang'},
+      {ko:'관리하다', rom:'gwallihada', vi:'quản lý, chăm lo', pos:'động từ', hanja:'管理—', hv:'quản lý'},
+      {ko:'규칙적', rom:'gyuchikjeok', vi:'đều đặn, có quy tắc', pos:'tính từ', hanja:'規則的', hv:'quy tắc đích'},
+      {ko:'식습관', rom:'sikseupgwan', vi:'thói quen ăn uống', pos:'danh từ', hanja:'食習慣', hv:'thực tập quán'},
+      {ko:'살이 찌다', rom:'sari jjida', vi:'tăng cân', pos:'động từ'},
+      {ko:'살을 빼다', rom:'sareul ppaeda', vi:'giảm cân', pos:'động từ'},
+      {ko:'스트레스', rom:'seuteureseu', vi:'căng thẳng', pos:'danh từ'},
+      {ko:'피로', rom:'piro', vi:'sự mệt mỏi', pos:'danh từ', hanja:'疲勞', hv:'bì lao'},
+      {ko:'챙기다', rom:'chaenggida', vi:'chăm lo, để ý', pos:'động từ'},
+      {ko:'무리하다', rom:'murihada', vi:'làm quá sức', pos:'động từ', hanja:'無理—', hv:'vô lý'}
+    ],
+    dialogue:[
+      {sp:'의사', ko:'요즘 건강은 어때요?', vi:'Sức khoẻ dạo này thế nào?'},
+      {sp:'꾸언', ko:'운동하다가 허리를 다쳤어요.', vi:'Đang tập thì tôi bị đau lưng.'},
+      {sp:'의사', ko:'당분간 무리하면 안 돼요.', vi:'Thời gian tới đừng làm quá sức.'},
+      {sp:'꾸언', ko:'네, 규칙적으로 쉬도록 할게요.', vi:'Vâng, tôi sẽ nghỉ ngơi đều đặn.'}
+    ]
+  },
+  {
+    no:5, level:'trung-cap-1', ko:'취미와 여가', vi:'Sở thích và giải trí', rom:'chwimi-wa yeoga',
+    skill:'Nói về sở thích, cách dùng thời gian rảnh', pron:'Nối âm ㄹ',
+    culture:'Các câu lạc bộ sở thích (동호회) ở Hàn Quốc',
+    grammar:[
+      { form:'V + (으)ㄹ 줄 알다 / 모르다', vi:'biết / không biết cách', note:'Nói về khả năng làm một việc gì.',
+        ex:{ko:'피아노를 칠 줄 알아요.', vi:'Tôi biết chơi piano.'} },
+      { form:'V + 곤 하다', vi:'thường (làm) ', note:'Thói quen lặp lại trong quá khứ hoặc hiện tại.',
+        ex:{ko:'주말에 등산을 하곤 해요.', vi:'Cuối tuần tôi hay leo núi.'} }
+    ],
+    vocab:[
+      {ko:'취미', rom:'chwimi', vi:'sở thích', pos:'danh từ', hanja:'趣味', hv:'thú vị'},
+      {ko:'여가', rom:'yeoga', vi:'thời gian rảnh', pos:'danh từ', hanja:'餘暇', hv:'dư hạ'},
+      {ko:'즐기다', rom:'jeulgida', vi:'tận hưởng', pos:'động từ'},
+      {ko:'관심', rom:'gwansim', vi:'sự quan tâm', pos:'danh từ', hanja:'關心', hv:'quan tâm'},
+      {ko:'동호회', rom:'donghohoe', vi:'câu lạc bộ (cùng sở thích)', pos:'danh từ', hanja:'同好會', hv:'đồng hảo hội'},
+      {ko:'악기', rom:'akgi', vi:'nhạc cụ', pos:'danh từ', hanja:'樂器', hv:'nhạc khí'},
+      {ko:'그림', rom:'geurim', vi:'tranh', pos:'danh từ'},
+      {ko:'모으다', rom:'moeuda', vi:'sưu tầm, gom', pos:'động từ'},
+      {ko:'연습하다', rom:'yeonseuphada', vi:'luyện tập', pos:'động từ', hanja:'練習—', hv:'luyện tập'},
+      {ko:'등산', rom:'deungsan', vi:'leo núi', pos:'danh từ', hanja:'登山', hv:'đăng sơn'}
+    ],
+    dialogue:[
+      {sp:'수진', ko:'꾸언 씨는 취미가 뭐예요?', vi:'Sở thích của Quân là gì?'},
+      {sp:'꾸언', ko:'저는 기타를 칠 줄 알아요.', vi:'Tôi biết chơi guitar.'},
+      {sp:'수진', ko:'멋있네요! 자주 쳐요?', vi:'Ngầu ghê! Chơi thường không?'},
+      {sp:'꾸언', ko:'주말마다 연습하곤 해요.', vi:'Cuối tuần nào tôi cũng hay tập.'}
+    ]
+  },
+  {
+    no:6, level:'trung-cap-1', ko:'여행과 계획', vi:'Du lịch và kế hoạch', rom:'yeohaeng-gwa gyehoek',
+    skill:'Lập kế hoạch du lịch, kết hợp nhiều việc', pron:'Trọng âm câu',
+    culture:'Du lịch trong nước của người Hàn',
+    grammar:[
+      { form:'V + 는 김에', vi:'nhân tiện', note:'Nhân dịp làm việc này thì làm luôn việc kia.',
+        ex:{ko:'서울에 가는 김에 친구를 만났어요.', vi:'Nhân tiện đi Seoul, tôi gặp bạn luôn.'} },
+      { form:'V + (으)ㄹ 겸', vi:'kết hợp (mục đích)', note:'Làm việc gì với nhiều mục đích cùng lúc.',
+        ex:{ko:'바람도 쐴 겸 산책했어요.', vi:'Tôi đi dạo, tiện thể hóng gió luôn.'} }
+    ],
+    vocab:[
+      {ko:'여행', rom:'yeohaeng', vi:'du lịch', pos:'danh từ', hanja:'旅行', hv:'lữ hành'},
+      {ko:'일정', rom:'iljeong', vi:'lịch trình', pos:'danh từ', hanja:'日程', hv:'nhật trình'},
+      {ko:'숙소', rom:'sukso', vi:'chỗ ở', pos:'danh từ', hanja:'宿所', hv:'túc sở'},
+      {ko:'예매하다', rom:'yemaehada', vi:'đặt (vé) trước', pos:'động từ', hanja:'豫賣—', hv:'dự mại'},
+      {ko:'출발', rom:'chulbal', vi:'sự khởi hành', pos:'danh từ', hanja:'出發', hv:'xuất phát'},
+      {ko:'도착', rom:'dochak', vi:'sự đến nơi', pos:'danh từ', hanja:'到着', hv:'đáo trước'},
+      {ko:'관광지', rom:'gwangwangji', vi:'điểm tham quan', pos:'danh từ', hanja:'觀光地', hv:'quan quang địa'},
+      {ko:'경치', rom:'gyeongchi', vi:'cảnh, phong cảnh', pos:'danh từ', hanja:'景致', hv:'cảnh trí'},
+      {ko:'추억', rom:'chueok', vi:'kỷ niệm', pos:'danh từ', hanja:'追憶', hv:'truy ức'},
+      {ko:'챙기다', rom:'chaenggida', vi:'mang theo, chuẩn bị', pos:'động từ'}
+    ],
+    dialogue:[
+      {sp:'민수', ko:'이번 휴가에 뭐 할 거예요?', vi:'Kỳ nghỉ này định làm gì?'},
+      {sp:'꾸언', ko:'부산에 가는 김에 바다도 볼 거예요.', vi:'Nhân tiện đi Busan, tôi sẽ ngắm biển luôn.'},
+      {sp:'민수', ko:'좋네요. 숙소는 예매했어요?', vi:'Hay đó. Đặt chỗ ở chưa?'},
+      {sp:'꾸언', ko:'네, 쉴 겸 좋은 호텔로 예매했어요.', vi:'Rồi, tiện nghỉ ngơi nên tôi đặt khách sạn tốt.'}
+    ]
+  },
+  {
+    no:7, level:'trung-cap-1', ko:'직장 생활', vi:'Cuộc sống công sở', rom:'jikjang saenghwal',
+    skill:'Nói về công việc, đồng nghiệp, deadline', pron:'Nối âm ㄱ',
+    culture:'Văn hoá công sở và làm thêm giờ ở Hàn',
+    grammar:[
+      { form:'V + 느라고', vi:'vì mải (nên không được)', note:'Nguyên nhân khiến không làm được việc khác; hai vế cùng chủ ngữ.',
+        ex:{ko:'일하느라고 전화를 못 받았어요.', vi:'Vì mải làm nên tôi không nghe máy được.'} },
+      { form:'V + 아/어 놓다 / 두다', vi:'làm sẵn (để đó)', note:'Hoàn tất việc gì và giữ nguyên trạng thái đó.',
+        ex:{ko:'자료를 준비해 놓았어요.', vi:'Tôi đã chuẩn bị sẵn tài liệu.'} }
+    ],
+    vocab:[
+      {ko:'직장', rom:'jikjang', vi:'nơi làm việc', pos:'danh từ', hanja:'職場', hv:'chức trường'},
+      {ko:'회의', rom:'hoeui', vi:'cuộc họp', pos:'danh từ', hanja:'會議', hv:'hội nghị'},
+      {ko:'업무', rom:'eommu', vi:'nghiệp vụ, công việc', pos:'danh từ', hanja:'業務', hv:'nghiệp vụ'},
+      {ko:'동료', rom:'dongnyo', vi:'đồng nghiệp', pos:'danh từ', hanja:'同僚', hv:'đồng liêu'},
+      {ko:'상사', rom:'sangsa', vi:'cấp trên', pos:'danh từ', hanja:'上司', hv:'thượng ty'},
+      {ko:'야근', rom:'yageun', vi:'làm ca đêm, tăng ca', pos:'danh từ', hanja:'夜勤', hv:'dạ cần'},
+      {ko:'서류', rom:'seoryu', vi:'giấy tờ, tài liệu', pos:'danh từ', hanja:'書類', hv:'thư loại'},
+      {ko:'마감', rom:'magam', vi:'hạn chót', pos:'danh từ'},
+      {ko:'승진하다', rom:'seungjinhada', vi:'thăng chức', pos:'động từ', hanja:'昇進—', hv:'thăng tiến'},
+      {ko:'맡다', rom:'matda', vi:'đảm nhận', pos:'động từ'}
+    ],
+    dialogue:[
+      {sp:'수진', ko:'어제 왜 전화 안 받았어요?', vi:'Hôm qua sao không nghe máy?'},
+      {sp:'꾸언', ko:'회의 준비하느라고 못 받았어요.', vi:'Vì mải chuẩn bị họp nên không nghe được.'},
+      {sp:'수진', ko:'자료는 다 됐어요?', vi:'Tài liệu xong chưa?'},
+      {sp:'꾸언', ko:'네, 어제 미리 만들어 놓았어요.', vi:'Rồi, hôm qua tôi làm sẵn rồi.'}
+    ]
+  },
+  {
+    no:8, level:'trung-cap-1', ko:'감정 표현', vi:'Biểu đạt cảm xúc', rom:'gamjeong pyohyeon',
+    skill:'Diễn tả mong muốn, phỏng đoán tiếc nuối', pron:'Ngữ điệu cảm xúc',
+    culture:'Cách bộc lộ cảm xúc trong giao tiếp Hàn',
+    grammar:[
+      { form:'V + 았/었으면 좋겠다', vi:'ước gì, mong rằng', note:'Bày tỏ mong muốn về điều chưa thành.',
+        ex:{ko:'시험에 합격했으면 좋겠어요.', vi:'Ước gì tôi đỗ kỳ thi.'} },
+      { form:'A/V + (으)ㄹ 텐데', vi:'chắc là ... (mà)', note:'Phỏng đoán kèm tiếc nuối hoặc lo lắng.',
+        ex:{ko:'지금쯤 도착했을 텐데요.', vi:'Chắc giờ đã đến nơi rồi mà.'} }
+    ],
+    vocab:[
+      {ko:'감정', rom:'gamjeong', vi:'cảm xúc', pos:'danh từ', hanja:'感情', hv:'cảm tình'},
+      {ko:'기쁘다', rom:'gippeuda', vi:'vui mừng', pos:'tính từ'},
+      {ko:'슬프다', rom:'seulpeuda', vi:'buồn', pos:'tính từ'},
+      {ko:'화나다', rom:'hwanada', vi:'tức giận', pos:'động từ'},
+      {ko:'놀라다', rom:'nollada', vi:'ngạc nhiên', pos:'động từ'},
+      {ko:'두렵다', rom:'duryeopda', vi:'sợ hãi', pos:'tính từ'},
+      {ko:'그립다', rom:'geuripda', vi:'nhớ nhung', pos:'tính từ'},
+      {ko:'답답하다', rom:'dapdapada', vi:'bức bối', pos:'tính từ'},
+      {ko:'위로하다', rom:'wirohada', vi:'an ủi', pos:'động từ', hanja:'慰勞—', hv:'uý lao'},
+      {ko:'참다', rom:'chamda', vi:'chịu đựng, nhịn', pos:'động từ'}
+    ],
+    dialogue:[
+      {sp:'민수', ko:'표정이 안 좋네요. 무슨 일이에요?', vi:'Sắc mặt không tốt. Có chuyện gì thế?'},
+      {sp:'꾸언', ko:'시험 결과가 곧 나와요. 합격했으면 좋겠어요.', vi:'Sắp có kết quả thi. Ước gì tôi đỗ.'},
+      {sp:'민수', ko:'열심히 했으니까 잘됐을 텐데요.', vi:'Cậu học chăm mà, chắc ổn thôi.'},
+      {sp:'꾸언', ko:'고마워요. 조금 떨려요.', vi:'Cảm ơn. Tôi hơi run.'}
+    ]
+  },
+  {
+    no:9, level:'trung-cap-1', ko:'한국의 전통', vi:'Truyền thống Hàn Quốc', rom:'hangug-ui jeontong',
+    skill:'Thuật lại lời người khác, so sánh mức độ', pron:'Nối âm ㄴ',
+    culture:'Lễ nghi và kính ngữ truyền thống',
+    grammar:[
+      { form:'A/V + 다고 하다', vi:'nghe nói, bảo rằng', note:'Thuật lại gián tiếp lời của người khác.',
+        ex:{ko:'친구가 온다고 했어요.', vi:'Bạn tôi bảo là sẽ đến.'} },
+      { form:'N/V + 만큼', vi:'bằng, đến mức', note:'So sánh mức độ ngang bằng.',
+        ex:{ko:'노력한 만큼 성공해요.', vi:'Nỗ lực đến đâu thành công đến đó.'} }
+    ],
+    vocab:[
+      {ko:'전통', rom:'jeontong', vi:'truyền thống', pos:'danh từ', hanja:'傳統', hv:'truyền thống'},
+      {ko:'예절', rom:'yejeol', vi:'lễ nghi', pos:'danh từ', hanja:'禮節', hv:'lễ tiết'},
+      {ko:'조상', rom:'josang', vi:'tổ tiên', pos:'danh từ', hanja:'祖上', hv:'tổ thượng'},
+      {ko:'세대', rom:'sedae', vi:'thế hệ', pos:'danh từ', hanja:'世代', hv:'thế đại'},
+      {ko:'풍습', rom:'pungseup', vi:'phong tục', pos:'danh từ', hanja:'風習', hv:'phong tập'},
+      {ko:'존댓말', rom:'jondaenmal', vi:'kính ngữ', pos:'danh từ'},
+      {ko:'차이', rom:'chai', vi:'sự khác biệt', pos:'danh từ', hanja:'差異', hv:'sai dị'},
+      {ko:'지키다', rom:'jikida', vi:'giữ gìn, tuân thủ', pos:'động từ'},
+      {ko:'물려받다', rom:'mullyeobatda', vi:'thừa kế', pos:'động từ'},
+      {ko:'한복', rom:'hanbok', vi:'hanbok', pos:'danh từ', hanja:'韓服', hv:'Hàn phục'}
+    ],
+    dialogue:[
+      {sp:'수진', ko:'이번 설에 뭐 할 거예요?', vi:'Tết này định làm gì?'},
+      {sp:'꾸언', ko:'친구가 한복을 빌려준다고 했어요.', vi:'Bạn tôi bảo sẽ cho mượn hanbok.'},
+      {sp:'수진', ko:'좋겠어요. 한국 예절도 배워요?', vi:'Thích nhỉ. Có học cả lễ nghi Hàn không?'},
+      {sp:'꾸언', ko:'네, 배운 만큼 재미있어요.', vi:'Có, học đến đâu thú vị đến đó.'}
+    ]
+  },
+  {
+    no:10, level:'trung-cap-1', ko:'도시와 시골', vi:'Thành thị và nông thôn', rom:'dosi-wa sigol',
+    skill:'So sánh thành thị và nông thôn', pron:'Trọng âm nhấn',
+    culture:'Xu hướng về quê sống của giới trẻ Hàn',
+    grammar:[
+      { form:'A/V + (으)ㄹ수록', vi:'càng ... càng', note:'Mức độ tăng theo nhau; hay đi với 을수록.',
+        ex:{ko:'도시가 클수록 복잡해요.', vi:'Thành phố càng lớn càng phức tạp.'} },
+      { form:'A/V + 는 반면에', vi:'trái lại, ngược lại', note:'Nêu hai mặt trái ngược của một đối tượng.',
+        ex:{ko:'도시는 편리한 반면에 복잡해요.', vi:'Thành phố tiện lợi nhưng lại phức tạp.'} }
+    ],
+    vocab:[
+      {ko:'도시', rom:'dosi', vi:'đô thị', pos:'danh từ', hanja:'都市', hv:'đô thị'},
+      {ko:'시골', rom:'sigol', vi:'nông thôn', pos:'danh từ'},
+      {ko:'인구', rom:'ingu', vi:'dân số', pos:'danh từ', hanja:'人口', hv:'nhân khẩu'},
+      {ko:'복잡하다', rom:'bokjapada', vi:'phức tạp, đông đúc', pos:'tính từ', hanja:'複雜—', hv:'phức tạp'},
+      {ko:'조용하다', rom:'joyonghada', vi:'yên tĩnh', pos:'tính từ'},
+      {ko:'공기', rom:'gonggi', vi:'không khí', pos:'danh từ', hanja:'空氣', hv:'không khí'},
+      {ko:'편리하다', rom:'pyeollihada', vi:'tiện lợi', pos:'tính từ', hanja:'便利—', hv:'tiện lợi'},
+      {ko:'발전하다', rom:'baljeonhada', vi:'phát triển', pos:'động từ', hanja:'發展—', hv:'phát triển'},
+      {ko:'여유', rom:'yeoyu', vi:'sự thư thả, dư dả', pos:'danh từ', hanja:'餘裕', hv:'dư dụ'},
+      {ko:'이사', rom:'isa', vi:'sự chuyển nhà', pos:'danh từ', hanja:'移徙', hv:'di tỉ'}
+    ],
+    dialogue:[
+      {sp:'민수', ko:'서울 생활은 어때요?', vi:'Cuộc sống ở Seoul thế nào?'},
+      {sp:'꾸언', ko:'편리한 반면에 좀 복잡해요.', vi:'Tiện lợi nhưng hơi phức tạp.'},
+      {sp:'민수', ko:'시골이 그리워요?', vi:'Nhớ quê không?'},
+      {sp:'꾸언', ko:'네, 도시가 클수록 고향이 생각나요.', vi:'Ừ, thành phố càng lớn tôi càng nhớ quê.'}
+    ]
+  },
+  {
+    no:11, level:'trung-cap-1', ko:'뉴스와 사회', vi:'Tin tức và xã hội', rom:'nyuseu-wa sahoe',
+    skill:'Trích dẫn nguồn tin, nói về vấn đề xã hội', pron:'Âm dài',
+    culture:'Thói quen xem tin tức của người Hàn',
+    grammar:[
+      { form:'N + 에 따르면', vi:'theo (nguồn)', note:'Trích dẫn nguồn thông tin; thường kết với 다고 하다/대요.',
+        ex:{ko:'뉴스에 따르면 내일 비가 온대요.', vi:'Theo tin tức thì ngày mai trời mưa.'} },
+      { form:'A/V + 다는 것', vi:'việc, điều rằng', note:'Danh từ hoá một mệnh đề để làm chủ/tân ngữ.',
+        ex:{ko:'담배가 몸에 나쁘다는 것을 알아요.', vi:'Tôi biết rằng thuốc lá có hại cho cơ thể.'} }
+    ],
+    vocab:[
+      {ko:'뉴스', rom:'nyuseu', vi:'tin tức', pos:'danh từ'},
+      {ko:'사회', rom:'sahoe', vi:'xã hội', pos:'danh từ', hanja:'社會', hv:'xã hội'},
+      {ko:'사건', rom:'sageon', vi:'sự việc, vụ việc', pos:'danh từ', hanja:'事件', hv:'sự kiện'},
+      {ko:'문제', rom:'munje', vi:'vấn đề', pos:'danh từ', hanja:'問題', hv:'vấn đề'},
+      {ko:'해결하다', rom:'haegyeolhada', vi:'giải quyết', pos:'động từ', hanja:'解決—', hv:'giải quyết'},
+      {ko:'발생하다', rom:'balsaenghada', vi:'xảy ra, phát sinh', pos:'động từ', hanja:'發生—', hv:'phát sinh'},
+      {ko:'보도하다', rom:'bodohada', vi:'đưa tin', pos:'động từ', hanja:'報道—', hv:'báo đạo'},
+      {ko:'여론', rom:'yeoron', vi:'dư luận', pos:'danh từ', hanja:'輿論', hv:'dư luận'},
+      {ko:'영향', rom:'yeonghyang', vi:'ảnh hưởng', pos:'danh từ', hanja:'影響', hv:'ảnh hưởng'},
+      {ko:'심각하다', rom:'simgakada', vi:'nghiêm trọng', pos:'tính từ', hanja:'深刻—', hv:'thâm khắc'}
+    ],
+    dialogue:[
+      {sp:'수진', ko:'내일 날씨 어때요?', vi:'Ngày mai thời tiết thế nào?'},
+      {sp:'꾸언', ko:'뉴스에 따르면 비가 온대요.', vi:'Theo tin tức thì trời mưa.'},
+      {sp:'수진', ko:'요즘 미세먼지도 심하죠?', vi:'Dạo này bụi mịn cũng nặng nhỉ?'},
+      {sp:'꾸언', ko:'네, 환경 문제가 심각하다는 것을 느껴요.', vi:'Ừ, tôi cảm nhận vấn đề môi trường thật nghiêm trọng.'}
+    ]
+  },
+  {
+    no:12, level:'trung-cap-1', ko:'환경 보호', vi:'Bảo vệ môi trường', rom:'hwangyeong boho',
+    skill:'Nói về bảo vệ môi trường, khuyến khích hành động', pron:'Nối âm',
+    culture:'Phân loại rác và tái chế ở Hàn Quốc',
+    grammar:[
+      { form:'V + 도록', vi:'để, sao cho, đến mức', note:'Chỉ mục đích hoặc mức độ của hành động.',
+        ex:{ko:'쓰레기를 줄이도록 노력해요.', vi:'Tôi cố gắng để giảm rác.'} },
+      { form:'V + 게 하다', vi:'làm cho, khiến', note:'Câu sai khiến: bắt/để ai đó làm gì.',
+        ex:{ko:'아이에게 채소를 먹게 해요.', vi:'Tôi cho bọn trẻ ăn rau.'} }
+    ],
+    vocab:[
+      {ko:'환경', rom:'hwangyeong', vi:'môi trường', pos:'danh từ', hanja:'環境', hv:'hoàn cảnh'},
+      {ko:'보호하다', rom:'bohohada', vi:'bảo vệ', pos:'động từ', hanja:'保護—', hv:'bảo hộ'},
+      {ko:'오염', rom:'oyeom', vi:'ô nhiễm', pos:'danh từ', hanja:'汚染', hv:'ô nhiễm'},
+      {ko:'쓰레기', rom:'sseuregi', vi:'rác', pos:'danh từ'},
+      {ko:'재활용', rom:'jaehwaryong', vi:'tái chế', pos:'danh từ', hanja:'再活用', hv:'tái hoạt dụng'},
+      {ko:'줄이다', rom:'jurida', vi:'giảm bớt', pos:'động từ'},
+      {ko:'에너지', rom:'eneoji', vi:'năng lượng', pos:'danh từ'},
+      {ko:'절약하다', rom:'jeoryakhada', vi:'tiết kiệm', pos:'động từ', hanja:'節約—', hv:'tiết ước'},
+      {ko:'지구', rom:'jigu', vi:'trái đất', pos:'danh từ', hanja:'地球', hv:'địa cầu'},
+      {ko:'실천하다', rom:'silcheonhada', vi:'thực hiện (bằng hành động)', pos:'động từ', hanja:'實踐—', hv:'thực tiễn'}
+    ],
+    dialogue:[
+      {sp:'민수', ko:'분리수거 어떻게 해요?', vi:'Phân loại rác thế nào?'},
+      {sp:'꾸언', ko:'쓰레기를 줄이도록 노력하고 있어요.', vi:'Tôi đang cố gắng để giảm rác.'},
+      {sp:'민수', ko:'좋은 습관이네요.', vi:'Thói quen tốt đó.'},
+      {sp:'꾸언', ko:'네, 아이들도 절약하게 하고 있어요.', vi:'Vâng, tôi cũng tập cho bọn trẻ tiết kiệm.'}
+    ]
+  },
+  {
+    no:13, level:'trung-cap-1', ko:'부탁과 조언', vi:'Nhờ vả và lời khuyên', rom:'butak-gwa joeon',
+    skill:'Đưa ra lời khuyên, gợi ý cho người khác', pron:'Ngữ điệu khuyên nhủ',
+    culture:'Cách khuyên bảo tế nhị trong tiếng Hàn',
+    grammar:[
+      { form:'V + 는 게 어때요?', vi:'... thì thế nào?', note:'Gợi ý một cách nhẹ nhàng.',
+        ex:{ko:'좀 쉬는 게 어때요?', vi:'Nghỉ một chút thì thế nào?'} },
+      { form:'V + 지 그래요?', vi:'sao không thử ...?', note:'Khuyên người nghe nên làm việc gì.',
+        ex:{ko:'병원에 가 보지 그래요?', vi:'Sao không thử đi khám xem?'} }
+    ],
+    vocab:[
+      {ko:'조언', rom:'joeon', vi:'lời khuyên', pos:'danh từ', hanja:'助言', hv:'trợ ngôn'},
+      {ko:'추천하다', rom:'chucheonhada', vi:'giới thiệu, gợi ý', pos:'động từ', hanja:'推薦—', hv:'thôi tiến'},
+      {ko:'권하다', rom:'gwonhada', vi:'khuyên, mời', pos:'động từ', hanja:'勸—', hv:'khuyến'},
+      {ko:'도움', rom:'doum', vi:'sự giúp đỡ', pos:'danh từ'},
+      {ko:'방법', rom:'bangbeop', vi:'phương pháp, cách', pos:'danh từ', hanja:'方法', hv:'phương pháp'},
+      {ko:'의견', rom:'uigyeon', vi:'ý kiến', pos:'danh từ', hanja:'意見', hv:'ý kiến'},
+      {ko:'결정하다', rom:'gyeoljeonghada', vi:'quyết định', pos:'động từ', hanja:'決定—', hv:'quyết định'},
+      {ko:'고민', rom:'gomin', vi:'nỗi lo, trăn trở', pos:'danh từ', hanja:'苦悶', hv:'khổ muộn'},
+      {ko:'상담하다', rom:'sangdamhada', vi:'tư vấn, trao đổi', pos:'động từ', hanja:'相談—', hv:'tương đàm'},
+      {ko:'피곤하다', rom:'pigonhada', vi:'mệt mỏi', pos:'tính từ', hanja:'疲困—', hv:'bì khốn'}
+    ],
+    dialogue:[
+      {sp:'꾸언', ko:'요즘 너무 피곤한데 어떡하죠?', vi:'Dạo này tôi mệt quá, làm sao đây?'},
+      {sp:'수진', ko:'좀 쉬는 게 어때요?', vi:'Nghỉ một chút thì thế nào?'},
+      {sp:'꾸언', ko:'일이 많아서요.', vi:'Vì nhiều việc quá.'},
+      {sp:'수진', ko:'그래도 병원에 가 보지 그래요?', vi:'Dù vậy sao không thử đi khám xem?'}
+    ]
+  },
+  {
+    no:14, level:'trung-cap-1', ko:'경험에서 배우기', vi:'Học từ trải nghiệm', rom:'gyeongheom-eseo baeugi',
+    skill:'Nói về sự tiến bộ nhờ trải nghiệm', pron:'Ôn nối âm',
+    culture:'Tinh thần kiên trì (끈기) trong học tập của người Hàn',
+    grammar:[
+      { form:'V + 다 보니', vi:'do làm mãi mà, làm riết thành', note:'Trải nghiệm lặp lại dẫn tới nhận ra/kết quả.',
+        ex:{ko:'자꾸 하다 보니 익숙해졌어요.', vi:'Làm mãi nên tôi quen dần.'} },
+      { form:'V + 는 대로', vi:'ngay khi, theo', note:'Làm việc kia ngay sau khi việc này xong.',
+        ex:{ko:'도착하는 대로 연락할게요.', vi:'Đến nơi là tôi liên lạc ngay.'} }
+    ],
+    vocab:[
+      {ko:'경험', rom:'gyeongheom', vi:'kinh nghiệm', pos:'danh từ', hanja:'經驗', hv:'kinh nghiệm'},
+      {ko:'익숙하다', rom:'iksukhada', vi:'quen thuộc', pos:'tính từ'},
+      {ko:'습관', rom:'seupgwan', vi:'thói quen', pos:'danh từ', hanja:'習慣', hv:'tập quán'},
+      {ko:'노력', rom:'noryeok', vi:'nỗ lực', pos:'danh từ', hanja:'努力', hv:'nỗ lực'},
+      {ko:'발전', rom:'baljeon', vi:'sự tiến bộ', pos:'danh từ', hanja:'發展', hv:'phát triển'},
+      {ko:'실력', rom:'sillyeok', vi:'thực lực', pos:'danh từ', hanja:'實力', hv:'thực lực'},
+      {ko:'꾸준히', rom:'kkujunhi', vi:'đều đặn, bền bỉ', pos:'trạng từ'},
+      {ko:'포기하다', rom:'pogihada', vi:'bỏ cuộc', pos:'động từ', hanja:'抛棄—', hv:'phao khí'},
+      {ko:'극복하다', rom:'geukbokhada', vi:'vượt qua', pos:'động từ', hanja:'克服—', hv:'khắc phục'},
+      {ko:'성장하다', rom:'seongjanghada', vi:'trưởng thành, phát triển', pos:'động từ', hanja:'成長—', hv:'thành trưởng'}
+    ],
+    dialogue:[
+      {sp:'민수', ko:'한국어 실력이 많이 늘었네요!', vi:'Tiếng Hàn tiến bộ nhiều nhỉ!'},
+      {sp:'꾸언', ko:'매일 연습하다 보니 익숙해졌어요.', vi:'Ngày nào cũng luyện nên tôi quen dần.'},
+      {sp:'민수', ko:'정말 대단해요.', vi:'Giỏi thật đấy.'},
+      {sp:'꾸언', ko:'집에 도착하는 대로 또 공부할 거예요.', vi:'Về đến nhà là tôi lại học tiếp.'}
+    ]
+  },
+  {
+    no:15, level:'trung-cap-1', ko:'미래와 목표', vi:'Tương lai và mục tiêu', rom:'mirae-wa mokpyo',
+    skill:'Trình bày dự định, mục tiêu một cách trang trọng', pron:'Ôn tập tổng hợp',
+    culture:'Quan niệm về học lên cao và du học của người Hàn',
+    grammar:[
+      { form:'V + 고자 하다', vi:'nhằm, muốn (trang trọng)', note:'Ý định, mục đích trong văn phong trang trọng.',
+        ex:{ko:'통역사가 되고자 합니다.', vi:'Tôi mong trở thành phiên dịch viên.'} },
+      { form:'V + (으)ㄹ 계획이다', vi:'có kế hoạch, dự định', note:'Nói về kế hoạch cụ thể sắp tới.',
+        ex:{ko:'대학원에 갈 계획이에요.', vi:'Tôi dự định học cao học.'} }
+    ],
+    vocab:[
+      {ko:'미래', rom:'mirae', vi:'tương lai', pos:'danh từ', hanja:'未來', hv:'vị lai'},
+      {ko:'목표', rom:'mokpyo', vi:'mục tiêu', pos:'danh từ', hanja:'目標', hv:'mục tiêu'},
+      {ko:'계획', rom:'gyehoek', vi:'kế hoạch', pos:'danh từ', hanja:'計劃', hv:'kế hoạch'},
+      {ko:'성공', rom:'seonggong', vi:'thành công', pos:'danh từ', hanja:'成功', hv:'thành công'},
+      {ko:'이루다', rom:'iruda', vi:'đạt được, thực hiện', pos:'động từ'},
+      {ko:'도전', rom:'dojeon', vi:'thử thách', pos:'danh từ', hanja:'挑戰', hv:'khiêu chiến'},
+      {ko:'자격증', rom:'jagyeokjeung', vi:'chứng chỉ', pos:'danh từ', hanja:'資格證', hv:'tư cách chứng'},
+      {ko:'취업', rom:'chwieop', vi:'việc làm, xin việc', pos:'danh từ', hanja:'就業', hv:'tựu nghiệp'},
+      {ko:'유학', rom:'yuhak', vi:'du học', pos:'danh từ', hanja:'留學', hv:'lưu học'},
+      {ko:'대학원', rom:'daehagwon', vi:'cao học, sau đại học', pos:'danh từ', hanja:'大學院', hv:'đại học viện'}
+    ],
+    dialogue:[
+      {sp:'수진', ko:'앞으로 계획이 어떻게 돼요?', vi:'Kế hoạch sắp tới của bạn thế nào?'},
+      {sp:'꾸언', ko:'통역사가 되고자 합니다.', vi:'Tôi muốn trở thành phiên dịch viên.'},
+      {sp:'수진', ko:'그럼 유학도 갈 거예요?', vi:'Vậy có đi du học không?'},
+      {sp:'꾸언', ko:'네, 대학원에 갈 계획이에요.', vi:'Vâng, tôi dự định học cao học.'}
+    ]
+  }
+);
+
+/* Cập nhật trạng thái: Trung cấp 1 đã có nội dung */
+(COURSE_KO.levels.find(x => x.id === 'trung-cap-1') || {}).status = 'active';
+
 /* Các ngôn ngữ sẽ mở tiếp — khung dữ liệu giống hệt COURSE_KO */
 const LANGUAGES = [
   { code:'ko', label:'Tiếng Hàn',  native:'한국어',   mark:'한', status:'active',  note:'Sơ cấp 1 · 15 bài' },
