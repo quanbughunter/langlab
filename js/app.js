@@ -223,6 +223,7 @@ function mountTopik(){
     const S = state.topik;
     const el = $('#topikTimer');
     if (!S || S.phase !== 'doing' || !el){ topikStopTimer(); return; }
+    if (S.paused) return;
     S.remaining--;
     el.textContent = topikClock(S.remaining);
     if (S.remaining <= 60) el.classList.add('low');
@@ -352,8 +353,12 @@ function topikView(){
   return `
   <div class="topik-bar" id="topikBar">
     <div class="tk-bar-info"><span class="eyebrow">${esc(t.badge)}</span><b>${esc(t.title)}</b></div>
-    <div class="tk-timer" id="topikTimer">${topikClock(S.remaining)}</div>
-    <button class="pbtn primary" data-topik-submit="1">Nộp bài</button>
+    <div class="tk-timer${S.paused ? ' paused' : ''}" id="topikTimer">${topikClock(S.remaining)}</div>
+    <div class="tk-bar-btns">
+      <button class="pbtn" data-topik-pause="1">${S.paused ? 'Tiếp tục' : 'Tạm dừng'}</button>
+      <button class="pbtn" data-topik-reset="1">Làm lại</button>
+      <button class="pbtn primary" data-topik-submit="1">Nộp bài</button>
+    </div>
   </div>
   <div class="topik-quiz">
     ${t.questions.map((q, i) => topikQ(q, i, S.answers[i])).join('')}
@@ -1726,11 +1731,15 @@ function dictEntryHtml(hit){
             ${s.def_ko ? `<div class="de-ko ko">${esc(s.def_ko)}</div>` : ''}
             ${(s.examples && s.examples.length) ? `
               <div class="de-ex-list">
-                ${s.examples.map(e => `
+                ${s.examples.map(e => { const ko = typeof e === 'string' ? e : e.ko; return `
                   <div class="de-ex">
-                    <span class="ko">${Words.mark(typeof e === 'string' ? e : e.ko)}</span>
-                    ${(e && e.vi) ? `<span class="de-ex-vi">${esc(e.vi)}</span>` : ''}
-                  </div>`).join('')}
+                    <span class="ko">${Words.mark(ko)}</span>
+                    ${(e && e.vi) ? `<span class="de-ex-vi">${esc(e.vi)}</span>` : '<span class="de-ex-vi de-ex-trans" hidden></span>'}
+                    <div class="de-ex-tools">
+                      <button class="icon-btn de-ex-play" data-speak="${esc(ko)}" title="Nghe"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg></button>
+                      ${(e && e.vi) ? '' : `<button class="mini de-ex-dich" data-trans-ex="${esc(ko)}">Dịch nghĩa</button>`}
+                    </div>
+                  </div>`; }).join('')}
               </div>` : ''}
           </li>`).join('')}
       </ol>
@@ -1743,10 +1752,13 @@ function dictEntryHtml(hit){
               const ko = typeof e === 'string' ? e : e.ko;
               return `<div class="de-ex">
                 <span class="ko">${Words.mark(ko)}</span>
-                ${(e && e.vi) ? `<span class="de-ex-vi">${esc(e.vi)}</span>` : ''}
-                <button class="icon-btn de-ex-play" data-speak="${esc(ko)}" title="Nghe">
-                  <svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
-                </button>
+                ${(e && e.vi) ? `<span class="de-ex-vi">${esc(e.vi)}</span>` : '<span class="de-ex-vi de-ex-trans" hidden></span>'}
+                <div class="de-ex-tools">
+                  <button class="icon-btn de-ex-play" data-speak="${esc(ko)}" title="Nghe">
+                    <svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+                  </button>
+                  ${(e && e.vi) ? '' : `<button class="mini de-ex-dich" data-trans-ex="${esc(ko)}">Dịch nghĩa</button>`}
+                </div>
               </div>`;
             }).join('')}
           </div>
@@ -2074,6 +2086,27 @@ document.addEventListener('click', e => {
   }
   if (t.closest('#wpClose')){ closeWord(); return; }
 
+  /* ----- dịch một câu ví dụ trong từ điển ----- */
+  const tex = t.closest('[data-trans-ex]');
+  if (tex){
+    const ko = tex.dataset.transEx;
+    const row = tex.closest('.de-ex');
+    const slot = row && row.querySelector('.de-ex-trans');
+    if (!slot) return;
+    if (slot.dataset.done){ slot.hidden = !slot.hidden; return; }
+    const gurl = (typeof Translate !== 'undefined' && Translate.googleUrl) ? Translate.googleUrl(ko) : ('https://translate.google.com/?sl=ko&tl=vi&text=' + encodeURIComponent(ko));
+    slot.hidden = false; slot.textContent = 'Đang dịch…';
+    if (typeof Translate === 'undefined' || !Translate.run){
+      slot.innerHTML = `Mở <a href="${gurl}" target="_blank" rel="noopener noreferrer">Google Dịch</a>`; slot.dataset.done = '1'; return;
+    }
+    Translate.run([ko], (map) => {
+      const vi = map && map[Translate.hash(ko)];
+      if (vi){ slot.textContent = vi; slot.dataset.done = '1'; }
+      else { slot.innerHTML = `Chưa dịch tự động được. <a href="${gurl}" target="_blank" rel="noopener noreferrer">Mở Google Dịch</a>`; }
+    });
+    return;
+  }
+
   if (t.closest('[data-stop]')){ stopAudio(); return; }
 
   const ss = t.closest('[data-speak-slow]');
@@ -2265,6 +2298,18 @@ document.addEventListener('click', e => {
     if (state.topik){ state.topik.answers[qi] = oi; }
     const box = tkans.closest('.tk-opts');
     if (box) box.querySelectorAll('.tk-opt').forEach(x => x.classList.toggle('on', x === tkans));
+    return;
+  }
+  const tkpause = t.closest('[data-topik-pause]');
+  if (tkpause){
+    const S = state.topik; if (!S) return;
+    S.paused = !S.paused;
+    tkpause.textContent = S.paused ? 'Tiếp tục' : 'Tạm dừng';
+    const tm = $('#topikTimer'); if (tm) tm.classList.toggle('paused', S.paused);
+    return;
+  }
+  if (t.closest('[data-topik-reset]')){
+    if (state.topik && confirm('Làm lại từ đầu? Toàn bộ đáp án đã chọn và thời gian sẽ được đặt lại.')) topikStartTest(state.topik.testId);
     return;
   }
   if (t.closest('[data-topik-submit]')){ topikStopTimer(); if (state.topik) state.topik.phase = 'done'; render(); return; }

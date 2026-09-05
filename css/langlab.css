@@ -512,6 +512,8 @@ a{color:var(--accent)}
 .tk-bar-info b{display:block;font-size:14px}
 .tk-timer{font-family:"JetBrains Mono",monospace;font-size:26px;font-weight:700;color:var(--accent);letter-spacing:.04em}
 .tk-timer.low{color:var(--seal);animation:tkpulse 1s infinite}
+.tk-timer.paused{color:var(--faint);opacity:.6;animation:none}
+.tk-bar-btns{display:flex;gap:8px;flex-wrap:wrap}
 @keyframes tkpulse{50%{opacity:.45}}
 .topik-quiz{display:flex;flex-direction:column;gap:16px;max-width:760px}
 .tk-q{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:16px 18px}
@@ -599,10 +601,13 @@ button.tk-opt:hover{border-color:var(--accent)}
 .de-ex-vi{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
 .de-usage{margin-top:16px}
 .de-usage > .de-lbl{display:block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:2px}
-.de-usage .de-ex{position:relative;padding-right:40px}
-.de-ex-play{position:absolute;top:6px;right:6px;width:27px;height:27px;padding:0;display:grid;place-items:center;border:none;background:transparent;color:var(--faint);border-radius:7px;cursor:pointer}
+.de-ex-tools{display:flex;gap:6px;align-items:center;margin-top:8px}
+.de-ex-play{width:26px;height:26px;padding:0;display:grid;place-items:center;border:none;background:transparent;color:var(--faint);border-radius:7px;cursor:pointer}
 .de-ex-play:hover{background:var(--accent-soft);color:var(--accent)}
 .de-ex-play svg{width:13px;height:13px;fill:currentColor;stroke:none}
+.de-ex-dich{padding:3px 10px;font-size:11px}
+.de-ex-vi[hidden]{display:none}
+.de-ex-trans{color:var(--accent)}
 .de-hint{font-size:12px;color:var(--faint);margin-top:12px;font-style:italic}
 
 /* ================= luyện shadowing ================= */
