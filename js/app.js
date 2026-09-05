@@ -16,6 +16,7 @@ const store = {
 
 const state = {
   view: 'home',
+  level: store.get('level', 'so-cap-1'),
   lesson: null,
   tab: 'vocab',
   jamo: 'ㄱ',
@@ -31,6 +32,12 @@ const state = {
     store.get('shadow', {})
   )
 };
+
+/* ---------- nhiều cấp học ---------- */
+function curLessons(){ return COURSE_KO.lessons.filter(l => l.level === state.level); }
+function curLesson(){ return curLessons().find(l => l.no === state.lesson); }
+function levelHasLessons(id){ return COURSE_KO.lessons.some(l => l.level === id); }
+function curLevel(){ return (COURSE_KO.levels || []).find(x => x.id === state.level) || { vi:'Sơ cấp 1', ko:'초급 1' }; }
 
 /* ---------- thông báo ngắn ---------- */
 let toastTimer;
@@ -183,31 +190,34 @@ const VIEWS = {
 
 /* ---------------- Khoá học ---------------- */
 home(){
-  const L = COURSE_KO.lessons;
+  const L = curLessons();
+  const lv = curLevel();
   return `
   <div class="page-head">
-    <span class="eyebrow">Khoá tiếng Hàn · 초급 1</span>
+    <span class="eyebrow">Khoá tiếng Hàn · ${esc(lv.ko)}</span>
     <h1>Học theo bài, đúng thứ tự của giáo trình</h1>
-    <p>Mười lăm bài của <em>Sơ cấp 1</em>, mỗi bài giữ nguyên cấu trúc quen thuộc: từ vựng → ngữ pháp → hội thoại → phát âm → văn hoá. Bấm vào một bài để bắt đầu.</p>
+    <p>${L.length} bài của <em>${esc(lv.vi)}</em>, mỗi bài giữ nguyên cấu trúc quen thuộc: từ vựng → ngữ pháp → hội thoại → phát âm → văn hoá. Bấm vào một bài để bắt đầu.</p>
   </div>
 
   <div class="level-strip">
-    ${COURSE_KO.levels.map(lv => `
-      <button class="level-chip" ${lv.status === 'active' ? 'aria-pressed="true"' : 'disabled'}>
-        ${esc(lv.vi)} <span class="lv-ko ko">${esc(lv.ko)}</span>
-      </button>`).join('')}
+    ${COURSE_KO.levels.map(v => {
+      const has = levelHasLessons(v.id);
+      return `<button class="level-chip" data-level="${v.id}"${state.level === v.id ? ' aria-pressed="true"' : ''}${has ? '' : ' disabled'} title="${has ? '' : 'Đang biên soạn'}">
+        ${esc(v.vi)} <span class="lv-ko ko">${esc(v.ko)}</span>${has ? '' : ' <span class="lv-soon">sắp có</span>'}
+      </button>`;
+    }).join('')}
   </div>
 
   <div class="lesson-grid">
     ${L.map(l => {
-      const pct = state.done['l' + l.no] ? 100 : 0;
+      const pct = state.done[l.level + '-' + l.no] ? 100 : 0;
       return `
       <button class="lesson-card" data-lesson="${l.no}">
         <span class="lesson-no"><i></i> BÀI ${String(l.no).padStart(2,'0')}</span>
         <h3 class="ko">${esc(l.ko)}</h3>
         <p class="vi">${esc(l.vi)}</p>
         <p class="skill">${esc(l.skill)}</p>
-        <div class="gram-tags">${l.grammar.slice(0,3).map(g =>
+        <div class="gram-tags">${(l.grammar || []).slice(0,3).map(g =>
           `<span class="gtag">${esc(g.form.split('<')[0].trim())}</span>`).join('')}</div>
         <div class="lesson-foot">
           <span class="n">${l.vocab.length} từ</span>
@@ -221,7 +231,7 @@ home(){
 
 /* ---------------- Chi tiết bài học ---------------- */
 lesson(){
-  const l = COURSE_KO.lessons.find(x => x.no === state.lesson);
+  const l = curLesson();
   if (!l) return VIEWS.home();
   const tabs = [
     ['vocab','어휘','Từ vựng'], ['gram','문법','Ngữ pháp'], ['talk','회화','Hội thoại'],
@@ -422,7 +432,8 @@ write(){
 
 /* ---------------- Ôn tập SRS ---------------- */
 srs(){
-  const deck = state.deck.length ? state.deck : COURSE_KO.lessons[0].vocab.slice(0, 8).map(v => v.ko);
+  const base = curLessons()[0] || COURSE_KO.lessons[0];
+  const deck = state.deck.length ? state.deck : base.vocab.slice(0, 8).map(v => v.ko);
   const all = COURSE_KO.lessons.flatMap(l => l.vocab);
   const w = all.find(v => v.ko === deck[0]) || all[0];
   return `
@@ -458,7 +469,7 @@ srs(){
     <div>
       <div class="aside-card">
         <h5>Bộ thẻ</h5>
-        ${COURSE_KO.lessons.slice(0,5).map(l => `
+        ${curLessons().slice(0,5).map(l => `
           <div class="krow"><span>Bài ${String(l.no).padStart(2,'0')} · ${esc(l.vi)}</span><span class="n">${l.vocab.length}</span></div>`).join('')}
       </div>
       <div class="aside-card" style="margin-top:14px">
@@ -653,7 +664,7 @@ let quizData = null;
 function quizPool(){
   if (quizData) return quizData;
   const seen = {}, vocab = [], sents = [];
-  COURSE_KO.lessons.forEach(l => {
+  curLessons().forEach(l => {
     (l.vocab || []).forEach(v => {
       if (v.ko && v.vi && !seen[v.ko]){ seen[v.ko] = 1; vocab.push({ ko:v.ko, rom:v.rom, vi:v.vi, lesson:l.no }); }
     });
@@ -823,7 +834,7 @@ function render(){
     b.setAttribute('aria-current', on ? 'page' : 'false');
   });
 
-  const l = state.lesson && COURSE_KO.lessons.find(x => x.no === state.lesson);
+  const l = state.lesson && curLesson();
   $('#crumb').innerHTML = state.view === 'lesson' && l
     ? `<button class="crumb-link" data-go="home">Tiếng Hàn</button> <span>›</span> <button class="crumb-link" data-go="home">Sơ cấp 1</button> <span>›</span> <b>Bài ${String(l.no).padStart(2,'0')} · ${esc(l.vi)}</b>`
     : `<button class="crumb-link" data-go="home">Tiếng Hàn</button> <span>›</span> <b>${CRUMBS[state.view]}</b>`;
@@ -967,7 +978,7 @@ function clearTrace(){
 function allWords(){
   // dùng đúng kho đã gộp (khoá học + từ thông dụng, đã khử trùng lặp)
   const idx = Words.index();
-  return idx ? idx.words : COURSE_KO.lessons.flatMap(l => l.vocab.map(v => Object.assign({ lesson: l.no, theme: l.vi }, v)));
+  return idx ? idx.words : COURSE_KO.lessons.flatMap(l => l.vocab.map(v => Object.assign({ lesson: l.no, level: l.level, theme: l.vi }, v)));
 }
 function mountDict(){
   const words = allWords();
@@ -1292,7 +1303,7 @@ function dictEntryHtml(hit){
         ${level ? `<span class="chip lv">${esc(level)}</span>` : ''}
         ${hit.hanja ? `<span class="chip gold">${esc(hit.hanja)}${hit.hv ? ' · ' + esc(hit.hv) : ''}</span>` : ''}
         ${hit.lesson
-          ? `<button class="chip link" data-lesson="${hit.lesson}">Bài ${String(hit.lesson).padStart(2,'0')}</button>`
+          ? `<button class="chip link" data-lesson="${hit.lesson}" data-lv="${esc(hit.level || '')}">Bài ${String(hit.lesson).padStart(2,'0')}</button>`
           : `<span class="chip soft">${esc(hit.theme || '')}</span>`}
       </div>
       ${structure}
@@ -1667,17 +1678,30 @@ document.addEventListener('click', e => {
     return;
   }
 
+  const lvchip = t.closest('.level-chip');
+  if (lvchip && lvchip.dataset.level){
+    if (!lvchip.disabled && lvchip.dataset.level !== state.level){
+      state.level = lvchip.dataset.level; store.set('level', state.level);
+      quizData = null; state.quiz = null; state.lesson = null; state.view = 'home';
+      render();
+    }
+    return;
+  }
+
   const nav = t.closest('[data-go]');
   if (nav){ go(nav.dataset.go); return; }
 
   const les = t.closest('[data-lesson]');
-  if (les){ closeWord(); go('lesson', +les.dataset.lesson); return; }
+  if (les){
+    if (les.dataset.lv && les.dataset.lv !== state.level){ state.level = les.dataset.lv; store.set('level', state.level); quizData = null; state.quiz = null; }
+    closeWord(); go('lesson', +les.dataset.lesson); return;
+  }
 
   const tab = t.closest('.tab');
   if (tab){
     state.tab = tab.dataset.tab;
     $$('.tab').forEach(x => x.setAttribute('aria-selected', x === tab));
-    const l = COURSE_KO.lessons.find(x => x.no === state.lesson);
+    const l = curLesson();
     $('#tabbody').innerHTML = VIEWS['tab_' + state.tab](l);
     if (state.tab === 'write') mountTrace();
     return;
@@ -1687,7 +1711,7 @@ document.addEventListener('click', e => {
   if (sp){ speak(sp.dataset.speak); return; }
 
   if (t.closest('[data-speak-all]')){
-    const l = COURSE_KO.lessons.find(x => x.no === state.lesson);
+    const l = curLesson();
     const rows = $$('.dlg-row');
     const lines = l.dialogue.map(d => d.ko);
     const hi = i => {

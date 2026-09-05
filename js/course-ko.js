@@ -582,6 +582,455 @@ const COURSE_KO = {
   ]
 };
 
+/* ---- Đánh dấu cấp cho các bài hiện có (Sơ cấp 1) ---- */
+COURSE_KO.lessons.forEach(l => { if (!l.level) l.level = 'so-cap-1'; });
+
+/* ============================================================
+   Sơ cấp 2 (초급 2) — 15 bài. Khung chương trình bám bộ giáo trình
+   « Tiếng Hàn Quốc tổng hợp dành cho người Việt Nam », phần từ vựng,
+   câu ví dụ và hội thoại do LangLab tự biên soạn (bậc A2).
+   ============================================================ */
+COURSE_KO.lessons.push(
+  {
+    no:1, level:'so-cap-2', ko:'한국 생활', vi:'Cuộc sống ở Hàn Quốc', rom:'hanguk saenghwal',
+    skill:'Nói về việc thích nghi với cuộc sống ở Hàn', pron:'Nối âm (연음)',
+    culture:'Những khác biệt trong nếp sống thường ngày ở Hàn Quốc',
+    grammar:[
+      { form:'N + 보다 (더)', vi:'hơn (so sánh)', note:'So sánh hai đối tượng; 더 (hơn) có thể lược bỏ.',
+        ex:{ko:'서울은 하노이보다 추워요.', vi:'Seoul lạnh hơn Hà Nội.'} },
+      { form:'V + (으)ㄹ 수 있다 / 없다', vi:'có thể / không thể', note:'있다 = làm được, 없다 = không làm được.',
+        ex:{ko:'저는 매운 음식을 먹을 수 있어요.', vi:'Tôi ăn được đồ cay.'} }
+    ],
+    vocab:[
+      {ko:'생활', rom:'saenghwal', vi:'cuộc sống, sinh hoạt', pos:'danh từ', hanja:'生活', hv:'sinh hoạt'},
+      {ko:'적응하다', rom:'jeogeunghada', vi:'thích nghi', pos:'động từ', hanja:'適應—', hv:'thích ứng'},
+      {ko:'익숙하다', rom:'iksukhada', vi:'quen thuộc', pos:'tính từ'},
+      {ko:'낯설다', rom:'natseolda', vi:'lạ lẫm', pos:'tính từ'},
+      {ko:'다르다', rom:'dareuda', vi:'khác', pos:'tính từ'},
+      {ko:'비슷하다', rom:'biseutada', vi:'giống, tương tự', pos:'tính từ'},
+      {ko:'편하다', rom:'pyeonhada', vi:'thoải mái, tiện', pos:'tính từ', hanja:'便—', hv:'tiện'},
+      {ko:'불편하다', rom:'bulpyeonhada', vi:'bất tiện', pos:'tính từ', hanja:'不便—', hv:'bất tiện'},
+      {ko:'물가', rom:'mulga', vi:'vật giá', pos:'danh từ', hanja:'物價', hv:'vật giá'},
+      {ko:'외국', rom:'oeguk', vi:'nước ngoài', pos:'danh từ', hanja:'外國', hv:'ngoại quốc'}
+    ],
+    dialogue:[
+      {sp:'민수', ko:'꾸언 씨, 한국 생활은 어때요?', vi:'Quân ơi, cuộc sống ở Hàn thế nào?'},
+      {sp:'꾸언', ko:'처음에는 불편했는데 이제 익숙해졌어요.', vi:'Lúc đầu bất tiện nhưng giờ quen rồi.'},
+      {sp:'민수', ko:'뭐가 제일 다르다고 생각해요?', vi:'Bạn thấy khác nhất là gì?'},
+      {sp:'꾸언', ko:'한국은 베트남보다 겨울이 훨씬 추워요.', vi:'Mùa đông Hàn Quốc lạnh hơn Việt Nam nhiều.'}
+    ]
+  },
+  {
+    no:2, level:'so-cap-2', ko:'시장과 쇼핑', vi:'Chợ và mua sắm', rom:'sijang-gwa syoping',
+    skill:'Hỏi giá và mặc cả khi mua đồ', pron:'Âm căng sau phụ âm cuối',
+    culture:'Chợ truyền thống và văn hoá mặc cả ở Hàn Quốc',
+    grammar:[
+      { form:'V + 아/어 주세요', vi:'làm ơn ... cho', note:'Nhờ người khác làm việc gì một cách lịch sự.',
+        ex:{ko:'조금만 깎아 주세요.', vi:'Bớt một chút cho tôi nhé.'} },
+      { form:'A/V + 지만', vi:'nhưng', note:'Nối hai vế trái ngược nhau.',
+        ex:{ko:'비싸지만 사고 싶어요.', vi:'Đắt nhưng tôi vẫn muốn mua.'} }
+    ],
+    vocab:[
+      {ko:'시장', rom:'sijang', vi:'chợ', pos:'danh từ', hanja:'市場', hv:'thị trường'},
+      {ko:'가격', rom:'gagyeok', vi:'giá', pos:'danh từ', hanja:'價格', hv:'giá cách'},
+      {ko:'값', rom:'gap', vi:'giá tiền', pos:'danh từ'},
+      {ko:'깎다', rom:'kkakda', vi:'mặc cả, giảm giá', pos:'động từ'},
+      {ko:'싸다', rom:'ssada', vi:'rẻ', pos:'tính từ'},
+      {ko:'비싸다', rom:'bissada', vi:'đắt', pos:'tính từ'},
+      {ko:'현금', rom:'hyeongeum', vi:'tiền mặt', pos:'danh từ', hanja:'現金', hv:'hiện kim'},
+      {ko:'카드', rom:'kadeu', vi:'thẻ', pos:'danh từ'},
+      {ko:'봉투', rom:'bongtu', vi:'túi, bao', pos:'danh từ', hanja:'封套', hv:'phong sáo'},
+      {ko:'손님', rom:'sonnim', vi:'khách', pos:'danh từ'}
+    ],
+    dialogue:[
+      {sp:'손님', ko:'이 사과 한 개에 얼마예요?', vi:'Táo này bao nhiêu một quả?'},
+      {sp:'주인', ko:'하나에 천 원이에요.', vi:'Một nghìn won một quả.'},
+      {sp:'손님', ko:'조금 비싸요. 깎아 주세요.', vi:'Hơi đắt. Bớt cho tôi chút.'},
+      {sp:'주인', ko:'그럼 세 개에 이천오백 원 하세요.', vi:'Vậy ba quả 2500 won nhé.'}
+    ]
+  },
+  {
+    no:3, level:'so-cap-2', ko:'교통 (2)', vi:'Giao thông (2)', rom:'gyotong',
+    skill:'Hỏi đường và đổi tuyến xe', pron:'Nối âm ㄴ / ㄹ',
+    culture:'Hệ thống tàu điện ngầm ở Seoul',
+    grammar:[
+      { form:'N + (으)로', vi:'bằng (phương tiện), hướng', note:'Chỉ phương tiện di chuyển hoặc phương hướng.',
+        ex:{ko:'지하철로 가세요.', vi:'Hãy đi bằng tàu điện ngầm.'} },
+      { form:'V + 아/어서 (trình tự)', vi:'... rồi ...', note:'Hành động trước làm nền cho hành động sau, cùng chủ ngữ.',
+        ex:{ko:'서울역에서 내려서 갈아타세요.', vi:'Xuống ở ga Seoul rồi đổi tuyến.'} }
+    ],
+    vocab:[
+      {ko:'지하철', rom:'jihacheol', vi:'tàu điện ngầm', pos:'danh từ', hanja:'地下鐵', hv:'địa hạ thiết'},
+      {ko:'버스', rom:'beoseu', vi:'xe buýt', pos:'danh từ'},
+      {ko:'택시', rom:'taeksi', vi:'taxi', pos:'danh từ'},
+      {ko:'갈아타다', rom:'garatada', vi:'đổi tuyến, chuyển xe', pos:'động từ'},
+      {ko:'내리다', rom:'naerida', vi:'xuống (xe)', pos:'động từ'},
+      {ko:'타다', rom:'tada', vi:'lên (xe)', pos:'động từ'},
+      {ko:'정류장', rom:'jeongnyujang', vi:'trạm dừng', pos:'danh từ', hanja:'停留場', hv:'đình lưu trường'},
+      {ko:'방향', rom:'banghyang', vi:'hướng', pos:'danh từ', hanja:'方向', hv:'phương hướng'},
+      {ko:'표', rom:'pyo', vi:'vé', pos:'danh từ', hanja:'票', hv:'phiếu'},
+      {ko:'지도', rom:'jido', vi:'bản đồ', pos:'danh từ', hanja:'地圖', hv:'địa đồ'}
+    ],
+    dialogue:[
+      {sp:'꾸언', ko:'실례합니다. 명동에 어떻게 가요?', vi:'Xin lỗi, đi Myeongdong thế nào ạ?'},
+      {sp:'행인', ko:'여기에서 지하철을 타세요.', vi:'Anh lên tàu điện ngầm ở đây.'},
+      {sp:'꾸언', ko:'갈아타야 해요?', vi:'Có phải đổi tuyến không ạ?'},
+      {sp:'행인', ko:'네, 충무로역에서 갈아타세요.', vi:'Vâng, đổi tuyến ở ga Chungmuro.'}
+    ]
+  },
+  {
+    no:4, level:'so-cap-2', ko:'몸과 건강', vi:'Cơ thể và sức khoẻ', rom:'mom-gwa geongang',
+    skill:'Nói về triệu chứng và đi khám bệnh', pron:'Âm bật hơi (거센소리)',
+    culture:'Hiệu thuốc và bệnh viện ở Hàn Quốc',
+    grammar:[
+      { form:'V + 아/어야 하다 / 되다', vi:'phải', note:'Diễn tả việc bắt buộc phải làm.',
+        ex:{ko:'약을 먹어야 해요.', vi:'Bạn phải uống thuốc.'} },
+      { form:'V + 지 마세요', vi:'đừng', note:'Câu cấm hoặc khuyên không nên làm.',
+        ex:{ko:'너무 무리하지 마세요.', vi:'Đừng làm quá sức.'} }
+    ],
+    vocab:[
+      {ko:'몸', rom:'mom', vi:'cơ thể', pos:'danh từ'},
+      {ko:'머리', rom:'meori', vi:'đầu', pos:'danh từ'},
+      {ko:'배', rom:'bae', vi:'bụng', pos:'danh từ'},
+      {ko:'감기', rom:'gamgi', vi:'cảm cúm', pos:'danh từ', hanja:'感氣', hv:'cảm khí'},
+      {ko:'열', rom:'yeol', vi:'sốt', pos:'danh từ', hanja:'熱', hv:'nhiệt'},
+      {ko:'기침', rom:'gichim', vi:'ho', pos:'danh từ'},
+      {ko:'아프다', rom:'apeuda', vi:'đau, ốm', pos:'tính từ'},
+      {ko:'병원', rom:'byeongwon', vi:'bệnh viện', pos:'danh từ', hanja:'病院', hv:'bệnh viện'},
+      {ko:'약', rom:'yak', vi:'thuốc', pos:'danh từ', hanja:'藥', hv:'dược'},
+      {ko:'약국', rom:'yakguk', vi:'hiệu thuốc', pos:'danh từ', hanja:'藥局', hv:'dược cục'}
+    ],
+    dialogue:[
+      {sp:'의사', ko:'어디가 아파요?', vi:'Anh đau ở đâu?'},
+      {sp:'꾸언', ko:'어제부터 머리가 아프고 열이 나요.', vi:'Từ hôm qua tôi đau đầu và bị sốt.'},
+      {sp:'의사', ko:'감기예요. 약을 먹고 푹 쉬어야 해요.', vi:'Cảm cúm thôi. Phải uống thuốc và nghỉ ngơi cho khoẻ.'},
+      {sp:'꾸언', ko:'네, 알겠습니다. 감사합니다.', vi:'Vâng, tôi hiểu rồi. Cảm ơn bác sĩ.'}
+    ]
+  },
+  {
+    no:5, level:'so-cap-2', ko:'약속과 초대', vi:'Hẹn và mời', rom:'yaksok-gwa chodae',
+    skill:'Hẹn gặp, mời và nhận lời', pron:'Ngữ điệu câu hỏi',
+    culture:'Văn hoá mời khách đến nhà ở Hàn Quốc',
+    grammar:[
+      { form:'V + (으)ㄹ까요?', vi:'... nhé? / cùng ... không?', note:'Đề nghị hoặc rủ rê làm việc gì cùng nhau.',
+        ex:{ko:'같이 저녁 먹을까요?', vi:'Cùng ăn tối nhé?'} },
+      { form:'V + 기로 하다', vi:'quyết định / hẹn sẽ', note:'Hẹn ước hoặc quyết định làm gì.',
+        ex:{ko:'토요일에 만나기로 했어요.', vi:'Chúng tôi hẹn gặp vào thứ Bảy.'} }
+    ],
+    vocab:[
+      {ko:'약속', rom:'yaksok', vi:'cuộc hẹn', pos:'danh từ', hanja:'約束', hv:'ước thúc'},
+      {ko:'초대하다', rom:'chodaehada', vi:'mời', pos:'động từ', hanja:'招待—', hv:'chiêu đãi'},
+      {ko:'시간', rom:'sigan', vi:'thời gian', pos:'danh từ', hanja:'時間', hv:'thời gian'},
+      {ko:'늦다', rom:'neutda', vi:'muộn, trễ', pos:'động từ'},
+      {ko:'일찍', rom:'iljjik', vi:'sớm', pos:'trạng từ'},
+      {ko:'만나다', rom:'mannada', vi:'gặp', pos:'động từ'},
+      {ko:'취소하다', rom:'chwisohada', vi:'huỷ', pos:'động từ', hanja:'取消—', hv:'thủ tiêu'},
+      {ko:'준비하다', rom:'junbihada', vi:'chuẩn bị', pos:'động từ', hanja:'準備—', hv:'chuẩn bị'},
+      {ko:'파티', rom:'pati', vi:'tiệc', pos:'danh từ'},
+      {ko:'선물', rom:'seonmul', vi:'quà', pos:'danh từ', hanja:'膳物', hv:'thiện vật'}
+    ],
+    dialogue:[
+      {sp:'수진', ko:'이번 주말에 시간 있어요?', vi:'Cuối tuần này bạn có thời gian không?'},
+      {sp:'꾸언', ko:'네, 괜찮아요. 왜요?', vi:'Có, ổn mà. Sao thế?'},
+      {sp:'수진', ko:'우리 집에서 파티를 할까요?', vi:'Mình tổ chức tiệc ở nhà mình nhé?'},
+      {sp:'꾸언', ko:'좋아요! 그럼 토요일에 만나기로 해요.', vi:'Hay đó! Vậy hẹn gặp thứ Bảy nhé.'}
+    ]
+  },
+  {
+    no:6, level:'so-cap-2', ko:'여행', vi:'Du lịch', rom:'yeohaeng',
+    skill:'Nói về kinh nghiệm và kế hoạch du lịch', pron:'Trọng âm câu',
+    culture:'Các điểm du lịch nổi tiếng ở Hàn (Jeju, Busan)',
+    grammar:[
+      { form:'V + 아/어 봤다', vi:'đã từng ...', note:'Kinh nghiệm đã thử hoặc đã làm.',
+        ex:{ko:'제주도에 가 봤어요.', vi:'Tôi đã từng đến đảo Jeju.'} },
+      { form:'V + (으)ㄹ 거예요', vi:'sẽ (dự định)', note:'Kế hoạch, dự định trong tương lai.',
+        ex:{ko:'다음 달에 부산에 갈 거예요.', vi:'Tháng sau tôi sẽ đi Busan.'} }
+    ],
+    vocab:[
+      {ko:'여행', rom:'yeohaeng', vi:'du lịch', pos:'danh từ', hanja:'旅行', hv:'lữ hành'},
+      {ko:'계획', rom:'gyehoek', vi:'kế hoạch', pos:'danh từ', hanja:'計劃', hv:'kế hoạch'},
+      {ko:'예약하다', rom:'yeyakhada', vi:'đặt trước', pos:'động từ', hanja:'豫約—', hv:'dự ước'},
+      {ko:'짐', rom:'jim', vi:'hành lý', pos:'danh từ'},
+      {ko:'바다', rom:'bada', vi:'biển', pos:'danh từ'},
+      {ko:'산', rom:'san', vi:'núi', pos:'danh từ', hanja:'山', hv:'sơn'},
+      {ko:'구경하다', rom:'gugyeonghada', vi:'tham quan, ngắm', pos:'động từ'},
+      {ko:'사진', rom:'sajin', vi:'ảnh', pos:'danh từ', hanja:'寫眞', hv:'tả chân'},
+      {ko:'유명하다', rom:'yumyeonghada', vi:'nổi tiếng', pos:'tính từ', hanja:'有名—', hv:'hữu danh'},
+      {ko:'출발하다', rom:'chulbalhada', vi:'khởi hành', pos:'động từ', hanja:'出發—', hv:'xuất phát'}
+    ],
+    dialogue:[
+      {sp:'민수', ko:'방학에 뭐 할 거예요?', vi:'Kỳ nghỉ bạn sẽ làm gì?'},
+      {sp:'꾸언', ko:'제주도에 갈 거예요.', vi:'Tôi sẽ đi đảo Jeju.'},
+      {sp:'민수', ko:'제주도에 가 봤어요?', vi:'Bạn từng đến Jeju chưa?'},
+      {sp:'꾸언', ko:'아니요, 이번이 처음이에요.', vi:'Chưa, lần này là lần đầu.'}
+    ]
+  },
+  {
+    no:7, level:'so-cap-2', ko:'우체국과 은행', vi:'Bưu điện và ngân hàng', rom:'ucheguk-gwa eunhaeng',
+    skill:'Gửi bưu phẩm và giao dịch ngân hàng', pron:'Nối âm với ㅎ',
+    culture:'Dịch vụ hành chính công ở Hàn Quốc',
+    grammar:[
+      { form:'V + (으)려고 하다', vi:'định (làm gì)', note:'Ý định của người nói.',
+        ex:{ko:'소포를 보내려고 해요.', vi:'Tôi định gửi bưu kiện.'} },
+      { form:'N + 에게 / 한테', vi:'cho, đến (ai)', note:'Chỉ đối tượng nhận; 한테 dùng khi nói thân mật.',
+        ex:{ko:'친구에게 편지를 써요.', vi:'Tôi viết thư cho bạn.'} }
+    ],
+    vocab:[
+      {ko:'우체국', rom:'ucheguk', vi:'bưu điện', pos:'danh từ', hanja:'郵遞局', hv:'bưu đệ cục'},
+      {ko:'편지', rom:'pyeonji', vi:'thư', pos:'danh từ', hanja:'便紙', hv:'tiện chỉ'},
+      {ko:'소포', rom:'sopo', vi:'bưu kiện', pos:'danh từ', hanja:'小包', hv:'tiểu bao'},
+      {ko:'보내다', rom:'bonaeda', vi:'gửi', pos:'động từ'},
+      {ko:'우표', rom:'upyo', vi:'tem', pos:'danh từ', hanja:'郵票', hv:'bưu phiếu'},
+      {ko:'은행', rom:'eunhaeng', vi:'ngân hàng', pos:'danh từ', hanja:'銀行', hv:'ngân hàng'},
+      {ko:'통장', rom:'tongjang', vi:'sổ tài khoản', pos:'danh từ', hanja:'通帳', hv:'thông trướng'},
+      {ko:'돈', rom:'don', vi:'tiền', pos:'danh từ'},
+      {ko:'바꾸다', rom:'bakkuda', vi:'đổi', pos:'động từ'},
+      {ko:'계좌', rom:'gyejwa', vi:'tài khoản', pos:'danh từ', hanja:'計座', hv:'kế toạ'}
+    ],
+    dialogue:[
+      {sp:'직원', ko:'어서 오세요. 뭘 도와드릴까요?', vi:'Xin chào. Tôi giúp gì được ạ?'},
+      {sp:'꾸언', ko:'베트남에 소포를 보내려고 해요.', vi:'Tôi muốn gửi bưu kiện về Việt Nam.'},
+      {sp:'직원', ko:'안에 뭐가 들어 있어요?', vi:'Bên trong có gì ạ?'},
+      {sp:'꾸언', ko:'책하고 옷이 들어 있어요.', vi:'Có sách và quần áo.'}
+    ]
+  },
+  {
+    no:8, level:'so-cap-2', ko:'방학과 계획', vi:'Kỳ nghỉ và kế hoạch', rom:'banghak-gwa gyehoek',
+    skill:'Nói về dự định trong kỳ nghỉ', pron:'Âm dài (장음)',
+    culture:'Kỳ nghỉ của sinh viên Hàn Quốc',
+    grammar:[
+      { form:'V + 겠', vi:'sẽ, quyết tâm', note:'Ý chí mạnh của người nói hoặc lời phỏng đoán.',
+        ex:{ko:'열심히 공부하겠어요.', vi:'Tôi sẽ học thật chăm chỉ.'} },
+      { form:'N + 동안', vi:'trong (khoảng thời gian)', note:'Khoảng thời gian một việc diễn ra.',
+        ex:{ko:'방학 동안 아르바이트를 했어요.', vi:'Trong kỳ nghỉ tôi đã làm thêm.'} }
+    ],
+    vocab:[
+      {ko:'방학', rom:'banghak', vi:'kỳ nghỉ (học)', pos:'danh từ', hanja:'放學', hv:'phóng học'},
+      {ko:'고향', rom:'gohyang', vi:'quê hương', pos:'danh từ', hanja:'故鄕', hv:'cố hương'},
+      {ko:'아르바이트', rom:'areubaiteu', vi:'việc làm thêm', pos:'danh từ'},
+      {ko:'쉬다', rom:'swida', vi:'nghỉ ngơi', pos:'động từ'},
+      {ko:'준비', rom:'junbi', vi:'sự chuẩn bị', pos:'danh từ', hanja:'準備', hv:'chuẩn bị'},
+      {ko:'배우다', rom:'baeuda', vi:'học', pos:'động từ'},
+      {ko:'운동', rom:'undong', vi:'thể dục', pos:'danh từ', hanja:'運動', hv:'vận động'},
+      {ko:'푹', rom:'puk', vi:'(nghỉ) thật kỹ', pos:'trạng từ'},
+      {ko:'다녀오다', rom:'danyeooda', vi:'đi (rồi về)', pos:'động từ'},
+      {ko:'계속', rom:'gyesok', vi:'liên tục', pos:'trạng từ', hanja:'繼續', hv:'kế tục'}
+    ],
+    dialogue:[
+      {sp:'수진', ko:'방학 동안 뭐 할 거예요?', vi:'Trong kỳ nghỉ bạn định làm gì?'},
+      {sp:'꾸언', ko:'고향에 다녀오겠어요.', vi:'Tôi sẽ về quê một chuyến.'},
+      {sp:'수진', ko:'좋겠어요! 얼마 동안 있을 거예요?', vi:'Thích nhỉ! Bạn ở bao lâu?'},
+      {sp:'꾸언', ko:'이 주 동안 있을 거예요.', vi:'Tôi sẽ ở hai tuần.'}
+    ]
+  },
+  {
+    no:9, level:'so-cap-2', ko:'부탁', vi:'Nhờ vả', rom:'butak',
+    skill:'Nhờ giúp đỡ và xin phép', pron:'Ngữ điệu khi nhờ vả',
+    culture:'Cách nhờ vả lịch sự trong tiếng Hàn',
+    grammar:[
+      { form:'V + 아/어 주다', vi:'làm (giúp)', note:'Làm việc gì cho người khác; 주세요 là dạng lịch sự.',
+        ex:{ko:'사진 좀 찍어 주세요.', vi:'Chụp giúp tôi tấm ảnh nhé.'} },
+      { form:'V + 아/어도 되다', vi:'được phép', note:'Xin phép hoặc cho phép làm việc gì.',
+        ex:{ko:'여기 앉아도 돼요?', vi:'Tôi ngồi đây được không?'} }
+    ],
+    vocab:[
+      {ko:'부탁하다', rom:'butakhada', vi:'nhờ vả', pos:'động từ', hanja:'付託—', hv:'phó thác'},
+      {ko:'돕다', rom:'dopda', vi:'giúp', pos:'động từ'},
+      {ko:'빌리다', rom:'billida', vi:'mượn', pos:'động từ'},
+      {ko:'빌려주다', rom:'billyeojuda', vi:'cho mượn', pos:'động từ'},
+      {ko:'창문', rom:'changmun', vi:'cửa sổ', pos:'danh từ', hanja:'窓門', hv:'song môn'},
+      {ko:'열다', rom:'yeolda', vi:'mở', pos:'động từ'},
+      {ko:'닫다', rom:'datda', vi:'đóng', pos:'động từ'},
+      {ko:'켜다', rom:'kyeoda', vi:'bật', pos:'động từ'},
+      {ko:'끄다', rom:'kkeuda', vi:'tắt', pos:'động từ'},
+      {ko:'잠깐', rom:'jamkkan', vi:'một lát', pos:'trạng từ'}
+    ],
+    dialogue:[
+      {sp:'꾸언', ko:'미안하지만 부탁 하나 해도 돼요?', vi:'Xin lỗi, mình nhờ một việc được không?'},
+      {sp:'수진', ko:'네, 뭔데요?', vi:'Được, việc gì thế?'},
+      {sp:'꾸언', ko:'이 책 좀 빌려줄 수 있어요?', vi:'Cho mình mượn quyển sách này được không?'},
+      {sp:'수진', ko:'그럼요. 여기 있어요.', vi:'Tất nhiên rồi. Đây.'}
+    ]
+  },
+  {
+    no:10, level:'so-cap-2', ko:'경험', vi:'Kinh nghiệm', rom:'gyeongheom',
+    skill:'Kể lại một trải nghiệm', pron:'Nối âm ㅇ',
+    culture:'Trải nghiệm văn hoá Hàn (hanbok, tắm hơi jjimjilbang)',
+    grammar:[
+      { form:'V + (으)ㄴ 적이 있다 / 없다', vi:'đã từng / chưa từng', note:'Nói về kinh nghiệm trong quá khứ.',
+        ex:{ko:'한복을 입은 적이 있어요.', vi:'Tôi đã từng mặc hanbok.'} },
+      { form:'A/V + 는데 / (으)ㄴ데', vi:'... mà, (nêu bối cảnh)', note:'Đưa bối cảnh trước khi nói tiếp.',
+        ex:{ko:'한국에 왔는데 아직 친구가 없어요.', vi:'Tôi đến Hàn rồi mà vẫn chưa có bạn.'} }
+    ],
+    vocab:[
+      {ko:'경험', rom:'gyeongheom', vi:'kinh nghiệm', pos:'danh từ', hanja:'經驗', hv:'kinh nghiệm'},
+      {ko:'처음', rom:'cheoeum', vi:'lần đầu', pos:'danh từ'},
+      {ko:'다시', rom:'dasi', vi:'lại', pos:'trạng từ'},
+      {ko:'잊다', rom:'itda', vi:'quên', pos:'động từ'},
+      {ko:'기억하다', rom:'gieokhada', vi:'nhớ', pos:'động từ', hanja:'記憶—', hv:'kí ức'},
+      {ko:'재미있다', rom:'jaemiitda', vi:'thú vị', pos:'tính từ'},
+      {ko:'무섭다', rom:'museopda', vi:'đáng sợ', pos:'tính từ'},
+      {ko:'신기하다', rom:'singihada', vi:'kỳ lạ, thú vị', pos:'tính từ', hanja:'神奇—', hv:'thần kỳ'},
+      {ko:'실수하다', rom:'silsuhada', vi:'nhầm lẫn', pos:'động từ', hanja:'失手—', hv:'thất thủ'},
+      {ko:'한복', rom:'hanbok', vi:'hanbok (trang phục Hàn)', pos:'danh từ', hanja:'韓服', hv:'Hàn phục'}
+    ],
+    dialogue:[
+      {sp:'수진', ko:'꾸언 씨, 한복을 입어 봤어요?', vi:'Quân ơi, bạn thử mặc hanbok chưa?'},
+      {sp:'꾸언', ko:'네, 작년에 입은 적이 있어요.', vi:'Rồi, năm ngoái mình đã mặc một lần.'},
+      {sp:'수진', ko:'어땠어요?', vi:'Thấy thế nào?'},
+      {sp:'꾸언', ko:'조금 불편했는데 정말 예뻤어요.', vi:'Hơi bất tiện nhưng rất đẹp.'}
+    ]
+  },
+  {
+    no:11, level:'so-cap-2', ko:'요리와 음식', vi:'Nấu ăn và món ăn', rom:'yori-wa eumsik',
+    skill:'Nói về cách nấu và khẩu vị', pron:'Âm căng (된소리)',
+    culture:'Món ăn Hàn Quốc và cách dùng bữa',
+    grammar:[
+      { form:'V + (으)ㄴ 후에 / 기 전에', vi:'sau khi / trước khi', note:'Chỉ trình tự thời gian giữa hai việc.',
+        ex:{ko:'손을 씻은 후에 드세요.', vi:'Rửa tay xong rồi hãy ăn.'} },
+      { form:'A/V + (으)면', vi:'nếu', note:'Nêu điều kiện.',
+        ex:{ko:'매우면 물을 드세요.', vi:'Nếu cay thì hãy uống nước.'} }
+    ],
+    vocab:[
+      {ko:'요리하다', rom:'yorihada', vi:'nấu ăn', pos:'động từ', hanja:'料理—', hv:'liệu lý'},
+      {ko:'재료', rom:'jaeryo', vi:'nguyên liệu', pos:'danh từ', hanja:'材料', hv:'tài liệu'},
+      {ko:'넣다', rom:'neota', vi:'cho vào', pos:'động từ'},
+      {ko:'썰다', rom:'sseolda', vi:'thái, cắt', pos:'động từ'},
+      {ko:'끓이다', rom:'kkeurida', vi:'nấu sôi', pos:'động từ'},
+      {ko:'볶다', rom:'bokda', vi:'xào', pos:'động từ'},
+      {ko:'맛', rom:'mat', vi:'vị', pos:'danh từ'},
+      {ko:'싱겁다', rom:'singgeopda', vi:'nhạt', pos:'tính từ'},
+      {ko:'짜다', rom:'jjada', vi:'mặn', pos:'tính từ'},
+      {ko:'달다', rom:'dalda', vi:'ngọt', pos:'tính từ'}
+    ],
+    dialogue:[
+      {sp:'수진', ko:'이 김치찌개 어때요?', vi:'Món canh kimchi này thế nào?'},
+      {sp:'꾸언', ko:'맛있어요! 그런데 조금 짜요.', vi:'Ngon! Nhưng hơi mặn.'},
+      {sp:'수진', ko:'그럼 물을 조금 넣으면 돼요.', vi:'Vậy cho thêm chút nước là được.'},
+      {sp:'꾸언', ko:'아, 이제 딱 좋아요.', vi:'À, giờ vừa miệng rồi.'}
+    ]
+  },
+  {
+    no:12, level:'so-cap-2', ko:'전화 (2)', vi:'Điện thoại (2)', rom:'jeonhwa',
+    skill:'Nhắn lại lời và hẹn qua điện thoại', pron:'Ngữ điệu khi gọi điện',
+    culture:'Cách nói chuyện điện thoại lịch sự',
+    grammar:[
+      { form:'V + (으)ㄹ게요', vi:'tôi sẽ (hứa)', note:'Lời hứa hoặc ý định gắn với người nghe.',
+        ex:{ko:'제가 다시 전화할게요.', vi:'Tôi sẽ gọi lại.'} },
+      { form:'V + 고 있다', vi:'đang', note:'Hành động đang tiếp diễn.',
+        ex:{ko:'지금 통화하고 있어요.', vi:'Bây giờ tôi đang nói chuyện điện thoại.'} }
+    ],
+    vocab:[
+      {ko:'전화하다', rom:'jeonhwahada', vi:'gọi điện', pos:'động từ', hanja:'電話—', hv:'điện thoại'},
+      {ko:'받다', rom:'batda', vi:'nhận, nghe (máy)', pos:'động từ'},
+      {ko:'걸다', rom:'geolda', vi:'gọi (điện)', pos:'động từ'},
+      {ko:'통화', rom:'tonghwa', vi:'cuộc gọi', pos:'danh từ', hanja:'通話', hv:'thông thoại'},
+      {ko:'문자', rom:'munja', vi:'tin nhắn', pos:'danh từ', hanja:'文字', hv:'văn tự'},
+      {ko:'메시지', rom:'mesiji', vi:'lời nhắn', pos:'danh từ'},
+      {ko:'남기다', rom:'namgida', vi:'để lại (lời nhắn)', pos:'động từ'},
+      {ko:'끊다', rom:'kkeunta', vi:'cúp máy', pos:'động từ'},
+      {ko:'번호', rom:'beonho', vi:'số', pos:'danh từ', hanja:'番號', hv:'phiên hiệu'},
+      {ko:'잠시', rom:'jamsi', vi:'chốc lát', pos:'danh từ', hanja:'暫時', hv:'tạm thời'}
+    ],
+    dialogue:[
+      {sp:'꾸언', ko:'여보세요, 수진 씨 있어요?', vi:'A lô, có Su-jin ở đó không ạ?'},
+      {sp:'민수', ko:'지금 없는데요. 메시지를 남기시겠어요?', vi:'Bây giờ không có ạ. Anh để lại lời nhắn nhé?'},
+      {sp:'꾸언', ko:'그럼 이따가 다시 전화할게요.', vi:'Vậy lát nữa tôi gọi lại.'},
+      {sp:'민수', ko:'네, 알겠습니다.', vi:'Vâng, được ạ.'}
+    ]
+  },
+  {
+    no:13, level:'so-cap-2', ko:'성격과 외모', vi:'Tính cách và ngoại hình', rom:'seonggyeok-gwa oemo',
+    skill:'Miêu tả tính cách và ngoại hình của người', pron:'Định ngữ tính từ',
+    culture:'Cách khen ngợi trong văn hoá Hàn',
+    grammar:[
+      { form:'A + (으)ㄴ + N', vi:'(định ngữ tính từ)', note:'Tính từ bổ nghĩa trực tiếp cho danh từ đứng sau.',
+        ex:{ko:'친절한 사람을 좋아해요.', vi:'Tôi thích người tử tế.'} },
+      { form:'A + 게', vi:'(biến tính từ thành trạng từ)', note:'Diễn tả cách thức của hành động.',
+        ex:{ko:'예쁘게 웃어요.', vi:'Cô ấy cười rất xinh.'} }
+    ],
+    vocab:[
+      {ko:'성격', rom:'seonggyeok', vi:'tính cách', pos:'danh từ', hanja:'性格', hv:'tính cách'},
+      {ko:'친절하다', rom:'chinjeolhada', vi:'tử tế', pos:'tính từ', hanja:'親切—', hv:'thân thiết'},
+      {ko:'조용하다', rom:'joyonghada', vi:'trầm lặng, yên tĩnh', pos:'tính từ'},
+      {ko:'활발하다', rom:'hwalbalhada', vi:'năng động', pos:'tính từ', hanja:'活潑—', hv:'hoạt bát'},
+      {ko:'외모', rom:'oemo', vi:'ngoại hình', pos:'danh từ', hanja:'外貌', hv:'ngoại mạo'},
+      {ko:'키', rom:'ki', vi:'chiều cao', pos:'danh từ'},
+      {ko:'크다', rom:'keuda', vi:'to, cao', pos:'tính từ'},
+      {ko:'작다', rom:'jakda', vi:'nhỏ, thấp', pos:'tính từ'},
+      {ko:'멋있다', rom:'meositda', vi:'ngầu, phong độ', pos:'tính từ'},
+      {ko:'닮다', rom:'damda', vi:'giống (người)', pos:'động từ'}
+    ],
+    dialogue:[
+      {sp:'민수', ko:'새 룸메이트는 어때요?', vi:'Bạn cùng phòng mới thế nào?'},
+      {sp:'꾸언', ko:'아주 친절하고 활발한 사람이에요.', vi:'Là người rất tử tế và năng động.'},
+      {sp:'민수', ko:'키가 커요?', vi:'Cậu ấy cao không?'},
+      {sp:'꾸언', ko:'네, 키가 크고 멋있어요.', vi:'Ừ, cao và ngầu lắm.'}
+    ]
+  },
+  {
+    no:14, level:'so-cap-2', ko:'한국의 명절', vi:'Ngày lễ Hàn Quốc', rom:'hangug-ui myeongjeol',
+    skill:'Nói về ngày lễ và phong tục', pron:'Nối âm ㄱ',
+    culture:'Tết Seollal và Trung thu Chuseok',
+    grammar:[
+      { form:'V + (으)ㄹ 때', vi:'khi', note:'Thời điểm một việc diễn ra.',
+        ex:{ko:'설날 때 세배를 해요.', vi:'Khi Tết thì cúi lạy chúc thọ.'} },
+      { form:'N + 처럼', vi:'như, giống', note:'So sánh giống như đối tượng khác.',
+        ex:{ko:'가족처럼 지내요.', vi:'Chúng tôi sống như người một nhà.'} }
+    ],
+    vocab:[
+      {ko:'명절', rom:'myeongjeol', vi:'ngày lễ tết', pos:'danh từ', hanja:'名節', hv:'danh tiết'},
+      {ko:'설날', rom:'seollal', vi:'Tết (âm lịch)', pos:'danh từ'},
+      {ko:'추석', rom:'chuseok', vi:'Trung thu', pos:'danh từ', hanja:'秋夕', hv:'thu tịch'},
+      {ko:'차례', rom:'charye', vi:'lễ cúng tổ tiên', pos:'danh từ', hanja:'茶禮', hv:'trà lễ'},
+      {ko:'세배', rom:'sebae', vi:'lạy chúc thọ đầu năm', pos:'danh từ', hanja:'歲拜', hv:'tuế bái'},
+      {ko:'떡국', rom:'tteokguk', vi:'canh bánh gạo', pos:'danh từ'},
+      {ko:'송편', rom:'songpyeon', vi:'bánh songpyeon', pos:'danh từ'},
+      {ko:'선물', rom:'seonmul', vi:'quà', pos:'danh từ', hanja:'膳物', hv:'thiện vật'},
+      {ko:'모이다', rom:'moida', vi:'tụ họp', pos:'động từ'},
+      {ko:'지내다', rom:'jinaeda', vi:'trải qua, sống', pos:'động từ'}
+    ],
+    dialogue:[
+      {sp:'수진', ko:'한국에서 제일 큰 명절이 뭔지 알아요?', vi:'Bạn biết ngày lễ lớn nhất ở Hàn là gì không?'},
+      {sp:'꾸언', ko:'설날하고 추석이지요?', vi:'Là Seollal và Chuseok phải không?'},
+      {sp:'수진', ko:'맞아요. 설날 때 떡국을 먹어요.', vi:'Đúng rồi. Tết thì ăn canh bánh gạo.'},
+      {sp:'꾸언', ko:'베트남 설날하고 비슷하네요.', vi:'Giống Tết Việt Nam nhỉ.'}
+    ]
+  },
+  {
+    no:15, level:'so-cap-2', ko:'꿈과 미래', vi:'Ước mơ và tương lai', rom:'kkum-gwa mirae',
+    skill:'Nói về ước mơ và dự định tương lai', pron:'Ôn tập tổng hợp',
+    culture:'Quan niệm về nghề nghiệp của giới trẻ Hàn Quốc',
+    grammar:[
+      { form:'V + 고 싶어 하다', vi:'(người khác) muốn', note:'Diễn tả mong muốn của ngôi thứ ba.',
+        ex:{ko:'동생은 의사가 되고 싶어 해요.', vi:'Em tôi muốn trở thành bác sĩ.'} },
+      { form:'V + 기 위해서', vi:'để (mục đích)', note:'Nêu mục đích của hành động.',
+        ex:{ko:'꿈을 이루기 위해서 노력해요.', vi:'Tôi nỗ lực để thực hiện ước mơ.'} }
+    ],
+    vocab:[
+      {ko:'꿈', rom:'kkum', vi:'ước mơ', pos:'danh từ'},
+      {ko:'미래', rom:'mirae', vi:'tương lai', pos:'danh từ', hanja:'未來', hv:'vị lai'},
+      {ko:'되다', rom:'doeda', vi:'trở thành', pos:'động từ'},
+      {ko:'취직하다', rom:'chwijikhada', vi:'xin được việc', pos:'động từ', hanja:'就職—', hv:'tựu chức'},
+      {ko:'유학', rom:'yuhak', vi:'du học', pos:'danh từ', hanja:'留學', hv:'lưu học'},
+      {ko:'통역사', rom:'tongyeoksa', vi:'phiên dịch viên', pos:'danh từ', hanja:'通譯士', hv:'thông dịch sĩ'},
+      {ko:'노력하다', rom:'noryeokhada', vi:'nỗ lực', pos:'động từ', hanja:'努力—', hv:'nỗ lực'},
+      {ko:'목표', rom:'mokpyo', vi:'mục tiêu', pos:'danh từ', hanja:'目標', hv:'mục tiêu'},
+      {ko:'이루다', rom:'iruda', vi:'thực hiện, đạt được', pos:'động từ'},
+      {ko:'성공하다', rom:'seonggonghada', vi:'thành công', pos:'động từ', hanja:'成功—', hv:'thành công'}
+    ],
+    dialogue:[
+      {sp:'민수', ko:'꾸언 씨의 꿈은 뭐예요?', vi:'Ước mơ của Quân là gì?'},
+      {sp:'꾸언', ko:'저는 통역사가 되고 싶어요.', vi:'Tôi muốn trở thành phiên dịch viên.'},
+      {sp:'민수', ko:'그래서 한국어를 열심히 공부하는군요.', vi:'Thì ra vì thế mà bạn học tiếng Hàn chăm chỉ.'},
+      {sp:'꾸언', ko:'네, 꿈을 이루기 위해서 노력할 거예요.', vi:'Vâng, tôi sẽ cố gắng để đạt được ước mơ.'}
+    ]
+  }
+);
+
+/* Cập nhật trạng thái: Sơ cấp 2 đã có nội dung */
+(COURSE_KO.levels.find(x => x.id === 'so-cap-2') || {}).status = 'active';
+
 /* Các ngôn ngữ sẽ mở tiếp — khung dữ liệu giống hệt COURSE_KO */
 const LANGUAGES = [
   { code:'ko', label:'Tiếng Hàn',  native:'한국어',   mark:'한', status:'active',  note:'Sơ cấp 1 · 15 bài' },

@@ -166,7 +166,9 @@ a{color:var(--accent)}
 .level-chip .lv-ko{font-family:"Noto Sans KR",sans-serif;font-size:12px;color:var(--faint)}
 .level-chip[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink);font-weight:500}
 .level-chip[aria-pressed="true"] .lv-ko{color:var(--ground);opacity:.7}
-.level-chip:disabled{opacity:.45;cursor:not-allowed}
+.level-chip:not([disabled]):hover{border-color:var(--accent);color:var(--ink)}
+.level-chip:disabled{opacity:.5;cursor:not-allowed}
+.lv-soon{font-size:9px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);border:1px solid var(--line);border-radius:99px;padding:1px 6px}
 
 .lesson-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:14px}
 .lesson-card{

@@ -246,7 +246,7 @@ function build(course, common, dict){
   course.lessons.forEach(l => {
     l.vocab.forEach(v => {
       if (byKo[v.ko]) return;
-      const w = Object.assign({ lesson: l.no, theme: l.vi }, v);
+      const w = Object.assign({ lesson: l.no, level: l.level, theme: l.vi }, v);
       words.push(w); byKo[v.ko] = w;
     });
     (l.dialogue || []).forEach(d => sents.push({ ko: d.ko, vi: d.vi, lesson: l.no, from: 'Hội thoại bài ' + l.no }));
