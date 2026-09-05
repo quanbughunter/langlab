@@ -882,9 +882,6 @@ body:has(.mplayer.open) .view{padding-bottom:110px}
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
         <input id="topq" type="search" placeholder="Tra nhanh một từ…" autocomplete="off">
       </div>
-      <button class="icon-btn top-icon" id="voiceBtn" title="Cài đặt giọng đọc">
-        <svg viewBox="0 0 24 24"><path d="M11 5L6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7"/><path d="M18.5 5.5a9 9 0 010 13"/></svg>
-      </button>
     </header>
     <main class="view" id="view"></main>
   </div>
@@ -1166,7 +1163,7 @@ const COURSE_KO = {
       grammar:[
         { form:'N + 입니다 / 입니까?', vi:'là N / có phải là N không?',
           note:'Đuôi câu trang trọng nhất, dùng khi gặp lần đầu, trong lớp học hay nơi công sở.',
-          ex:{ko:'저는 팜 당 히엔입니다.', vi:'Tôi là Phạm Đăng Hiển.'} },
+          ex:{ko:'저는 응우옌 딘 꾸언입니다.', vi:'Tôi là Nguyễn Đình Quân.'} },
         { form:'N + 은 / 는', vi:'trợ từ chủ đề',
           note:'Danh từ có patchim dùng 은, không có patchim dùng 는. Nêu chủ đề đang nói tới.',
           ex:{ko:'저는 베트남 사람입니다.', vi:'Tôi là người Việt Nam.'} }
@@ -1188,9 +1185,9 @@ const COURSE_KO = {
       ],
       dialogue:[
         {sp:'민수', ko:'안녕하세요? 저는 김민수입니다.', vi:'Xin chào. Tôi là Kim Min-su.'},
-        {sp:'히엔', ko:'안녕하세요? 저는 히엔입니다.', vi:'Xin chào. Tôi là Hiển.'},
-        {sp:'민수', ko:'히엔 씨는 어느 나라 사람입니까?', vi:'Hiển là người nước nào ạ?'},
-        {sp:'히엔', ko:'저는 베트남 사람입니다. 반갑습니다.', vi:'Tôi là người Việt Nam. Rất vui được gặp anh.'}
+        {sp:'꾸언', ko:'안녕하세요? 저는 꾸언입니다.', vi:'Xin chào. Tôi là Quân.'},
+        {sp:'민수', ko:'꾸언 씨는 어느 나라 사람입니까?', vi:'Quân là người nước nào ạ?'},
+        {sp:'꾸언', ko:'저는 베트남 사람입니다. 반갑습니다.', vi:'Tôi là người Việt Nam. Rất vui được gặp anh.'}
       ]
     },
     {
@@ -1225,9 +1222,9 @@ const COURSE_KO = {
       ],
       dialogue:[
         {sp:'수진', ko:'여기가 우리 교실이에요.', vi:'Đây là lớp học của chúng mình.'},
-        {sp:'히엔', ko:'그것은 무엇입니까?', vi:'Cái đó là cái gì vậy?'},
+        {sp:'꾸언', ko:'그것은 무엇입니까?', vi:'Cái đó là cái gì vậy?'},
         {sp:'수진', ko:'이것은 한국어 책입니다.', vi:'Cái này là sách tiếng Hàn.'},
-        {sp:'히엔', ko:'도서관도 학교 안에 있습니까?', vi:'Thư viện cũng ở trong trường phải không?'}
+        {sp:'꾸언', ko:'도서관도 학교 안에 있습니까?', vi:'Thư viện cũng ở trong trường phải không?'}
       ]
     },
     {
@@ -1261,10 +1258,10 @@ const COURSE_KO = {
         {ko:'커피', rom:'keopi', vi:'cà phê', pos:'danh từ'}
       ],
       dialogue:[
-        {sp:'민수', ko:'히엔 씨는 아침에 무엇을 합니까?', vi:'Buổi sáng Hiển làm gì?'},
-        {sp:'히엔', ko:'저는 도서관에서 한국어를 공부합니다.', vi:'Tôi học tiếng Hàn ở thư viện.'},
+        {sp:'민수', ko:'꾸언 씨는 아침에 무엇을 합니까?', vi:'Buổi sáng Quân làm gì?'},
+        {sp:'꾸언', ko:'저는 도서관에서 한국어를 공부합니다.', vi:'Tôi học tiếng Hàn ở thư viện.'},
         {sp:'민수', ko:'점심에는 어디에서 밥을 먹습니까?', vi:'Buổi trưa bạn ăn cơm ở đâu?'},
-        {sp:'히엔', ko:'학교 식당에서 먹습니다.', vi:'Tôi ăn ở nhà ăn của trường.'}
+        {sp:'꾸언', ko:'학교 식당에서 먹습니다.', vi:'Tôi ăn ở nhà ăn của trường.'}
       ]
     },
     {
@@ -1299,9 +1296,9 @@ const COURSE_KO = {
       ],
       dialogue:[
         {sp:'수진', ko:'오늘이 며칠입니까?', vi:'Hôm nay là ngày mấy?'},
-        {sp:'히엔', ko:'십일 월 이십오 일입니다.', vi:'Là ngày 25 tháng 11.'},
+        {sp:'꾸언', ko:'십일 월 이십오 일입니다.', vi:'Là ngày 25 tháng 11.'},
         {sp:'수진', ko:'그럼 무슨 요일입니까?', vi:'Vậy là thứ mấy?'},
-        {sp:'히엔', ko:'화요일입니다. 내일은 수요일입니다.', vi:'Thứ Ba. Ngày mai là thứ Tư.'}
+        {sp:'꾸언', ko:'화요일입니다. 내일은 수요일입니다.', vi:'Thứ Ba. Ngày mai là thứ Tư.'}
       ]
     },
     {
@@ -1337,9 +1334,9 @@ const COURSE_KO = {
       ],
       dialogue:[
         {sp:'민수', ko:'보통 몇 시에 일어나요?', vi:'Bạn thường dậy lúc mấy giờ?'},
-        {sp:'히엔', ko:'일곱 시에 일어나요.', vi:'Tôi dậy lúc 7 giờ.'},
+        {sp:'꾸언', ko:'일곱 시에 일어나요.', vi:'Tôi dậy lúc 7 giờ.'},
         {sp:'민수', ko:'수업은 몇 시에 끝나요?', vi:'Mấy giờ thì hết tiết?'},
-        {sp:'히엔', ko:'네 시 삼십 분에 끝나요.', vi:'Kết thúc lúc 4 giờ 30.'}
+        {sp:'꾸언', ko:'네 시 삼십 분에 끝나요.', vi:'Kết thúc lúc 4 giờ 30.'}
       ]
     },
     {
@@ -1374,9 +1371,9 @@ const COURSE_KO = {
       ],
       dialogue:[
         {sp:'수진', ko:'지난 주말에 뭐 했어요?', vi:'Cuối tuần trước bạn làm gì?'},
-        {sp:'히엔', ko:'친구하고 영화를 봤어요.', vi:'Tôi đi xem phim với bạn.'},
+        {sp:'꾸언', ko:'친구하고 영화를 봤어요.', vi:'Tôi đi xem phim với bạn.'},
         {sp:'수진', ko:'재미있었어요?', vi:'Có hay không?'},
-        {sp:'히엔', ko:'네, 아주 좋았어요. 이번 주말에 같이 봅시다.', vi:'Vâng, rất hay. Cuối tuần này chúng ta cùng xem nhé.'}
+        {sp:'꾸언', ko:'네, 아주 좋았어요. 이번 주말에 같이 봅시다.', vi:'Vâng, rất hay. Cuối tuần này chúng ta cùng xem nhé.'}
       ]
     },
     {
@@ -1410,9 +1407,9 @@ const COURSE_KO = {
         {ko:'돈', rom:'don', vi:'tiền', pos:'danh từ'}
       ],
       dialogue:[
-        {sp:'히엔', ko:'이 사과는 얼마예요?', vi:'Táo này bao nhiêu tiền ạ?'},
+        {sp:'꾸언', ko:'이 사과는 얼마예요?', vi:'Táo này bao nhiêu tiền ạ?'},
         {sp:'주인', ko:'한 개에 이천 원이에요.', vi:'Hai nghìn won một quả.'},
-        {sp:'히엔', ko:'조금 비싸요. 세 개 주세요.', vi:'Hơi đắt ạ. Cho tôi ba quả.'},
+        {sp:'꾸언', ko:'조금 비싸요. 세 개 주세요.', vi:'Hơi đắt ạ. Cho tôi ba quả.'},
         {sp:'주인', ko:'네, 육천 원입니다.', vi:'Vâng, sáu nghìn won.'}
       ]
     },
@@ -1448,9 +1445,9 @@ const COURSE_KO = {
       ],
       dialogue:[
         {sp:'점원', ko:'어서 오세요. 뭘 드시겠어요?', vi:'Mời vào ạ. Anh dùng gì ạ?'},
-        {sp:'히엔', ko:'비빔밥 하나 주세요.', vi:'Cho tôi một suất cơm trộn.'},
+        {sp:'꾸언', ko:'비빔밥 하나 주세요.', vi:'Cho tôi một suất cơm trộn.'},
         {sp:'점원', ko:'맵게 해 드릴까요?', vi:'Anh có ăn cay được không ạ?'},
-        {sp:'히엔', ko:'아니요, 맵지 않게 해 주세요.', vi:'Không ạ, làm giúp tôi ít cay thôi.'}
+        {sp:'꾸언', ko:'아니요, 맵지 않게 해 주세요.', vi:'Không ạ, làm giúp tôi ít cay thôi.'}
       ]
     },
     {
@@ -1484,9 +1481,9 @@ const COURSE_KO = {
         {ko:'옆', rom:'yeop', vi:'bên cạnh', pos:'danh từ'}
       ],
       dialogue:[
-        {sp:'히엔', ko:'수진 씨, 우리 집에 올래요?', vi:'Su-jin ơi, đến nhà mình chơi nhé?'},
+        {sp:'꾸언', ko:'수진 씨, 우리 집에 올래요?', vi:'Su-jin ơi, đến nhà mình chơi nhé?'},
         {sp:'수진', ko:'좋아요. 집이 어디예요?', vi:'Được đấy. Nhà bạn ở đâu?'},
-        {sp:'히엔', ko:'학교 앞에서 왼쪽으로 가세요.', vi:'Từ trước cổng trường bạn rẽ trái.'},
+        {sp:'꾸언', ko:'학교 앞에서 왼쪽으로 가세요.', vi:'Từ trước cổng trường bạn rẽ trái.'},
         {sp:'수진', ko:'은행 옆에 있는 아파트예요?', vi:'Là chung cư cạnh ngân hàng phải không?'}
       ]
     },
@@ -1522,9 +1519,9 @@ const COURSE_KO = {
       ],
       dialogue:[
         {sp:'수진', ko:'가족이 몇 명이에요?', vi:'Gia đình bạn có mấy người?'},
-        {sp:'히엔', ko:'네 명이에요. 부모님하고 여동생이 있어요.', vi:'Bốn người. Có bố mẹ và em gái tôi.'},
+        {sp:'꾸언', ko:'네 명이에요. 부모님하고 여동생이 있어요.', vi:'Bốn người. Có bố mẹ và em gái tôi.'},
         {sp:'수진', ko:'부모님께서는 무슨 일을 하세요?', vi:'Bố mẹ bạn làm nghề gì ạ?'},
-        {sp:'히엔', ko:'아버지께서는 선생님이세요.', vi:'Bố tôi là giáo viên ạ.'}
+        {sp:'꾸언', ko:'아버지께서는 선생님이세요.', vi:'Bố tôi là giáo viên ạ.'}
       ]
     },
     {
@@ -1559,9 +1556,9 @@ const COURSE_KO = {
       ],
       dialogue:[
         {sp:'민수', ko:'오늘 날씨가 어때요?', vi:'Hôm nay thời tiết thế nào?'},
-        {sp:'히엔', ko:'바람이 불고 조금 추워요.', vi:'Có gió và hơi lạnh.'},
+        {sp:'꾸언', ko:'바람이 불고 조금 추워요.', vi:'Có gió và hơi lạnh.'},
         {sp:'민수', ko:'베트남 겨울도 추워요?', vi:'Mùa đông ở Việt Nam cũng lạnh chứ?'},
-        {sp:'히엔', ko:'하노이는 춥지만 눈은 안 와요.', vi:'Hà Nội lạnh nhưng không có tuyết.'}
+        {sp:'꾸언', ko:'하노이는 춥지만 눈은 안 와요.', vi:'Hà Nội lạnh nhưng không có tuyết.'}
       ]
     },
     {
@@ -1595,9 +1592,9 @@ const COURSE_KO = {
         {ko:'부탁하다', rom:'butakhada', vi:'nhờ vả', pos:'động từ', hanja:'付託—', hv:'phó thác'}
       ],
       dialogue:[
-        {sp:'히엔', ko:'여보세요, 거기 민수 씨 집이지요?', vi:'A lô, đây có phải nhà anh Min-su không ạ?'},
+        {sp:'꾸언', ko:'여보세요, 거기 민수 씨 집이지요?', vi:'A lô, đây có phải nhà anh Min-su không ạ?'},
         {sp:'민수', ko:'네, 제가 민수인데요.', vi:'Vâng, Min-su đây ạ.'},
-        {sp:'히엔', ko:'내일 같이 공부하려고 전화했어요.', vi:'Tôi gọi vì định mai cùng học với anh.'},
+        {sp:'꾸언', ko:'내일 같이 공부하려고 전화했어요.', vi:'Tôi gọi vì định mai cùng học với anh.'},
         {sp:'민수', ko:'좋아요. 그럼 두 시에 만나요.', vi:'Được thôi. Vậy hai giờ gặp nhau nhé.'}
       ]
     },
@@ -1632,10 +1629,10 @@ const COURSE_KO = {
         {ko:'돌', rom:'dol', vi:'thôi nôi (sinh nhật 1 tuổi)', pos:'danh từ'}
       ],
       dialogue:[
-        {sp:'수진', ko:'히엔 씨, 생일 축하해요!', vi:'Hiển ơi, chúc mừng sinh nhật!'},
-        {sp:'히엔', ko:'고마워요. 와 주셔서 감사합니다.', vi:'Cảm ơn bạn. Cảm ơn vì đã đến.'},
+        {sp:'수진', ko:'꾸언 씨, 생일 축하해요!', vi:'Quân ơi, chúc mừng sinh nhật!'},
+        {sp:'꾸언', ko:'고마워요. 와 주셔서 감사합니다.', vi:'Cảm ơn bạn. Cảm ơn vì đã đến.'},
         {sp:'수진', ko:'이거 작은 선물이에요.', vi:'Đây là món quà nhỏ.'},
-        {sp:'히엔', ko:'민수 씨는 바빠서 못 왔어요.', vi:'Anh Min-su bận nên không đến được.'}
+        {sp:'꾸언', ko:'민수 씨는 바빠서 못 왔어요.', vi:'Anh Min-su bận nên không đến được.'}
       ]
     },
     {
@@ -1670,9 +1667,9 @@ const COURSE_KO = {
       ],
       dialogue:[
         {sp:'민수', ko:'취미가 뭐예요?', vi:'Sở thích của bạn là gì?'},
-        {sp:'히엔', ko:'제 취미는 음악 듣기예요.', vi:'Sở thích của tôi là nghe nhạc.'},
+        {sp:'꾸언', ko:'제 취미는 음악 듣기예요.', vi:'Sở thích của tôi là nghe nhạc.'},
         {sp:'민수', ko:'악기도 연주할 수 있어요?', vi:'Bạn chơi được nhạc cụ nào không?'},
-        {sp:'히엔', ko:'기타를 조금 칠 수 있어요.', vi:'Tôi chơi guitar được một chút.'}
+        {sp:'꾸언', ko:'기타를 조금 칠 수 있어요.', vi:'Tôi chơi guitar được một chút.'}
       ]
     },
     {
@@ -1706,9 +1703,9 @@ const COURSE_KO = {
         {ko:'걸리다', rom:'geollida', vi:'mất (thời gian)', pos:'động từ'}
       ],
       dialogue:[
-        {sp:'히엔', ko:'명동에 어떻게 가요?', vi:'Đi Myeongdong thế nào ạ?'},
+        {sp:'꾸언', ko:'명동에 어떻게 가요?', vi:'Đi Myeongdong thế nào ạ?'},
         {sp:'행인', ko:'지하철 사호선을 타세요.', vi:'Anh đi tàu điện ngầm tuyến số 4.'},
-        {sp:'히엔', ko:'여기에서 명동까지 얼마나 걸려요?', vi:'Từ đây đến Myeongdong mất bao lâu ạ?'},
+        {sp:'꾸언', ko:'여기에서 명동까지 얼마나 걸려요?', vi:'Từ đây đến Myeongdong mất bao lâu ạ?'},
         {sp:'행인', ko:'이십 분쯤 걸려요. 서울역에서 갈아타세요.', vi:'Khoảng 20 phút. Anh đổi tuyến ở ga Seoul.'}
       ]
     }
@@ -3085,13 +3082,10 @@ function toast(msg){
 }
 
 /* ---------- phát âm ---------- */
-let warnedVoice = false;
-
 function ensureVoice(){
   if (!Speech.supported){ toast('Trình duyệt này chưa hỗ trợ phát âm'); return false; }
   if (!Speech.hasKorean()){
-    if (!warnedVoice){ warnedVoice = true; openVoiceSheet(); }
-    else toast('Máy chưa có giọng tiếng Hàn — mở «Giọng đọc» để xem cách cài');
+    toast('Máy chưa có giọng tiếng Hàn — thử mở bằng Microsoft Edge để có giọng Hàn');
     return false;
   }
   return true;
@@ -4362,126 +4356,6 @@ document.addEventListener('mouseover', e => {
 document.addEventListener('scroll', hideTip, true);
 
 /* ============================================================
-   BẢNG CHỈNH GIỌNG ĐỌC
-   ============================================================ */
-function openVoiceSheet(){
-  let el = $('#voiceSheet');
-  if (!el){
-    el = document.createElement('div');
-    el.id = 'voiceSheet'; el.className = 'sheet';
-    document.body.appendChild(el);
-  }
-  const ko = Speech.koVoices();
-  const cur = Speech.currentVoice();
-  const rates = [[.6,'Rất chậm'],[.75,'Chậm'],[.9,'Vừa'],[1,'Bình thường'],[1.15,'Nhanh']];
-
-  el.innerHTML = `
-    <div class="sheet-card" role="dialog" aria-label="Cài đặt giọng đọc">
-      <div class="wp-head">
-        <div><span class="eyebrow">Phát âm</span><div class="wp-word" style="font-size:22px">Giọng đọc</div></div>
-        <button class="icon-btn" id="vsClose" title="Đóng"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-      </div>
-
-      <div class="wp-sec">
-        <h5>Nguồn audio đang dùng</h5>
-        <div id="ttsStatus" class="src-status">
-          <b>Đang kiểm tra…</b>
-        </div>
-      </div>
-
-      <div class="wp-sec">
-        <h5>Đọc thử một đoạn bất kỳ</h5>
-        <textarea id="freeText" class="free-text ko" rows="3"
-          placeholder="Dán đoạn tiếng Hàn nào cũng được — tin tức, lời bài hát, đoạn văn luyện shadowing…">저는 매일 아침 여덟 시에 일어나요. 학교 도서관에서 두 시간쯤 한국어를 공부해요. 한국 음식은 조금 맵지만 정말 맛있어요.</textarea>
-        <div class="wp-actions" style="padding:10px 0 0">
-          <button class="pbtn primary" id="freeRead">
-            <svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg> Đọc đoạn này
-          </button>
-          <button class="pbtn" data-stop="1">Dừng</button>
-        </div>
-        <p class="wp-hint" id="freeHint"></p>
-      </div>
-
-      ${ko.length ? `
-        <div class="wp-sec">
-          <h5>Giọng máy dự phòng (${ko.length} giọng trên máy)</h5>
-          <div class="voice-list">
-            ${ko.map(v => `
-              <button class="voice ${cur && v.voiceURI === cur.voiceURI ? 'on' : ''}" data-voice="${esc(v.voiceURI)}">
-                <b>${esc(v.name)}</b>
-                <span>${esc(v.lang)}${v.localService ? ' · cài trên máy' : ' · giọng mạng, thường tự nhiên hơn'}</span>
-              </button>`).join('')}
-          </div>
-        </div>`
-      : `
-        <div class="wp-sec">
-          <div class="warn">
-            <b>Máy bạn chưa có giọng tiếng Hàn.</b>
-            <p>Không có giọng ko-KR thì trình duyệt sẽ đọc chữ Hangul bằng giọng tiếng Anh — nghe méo và giật là vì vậy.</p>
-            <p><b>Windows:</b> Settings → Time &amp; language → Language &amp; region → Add a language → <span class="ko">한국어</span> → mở Language options → cài gói <i>Speech</i>. Cài xong khởi động lại trình duyệt.</p>
-            <p><b>Cách nhanh hơn:</b> mở LangLab bằng Microsoft Edge — Edge có sẵn giọng Hàn chất lượng cao tải từ mạng, không cần cài gì.</p>
-            <p>Trong lúc chờ, nút <b>Youglish</b> trong bảng tra từ cho bạn nghe người Hàn thật phát âm chính từ đó.</p>
-          </div>
-        </div>`}
-
-      <div class="wp-sec">
-        <h5>Tốc độ đọc</h5>
-        <div class="form-chips">
-          ${rates.map(([v,t]) => `
-            <button class="fchip ${Math.abs(Speech.cfg.rate - v) < .03 ? 'on' : ''}" data-rate="${v}">
-              <span>${t}</span><span>${v}×</span>
-            </button>`).join('')}
-        </div>
-      </div>
-
-      <div class="wp-sec">
-        <h5>Độ dài khoảng nghỉ</h5>
-        <p class="wp-hint">LangLab cắt câu ở dấu chấm và dấu phẩy rồi đọc từng mẩu, nên chỗ ngắt nghỉ theo đúng ngữ pháp
-          thay vì để máy tự đoán. Chỉnh dài hơn nếu bạn muốn có thời gian nhắc lại theo.</p>
-        <div class="form-chips">
-          ${[[260,'Ngắn'],[420,'Vừa'],[650,'Dài'],[900,'Rất dài']].map(([v,t]) => `
-            <button class="fchip ${Speech.cfg.gapSentence === v ? 'on' : ''}" data-gap="${v}">
-              <span>${t}</span><span>${v} ms</span>
-            </button>`).join('')}
-        </div>
-      </div>
-
-      <div class="wp-actions" style="padding:0 20px 20px">
-        <button class="pbtn primary" data-speak="안녕하세요. 만나서 반갑습니다. 저는 한국어를 배우고 있어요.">Đọc thử</button>
-        <button class="pbtn" data-stop="1">Dừng</button>
-      </div>
-    </div>`;
-  el.classList.add('open');
-
-  TTS.probe(st => {
-    const s = $('#ttsStatus'), hint = $('#freeHint');
-    if (!s) return;
-    const tiers = `<p><b>1</b> giọng neural thu sẵn ${st.statics ? '✓' : '—'} &nbsp;·&nbsp;
-                      <b>2</b> giọng trình duyệt ${Speech.hasKorean() ? '✓' : '—'}</p>`;
-
-    if (st.server){
-      s.className = 'src-status good';
-      s.innerHTML = `<b>Máy chủ đang chạy — đọc được mọi văn bản bằng giọng neural</b>
-        <p>Dán đoạn nào vào cũng đọc được. Câu mới tự lưu lại nên lần sau nghe không cần mạng.</p>${tiers}`;
-      if (hint) hint.textContent = 'Câu chưa từng đọc mất một hai giây để tổng hợp, sau đó lưu lại luôn.';
-    } else if (st.statics){
-      s.className = 'src-status good';
-      s.innerHTML = `<b>Giọng neural cho từ và câu của khoá học ✓</b>
-        <p>Các từ và câu có sẵn trong bài học phát bằng giọng neural thu trước.
-        Còn <b>văn bản bạn tự dán</b> (luyện shadowing, câu mới) thì đọc bằng giọng của trình duyệt.</p>${tiers}`;
-      if (hint) hint.textContent = 'Từ và câu của khoá học có giọng neural; đoạn tự dán dùng giọng trình duyệt.';
-    } else {
-      s.className = 'src-status warn';
-      s.innerHTML = `<b>Đang dùng giọng của trình duyệt</b>
-        <p>Phần phát âm hiện dùng giọng tích hợp sẵn trong trình duyệt của bạn.
-        Muốn nghe hay hơn, mở bằng Microsoft Edge — Edge có sẵn giọng Hàn chất lượng cao tải từ mạng.</p>${tiers}`;
-      if (hint) hint.textContent = 'Đang đọc bằng giọng của trình duyệt.';
-    }
-  });
-}
-function closeVoiceSheet(){ const el = $('#voiceSheet'); if (el) el.classList.remove('open'); }
-
-/* ============================================================
    SỰ KIỆN TOÀN CỤC
    ============================================================ */
 document.addEventListener('click', e => {
@@ -4604,51 +4478,7 @@ document.addEventListener('click', e => {
 
   if (t.closest('#wpClose')){ closeWord(); return; }
 
-  /* ----- giọng đọc ----- */
-  if (t.closest('#voiceBtn')){ Speech.onReady(openVoiceSheet); openVoiceSheet(); return; }
-  if (t.closest('#vsClose')){ closeVoiceSheet(); return; }
-  if (t.classList && t.classList.contains('sheet')){ closeVoiceSheet(); return; }
-
-  const vb = t.closest('[data-voice]');
-  if (vb){
-    Speech.cfg.voiceURI = vb.dataset.voice; Speech.save();
-    $$('[data-voice]').forEach(x => x.classList.toggle('on', x === vb));
-    speak('안녕하세요. 저는 한국어를 배우고 있어요.');
-    return;
-  }
-  const rb = t.closest('[data-rate]');
-  if (rb){
-    Speech.cfg.rate = +rb.dataset.rate; Speech.save();
-    $$('[data-rate]').forEach(x => x.classList.toggle('on', x === rb));
-    speak('도서관에서 한국어를 공부해요.');
-    return;
-  }
-  const gb = t.closest('[data-gap]');
-  if (gb){
-    Speech.cfg.gapSentence = +gb.dataset.gap;
-    Speech.cfg.gapLine = +gb.dataset.gap + 230;
-    Speech.cfg.gapClause = Math.round(+gb.dataset.gap * .48);
-    $$('[data-gap]').forEach(x => x.classList.toggle('on', x === gb));
-    speak('안녕하세요, 만나서 반갑습니다. 저는 베트남 사람입니다.');
-    return;
-  }
   if (t.closest('[data-stop]')){ stopAudio(); return; }
-
-  if (t.closest('#freeRead')){
-    const box = $('#freeText');
-    const txt = box ? box.value.trim() : '';
-    if (!txt){ toast('Chưa có gì để đọc'); return; }
-    Speech.stop();
-    const ok = TTS.speakText(txt, {
-      gap: 500,
-      onFail(){
-        if (!Speech.supported){ toast('Trình duyệt này chưa hỗ trợ phát âm'); return; }
-        Speech.onReady(() => { if (ensureVoice()) Speech.speak(txt); });
-      }
-    });
-    if (!ok) toast('Không tách được câu nào trong đoạn này');
-    return;
-  }
 
   const ss = t.closest('[data-speak-slow]');
   if (ss){ speakSlow(ss.dataset.speakSlow); return; }
@@ -4826,7 +4656,7 @@ document.addEventListener('keydown', e => {
     const b = $('#flipBtn'); if (b) b.textContent = on ? 'Ẩn đáp án' : 'Lật thẻ';
   }
   if (e.key === 'Enter' && state.view === 'write'){ drawStage(); }
-  if (e.key === 'Escape'){ closeWord(); closeVoiceSheet(); hideTip(); Speech.stop(); }
+  if (e.key === 'Escape'){ closeWord(); hideTip(); Speech.stop(); }
   // Enter trên một từ = mở bảng tra (dùng bàn phím)
   if (e.key === 'Enter' && e.target.classList && e.target.classList.contains('kw')){
     e.preventDefault(); openWord(e.target.dataset.kw);
@@ -4883,12 +4713,6 @@ render();
 setTimeout(() => loadDict(added => {
   if (added && (state.view === 'dict')) render();
 }), 300);
-
-// Nút giọng đọc sáng lên nếu máy chưa có giọng tiếng Hàn
-Speech.onReady(() => {
-  const b = $('#voiceBtn');
-  if (b && !Speech.hasKorean()) b.classList.add('alert');
-});
 
 })();
 

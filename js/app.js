@@ -41,13 +41,10 @@ function toast(msg){
 }
 
 /* ---------- phát âm ---------- */
-let warnedVoice = false;
-
 function ensureVoice(){
   if (!Speech.supported){ toast('Trình duyệt này chưa hỗ trợ phát âm'); return false; }
   if (!Speech.hasKorean()){
-    if (!warnedVoice){ warnedVoice = true; openVoiceSheet(); }
-    else toast('Máy chưa có giọng tiếng Hàn — mở «Giọng đọc» để xem cách cài');
+    toast('Máy chưa có giọng tiếng Hàn — thử mở bằng Microsoft Edge để có giọng Hàn');
     return false;
   }
   return true;
@@ -1318,126 +1315,6 @@ document.addEventListener('mouseover', e => {
 document.addEventListener('scroll', hideTip, true);
 
 /* ============================================================
-   BẢNG CHỈNH GIỌNG ĐỌC
-   ============================================================ */
-function openVoiceSheet(){
-  let el = $('#voiceSheet');
-  if (!el){
-    el = document.createElement('div');
-    el.id = 'voiceSheet'; el.className = 'sheet';
-    document.body.appendChild(el);
-  }
-  const ko = Speech.koVoices();
-  const cur = Speech.currentVoice();
-  const rates = [[.6,'Rất chậm'],[.75,'Chậm'],[.9,'Vừa'],[1,'Bình thường'],[1.15,'Nhanh']];
-
-  el.innerHTML = `
-    <div class="sheet-card" role="dialog" aria-label="Cài đặt giọng đọc">
-      <div class="wp-head">
-        <div><span class="eyebrow">Phát âm</span><div class="wp-word" style="font-size:22px">Giọng đọc</div></div>
-        <button class="icon-btn" id="vsClose" title="Đóng"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-      </div>
-
-      <div class="wp-sec">
-        <h5>Nguồn audio đang dùng</h5>
-        <div id="ttsStatus" class="src-status">
-          <b>Đang kiểm tra…</b>
-        </div>
-      </div>
-
-      <div class="wp-sec">
-        <h5>Đọc thử một đoạn bất kỳ</h5>
-        <textarea id="freeText" class="free-text ko" rows="3"
-          placeholder="Dán đoạn tiếng Hàn nào cũng được — tin tức, lời bài hát, đoạn văn luyện shadowing…">저는 매일 아침 여덟 시에 일어나요. 학교 도서관에서 두 시간쯤 한국어를 공부해요. 한국 음식은 조금 맵지만 정말 맛있어요.</textarea>
-        <div class="wp-actions" style="padding:10px 0 0">
-          <button class="pbtn primary" id="freeRead">
-            <svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg> Đọc đoạn này
-          </button>
-          <button class="pbtn" data-stop="1">Dừng</button>
-        </div>
-        <p class="wp-hint" id="freeHint"></p>
-      </div>
-
-      ${ko.length ? `
-        <div class="wp-sec">
-          <h5>Giọng máy dự phòng (${ko.length} giọng trên máy)</h5>
-          <div class="voice-list">
-            ${ko.map(v => `
-              <button class="voice ${cur && v.voiceURI === cur.voiceURI ? 'on' : ''}" data-voice="${esc(v.voiceURI)}">
-                <b>${esc(v.name)}</b>
-                <span>${esc(v.lang)}${v.localService ? ' · cài trên máy' : ' · giọng mạng, thường tự nhiên hơn'}</span>
-              </button>`).join('')}
-          </div>
-        </div>`
-      : `
-        <div class="wp-sec">
-          <div class="warn">
-            <b>Máy bạn chưa có giọng tiếng Hàn.</b>
-            <p>Không có giọng ko-KR thì trình duyệt sẽ đọc chữ Hangul bằng giọng tiếng Anh — nghe méo và giật là vì vậy.</p>
-            <p><b>Windows:</b> Settings → Time &amp; language → Language &amp; region → Add a language → <span class="ko">한국어</span> → mở Language options → cài gói <i>Speech</i>. Cài xong khởi động lại trình duyệt.</p>
-            <p><b>Cách nhanh hơn:</b> mở LangLab bằng Microsoft Edge — Edge có sẵn giọng Hàn chất lượng cao tải từ mạng, không cần cài gì.</p>
-            <p>Trong lúc chờ, nút <b>Youglish</b> trong bảng tra từ cho bạn nghe người Hàn thật phát âm chính từ đó.</p>
-          </div>
-        </div>`}
-
-      <div class="wp-sec">
-        <h5>Tốc độ đọc</h5>
-        <div class="form-chips">
-          ${rates.map(([v,t]) => `
-            <button class="fchip ${Math.abs(Speech.cfg.rate - v) < .03 ? 'on' : ''}" data-rate="${v}">
-              <span>${t}</span><span>${v}×</span>
-            </button>`).join('')}
-        </div>
-      </div>
-
-      <div class="wp-sec">
-        <h5>Độ dài khoảng nghỉ</h5>
-        <p class="wp-hint">LangLab cắt câu ở dấu chấm và dấu phẩy rồi đọc từng mẩu, nên chỗ ngắt nghỉ theo đúng ngữ pháp
-          thay vì để máy tự đoán. Chỉnh dài hơn nếu bạn muốn có thời gian nhắc lại theo.</p>
-        <div class="form-chips">
-          ${[[260,'Ngắn'],[420,'Vừa'],[650,'Dài'],[900,'Rất dài']].map(([v,t]) => `
-            <button class="fchip ${Speech.cfg.gapSentence === v ? 'on' : ''}" data-gap="${v}">
-              <span>${t}</span><span>${v} ms</span>
-            </button>`).join('')}
-        </div>
-      </div>
-
-      <div class="wp-actions" style="padding:0 20px 20px">
-        <button class="pbtn primary" data-speak="안녕하세요. 만나서 반갑습니다. 저는 한국어를 배우고 있어요.">Đọc thử</button>
-        <button class="pbtn" data-stop="1">Dừng</button>
-      </div>
-    </div>`;
-  el.classList.add('open');
-
-  TTS.probe(st => {
-    const s = $('#ttsStatus'), hint = $('#freeHint');
-    if (!s) return;
-    const tiers = `<p><b>1</b> giọng neural thu sẵn ${st.statics ? '✓' : '—'} &nbsp;·&nbsp;
-                      <b>2</b> giọng trình duyệt ${Speech.hasKorean() ? '✓' : '—'}</p>`;
-
-    if (st.server){
-      s.className = 'src-status good';
-      s.innerHTML = `<b>Máy chủ đang chạy — đọc được mọi văn bản bằng giọng neural</b>
-        <p>Dán đoạn nào vào cũng đọc được. Câu mới tự lưu lại nên lần sau nghe không cần mạng.</p>${tiers}`;
-      if (hint) hint.textContent = 'Câu chưa từng đọc mất một hai giây để tổng hợp, sau đó lưu lại luôn.';
-    } else if (st.statics){
-      s.className = 'src-status good';
-      s.innerHTML = `<b>Giọng neural cho từ và câu của khoá học ✓</b>
-        <p>Các từ và câu có sẵn trong bài học phát bằng giọng neural thu trước.
-        Còn <b>văn bản bạn tự dán</b> (luyện shadowing, câu mới) thì đọc bằng giọng của trình duyệt.</p>${tiers}`;
-      if (hint) hint.textContent = 'Từ và câu của khoá học có giọng neural; đoạn tự dán dùng giọng trình duyệt.';
-    } else {
-      s.className = 'src-status warn';
-      s.innerHTML = `<b>Đang dùng giọng của trình duyệt</b>
-        <p>Phần phát âm hiện dùng giọng tích hợp sẵn trong trình duyệt của bạn.
-        Muốn nghe hay hơn, mở bằng Microsoft Edge — Edge có sẵn giọng Hàn chất lượng cao tải từ mạng.</p>${tiers}`;
-      if (hint) hint.textContent = 'Đang đọc bằng giọng của trình duyệt.';
-    }
-  });
-}
-function closeVoiceSheet(){ const el = $('#voiceSheet'); if (el) el.classList.remove('open'); }
-
-/* ============================================================
    SỰ KIỆN TOÀN CỤC
    ============================================================ */
 document.addEventListener('click', e => {
@@ -1560,51 +1437,7 @@ document.addEventListener('click', e => {
 
   if (t.closest('#wpClose')){ closeWord(); return; }
 
-  /* ----- giọng đọc ----- */
-  if (t.closest('#voiceBtn')){ Speech.onReady(openVoiceSheet); openVoiceSheet(); return; }
-  if (t.closest('#vsClose')){ closeVoiceSheet(); return; }
-  if (t.classList && t.classList.contains('sheet')){ closeVoiceSheet(); return; }
-
-  const vb = t.closest('[data-voice]');
-  if (vb){
-    Speech.cfg.voiceURI = vb.dataset.voice; Speech.save();
-    $$('[data-voice]').forEach(x => x.classList.toggle('on', x === vb));
-    speak('안녕하세요. 저는 한국어를 배우고 있어요.');
-    return;
-  }
-  const rb = t.closest('[data-rate]');
-  if (rb){
-    Speech.cfg.rate = +rb.dataset.rate; Speech.save();
-    $$('[data-rate]').forEach(x => x.classList.toggle('on', x === rb));
-    speak('도서관에서 한국어를 공부해요.');
-    return;
-  }
-  const gb = t.closest('[data-gap]');
-  if (gb){
-    Speech.cfg.gapSentence = +gb.dataset.gap;
-    Speech.cfg.gapLine = +gb.dataset.gap + 230;
-    Speech.cfg.gapClause = Math.round(+gb.dataset.gap * .48);
-    $$('[data-gap]').forEach(x => x.classList.toggle('on', x === gb));
-    speak('안녕하세요, 만나서 반갑습니다. 저는 베트남 사람입니다.');
-    return;
-  }
   if (t.closest('[data-stop]')){ stopAudio(); return; }
-
-  if (t.closest('#freeRead')){
-    const box = $('#freeText');
-    const txt = box ? box.value.trim() : '';
-    if (!txt){ toast('Chưa có gì để đọc'); return; }
-    Speech.stop();
-    const ok = TTS.speakText(txt, {
-      gap: 500,
-      onFail(){
-        if (!Speech.supported){ toast('Trình duyệt này chưa hỗ trợ phát âm'); return; }
-        Speech.onReady(() => { if (ensureVoice()) Speech.speak(txt); });
-      }
-    });
-    if (!ok) toast('Không tách được câu nào trong đoạn này');
-    return;
-  }
 
   const ss = t.closest('[data-speak-slow]');
   if (ss){ speakSlow(ss.dataset.speakSlow); return; }
@@ -1782,7 +1615,7 @@ document.addEventListener('keydown', e => {
     const b = $('#flipBtn'); if (b) b.textContent = on ? 'Ẩn đáp án' : 'Lật thẻ';
   }
   if (e.key === 'Enter' && state.view === 'write'){ drawStage(); }
-  if (e.key === 'Escape'){ closeWord(); closeVoiceSheet(); hideTip(); Speech.stop(); }
+  if (e.key === 'Escape'){ closeWord(); hideTip(); Speech.stop(); }
   // Enter trên một từ = mở bảng tra (dùng bàn phím)
   if (e.key === 'Enter' && e.target.classList && e.target.classList.contains('kw')){
     e.preventDefault(); openWord(e.target.dataset.kw);
@@ -1839,11 +1672,5 @@ render();
 setTimeout(() => loadDict(added => {
   if (added && (state.view === 'dict')) render();
 }), 300);
-
-// Nút giọng đọc sáng lên nếu máy chưa có giọng tiếng Hàn
-Speech.onReady(() => {
-  const b = $('#voiceBtn');
-  if (b && !Speech.hasKorean()) b.classList.add('alert');
-});
 
 })();

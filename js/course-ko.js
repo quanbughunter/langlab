@@ -33,7 +33,7 @@ const COURSE_KO = {
       grammar:[
         { form:'N + 입니다 / 입니까?', vi:'là N / có phải là N không?',
           note:'Đuôi câu trang trọng nhất, dùng khi gặp lần đầu, trong lớp học hay nơi công sở.',
-          ex:{ko:'저는 팜 당 히엔입니다.', vi:'Tôi là Phạm Đăng Hiển.'} },
+          ex:{ko:'저는 응우옌 딘 꾸언입니다.', vi:'Tôi là Nguyễn Đình Quân.'} },
         { form:'N + 은 / 는', vi:'trợ từ chủ đề',
           note:'Danh từ có patchim dùng 은, không có patchim dùng 는. Nêu chủ đề đang nói tới.',
           ex:{ko:'저는 베트남 사람입니다.', vi:'Tôi là người Việt Nam.'} }
@@ -55,9 +55,9 @@ const COURSE_KO = {
       ],
       dialogue:[
         {sp:'민수', ko:'안녕하세요? 저는 김민수입니다.', vi:'Xin chào. Tôi là Kim Min-su.'},
-        {sp:'히엔', ko:'안녕하세요? 저는 히엔입니다.', vi:'Xin chào. Tôi là Hiển.'},
-        {sp:'민수', ko:'히엔 씨는 어느 나라 사람입니까?', vi:'Hiển là người nước nào ạ?'},
-        {sp:'히엔', ko:'저는 베트남 사람입니다. 반갑습니다.', vi:'Tôi là người Việt Nam. Rất vui được gặp anh.'}
+        {sp:'꾸언', ko:'안녕하세요? 저는 꾸언입니다.', vi:'Xin chào. Tôi là Quân.'},
+        {sp:'민수', ko:'꾸언 씨는 어느 나라 사람입니까?', vi:'Quân là người nước nào ạ?'},
+        {sp:'꾸언', ko:'저는 베트남 사람입니다. 반갑습니다.', vi:'Tôi là người Việt Nam. Rất vui được gặp anh.'}
       ]
     },
     {
@@ -92,9 +92,9 @@ const COURSE_KO = {
       ],
       dialogue:[
         {sp:'수진', ko:'여기가 우리 교실이에요.', vi:'Đây là lớp học của chúng mình.'},
-        {sp:'히엔', ko:'그것은 무엇입니까?', vi:'Cái đó là cái gì vậy?'},
+        {sp:'꾸언', ko:'그것은 무엇입니까?', vi:'Cái đó là cái gì vậy?'},
         {sp:'수진', ko:'이것은 한국어 책입니다.', vi:'Cái này là sách tiếng Hàn.'},
-        {sp:'히엔', ko:'도서관도 학교 안에 있습니까?', vi:'Thư viện cũng ở trong trường phải không?'}
+        {sp:'꾸언', ko:'도서관도 학교 안에 있습니까?', vi:'Thư viện cũng ở trong trường phải không?'}
       ]
     },
     {
@@ -128,10 +128,10 @@ const COURSE_KO = {
         {ko:'커피', rom:'keopi', vi:'cà phê', pos:'danh từ'}
       ],
       dialogue:[
-        {sp:'민수', ko:'히엔 씨는 아침에 무엇을 합니까?', vi:'Buổi sáng Hiển làm gì?'},
-        {sp:'히엔', ko:'저는 도서관에서 한국어를 공부합니다.', vi:'Tôi học tiếng Hàn ở thư viện.'},
+        {sp:'민수', ko:'꾸언 씨는 아침에 무엇을 합니까?', vi:'Buổi sáng Quân làm gì?'},
+        {sp:'꾸언', ko:'저는 도서관에서 한국어를 공부합니다.', vi:'Tôi học tiếng Hàn ở thư viện.'},
         {sp:'민수', ko:'점심에는 어디에서 밥을 먹습니까?', vi:'Buổi trưa bạn ăn cơm ở đâu?'},
-        {sp:'히엔', ko:'학교 식당에서 먹습니다.', vi:'Tôi ăn ở nhà ăn của trường.'}
+        {sp:'꾸언', ko:'학교 식당에서 먹습니다.', vi:'Tôi ăn ở nhà ăn của trường.'}
       ]
     },
     {
@@ -166,9 +166,9 @@ const COURSE_KO = {
       ],
       dialogue:[
         {sp:'수진', ko:'오늘이 며칠입니까?', vi:'Hôm nay là ngày mấy?'},
-        {sp:'히엔', ko:'십일 월 이십오 일입니다.', vi:'Là ngày 25 tháng 11.'},
+        {sp:'꾸언', ko:'십일 월 이십오 일입니다.', vi:'Là ngày 25 tháng 11.'},
         {sp:'수진', ko:'그럼 무슨 요일입니까?', vi:'Vậy là thứ mấy?'},
-        {sp:'히엔', ko:'화요일입니다. 내일은 수요일입니다.', vi:'Thứ Ba. Ngày mai là thứ Tư.'}
+        {sp:'꾸언', ko:'화요일입니다. 내일은 수요일입니다.', vi:'Thứ Ba. Ngày mai là thứ Tư.'}
       ]
     },
     {
@@ -204,9 +204,9 @@ const COURSE_KO = {
       ],
       dialogue:[
         {sp:'민수', ko:'보통 몇 시에 일어나요?', vi:'Bạn thường dậy lúc mấy giờ?'},
-        {sp:'히엔', ko:'일곱 시에 일어나요.', vi:'Tôi dậy lúc 7 giờ.'},
+        {sp:'꾸언', ko:'일곱 시에 일어나요.', vi:'Tôi dậy lúc 7 giờ.'},
         {sp:'민수', ko:'수업은 몇 시에 끝나요?', vi:'Mấy giờ thì hết tiết?'},
-        {sp:'히엔', ko:'네 시 삼십 분에 끝나요.', vi:'Kết thúc lúc 4 giờ 30.'}
+        {sp:'꾸언', ko:'네 시 삼십 분에 끝나요.', vi:'Kết thúc lúc 4 giờ 30.'}
       ]
     },
     {
@@ -241,9 +241,9 @@ const COURSE_KO = {
       ],
       dialogue:[
         {sp:'수진', ko:'지난 주말에 뭐 했어요?', vi:'Cuối tuần trước bạn làm gì?'},
-        {sp:'히엔', ko:'친구하고 영화를 봤어요.', vi:'Tôi đi xem phim với bạn.'},
+        {sp:'꾸언', ko:'친구하고 영화를 봤어요.', vi:'Tôi đi xem phim với bạn.'},
         {sp:'수진', ko:'재미있었어요?', vi:'Có hay không?'},
-        {sp:'히엔', ko:'네, 아주 좋았어요. 이번 주말에 같이 봅시다.', vi:'Vâng, rất hay. Cuối tuần này chúng ta cùng xem nhé.'}
+        {sp:'꾸언', ko:'네, 아주 좋았어요. 이번 주말에 같이 봅시다.', vi:'Vâng, rất hay. Cuối tuần này chúng ta cùng xem nhé.'}
       ]
     },
     {
@@ -277,9 +277,9 @@ const COURSE_KO = {
         {ko:'돈', rom:'don', vi:'tiền', pos:'danh từ'}
       ],
       dialogue:[
-        {sp:'히엔', ko:'이 사과는 얼마예요?', vi:'Táo này bao nhiêu tiền ạ?'},
+        {sp:'꾸언', ko:'이 사과는 얼마예요?', vi:'Táo này bao nhiêu tiền ạ?'},
         {sp:'주인', ko:'한 개에 이천 원이에요.', vi:'Hai nghìn won một quả.'},
-        {sp:'히엔', ko:'조금 비싸요. 세 개 주세요.', vi:'Hơi đắt ạ. Cho tôi ba quả.'},
+        {sp:'꾸언', ko:'조금 비싸요. 세 개 주세요.', vi:'Hơi đắt ạ. Cho tôi ba quả.'},
         {sp:'주인', ko:'네, 육천 원입니다.', vi:'Vâng, sáu nghìn won.'}
       ]
     },
@@ -315,9 +315,9 @@ const COURSE_KO = {
       ],
       dialogue:[
         {sp:'점원', ko:'어서 오세요. 뭘 드시겠어요?', vi:'Mời vào ạ. Anh dùng gì ạ?'},
-        {sp:'히엔', ko:'비빔밥 하나 주세요.', vi:'Cho tôi một suất cơm trộn.'},
+        {sp:'꾸언', ko:'비빔밥 하나 주세요.', vi:'Cho tôi một suất cơm trộn.'},
         {sp:'점원', ko:'맵게 해 드릴까요?', vi:'Anh có ăn cay được không ạ?'},
-        {sp:'히엔', ko:'아니요, 맵지 않게 해 주세요.', vi:'Không ạ, làm giúp tôi ít cay thôi.'}
+        {sp:'꾸언', ko:'아니요, 맵지 않게 해 주세요.', vi:'Không ạ, làm giúp tôi ít cay thôi.'}
       ]
     },
     {
@@ -351,9 +351,9 @@ const COURSE_KO = {
         {ko:'옆', rom:'yeop', vi:'bên cạnh', pos:'danh từ'}
       ],
       dialogue:[
-        {sp:'히엔', ko:'수진 씨, 우리 집에 올래요?', vi:'Su-jin ơi, đến nhà mình chơi nhé?'},
+        {sp:'꾸언', ko:'수진 씨, 우리 집에 올래요?', vi:'Su-jin ơi, đến nhà mình chơi nhé?'},
         {sp:'수진', ko:'좋아요. 집이 어디예요?', vi:'Được đấy. Nhà bạn ở đâu?'},
-        {sp:'히엔', ko:'학교 앞에서 왼쪽으로 가세요.', vi:'Từ trước cổng trường bạn rẽ trái.'},
+        {sp:'꾸언', ko:'학교 앞에서 왼쪽으로 가세요.', vi:'Từ trước cổng trường bạn rẽ trái.'},
         {sp:'수진', ko:'은행 옆에 있는 아파트예요?', vi:'Là chung cư cạnh ngân hàng phải không?'}
       ]
     },
@@ -389,9 +389,9 @@ const COURSE_KO = {
       ],
       dialogue:[
         {sp:'수진', ko:'가족이 몇 명이에요?', vi:'Gia đình bạn có mấy người?'},
-        {sp:'히엔', ko:'네 명이에요. 부모님하고 여동생이 있어요.', vi:'Bốn người. Có bố mẹ và em gái tôi.'},
+        {sp:'꾸언', ko:'네 명이에요. 부모님하고 여동생이 있어요.', vi:'Bốn người. Có bố mẹ và em gái tôi.'},
         {sp:'수진', ko:'부모님께서는 무슨 일을 하세요?', vi:'Bố mẹ bạn làm nghề gì ạ?'},
-        {sp:'히엔', ko:'아버지께서는 선생님이세요.', vi:'Bố tôi là giáo viên ạ.'}
+        {sp:'꾸언', ko:'아버지께서는 선생님이세요.', vi:'Bố tôi là giáo viên ạ.'}
       ]
     },
     {
@@ -426,9 +426,9 @@ const COURSE_KO = {
       ],
       dialogue:[
         {sp:'민수', ko:'오늘 날씨가 어때요?', vi:'Hôm nay thời tiết thế nào?'},
-        {sp:'히엔', ko:'바람이 불고 조금 추워요.', vi:'Có gió và hơi lạnh.'},
+        {sp:'꾸언', ko:'바람이 불고 조금 추워요.', vi:'Có gió và hơi lạnh.'},
         {sp:'민수', ko:'베트남 겨울도 추워요?', vi:'Mùa đông ở Việt Nam cũng lạnh chứ?'},
-        {sp:'히엔', ko:'하노이는 춥지만 눈은 안 와요.', vi:'Hà Nội lạnh nhưng không có tuyết.'}
+        {sp:'꾸언', ko:'하노이는 춥지만 눈은 안 와요.', vi:'Hà Nội lạnh nhưng không có tuyết.'}
       ]
     },
     {
@@ -462,9 +462,9 @@ const COURSE_KO = {
         {ko:'부탁하다', rom:'butakhada', vi:'nhờ vả', pos:'động từ', hanja:'付託—', hv:'phó thác'}
       ],
       dialogue:[
-        {sp:'히엔', ko:'여보세요, 거기 민수 씨 집이지요?', vi:'A lô, đây có phải nhà anh Min-su không ạ?'},
+        {sp:'꾸언', ko:'여보세요, 거기 민수 씨 집이지요?', vi:'A lô, đây có phải nhà anh Min-su không ạ?'},
         {sp:'민수', ko:'네, 제가 민수인데요.', vi:'Vâng, Min-su đây ạ.'},
-        {sp:'히엔', ko:'내일 같이 공부하려고 전화했어요.', vi:'Tôi gọi vì định mai cùng học với anh.'},
+        {sp:'꾸언', ko:'내일 같이 공부하려고 전화했어요.', vi:'Tôi gọi vì định mai cùng học với anh.'},
         {sp:'민수', ko:'좋아요. 그럼 두 시에 만나요.', vi:'Được thôi. Vậy hai giờ gặp nhau nhé.'}
       ]
     },
@@ -499,10 +499,10 @@ const COURSE_KO = {
         {ko:'돌', rom:'dol', vi:'thôi nôi (sinh nhật 1 tuổi)', pos:'danh từ'}
       ],
       dialogue:[
-        {sp:'수진', ko:'히엔 씨, 생일 축하해요!', vi:'Hiển ơi, chúc mừng sinh nhật!'},
-        {sp:'히엔', ko:'고마워요. 와 주셔서 감사합니다.', vi:'Cảm ơn bạn. Cảm ơn vì đã đến.'},
+        {sp:'수진', ko:'꾸언 씨, 생일 축하해요!', vi:'Quân ơi, chúc mừng sinh nhật!'},
+        {sp:'꾸언', ko:'고마워요. 와 주셔서 감사합니다.', vi:'Cảm ơn bạn. Cảm ơn vì đã đến.'},
         {sp:'수진', ko:'이거 작은 선물이에요.', vi:'Đây là món quà nhỏ.'},
-        {sp:'히엔', ko:'민수 씨는 바빠서 못 왔어요.', vi:'Anh Min-su bận nên không đến được.'}
+        {sp:'꾸언', ko:'민수 씨는 바빠서 못 왔어요.', vi:'Anh Min-su bận nên không đến được.'}
       ]
     },
     {
@@ -537,9 +537,9 @@ const COURSE_KO = {
       ],
       dialogue:[
         {sp:'민수', ko:'취미가 뭐예요?', vi:'Sở thích của bạn là gì?'},
-        {sp:'히엔', ko:'제 취미는 음악 듣기예요.', vi:'Sở thích của tôi là nghe nhạc.'},
+        {sp:'꾸언', ko:'제 취미는 음악 듣기예요.', vi:'Sở thích của tôi là nghe nhạc.'},
         {sp:'민수', ko:'악기도 연주할 수 있어요?', vi:'Bạn chơi được nhạc cụ nào không?'},
-        {sp:'히엔', ko:'기타를 조금 칠 수 있어요.', vi:'Tôi chơi guitar được một chút.'}
+        {sp:'꾸언', ko:'기타를 조금 칠 수 있어요.', vi:'Tôi chơi guitar được một chút.'}
       ]
     },
     {
@@ -573,9 +573,9 @@ const COURSE_KO = {
         {ko:'걸리다', rom:'geollida', vi:'mất (thời gian)', pos:'động từ'}
       ],
       dialogue:[
-        {sp:'히엔', ko:'명동에 어떻게 가요?', vi:'Đi Myeongdong thế nào ạ?'},
+        {sp:'꾸언', ko:'명동에 어떻게 가요?', vi:'Đi Myeongdong thế nào ạ?'},
         {sp:'행인', ko:'지하철 사호선을 타세요.', vi:'Anh đi tàu điện ngầm tuyến số 4.'},
-        {sp:'히엔', ko:'여기에서 명동까지 얼마나 걸려요?', vi:'Từ đây đến Myeongdong mất bao lâu ạ?'},
+        {sp:'꾸언', ko:'여기에서 명동까지 얼마나 걸려요?', vi:'Từ đây đến Myeongdong mất bao lâu ạ?'},
         {sp:'행인', ko:'이십 분쯤 걸려요. 서울역에서 갈아타세요.', vi:'Khoảng 20 phút. Anh đổi tuyến ở ga Seoul.'}
       ]
     }
