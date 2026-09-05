@@ -39,6 +39,42 @@ function curLesson(){ return curLessons().find(l => l.no === state.lesson); }
 function levelHasLessons(id){ return COURSE_KO.lessons.some(l => l.level === id); }
 function curLevel(){ return (COURSE_KO.levels || []).find(x => x.id === state.level) || { vi:'Sơ cấp 1', ko:'초급 1' }; }
 
+/* ---------- đọc số tiếng Hàn ---------- */
+function sino4(n){                                   // 1..9999 (Hán Hàn), bỏ 일 trước 십/백/천
+  const d = ['','일','이','삼','사','오','육','칠','팔','구'];
+  const u = ['','십','백','천'];
+  let s = '', pos = 0;
+  while (n > 0){ const dig = n % 10; if (dig){ s = ((dig === 1 && pos > 0) ? '' : d[dig]) + u[pos] + s; } n = Math.floor(n / 10); pos++; }
+  return s;
+}
+function koSino(n){                                   // số Hán Hàn (일, 이, 삼...)
+  n = Math.floor(n);
+  if (n === 0) return '영';
+  if (n < 0) return '마이너스 ' + koSino(-n);
+  const big = ['','만','억','조'];
+  let out = '', g = 0;
+  while (n > 0 && g < big.length){
+    const part = n % 10000;
+    if (part){ let ps = sino4(part); if (g === 1 && part === 1) ps = ''; out = ps + big[g] + out; }
+    n = Math.floor(n / 10000); g++;
+  }
+  return out;
+}
+function koNative(n){                                 // số thuần Hàn 1..99 (하나, 둘...)
+  n = Math.floor(n);
+  if (n < 1 || n > 99) return '';
+  const ones = ['','하나','둘','셋','넷','다섯','여섯','일곱','여덟','아홉'];
+  const tens = ['','열','스물','서른','마흔','쉰','예순','일흔','여든','아흔'];
+  return (tens[Math.floor(n / 10)] || '') + (ones[n % 10] || '');
+}
+function koNativeCounter(n){                          // dạng rút gọn trước đơn vị đếm
+  return koNative(n).replace(/하나$/, '한').replace(/둘$/, '두').replace(/셋$/, '세').replace(/넷$/, '네').replace(/스물$/, '스무');
+}
+
+function topikView(){   /* bản đầy đủ ở phần « THI THỬ TOPIK » — tạm thời khung trống */
+  return `<div class="page-head"><span class="eyebrow">TOPIK · Thi thử</span><h1>Thi thử TOPIK</h1><p>Đang hoàn thiện…</p></div>`;
+}
+
 /* ---------- thông báo ngắn ---------- */
 let toastTimer;
 function toast(msg){
@@ -647,6 +683,94 @@ quiz(){
       `<button class="qt" data-qtype="${id}" aria-pressed="${(state.quiz.type || 'mix') === id}">${label}</button>`).join('')}
   </div>
   <div id="quizArea">${quizCard()}</div>`;
+},
+
+/* ---------------- Số đếm ---------------- */
+numbers(){
+  const sino = [['0','영 · 공'],['1','일'],['2','이'],['3','삼'],['4','사'],['5','오'],['6','육'],['7','칠'],['8','팔'],['9','구'],['10','십'],['20','이십'],['100','백'],['1.000','천'],['10.000','만'],['억','억']];
+  const nat = [['1','하나'],['2','둘'],['3','셋'],['4','넷'],['5','다섯'],['6','여섯'],['7','일곱'],['8','여덟'],['9','아홉'],['10','열'],['20','스물'],['30','서른'],['40','마흔'],['50','쉰'],['60','예순'],['70','일흔'],['80','여든'],['90','아흔']];
+  const counters = [
+    ['개','cái, vật','사과 세 개','ba quả táo'],
+    ['명 · 사람','người','학생 네 명','bốn học sinh'],
+    ['분','người (kính ngữ)','손님 두 분','hai vị khách'],
+    ['마리','con (động vật)','고양이 한 마리','một con mèo'],
+    ['권','quyển (sách)','책 다섯 권','năm quyển sách'],
+    ['장','tờ, tấm','종이 열 장','mười tờ giấy'],
+    ['병','chai','물 두 병','hai chai nước'],
+    ['잔','ly, cốc','커피 세 잔','ba ly cà phê'],
+    ['대','chiếc (xe, máy)','자동차 한 대','một chiếc ô tô'],
+    ['살','tuổi','스무 살','20 tuổi'],
+    ['시','giờ','세 시','3 giờ'],
+    ['번','lần','두 번','hai lần']
+  ];
+  const chip = ([num, ko]) => `<button class="num-chip" data-speak="${esc(ko)}"><span class="num-n">${esc(num)}</span><span class="num-ko ko">${esc(ko)}</span></button>`;
+  return `
+  <div class="page-head">
+    <span class="eyebrow">숫자 · Số đếm</span>
+    <h1>Số đếm tiếng Hàn</h1>
+    <p>Tiếng Hàn có <b>hai hệ số đếm</b> dùng song song: số <b>Hán Hàn</b> (한자어) và số <b>thuần Hàn</b> (순우리말). Dùng hệ nào là tuỳ theo <b>đơn vị đi kèm</b>.</p>
+  </div>
+
+  <div class="num-conv">
+    <label for="numInput">Nhập một số để xem cách đọc (0–999.999.999)</label>
+    <div class="num-conv-row">
+      <input id="numInput" type="number" min="0" max="999999999" placeholder="Ví dụ: 25" inputmode="numeric">
+      <div id="numOut" class="num-out"><span class="no-note">Gõ một số vào ô bên trái…</span></div>
+    </div>
+  </div>
+
+  <div class="note-card">
+    <span class="mark ko">漢</span>
+    <div>
+      <h4>Số Hán Hàn (한자어) — 일, 이, 삼…</h4>
+      <p>Dùng cho <b>phút · giây</b> (분·초), <b>ngày · tháng · năm</b> (일·월·년), <b>tiền</b> (원), số điện thoại, số nhà, cân đo, phép toán — và mọi số <b>từ 100 trở lên</b>.</p>
+      <div class="num-grid">${sino.map(chip).join('')}</div>
+    </div>
+  </div>
+
+  <div class="note-card">
+    <span class="mark ko">한</span>
+    <div>
+      <h4>Số thuần Hàn (순우리말) — 하나, 둘, 셋…</h4>
+      <p>Dùng để <b>đếm sự vật</b> với đơn vị đếm (개, 명, 마리…), nói <b>giờ</b> (시), <b>tuổi</b> (살), <b>số lần</b> (번). Chỉ có tới 99; từ 100 trở lên mượn số Hán Hàn (백, 천…).</p>
+      <div class="num-grid">${nat.map(chip).join('')}</div>
+    </div>
+  </div>
+
+  <div class="note-card">
+    <span class="mark">✎</span>
+    <div>
+      <h4>Dạng rút gọn trước đơn vị đếm</h4>
+      <p>Bốn số đầu và 20 đổi dạng khi đứng trước đơn vị đếm:
+      <b class="ko">하나→한, 둘→두, 셋→세, 넷→네, 스물→스무</b>.
+      Ví dụ: <span class="ko">한 개 · 두 명 · 세 시 · 네 살 · 스무 살</span>.</p>
+    </div>
+  </div>
+
+  <div class="num-sec-title"><h2>Đơn vị đếm thường gặp</h2></div>
+  <div class="num-table">
+    ${counters.map(([u, vi, ex, exvi]) => `
+      <div class="num-row">
+        <span class="nr-u ko">${esc(u)}</span>
+        <span class="nr-vi">${esc(vi)}</span>
+        <span class="nr-ex ko">${Words.mark(ex)}</span>
+        <span class="nr-exvi">${esc(exvi)}</span>
+        <button class="icon-btn" data-speak="${esc(ex)}" title="Nghe"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg></button>
+      </div>`).join('')}
+  </div>
+
+  <div class="num-sec-title"><h2>Cách dùng theo ngữ cảnh</h2></div>
+  <div class="num-use">
+    <div class="nu-card"><h5>Giờ + phút</h5><p class="nu-ko ko">${Words.mark('세 시 삼십 분')}</p><p class="nu-vi">3 giờ 30 — giờ (thuần Hàn) + phút (Hán Hàn)</p><button class="mini" data-speak="세 시 삼십 분">Nghe</button></div>
+    <div class="nu-card"><h5>Ngày tháng</h5><p class="nu-ko ko">${Words.mark('시월 구 일')}</p><p class="nu-vi">Ngày 9 tháng 10 — nhớ 6월=유월, 10월=시월</p><button class="mini" data-speak="시월 구 일">Nghe</button></div>
+    <div class="nu-card"><h5>Tiền</h5><p class="nu-ko ko">${Words.mark('만 오천 원')}</p><p class="nu-vi">15.000 won (Hán Hàn)</p><button class="mini" data-speak="만 오천 원">Nghe</button></div>
+    <div class="nu-card"><h5>Tuổi</h5><p class="nu-ko ko">${Words.mark('스물세 살')}</p><p class="nu-vi">23 tuổi (thuần Hàn)</p><button class="mini" data-speak="스물세 살">Nghe</button></div>
+  </div>`;
+},
+
+/* ---------------- Thi thử TOPIK ---------------- */
+topik(){
+  return topikView();
 }
 };
 
@@ -821,7 +945,8 @@ function quizSummary(){
 
 const CRUMBS = {
   home:'Khoá học', lesson:'Bài học', write:'Tập viết',
-  srs:'Ôn tập', dict:'Từ điển', quiz:'Bài tập', shadow:'Luyện shadowing'
+  srs:'Ôn tập', dict:'Từ điển', quiz:'Bài tập', shadow:'Luyện shadowing',
+  numbers:'Số đếm', topik:'Thi thử TOPIK'
 };
 
 function render(){
@@ -1871,8 +1996,19 @@ document.addEventListener('keydown', e => {
   }
 });
 
-/* tìm nhanh trên thanh trên cùng */
+/* tìm nhanh trên thanh trên cùng + ô chuyển số */
 document.addEventListener('input', e => {
+  if (e.target.id === 'numInput'){
+    const out = $('#numOut'); if (!out) return;
+    const n = parseInt(e.target.value, 10);
+    if (isNaN(n) || n < 0){ out.innerHTML = '<span class="no-note">Gõ một số vào ô bên trái…</span>'; return; }
+    const sino = koSino(n), nat = (n >= 1 && n <= 99) ? koNative(n) : '';
+    out.innerHTML =
+      `<span class="no-line"><span class="no-tag">Hán Hàn</span> <span class="ko">${esc(sino)}</span> <button class="mini" data-speak="${esc(sino)}">Nghe</button></span>` +
+      (nat ? `<span class="no-line"><span class="no-tag">Thuần Hàn</span> <span class="ko">${esc(nat)}</span> <button class="mini" data-speak="${esc(nat)}">Nghe</button></span>`
+           : `<span class="no-line no-note">Thuần Hàn chỉ có từ 1–99</span>`);
+    return;
+  }
   if (e.target.id !== 'topq') return;
   const v = e.target.value.trim();
   if (!v) return;
