@@ -21,6 +21,7 @@ const state = {
   jamo: 'ㄱ',
   syll: { cho:'ㅎ', jung:'ㅏ', jong:'ㄴ' },
   speed: 1,
+  quiz: null,
   deck: store.get('deck', []),
   done: store.get('done', {}),
   theme: store.get('theme', 'auto'),
@@ -623,33 +624,185 @@ shadow(){
 
 /* ---------------- Bài tập ---------------- */
 quiz(){
+  if (!state.quiz || !state.quiz.qs) quizStart(state.quiz && state.quiz.type);
   return `
   <div class="page-head">
     <span class="eyebrow">연습 · Bài tập</span>
     <h1>Luyện tập</h1>
-    <p>Câu hỏi sinh ra từ chính từ vựng và ngữ pháp của bài bạn đang học, chứ không phải một ngân hàng đề cố định.</p>
+    <p>Câu hỏi sinh ra từ chính từ vựng, ngữ pháp và hội thoại của khoá học — mỗi lượt 10 câu.</p>
   </div>
   <div class="qtypes">
-    ${['Trợ từ','Chia động từ','Nghe – chọn nghĩa','Ghép chữ Hangul','Sắp xếp câu'].map((t,i) =>
-      `<button class="qt" aria-pressed="${i===0}">${t}</button>`).join('')}
+    ${QUIZ_TYPES.map(([id, label]) =>
+      `<button class="qt" data-qtype="${id}" aria-pressed="${(state.quiz.type || 'mix') === id}">${label}</button>`).join('')}
   </div>
-  <div class="quiz-card">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap">
-      <span class="eyebrow">Bài 03 · trợ từ chỉ nơi chốn</span>
-      <div class="dots"><i class="done"></i><i class="done"></i><i class="now"></i><i></i><i></i><i></i><i></i><i></i></div>
-    </div>
-    <p class="q-stem ko">저는 <span class="kw" data-kw="도서관" tabindex="0" role="button">도서관</span><span class="blank" id="blank">___</span> <span class="kw" data-kw="한국어를" tabindex="0" role="button">한국어를</span> <span class="kw" data-kw="공부해요" tabindex="0" role="button">공부해요</span>.</p>
-    <p class="q-hint">Tôi học tiếng Hàn ở thư viện.</p>
-    <div class="opts" id="opts">
-      <button class="opt" data-ok="0">에</button>
-      <button class="opt" data-ok="1">에서</button>
-      <button class="opt" data-ok="0">를</button>
-      <button class="opt" data-ok="0">도</button>
-    </div>
-    <div class="fb" id="fb"></div>
-  </div>`;
+  <div id="quizArea">${quizCard()}</div>`;
 }
 };
+
+/* ============================================================
+   BÀI TẬP — sinh câu hỏi từ dữ liệu khoá học
+   ============================================================ */
+const QUIZ_TYPES = [
+  ['mix','Trộn'], ['meaning','Chọn nghĩa'], ['word','Chọn từ'],
+  ['listen','Nghe hiểu'], ['fill','Điền vào câu'], ['order','Sắp xếp câu']
+];
+const QUIZ_KINDS = ['meaning','word','listen','fill','order'];
+const QUIZ_ROUND = 10;
+
+let quizData = null;
+function quizPool(){
+  if (quizData) return quizData;
+  const seen = {}, vocab = [], sents = [];
+  COURSE_KO.lessons.forEach(l => {
+    (l.vocab || []).forEach(v => {
+      if (v.ko && v.vi && !seen[v.ko]){ seen[v.ko] = 1; vocab.push({ ko:v.ko, rom:v.rom, vi:v.vi, lesson:l.no }); }
+    });
+    (l.dialogue || []).forEach(d => { if (d.ko && d.vi) sents.push({ ko:d.ko, vi:d.vi, lesson:l.no }); });
+    (l.grammar  || []).forEach(g => { if (g.ex && g.ex.ko && g.ex.vi) sents.push({ ko:g.ex.ko, vi:g.ex.vi, lesson:l.no }); });
+  });
+  quizData = { vocab, sents };
+  return quizData;
+}
+
+const _qrnd = n => Math.floor(Math.random() * n);
+const _qpick = a => a[_qrnd(a.length)];
+function _qsample(a, n){ a = a.slice(); const out = []; while (out.length < n && a.length) out.push(a.splice(_qrnd(a.length), 1)[0]); return out; }
+function _qshuffle(a){ a = a.slice(); for (let i = a.length - 1; i > 0; i--){ const j = _qrnd(i + 1); const x = a[i]; a[i] = a[j]; a[j] = x; } return a; }
+
+function makeQuestion(type, depth){
+  depth = depth || 0;
+  const P = quizPool();
+  if (!P.vocab.length || depth > 4) return null;
+  let kind = type === 'mix' ? _qpick(QUIZ_KINDS) : type;
+  if ((kind === 'fill' || kind === 'order') && P.sents.length < 3) kind = 'meaning';
+
+  if (kind === 'meaning' || kind === 'listen'){
+    const w = _qpick(P.vocab);
+    const distr = _qsample(P.vocab.filter(x => x.vi !== w.vi), 3).map(x => x.vi);
+    if (distr.length < 3) return makeQuestion('word', depth + 1);
+    const options = _qshuffle([w.vi].concat(distr));
+    return { kind, ko:w.ko, rom:w.rom, hideStem: kind === 'listen',
+             prompt: kind === 'listen' ? 'Nghe rồi chọn nghĩa đúng' : 'Từ này nghĩa là gì?',
+             options, correct: options.indexOf(w.vi) };
+  }
+  if (kind === 'word'){
+    const w = _qpick(P.vocab);
+    const distr = _qsample(P.vocab.filter(x => x.ko !== w.ko), 3).map(x => x.ko);
+    if (distr.length < 3) return makeQuestion('meaning', depth + 1);
+    const options = _qshuffle([w.ko].concat(distr));
+    return { kind, vi:w.vi, prompt:'Chọn từ tiếng Hàn đúng', koOpts:true,
+             options, correct: options.indexOf(w.ko) };
+  }
+  if (kind === 'fill'){
+    for (const s of _qshuffle(P.sents)){
+      const toks = s.ko.split(/\s+/);
+      for (let i = 0; i < toks.length; i++){
+        const bare = toks[i].replace(/[.,?!~]/g, '');
+        const w = P.vocab.find(v => v.ko === bare);
+        if (w){
+          const distr = _qsample(P.vocab.filter(x => x.ko !== w.ko), 3).map(x => x.ko);
+          if (distr.length < 3) return makeQuestion('meaning', depth + 1);
+          const options = _qshuffle([w.ko].concat(distr));
+          const stem = toks.map((t, k) => k === i ? '____' : t).join(' ');
+          return { kind, stem, hint:s.vi, koOpts:true, options, correct: options.indexOf(w.ko) };
+        }
+      }
+    }
+    return makeQuestion('meaning', depth + 1);
+  }
+  if (kind === 'order'){
+    const cand = _qshuffle(P.sents).find(s => { const n = s.ko.split(/\s+/).length; return n >= 3 && n <= 6; });
+    if (!cand) return makeQuestion('meaning', depth + 1);
+    const tokens = cand.ko.split(/\s+/);
+    return { kind, tokens, hint:cand.vi, chips: _qshuffle(tokens.map((t, id) => ({ t, id }))), order: [] };
+  }
+  return null;
+}
+
+function quizStart(type){
+  type = type || 'mix';
+  const qs = [];
+  let guard = 0;
+  while (qs.length < QUIZ_ROUND && guard++ < 80){ const q = makeQuestion(type); if (q) qs.push(q); }
+  state.quiz = { type, qs, idx:0, score:0, answered:false, chosen:null };
+}
+
+function paintQuiz(){ const a = $('#quizArea'); if (a) a.innerHTML = quizCard(); }
+
+function quizCard(){
+  const Q = state.quiz;
+  if (!Q || !Q.qs || !Q.qs.length) return '<div class="quiz-card"><p class="wp-empty">Chưa tạo được câu hỏi.</p></div>';
+  if (Q.idx >= Q.qs.length) return quizSummary();
+  const q = Q.qs[Q.idx];
+  const dots = Q.qs.map((_, k) => `<i class="${k < Q.idx ? 'done' : k === Q.idx ? 'now' : ''}"></i>`).join('');
+  const top = `<div class="quiz-top">
+      <span class="eyebrow">Câu ${Q.idx + 1} / ${Q.qs.length}</span>
+      <div class="dots">${dots}</div>
+      <span class="quiz-score">${Q.score} điểm</span>
+    </div>`;
+  if (q.kind === 'order') return `<div class="quiz-card">${top}${quizOrder(q)}</div>`;
+
+  let stem;
+  if (q.kind === 'word'){
+    stem = `<p class="q-stem q-vi">${esc(q.vi)}</p>`;
+  } else if (q.kind === 'fill'){
+    stem = `<p class="q-stem ko">${esc(q.stem).replace('____', '<span class="blank">____</span>')}</p>`;
+  } else if (q.hideStem){
+    stem = `<div class="q-listen-wrap"><button class="pbtn primary" data-quiz-say="${esc(q.ko)}">
+        <svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg> Nghe từ</button></div>`;
+  } else {
+    stem = `<p class="q-stem ko">${esc(q.ko)}${q.rom ? ` <span class="q-rom">[${esc(q.rom)}]</span>` : ''}</p>`;
+  }
+  const prompt = q.prompt ? `<p class="q-prompt">${esc(q.prompt)}</p>` : '';
+  const hint = q.hint ? `<p class="q-hint">${esc(q.hint)}</p>` : '';
+  const opts = `<div class="opts" id="opts">${q.options.map((o, k) => {
+      let cls = 'opt' + (q.koOpts ? ' ko' : '');
+      if (Q.answered){ if (k === q.correct) cls += ' ok'; else if (k === Q.chosen) cls += ' no'; }
+      return `<button class="${cls}" data-quiz-opt="${k}"${Q.answered ? ' disabled' : ''}>${esc(o)}</button>`;
+    }).join('')}</div>`;
+  const fb = Q.answered ? quizFeedback(q) : '';
+  return `<div class="quiz-card">${top}${stem}${prompt}${hint}${opts}${fb}</div>`;
+}
+
+function quizFeedback(q){
+  const Q = state.quiz, right = Q.chosen === q.correct, last = Q.idx + 1 >= Q.qs.length;
+  return `<div class="fb show" style="background:${right ? 'var(--ok-soft)' : 'var(--seal-soft)'}">
+      <b>${right ? 'Chính xác 👍' : 'Chưa đúng.'}</b> ${right ? '' : 'Đáp án: <b>' + esc(q.options[q.correct]) + '</b>'}
+      <div class="q-next"><button class="pbtn primary" data-quiz-next="1">${last ? 'Xem kết quả' : 'Câu tiếp →'}</button></div>
+    </div>`;
+}
+
+function quizOrder(q){
+  const Q = state.quiz, done = Q.answered;
+  const chosen = q.order.map(id => { const c = q.chips.find(x => x.id === id); return `<button class="ochip" data-quiz-orm="${id}">${esc(c.t)}</button>`; }).join('');
+  const remain = q.chips.filter(x => q.order.indexOf(x.id) < 0).map(x => `<button class="ochip pool" data-quiz-oadd="${x.id}">${esc(x.t)}</button>`).join('');
+  let tail;
+  if (done){
+    const built = q.order.map(id => q.chips.find(x => x.id === id).t).join(' ');
+    const right = built === q.tokens.join(' '), last = Q.idx + 1 >= Q.qs.length;
+    tail = `<div class="fb show" style="background:${right ? 'var(--ok-soft)' : 'var(--seal-soft)'}">
+        <b>${right ? 'Chính xác 👍' : 'Chưa đúng.'}</b> ${right ? '' : 'Câu đúng: <b class="ko">' + esc(q.tokens.join(' ')) + '</b>'}
+        <div class="q-next"><button class="pbtn primary" data-quiz-next="1">${last ? 'Xem kết quả' : 'Câu tiếp →'}</button></div>
+      </div>`;
+  } else {
+    tail = `<div class="q-next">
+        <button class="pbtn" data-quiz-oclear="1"${q.order.length ? '' : ' disabled'}>Xoá</button>
+        <button class="pbtn primary" data-quiz-ocheck="1"${q.order.length === q.tokens.length ? '' : ' disabled'}>Kiểm tra</button></div>`;
+  }
+  return `<p class="q-prompt">Sắp xếp các mảnh thành câu đúng</p><p class="q-hint">${esc(q.hint)}</p>
+    <div class="obuild">${chosen || '<span class="obuild-ph">Bấm các mảnh bên dưới để ghép câu…</span>'}</div>
+    <div class="opool">${remain}</div>${tail}`;
+}
+
+function quizSummary(){
+  const Q = state.quiz, pct = Math.round(Q.score / Q.qs.length * 100);
+  const msg = pct >= 80 ? 'Xuất sắc! 🎉' : pct >= 50 ? 'Khá tốt — luyện thêm chút nữa nhé.' : 'Cứ luyện tiếp, nhớ dần thôi.';
+  return `<div class="quiz-card quiz-done">
+      <div class="qd-score">${Q.score}<span>/ ${Q.qs.length}</span></div>
+      <p class="qd-msg">${msg}</p>
+      <div class="q-next" style="justify-content:center"><button class="pbtn primary" data-quiz-restart="1">Làm lại 10 câu</button></div>
+    </div>`;
+}
 
 /* ============================================================
    ĐIỀU HƯỚNG & GẮN SỰ KIỆN
@@ -1637,24 +1790,35 @@ document.addEventListener('click', e => {
     return;
   }
 
-  const op = t.closest('.opt');
-  if (op){
-    const opts = $('#opts'), fb = $('#fb');
-    $$('.opt', opts).forEach(x => x.classList.remove('ok','no'));
-    const ok = op.dataset.ok === '1';
-    op.classList.add(ok ? 'ok' : 'no');
-    if (!ok) $('.opt[data-ok="1"]', opts).classList.add('ok');
-    $('#blank').textContent = ok ? '에서' : '___';
-    fb.className = 'fb show';
-    fb.style.background = ok ? 'var(--ok-soft)' : 'var(--seal-soft)';
-    fb.innerHTML = ok
-      ? '<b>Chính xác.</b> <span class="ko">에서</span> chỉ nơi <i>diễn ra hành động</i>. So sánh: <span class="ko">도서관<b>에</b> 가요</span> (đi <i>đến</i> thư viện) và <span class="ko">도서관<b>에서</b> 공부해요</span> (học <i>ở</i> thư viện).'
-      : '<b>Chưa đúng.</b> Đáp án là <span class="ko">에서</span>. Mẹo: động từ hành động (공부하다, 먹다, 일하다) đi với <span class="ko">에서</span>; động từ di chuyển (가다, 오다) đi với <span class="ko">에</span>.';
+  /* ----- bài tập ----- */
+  const qopt = t.closest('[data-quiz-opt]');
+  if (qopt){
+    const Q = state.quiz;
+    if (Q && !Q.answered){
+      Q.chosen = +qopt.dataset.quizOpt; Q.answered = true;
+      if (Q.chosen === Q.qs[Q.idx].correct) Q.score++;
+      paintQuiz();
+    }
     return;
   }
+  const qadd = t.closest('[data-quiz-oadd]');
+  if (qadd){ const q = state.quiz.qs[state.quiz.idx]; q.order.push(+qadd.dataset.quizOadd); paintQuiz(); return; }
+  const qorm = t.closest('[data-quiz-orm]');
+  if (qorm){ const q = state.quiz.qs[state.quiz.idx]; const id = +qorm.dataset.quizOrm; q.order = q.order.filter(x => x !== id); paintQuiz(); return; }
+  if (t.closest('[data-quiz-oclear]')){ state.quiz.qs[state.quiz.idx].order = []; paintQuiz(); return; }
+  if (t.closest('[data-quiz-ocheck]')){
+    const Q = state.quiz, q = Q.qs[Q.idx];
+    Q.answered = true;
+    if (q.order.map(id => q.chips.find(x => x.id === id).t).join(' ') === q.tokens.join(' ')) Q.score++;
+    paintQuiz(); return;
+  }
+  if (t.closest('[data-quiz-next]')){ const Q = state.quiz; Q.idx++; Q.answered = false; Q.chosen = null; paintQuiz(); return; }
+  if (t.closest('[data-quiz-restart]')){ quizStart(state.quiz.type); paintQuiz(); return; }
+  const qsay = t.closest('[data-quiz-say]');
+  if (qsay){ speak(qsay.dataset.quizSay); return; }
 
   const qt = t.closest('.qt');
-  if (qt){ $$('.qt').forEach(x => x.setAttribute('aria-pressed', x === qt)); return; }
+  if (qt){ quizStart(qt.dataset.qtype); $$('.qt').forEach(x => x.setAttribute('aria-pressed', x === qt)); paintQuiz(); return; }
 
   const th = t.closest('#themeBtn');
   if (th){
