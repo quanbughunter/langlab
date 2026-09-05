@@ -4205,6 +4205,13 @@ function uncontract(ch){
   if (!p || p.jong || !UNCONTRACT[p.jung]) return null;
   return composeHangul(p.cho, UNCONTRACT[p.jung], '');
 }
+/* Bất quy tắc ㅡ (으 탈락): 뻐→쁘, 빠→쁘, 커→크, 퍼→프. Âm tiết kết bằng ㅏ/ㅓ,
+   không patchim → khôi phục nguyên âm ㅡ để ra dạng gốc (예쁘다, 바쁘다, 아프다, 크다…). */
+function restoreEu(ch){
+  const p = (typeof decomposeHangul === 'function') && decomposeHangul(ch);
+  if (!p || p.jong || (p.jung !== 'ㅏ' && p.jung !== 'ㅓ')) return null;
+  return composeHangul(p.cho, 'ㅡ', '');
+}
 
 /** Sinh các dạng có thể tra được, xếp theo độ tin cậy. */
 function forms(token){
@@ -4234,12 +4241,16 @@ function forms(token){
         const un = uncontract(bare);                 // 봐→보 · 와→오 · 해→하
         if (un) add(core.slice(0, -1) + un + '다', 'dạng gốc, gỡ đuôi quá khứ', 'base');
         add(core.slice(0, -1) + bare + '다', 'dạng gốc, bỏ đuôi quá khứ', 'base');
+        const eu = restoreEu(bare);                  // 예뻤→예쁘 · 바빴→바쁘 · 컸→크
+        if (eu) add(core.slice(0, -1) + eu + '다', 'dạng gốc bất quy tắc ㅡ', 'base');
       }
       add(core + '다', 'dạng gốc …다', 'base');
     } else {
       const un = uncontract(s.slice(-1));           // 바꿔→바꾸 · 봐→보 · 와→오
       if (un) add(s.slice(0, -1) + un + '다', 'dạng gốc, gỡ nguyên âm co', 'base');
       add(s + '다', 'dạng gốc …다', 'base');
+      const eu = restoreEu(s.slice(-1));            // 예뻐→예쁘 · 바빠→바쁘 · 커→크 · 아파→아프
+      if (eu) add(s.slice(0, -1) + eu + '다', 'dạng gốc bất quy tắc ㅡ', 'base');
     }
     add(s, 'bỏ đuôi -' + e, 'stem');
     break;
@@ -4266,6 +4277,15 @@ function forms(token){
   for (const p of PARTICLES){
     if (token.length > p.length && token.slice(-p.length) === p){
       add(token.slice(0, -p.length), 'bỏ trợ từ ' + p, 'noun');
+      break;
+    }
+  }
+
+  /* --- danh từ + hệ từ 이다: 학생입니다 / 학생이에요 / 학생이야 → 학생 --- */
+  const COPULA = ['입니다','입니까','이었습니다','이겠습니다','이었어요','이에요','이야','이지요','이죠','이라고','이라는','이라서','이니까','이면','이었다','이다'];
+  for (const c of COPULA){
+    if (token.length > c.length && token.slice(-c.length) === c){
+      add(token.slice(0, -c.length), 'danh từ, bỏ hệ từ -' + c, 'noun');
       break;
     }
   }
