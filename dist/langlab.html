@@ -509,6 +509,41 @@ a{color:var(--accent)}
   .num-row .nr-vi,.num-row .nr-exvi{display:none}
 }
 
+/* ================= Thi thử TOPIK ================= */
+.topik-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;max-width:900px}
+.topik-card{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:20px 22px;display:flex;flex-direction:column;gap:8px}
+.tk-badge{align-self:flex-start;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.06em;background:var(--accent-soft);color:var(--accent);border-radius:99px;padding:3px 11px}
+.topik-card h3{font-family:"Fraunces","Lexend",serif;font-size:18px;font-weight:600;margin:4px 0 0}
+.tk-meta{font-size:13px;color:var(--ink)}
+.tk-official{font-size:12px;color:var(--faint);margin-bottom:6px}
+.topik-card .pbtn{align-self:flex-start;margin-top:4px}
+.tk-disclaimer{font-size:12px;color:var(--faint);margin-top:20px;max-width:760px;line-height:1.5}
+.topik-bar{position:sticky;top:56px;z-index:16;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 16px;margin-bottom:16px;box-shadow:0 6px 18px -14px rgba(0,0,0,.4)}
+.tk-bar-info b{display:block;font-size:14px}
+.tk-timer{font-family:"JetBrains Mono",monospace;font-size:26px;font-weight:700;color:var(--accent);letter-spacing:.04em}
+.tk-timer.low{color:var(--seal);animation:tkpulse 1s infinite}
+@keyframes tkpulse{50%{opacity:.45}}
+.topik-quiz{display:flex;flex-direction:column;gap:16px;max-width:760px}
+.tk-q{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:16px 18px}
+.tk-q-no{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.08em;color:var(--faint);margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tk-tag{background:var(--surface-2);border-radius:99px;padding:1px 8px;color:var(--muted)}
+.tk-passage{background:var(--surface-2);border-left:3px solid var(--accent-soft);border-radius:8px;padding:12px 14px;font-family:"Noto Sans KR",sans-serif;font-size:15px;line-height:1.7;margin-bottom:6px}
+.tk-q .pbtn{margin-bottom:10px}
+.tk-q-text{font-family:"Noto Sans KR",sans-serif;font-size:16px;font-weight:500;margin:8px 0 12px;line-height:1.5}
+.tk-opts{display:flex;flex-direction:column;gap:8px}
+.tk-opt{display:flex;align-items:center;gap:10px;text-align:left;border:1px solid var(--line-strong);background:var(--surface);border-radius:9px;padding:10px 13px;cursor:pointer;font-size:14px;color:var(--ink);width:100%}
+button.tk-opt:hover{border-color:var(--accent)}
+.tk-opt.on{border-color:var(--accent);background:var(--accent-soft)}
+.tk-opt.correct{border-color:var(--ok);background:var(--ok-soft);color:var(--ok);font-weight:600}
+.tk-opt.wrong{border-color:var(--seal);background:var(--seal-soft);color:var(--seal)}
+.tk-onum{flex:none;width:22px;height:22px;border-radius:50%;border:1px solid var(--line-strong);display:grid;place-items:center;font-family:"JetBrains Mono",monospace;font-size:11px}
+.tk-explain{margin-top:11px;font-size:13px;color:var(--muted);background:var(--surface-2);border-radius:8px;padding:10px 13px;line-height:1.55}
+.tk-ok{color:var(--ok);font-weight:600}
+.tk-no{color:var(--seal);font-weight:600}
+.topik-foot{max-width:760px;margin-top:18px;display:flex;justify-content:center}
+.review .tk-opt{cursor:default}
+
 .empty{
   border:1px dashed var(--line-strong);border-radius:var(--r-lg);padding:40px;text-align:center;
   color:var(--muted);font-size:13.5px;background:var(--surface);
@@ -4036,6 +4071,7 @@ const state = {
   syll: { cho:'ㅎ', jung:'ㅏ', jong:'ㄴ' },
   speed: 1,
   quiz: null,
+  topik: null,
   deck: store.get('deck', []),
   done: store.get('done', {}),
   theme: store.get('theme', 'auto'),
@@ -4084,8 +4120,153 @@ function koNativeCounter(n){                          // dạng rút gọn trư�
   return koNative(n).replace(/하나$/, '한').replace(/둘$/, '두').replace(/셋$/, '세').replace(/넷$/, '네').replace(/스물$/, '스무');
 }
 
-function topikView(){   /* bản đầy đủ ở phần « THI THỬ TOPIK » — tạm thời khung trống */
-  return `<div class="page-head"><span class="eyebrow">TOPIK · Thi thử</span><h1>Thi thử TOPIK</h1><p>Đang hoàn thiện…</p></div>`;
+/* ============================================================
+   THI THỬ TOPIK — đề tự soạn theo dạng thức, KHÔNG phải đề thật
+   ============================================================ */
+const TOPIK_TESTS = [
+  {
+    id:'topik1', badge:'TOPIK I', title:'Đề thi thử TOPIK I — Sơ cấp',
+    official:'Đề thật: 100 phút · 70 câu (Nghe 30 + Đọc 40)', minutes:25,
+    questions:[
+      {k:'listen', a:'안녕하세요. 저는 베트남에서 왔어요.', q:'이 사람은 어느 나라 사람입니까?', o:['한국 사람','베트남 사람','중국 사람','일본 사람'], c:1, e:'“베트남에서 왔어요” = đến từ Việt Nam → người Việt Nam.'},
+      {k:'listen', a:'저는 아침 일곱 시에 일어나요.', q:'이 사람은 몇 시에 일어납니까?', o:['여섯 시','일곱 시','여덟 시','아홉 시'], c:1, e:'일곱 시 = 7 giờ (giờ dùng số thuần Hàn).'},
+      {k:'listen', a:'가: 뭐 드시겠어요? 나: 비빔밥 주세요.', q:'“나”는 무엇을 시킵니까?', o:['김밥','비빔밥','불고기','냉면'], c:1, e:'“비빔밥 주세요” = cho tôi cơm trộn.'},
+      {k:'listen', a:'도서관은 은행 옆에 있어요.', q:'도서관은 어디에 있습니까?', o:['은행 옆','은행 앞','학교 뒤','시장 안'], c:0, e:'옆 = bên cạnh → cạnh ngân hàng.'},
+      {k:'listen', a:'내일은 토요일이라서 학교에 안 가요.', q:'이 사람은 내일 학교에 갑니까?', o:['네, 갑니다','아니요, 안 갑니다','오전에만 갑니다','모릅니다'], c:1, e:'“안 가요” = không đi.'},
+      {k:'listen', a:'가: 주말에 뭐 했어요? 나: 친구하고 영화를 봤어요.', q:'“나”는 주말에 무엇을 했습니까?', o:['공부했어요','영화를 봤어요','운동했어요','일했어요'], c:1, e:'영화를 보다 = xem phim (quá khứ 봤어요).'},
+      {k:'listen', a:'저는 커피보다 차를 더 좋아해요.', q:'이 사람이 더 좋아하는 것은 무엇입니까?', o:['커피','차','물','우유'], c:1, e:'“커피보다 차를 더” = thích trà hơn cà phê.'},
+      {k:'listen', a:'이 사과는 한 개에 천 원이에요.', q:'사과 한 개는 얼마입니까?', o:['백 원','천 원','오천 원','만 원'], c:1, e:'천 원 = 1000 won.'},
+      {k:'read', p:'저는 학생입니다. 매일 학교에서 한국어를 공부합니다.', q:'이 사람은 무엇을 공부합니까?', o:['영어','중국어','한국어','일본어'], c:2, e:'“한국어를 공부합니다” = học tiếng Hàn.'},
+      {k:'read', q:'빈칸에 알맞은 것을 고르십시오: 저는 도서관___ 공부해요.', o:['에','에서','를','도'], c:1, e:'에서 = ở (nơi diễn ra hành động 공부하다).'},
+      {k:'read', p:'지금은 오후 세 시입니다. 두 시간 후에 친구를 만납니다.', q:'몇 시에 친구를 만납니까?', o:['세 시','네 시','다섯 시','여섯 시'], c:2, e:'3 giờ + 2 tiếng = 5 giờ (다섯 시).'},
+      {k:'read', q:'빈칸에 알맞은 것을 고르십시오: 날씨가 추워서 코트를 ___.', o:['입어요','벗어요','먹어요','마셔요'], c:0, e:'Trời lạnh nên “mặc” áo khoác → 입어요.'},
+      {k:'read', p:'가: 이거 얼마예요? 나: 삼천 원이에요.', q:'무엇을 하는 대화입니까?', o:['물건을 삽니다','길을 묻습니다','전화를 합니다','음식을 만듭니다'], c:0, e:'Hỏi giá “얼마예요?” → đang mua đồ.'},
+      {k:'read', q:'빈칸에 알맞은 것을 고르십시오: 저는 한국 음식을 좋아해요. ___ 김치는 조금 매워요.', o:['그리고','그런데','그래서','그러면'], c:1, e:'그런데 = nhưng, thể hiện ý trái ngược.'},
+      {k:'read', p:'민수 씨는 요리를 잘합니다. 그래서 주말마다 가족에게 음식을 만들어 줍니다.', q:'민수 씨는 주말에 무엇을 합니까?', o:['요리합니다','청소합니다','공부합니다','운동합니다'], c:0, e:'“음식을 만들어 줍니다” = nấu ăn.'},
+      {k:'read', q:'빈칸에 알맞은 것을 고르십시오: 어제 친구___ 만났어요.', o:['을','를','에','에서'], c:1, e:'만나다 đi với 을/를; 친구 kết thúc nguyên âm → 를.'}
+    ]
+  },
+  {
+    id:'topik2', badge:'TOPIK II', title:'Đề thi thử TOPIK II — Trung/Cao cấp',
+    official:'Đề thật: 180 phút · 104 câu (Nghe 50 + Viết 4 + Đọc 50)', minutes:30,
+    questions:[
+      {k:'listen', a:'가: 이번 주말에 등산 갈래요? 나: 미안해요. 주말에 아르바이트를 하기로 했어요.', q:'여자는 왜 등산을 갈 수 없습니까?', o:['몸이 아파서','아르바이트를 해서','날씨가 나빠서','약속을 잊어서'], c:1, e:'“아르바이트를 하기로 했어요” = đã hẹn làm thêm.'},
+      {k:'listen', a:'요즘 미세먼지 때문에 마스크를 쓰는 사람이 많아졌습니다.', q:'무엇에 대한 이야기입니까?', o:['환경과 건강','여행 계획','음식 문화','운동 방법'], c:0, e:'Bụi mịn + khẩu trang → môi trường và sức khoẻ.'},
+      {k:'listen', a:'가: 시험 잘 봤어요? 나: 아니요, 미리 공부했어야 했는데 후회돼요.', q:'남자의 기분은 어떻습니까?', o:['기쁩니다','후회합니다','놀랍니다','만족합니다'], c:1, e:'“후회돼요” = hối tiếc.'},
+      {k:'listen', a:'이 영화는 슬프지만 정말 감동적이어서 꼭 보라고 추천하고 싶어요.', q:'이 사람은 영화를 어떻게 생각합니까?', o:['지루하다','감동적이다','무섭다','어렵다'], c:1, e:'“감동적이어서 추천” = cảm động nên giới thiệu.'},
+      {k:'listen', a:'가: 여보세요, 지금 통화 괜찮으세요? 나: 죄송한데 회의 중이라서 이따가 전화드릴게요.', q:'여자는 왜 지금 통화할 수 없습니까?', o:['집에 없어서','회의 중이라서','전화가 고장 나서','시간이 많아서'], c:1, e:'“회의 중이라서” = vì đang họp.'},
+      {k:'read', p:'한국에서는 설날에 어른들께 세배를 합니다. 세배를 하면 어른들이 덕담과 함께 세뱃돈을 주십니다.', q:'세배를 하면 무엇을 받습니까?', o:['선물','세뱃돈','떡국','편지'], c:1, e:'세뱃돈 = tiền lì xì đầu năm.'},
+      {k:'read', q:'빈칸에 알맞은 것을 고르십시오: 열심히 준비한 ___ 시험에 합격했어요.', o:['덕분에','때문에','바람에','대신에'], c:0, e:'덕분에 = nhờ (kết quả tốt); 때문에/바람에 thường cho kết quả xấu.'},
+      {k:'read', p:'도시는 편리한 반면에 공기가 나쁩니다. 그래서 요즘 시골로 이사하는 사람이 늘고 있습니다.', q:'글의 내용과 같은 것은?', o:['도시는 공기가 좋다','시골로 가는 사람이 많아진다','도시는 불편하다','시골은 복잡하다'], c:1, e:'“시골로 이사하는 사람이 늘고 있습니다” = người về quê tăng lên.'},
+      {k:'read', q:'빈칸에 알맞은 것을 고르십시오: 한국어는 공부하면 ___ 재미있어요.', o:['할수록','하지만','하니까','하려고'], c:0, e:'을수록 = càng… càng: càng học càng thú vị.'},
+      {k:'read', p:'제 친구는 성격이 활발한 편입니다. 그래서 사람들과 쉽게 친해집니다. 하지만 가끔 실수를 해서 후회할 때도 있습니다.', q:'친구의 성격으로 알맞은 것은?', o:['조용하다','활발하다','게으르다','차갑다'], c:1, e:'“활발한 편” = thuộc kiểu năng động.'},
+      {k:'read', q:'빈칸에 알맞은 것을 고르십시오: 친구가 내일 ___ 했어요.', o:['온다고','오다고','올다고','와다고'], c:0, e:'Gián tiếp 다고 하다 với động từ hiện tại: 오다 → 온다고.'},
+      {k:'read', p:'일회용품 사용을 줄이면 환경을 보호할 수 있습니다. 작은 실천이 지구를 살립니다.', q:'글쓴이가 하고 싶은 말은?', o:['일회용품을 많이 쓰자','환경을 위해 실천하자','여행을 자주 가자','돈을 아끼자'], c:1, e:'Ý chính: hãy hành động vì môi trường.'},
+      {k:'read', q:'빈칸에 알맞은 것을 고르십시오: 어제 시험 공부를 ___ 잠을 못 잤어요.', o:['하느라고','하지만','하려고','하는데'], c:0, e:'느라고 = vì mải làm việc này nên không làm được việc kia.'},
+      {k:'read', q:'관용 표현 ‘손이 크다’의 뜻으로 알맞은 것은?', o:['인심이 좋다','키가 크다','힘이 세다','바쁘다'], c:0, e:'“손이 크다” (nghĩa bóng) = hào phóng, rộng rãi.'},
+      {k:'read', p:'가: 요즘도 매일 운동해요? 나: 네, 꾸준히 하다 보니 이제 습관이 됐어요.', q:'“나”에 대한 설명으로 알맞은 것은?', o:['운동을 그만두었다','운동이 습관이 되었다','운동을 싫어한다','가끔 운동한다'], c:1, e:'“하다 보니 습관이 됐어요” = làm mãi thành thói quen.'}
+    ]
+  }
+];
+
+let topikTimerId = null;
+function topikClock(s){ s = Math.max(0, s); const m = Math.floor(s / 60); return String(m).padStart(2,'0') + ':' + String(s % 60).padStart(2,'0'); }
+function topikStopTimer(){ if (topikTimerId){ clearInterval(topikTimerId); topikTimerId = null; } }
+function topikStartTest(id){
+  const test = TOPIK_TESTS.find(x => x.id === id);
+  if (!test) return;
+  state.topik = { testId:id, phase:'doing', answers:{}, remaining: test.minutes * 60 };
+  render(); window.scrollTo({ top:0 });
+}
+function mountTopik(){
+  topikStopTimer();
+  topikTimerId = setInterval(() => {
+    const S = state.topik;
+    const el = $('#topikTimer');
+    if (!S || S.phase !== 'doing' || !el){ topikStopTimer(); return; }
+    S.remaining--;
+    el.textContent = topikClock(S.remaining);
+    if (S.remaining <= 60) el.classList.add('low');
+    if (S.remaining <= 0){ topikStopTimer(); S.phase = 'done'; render(); window.scrollTo({ top:0 }); }
+  }, 1000);
+}
+function topikQ(q, i, chosen){
+  const head = q.k === 'listen'
+    ? `<button class="pbtn" data-speak="${esc(q.a)}"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg> Nghe câu ${i + 1}</button>`
+    : (q.p ? `<div class="tk-passage ko">${esc(q.p)}</div>` : '');
+  const opts = q.o.map((o, oi) => `
+    <button class="tk-opt${chosen === oi ? ' on' : ''}" data-topik-ans="${i}" data-opt="${oi}">
+      <span class="tk-onum">${oi + 1}</span><span class="${/[가-힣]/.test(o) ? 'ko' : ''}">${esc(o)}</span>
+    </button>`).join('');
+  return `<div class="tk-q">
+    <div class="tk-q-no">Câu ${i + 1} <span class="tk-tag">${q.k === 'listen' ? '듣기 · Nghe' : '읽기 · Đọc'}</span></div>
+    ${head}
+    <div class="tk-q-text ko">${esc(q.q)}</div>
+    <div class="tk-opts">${opts}</div>
+  </div>`;
+}
+function topikResult(t){
+  const S = state.topik;
+  let correct = 0;
+  t.questions.forEach((q, i) => { if (S.answers[i] === q.c) correct++; });
+  const total = t.questions.length, pct = Math.round(correct / total * 100);
+  const used = topikClock(t.minutes * 60 - Math.max(0, S.remaining));
+  return `
+  <div class="page-head">
+    <span class="eyebrow">${esc(t.badge)} · Kết quả</span>
+    <h1>${correct}/${total} câu đúng</h1>
+    <p>${pct >= 80 ? 'Tuyệt vời! 🎉' : pct >= 60 ? 'Khá tốt — cố thêm chút nữa nhé.' : 'Cần luyện thêm — xem kỹ đáp án và giải thích bên dưới.'} Thời gian đã dùng: ${used} / ${t.minutes} phút.</p>
+    <div class="wp-actions" style="padding:6px 0 0">
+      <button class="pbtn primary" data-topik-retry="${t.id}">Làm lại đề này</button>
+      <button class="pbtn" data-topik-home="1">Chọn đề khác</button>
+    </div>
+  </div>
+  <div class="topik-quiz review">
+    ${t.questions.map((q, i) => {
+      const chosen = S.answers[i];
+      return `<div class="tk-q">
+        <div class="tk-q-no">Câu ${i + 1} <span class="tk-tag">${q.k === 'listen' ? '듣기' : '읽기'}</span> ${chosen === q.c ? '<span class="tk-ok">✓ Đúng</span>' : '<span class="tk-no">✗ ' + (chosen === undefined ? 'Chưa chọn' : 'Sai') + '</span>'}</div>
+        ${q.k === 'listen' ? `<button class="pbtn" data-speak="${esc(q.a)}">Nghe lại</button>` : (q.p ? `<div class="tk-passage ko">${esc(q.p)}</div>` : '')}
+        <div class="tk-q-text ko">${esc(q.q)}</div>
+        <div class="tk-opts">${q.o.map((o, oi) => `<div class="tk-opt${oi === q.c ? ' correct' : ''}${oi === chosen && oi !== q.c ? ' wrong' : ''}"><span class="tk-onum">${oi + 1}</span><span class="${/[가-힣]/.test(o) ? 'ko' : ''}">${esc(o)}</span></div>`).join('')}</div>
+        ${q.e ? `<div class="tk-explain"><b>Giải thích:</b> ${esc(q.e)}</div>` : ''}
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+function topikView(){
+  const S = state.topik;
+  if (!S || S.phase === 'intro' || !S.testId){
+    return `
+    <div class="page-head">
+      <span class="eyebrow">TOPIK · Thi thử</span>
+      <h1>Thi thử TOPIK</h1>
+      <p>Đề <b>tự soạn theo dạng thức TOPIK</b> (không phải đề thi thật), có <b>bấm giờ</b>, chấm điểm và <b>đáp án kèm giải thích</b>. Câu Nghe phát bằng giọng đọc — bấm nút “Nghe”.</p>
+    </div>
+    <div class="topik-list">
+      ${TOPIK_TESTS.map(t => `
+        <div class="topik-card">
+          <span class="tk-badge">${esc(t.badge)}</span>
+          <h3>${esc(t.title)}</h3>
+          <p class="tk-meta">${t.questions.length} câu · ${t.minutes} phút · có đáp án</p>
+          <p class="tk-official">${esc(t.official)}</p>
+          <button class="pbtn primary" data-topik-start="${t.id}">Bắt đầu làm bài</button>
+        </div>`).join('')}
+    </div>
+    <p class="tk-disclaimer">Đề do LangLab biên soạn theo cấu trúc TOPIK để luyện tập, không phải đề thi chính thức của Viện Giáo dục Quốc tế Quốc gia Hàn Quốc (NIIED).</p>`;
+  }
+  const t = TOPIK_TESTS.find(x => x.id === S.testId);
+  if (S.phase === 'done') return topikResult(t);
+  return `
+  <div class="topik-bar" id="topikBar">
+    <div class="tk-bar-info"><span class="eyebrow">${esc(t.badge)}</span><b>${esc(t.title)}</b></div>
+    <div class="tk-timer" id="topikTimer">${topikClock(S.remaining)}</div>
+    <button class="pbtn primary" data-topik-submit="1">Nộp bài</button>
+  </div>
+  <div class="topik-quiz">
+    ${t.questions.map((q, i) => topikQ(q, i, S.answers[i])).join('')}
+  </div>
+  <div class="topik-foot"><button class="pbtn primary" data-topik-submit="1">Nộp bài · chấm điểm</button></div>`;
 }
 
 /* ---------- thông báo ngắn ---------- */
@@ -4984,6 +5165,7 @@ function render(){
     if (box && state.shadow.raw) box.value = state.shadow.raw;
   }
   if (state.view === 'lesson' && state.tab === 'write') mountTrace();
+  if (state.view === 'topik' && state.topik && state.topik.phase === 'doing') mountTopik(); else topikStopTimer();
   window.scrollTo({ top:0, behavior:'instant' in window ? 'instant' : 'auto' });
 }
 
@@ -5981,6 +6163,22 @@ document.addEventListener('click', e => {
 
   const qt = t.closest('.qt');
   if (qt){ quizStart(qt.dataset.qtype); $$('.qt').forEach(x => x.setAttribute('aria-pressed', x === qt)); paintQuiz(); return; }
+
+  /* ----- thi thử TOPIK ----- */
+  const tkstart = t.closest('[data-topik-start]');
+  if (tkstart){ topikStartTest(tkstart.dataset.topikStart); return; }
+  const tkans = t.closest('[data-topik-ans]');
+  if (tkans){
+    const qi = +tkans.dataset.topikAns, oi = +tkans.dataset.opt;
+    if (state.topik){ state.topik.answers[qi] = oi; }
+    const box = tkans.closest('.tk-opts');
+    if (box) box.querySelectorAll('.tk-opt').forEach(x => x.classList.toggle('on', x === tkans));
+    return;
+  }
+  if (t.closest('[data-topik-submit]')){ topikStopTimer(); if (state.topik) state.topik.phase = 'done'; render(); return; }
+  const tkretry = t.closest('[data-topik-retry]');
+  if (tkretry){ topikStartTest(tkretry.dataset.topikRetry); return; }
+  if (t.closest('[data-topik-home]')){ topikStopTimer(); state.topik = null; render(); return; }
 
   const th = t.closest('#themeBtn');
   if (th){
