@@ -15,5 +15,5 @@
    ============================================================ */
 
 window.LANGLAB_CONFIG = {
-  translateWorker: ""
+  translateWorker: "https://langlab-translate.nguyendinhquan7788266.workers.dev"
 };
