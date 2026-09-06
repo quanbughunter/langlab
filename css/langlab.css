@@ -997,13 +997,26 @@ body:has(.mplayer.open) .view{padding-bottom:110px}
 .asst-lang b{color:var(--ink)}
 .pbtn.tiny{padding:3px 9px;font-size:12px}
 .asst-para-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
-.asst-para{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:18px 20px;font-size:20px;line-height:2.05;word-break:keep-all}
-.asst-clause{display:inline}
-.asst-pause{display:inline-block;width:0;padding:0 4px}    /* khoảng ngắt nghỉ nhẹ giữa các câu */
 .asst-word{appearance:none;border:none;background:none;font:inherit;font-size:inherit;color:var(--ink);cursor:pointer;padding:1px 2px;border-radius:6px;border-bottom:1.5px dotted var(--line-strong);transition:background .12s,color .12s}
 .asst-word:hover{background:var(--accent-soft);color:var(--accent);border-bottom-color:var(--accent)}
-.asst-para-vi{margin-top:14px;padding:14px 16px;border:1px dashed var(--line);border-radius:12px;background:var(--ground);font-size:15px;line-height:1.7;color:var(--ink)}
-.asst-vi-lbl{display:block;font-size:12px;font-weight:600;color:var(--accent);margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+
+/* các câu đã ngắt — mỗi câu một dòng, có nút nghe riêng */
+.asst-lines{display:flex;flex-direction:column;gap:2px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:8px}
+.asst-line{display:flex;gap:10px;align-items:flex-start;padding:9px 8px;border-radius:10px}
+.asst-line:hover{background:var(--ground)}
+.asst-line + .asst-line{border-top:1px solid var(--line)}
+.asst-line-play{flex:none;width:30px;height:30px;margin-top:2px;display:grid;place-items:center;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--accent);cursor:pointer}
+.asst-line-play:hover{border-color:var(--accent);background:var(--accent-soft)}
+.asst-line-play svg{width:13px;height:13px;fill:currentColor;stroke:none}
+.asst-line-body{flex:1;min-width:0}
+.asst-line-ko{font-size:19px;line-height:1.85;word-break:keep-all}
+.asst-line-vi{font-size:14px;color:var(--muted);margin-top:5px;padding-top:6px;border-top:1px dashed var(--line)}
+
+/* ô sửa ngắt câu */
+.asst-edit-hint{font-size:13.5px;color:var(--muted);line-height:1.6;margin:0 0 10px}
+.asst-edit-box{width:100%;box-sizing:border-box;resize:vertical;padding:14px 16px;border:1px solid var(--accent);border-radius:12px;background:var(--surface);color:var(--ink);font-size:18px;line-height:1.9;word-break:keep-all}
+.asst-edit-box:focus{outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+.asst-edit .asst-para-tools{margin-top:12px}
 
 .wp-body{padding:14px 4px 4px}
 .wp-gloss{font-size:15px;line-height:1.6;color:var(--ink);margin:0 0 8px}

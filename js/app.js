@@ -1304,7 +1304,7 @@ function asstAudioTab(){
   let body = '';
   if (A.busy)       body = `<div class="asst-audio-busy"><div class="asst-spin"></div><p>Đang phân tích “${esc(A.name)}”… có thể mất 10–30 giây.</p></div>`;
   else if (A.error) body = `<div class="asst-error">${esc(A.error)}</div>`;
-  else if (A.result) body = asstAudioResult(A.result);
+  else if (A.result) body = asstAudioResult();
   return `
   <div class="asst-audio">
     <label class="asst-drop" for="asstFile">
@@ -1317,29 +1317,58 @@ function asstAudioTab(){
   </div>`;
 }
 
-function asstAudioResult(r){
-  const isKo = /^ko/i.test(r.lang || '');
-  const sentences = r.sentences || [];
-  const fullText = sentences.map(s => s.text || '').filter(Boolean).join(' ');
-  const fullVi   = sentences.map(s => s.vi   || '').filter(Boolean).join(' ');
-  const head = `<div class="asst-lang">Ngôn ngữ nhận diện: <b>${esc(r.langVi || r.lang || 'không rõ')}</b>${isKo ? ' · bấm vào từng từ để tra; từ chưa có sẽ hiện nút thêm vào từ điển' : ''}</div>`;
+/* Một từ trong câu → nút bấm tra được (nghĩa nhanh lấy từ bản đồ gloss của AI) */
+function asstWordBtn(tokenRaw, lang){
+  const A = state.assistant.audio;
+  const token = String(tokenRaw);
+  const key = token.replace(/[.,!?…"'”’)\]}]+$/, '').replace(/^[("'“‘(\[{]+/, '');
+  const g = (A.glossMap && (A.glossMap[token] || A.glossMap[key])) || { rom:'', vi:'' };
+  const tip = [g.rom, g.vi].filter(Boolean).join(' · ');
+  return `<button class="asst-word" data-asst-word="${esc(key || token)}" data-asst-lang="${esc(lang || '')}" data-asst-rom="${esc(g.rom || '')}" data-asst-vi="${esc(g.vi || '')}" title="${esc(tip)}">${esc(token)}</button>`;
+}
+
+function asstAudioResult(){
+  const A = state.assistant.audio;
+  const r = A.result || {};
+  const isKo = /^ko/i.test(A.lang || r.lang || '');
+  const segs = A.segments || [];
+  const fullText = segs.map(s => s.ko).join(' ');
+  const head = `<div class="asst-lang">Ngôn ngữ nhận diện: <b>${esc(r.langVi || r.lang || 'không rõ')}</b> · ${segs.length} câu${isKo ? ' · bấm vào từng từ để tra; từ chưa có sẽ hiện nút thêm vào từ điển' : ''}</div>`;
+
+  // ---- Chế độ SỬA ngắt câu ----
+  if (A.editing){
+    const draft = segs.map(s => s.ko).join('\n');
+    return `${head}
+    <div class="asst-edit">
+      <p class="asst-edit-hint"><b>Sửa cách ngắt câu:</b> mỗi <b>dòng</b> là một câu. Nhấn <b>Enter</b> để ngắt thành câu mới, xoá xuống dòng để <b>gộp</b> hai câu, sửa chữ nếu AI nghe sai.</p>
+      <textarea id="asstEditBox" class="asst-edit-box ko" rows="${Math.min(Math.max(segs.length + 2, 6), 20)}">${esc(draft)}</textarea>
+      <div class="asst-para-tools">
+        <button class="pbtn primary" data-asst-edit-apply="1">Áp dụng &amp; dịch lại</button>
+        <button class="pbtn" data-asst-edit-cancel="1">Huỷ</button>
+      </div>
+    </div>`;
+  }
+
+  // ---- Chế độ ĐỌC ----
   const tools = `<div class="asst-para-tools">
     <button class="pbtn" data-speak="${esc(fullText)}"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg> Nghe cả đoạn</button>
-    <button class="pbtn" data-asst-trans="1">Dịch cả đoạn</button>
+    <button class="pbtn" data-asst-trans="1">${A.showVi ? 'Ẩn bản dịch' : 'Dịch từng câu'}</button>
+    <button class="pbtn" data-asst-edit="1">✎ Sửa ngắt câu</button>
     <button class="pbtn" data-asst-audio-reset="1">↻ Tệp khác</button>
   </div>`;
-  // Một đoạn văn liền mạch: mỗi câu là một cụm, trong cụm mỗi từ là token bấm được; các câu ngắt nghỉ nhẹ.
-  const para = sentences.map(s => {
-    const words = (s.words || []).map(w => {
-      const ww = String(w.w || '');
-      const tip = [w.rom, w.vi].filter(Boolean).join(' · ');
-      return `<button class="asst-word" data-asst-word="${esc(ww)}" data-asst-lang="${esc(r.lang || '')}" data-asst-rom="${esc(w.rom || '')}" data-asst-vi="${esc(w.vi || '')}" title="${esc(tip)}">${esc(ww)}</button>`;
-    }).join(' ');
-    return `<span class="asst-clause">${words || esc(s.text || '')}</span>`;
-  }).join('<span class="asst-pause"></span>');
+  const lines = segs.map((s, i) => {
+    const words = String(s.ko).split(/\s+/).filter(Boolean).map(tok => asstWordBtn(tok, A.lang || r.lang)).join(' ');
+    return `<div class="asst-line">
+      <button class="asst-line-play" data-speak="${esc(s.ko)}" title="Nghe câu ${i + 1}"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg></button>
+      <div class="asst-line-body">
+        <div class="asst-line-ko ${isKo ? 'ko' : ''}">${words}</div>
+        ${A.showVi ? `<div class="asst-line-vi">${s.vi ? esc(s.vi) : '<i>—</i>'}</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
   return `${head}${tools}
-    <div class="asst-para ${isKo ? 'ko' : ''}">${para}</div>
-    <div class="asst-para-vi" id="asstParaVi" hidden><span class="asst-vi-lbl">Bản dịch cả đoạn</span>${esc(fullVi)}</div>`;
+    ${A.retranslating ? '<div class="asst-audio-busy"><div class="asst-spin"></div><p>Đang dịch lại theo cách ngắt mới…</p></div>' : ''}
+    <div class="asst-lines">${lines}</div>`;
 }
 
 /* Thẻ nghĩa nhanh cho từ không phải tiếng Hàn (tiếng Hàn dùng bảng tra đầy đủ) */
@@ -1413,7 +1442,20 @@ function asstHandleFile(file){
       A.busy = false;
       if (err || !res) A.error = asstErrMsg(err || 'no-server');
       else if (res.error) A.error = asstErrMsg(res.error);
-      else { A.result = res; A.lang = res.lang || ''; A.error = null; }
+      else {
+        A.result = res; A.lang = res.lang || ''; A.error = null; A.editing = false; A.showVi = false;
+        // câu có thể sửa được: mỗi câu = { ko, vi }
+        A.segments = (res.sentences || []).map(s => ({
+          ko: (s.text && s.text.trim()) ? s.text.trim()
+              : (s.words || []).map(w => w.w).join(' '),
+          vi: s.vi || ''
+        })).filter(s => s.ko);
+        // bản đồ nghĩa từng từ (để tra nhanh + nút thêm vào từ điển)
+        A.glossMap = {};
+        (res.sentences || []).forEach(s => (s.words || []).forEach(w => {
+          if (w.w && !A.glossMap[w.w]) A.glossMap[w.w] = { rom: w.rom || '', vi: w.vi || '' };
+        }));
+      }
       if (state.view === 'assistant') render();
     });
   };
@@ -1432,6 +1474,30 @@ function addUserWord(ko, rom, vi){
 function loadUserDict(){
   const ud = store.get('userdict', []) || [];
   if (ud.length && window.Words && Words.addDict) Words.addDict(ud);
+}
+
+/* Áp dụng cách ngắt câu mới người dùng vừa sửa, rồi dịch lại các câu chưa có bản dịch. */
+function asstApplyEdit(){
+  const A = state.assistant.audio;
+  const box = $('#asstEditBox');
+  if (!box) return;
+  const lines = box.value.split('\n').map(s => s.trim()).filter(Boolean);
+  if (!lines.length) return;
+  const oldVi = {}; (A.segments || []).forEach(s => { oldVi[s.ko] = s.vi; });
+  A.segments = lines.map(ko => ({ ko: ko, vi: oldVi[ko] || '' }));
+  A.editing = false;
+  const need = A.segments.filter(s => !s.vi).map(s => s.ko);
+  if (need.length && window.Translate && Translate.run){
+    A.retranslating = true; render();
+    Translate.run(need, (map) => {
+      A.retranslating = false;
+      if (map) A.segments.forEach(s => { if (!s.vi) s.vi = map[Translate.hash(s.ko)] || s.vi; });
+      A.showVi = true;
+      if (state.view === 'assistant') render();
+    });
+  } else {
+    render();
+  }
 }
 
 /* ============================================================
@@ -2712,11 +2778,10 @@ document.addEventListener('click', e => {
   if (t.closest('[data-asst-send]')){ asstSend(); return; }
   if (t.closest('[data-asst-clear]')){ if (confirm('Xoá toàn bộ hội thoại?')){ state.assistant.messages = []; render(); } return; }
   if (t.closest('[data-asst-audio-reset]')){ const A = state.assistant.audio; A.result = null; A.error = null; A.name = ''; render(); return; }
-  if (t.closest('[data-asst-trans]')){
-    const box = $('#asstParaVi'); const btn = t.closest('[data-asst-trans]');
-    if (box){ box.hidden = !box.hidden; btn.textContent = box.hidden ? 'Dịch cả đoạn' : 'Ẩn bản dịch'; }
-    return;
-  }
+  if (t.closest('[data-asst-trans]')){ state.assistant.audio.showVi = !state.assistant.audio.showVi; render(); return; }
+  if (t.closest('[data-asst-edit]')){ state.assistant.audio.editing = true; render(); return; }
+  if (t.closest('[data-asst-edit-cancel]')){ state.assistant.audio.editing = false; render(); return; }
+  if (t.closest('[data-asst-edit-apply]')){ asstApplyEdit(); return; }
   const aword = t.closest('[data-asst-word]');
   if (aword){
     const w = aword.dataset.asstWord || '';
