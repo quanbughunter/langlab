@@ -28,7 +28,9 @@ html = re.sub(
 
 # nhúng JS theo đúng thứ tự (bỏ qua tham số ?v=... nếu có)
 for src in ("js/strokes.js", "js/course-ko.js", "js/vocab-common.js", "js/tts.js", "js/config.js", "js/translate.js",
-            "js/speech.js", "js/words.js", "js/app.js"):
+            "js/speech.js", "js/words.js",
+            "js/vendor/hanzi-writer.min.js", "js/course-zh.js", "js/hanzi-data-zh.js",
+            "js/app.js"):
     html = re.sub(
         r'<script src="' + re.escape(src) + r'(?:\?[^"]*)?"></script>',
         lambda m, s=src: "<script>\n" + read(s) + "\n</script>",

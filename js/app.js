@@ -19,6 +19,7 @@ const state = {
   level: store.get('level', 'so-cap-1'),
   lesson: null,
   tab: 'vocab',
+  zh: { level:'hsk1', lesson:null, writeChar:'', srs:null },
   jamo: 'ㄱ',
   syll: { cho:'ㅎ', jung:'ㅏ', jong:'ㄴ' },
   speed: 1,
@@ -1242,14 +1243,14 @@ function aboutView(){
   return `
   <div class="about">
     <div class="about-hero">
-      <div class="about-logo"><img src="logo-full.png?v=260915" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
+      <div class="about-logo"><img src="logo-full.png?v=260916" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
       <h1 class="sr-only">LangLab</h1>
       <p class="about-tag">Phòng thí nghiệm ngôn ngữ — học ngoại ngữ theo bài, có tra từ điển, luyện nghe–nói và trợ lý AI.</p>
     </div>
 
     <section class="about-sec">
       <h2>LangLab là gì?</h2>
-      <p>LangLab là ứng dụng web giúp người Việt học ngoại ngữ một cách bài bản. Hiện tại bắt đầu với <b>tiếng Hàn</b> (6 cấp từ Sơ cấp đến Cao cấp), và đang mở rộng sang các ngôn ngữ khác. Mỗi bài giữ nguyên cấu trúc quen thuộc: từ vựng → ngữ pháp → hội thoại → phát âm → văn hoá.</p>
+      <p>LangLab là ứng dụng web giúp người Việt học ngoại ngữ một cách bài bản. Hiện có <b>tiếng Hàn</b> (6 cấp từ Sơ cấp đến Cao cấp) và <b>tiếng Trung</b> (HSK — nét cơ bản, bộ thủ, pinyin, tập viết theo thứ tự nét và các bài học), sẽ mở rộng thêm các ngôn ngữ khác. Mỗi bài giữ nguyên cấu trúc quen thuộc: từ vựng → ngữ pháp → hội thoại → phát âm → văn hoá.</p>
       <ul class="about-feats">
         <li>Khoá học chia cấp, bám khung giáo trình chuẩn.</li>
         <li>Từ điển tra nhanh — bấm vào bất kỳ từ nào cũng tra được nghĩa, cách dùng.</li>
@@ -1275,7 +1276,7 @@ function aboutView(){
       <p class="about-note">Góp ý, báo lỗi hay đề xuất thêm ngôn ngữ mới — cứ gửi email cho mình nhé.</p>
     </section>
 
-    <p class="about-foot">Nội dung khoá học do LangLab tự biên soạn theo khung ngữ pháp và chủ đề chuẩn. Từ điển tham khảo dữ liệu mở của Viện Quốc ngữ Quốc gia Hàn Quốc (국립국어원, giấy phép CC BY-SA). Đề thi thử TOPIK là bản luyện tập tự soạn theo cấu trúc, không phải đề chính thức.</p>
+    <p class="about-foot">Nội dung khoá học do LangLab tự biên soạn theo khung ngữ pháp và chủ đề chuẩn. Từ điển tiếng Hàn tham khảo dữ liệu mở của Viện Quốc ngữ Quốc gia Hàn Quốc (국립국어원, giấy phép CC BY-SA). Đề thi thử TOPIK là bản luyện tập tự soạn theo cấu trúc, không phải đề chính thức. Phần tiếng Trung bám khung Giáo trình chuẩn HSK (nội dung tự soạn); thứ tự nét chữ Hán dùng dữ liệu mở <b>Make Me a Hanzi</b> (giấy phép Arphic Public License) qua thư viện <b>Hanzi Writer</b> (MIT).</p>
   </div>`;
 }
 
@@ -1793,8 +1794,11 @@ function render(){
     const on = b.dataset.go === state.view || (state.view === 'lesson' && b.dataset.go === 'home');
     b.setAttribute('aria-current', on ? 'page' : 'false');
   });
+  const isZh = state.view.indexOf('zh_') === 0;
   const koDrop = $('#koDrop');
   if (koDrop) koDrop.classList.toggle('active', KO_VIEWS.includes(state.view));
+  const zhDrop = $('#zhDrop');
+  if (zhDrop) zhDrop.classList.toggle('active', isZh);
   $$('.nav-drop.open').forEach(d => {
     d.classList.remove('open');
     const bb = d.querySelector('.nav-drop-btn'); if (bb) bb.setAttribute('aria-expanded', 'false');
@@ -1802,10 +1806,13 @@ function render(){
   updateLabiNav();
 
   const l = state.lesson && curLesson();
-  $('#crumb').innerHTML = state.view === 'lesson' && l
+  $('#crumb').innerHTML = isZh
+    ? zhCrumb()
+    : state.view === 'lesson' && l
     ? `<button class="crumb-link" data-go="home">Tiếng Hàn</button> <span>›</span> <button class="crumb-link" data-go="home">Sơ cấp 1</button> <span>›</span> <b>Bài ${String(l.no).padStart(2,'0')} · ${esc(l.vi)}</b>`
     : `<button class="crumb-link" data-go="home">Tiếng Hàn</button> <span>›</span> <b>${CRUMBS[state.view]}</b>`;
 
+  if (isZh) zhMount();
   if (state.view === 'write') mountWrite();
   if (state.view === 'dict'){ mountDict(); loadDict(added => { if (added && state.view === 'dict') render(); }); }
   if (state.view === 'shadow'){
@@ -1815,6 +1822,355 @@ function render(){
   if (state.view === 'lesson' && state.tab === 'write') mountTrace();
   if (state.view === 'topik' && state.topik && state.topik.phase === 'doing') mountTopik(); else topikStopTimer();
   window.scrollTo({ top:0, behavior:'instant' in window ? 'instant' : 'auto' });
+}
+
+/* ============================================================
+   TIẾNG TRUNG (中文) — nền tảng + HSK1 bài 1–5
+   Dữ liệu: course-zh.js · thứ tự nét: Hanzi Writer + HANZI_DATA
+   (Make Me a Hanzi, giấy phép Arphic Public License).
+   ============================================================ */
+const _ZC = (typeof COURSE_ZH   !== 'undefined') ? COURSE_ZH   : { levels:[], lessons:[] };
+const _ZS = (typeof STROKES_ZH  !== 'undefined') ? STROKES_ZH  : [];
+const _ZR = (typeof RADICALS_ZH !== 'undefined') ? RADICALS_ZH : [];
+const _ZP = (typeof PINYIN_ZH   !== 'undefined') ? PINYIN_ZH   : { tones:[], initials:[], finals:[], notes:[] };
+
+const ZH_LOOKUP = (function(){
+  const m = {};
+  _ZC.lessons.forEach(l => l.vocab.forEach(w => {
+    if (!m[w.zh]) m[w.zh] = Object.assign({ lessons:[] }, w);
+    if (m[w.zh].lessons.indexOf(l.no) < 0) m[w.zh].lessons.push(l.no);
+  }));
+  return m;
+})();
+
+function getCssVar(v){ try { return getComputedStyle(document.body).getPropertyValue(v).trim(); } catch(e){ return ''; } }
+function hasHanzi(ch){ return (window.HANZI_DATA || {})[ch] != null; }
+function zhSpeak(text){
+  try {
+    const synth = window.speechSynthesis; if (!synth){ toast('Trình duyệt chưa hỗ trợ phát âm'); return; }
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'zh-CN'; u.rate = 0.85;
+    const vs = synth.getVoices() || [];
+    const zh = vs.find(v => /(^zh|zh[-_]|chinese|中文|普通话|mandarin)/i.test((v.lang || '') + ' ' + (v.name || '')));
+    if (zh) u.voice = zh;
+    synth.speak(u);
+  } catch(e){}
+}
+function zhLevel(){ return _ZC.levels.find(x => x.id === state.zh.level) || _ZC.levels[0] || { vi:'HSK 1', zh:'HSK 1' }; }
+function zhLessonList(){ return state.zh.level === 'hsk1' ? _ZC.lessons : []; }
+function zhCurLesson(){ return _ZC.lessons.find(l => l.no === state.zh.lesson); }
+function zhWriteChars(){
+  const set = [];
+  const push = c => { if (c && hasHanzi(c) && set.indexOf(c) < 0) set.push(c); };
+  _ZC.lessons.forEach(l => l.vocab.forEach(w => { for (const c of w.zh) push(c); }));
+  _ZS.forEach(s => push(s.ex));
+  return set;
+}
+function zhCrumb(){
+  const map = { zh_home:'Khoá học', zh_strokes:'Các nét', zh_radicals:'Bộ thủ',
+    zh_pinyin:'Pinyin & thanh điệu', zh_write:'Tập viết', zh_dict:'Từ điển', zh_srs:'Ôn tập' };
+  const L = zhCurLesson();
+  if (state.view === 'zh_lesson' && L)
+    return `<button class="crumb-link" data-go="zh_home">Tiếng Trung</button> <span>›</span> <button class="crumb-link" data-go="zh_home">HSK 1</button> <span>›</span> <b>Bài ${String(L.no).padStart(2,'0')} · ${esc(L.vi)}</b>`;
+  return `<button class="crumb-link" data-go="zh_home">Tiếng Trung</button> <span>›</span> <b>${esc(map[state.view] || '')}</b>`;
+}
+function zhTokens(str){
+  let out = '';
+  for (const ch of (str || '')) out += /[一-鿿]/.test(ch) ? `<span class="zc" data-zc="${esc(ch)}">${esc(ch)}</span>` : esc(ch);
+  return out;
+}
+
+/* ---------------- Views tiếng Trung ---------------- */
+VIEWS.zh_home = function(){
+  const lv = zhLevel(), L = zhLessonList(), total = 15;
+  const cards = [
+    ['zh_strokes','Các nét','8 nét cơ bản của chữ Hán','⼂'],
+    ['zh_radicals','Bộ thủ','Bộ thường gặp + Hán–Việt','部'],
+    ['zh_pinyin','Pinyin & thanh điệu','Ghép âm và 4 thanh','声'],
+    ['zh_write','Tập viết','Xem thứ tự nét & luyện tô','写']
+  ];
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Khoá tiếng Trung · ${esc(lv.zh)}</span>
+    <h1>Bắt đầu tiếng Trung từ nét chữ tới câu</h1>
+    <p>Học nền tảng (nét · bộ thủ · pinyin) rồi vào bài theo khung <em>Giáo trình chuẩn HSK</em>. Hiện có ${L.length}/${total} bài của HSK 1.</p>
+  </div>
+  <div class="zh-found">
+    ${cards.map(c => `<button class="zh-found-card" data-go="${c[0]}"><span class="zh-found-ico ko">${c[3]}</span><span class="zh-found-tx"><b>${c[1]}</b><i>${c[2]}</i></span></button>`).join('')}
+  </div>
+  <div class="level-strip">
+    ${_ZC.levels.map(v => {
+      const active = v.status === 'active';
+      return `<button class="level-chip" data-zh-level="${v.id}"${state.zh.level === v.id ? ' aria-pressed="true"' : ''}${active ? '' : ' disabled'} title="${active ? '' : 'Đang biên soạn'}">${esc(v.vi)} <span class="lv-ko">${esc(v.zh)}</span>${active ? '' : ' <span class="lv-soon">sắp có</span>'}</button>`;
+    }).join('')}
+  </div>
+  <div class="lesson-grid">
+    ${L.map(l => `
+      <button class="lesson-card" data-zh-lesson="${l.no}">
+        <span class="lesson-no"><i></i> BÀI ${String(l.no).padStart(2,'0')}</span>
+        <h3 class="ko">${esc(l.zh)}</h3>
+        <p class="vi"><span class="py">${esc(l.pinyin)}</span> · ${esc(l.vi)}</p>
+        <span class="lesson-meta">${l.vocab.length} từ · ${l.grammar.length} điểm ngữ pháp</span>
+      </button>`).join('')}
+    ${Array.from({ length: total - L.length }, (_, i) => `<div class="lesson-card soon"><span class="lesson-no"><i></i> BÀI ${String(L.length + i + 1).padStart(2,'0')}</span><h3 class="ko">·····</h3><p class="vi">sắp có</p></div>`).join('')}
+  </div>`;
+};
+
+VIEWS.zh_strokes = function(){
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Trung · Nền tảng</span>
+    <h1>8 nét cơ bản</h1>
+    <p>Mọi chữ Hán đều ghép từ vài nét cơ bản. Nắm tên và hướng viết trước khi tập viết chữ. Bấm ô chữ mẫu để xem lại animation.</p>
+  </div>
+  <div class="zh-stroke-grid">
+    ${_ZS.map(s => `
+      <div class="zh-stroke-card">
+        <div class="zh-stroke-glyph">${esc(s.stroke)}</div>
+        <div class="zh-stroke-body">
+          <div class="zh-stroke-name"><b class="ko">${esc(s.name)}</b> <span class="py">${esc(s.pinyin)}</span></div>
+          <div class="zh-stroke-vi">${esc(s.vi)} · <i>${esc(s.hv)}</i></div>
+          <p class="zh-stroke-desc">${esc(s.desc)}</p>
+        </div>
+        <div class="zh-stroke-ex">
+          <div class="hz" data-hz="${esc(s.ex)}" data-size="84"></div>
+          <span class="zh-ex-label ko">${esc(s.ex)}</span>
+        </div>
+      </div>`).join('')}
+  </div>`;
+};
+
+VIEWS.zh_radicals = function(){
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Trung · Nền tảng</span>
+    <h1>Bộ thủ thường gặp</h1>
+    <p>Bộ thủ là “thành phần gốc” gợi nghĩa của chữ Hán và là cách tra từ điển. Dưới đây là ${_ZR.length} bộ hay gặp, kèm âm Hán–Việt và chữ ví dụ (bấm để tra).</p>
+  </div>
+  <div class="zh-rad-grid">
+    ${_ZR.map(r => `
+      <div class="zh-rad-card">
+        <div class="zh-rad-head"><span class="zh-rad-char ko">${esc(r.rad)}</span>${r.alt ? `<span class="zh-rad-alt ko">${esc(r.alt)}</span>` : ''}</div>
+        <div class="zh-rad-info">
+          <div><b>${esc(r.hv)}</b> <span class="py">${esc(r.pinyin)}</span></div>
+          <div class="zh-rad-vi">${esc(r.vi)}</div>
+          <div class="zh-rad-ex">${(r.ex || []).map(c => `<span class="zc" data-zc="${esc(c)}">${esc(c)}</span>`).join('')}</div>
+        </div>
+      </div>`).join('')}
+  </div>`;
+};
+
+VIEWS.zh_pinyin = function(){
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Trung · Nền tảng</span>
+    <h1>Pinyin &amp; thanh điệu</h1>
+    <p>Pinyin phiên âm chữ Hán bằng chữ Latinh. Mỗi âm tiết mang một trong 4 thanh (hoặc thanh nhẹ) — đọc sai thanh là sai nghĩa.</p>
+  </div>
+  <div class="zh-tone-row">
+    ${_ZP.tones.map(t => `
+      <div class="zh-tone-card t${t.no}">
+        <div class="zh-tone-syl">${esc(t.ex)}</div>
+        <div class="zh-tone-hz ko">${esc(t.hz)}</div>
+        <div class="zh-tone-name">${esc(t.name)}</div>
+        <div class="zh-tone-vi">${esc(t.vi)}</div>
+        <p class="zh-tone-desc">${esc(t.desc)}</p>
+        <button class="pbtn mini" data-zh-speak="${esc(t.ex)}">🔊 Nghe</button>
+      </div>`).join('')}
+  </div>
+  <div class="zh-py-cols">
+    <section class="zh-py-sec"><h2>Phụ âm đầu (声母)</h2><div class="zh-py-chips">${_ZP.initials.map(x => `<span class="zh-py-chip">${esc(x)}</span>`).join('')}</div></section>
+    <section class="zh-py-sec"><h2>Vần (韵母)</h2><div class="zh-py-chips">${_ZP.finals.map(x => `<span class="zh-py-chip">${esc(x)}</span>`).join('')}</div></section>
+  </div>
+  <section class="zh-py-sec"><h2>Lưu ý</h2><ul class="about-feats">${_ZP.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul></section>`;
+};
+
+VIEWS.zh_lesson = function(){
+  const L = zhCurLesson();
+  if (!L) return `<div class="page-head"><h1>Chưa chọn bài</h1><p>Quay lại <button class="crumb-link" data-go="zh_home">danh sách bài</button>.</p></div>`;
+  const chars = [];
+  L.vocab.forEach(w => { for (const c of w.zh) if (hasHanzi(c) && chars.indexOf(c) < 0) chars.push(c); });
+  return `
+  <article class="zh-lesson">
+    <header class="zh-les-head">
+      <div class="zh-les-title ko">${esc(L.zh)}</div>
+      <div class="zh-les-sub"><span class="py">${esc(L.pinyin)}</span> · ${esc(L.vi)}</div>
+      <p class="zh-les-skill">${esc(L.skill)}</p>
+    </header>
+    <section class="zh-sec">
+      <h2>Ngữ pháp</h2>
+      ${L.grammar.map(g => `
+        <div class="zh-gram">
+          <div class="zh-gram-form ko">${esc(g.form)} <span class="zh-gram-vi">— ${esc(g.vi)}</span></div>
+          <p class="zh-gram-note">${esc(g.note)}</p>
+          <div class="zh-gram-ex"><span class="ko">${zhTokens(g.ex.zh)}</span> <button class="icon-btn" data-zh-speak="${esc(g.ex.zh)}" title="Nghe">🔊</button><div class="zh-ex-py py">${esc(g.ex.pinyin)}</div><div class="zh-ex-vi">${esc(g.ex.vi)}</div></div>
+        </div>`).join('')}
+    </section>
+    <section class="zh-sec">
+      <h2>Từ vựng <span class="zh-count">${L.vocab.length}</span></h2>
+      <div class="zh-vocab">
+        ${L.vocab.map(w => `
+          <div class="zh-word">
+            <div class="zh-word-hz ko" data-zc="${esc(w.zh)}">${esc(w.zh)}</div>
+            <div class="zh-word-mid">
+              <div class="zh-word-py py">${esc(w.pinyin)}</div>
+              <div class="zh-word-vi">${esc(w.vi)}</div>
+              <div class="zh-word-meta"><span class="zh-hv">${esc(w.hv)}</span> · ${esc(w.pos)}</div>
+            </div>
+            <div class="zh-word-act">
+              <button class="icon-btn" data-zh-speak="${esc(w.zh)}" title="Nghe">🔊</button>
+              <button class="icon-btn" data-zh-write="${esc(w.zh[0])}" title="Tập viết">✎</button>
+            </div>
+          </div>`).join('')}
+      </div>
+    </section>
+    <section class="zh-sec">
+      <h2>Hội thoại</h2>
+      <div class="zh-dia">
+        ${L.dialogue.map(d => `
+          <div class="zh-line">
+            <span class="zh-sp">${esc(d.sp)}</span>
+            <div class="zh-line-body">
+              <div class="zh-line-zh ko">${zhTokens(d.zh)} <button class="icon-btn" data-zh-speak="${esc(d.zh)}" title="Nghe">🔊</button></div>
+              <div class="zh-line-py py">${esc(d.pinyin)}</div>
+              <div class="zh-line-vi">${esc(d.vi)}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+    </section>
+    <div class="stage-ctrl">
+      <button class="pbtn primary" data-zh-write="${esc(chars[0] || '你')}">✎ Luyện viết chữ trong bài</button>
+      <button class="pbtn" data-go="zh_home">← Về danh sách bài</button>
+    </div>
+  </article>`;
+};
+
+VIEWS.zh_write = function(){
+  const chars = zhWriteChars();
+  const cur = (state.zh.writeChar && hasHanzi(state.zh.writeChar)) ? state.zh.writeChar : (chars[0] || '你');
+  const info = ZH_LOOKUP[cur];
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Trung · Nền tảng</span>
+    <h1>Tập viết — thứ tự nét</h1>
+    <p>Bấm <b>Xem thứ tự nét</b> để xem chữ được viết ra sao, rồi <b>Luyện viết</b> để tự tô theo. Chọn chữ khác ở dưới.</p>
+  </div>
+  <div class="zh-write">
+    <div class="zh-write-stage">
+      <div class="hz-big"><div class="hz" id="hzBig" data-hz="${esc(cur)}" data-size="248" data-mode="write"></div></div>
+      <div class="zh-write-side">
+        <div class="zh-write-char ko">${esc(cur)}</div>
+        ${info ? `<div class="zh-write-meta"><span class="py">${esc(info.pinyin)}</span> · <b>${esc(info.hv)}</b><div class="zh-write-vi">${esc(info.vi)}</div></div>` : ''}
+        <div class="zh-write-ctrl">
+          <button class="pbtn primary" data-hzw="anim">▶ Xem thứ tự nét</button>
+          <button class="pbtn" data-hzw="quiz">✎ Luyện viết</button>
+          <button class="pbtn" data-hzw="reset">↺ Làm lại</button>
+          <button class="pbtn" data-zh-speak="${esc(cur)}">🔊 Nghe</button>
+        </div>
+      </div>
+    </div>
+    <div class="zh-write-pick">
+      <div class="eyebrow">Chọn chữ để luyện</div>
+      <div class="hz-chips">${chars.map(c => `<button class="hz-chip ko${c === cur ? ' on' : ''}" data-zh-write="${esc(c)}">${esc(c)}</button>`).join('')}</div>
+    </div>
+  </div>`;
+};
+
+function zhDictResults(q){
+  const norm = s => (s || '').toLowerCase();
+  const strip = s => norm(s).normalize('NFD').replace(/[̀-ͯ]/g, '');
+  q = (q || '').trim();
+  let items = Object.values(ZH_LOOKUP);
+  if (q){
+    const ql = norm(q), qs = strip(q);
+    items = items.filter(w => w.zh.indexOf(q) >= 0 || strip(w.pinyin).indexOf(qs) >= 0 || norm(w.vi).indexOf(ql) >= 0 || norm(w.hv).indexOf(ql) >= 0);
+  }
+  items = items.slice(0, 80);
+  if (!items.length) return `<p class="zh-empty">Không thấy từ nào khớp. Thử gõ chữ Hán hoặc pinyin không dấu.</p>`;
+  return items.map(w => `
+    <div class="zh-res">
+      <div class="zh-res-hz ko" data-zh-write="${esc(w.zh[0])}">${esc(w.zh)}</div>
+      <div class="zh-res-mid">
+        <div><span class="py">${esc(w.pinyin)}</span> · <b>${esc(w.hv)}</b></div>
+        <div class="zh-res-vi">${esc(w.vi)}</div>
+        <div class="zh-res-meta">${esc(w.pos)} · bài ${w.lessons.join(', ')}</div>
+      </div>
+      <div class="zh-res-act">
+        <button class="icon-btn" data-zh-speak="${esc(w.zh)}" title="Nghe">🔊</button>
+        <a class="icon-btn" href="https://hvdic.thivien.net/whv/${encodeURIComponent(w.zh)}" target="_blank" rel="noopener noreferrer" title="Tra Hán–Việt">↗</a>
+      </div>
+    </div>`).join('');
+}
+VIEWS.zh_dict = function(){
+  const q = state.zh.dictQ || '';
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Trung</span>
+    <h1>Từ điển</h1>
+    <p>Gõ chữ Hán, pinyin hoặc nghĩa tiếng Việt để tra trong bộ từ HSK1. Bấm chữ trong bài học cũng mở tra ở đây.</p>
+  </div>
+  <div class="zh-dict-search">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    <input id="zhq" type="search" value="${esc(q)}" placeholder="你好 / nǐ hǎo / xin chào…" autocomplete="off">
+  </div>
+  <div id="zhResults" class="zh-results">${zhDictResults(q)}</div>`;
+};
+
+VIEWS.zh_srs = function(){
+  const deck = Object.values(ZH_LOOKUP);
+  if (!state.zh.srs || state.zh.srs.n !== deck.length) state.zh.srs = { i:0, show:false, n:deck.length };
+  const s = state.zh.srs;
+  const w = deck[s.i % deck.length] || deck[0] || { zh:'你', pinyin:'nǐ', vi:'bạn', hv:'nễ', pos:'' };
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Trung</span>
+    <h1>Ôn tập từ vựng</h1>
+    <p>Thẻ ghi nhớ ${deck.length} từ HSK1. Nhìn chữ, đoán nghĩa rồi lật thẻ.</p>
+  </div>
+  <div class="zh-srs">
+    <div class="zh-card ${s.show ? 'open' : ''}" id="zhCard">
+      <div class="zh-card-front ko">${esc(w.zh)}</div>
+      <div class="zh-card-back"><div class="py">${esc(w.pinyin)}</div><div class="zh-card-vi">${esc(w.vi)}</div><div class="zh-card-hv">${esc(w.hv)} · ${esc(w.pos)}</div></div>
+    </div>
+    <div class="zh-srs-ctrl">
+      <button class="pbtn" data-zh-speak="${esc(w.zh)}">🔊 Nghe</button>
+      <button class="pbtn primary" id="zhFlip">${s.show ? 'Ẩn đáp án' : 'Lật thẻ'}</button>
+      <button class="pbtn" data-zh-srs="next">Thẻ sau →</button>
+    </div>
+    <div class="zh-srs-count">${(s.i % deck.length) + 1} / ${deck.length}</div>
+  </div>`;
+};
+
+/* ---------------- Hanzi Writer ---------------- */
+let zhWriter = null;
+function zhMount(){
+  zhWriter = null;
+  if (typeof HanziWriter === 'undefined') return;
+  $$('.hz[data-hz]').forEach(el => {
+    const ch = el.dataset.hz;
+    if (!hasHanzi(ch)){ el.classList.add('hz-miss'); el.textContent = ch; return; }
+    const size = +el.dataset.size || 72;
+    let w;
+    try {
+      w = HanziWriter.create(el, ch, {
+        width: size, height: size, padding: Math.max(2, Math.round(size * 0.05)),
+        showOutline: true, showCharacter: el.dataset.mode !== 'write',
+        strokeAnimationSpeed: 1.2, delayBetweenStrokes: 150,
+        strokeColor: getCssVar('--accent') || '#1B4D8F',
+        radicalColor: getCssVar('--seal') || '#C8402F',
+        outlineColor: getCssVar('--line-strong') || '#B4C6DE',
+        drawingColor: getCssVar('--accent-2') || '#2F6FBF',
+        charDataLoader: (c, onComplete) => onComplete((window.HANZI_DATA || {})[c])
+      });
+    } catch(e){ el.classList.add('hz-miss'); el.textContent = ch; return; }
+    if (el.dataset.mode === 'write'){ zhWriter = w; }
+    else {
+      try { w.animateCharacter(); } catch(e){}
+      el.style.cursor = 'pointer';
+      el.addEventListener('click', () => { try { w.animateCharacter(); } catch(e){} });
+    }
+  });
 }
 
 function go(v, lessonNo){
@@ -1831,10 +2187,10 @@ let _histReady = false, _applyingHist = false, _curDesc = null;
 function wordIsOpen(){ return document.body.classList.contains('wp-open'); }
 function histDesc(){
   const tok = (typeof wordState !== 'undefined' && wordState && wordState.token) || null;
-  return { v: state.view, lesson: state.lesson || null, word: wordIsOpen() ? (tok || 1) : null };
+  return { v: state.view, lesson: state.lesson || null, zl: (state.zh && state.zh.lesson) || null, word: wordIsOpen() ? (tok || 1) : null };
 }
 function descEq(a, b){
-  return !!a && !!b && a.v === b.v && (a.lesson || null) === (b.lesson || null) && !!a.word === !!b.word;
+  return !!a && !!b && a.v === b.v && (a.lesson || null) === (b.lesson || null) && (a.zl || null) === (b.zl || null) && !!a.word === !!b.word;
 }
 function syncHist(){
   if (!_histReady || _applyingHist) return;
@@ -1850,9 +2206,11 @@ function applyHist(s){
   _applyingHist = true;
   if (!s.word && wordIsOpen()) closeWord();
   else if (s.word && !wordIsOpen() && typeof s.word === 'string') openWord(s.word);
-  if (s.v !== state.view || (s.lesson || null) !== (state.lesson || null)){
+  const changed = s.v !== state.view || (s.lesson || null) !== (state.lesson || null) || (s.zl || null) !== ((state.zh && state.zh.lesson) || null);
+  if (changed){
     if (s.v !== state.view) stopAudio();
     state.view = s.v; state.lesson = s.lesson || null;
+    if (state.zh) state.zh.lesson = s.zl || null;
     render();
   }
   _curDesc = histDesc();
@@ -2745,6 +3103,29 @@ document.addEventListener('click', e => {
     return;
   }
 
+  /* ----- tiếng Trung ----- */
+  const zSpeak = t.closest('[data-zh-speak]');
+  if (zSpeak){ zhSpeak(zSpeak.dataset.zhSpeak); return; }
+  const zLv = t.closest('[data-zh-level]');
+  if (zLv){ if (zLv.dataset.zhLevel === 'hsk1'){ state.zh.level = 'hsk1'; render(); } return; }
+  const zLes = t.closest('[data-zh-lesson]');
+  if (zLes){ state.zh.lesson = +zLes.dataset.zhLesson; go('zh_lesson'); return; }
+  const zWr = t.closest('[data-zh-write]');
+  if (zWr){ state.zh.writeChar = zWr.dataset.zhWrite; go('zh_write'); return; }
+  const zC = t.closest('[data-zc]');
+  if (zC){ state.zh.dictQ = zC.dataset.zc; go('zh_dict'); return; }
+  const hzw = t.closest('[data-hzw]');
+  if (hzw){
+    if (zhWriter){ const a = hzw.dataset.hzw; try {
+      if (a === 'anim'){ if (zhWriter.cancelQuiz) zhWriter.cancelQuiz(); zhWriter.showCharacter(); zhWriter.animateCharacter(); }
+      else { if (zhWriter.cancelQuiz) zhWriter.cancelQuiz(); zhWriter.hideCharacter(); zhWriter.quiz({ onComplete(){ toast('Giỏi lắm! Viết đúng thứ tự nét rồi.'); } }); }
+    } catch(e){} }
+    return;
+  }
+  const zSrs = t.closest('[data-zh-srs]');
+  if (zSrs){ if (state.zh.srs){ state.zh.srs.i++; state.zh.srs.show = false; render(); } return; }
+  if (t.closest('#zhFlip')){ if (state.zh.srs){ state.zh.srs.show = !state.zh.srs.show; render(); } return; }
+
   const nav = t.closest('[data-go]');
   if (nav){ go(nav.dataset.go); return; }
 
@@ -2993,6 +3374,7 @@ document.addEventListener('input', e => {
            : `<span class="no-line no-note">Thuần Hàn chỉ có từ 1–99</span>`);
     return;
   }
+  if (e.target.id === 'zhq'){ const box = $('#zhResults'); if (box) box.innerHTML = zhDictResults(e.target.value); return; }
   if (e.target.id !== 'topq') return;
   const v = e.target.value.trim();
   if (!v) return;
