@@ -1243,7 +1243,7 @@ function aboutView(){
   return `
   <div class="about">
     <div class="about-hero">
-      <div class="about-logo"><img src="logo-full.png?v=260917" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
+      <div class="about-logo"><img src="logo-full.png?v=260918" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
       <h1 class="sr-only">LangLab</h1>
       <p class="about-tag">Phòng thí nghiệm ngôn ngữ — học ngoại ngữ theo bài, có tra từ điển, luyện nghe–nói và trợ lý AI.</p>
     </div>
@@ -1968,7 +1968,7 @@ VIEWS.zh_pinyin = function(){
   <div class="page-head">
     <span class="eyebrow">Tiếng Trung · Nền tảng</span>
     <h1>Pinyin &amp; thanh điệu</h1>
-    <p>Pinyin phiên âm chữ Hán bằng chữ Latinh. Mỗi âm tiết mang một trong 4 thanh (hoặc thanh nhẹ) — đọc sai thanh là sai nghĩa.</p>
+    <p><b>Pinyin</b> (拼音 — Hán ngữ bính âm) là cách phiên âm chính thức của tiếng Phổ thông bằng chữ Latinh. Mỗi âm tiết = <b>phụ âm đầu + vần + thanh điệu</b> — ví dụ <span class="py">nǐ</span> = n + i + thanh 3. Mỗi âm tiết mang một trong 4 thanh (hoặc thanh nhẹ); đọc sai thanh là sai nghĩa.</p>
   </div>
   <div class="zh-tone-row">
     ${_ZP.tones.map(t => `
@@ -2063,7 +2063,13 @@ VIEWS.zh_write = function(){
       <div class="hz-big"><div class="hz" id="hzBig" data-hz="${esc(cur)}" data-size="248" data-mode="write"></div></div>
       <div class="zh-write-side">
         <div class="zh-write-char ko">${esc(cur)}</div>
-        ${info ? `<div class="zh-write-meta"><span class="py">${esc(info.pinyin)}</span> · <b>${esc(info.hv)}</b><div class="zh-write-vi">${esc(info.vi)}</div></div>` : ''}
+        <div class="zh-write-meta">${
+          info
+            ? `<span class="py">${esc(info.pinyin)}</span> · <b>${esc(info.hv)}</b><div class="zh-write-vi">${esc(info.vi)}</div>`
+            : (function(){ const w = Object.values(ZH_LOOKUP).find(x => x.zh.indexOf(cur) >= 0); return w
+                ? `<span class="zh-write-vi">Chữ trong từ <b class="ko">${esc(w.zh)}</b> · <span class="py">${esc(w.pinyin)}</span> · ${esc(w.vi)}</span>`
+                : `<span class="zh-write-vi">Chữ lẻ — luyện thứ tự nét.</span>`; })()
+        }</div>
         <div class="zh-write-ctrl">
           <button class="pbtn primary" data-hzw="anim">▶ Xem thứ tự nét</button>
           <button class="pbtn" data-hzw="quiz">✎ Luyện viết</button>
