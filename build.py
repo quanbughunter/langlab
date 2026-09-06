@@ -19,18 +19,20 @@ html = (ROOT / "index.html").read_text(encoding="utf-8")
 def read(p):
     return (ROOT / p).read_text(encoding="utf-8")
 
-# nhúng CSS
-html = html.replace(
-    '<link rel="stylesheet" href="css/langlab.css">',
-    "<style>\n" + read("css/langlab.css") + "\n</style>"
+# nhúng CSS (bỏ qua tham số ?v=... nếu có)
+html = re.sub(
+    r'<link rel="stylesheet" href="css/langlab\.css(?:\?[^"]*)?">',
+    lambda m: "<style>\n" + read("css/langlab.css") + "\n</style>",
+    html
 )
 
-# nhúng JS theo đúng thứ tự
+# nhúng JS theo đúng thứ tự (bỏ qua tham số ?v=... nếu có)
 for src in ("js/strokes.js", "js/course-ko.js", "js/vocab-common.js", "js/tts.js", "js/config.js", "js/translate.js",
             "js/speech.js", "js/words.js", "js/app.js"):
-    html = html.replace(
-        f'<script src="{src}"></script>',
-        "<script>\n" + read(src) + "\n</script>"
+    html = re.sub(
+        r'<script src="' + re.escape(src) + r'(?:\?[^"]*)?"></script>',
+        lambda m, s=src: "<script>\n" + read(s) + "\n</script>",
+        html
     )
 
 full = DIST / "langlab.html"

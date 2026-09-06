@@ -517,6 +517,7 @@ function topikView(){
     <div class="tk-bar-info"><span class="eyebrow">${esc(t.badge)}</span><b>${esc(t.title)}</b></div>
     <div class="tk-timer${S.paused ? ' paused' : ''}" id="topikTimer">${topikClock(S.remaining)}</div>
     <div class="tk-bar-btns">
+      <button class="pbtn" data-topik-exit="1">← Chọn đề khác</button>
       <button class="pbtn" data-topik-pause="1">${S.paused ? 'Tiếp tục' : 'Tạm dừng'}</button>
       <button class="pbtn" data-topik-reset="1">Làm lại</button>
       <button class="pbtn primary" data-topik-submit="1">Nộp bài</button>
@@ -2486,6 +2487,10 @@ document.addEventListener('click', e => {
   const tkretry = t.closest('[data-topik-retry]');
   if (tkretry){ topikStartTest(tkretry.dataset.topikRetry); return; }
   if (t.closest('[data-topik-home]')){ topikStopTimer(); state.topik = null; render(); return; }
+  if (t.closest('[data-topik-exit]')){
+    if (state.topik && confirm('Thoát và chọn đề khác? Bài đang làm sẽ không được lưu.')){ topikStopTimer(); state.topik = null; render(); }
+    return;
+  }
 
   const th = t.closest('#themeBtn');
   if (th){
