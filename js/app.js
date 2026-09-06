@@ -1242,7 +1242,7 @@ function aboutView(){
   return `
   <div class="about">
     <div class="about-hero">
-      <div class="about-logo"><img src="logo-full.png?v=260914" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
+      <div class="about-logo"><img src="logo-full.png?v=260915" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
       <h1 class="sr-only">LangLab</h1>
       <p class="about-tag">Phòng thí nghiệm ngôn ngữ — học ngoại ngữ theo bài, có tra từ điển, luyện nghe–nói và trợ lý AI.</p>
     </div>
@@ -1822,7 +1822,44 @@ function go(v, lessonNo){
   state.view = v;
   if (lessonNo){ state.lesson = lessonNo; state.tab = 'vocab'; }
   render();
+  syncHist();
 }
+
+/* ---------- lịch sử điều hướng: nút Back / vuốt cạnh trên điện thoại ----------
+   Router SPA ghi vào History API để nút back lùi trong app thay vì thoát app. */
+let _histReady = false, _applyingHist = false, _curDesc = null;
+function wordIsOpen(){ return document.body.classList.contains('wp-open'); }
+function histDesc(){
+  const tok = (typeof wordState !== 'undefined' && wordState && wordState.token) || null;
+  return { v: state.view, lesson: state.lesson || null, word: wordIsOpen() ? (tok || 1) : null };
+}
+function descEq(a, b){
+  return !!a && !!b && a.v === b.v && (a.lesson || null) === (b.lesson || null) && !!a.word === !!b.word;
+}
+function syncHist(){
+  if (!_histReady || _applyingHist) return;
+  const d = histDesc();
+  if (descEq(d, _curDesc)) return;
+  const leavingModal = _curDesc && _curDesc.word && !d.word;   // đóng bảng tra khi điều hướng → thay thế, không để sót trong stack
+  _curDesc = d;
+  try { leavingModal ? history.replaceState(d, '') : history.pushState(d, ''); } catch (e) {}
+}
+function seedHist(){ _histReady = true; _curDesc = histDesc(); try { history.replaceState(_curDesc, ''); } catch (e) {} }
+function applyHist(s){
+  s = s || { v: 'home', lesson: null, word: null };
+  _applyingHist = true;
+  if (!s.word && wordIsOpen()) closeWord();
+  else if (s.word && !wordIsOpen() && typeof s.word === 'string') openWord(s.word);
+  if (s.v !== state.view || (s.lesson || null) !== (state.lesson || null)){
+    if (s.v !== state.view) stopAudio();
+    state.view = s.v; state.lesson = s.lesson || null;
+    render();
+  }
+  _curDesc = histDesc();
+  _applyingHist = false;
+}
+function uiCloseWord(){ const hadEntry = !!(_curDesc && _curDesc.word); closeWord(); if (hadEntry) history.back(); else syncHist(); }
+if (typeof window !== 'undefined') window.addEventListener('popstate', function(e){ applyHist(e.state); });
 
 /* ---------- màn Tập viết ---------- */
 function mountWrite(){ drawStage(); }
@@ -2483,6 +2520,7 @@ ${WP_TOOLS}
     </div>`;
 
   showPanel(el);
+  syncHist();
 }
 
 function closeWord(){
@@ -2658,7 +2696,7 @@ document.addEventListener('click', e => {
     if (p){ const c = !p.classList.contains('collapsed'); p.classList.toggle('collapsed', c); store.set('wpanelCollapsed', c); }
     return;
   }
-  if (t.closest('#wpClose')){ closeWord(); return; }
+  if (t.closest('#wpClose')){ uiCloseWord(); return; }
 
   /* ----- dịch một câu ví dụ trong từ điển ----- */
   const tex = t.closest('[data-trans-ex]');
@@ -2935,7 +2973,7 @@ document.addEventListener('keydown', e => {
     const b = $('#flipBtn'); if (b) b.textContent = on ? 'Ẩn đáp án' : 'Lật thẻ';
   }
   if (e.key === 'Enter' && state.view === 'write'){ drawStage(); }
-  if (e.key === 'Escape'){ closeWord(); hideTip(); Speech.stop(); }
+  if (e.key === 'Escape'){ uiCloseWord(); hideTip(); Speech.stop(); }
   // Enter trên một từ = mở bảng tra (dùng bàn phím)
   if (e.key === 'Enter' && e.target.classList && e.target.classList.contains('kw')){
     e.preventDefault(); openWord(e.target.dataset.kw);
@@ -3007,6 +3045,7 @@ function loadDict(cb){
 }
 applyTheme();
 render();
+seedHist();
 
 // Tải từ điển KRDict ngầm ngay sau khi app đã hiện — không chặn khởi động.
 // Nếu người dùng đang ở màn Từ điển, vẽ lại khi có thêm từ.
