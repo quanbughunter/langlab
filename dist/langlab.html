@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
 <meta name="description" content="Ứng dụng học ngoại ngữ theo bài. Bắt đầu với tiếng Hàn: từ vựng, ngữ pháp, hội thoại, tra từ điển và hướng dẫn thứ tự nét viết chữ Hangul.">
-<link rel="icon" type="image/png" href="logo-icon.png?v=260912">
+<link rel="icon" type="image/png" href="logo-icon.png?v=260913">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Lexend:wght@300;400;500;600&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
@@ -421,6 +421,7 @@ a{color:var(--accent)}
 
 .trace-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:16px}
 .trace-cell{position:relative;border:1.5px solid var(--line-strong);border-radius:8px;background:var(--surface);aspect-ratio:1;overflow:hidden}
+.trace-cell .guide{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
 .trace-cell canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
 .trace-cell .model{position:absolute;inset:0;display:grid;place-items:center;font-family:"Noto Sans KR",sans-serif;font-size:110px;color:var(--line);pointer-events:none;user-select:none;line-height:1}
 .trace-cell .lbl{position:absolute;top:6px;left:8px;font-family:"JetBrains Mono",monospace;font-size:9.5px;color:var(--faint);letter-spacing:.1em}
@@ -1123,7 +1124,7 @@ body:has(.mplayer.open) .view{padding-bottom:110px}
   <header class="nav">
     <div class="nav-in">
       <div class="brand" data-go="home" role="link" tabindex="0" title="Về trang chủ LangLab">
-        <span class="brand-mark"><img src="logo-icon.png?v=260912" alt="LangLab" width="40" height="40"></span>
+        <span class="brand-mark"><img src="logo-icon.png?v=260913" alt="LangLab" width="40" height="40"></span>
         <span class="brand-name">LangLab</span>
       </div>
 
@@ -7754,6 +7755,7 @@ tab_write(l){
       const ch = w[0];
       return `<div class="trace-cell">
         <span class="lbl">${esc(w)}</span>
+        ${guideSvg()}
         <span class="model ko">${esc(ch)}</span>
         <canvas data-trace="${i}"></canvas>
       </div>`;
@@ -8164,7 +8166,7 @@ function aboutView(){
   return `
   <div class="about">
     <div class="about-hero">
-      <div class="about-logo"><img src="logo-full.png?v=260912" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
+      <div class="about-logo"><img src="logo-full.png?v=260913" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
       <h1 class="sr-only">LangLab</h1>
       <p class="about-tag">Phòng thí nghiệm ngôn ngữ — học ngoại ngữ theo bài, có tra từ điển, luyện nghe–nói và trợ lý AI.</p>
     </div>
@@ -8802,6 +8804,7 @@ function drawStage(){
     <div class="trace-wrap" style="grid-template-columns:1fr;margin-top:16px">
       <div class="trace-cell">
         <span class="lbl">VIẾT THỬ</span>
+        ${guideSvg()}
         <span class="model ko">${esc(title)}</span>
         <canvas data-trace="0"></canvas>
       </div>

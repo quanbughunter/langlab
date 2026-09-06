@@ -831,6 +831,7 @@ tab_write(l){
       const ch = w[0];
       return `<div class="trace-cell">
         <span class="lbl">${esc(w)}</span>
+        ${guideSvg()}
         <span class="model ko">${esc(ch)}</span>
         <canvas data-trace="${i}"></canvas>
       </div>`;
@@ -1241,7 +1242,7 @@ function aboutView(){
   return `
   <div class="about">
     <div class="about-hero">
-      <div class="about-logo"><img src="logo-full.png?v=260912" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
+      <div class="about-logo"><img src="logo-full.png?v=260913" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
       <h1 class="sr-only">LangLab</h1>
       <p class="about-tag">Phòng thí nghiệm ngôn ngữ — học ngoại ngữ theo bài, có tra từ điển, luyện nghe–nói và trợ lý AI.</p>
     </div>
@@ -1879,6 +1880,7 @@ function drawStage(){
     <div class="trace-wrap" style="grid-template-columns:1fr;margin-top:16px">
       <div class="trace-cell">
         <span class="lbl">VIẾT THỬ</span>
+        ${guideSvg()}
         <span class="model ko">${esc(title)}</span>
         <canvas data-trace="0"></canvas>
       </div>
