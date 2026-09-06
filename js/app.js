@@ -1243,7 +1243,7 @@ function aboutView(){
   return `
   <div class="about">
     <div class="about-hero">
-      <div class="about-logo"><img src="logo-full.png?v=260918" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
+      <div class="about-logo"><img src="logo-full.png?v=260919" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
       <h1 class="sr-only">LangLab</h1>
       <p class="about-tag">Phòng thí nghiệm ngôn ngữ — học ngoại ngữ theo bài, có tra từ điển, luyện nghe–nói và trợ lý AI.</p>
     </div>
@@ -1850,13 +1850,21 @@ function hasHanzi(ch){ return (window.HANZI_DATA || {})[ch] != null; }
 function zhSpeak(text){
   try {
     const synth = window.speechSynthesis; if (!synth){ toast('Trình duyệt chưa hỗ trợ phát âm'); return; }
-    synth.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = 'zh-CN'; u.rate = 0.85;
+    let done = false;
+    const speak = () => {
+      if (done) return; done = true;
+      synth.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'zh-CN'; u.rate = 0.8;
+      const vs = synth.getVoices() || [];
+      const zh = vs.find(v => /(^zh\b|zh[-_]|chinese|中文|普通话|mandarin)/i.test((v.lang || '') + ' ' + (v.name || '')));
+      if (zh) u.voice = zh;
+      else if (!zhSpeak._warned && !vs.some(v => /^zh/i.test(v.lang || ''))){ zhSpeak._warned = true; toast('Máy chưa có giọng đọc tiếng Trung — cài gói giọng zh-CN để nghe rõ thanh điệu.'); }
+      synth.speak(u);
+    };
     const vs = synth.getVoices() || [];
-    const zh = vs.find(v => /(^zh|zh[-_]|chinese|中文|普通话|mandarin)/i.test((v.lang || '') + ' ' + (v.name || '')));
-    if (zh) u.voice = zh;
-    synth.speak(u);
+    if (vs.length) speak();                                   // đã có danh sách giọng → đọc ngay
+    else { try { synth.addEventListener('voiceschanged', speak, { once:true }); } catch(e){} setTimeout(speak, 300); }
   } catch(e){}
 }
 function zhLevel(){ return _ZC.levels.find(x => x.id === state.zh.level) || _ZC.levels[0] || { vi:'HSK 1', zh:'HSK 1' }; }
@@ -1978,7 +1986,7 @@ VIEWS.zh_pinyin = function(){
         <div class="zh-tone-name">${esc(t.name)}</div>
         <div class="zh-tone-vi">${esc(t.vi)}</div>
         <p class="zh-tone-desc">${esc(t.desc)}</p>
-        <button class="pbtn mini" data-zh-speak="${esc(t.ex)}">🔊 Nghe</button>
+        <button class="pbtn mini" data-zh-speak="${esc(t.hz)}">🔊 Nghe</button>
       </div>`).join('')}
   </div>
   <div class="zh-py-cols">
