@@ -1236,13 +1236,12 @@ about(){
 }
 };
 
-const LOGO_SVG = `<svg viewBox="0 0 96 96" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M35.5 67 Q41 64 47 67 Q53 70 60.5 67 L60.5 75 Q60.5 80 55 80 L41 80 Q35.5 80 35.5 75 Z" fill="#DCE8F6"/><g fill="#FFFFFF" stroke="#93B8DE" stroke-width="0.9"><circle cx="41" cy="78" r="2"/><circle cx="51" cy="77" r="1.4"/><circle cx="45" cy="74" r="1.7"/></g><path d="M35 52 L35 75 Q35 81 41 81 L55 81 Q61 81 61 75 L61 52" stroke="#141B22" stroke-width="2.6" stroke-linejoin="round"/><path d="M31 50 Q34 52 36 52 L62 52" stroke="#141B22" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><g transform="rotate(-140 64 30)"><circle cx="64" cy="30" r="12" fill="#FFFFFF" stroke="#141B22" stroke-width="2.6"/><path d="M60.5 20 L60.5 8 M67.5 20 L67.5 8" stroke="#141B22" stroke-width="2.6" stroke-linecap="round"/><path d="M58.5 8 L69.5 8" stroke="#141B22" stroke-width="3.4" stroke-linecap="round"/></g><path d="M50 46 L48 54" stroke="#B9C4CF" stroke-width="2" stroke-linecap="round" stroke-dasharray="0 5.5"/><g font-family="'Noto Sans KR','Yu Gothic','Malgun Gothic','Segoe UI',system-ui,sans-serif" font-weight="700" text-anchor="middle"><text x="53" y="44" font-size="11" fill="#D8342A">阿</text><text x="45" y="53" font-size="11" fill="#2F6FBF">아</text><text x="54" y="61" font-size="11" fill="#C8143C">あ</text><text x="46" y="69" font-size="11" fill="#16305C">a</text></g></svg>`;
 
 function aboutView(){
   return `
   <div class="about">
     <div class="about-hero">
-      <div class="about-logo">${LOGO_SVG}</div>
+      <div class="about-logo"><img src="logo-icon.png?v=260908" alt="LangLab"></div>
       <div>
         <h1>LangLab</h1>
         <p class="about-tag">Phòng thí nghiệm ngôn ngữ — học ngoại ngữ theo bài, có tra từ điển, luyện nghe–nói và trợ lý AI.</p>
