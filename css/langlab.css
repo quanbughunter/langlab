@@ -84,14 +84,36 @@ a{color:var(--accent)}
   display:flex;flex-direction:column;gap:2px;padding:18px 12px;
   position:sticky;top:0;height:100vh;overflow-y:auto;
 }
-.brand{display:flex;align-items:center;gap:10px;padding:0 10px 16px}
-.brand-mark{
-  width:34px;height:34px;border-radius:9px;flex:none;display:grid;place-items:center;
-  background:var(--accent);color:var(--surface);
-  font-family:"Noto Sans KR",sans-serif;font-weight:700;font-size:16px;
-}
+.brand{display:flex;align-items:center;gap:10px;padding:0 10px 16px;cursor:pointer;border-radius:10px}
+.brand:hover .brand-name{color:var(--accent)}
+.brand:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.brand-mark{width:40px;height:40px;flex:none;display:grid;place-items:center}
+.brand-mark svg{width:40px;height:40px;display:block}
 .brand-name{font-family:"Fraunces","Lexend",serif;font-weight:600;font-size:18px;letter-spacing:-.01em}
 .brand-sub{font-size:10.5px;color:var(--faint);letter-spacing:.06em;margin-top:-2px}
+.foot-link{appearance:none;background:none;border:none;padding:6px 2px 0;font:inherit;font-size:12px;color:var(--faint);cursor:pointer;text-align:left}
+.foot-link:hover{color:var(--accent)}
+
+/* ============ Trang Giới thiệu ============ */
+.about{max-width:760px}
+.about-hero{display:flex;align-items:center;gap:22px;margin-bottom:10px;flex-wrap:wrap}
+.about-logo{width:104px;height:104px;flex:none;background:var(--surface);border:1px solid var(--line);border-radius:20px;display:grid;place-items:center}
+.about-logo svg{width:80px;height:80px}
+.about-hero h1{margin:0}
+.about-tag{color:var(--muted);font-size:15px;line-height:1.6;margin:6px 0 0;max-width:440px}
+.about-sec{margin-top:26px}
+.about-sec h2{font-family:"Fraunces","Lexend",serif;font-size:20px;font-weight:600;margin:0 0 10px}
+.about-sec p{color:var(--ink);font-size:15px;line-height:1.75;margin:0 0 8px}
+.about-sec p i{color:var(--muted);font-style:normal}
+.about-feats{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:9px}
+.about-feats li{position:relative;padding-left:26px;font-size:14.5px;line-height:1.6;color:var(--ink)}
+.about-feats li::before{content:"";position:absolute;left:6px;top:9px;width:7px;height:7px;border-radius:2px;background:var(--accent)}
+.about-dev{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:4px;max-width:420px}
+.about-dev-name{font-family:"Fraunces","Lexend",serif;font-size:18px;font-weight:600}
+.about-dev-mail{color:var(--accent);font-size:14.5px;text-decoration:none;font-family:"JetBrains Mono",monospace}
+.about-dev-mail:hover{text-decoration:underline}
+.about-note{color:var(--muted);font-size:13.5px;margin-top:10px}
+.about-foot{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);color:var(--faint);font-size:12.5px;line-height:1.6}
 
 .lang-switch{margin:0 4px 14px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface-2)}
 .lang-btn{

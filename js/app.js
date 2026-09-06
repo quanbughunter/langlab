@@ -1228,8 +1228,58 @@ numbers(){
 /* ---------------- Thi thử TOPIK ---------------- */
 topik(){
   return topikView();
+},
+
+/* ---------------- Giới thiệu ---------------- */
+about(){
+  return aboutView();
 }
 };
+
+const LOGO_SVG = `<svg viewBox="0 0 96 96" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M51 34 C49 41 48 47 48 51" stroke="#C2CBD4" stroke-width="2" stroke-linecap="round" stroke-dasharray="0 6"/><g transform="rotate(40 62 18)"><path d="M56 9 L56 30 q0 6 6 6 t6 -6 L68 9" stroke="#17222E" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M53.5 9 L70.5 9" stroke="#17222E" stroke-width="3.4" stroke-linecap="round"/></g><path d="M35.5 66 Q41 63 47 66 Q53 69 60.5 66 L60.5 75 Q60.5 80 55 80 L41 80 Q35.5 80 35.5 75 Z" fill="#DCE8F6"/><path d="M35 52 L35 75 Q35 81 41 81 L55 81 Q61 81 61 75 L61 52" stroke="#17222E" stroke-width="2.6" stroke-linejoin="round"/><path d="M31 50 Q34 52 36 52 L62 52" stroke="#17222E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M38 60 h5 M38 66 h4" stroke="#AEB9C4" stroke-width="1.6" stroke-linecap="round"/><g font-family="'Noto Sans KR','Yu Gothic','Malgun Gothic','Segoe UI',system-ui,sans-serif" font-weight="700" text-anchor="middle"><text x="55" y="30" font-size="13" fill="#1B4D8F">A</text><text x="51" y="40" font-size="13" fill="#C8402F">ㅏ</text><text x="48" y="50" font-size="12" fill="#A67C1E">あ</text><text x="47" y="60" font-size="12" fill="#2F6FBF">阿</text><text x="48" y="74" font-size="12" fill="#1F7A5A">а</text></g></svg>`;
+
+function aboutView(){
+  return `
+  <div class="about">
+    <div class="about-hero">
+      <div class="about-logo">${LOGO_SVG}</div>
+      <div>
+        <h1>LangLab</h1>
+        <p class="about-tag">Phòng thí nghiệm ngôn ngữ — học ngoại ngữ theo bài, có tra từ điển, luyện nghe–nói và trợ lý AI.</p>
+      </div>
+    </div>
+
+    <section class="about-sec">
+      <h2>LangLab là gì?</h2>
+      <p>LangLab là ứng dụng web giúp người Việt học ngoại ngữ một cách bài bản. Hiện tại bắt đầu với <b>tiếng Hàn</b> (6 cấp từ Sơ cấp đến Cao cấp), và đang mở rộng sang các ngôn ngữ khác. Mỗi bài giữ nguyên cấu trúc quen thuộc: từ vựng → ngữ pháp → hội thoại → phát âm → văn hoá.</p>
+      <ul class="about-feats">
+        <li>Khoá học chia cấp, bám khung giáo trình chuẩn.</li>
+        <li>Từ điển tra nhanh — bấm vào bất kỳ từ nào cũng tra được nghĩa, cách dùng.</li>
+        <li>Tập viết chữ theo đúng thứ tự nét (Hangul).</li>
+        <li>Luyện shadowing và phát âm bằng giọng đọc neural.</li>
+        <li>Thi thử TOPIK có bấm giờ, đáp án kèm giải thích.</li>
+        <li><b>Labi</b> — trợ lý AI: hỏi đáp về ngôn ngữ và phân tích tệp âm thanh (tách câu–từ, tra nghĩa, dịch).</li>
+      </ul>
+    </section>
+
+    <section class="about-sec">
+      <h2>Ý nghĩa tên &amp; logo</h2>
+      <p><b>LangLab</b> = <i>Language</i> (ngôn ngữ) + <i>Lab</i> (phòng thí nghiệm): học ngôn ngữ như làm thí nghiệm — thử, luyện, tinh chỉnh cho tới khi thành thạo.</p>
+      <p>Logo là một chiếc bình thí nghiệm đang được rót vào một thứ “dung dịch” đặc biệt: chữ <b>a</b> của nhiều thứ tiếng — <span style="color:#1B4D8F"><b>A</b></span> (Anh), <span style="color:#C8402F"><b>ㅏ</b></span> (Hàn), <span style="color:#A67C1E"><b>あ</b></span> (Nhật), <span style="color:#2F6FBF"><b>阿</b></span> (Trung), <span style="color:#1F7A5A"><b>а</b></span> (Nga) — hoà vào nhau trong chiếc bình bên dưới.</p>
+    </section>
+
+    <section class="about-sec">
+      <h2>Người phát triển</h2>
+      <div class="about-dev">
+        <span class="about-dev-name">Nguyễn Đình Quân</span>
+        <a class="about-dev-mail" href="mailto:nguyendinhquan7788266@gmail.com">nguyendinhquan7788266@gmail.com</a>
+      </div>
+      <p class="about-note">Góp ý, báo lỗi hay đề xuất thêm ngôn ngữ mới — cứ gửi email cho mình nhé.</p>
+    </section>
+
+    <p class="about-foot">Nội dung khoá học do LangLab tự biên soạn theo khung ngữ pháp và chủ đề chuẩn. Từ điển tham khảo dữ liệu mở của Viện Quốc ngữ Quốc gia Hàn Quốc (국립국어원, giấy phép CC BY-SA). Đề thi thử TOPIK là bản luyện tập tự soạn theo cấu trúc, không phải đề chính thức.</p>
+  </div>`;
+}
 
 /* ============================================================
    LABI — trợ lý ngôn ngữ (cửa sổ nổi): hỏi đáp + phân tích tệp âm thanh
@@ -1732,7 +1782,7 @@ function quizSummary(){
 const CRUMBS = {
   home:'Khoá học', lesson:'Bài học', write:'Tập viết',
   srs:'Ôn tập', dict:'Từ điển', quiz:'Bài tập', shadow:'Luyện shadowing',
-  numbers:'Số đếm', topik:'Thi thử TOPIK'
+  numbers:'Số đếm', topik:'Thi thử TOPIK', about:'Giới thiệu'
 };
 
 function render(){
