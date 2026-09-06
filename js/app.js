@@ -24,6 +24,7 @@ const state = {
   speed: 1,
   quiz: null,
   topik: null,
+  labiOpen: false,
   assistant: { tab:'chat', messages:[], busy:false,
                audio:{ busy:false, result:null, error:null, name:'', lang:'' } },
   deck: store.get('deck', []),
@@ -1227,16 +1228,11 @@ numbers(){
 /* ---------------- Thi thử TOPIK ---------------- */
 topik(){
   return topikView();
-},
-
-/* ---------------- Trợ lý AI ---------------- */
-assistant(){
-  return assistantView();
 }
 };
 
 /* ============================================================
-   TRỢ LÝ AI — hỏi đáp + phân tích tệp âm thanh (qua Worker/Gemini)
+   LABI — trợ lý ngôn ngữ (cửa sổ nổi): hỏi đáp + phân tích tệp âm thanh
    ============================================================ */
 function mdLite(s){
   let t = esc(String(s));
@@ -1255,20 +1251,6 @@ function asstErrMsg(e){
   return map[e] || ('Lỗi: ' + e);
 }
 
-function assistantView(){
-  const A = state.assistant;
-  return `
-  <div class="page-head">
-    <span class="eyebrow">Trợ lý AI · học tiếng Hàn</span>
-    <h1>Trợ lý AI</h1>
-    <p>Hỏi đáp nhanh về tiếng Hàn, hoặc tải lên một tệp âm thanh để AI nhận diện ngôn ngữ, tách câu–từ, tra nghĩa và dịch. Chạy qua máy chủ AI của bạn — khoá API nằm an toàn ở Worker.</p>
-  </div>
-  <div class="asst-tabs">
-    <button class="asst-tab${A.tab === 'chat' ? ' on' : ''}" data-asst-tab="chat">💬 Hỏi đáp</button>
-    <button class="asst-tab${A.tab === 'audio' ? ' on' : ''}" data-asst-tab="audio">🎧 Phân tích âm thanh</button>
-  </div>
-  ${A.tab === 'chat' ? asstChatTab() : asstAudioTab()}`;
-}
 
 function asstChatTab(){
   const A = state.assistant;
@@ -1409,6 +1391,67 @@ function mountAssistant(){
   }
 }
 
+/* ---------- Labi: cửa sổ nổi kéo-thả (dùng chung engine kéo với bảng tra) ---------- */
+function labiBody(){
+  const A = state.assistant;
+  return `
+  <p class="asst-intro">Hỏi đáp nhanh về ngôn ngữ, hoặc tải lên một tệp âm thanh để AI nhận diện ngôn ngữ, tách câu–từ, tra nghĩa và dịch.</p>
+  <div class="asst-tabs">
+    <button class="asst-tab${A.tab === 'chat' ? ' on' : ''}" data-asst-tab="chat">💬 Hỏi đáp</button>
+    <button class="asst-tab${A.tab === 'audio' ? ' on' : ''}" data-asst-tab="audio">🎧 Phân tích âm thanh</button>
+  </div>
+  ${A.tab === 'chat' ? asstChatTab() : asstAudioTab()}`;
+}
+function labiPanel(){
+  let el = $('#labiPanel');
+  if (!el){
+    el = document.createElement('aside');
+    el.id = 'labiPanel'; el.className = 'floatwin labi-win'; el.dataset.posKey = 'labiPos';
+    el.setAttribute('aria-live', 'polite');
+    document.body.appendChild(el);
+  }
+  return el;
+}
+function labiRender(){
+  const el = $('#labiPanel');
+  if (!el || !el.classList.contains('open')) return;
+  el.innerHTML = `
+    <div class="fw-head">
+      <div class="fw-title"><span class="fw-dot">✦</span> Labi <span class="fw-sub">trợ lý ngôn ngữ</span></div>
+      <div class="fw-tools">
+        <button class="icon-btn" id="labiMin" title="Thu gọn / mở rộng"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+        <button class="icon-btn" id="labiClose" title="Đóng"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+    </div>
+    <div class="fw-body" id="labiBody">${labiBody()}</div>`;
+  mountAssistant();
+}
+function showLabi(el){
+  el.classList.toggle('collapsed', !!store.get('labiCollapsed', false));
+  if (window.innerWidth >= WP_DESKTOP){
+    const saved = store.get('labiPos', null);
+    const pos = saved || { left: Math.max(8, window.innerWidth - 468), top: 72 };
+    const c = clampPanel(el, pos.left, pos.top);
+    el.style.left = c.left + 'px'; el.style.top = c.top + 'px';
+    el.style.right = 'auto'; el.style.bottom = 'auto';
+  } else {
+    el.style.left = el.style.top = el.style.right = el.style.bottom = '';
+  }
+}
+function openLabi(){
+  const el = labiPanel();
+  el.classList.add('open');
+  labiRender();
+  showLabi(el);
+  state.labiOpen = true; updateLabiNav();
+}
+function closeLabi(){
+  const el = $('#labiPanel'); if (el) el.classList.remove('open');
+  state.labiOpen = false; updateLabiNav();
+}
+function toggleLabi(){ state.labiOpen ? closeLabi() : openLabi(); }
+function updateLabiNav(){ const b = $('#labiNav'); if (b) b.setAttribute('aria-current', state.labiOpen ? 'true' : 'false'); }
+
 function asstSend(text){
   const A = state.assistant;
   const ta = $('#asstInput');
@@ -1416,11 +1459,11 @@ function asstSend(text){
   if (!msg || A.busy) return;
   A.messages.push({ role:'user', content: msg });
   A.busy = true;
-  render();
+  labiRender();
   Translate.chat(A.messages, (reply, err) => {
     A.busy = false;
     A.messages.push({ role:'assistant', content: err ? ('Xin lỗi, mình chưa trả lời được. ' + asstErrMsg(err)) : (reply || '(không có nội dung)') });
-    if (state.view === 'assistant') render();
+    if (state.labiOpen) labiRender();
   });
 }
 
@@ -1429,10 +1472,10 @@ function asstHandleFile(file){
   A.name = file.name;
   if (file.size > 15 * 1024 * 1024){
     A.error = 'Tệp quá lớn (' + Math.round(file.size / 1048576) + ' MB). Giới hạn khoảng 15 MB — hãy cắt ngắn đoạn âm thanh rồi thử lại.';
-    A.result = null; A.busy = false; render(); return;
+    A.result = null; A.busy = false; labiRender(); return;
   }
   A.error = null; A.result = null; A.busy = true;
-  render();
+  labiRender();
   const reader = new FileReader();
   reader.onload = () => {
     const dataUrl = String(reader.result || '');
@@ -1456,10 +1499,10 @@ function asstHandleFile(file){
           if (w.w && !A.glossMap[w.w]) A.glossMap[w.w] = { rom: w.rom || '', vi: w.vi || '' };
         }));
       }
-      if (state.view === 'assistant') render();
+      if (state.labiOpen) labiRender();
     });
   };
-  reader.onerror = () => { A.busy = false; A.error = 'Không đọc được tệp âm thanh.'; render(); };
+  reader.onerror = () => { A.busy = false; A.error = 'Không đọc được tệp âm thanh.'; labiRender(); };
   reader.readAsDataURL(file);
 }
 
@@ -1488,15 +1531,15 @@ function asstApplyEdit(){
   A.editing = false;
   const need = A.segments.filter(s => !s.vi).map(s => s.ko);
   if (need.length && window.Translate && Translate.run){
-    A.retranslating = true; render();
+    A.retranslating = true; labiRender();
     Translate.run(need, (map) => {
       A.retranslating = false;
       if (map) A.segments.forEach(s => { if (!s.vi) s.vi = map[Translate.hash(s.ko)] || s.vi; });
       A.showVi = true;
-      if (state.view === 'assistant') render();
+      if (state.labiOpen) labiRender();
     });
   } else {
-    render();
+    labiRender();
   }
 }
 
@@ -1689,7 +1732,7 @@ function quizSummary(){
 const CRUMBS = {
   home:'Khoá học', lesson:'Bài học', write:'Tập viết',
   srs:'Ôn tập', dict:'Từ điển', quiz:'Bài tập', shadow:'Luyện shadowing',
-  numbers:'Số đếm', topik:'Thi thử TOPIK', assistant:'Trợ lý AI'
+  numbers:'Số đếm', topik:'Thi thử TOPIK'
 };
 
 function render(){
@@ -1701,6 +1744,7 @@ function render(){
     const on = b.dataset.go === state.view || (state.view === 'lesson' && b.dataset.go === 'home');
     b.setAttribute('aria-current', on ? 'page' : 'false');
   });
+  updateLabiNav();
 
   const l = state.lesson && curLesson();
   $('#crumb').innerHTML = state.view === 'lesson' && l
@@ -1715,7 +1759,6 @@ function render(){
   }
   if (state.view === 'lesson' && state.tab === 'write') mountTrace();
   if (state.view === 'topik' && state.topik && state.topik.phase === 'doing') mountTopik(); else topikStopTimer();
-  if (state.view === 'assistant') mountAssistant();
   window.scrollTo({ top:0, behavior:'instant' in window ? 'instant' : 'auto' });
 }
 
@@ -2262,13 +2305,13 @@ function showPanel(el){
 let wpDrag = null;
 document.addEventListener('pointerdown', e => {
   if (window.innerWidth < WP_DESKTOP) return;
-  const head = e.target.closest && e.target.closest('.wp-head');
+  const head = e.target.closest && e.target.closest('.wp-head, .fw-head');
   if (!head) return;
   if (e.target.closest('button, a, input, textarea, select')) return;   // bấm nút thì không kéo
-  const el = head.closest('.wpanel');
+  const el = head.closest('.wpanel, .floatwin');
   if (!el) return;
   const r = el.getBoundingClientRect();
-  wpDrag = { el, dx: e.clientX - r.left, dy: e.clientY - r.top };
+  wpDrag = { el, dx: e.clientX - r.left, dy: e.clientY - r.top, key: el.dataset.posKey || 'wpanelPos' };
   el.classList.add('dragging');
 });
 document.addEventListener('pointermove', e => {
@@ -2280,7 +2323,7 @@ document.addEventListener('pointermove', e => {
 function wpDragEnd(){
   if (!wpDrag) return;
   const el = wpDrag.el; el.classList.remove('dragging');
-  store.set('wpanelPos', { left: parseInt(el.style.left, 10) || 0, top: parseInt(el.style.top, 10) || 0 });
+  store.set(wpDrag.key || 'wpanelPos', { left: parseInt(el.style.left, 10) || 0, top: parseInt(el.style.top, 10) || 0 });
   wpDrag = null;
 }
 document.addEventListener('pointerup', wpDragEnd);
@@ -2770,17 +2813,20 @@ document.addEventListener('click', e => {
     return;
   }
 
-  /* ---- Trợ lý AI ---- */
+  /* ---- Labi (cửa sổ nổi) ---- */
+  if (t.closest('[data-labi-toggle]')){ toggleLabi(); return; }
+  if (t.closest('#labiClose')){ closeLabi(); return; }
+  if (t.closest('#labiMin')){ const p = $('#labiPanel'); if (p){ const c = !p.classList.contains('collapsed'); p.classList.toggle('collapsed', c); store.set('labiCollapsed', c); } return; }
   const atab = t.closest('[data-asst-tab]');
-  if (atab){ state.assistant.tab = atab.dataset.asstTab; render(); return; }
+  if (atab){ state.assistant.tab = atab.dataset.asstTab; labiRender(); return; }
   const aask = t.closest('[data-asst-ask]');
   if (aask){ asstSend(aask.dataset.asstAsk); return; }
   if (t.closest('[data-asst-send]')){ asstSend(); return; }
-  if (t.closest('[data-asst-clear]')){ if (confirm('Xoá toàn bộ hội thoại?')){ state.assistant.messages = []; render(); } return; }
-  if (t.closest('[data-asst-audio-reset]')){ const A = state.assistant.audio; A.result = null; A.error = null; A.name = ''; render(); return; }
-  if (t.closest('[data-asst-trans]')){ state.assistant.audio.showVi = !state.assistant.audio.showVi; render(); return; }
-  if (t.closest('[data-asst-edit]')){ state.assistant.audio.editing = true; render(); return; }
-  if (t.closest('[data-asst-edit-cancel]')){ state.assistant.audio.editing = false; render(); return; }
+  if (t.closest('[data-asst-clear]')){ if (confirm('Xoá toàn bộ hội thoại?')){ state.assistant.messages = []; labiRender(); } return; }
+  if (t.closest('[data-asst-audio-reset]')){ const A = state.assistant.audio; A.result = null; A.error = null; A.name = ''; labiRender(); return; }
+  if (t.closest('[data-asst-trans]')){ state.assistant.audio.showVi = !state.assistant.audio.showVi; labiRender(); return; }
+  if (t.closest('[data-asst-edit]')){ state.assistant.audio.editing = true; labiRender(); return; }
+  if (t.closest('[data-asst-edit-cancel]')){ state.assistant.audio.editing = false; labiRender(); return; }
   if (t.closest('[data-asst-edit-apply]')){ asstApplyEdit(); return; }
   const aword = t.closest('[data-asst-word]');
   if (aword){
