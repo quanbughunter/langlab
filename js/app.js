@@ -15,7 +15,7 @@ const store = {
 };
 
 const state = {
-  view: 'home',
+  view: 'about',
   level: store.get('level', 'so-cap-1'),
   lesson: null,
   tab: 'vocab',
@@ -1243,7 +1243,7 @@ function aboutView(){
   return `
   <div class="about">
     <div class="about-hero">
-      <div class="about-logo"><img src="logo-full.png?v=260916" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
+      <div class="about-logo"><img src="logo-full.png?v=260917" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
       <h1 class="sr-only">LangLab</h1>
       <p class="about-tag">Phòng thí nghiệm ngôn ngữ — học ngoại ngữ theo bài, có tra từ điển, luyện nghe–nói và trợ lý AI.</p>
     </div>
@@ -1808,11 +1808,13 @@ function render(){
   const l = state.lesson && curLesson();
   $('#crumb').innerHTML = isZh
     ? zhCrumb()
+    : state.view === 'about'
+    ? `<b>Giới thiệu LangLab</b>`
     : state.view === 'lesson' && l
     ? `<button class="crumb-link" data-go="home">Tiếng Hàn</button> <span>›</span> <button class="crumb-link" data-go="home">Sơ cấp 1</button> <span>›</span> <b>Bài ${String(l.no).padStart(2,'0')} · ${esc(l.vi)}</b>`
     : `<button class="crumb-link" data-go="home">Tiếng Hàn</button> <span>›</span> <b>${CRUMBS[state.view]}</b>`;
 
-  if (isZh) zhMount();
+  if (isZh) (window.requestAnimationFrame ? requestAnimationFrame : (f => setTimeout(f, 16)))(zhMount);
   if (state.view === 'write') mountWrite();
   if (state.view === 'dict'){ mountDict(); loadDict(added => { if (added && state.view === 'dict') render(); }); }
   if (state.view === 'shadow'){
@@ -2149,27 +2151,30 @@ function zhMount(){
   if (typeof HanziWriter === 'undefined') return;
   $$('.hz[data-hz]').forEach(el => {
     const ch = el.dataset.hz;
-    if (!hasHanzi(ch)){ el.classList.add('hz-miss'); el.textContent = ch; return; }
-    const size = +el.dataset.size || 72;
-    let w;
-    try {
-      w = HanziWriter.create(el, ch, {
-        width: size, height: size, padding: Math.max(2, Math.round(size * 0.05)),
-        showOutline: true, showCharacter: el.dataset.mode !== 'write',
-        strokeAnimationSpeed: 1.2, delayBetweenStrokes: 150,
-        strokeColor: getCssVar('--accent') || '#1B4D8F',
-        radicalColor: getCssVar('--seal') || '#C8402F',
-        outlineColor: getCssVar('--line-strong') || '#B4C6DE',
-        drawingColor: getCssVar('--accent-2') || '#2F6FBF',
-        charDataLoader: (c, onComplete) => onComplete((window.HANZI_DATA || {})[c])
-      });
-    } catch(e){ el.classList.add('hz-miss'); el.textContent = ch; return; }
-    if (el.dataset.mode === 'write'){ zhWriter = w; }
-    else {
-      try { w.animateCharacter(); } catch(e){}
-      el.style.cursor = 'pointer';
-      el.addEventListener('click', () => { try { w.animateCharacter(); } catch(e){} });
+    if (!hasHanzi(ch)){ if (!el.querySelector('svg')){ el.classList.add('hz-miss'); el.textContent = ch; } return; }
+    let w = el._hzw;                     // đã dựng rồi thì dùng lại (tránh dựng trùng khi render lại)
+    if (!w){
+      const size = +el.dataset.size || 72;
+      try {
+        w = HanziWriter.create(el, ch, {
+          width: size, height: size, padding: Math.max(2, Math.round(size * 0.05)),
+          showOutline: true, showCharacter: el.dataset.mode !== 'write',
+          strokeAnimationSpeed: 1.2, delayBetweenStrokes: 150,
+          strokeColor: getCssVar('--accent') || '#1B4D8F',
+          radicalColor: getCssVar('--seal') || '#C8402F',
+          outlineColor: getCssVar('--line-strong') || '#B4C6DE',
+          drawingColor: getCssVar('--accent-2') || '#2F6FBF',
+          charDataLoader: (c, onComplete) => onComplete((window.HANZI_DATA || {})[c])
+        });
+      } catch(e){ el.classList.add('hz-miss'); el.textContent = ch; return; }
+      el._hzw = w;
+      if (el.dataset.mode !== 'write'){
+        try { w.animateCharacter(); } catch(e){}
+        el.style.cursor = 'pointer';
+        el.addEventListener('click', () => { try { w.animateCharacter(); } catch(e){} });
+      }
     }
+    if (el.dataset.mode === 'write') zhWriter = w;
   });
 }
 

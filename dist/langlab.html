@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
 <meta name="description" content="Ứng dụng học ngoại ngữ theo bài. Bắt đầu với tiếng Hàn: từ vựng, ngữ pháp, hội thoại, tra từ điển và hướng dẫn thứ tự nét viết chữ Hangul.">
-<link rel="icon" type="image/png" href="logo-icon.png?v=260916">
-<link rel="manifest" href="manifest.webmanifest?v=260916">
+<link rel="icon" type="image/png" href="logo-icon.png?v=260917">
+<link rel="manifest" href="manifest.webmanifest?v=260917">
 <meta name="theme-color" content="#EAF1FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260916">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260917">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="LangLab">
@@ -1268,8 +1268,8 @@ body:has(.mplayer.open) .view{padding-bottom:110px}
 <div class="app">
   <header class="nav">
     <div class="nav-in">
-      <div class="brand" data-go="home" role="link" tabindex="0" title="Về trang chủ LangLab">
-        <span class="brand-mark"><img src="logo-icon.png?v=260916" alt="LangLab" width="40" height="40"></span>
+      <div class="brand" data-go="about" role="link" tabindex="0" title="Giới thiệu LangLab">
+        <span class="brand-mark"><img src="logo-icon.png?v=260917" alt="LangLab" width="40" height="40"></span>
         <span class="brand-name">LangLab</span>
       </div>
 
@@ -7377,7 +7377,7 @@ const store = {
 };
 
 const state = {
-  view: 'home',
+  view: 'about',
   level: store.get('level', 'so-cap-1'),
   lesson: null,
   tab: 'vocab',
@@ -8605,7 +8605,7 @@ function aboutView(){
   return `
   <div class="about">
     <div class="about-hero">
-      <div class="about-logo"><img src="logo-full.png?v=260916" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
+      <div class="about-logo"><img src="logo-full.png?v=260917" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
       <h1 class="sr-only">LangLab</h1>
       <p class="about-tag">Phòng thí nghiệm ngôn ngữ — học ngoại ngữ theo bài, có tra từ điển, luyện nghe–nói và trợ lý AI.</p>
     </div>
@@ -9170,11 +9170,13 @@ function render(){
   const l = state.lesson && curLesson();
   $('#crumb').innerHTML = isZh
     ? zhCrumb()
+    : state.view === 'about'
+    ? `<b>Giới thiệu LangLab</b>`
     : state.view === 'lesson' && l
     ? `<button class="crumb-link" data-go="home">Tiếng Hàn</button> <span>›</span> <button class="crumb-link" data-go="home">Sơ cấp 1</button> <span>›</span> <b>Bài ${String(l.no).padStart(2,'0')} · ${esc(l.vi)}</b>`
     : `<button class="crumb-link" data-go="home">Tiếng Hàn</button> <span>›</span> <b>${CRUMBS[state.view]}</b>`;
 
-  if (isZh) zhMount();
+  if (isZh) (window.requestAnimationFrame ? requestAnimationFrame : (f => setTimeout(f, 16)))(zhMount);
   if (state.view === 'write') mountWrite();
   if (state.view === 'dict'){ mountDict(); loadDict(added => { if (added && state.view === 'dict') render(); }); }
   if (state.view === 'shadow'){
@@ -9511,27 +9513,30 @@ function zhMount(){
   if (typeof HanziWriter === 'undefined') return;
   $$('.hz[data-hz]').forEach(el => {
     const ch = el.dataset.hz;
-    if (!hasHanzi(ch)){ el.classList.add('hz-miss'); el.textContent = ch; return; }
-    const size = +el.dataset.size || 72;
-    let w;
-    try {
-      w = HanziWriter.create(el, ch, {
-        width: size, height: size, padding: Math.max(2, Math.round(size * 0.05)),
-        showOutline: true, showCharacter: el.dataset.mode !== 'write',
-        strokeAnimationSpeed: 1.2, delayBetweenStrokes: 150,
-        strokeColor: getCssVar('--accent') || '#1B4D8F',
-        radicalColor: getCssVar('--seal') || '#C8402F',
-        outlineColor: getCssVar('--line-strong') || '#B4C6DE',
-        drawingColor: getCssVar('--accent-2') || '#2F6FBF',
-        charDataLoader: (c, onComplete) => onComplete((window.HANZI_DATA || {})[c])
-      });
-    } catch(e){ el.classList.add('hz-miss'); el.textContent = ch; return; }
-    if (el.dataset.mode === 'write'){ zhWriter = w; }
-    else {
-      try { w.animateCharacter(); } catch(e){}
-      el.style.cursor = 'pointer';
-      el.addEventListener('click', () => { try { w.animateCharacter(); } catch(e){} });
+    if (!hasHanzi(ch)){ if (!el.querySelector('svg')){ el.classList.add('hz-miss'); el.textContent = ch; } return; }
+    let w = el._hzw;                     // đã dựng rồi thì dùng lại (tránh dựng trùng khi render lại)
+    if (!w){
+      const size = +el.dataset.size || 72;
+      try {
+        w = HanziWriter.create(el, ch, {
+          width: size, height: size, padding: Math.max(2, Math.round(size * 0.05)),
+          showOutline: true, showCharacter: el.dataset.mode !== 'write',
+          strokeAnimationSpeed: 1.2, delayBetweenStrokes: 150,
+          strokeColor: getCssVar('--accent') || '#1B4D8F',
+          radicalColor: getCssVar('--seal') || '#C8402F',
+          outlineColor: getCssVar('--line-strong') || '#B4C6DE',
+          drawingColor: getCssVar('--accent-2') || '#2F6FBF',
+          charDataLoader: (c, onComplete) => onComplete((window.HANZI_DATA || {})[c])
+        });
+      } catch(e){ el.classList.add('hz-miss'); el.textContent = ch; return; }
+      el._hzw = w;
+      if (el.dataset.mode !== 'write'){
+        try { w.animateCharacter(); } catch(e){}
+        el.style.cursor = 'pointer';
+        el.addEventListener('click', () => { try { w.animateCharacter(); } catch(e){} });
+      }
     }
+    if (el.dataset.mode === 'write') zhWriter = w;
   });
 }
 
