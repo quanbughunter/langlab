@@ -1831,7 +1831,7 @@ function render(){
 }
 
 /* ============================================================
-   TIẾNG TRUNG (中文) — nền tảng + HSK1 bài 1–5
+   TIẾNG TRUNG (中文) — nền tảng (nét · bộ thủ · pinyin) + khoá HSK 1–5 (106 bài)
    Dữ liệu: course-zh.js · thứ tự nét: Hanzi Writer + HANZI_DATA
    (Make Me a Hanzi, giấy phép Arphic Public License).
    ============================================================ */
@@ -1843,11 +1843,33 @@ const _ZP = (typeof PINYIN_ZH   !== 'undefined') ? PINYIN_ZH   : { tones:[], ini
 const ZH_LOOKUP = (function(){
   const m = {};
   _ZC.lessons.forEach(l => l.vocab.forEach(w => {
-    if (!m[w.zh]) m[w.zh] = Object.assign({ lessons:[] }, w);
-    if (m[w.zh].lessons.indexOf(l.no) < 0) m[w.zh].lessons.push(l.no);
+    const lv = l.level || 'hsk1';
+    if (!m[w.zh]) m[w.zh] = Object.assign({ lessons:[], refs:[], levels:[] }, w);
+    const e = m[w.zh];
+    if (e.lessons.indexOf(l.no) < 0) e.lessons.push(l.no);
+    if (!e.refs.some(r => r.lv === lv && r.no === l.no)) e.refs.push({ lv, no:l.no });
+    if (e.levels.indexOf(lv) < 0) e.levels.push(lv);
   }));
   return m;
 })();
+/* Tên ngắn của cấp: hsk3 → "HSK 3" */
+function zhLevelName(id){ const v = _ZC.levels.find(x => x.id === id); return v ? v.zh : (id || '').toUpperCase(); }
+/* Cấp dùng cho Ôn tập / Bài tập / Thi thử (mặc định theo cấp khoá học); 'all' = mọi cấp */
+function zhPracLevel(){
+  const ids = _ZC.levels.filter(v => v.status === 'active').map(v => v.id);
+  const cur = state.zh.pracLevel || state.zh.level;
+  return cur === 'all' ? 'all' : (ids.indexOf(cur) >= 0 ? cur : (ids[0] || 'hsk1'));
+}
+function zhPool(level){
+  const all = Object.values(ZH_LOOKUP);
+  if (!level || level === 'all') return all;
+  const p = all.filter(w => w.levels.indexOf(level) >= 0);
+  return p.length >= 12 ? p : all;
+}
+function zhLevelChips(attr, cur, withAll){
+  const act = _ZC.levels.filter(v => v.status === 'active');
+  return `<div class="level-strip compact">${act.map(v => `<button class="level-chip" ${attr}="${v.id}"${cur === v.id ? ' aria-pressed="true"' : ''}>${esc(v.zh)}</button>`).join('')}${withAll ? `<button class="level-chip" ${attr}="all"${cur === 'all' ? ' aria-pressed="true"' : ''}>Tất cả</button>` : ''}</div>`;
+}
 
 function getCssVar(v){ try { return getComputedStyle(document.body).getPropertyValue(v).trim(); } catch(e){ return ''; } }
 function hasHanzi(ch){ return /[一-鿿]/.test(ch || ''); }
@@ -2127,15 +2149,17 @@ function zhDictResults(q){
     const ql = norm(q), qs = strip(q);
     items = items.filter(w => w.zh.indexOf(q) >= 0 || strip(w.pinyin).indexOf(qs) >= 0 || norm(w.vi).indexOf(ql) >= 0 || norm(w.hv).indexOf(ql) >= 0);
   }
+  const total = items.length;
   items = items.slice(0, 80);
   if (!items.length) return `<p class="zh-empty">Không thấy từ nào khớp. Thử gõ chữ Hán hoặc pinyin không dấu.</p>`;
-  return items.map(w => `
+  const head = `<div class="zh-res-count">${total} từ${total > 80 ? ' · hiện 80 đầu, gõ thêm để thu hẹp' : ''}</div>`;
+  return head + items.map(w => `
     <div class="zh-res">
       <div class="zh-res-hz ko" data-zh-write="${esc(w.zh[0])}">${esc(w.zh)}</div>
       <div class="zh-res-mid">
         <div><span class="py">${esc(w.pinyin)}</span> · <b>${esc(w.hv)}</b></div>
         <div class="zh-res-vi">${esc(w.vi)}</div>
-        <div class="zh-res-meta">${esc(w.pos)} · bài ${w.lessons.join(', ')}</div>
+        <div class="zh-res-meta">${esc(w.pos)} · ${w.refs.map(r => `<button class="zh-ref" data-zh-open="${r.lv}:${r.no}" title="Mở bài học">${esc(zhLevelName(r.lv))} bài ${r.no}</button>`).join(' ')}</div>
       </div>
       <div class="zh-res-act">
         <button class="icon-btn" data-zh-speak="${esc(w.zh)}" title="Nghe">🔊</button>
@@ -2149,7 +2173,7 @@ VIEWS.zh_dict = function(){
   <div class="page-head">
     <span class="eyebrow">Tiếng Trung</span>
     <h1>Từ điển</h1>
-    <p>Gõ chữ Hán, pinyin hoặc nghĩa tiếng Việt để tra trong bộ từ HSK1. Bấm chữ trong bài học cũng mở tra ở đây.</p>
+    <p>Gõ chữ Hán, pinyin hoặc nghĩa tiếng Việt để tra trong ${Object.keys(ZH_LOOKUP).length} từ của khoá HSK 1–${_ZC.levels.filter(v => v.status === 'active').length}. Bấm chữ trong bài học cũng mở tra ở đây; bấm nhãn bài để nhảy tới bài học.</p>
   </div>
   <div class="zh-dict-search">
     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
@@ -2159,16 +2183,17 @@ VIEWS.zh_dict = function(){
 };
 
 VIEWS.zh_srs = function(){
-  const deck = Object.values(ZH_LOOKUP);
-  if (!state.zh.srs || state.zh.srs.n !== deck.length) state.zh.srs = { i:0, show:false, n:deck.length };
+  const lv = zhPracLevel(), deck = zhPool(lv);
+  if (!state.zh.srs || state.zh.srs.n !== deck.length || state.zh.srs.lv !== lv) state.zh.srs = { i:0, show:false, n:deck.length, lv };
   const s = state.zh.srs;
   const w = deck[s.i % deck.length] || deck[0] || { zh:'你', pinyin:'nǐ', vi:'bạn', hv:'nễ', pos:'' };
   return `
   <div class="page-head">
     <span class="eyebrow">Tiếng Trung</span>
     <h1>Ôn tập từ vựng</h1>
-    <p>Thẻ ghi nhớ ${deck.length} từ HSK1. Nhìn chữ, đoán nghĩa rồi lật thẻ.</p>
+    <p>Thẻ ghi nhớ ${deck.length} từ ${lv === 'all' ? 'mọi cấp' : esc(zhLevelName(lv))}. Nhìn chữ, đoán nghĩa rồi lật thẻ.</p>
   </div>
+  ${zhLevelChips('data-zh-prac', lv, true)}
   <div class="zh-srs">
     <div class="zh-card ${s.show ? 'open' : ''}" id="zhCard">
       <div class="zh-card-front ko">${esc(w.zh)}</div>
@@ -2192,7 +2217,7 @@ function zhDistract(pool, key, val, n){
   return out;
 }
 function zhMakeQuestions(n){
-  const pool = Object.values(ZH_LOOKUP);
+  const pool = zhPool(zhPracLevel());
   const qs = [], used = {}; let guard = 0;
   while (qs.length < n && guard++ < n * 40){
     const w = zhPick(pool), type = zhPick(['mean','char','pinyin']);
@@ -2219,7 +2244,8 @@ VIEWS.zh_quiz = function(){
   if (!Q || !Q.qs){
     return `
     <div class="page-head"><span class="eyebrow">Tiếng Trung · Bài tập</span><h1>Bài tập trắc nghiệm</h1>
-      <p>10 câu ngẫu nhiên từ vốn từ đã học: đoán nghĩa, chọn chữ, chọn pinyin — có chấm điểm và giải thích.</p></div>
+      <p>10 câu ngẫu nhiên từ vốn từ ${zhPracLevel() === 'all' ? 'mọi cấp' : esc(zhLevelName(zhPracLevel()))} (${zhPool(zhPracLevel()).length} từ): đoán nghĩa, chọn chữ, chọn pinyin — có chấm điểm và giải thích.</p></div>
+    ${zhLevelChips('data-zh-prac', zhPracLevel(), true)}
     <div class="stage-ctrl"><button class="pbtn primary" data-zh-qz-start="1">▶ Bắt đầu 10 câu</button></div>`;
   }
   if (Q.i >= Q.qs.length){
@@ -2247,8 +2273,9 @@ VIEWS.zh_exam = function(){
   const E = state.zh.exam;
   if (!E || E.phase === 'intro' || !E.qs){
     return `
-    <div class="page-head"><span class="eyebrow">Tiếng Trung · Thi thử HSK</span><h1>Thi thử HSK (luyện tập)</h1>
-      <p>20 câu trắc nghiệm từ vốn từ đã học, có <b>đồng hồ đếm ngược 8 phút</b>. Làm hết rồi bấm Nộp bài để chấm — hoặc hết giờ tự nộp. Đây là đề luyện tự soạn, không phải đề chính thức.</p></div>
+    <div class="page-head"><span class="eyebrow">Tiếng Trung · Thi thử HSK</span><h1>Thi thử ${zhPracLevel() === 'all' ? 'HSK' : esc(zhLevelName(zhPracLevel()))} (luyện tập)</h1>
+      <p>20 câu trắc nghiệm từ vốn từ ${zhPracLevel() === 'all' ? 'mọi cấp' : esc(zhLevelName(zhPracLevel()))}, có <b>đồng hồ đếm ngược 8 phút</b>. Làm hết rồi bấm Nộp bài để chấm — hoặc hết giờ tự nộp. Đây là đề luyện tự soạn, không phải đề chính thức.</p></div>
+    ${zhLevelChips('data-zh-prac', zhPracLevel(), true)}
     <div class="stage-ctrl"><button class="pbtn primary" data-zh-ex-start="1">▶ Bắt đầu thi</button></div>`;
   }
   if (E.phase === 'done'){
@@ -3262,6 +3289,11 @@ document.addEventListener('click', e => {
   if (zWr){ state.zh.writeChar = zWr.dataset.zhWrite; go('zh_write'); return; }
   const zWl = t.closest('[data-zh-wlevel]');
   if (zWl){ state.zh.writeLevel = zWl.dataset.zhWlevel; state.zh.writeChar = ''; render(); return; }
+  const zPr = t.closest('[data-zh-prac]');          // đổi cấp cho Ôn tập / Bài tập / Thi thử
+  if (zPr){ state.zh.pracLevel = zPr.dataset.zhPrac; state.zh.srs = null; state.zh.quiz = null; state.zh.exam = null; render(); return; }
+  const zOp = t.closest('[data-zh-open]');          // nhãn "HSK 3 bài 5" trong từ điển → mở bài
+  if (zOp){ const p = zOp.dataset.zhOpen.split(':'); const lv = _ZC.levels.find(x => x.id === p[0]);
+    if (lv && lv.status === 'active'){ state.zh.level = p[0]; state.zh.lesson = +p[1]; go('zh_lesson'); } return; }
   const zC = t.closest('[data-zc]');
   if (zC){ state.zh.dictQ = zC.dataset.zc; go('zh_dict'); return; }
   const hzw = t.closest('[data-hzw]');

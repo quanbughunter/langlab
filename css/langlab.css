@@ -1218,6 +1218,9 @@ body:has(.mplayer.open) .view{padding-bottom:110px}
 .zh-dict-search svg{position:absolute;left:12px;width:16px;height:16px;stroke:var(--faint);fill:none;stroke-width:1.8}
 .zh-dict-search input{width:100%;padding:10px 14px 10px 36px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:inherit;font-size:15px}
 .zh-results{display:grid;gap:8px;max-width:640px}
+.zh-res-count{font-size:12.5px;color:var(--faint);margin:-2px 0 2px}
+.zh-ref{font:inherit;font-size:12px;padding:1px 7px;border:1px solid var(--line);border-radius:999px;background:var(--surface-2);color:var(--muted);cursor:pointer}
+.zh-ref:hover{border-color:var(--accent);color:var(--accent)}
 .zh-res{display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:11px;background:var(--surface);padding:9px 13px}
 .zh-res-hz{font-family:"Noto Sans KR",serif;font-size:26px;min-width:60px;cursor:pointer}
 .zh-res-hz:hover{color:var(--accent)}
