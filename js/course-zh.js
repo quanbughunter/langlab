@@ -753,6 +753,285 @@ const COURSE_ZH = {
         { sp:'A', zh:'你不舒服吗？', pinyin:'Nǐ bù shūfu ma?', vi:'Bạn không khoẻ à?' },
         { sp:'B', zh:'有点儿累，想休息一下。', pinyin:'Yǒudiǎnr lèi, xiǎng xiūxi yíxià.', vi:'Hơi mệt, muốn nghỉ một chút.' }
       ]
+    },
+
+    {
+      level:'hsk2', no:7, zh:'就买这件吧', pinyin:'Jiù mǎi zhè jiàn ba', vi:'Mua chiếc này đi',
+      skill:'So sánh với 比; nhấn mạnh quyết định với 就',
+      grammar:[
+        { form:'A 比 B + tính từ', vi:'“A … hơn B”',
+          note:'比 bǐ dùng để so sánh. Vd 这件比那件贵 / 我比你高. Thêm mức độ: 大一点儿, 高很多.',
+          ex:{ zh:'这件衣服比那件长。', pinyin:'Zhè jiàn yīfu bǐ nà jiàn cháng.', vi:'Chiếc áo này dài hơn chiếc kia.' } },
+        { form:'就 + V', vi:'“(vậy) thì… (quyết định)”',
+          note:'就 jiù nhấn mạnh sự lựa chọn/kết luận. Vd 就买这件吧 / 那就这样.',
+          ex:{ zh:'我们就坐这儿吧。', pinyin:'Wǒmen jiù zuò zhèr ba.', vi:'Vậy mình ngồi đây nhé.' } }
+      ],
+      vocab:[
+        { zh:'比', pinyin:'bǐ', hv:'bỉ', vi:'so với; hơn', pos:'giới từ' },
+        { zh:'一样', pinyin:'yíyàng', hv:'nhất dạng', vi:'giống nhau, như nhau', pos:'tính từ' },
+        { zh:'就', pinyin:'jiù', hv:'tựu', vi:'thì, liền, ngay', pos:'phó từ' },
+        { zh:'或者', pinyin:'huòzhě', hv:'hoặc giả', vi:'hoặc', pos:'liên từ' },
+        { zh:'种', pinyin:'zhǒng', hv:'chủng', vi:'loại (lượng từ)', pos:'lượng từ' },
+        { zh:'真', pinyin:'zhēn', hv:'chân', vi:'thật, thật là', pos:'phó từ' },
+        { zh:'长', pinyin:'cháng', hv:'trường', vi:'dài', pos:'tính từ' },
+        { zh:'短', pinyin:'duǎn', hv:'đoản', vi:'ngắn', pos:'tính từ' },
+        { zh:'黑', pinyin:'hēi', hv:'hắc', vi:'đen', pos:'tính từ' },
+        { zh:'白', pinyin:'bái', hv:'bạch', vi:'trắng', pos:'tính từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'这件和那件，哪件好？', pinyin:'Zhè jiàn hé nà jiàn, nǎ jiàn hǎo?', vi:'Chiếc này với chiếc kia, chiếc nào đẹp?' },
+        { sp:'B', zh:'这件比那件长一点儿。', pinyin:'Zhè jiàn bǐ nà jiàn cháng yìdiǎnr.', vi:'Chiếc này dài hơn chiếc kia một chút.' },
+        { sp:'A', zh:'颜色都是黑的，真好看。', pinyin:'Yánsè dōu shì hēi de, zhēn hǎokàn.', vi:'Màu đều đen, thật đẹp.' },
+        { sp:'B', zh:'那就买这件吧。', pinyin:'Nà jiù mǎi zhè jiàn ba.', vi:'Vậy mua chiếc này đi.' }
+      ]
+    },
+
+    {
+      level:'hsk2', no:8, zh:'左边红色的是我的', pinyin:'Zuǒbian hóngsè de shì wǒ de', vi:'Cái màu đỏ bên trái là của tôi',
+      skill:'Màu sắc; “cái…” lược danh từ với 的; vị trí trái/phải',
+      grammar:[
+        { form:'tính từ / N + 的', vi:'“cái (…)” — lược danh từ',
+          note:'的 đứng sau tính từ/danh từ, thay cho danh từ đã hiểu. Vd 红色的 (cái màu đỏ), 大的, 我的.',
+          ex:{ zh:'红色的是我的，蓝色的是他的。', pinyin:'Hóngsè de shì wǒ de, lánsè de shì tā de.', vi:'Cái đỏ là của tôi, cái xanh là của cậu ấy.' } },
+        { form:'左边 / 右边 / 中间', vi:'trái / phải / giữa',
+          note:'Từ chỉ vị trí, thường + 的: 左边的书, 中间那个.',
+          ex:{ zh:'右边的是新的。', pinyin:'Yòubian de shì xīn de.', vi:'Cái bên phải là cái mới.' } }
+      ],
+      vocab:[
+        { zh:'颜色', pinyin:'yánsè', hv:'nhan sắc', vi:'màu sắc', pos:'danh từ' },
+        { zh:'红', pinyin:'hóng', hv:'hồng', vi:'đỏ', pos:'tính từ' },
+        { zh:'蓝', pinyin:'lán', hv:'lam', vi:'xanh dương', pos:'tính từ' },
+        { zh:'绿', pinyin:'lǜ', hv:'lục', vi:'xanh lá', pos:'tính từ' },
+        { zh:'黄', pinyin:'huáng', hv:'hoàng', vi:'vàng', pos:'tính từ' },
+        { zh:'左边', pinyin:'zuǒbian', hv:'tả biên', vi:'bên trái', pos:'danh từ' },
+        { zh:'右边', pinyin:'yòubian', hv:'hữu biên', vi:'bên phải', pos:'danh từ' },
+        { zh:'中间', pinyin:'zhōngjiān', hv:'trung gian', vi:'ở giữa', pos:'danh từ' },
+        { zh:'好看', pinyin:'hǎokàn', hv:'hảo khán', vi:'đẹp, đẹp mắt', pos:'tính từ' },
+        { zh:'双', pinyin:'shuāng', hv:'song', vi:'đôi (lượng từ)', pos:'lượng từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'哪个是你的？', pinyin:'Nǎge shì nǐ de?', vi:'Cái nào là của bạn?' },
+        { sp:'B', zh:'左边红色的是我的。', pinyin:'Zuǒbian hóngsè de shì wǒ de.', vi:'Cái màu đỏ bên trái là của mình.' },
+        { sp:'A', zh:'右边蓝色的呢？', pinyin:'Yòubian lánsè de ne?', vi:'Còn cái màu xanh bên phải?' },
+        { sp:'B', zh:'那个是我朋友的。', pinyin:'Nàge shì wǒ péngyou de.', vi:'Cái đó là của bạn mình.' }
+      ]
+    },
+
+    {
+      level:'hsk2', no:9, zh:'用了三个小时才做完', pinyin:'Yòng le sān ge xiǎoshí cái zuò wán', vi:'Mất ba tiếng mới làm xong',
+      skill:'Bổ ngữ kết quả 完; 才 (muộn/ít) so với 就 (sớm); thời lượng',
+      grammar:[
+        { form:'V + 完 / 好', vi:'bổ ngữ kết quả “xong”',
+          note:'Chỉ hành động hoàn tất. Vd 做完 (làm xong), 吃完, 写好. Phủ định: 没做完.',
+          ex:{ zh:'我做完作业了。', pinyin:'Wǒ zuò wán zuòyè le.', vi:'Tôi làm xong bài tập rồi.' } },
+        { form:'才 (muộn/ít) ↔ 就 (sớm)', vi:'“mãi mới” ↔ “đã… (sớm)”',
+          note:'才 hàm ý muộn/ít hơn mong đợi; 就 hàm ý sớm/nhanh. Vd 八点才起床 / 六点就起床.',
+          ex:{ zh:'他用了三个小时才做完。', pinyin:'Tā yòng le sān ge xiǎoshí cái zuò wán.', vi:'Anh ấy mất ba tiếng mới làm xong.' } }
+      ],
+      vocab:[
+        { zh:'小时', pinyin:'xiǎoshí', hv:'tiểu thời', vi:'giờ (đồng hồ)', pos:'danh từ' },
+        { zh:'才', pinyin:'cái', hv:'tài', vi:'mãi mới; mới', pos:'phó từ' },
+        { zh:'完', pinyin:'wán', hv:'hoàn', vi:'xong, hết', pos:'động từ; bổ ngữ' },
+        { zh:'分钟', pinyin:'fēnzhōng', hv:'phân chung', vi:'phút', pos:'danh từ' },
+        { zh:'用', pinyin:'yòng', hv:'dụng', vi:'dùng; mất (thời gian)', pos:'động từ' },
+        { zh:'花', pinyin:'huā', hv:'hoa', vi:'tiêu, tốn (tiền/giờ)', pos:'động từ' },
+        { zh:'刚', pinyin:'gāng', hv:'cương', vi:'vừa mới', pos:'phó từ' },
+        { zh:'作业', pinyin:'zuòyè', hv:'tác nghiệp', vi:'bài tập', pos:'danh từ' },
+        { zh:'每', pinyin:'měi', hv:'mỗi', vi:'mỗi', pos:'đại từ' },
+        { zh:'总是', pinyin:'zǒngshì', hv:'tổng thị', vi:'luôn luôn', pos:'phó từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'作业做完了吗？', pinyin:'Zuòyè zuò wán le ma?', vi:'Bài tập làm xong chưa?' },
+        { sp:'B', zh:'刚做完，用了三个小时才做完。', pinyin:'Gāng zuò wán, yòng le sān ge xiǎoshí cái zuò wán.', vi:'Vừa xong, mất ba tiếng mới làm xong.' },
+        { sp:'A', zh:'这么久！', pinyin:'Zhème jiǔ!', vi:'Lâu thế!' },
+        { sp:'B', zh:'是啊，花了很多时间。', pinyin:'Shì a, huā le hěn duō shíjiān.', vi:'Ừ, tốn nhiều thời gian lắm.' }
+      ]
+    },
+
+    {
+      level:'hsk2', no:10, zh:'你哥哥结婚了吗', pinyin:'Nǐ gēge jiéhūn le ma', vi:'Anh trai bạn kết hôn chưa',
+      skill:'Gia đình; 了 (đã xảy ra) và 还没… (chưa)',
+      grammar:[
+        { form:'V + 了 (吗)？', vi:'“đã… (chưa)?”',
+          note:'了 chỉ việc đã xảy ra. Hỏi: 结婚了吗？ Trả lời khẳng định: 结婚了.',
+          ex:{ zh:'他结婚了。', pinyin:'Tā jiéhūn le.', vi:'Anh ấy kết hôn rồi.' } },
+        { form:'还没(有) + V (呢)', vi:'“vẫn chưa…”',
+          note:'Phủ định “chưa (làm)”. Vd 我还没吃饭 / 她还没结婚呢.',
+          ex:{ zh:'我妹妹还没结婚。', pinyin:'Wǒ mèimei hái méi jiéhūn.', vi:'Em gái mình vẫn chưa kết hôn.' } }
+      ],
+      vocab:[
+        { zh:'哥哥', pinyin:'gēge', hv:'ca ca', vi:'anh trai', pos:'danh từ' },
+        { zh:'姐姐', pinyin:'jiějie', hv:'tỉ tỉ', vi:'chị gái', pos:'danh từ' },
+        { zh:'弟弟', pinyin:'dìdi', hv:'đệ đệ', vi:'em trai', pos:'danh từ' },
+        { zh:'妹妹', pinyin:'mèimei', hv:'muội muội', vi:'em gái', pos:'danh từ' },
+        { zh:'结婚', pinyin:'jiéhūn', hv:'kết hôn', vi:'kết hôn', pos:'động từ' },
+        { zh:'孩子', pinyin:'háizi', hv:'hài tử', vi:'con; đứa trẻ', pos:'danh từ' },
+        { zh:'妻子', pinyin:'qīzi', hv:'thê tử', vi:'vợ', pos:'danh từ' },
+        { zh:'丈夫', pinyin:'zhàngfu', hv:'trượng phu', vi:'chồng', pos:'danh từ' },
+        { zh:'没', pinyin:'méi', hv:'một', vi:'không; chưa (có)', pos:'phó từ' },
+        { zh:'又', pinyin:'yòu', hv:'hựu', vi:'lại (đã xảy ra)', pos:'phó từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'你哥哥结婚了吗？', pinyin:'Nǐ gēge jiéhūn le ma?', vi:'Anh trai bạn kết hôn chưa?' },
+        { sp:'B', zh:'结婚了，还有一个孩子。', pinyin:'Jiéhūn le, hái yǒu yí ge háizi.', vi:'Kết hôn rồi, còn có một đứa con.' },
+        { sp:'A', zh:'你姐姐呢？', pinyin:'Nǐ jiějie ne?', vi:'Còn chị gái bạn?' },
+        { sp:'B', zh:'她还没结婚。', pinyin:'Tā hái méi jiéhūn.', vi:'Chị ấy vẫn chưa kết hôn.' }
+      ]
+    },
+
+    {
+      level:'hsk2', no:11, zh:'先坐地铁再换公交', pinyin:'Xiān zuò dìtiě zài huàn gōngjiāo', vi:'Đi tàu điện ngầm trước rồi đổi xe buýt',
+      skill:'Phương tiện đi lại; trình tự 先… 再…',
+      grammar:[
+        { form:'先 V₁ ，再 V₂', vi:'“…trước, rồi mới…”',
+          note:'Chỉ thứ tự hành động. Vd 先坐地铁，再换公交 / 先做作业，再看电视.',
+          ex:{ zh:'我们先吃饭，再去公司。', pinyin:'Wǒmen xiān chīfàn, zài qù gōngsī.', vi:'Mình ăn cơm trước, rồi đến công ty.' } },
+        { form:'坐 / 骑 + phương tiện', vi:'“đi bằng…”',
+          note:'坐 cho xe/tàu/máy bay: 坐地铁; 骑 cho xe đạp/xe máy: 骑自行车.',
+          ex:{ zh:'我骑自行车去学校。', pinyin:'Wǒ qí zìxíngchē qù xuéxiào.', vi:'Tôi đạp xe đến trường.' } }
+      ],
+      vocab:[
+        { zh:'地铁', pinyin:'dìtiě', hv:'địa thiết', vi:'tàu điện ngầm', pos:'danh từ' },
+        { zh:'公共汽车', pinyin:'gōnggòng qìchē', hv:'công cộng khí xa', vi:'xe buýt', pos:'danh từ' },
+        { zh:'换', pinyin:'huàn', hv:'hoán', vi:'đổi, chuyển', pos:'động từ' },
+        { zh:'先', pinyin:'xiān', hv:'tiên', vi:'trước, đầu tiên', pos:'phó từ' },
+        { zh:'再', pinyin:'zài', hv:'tái', vi:'rồi mới; lại', pos:'phó từ' },
+        { zh:'路', pinyin:'lù', hv:'lộ', vi:'đường; tuyến', pos:'danh từ' },
+        { zh:'站', pinyin:'zhàn', hv:'trạm', vi:'bến, ga, trạm', pos:'danh từ' },
+        { zh:'到', pinyin:'dào', hv:'đáo', vi:'đến, tới', pos:'động từ' },
+        { zh:'骑', pinyin:'qí', hv:'kỵ', vi:'cưỡi, đạp (xe)', pos:'động từ' },
+        { zh:'自行车', pinyin:'zìxíngchē', hv:'tự hành xa', vi:'xe đạp', pos:'danh từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'你怎么去公司？', pinyin:'Nǐ zěnme qù gōngsī?', vi:'Bạn đi công ty bằng gì?' },
+        { sp:'B', zh:'我先坐地铁，再换公共汽车。', pinyin:'Wǒ xiān zuò dìtiě, zài huàn gōnggòng qìchē.', vi:'Mình đi tàu điện ngầm trước, rồi đổi xe buýt.' },
+        { sp:'A', zh:'远吗？', pinyin:'Yuǎn ma?', vi:'Xa không?' },
+        { sp:'B', zh:'有点儿远，要一个小时。', pinyin:'Yǒudiǎnr yuǎn, yào yí ge xiǎoshí.', vi:'Hơi xa, mất một tiếng.' }
+      ]
+    },
+
+    {
+      level:'hsk2', no:12, zh:'别忘了带护照', pinyin:'Bié wàng le dài hùzhào', vi:'Đừng quên mang hộ chiếu',
+      skill:'Nhắc nhở/cấm với 别; chuẩn bị đi lại',
+      grammar:[
+        { form:'别 + V (了)', vi:'“đừng…”',
+          note:'别 bié dùng để khuyên/cấm nhẹ. Vd 别走 / 别忘了带护照 / 别迟到.',
+          ex:{ zh:'别忘了带手机。', pinyin:'Bié wàng le dài shǒujī.', vi:'Đừng quên mang điện thoại.' } },
+        { form:'坐 + 飞机 / 火车', vi:'“đi máy bay / tàu hoả”',
+          note:'Phương tiện đường dài dùng 坐: 坐飞机, 坐火车. Mua vé: 买票.',
+          ex:{ zh:'我们坐飞机去。', pinyin:'Wǒmen zuò fēijī qù.', vi:'Chúng ta đi máy bay.' } }
+      ],
+      vocab:[
+        { zh:'别', pinyin:'bié', hv:'biệt', vi:'đừng, chớ', pos:'phó từ' },
+        { zh:'忘', pinyin:'wàng', hv:'vong', vi:'quên', pos:'động từ' },
+        { zh:'带', pinyin:'dài', hv:'đới', vi:'mang, dẫn theo', pos:'động từ' },
+        { zh:'护照', pinyin:'hùzhào', hv:'hộ chiếu', vi:'hộ chiếu', pos:'danh từ' },
+        { zh:'机场', pinyin:'jīchǎng', hv:'cơ trường', vi:'sân bay', pos:'danh từ' },
+        { zh:'飞机', pinyin:'fēijī', hv:'phi cơ', vi:'máy bay', pos:'danh từ' },
+        { zh:'火车', pinyin:'huǒchē', hv:'hoả xa', vi:'tàu hoả', pos:'danh từ' },
+        { zh:'票', pinyin:'piào', hv:'phiếu', vi:'vé', pos:'danh từ' },
+        { zh:'出发', pinyin:'chūfā', hv:'xuất phát', vi:'xuất phát, khởi hành', pos:'động từ' },
+        { zh:'准备', pinyin:'zhǔnbèi', hv:'chuẩn bị', vi:'chuẩn bị', pos:'động từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'明天去机场，别忘了带护照。', pinyin:'Míngtiān qù jīchǎng, bié wàng le dài hùzhào.', vi:'Mai ra sân bay, đừng quên mang hộ chiếu.' },
+        { sp:'B', zh:'好，我已经准备好了。', pinyin:'Hǎo, wǒ yǐjīng zhǔnbèi hǎo le.', vi:'Được, mình chuẩn bị xong rồi.' },
+        { sp:'A', zh:'我们几点出发？', pinyin:'Wǒmen jǐ diǎn chūfā?', vi:'Mấy giờ mình khởi hành?' },
+        { sp:'B', zh:'早上六点。', pinyin:'Zǎoshang liù diǎn.', vi:'6 giờ sáng.' }
+      ]
+    },
+
+    {
+      level:'hsk2', no:13, zh:'我把材料带来了', pinyin:'Wǒ bǎ cáiliào dài lái le', vi:'Tôi đã mang tài liệu tới',
+      skill:'Câu chữ 把; bổ ngữ xu hướng 来/去',
+      grammar:[
+        { form:'把 + O + V + …', vi:'câu chữ 把 — xử lý tân ngữ',
+          note:'Nhấn “đem/lấy (tân ngữ) mà làm gì”. Sau động từ phải có thành phần khác. Vd 我把书带来了 / 请把门关上.',
+          ex:{ zh:'请把门关上。', pinyin:'Qǐng bǎ mén guān shàng.', vi:'Làm ơn đóng cửa lại.' } },
+        { form:'V + 来 / 去', vi:'bổ ngữ xu hướng',
+          note:'来 hướng về người nói, 去 hướng ra xa: 带来 (mang tới), 拿去 (cầm đi).',
+          ex:{ zh:'我把材料带来了。', pinyin:'Wǒ bǎ cáiliào dài lái le.', vi:'Tôi đã mang tài liệu tới.' } }
+      ],
+      vocab:[
+        { zh:'把', pinyin:'bǎ', hv:'bả', vi:'đem, lấy (chữ 把)', pos:'giới từ' },
+        { zh:'材料', pinyin:'cáiliào', hv:'tài liệu', vi:'tài liệu; vật liệu', pos:'danh từ' },
+        { zh:'拿', pinyin:'ná', hv:'nã', vi:'cầm, lấy', pos:'động từ' },
+        { zh:'关', pinyin:'guān', hv:'quan', vi:'đóng; tắt', pos:'động từ' },
+        { zh:'门', pinyin:'mén', hv:'môn', vi:'cửa', pos:'danh từ' },
+        { zh:'找', pinyin:'zhǎo', hv:'trảo', vi:'tìm', pos:'động từ' },
+        { zh:'事情', pinyin:'shìqing', hv:'sự tình', vi:'việc, sự việc', pos:'danh từ' },
+        { zh:'完成', pinyin:'wánchéng', hv:'hoàn thành', vi:'hoàn thành', pos:'động từ' },
+        { zh:'记得', pinyin:'jìde', hv:'ký đắc', vi:'nhớ', pos:'động từ' },
+        { zh:'忘记', pinyin:'wàngjì', hv:'vong ký', vi:'quên', pos:'động từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'你把我要的材料带来了吗？', pinyin:'Nǐ bǎ wǒ yào de cáiliào dài lái le ma?', vi:'Bạn mang tài liệu mình cần tới chưa?' },
+        { sp:'B', zh:'带来了，都在这儿。', pinyin:'Dài lái le, dōu zài zhèr.', vi:'Mang tới rồi, đều ở đây.' },
+        { sp:'A', zh:'谢谢！请把门关上。', pinyin:'Xièxie! Qǐng bǎ mén guān shàng.', vi:'Cảm ơn! Đóng giúp cửa lại nhé.' },
+        { sp:'B', zh:'好的。', pinyin:'Hǎo de.', vi:'Được.' }
+      ]
+    },
+
+    {
+      level:'hsk2', no:14, zh:'我给你打电话', pinyin:'Wǒ gěi nǐ dǎ diànhuà', vi:'Tôi gọi điện cho bạn',
+      skill:'Gọi điện, nhắn tin; hành động đang diễn ra 正在',
+      grammar:[
+        { form:'给 + ai + 打电话', vi:'“gọi điện cho ai”',
+          note:'给 chỉ đối tượng. Vd 我给你打电话 / 给妈妈发短信.',
+          ex:{ zh:'晚上我给你打电话。', pinyin:'Wǎnshang wǒ gěi nǐ dǎ diànhuà.', vi:'Tối mình gọi cho bạn.' } },
+        { form:'正在 + V (呢)', vi:'“đang…”',
+          note:'Nhấn hành động đang diễn ra ngay lúc đó. Vd 我正在开会呢 / 他正在打电话.',
+          ex:{ zh:'我正在开会呢。', pinyin:'Wǒ zhèngzài kāihuì ne.', vi:'Mình đang họp mà.' } }
+      ],
+      vocab:[
+        { zh:'电话', pinyin:'diànhuà', hv:'điện thoại', vi:'điện thoại; cuộc gọi', pos:'danh từ' },
+        { zh:'打电话', pinyin:'dǎ diànhuà', hv:'đả điện thoại', vi:'gọi điện', pos:'động từ' },
+        { zh:'发', pinyin:'fā', hv:'phát', vi:'gửi, phát', pos:'động từ' },
+        { zh:'短信', pinyin:'duǎnxìn', hv:'đoản tín', vi:'tin nhắn', pos:'danh từ' },
+        { zh:'正在', pinyin:'zhèngzài', hv:'chính tại', vi:'đang', pos:'phó từ' },
+        { zh:'告诉', pinyin:'gàosu', hv:'cáo tố', vi:'nói cho, bảo', pos:'động từ' },
+        { zh:'问题', pinyin:'wèntí', hv:'vấn đề', vi:'câu hỏi; vấn đề', pos:'danh từ' },
+        { zh:'回答', pinyin:'huídá', hv:'hồi đáp', vi:'trả lời', pos:'động từ' },
+        { zh:'号码', pinyin:'hàomǎ', hv:'hiệu mã', vi:'số (điện thoại)', pos:'danh từ' },
+        { zh:'接', pinyin:'jiē', hv:'tiếp', vi:'nghe (máy); đón', pos:'động từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'昨天我给你打电话，你没接。', pinyin:'Zuótiān wǒ gěi nǐ dǎ diànhuà, nǐ méi jiē.', vi:'Hôm qua mình gọi cho bạn, bạn không nghe máy.' },
+        { sp:'B', zh:'对不起，我正在开会呢。', pinyin:'Duìbuqǐ, wǒ zhèngzài kāihuì ne.', vi:'Xin lỗi, lúc đó mình đang họp.' },
+        { sp:'A', zh:'有个问题想问你。', pinyin:'Yǒu ge wèntí xiǎng wèn nǐ.', vi:'Có một vấn đề muốn hỏi bạn.' },
+        { sp:'B', zh:'你说，我告诉你。', pinyin:'Nǐ shuō, wǒ gàosu nǐ.', vi:'Bạn nói đi, mình trả lời cho.' }
+      ]
+    },
+
+    {
+      level:'hsk2', no:15, zh:'天气越来越冷', pinyin:'Tiānqì yuèláiyuè lěng', vi:'Trời ngày càng lạnh',
+      skill:'Mùa và thời tiết; “ngày càng…” và “hễ… là…”',
+      grammar:[
+        { form:'越来越 + tính từ', vi:'“ngày càng…”',
+          note:'Chỉ mức độ tăng dần theo thời gian. Vd 天气越来越冷 / 汉语越来越难.',
+          ex:{ zh:'天气越来越冷了。', pinyin:'Tiānqì yuèláiyuè lěng le.', vi:'Thời tiết ngày càng lạnh.' } },
+        { form:'一 V₁ 就 V₂', vi:'“hễ… là…”',
+          note:'Hành động sau xảy ra ngay khi hành động trước xong. Vd 我一回家就睡觉 / 一下雨就冷.',
+          ex:{ zh:'我一到冬天就想家。', pinyin:'Wǒ yí dào dōngtiān jiù xiǎng jiā.', vi:'Cứ đến mùa đông là tôi nhớ nhà.' } }
+      ],
+      vocab:[
+        { zh:'越来越', pinyin:'yuèláiyuè', hv:'việt lai việt', vi:'ngày càng', pos:'phó từ' },
+        { zh:'季节', pinyin:'jìjié', hv:'quý tiết', vi:'mùa', pos:'danh từ' },
+        { zh:'春天', pinyin:'chūntiān', hv:'xuân thiên', vi:'mùa xuân', pos:'danh từ' },
+        { zh:'夏天', pinyin:'xiàtiān', hv:'hạ thiên', vi:'mùa hè', pos:'danh từ' },
+        { zh:'秋天', pinyin:'qiūtiān', hv:'thu thiên', vi:'mùa thu', pos:'danh từ' },
+        { zh:'冬天', pinyin:'dōngtiān', hv:'đông thiên', vi:'mùa đông', pos:'danh từ' },
+        { zh:'雪', pinyin:'xuě', hv:'tuyết', vi:'tuyết', pos:'danh từ' },
+        { zh:'晴', pinyin:'qíng', hv:'tình', vi:'nắng, quang đãng', pos:'tính từ' },
+        { zh:'阴', pinyin:'yīn', hv:'âm', vi:'âm u, râm', pos:'tính từ' },
+        { zh:'刮风', pinyin:'guāfēng', hv:'quát phong', vi:'nổi gió, có gió', pos:'động từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'天气越来越冷了。', pinyin:'Tiānqì yuèláiyuè lěng le.', vi:'Trời ngày càng lạnh rồi.' },
+        { sp:'B', zh:'是啊，冬天到了。', pinyin:'Shì a, dōngtiān dào le.', vi:'Ừ, mùa đông tới rồi.' },
+        { sp:'A', zh:'你喜欢哪个季节？', pinyin:'Nǐ xǐhuan nǎge jìjié?', vi:'Bạn thích mùa nào?' },
+        { sp:'B', zh:'我喜欢春天，不冷不热。', pinyin:'Wǒ xǐhuan chūntiān, bù lěng bú rè.', vi:'Mình thích mùa xuân, không lạnh không nóng.' }
+      ]
     }
   ]
 };
