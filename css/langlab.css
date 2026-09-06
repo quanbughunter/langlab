@@ -1205,7 +1205,11 @@ body:has(.mplayer.open) .view{padding-bottom:110px}
 .zh-write-vi{font-size:14px;color:var(--muted);margin-top:2px}
 .zh-write-ctrl{display:flex;flex-direction:column;gap:8px;max-width:240px}
 .zh-write-pick{margin-top:22px}
+.zh-write-pick-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.level-strip.compact{margin-bottom:0;padding-bottom:0;gap:6px}
+.level-strip.compact .level-chip{padding:5px 11px;font-size:12.5px}
 .hz-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.hz.hz-miss{display:grid;place-items:center;font-family:"Noto Sans KR",serif;font-size:120px;color:var(--faint)}
 .hz-chip{font-family:"Noto Sans KR",serif;font-size:20px;width:44px;height:44px;border:1px solid var(--line);border-radius:9px;background:var(--surface);cursor:pointer;display:grid;place-items:center}
 .hz-chip:hover{border-color:var(--accent);color:var(--accent)}
 .hz-chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:500}
@@ -1272,3 +1276,31 @@ body:has(.mplayer.open) .view{padding-bottom:110px}
 .zh-exq-top{font-size:14px;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .zh-exq-no{width:24px;height:24px;flex:none;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-size:12px;font-weight:600}
 .zh-exam-progress{font-size:13px;color:var(--muted)}
+
+/* ===== TÔNG MÀU TIẾNG TRUNG — đỏ trầm (áp khi đang ở màn tiếng Trung, data-lang="zh") =====
+   Hán–Việt/nhấn phụ chuyển sang vàng đồng để không lẫn với accent đỏ.
+   Tương phản WCAG (đã đo): sáng — accent/surface 6.9:1, accent/accent-soft 5.6:1, seal/surface 6.0:1;
+   tối — accent/surface 7.2:1, accent-2/surface 9.3:1, seal/surface 8.9:1. Chữ chính (ink) ≥14:1 cả hai chế độ. */
+:root[data-lang="zh"]{
+  --ground:#F8F2F1; --surface:#FFFFFF; --surface-2:#F1E6E4;
+  --line:#E4D4D1; --line-strong:#CDB7B3;
+  --accent:#9A3A34; --accent-2:#B5524B; --accent-soft:#F6E3E0;
+  --seal:#845C12; --seal-soft:#F8EEDA;
+}
+@media (prefers-color-scheme: dark){
+  :root[data-lang="zh"]:not([data-theme="light"]){
+    --ground:#17100F; --surface:#211617; --surface-2:#2B1D1E;
+    --line:#3A2A2B; --line-strong:#4C393A;
+    --accent:#E39089; --accent-2:#F0ABA5; --accent-soft:#3F2426;
+    --seal:#D9B45E; --seal-soft:#2C2417;
+    --logo-bg:#EEF3FB;
+  }
+}
+:root[data-lang="zh"][data-theme="dark"]{
+  --ground:#17100F; --surface:#211617; --surface-2:#2B1D1E;
+  --line:#3A2A2B; --line-strong:#4C393A;
+  --accent:#E39089; --accent-2:#F0ABA5; --accent-soft:#3F2426;
+  --seal:#D9B45E; --seal-soft:#2C2417;
+  --logo-bg:#EEF3FB;
+}
+body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-color .25s,border-color .25s}

@@ -1796,6 +1796,8 @@ function render(){
     b.setAttribute('aria-current', on ? 'page' : 'false');
   });
   const isZh = state.view.indexOf('zh_') === 0;
+  document.documentElement.setAttribute('data-lang', isZh ? 'zh' : 'ko');   // tông màu theo ngôn ngữ
+  if (typeof syncThemeColor === 'function') syncThemeColor();
   const koDrop = $('#koDrop');
   if (koDrop) koDrop.classList.toggle('active', KO_VIEWS.includes(state.view));
   const zhDrop = $('#zhDrop');
@@ -1848,7 +1850,16 @@ const ZH_LOOKUP = (function(){
 })();
 
 function getCssVar(v){ try { return getComputedStyle(document.body).getPropertyValue(v).trim(); } catch(e){ return ''; } }
-function hasHanzi(ch){ return (window.HANZI_DATA || {})[ch] != null; }
+function hasHanzi(ch){ return /[一-鿿]/.test(ch || ''); }
+/* Dữ liệu nét: có sẵn trong bundle (HSK1–2) thì dùng ngay, không thì tải hanzi/<codepoint>.json theo nhu cầu */
+function zhLoadChar(c){
+  const D = window.HANZI_DATA || (window.HANZI_DATA = {});
+  if (D[c]) return Promise.resolve(D[c]);
+  if (typeof fetch !== 'function') return Promise.reject(new Error('no fetch'));
+  return fetch('hanzi/' + c.codePointAt(0).toString(16) + '.json')
+    .then(r => { if (!r.ok) throw new Error('404'); return r.json(); })
+    .then(d => { D[c] = d; return d; });
+}
 function zhSpeak(text){
   try {
     const synth = window.speechSynthesis; if (!synth){ toast('Trình duyệt chưa hỗ trợ phát âm'); return; }
@@ -1872,12 +1883,18 @@ function zhSpeak(text){
 function zhLevel(){ return _ZC.levels.find(x => x.id === state.zh.level) || _ZC.levels[0] || { vi:'HSK 1', zh:'HSK 1' }; }
 function zhLessonList(){ return _ZC.lessons.filter(l => l.level === state.zh.level); }
 function zhCurLesson(){ return _ZC.lessons.find(l => l.no === state.zh.lesson && l.level === state.zh.level); }
-function zhWriteChars(){
+function zhWriteChars(level){
   const set = [];
   const push = c => { if (c && hasHanzi(c) && set.indexOf(c) < 0) set.push(c); };
-  _ZC.lessons.forEach(l => l.vocab.forEach(w => { for (const c of w.zh) push(c); }));
-  _ZS.forEach(s => push(s.ex));
+  if (!level || level === 'hsk1') _ZS.forEach(s => push(s.ex));   // chữ mẫu của 8 nét đi cùng HSK1
+  _ZC.lessons.forEach(l => { if (!level || l.level === level) l.vocab.forEach(w => { for (const c of w.zh) push(c); }); });
   return set;
+}
+/* Cấp đang chọn trong Tập viết: mặc định theo cấp khoá học */
+function zhWriteLevel(){
+  const ids = _ZC.levels.filter(v => v.status === 'active').map(v => v.id);
+  const cur = state.zh.writeLevel || state.zh.level;
+  return ids.indexOf(cur) >= 0 ? cur : (ids[0] || 'hsk1');
 }
 function zhCrumb(){
   const map = { zh_home:'Khoá học', zh_strokes:'Các nét', zh_radicals:'Bộ thủ',
@@ -1885,7 +1902,7 @@ function zhCrumb(){
     zh_quiz:'Bài tập', zh_exam:'Thi thử HSK' };
   const L = zhCurLesson();
   if (state.view === 'zh_lesson' && L)
-    return `<button class="crumb-link" data-go="zh_home">Tiếng Trung</button> <span>›</span> <button class="crumb-link" data-go="zh_home">HSK 1</button> <span>›</span> <b>Bài ${String(L.no).padStart(2,'0')} · ${esc(L.vi)}</b>`;
+    return `<button class="crumb-link" data-go="zh_home">Tiếng Trung</button> <span>›</span> <button class="crumb-link" data-go="zh_home">${esc(zhLevel().zh)}</button> <span>›</span> <b>Bài ${String(L.no).padStart(2,'0')} · ${esc(L.vi)}</b>`;
   return `<button class="crumb-link" data-go="zh_home">Tiếng Trung</button> <span>›</span> <b>${esc(map[state.view] || '')}</b>`;
 }
 function zhTokens(str){
@@ -1907,7 +1924,7 @@ VIEWS.zh_home = function(){
   <div class="page-head">
     <span class="eyebrow">Khoá tiếng Trung · ${esc(lv.zh)}</span>
     <h1>Bắt đầu tiếng Trung từ nét chữ tới câu</h1>
-    <p>Học nền tảng (nét · bộ thủ · pinyin) rồi vào bài theo khung <em>Giáo trình chuẩn HSK</em>. Hiện có ${L.length}/${total} bài của HSK 1.</p>
+    <p>Học nền tảng (nét · bộ thủ · pinyin) rồi vào bài theo khung <em>Giáo trình chuẩn HSK</em>. Hiện có ${L.length}/${total} bài của ${esc(lv.zh)}${lv.vi && lv.vi.indexOf('·') > 0 ? ' · ' + esc(lv.vi.split('·')[1].trim()) : ''}.</p>
   </div>
   <div class="zh-found">
     ${cards.map(c => `<button class="zh-found-card" data-go="${c[0]}"><span class="zh-found-ico ko">${c[3]}</span><span class="zh-found-tx"><b>${c[1]}</b><i>${c[2]}</i></span></button>`).join('')}
@@ -2060,7 +2077,7 @@ VIEWS.zh_lesson = function(){
 };
 
 VIEWS.zh_write = function(){
-  const chars = zhWriteChars();
+  const wl = zhWriteLevel(), chars = zhWriteChars(wl);
   const cur = (state.zh.writeChar && hasHanzi(state.zh.writeChar)) ? state.zh.writeChar : (chars[0] || '你');
   const info = ZH_LOOKUP[cur];
   return `
@@ -2090,7 +2107,12 @@ VIEWS.zh_write = function(){
       </div>
     </div>
     <div class="zh-write-pick">
-      <div class="eyebrow">Chọn chữ để luyện</div>
+      <div class="zh-write-pick-head">
+        <div class="eyebrow">Chọn chữ để luyện · ${chars.length} chữ</div>
+        <div class="level-strip compact">
+          ${_ZC.levels.filter(v => v.status === 'active').map(v => `<button class="level-chip" data-zh-wlevel="${v.id}"${wl === v.id ? ' aria-pressed="true"' : ''}>${esc(v.zh)}</button>`).join('')}
+        </div>
+      </div>
       <div class="hz-chips">${chars.map(c => `<button class="hz-chip ko${c === cur ? ' on' : ''}" data-zh-write="${esc(c)}">${esc(c)}</button>`).join('')}</div>
     </div>
   </div>`;
@@ -2284,7 +2306,8 @@ function zhMount(){
           radicalColor: getCssVar('--seal') || '#C8402F',
           outlineColor: getCssVar('--line-strong') || '#B4C6DE',
           drawingColor: getCssVar('--accent-2') || '#2F6FBF',
-          charDataLoader: (c, onComplete) => onComplete((window.HANZI_DATA || {})[c])
+          charDataLoader: c => zhLoadChar(c),
+          onLoadCharDataError: () => { el.classList.add('hz-miss'); el.textContent = ch; }
         });
       } catch(e){ el.classList.add('hz-miss'); el.textContent = ch; return; }
       el._hzw = w;
@@ -3237,6 +3260,8 @@ document.addEventListener('click', e => {
   if (zLes){ state.zh.lesson = +zLes.dataset.zhLesson; go('zh_lesson'); return; }
   const zWr = t.closest('[data-zh-write]');
   if (zWr){ state.zh.writeChar = zWr.dataset.zhWrite; go('zh_write'); return; }
+  const zWl = t.closest('[data-zh-wlevel]');
+  if (zWl){ state.zh.writeLevel = zWl.dataset.zhWlevel; state.zh.writeChar = ''; render(); return; }
   const zC = t.closest('[data-zc]');
   if (zC){ state.zh.dictQ = zC.dataset.zc; go('zh_dict'); return; }
   const hzw = t.closest('[data-hzw]');
@@ -3531,6 +3556,18 @@ function applyTheme(){
     b.innerHTML = ico;
     b.title = lbl; b.setAttribute('aria-label', lbl);
   }
+  syncThemeColor();
+}
+/* Màu thanh trạng thái (PWA/điện thoại) theo ngôn ngữ đang xem + chế độ sáng/tối */
+function syncThemeColor(){
+  try {
+    const zh = document.documentElement.getAttribute('data-lang') === 'zh';
+    const pal = zh ? { light:'#F8F2F1', dark:'#17100F' } : { light:'#EAF1FB', dark:'#0B1220' };
+    document.querySelectorAll('meta[name="theme-color"]').forEach(m => {
+      const media = m.getAttribute('media') || '';
+      m.setAttribute('content', /dark/.test(media) ? pal.dark : pal.light);
+    });
+  } catch(e){}
 }
 
 /* ---------- khởi động ---------- */
@@ -3559,6 +3596,14 @@ function loadDict(cb){
   document.head.appendChild(s);
 }
 applyTheme();
+/* Badge cấp trên menu Tiếng Trung: "HSK1–3" theo số cấp đã mở */
+(function(){
+  try {
+    const act = _ZC.levels.filter(v => v.status === 'active');
+    const b = document.querySelector('[data-go="zh_home"] .mi-count');
+    if (b && act.length) b.textContent = act.length > 1 ? `HSK1–${act.length}` : 'HSK1';
+  } catch(e){}
+})();
 render();
 seedHist();
 
