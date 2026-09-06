@@ -1243,7 +1243,7 @@ function aboutView(){
   return `
   <div class="about">
     <div class="about-hero">
-      <div class="about-logo"><img src="logo-full.png?v=260921" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
+      <div class="about-logo"><img src="logo-full.png?v=260922" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
       <h1 class="sr-only">LangLab</h1>
       <p class="about-tag">Phòng thí nghiệm ngôn ngữ — học ngoại ngữ theo bài, có tra từ điển, luyện nghe–nói và trợ lý AI.</p>
     </div>
@@ -1816,6 +1816,7 @@ function render(){
     : `<button class="crumb-link" data-go="home">Tiếng Hàn</button> <span>›</span> <b>${CRUMBS[state.view]}</b>`;
 
   if (isZh) (window.requestAnimationFrame ? requestAnimationFrame : (f => setTimeout(f, 16)))(zhMount);
+  if (state.view === 'zh_exam' && state.zh.exam && state.zh.exam.phase === 'doing') zhExamStart(); else zhExamStop();
   if (state.view === 'write') mountWrite();
   if (state.view === 'dict'){ mountDict(); loadDict(added => { if (added && state.view === 'dict') render(); }); }
   if (state.view === 'shadow'){
@@ -1880,7 +1881,8 @@ function zhWriteChars(){
 }
 function zhCrumb(){
   const map = { zh_home:'Khoá học', zh_strokes:'Các nét', zh_radicals:'Bộ thủ',
-    zh_pinyin:'Pinyin & thanh điệu', zh_write:'Tập viết', zh_dict:'Từ điển', zh_srs:'Ôn tập' };
+    zh_pinyin:'Pinyin & thanh điệu', zh_write:'Tập viết', zh_dict:'Từ điển', zh_srs:'Ôn tập',
+    zh_quiz:'Bài tập', zh_exam:'Thi thử HSK' };
   const L = zhCurLesson();
   if (state.view === 'zh_lesson' && L)
     return `<button class="crumb-link" data-go="zh_home">Tiếng Trung</button> <span>›</span> <button class="crumb-link" data-go="zh_home">HSK 1</button> <span>›</span> <b>Bài ${String(L.no).padStart(2,'0')} · ${esc(L.vi)}</b>`;
@@ -2158,6 +2160,109 @@ VIEWS.zh_srs = function(){
     <div class="zh-srs-count">${(s.i % deck.length) + 1} / ${deck.length}</div>
   </div>`;
 };
+
+/* ---------------- Bài tập & Thi thử (ZH) ---------------- */
+function zhPick(a){ return a[Math.floor(Math.random() * a.length)]; }
+function zhShuffle(a){ a = a.slice(); for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function zhDistract(pool, key, val, n){
+  const seen = {}; seen[val] = 1; const out = [];
+  for (const x of zhShuffle(pool)){ const v = x[key]; if (!seen[v]){ seen[v] = 1; out.push(v); if (out.length >= n) break; } }
+  return out;
+}
+function zhMakeQuestions(n){
+  const pool = Object.values(ZH_LOOKUP);
+  const qs = [], used = {}; let guard = 0;
+  while (qs.length < n && guard++ < n * 40){
+    const w = zhPick(pool), type = zhPick(['mean','char','pinyin']);
+    const key = w.zh + '|' + type; if (used[key]) continue; used[key] = 1;
+    let q;
+    if (type === 'mean')
+      q = { prompt:'Từ này nghĩa là gì?', main:`<span class="ko qz-hz">${esc(w.zh)}</span> <span class="py">${esc(w.pinyin)}</span>`,
+            opts: zhShuffle([w.vi].concat(zhDistract(pool,'vi',w.vi,3))), answer:w.vi, oc:'' };
+    else if (type === 'char')
+      q = { prompt:'Chọn chữ đúng với nghĩa:', main:`<b>${esc(w.vi)}</b> <span class="py">(${esc(w.pinyin)})</span>`,
+            opts: zhShuffle([w.zh].concat(zhDistract(pool,'zh',w.zh,3))), answer:w.zh, oc:'ko' };
+    else
+      q = { prompt:'Chọn pinyin đúng:', main:`<span class="ko qz-hz">${esc(w.zh)}</span>`,
+            opts: zhShuffle([w.pinyin].concat(zhDistract(pool,'pinyin',w.pinyin,3))), answer:w.pinyin, oc:'py' };
+    q.explain = `${w.zh} · ${w.pinyin} · ${w.hv} — ${w.vi}`;
+    qs.push(q);
+  }
+  return qs;
+}
+function zhFmtTime(s){ s = Math.max(0, s); const m = Math.floor(s / 60), ss = s % 60; return m + ':' + (ss < 10 ? '0' : '') + ss; }
+
+VIEWS.zh_quiz = function(){
+  const Q = state.zh.quiz;
+  if (!Q || !Q.qs){
+    return `
+    <div class="page-head"><span class="eyebrow">Tiếng Trung · Bài tập</span><h1>Bài tập trắc nghiệm</h1>
+      <p>10 câu ngẫu nhiên từ vốn từ đã học: đoán nghĩa, chọn chữ, chọn pinyin — có chấm điểm và giải thích.</p></div>
+    <div class="stage-ctrl"><button class="pbtn primary" data-zh-qz-start="1">▶ Bắt đầu 10 câu</button></div>`;
+  }
+  if (Q.i >= Q.qs.length){
+    const score = Q.picked.filter((p, i) => p === Q.qs[i].answer).length, pct = Math.round(score / Q.qs.length * 100);
+    return `
+    <div class="page-head"><span class="eyebrow">Tiếng Trung · Bài tập</span><h1>Kết quả: ${score}/${Q.qs.length}</h1>
+      <p>Đúng ${pct}%. ${pct >= 80 ? 'Giỏi lắm!' : pct >= 50 ? 'Khá rồi, ôn thêm chút nhé.' : 'Cần luyện thêm nhé.'}</p></div>
+    <div class="qz-review">${Q.qs.map((q, i) => `<div class="qz-rev ${Q.picked[i] === q.answer ? 'ok' : 'no'}"><span>${Q.picked[i] === q.answer ? '✓' : '✗'}</span> ${esc(q.explain)}</div>`).join('')}</div>
+    <div class="stage-ctrl"><button class="pbtn primary" data-zh-qz-start="1">↻ Làm lại</button></div>`;
+  }
+  const q = Q.qs[Q.i], picked = Q.picked[Q.i];
+  return `
+  <div class="page-head"><span class="eyebrow">Tiếng Trung · Bài tập</span><h1>Bài tập <span class="qz-count">${Q.i + 1}/${Q.qs.length}</span></h1><p>${esc(q.prompt)}</p></div>
+  <div class="qz-main">${q.main}</div>
+  <div class="qz-opts">${q.opts.map(o => {
+    let cls = 'qz-opt' + (q.oc ? ' ' + q.oc : '');
+    if (picked != null){ if (o === q.answer) cls += ' correct'; else if (o === picked) cls += ' wrong'; }
+    return `<button class="${cls}" data-zh-qz="${esc(o)}"${picked != null ? ' disabled' : ''}>${esc(o)}</button>`;
+  }).join('')}</div>
+  ${picked != null ? `<div class="qz-explain ${picked === q.answer ? 'ok' : 'no'}">${picked === q.answer ? '✓ Đúng! ' : '✗ Chưa đúng. '}${esc(q.explain)}</div>
+    <div class="stage-ctrl"><button class="pbtn primary" data-zh-qz-next="1">${Q.i + 1 < Q.qs.length ? 'Câu sau →' : 'Xem kết quả'}</button></div>` : ''}`;
+};
+
+VIEWS.zh_exam = function(){
+  const E = state.zh.exam;
+  if (!E || E.phase === 'intro' || !E.qs){
+    return `
+    <div class="page-head"><span class="eyebrow">Tiếng Trung · Thi thử HSK</span><h1>Thi thử HSK (luyện tập)</h1>
+      <p>20 câu trắc nghiệm từ vốn từ đã học, có <b>đồng hồ đếm ngược 8 phút</b>. Làm hết rồi bấm Nộp bài để chấm — hoặc hết giờ tự nộp. Đây là đề luyện tự soạn, không phải đề chính thức.</p></div>
+    <div class="stage-ctrl"><button class="pbtn primary" data-zh-ex-start="1">▶ Bắt đầu thi</button></div>`;
+  }
+  if (E.phase === 'done'){
+    const score = E.qs.filter((q, i) => E.picked[i] === q.answer).length, pct = Math.round(score / E.qs.length * 100);
+    return `
+    <div class="page-head"><span class="eyebrow">Tiếng Trung · Thi thử HSK</span><h1>Kết quả: ${score}/${E.qs.length} (${pct}%)</h1>
+      <p>${pct >= 80 ? 'Xuất sắc!' : pct >= 60 ? 'Đạt rồi!' : 'Cần ôn thêm nhé.'}</p></div>
+    <div class="qz-review">${E.qs.map((q, i) => `<div class="qz-rev ${E.picked[i] === q.answer ? 'ok' : 'no'}"><span>${E.picked[i] === q.answer ? '✓' : '✗'}</span> ${esc(q.explain)}${E.picked[i] && E.picked[i] !== q.answer ? ` <i>(bạn chọn: ${esc(E.picked[i])})</i>` : ''}</div>`).join('')}</div>
+    <div class="stage-ctrl"><button class="pbtn primary" data-zh-ex-start="1">↻ Thi lại</button></div>`;
+  }
+  return `
+  <div class="zh-exam-head">
+    <div><span class="eyebrow">Tiếng Trung · Thi thử HSK</span><h1>Đề luyện · ${E.qs.length} câu</h1></div>
+    <div class="zh-exam-timer" id="zhExamTimer">${zhFmtTime(E.remaining)}</div>
+  </div>
+  <div class="zh-exam-qs">${E.qs.map((q, i) => `
+    <div class="zh-exq">
+      <div class="zh-exq-top"><span class="zh-exq-no">${i + 1}</span> ${esc(q.prompt)}</div>
+      <div class="qz-main sm">${q.main}</div>
+      <div class="qz-opts">${q.opts.map(o => `<button class="qz-opt${q.oc ? ' ' + q.oc : ''}${E.picked[i] === o ? ' picked' : ''}" data-zh-ex-i="${i}" data-zh-ex-pick="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+    </div>`).join('')}</div>
+  <div class="stage-ctrl"><button class="pbtn primary" data-zh-ex-submit="1">Nộp bài</button> <span class="zh-exam-progress">Đã làm ${Object.keys(E.picked).length}/${E.qs.length}</span></div>`;
+};
+
+let zhExamTimer = null;
+function zhExamStop(){ if (zhExamTimer){ clearInterval(zhExamTimer); zhExamTimer = null; } }
+function zhExamStart(){
+  if (zhExamTimer) return;
+  zhExamTimer = setInterval(() => {
+    const E = state.zh.exam;
+    if (!E || E.phase !== 'doing'){ zhExamStop(); return; }
+    E.remaining--;
+    const el = $('#zhExamTimer'); if (el) el.textContent = zhFmtTime(E.remaining);
+    if (E.remaining <= 0){ zhExamStop(); E.phase = 'done'; render(); }
+  }, 1000);
+}
 
 /* ---------------- Hanzi Writer ---------------- */
 let zhWriter = null;
@@ -3145,6 +3250,14 @@ document.addEventListener('click', e => {
   const zSrs = t.closest('[data-zh-srs]');
   if (zSrs){ if (state.zh.srs){ state.zh.srs.i++; state.zh.srs.show = false; render(); } return; }
   if (t.closest('#zhFlip')){ if (state.zh.srs){ state.zh.srs.show = !state.zh.srs.show; render(); } return; }
+  if (t.closest('[data-zh-qz-start]')){ state.zh.quiz = { qs: zhMakeQuestions(10), i:0, picked:[] }; render(); return; }
+  const zqz = t.closest('[data-zh-qz]');
+  if (zqz){ const Q = state.zh.quiz; if (Q && Q.picked[Q.i] == null){ Q.picked[Q.i] = zqz.dataset.zhQz; render(); } return; }
+  if (t.closest('[data-zh-qz-next]')){ if (state.zh.quiz){ state.zh.quiz.i++; render(); } return; }
+  if (t.closest('[data-zh-ex-start]')){ state.zh.exam = { qs: zhMakeQuestions(20), picked:{}, phase:'doing', remaining:480 }; render(); return; }
+  const zex = t.closest('[data-zh-ex-pick]');
+  if (zex){ if (state.zh.exam){ state.zh.exam.picked[+zex.dataset.zhExI] = zex.dataset.zhExPick; render(); } return; }
+  if (t.closest('[data-zh-ex-submit]')){ if (state.zh.exam){ zhExamStop(); state.zh.exam.phase = 'done'; render(); } return; }
 
   const nav = t.closest('[data-go]');
   if (nav){ go(nav.dataset.go); return; }
