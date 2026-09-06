@@ -82,7 +82,7 @@ const COURSE_ZH = {
   flag: '中',
   levels: [
     { id:'hsk1', zh:'HSK 1', vi:'HSK 1 · Sơ cấp', lessons:15, status:'active'  },
-    { id:'hsk2', zh:'HSK 2', vi:'HSK 2',           lessons:15, status:'planned' },
+    { id:'hsk2', zh:'HSK 2', vi:'HSK 2 · Sơ–trung cấp', lessons:15, status:'active'  },
     { id:'hsk3', zh:'HSK 3', vi:'HSK 3 · Trung cấp', lessons:20, status:'planned' },
     { id:'hsk4', zh:'HSK 4', vi:'HSK 4',           lessons:20, status:'planned' },
     { id:'hsk5', zh:'HSK 5', vi:'HSK 5 · Cao cấp', lessons:36, status:'planned' }
@@ -567,9 +567,198 @@ const COURSE_ZH = {
         { sp:'B', zh:'太漂亮了，谢谢你！', pinyin:'Tài piàoliang le, xièxie nǐ!', vi:'Đẹp quá, cảm ơn bạn!' },
         { sp:'A', zh:'我们一起唱歌吧！', pinyin:'Wǒmen yìqǐ chànggē ba!', vi:'Cùng hát nào!' }
       ]
+    },
+
+    {
+      level:'hsk2', no:1, zh:'你最近怎么样', pinyin:'Nǐ zuìjìn zěnmeyàng', vi:'Dạo này bạn thế nào',
+      skill:'Hỏi thăm; bổ ngữ trình độ 得 và nêu lý do 因为…所以',
+      grammar:[
+        { form:'V + 得 + tính từ', vi:'“làm (thế nào)” — bổ ngữ trình độ',
+          note:'得 de nối động từ với đánh giá. Vd 他跑得很快 / 你说得很好. Có tân ngữ thì lặp động từ: 他说汉语说得很好.',
+          ex:{ zh:'你汉语说得很好。', pinyin:'Nǐ Hànyǔ shuō de hěn hǎo.', vi:'Bạn nói tiếng Trung rất giỏi.' } },
+        { form:'因为… ，所以…', vi:'“vì… nên…”',
+          note:'因为 nêu nguyên nhân, 所以 nêu kết quả (có thể lược một vế). Vd 因为很忙，所以很累.',
+          ex:{ zh:'因为工作很多，所以我很忙。', pinyin:'Yīnwèi gōngzuò hěn duō, suǒyǐ wǒ hěn máng.', vi:'Vì nhiều việc nên tôi rất bận.' } }
+      ],
+      vocab:[
+        { zh:'最近', pinyin:'zuìjìn', hv:'tối cận', vi:'gần đây, dạo này', pos:'danh từ' },
+        { zh:'还', pinyin:'hái', hv:'hoàn', vi:'vẫn, còn', pos:'phó từ' },
+        { zh:'得', pinyin:'de', hv:'đắc', vi:'(trợ từ bổ ngữ)', pos:'trợ từ' },
+        { zh:'觉得', pinyin:'juéde', hv:'giác đắc', vi:'cảm thấy', pos:'động từ' },
+        { zh:'累', pinyin:'lèi', hv:'luy', vi:'mệt', pos:'tính từ' },
+        { zh:'忙', pinyin:'máng', hv:'mang', vi:'bận', pos:'tính từ' },
+        { zh:'身体', pinyin:'shēntǐ', hv:'thân thể', vi:'sức khoẻ, cơ thể', pos:'danh từ' },
+        { zh:'但是', pinyin:'dànshì', hv:'đãn thị', vi:'nhưng', pos:'liên từ' },
+        { zh:'因为', pinyin:'yīnwèi', hv:'nhân vị', vi:'vì, bởi vì', pos:'liên từ' },
+        { zh:'所以', pinyin:'suǒyǐ', hv:'sở dĩ', vi:'cho nên', pos:'liên từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'你最近怎么样？', pinyin:'Nǐ zuìjìn zěnmeyàng?', vi:'Dạo này bạn thế nào?' },
+        { sp:'B', zh:'还不错，就是有点儿忙。', pinyin:'Hái búcuò, jiùshì yǒudiǎnr máng.', vi:'Cũng ổn, chỉ hơi bận.' },
+        { sp:'A', zh:'工作累吗？', pinyin:'Gōngzuò lèi ma?', vi:'Công việc có mệt không?' },
+        { sp:'B', zh:'因为工作很多，所以有点儿累。', pinyin:'Yīnwèi gōngzuò hěn duō, suǒyǐ yǒudiǎnr lèi.', vi:'Vì nhiều việc nên hơi mệt.' }
+      ]
+    },
+
+    {
+      level:'hsk2', no:2, zh:'你的爱好是什么', pinyin:'Nǐ de àihào shì shénme', vi:'Sở thích của bạn là gì',
+      skill:'Nói về sở thích; “vừa… vừa…”',
+      grammar:[
+        { form:'一边 V₁ 一边 V₂', vi:'“vừa… vừa…”',
+          note:'Hai hành động cùng lúc. Vd 他一边听音乐一边跑步 (vừa nghe nhạc vừa chạy).',
+          ex:{ zh:'我喜欢一边喝茶一边看书。', pinyin:'Wǒ xǐhuan yìbiān hē chá yìbiān kàn shū.', vi:'Mình thích vừa uống trà vừa đọc sách.' } },
+        { form:'打 / 踢 + môn thể thao', vi:'“chơi/đá (môn…)”',
+          note:'Bóng dùng tay: 打篮球; bóng dùng chân: 踢足球. Bơi: 游泳, nhảy: 跳舞.',
+          ex:{ zh:'他每天都打篮球。', pinyin:'Tā měitiān dōu dǎ lánqiú.', vi:'Ngày nào anh ấy cũng chơi bóng rổ.' } }
+      ],
+      vocab:[
+        { zh:'爱好', pinyin:'àihào', hv:'ái hảo', vi:'sở thích', pos:'danh từ' },
+        { zh:'运动', pinyin:'yùndòng', hv:'vận động', vi:'thể thao; vận động', pos:'danh từ; động từ' },
+        { zh:'跳舞', pinyin:'tiàowǔ', hv:'khiêu vũ', vi:'nhảy, múa', pos:'động từ' },
+        { zh:'游泳', pinyin:'yóuyǒng', hv:'du vịnh', vi:'bơi', pos:'động từ' },
+        { zh:'篮球', pinyin:'lánqiú', hv:'lam cầu', vi:'bóng rổ', pos:'danh từ' },
+        { zh:'打', pinyin:'dǎ', hv:'đả', vi:'đánh; chơi (bóng)', pos:'động từ' },
+        { zh:'旅游', pinyin:'lǚyóu', hv:'lữ du', vi:'du lịch', pos:'động từ' },
+        { zh:'音乐', pinyin:'yīnyuè', hv:'âm nhạc', vi:'âm nhạc', pos:'danh từ' },
+        { zh:'电影', pinyin:'diànyǐng', hv:'điện ảnh', vi:'phim', pos:'danh từ' },
+        { zh:'一边', pinyin:'yìbiān', hv:'nhất biên', vi:'một bên; vừa (… vừa)', pos:'phó từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'你的爱好是什么？', pinyin:'Nǐ de àihào shì shénme?', vi:'Sở thích của bạn là gì?' },
+        { sp:'B', zh:'我喜欢运动，特别是篮球。你呢？', pinyin:'Wǒ xǐhuan yùndòng, tèbié shì lánqiú. Nǐ ne?', vi:'Mình thích thể thao, nhất là bóng rổ. Còn bạn?' },
+        { sp:'A', zh:'我爱看电影，也喜欢旅游。', pinyin:'Wǒ ài kàn diànyǐng, yě xǐhuan lǚyóu.', vi:'Mình mê xem phim, cũng thích du lịch.' }
+      ]
+    },
+
+    {
+      level:'hsk2', no:3, zh:'你什么时候搬家', pinyin:'Nǐ shénme shíhou bānjiā', vi:'Khi nào bạn chuyển nhà',
+      skill:'“Sắp…” với 要…了; khoảng cách với 离',
+      grammar:[
+        { form:'(快)要 + V + 了', vi:'“sắp (làm gì)”',
+          note:'Diễn tả việc sắp xảy ra. Vd 我下个月要搬家了 / 快要下雨了.',
+          ex:{ zh:'快要下雨了。', pinyin:'Kuàiyào xiàyǔ le.', vi:'Trời sắp mưa rồi.' } },
+        { form:'A 离 B + 近/远', vi:'“A cách B gần/xa”',
+          note:'离 lí chỉ khoảng cách giữa hai nơi. Vd 我家离公司很近.',
+          ex:{ zh:'新房子离公司很近。', pinyin:'Xīn fángzi lí gōngsī hěn jìn.', vi:'Nhà mới cách công ty rất gần.' } }
+      ],
+      vocab:[
+        { zh:'搬', pinyin:'bān', hv:'ban', vi:'dời, chuyển', pos:'động từ' },
+        { zh:'房间', pinyin:'fángjiān', hv:'phòng gian', vi:'căn phòng', pos:'danh từ' },
+        { zh:'帮', pinyin:'bāng', hv:'bang', vi:'giúp', pos:'động từ' },
+        { zh:'帮忙', pinyin:'bāngmáng', hv:'bang mang', vi:'giúp đỡ', pos:'động từ' },
+        { zh:'要', pinyin:'yào', hv:'yếu', vi:'muốn; sắp; phải', pos:'động từ năng nguyện' },
+        { zh:'新', pinyin:'xīn', hv:'tân', vi:'mới', pos:'tính từ' },
+        { zh:'离', pinyin:'lí', hv:'ly', vi:'cách (khoảng cách)', pos:'giới từ' },
+        { zh:'近', pinyin:'jìn', hv:'cận', vi:'gần', pos:'tính từ' },
+        { zh:'远', pinyin:'yuǎn', hv:'viễn', vi:'xa', pos:'tính từ' },
+        { zh:'方便', pinyin:'fāngbiàn', hv:'phương tiện', vi:'tiện lợi', pos:'tính từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'你什么时候搬家？', pinyin:'Nǐ shénme shíhou bānjiā?', vi:'Khi nào bạn chuyển nhà?' },
+        { sp:'B', zh:'下个月。', pinyin:'Xià ge yuè.', vi:'Tháng sau.' },
+        { sp:'A', zh:'新房子在哪儿？', pinyin:'Xīn fángzi zài nǎr?', vi:'Nhà mới ở đâu?' },
+        { sp:'B', zh:'离公司很近，很方便。', pinyin:'Lí gōngsī hěn jìn, hěn fāngbiàn.', vi:'Cách công ty rất gần, rất tiện.' },
+        { sp:'A', zh:'搬家的时候我来帮你。', pinyin:'Bānjiā de shíhou wǒ lái bāng nǐ.', vi:'Lúc chuyển nhà mình đến giúp bạn.' }
+      ]
+    },
+
+    {
+      level:'hsk2', no:4, zh:'这个工作是同事介绍的', pinyin:'Zhège gōngzuò shì tóngshì jièshào de', vi:'Việc này là đồng nghiệp giới thiệu',
+      skill:'Nhấn mạnh với 是…的; “từ… đến…”',
+      grammar:[
+        { form:'是 … 的', vi:'nhấn mạnh (ai/khi nào/ở đâu/cách nào) của việc đã xảy ra',
+          note:'Với việc đã xảy ra, dùng 是…的 để nhấn mạnh thành phần ở giữa. Vd 我是昨天来的 / 这是他介绍的.',
+          ex:{ zh:'这个工作是同事介绍的。', pinyin:'Zhège gōngzuò shì tóngshì jièshào de.', vi:'Việc này là đồng nghiệp giới thiệu.' } },
+        { form:'从 A 到 B', vi:'“từ A đến B”',
+          note:'Chỉ khoảng thời gian/không gian. Vd 从早上到晚上 / 从家到公司.',
+          ex:{ zh:'我从早上八点工作到下午五点。', pinyin:'Wǒ cóng zǎoshang bā diǎn gōngzuò dào xiàwǔ wǔ diǎn.', vi:'Tôi làm từ 8 giờ sáng đến 5 giờ chiều.' } }
+      ],
+      vocab:[
+        { zh:'介绍', pinyin:'jièshào', hv:'giới thiệu', vi:'giới thiệu', pos:'động từ' },
+        { zh:'帮助', pinyin:'bāngzhù', hv:'bang trợ', vi:'giúp đỡ', pos:'động từ; danh từ' },
+        { zh:'同事', pinyin:'tóngshì', hv:'đồng sự', vi:'đồng nghiệp', pos:'danh từ' },
+        { zh:'同学', pinyin:'tóngxué', hv:'đồng học', vi:'bạn học', pos:'danh từ' },
+        { zh:'经理', pinyin:'jīnglǐ', hv:'kinh lý', vi:'giám đốc, quản lý', pos:'danh từ' },
+        { zh:'上班', pinyin:'shàngbān', hv:'thượng ban', vi:'đi làm', pos:'động từ' },
+        { zh:'下班', pinyin:'xiàbān', hv:'hạ ban', vi:'tan làm', pos:'động từ' },
+        { zh:'迟到', pinyin:'chídào', hv:'trì đáo', vi:'đến muộn', pos:'động từ' },
+        { zh:'开始', pinyin:'kāishǐ', hv:'khai thuỷ', vi:'bắt đầu', pos:'động từ' },
+        { zh:'从', pinyin:'cóng', hv:'tòng', vi:'từ (nơi/lúc)', pos:'giới từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'这个工作是谁给你介绍的？', pinyin:'Zhège gōngzuò shì shéi gěi nǐ jièshào de?', vi:'Việc này ai giới thiệu cho bạn?' },
+        { sp:'B', zh:'是我同事介绍的。', pinyin:'Shì wǒ tóngshì jièshào de.', vi:'Là đồng nghiệp mình giới thiệu.' },
+        { sp:'A', zh:'经理怎么样？', pinyin:'Jīnglǐ zěnmeyàng?', vi:'Giám đốc thế nào?' },
+        { sp:'B', zh:'他人很好，对我们很好。', pinyin:'Tā rén hěn hǎo, duì wǒmen hěn hǎo.', vi:'Anh ấy tốt tính, đối xử với chúng mình rất tốt.' }
+      ]
+    },
+
+    {
+      level:'hsk2', no:5, zh:'桌子上放着很多东西', pinyin:'Zhuōzi shang fàng zhe hěn duō dōngxi', vi:'Trên bàn để nhiều đồ',
+      skill:'Trạng thái tồn tại với 着; vị trí đồ vật',
+      grammar:[
+        { form:'Nơi + V + 着 + N', vi:'“ở (nơi) đang có/đặt…”',
+          note:'着 zhe chỉ trạng thái duy trì. Vd 门开着 (cửa đang mở) / 桌子上放着书 (trên bàn để sách).',
+          ex:{ zh:'桌子上放着一个手机。', pinyin:'Zhuōzi shang fàng zhe yí ge shǒujī.', vi:'Trên bàn để một chiếc điện thoại.' } },
+        { form:'N + 上/里/旁边', vi:'từ chỉ vị trí',
+          note:'Danh từ + từ phương vị: 桌子上 (trên bàn), 房间里 (trong phòng), 旁边 (bên cạnh).',
+          ex:{ zh:'电脑在手机旁边。', pinyin:'Diànnǎo zài shǒujī pángbiān.', vi:'Máy tính ở bên cạnh điện thoại.' } }
+      ],
+      vocab:[
+        { zh:'桌子', pinyin:'zhuōzi', hv:'trác tử', vi:'cái bàn', pos:'danh từ' },
+        { zh:'椅子', pinyin:'yǐzi', hv:'ỷ tử', vi:'cái ghế', pos:'danh từ' },
+        { zh:'放', pinyin:'fàng', hv:'phóng', vi:'đặt, để', pos:'động từ' },
+        { zh:'着', pinyin:'zhe', hv:'trước', vi:'(trợ từ trạng thái)', pos:'trợ từ' },
+        { zh:'上面', pinyin:'shàngmiàn', hv:'thượng diện', vi:'phía trên', pos:'danh từ' },
+        { zh:'旁边', pinyin:'pángbiān', hv:'bàng biên', vi:'bên cạnh', pos:'danh từ' },
+        { zh:'东西', pinyin:'dōngxi', hv:'đông tây', vi:'đồ vật, đồ đạc', pos:'danh từ' },
+        { zh:'手机', pinyin:'shǒujī', hv:'thủ cơ', vi:'điện thoại di động', pos:'danh từ' },
+        { zh:'电脑', pinyin:'diànnǎo', hv:'điện não', vi:'máy tính', pos:'danh từ' },
+        { zh:'报纸', pinyin:'bàozhǐ', hv:'báo chỉ', vi:'báo (tờ báo)', pos:'danh từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'我的手机在哪儿？', pinyin:'Wǒ de shǒujī zài nǎr?', vi:'Điện thoại của mình đâu rồi?' },
+        { sp:'B', zh:'在桌子上放着呢。', pinyin:'Zài zhuōzi shang fàng zhe ne.', vi:'Đang để trên bàn đấy.' },
+        { sp:'A', zh:'桌子上还有什么？', pinyin:'Zhuōzi shang hái yǒu shénme?', vi:'Trên bàn còn gì nữa?' },
+        { sp:'B', zh:'有电脑、报纸和一杯茶。', pinyin:'Yǒu diànnǎo, bàozhǐ hé yì bēi chá.', vi:'Có máy tính, báo và một cốc trà.' }
+      ]
+    },
+
+    {
+      level:'hsk2', no:6, zh:'你怎么不吃了', pinyin:'Nǐ zěnme bù chī le', vi:'Sao bạn không ăn nữa',
+      skill:'Hỏi nguyên do với 怎么; 了 chỉ thay đổi; V một chút',
+      grammar:[
+        { form:'怎么 + V ?', vi:'“sao lại…?”',
+          note:'怎么 hỏi nguyên nhân/cách thức. Vd 你怎么不吃了？ / 这个字怎么写？',
+          ex:{ zh:'你怎么不舒服？', pinyin:'Nǐ zěnme bù shūfu?', vi:'Sao bạn thấy không khoẻ?' } },
+        { form:'V + 一下 / … + 了 (thay đổi)', vi:'“làm một chút” / “… rồi (đổi trạng thái)”',
+          note:'一下 làm nhẹ/thử một chút: 休息一下. 了 ở cuối câu chỉ tình huống mới: 我不想吃了 (không muốn ăn nữa).',
+          ex:{ zh:'我们休息一下吧。', pinyin:'Wǒmen xiūxi yíxià ba.', vi:'Chúng ta nghỉ một chút nhé.' } }
+      ],
+      vocab:[
+        { zh:'怎么', pinyin:'zěnme', hv:'chẩm ma', vi:'làm sao; thế nào', pos:'đại từ nghi vấn' },
+        { zh:'已经', pinyin:'yǐjīng', hv:'dĩ kinh', vi:'đã, đã rồi', pos:'phó từ' },
+        { zh:'饱', pinyin:'bǎo', hv:'bão', vi:'no', pos:'tính từ' },
+        { zh:'饿', pinyin:'è', hv:'ngạ', vi:'đói', pos:'tính từ' },
+        { zh:'生病', pinyin:'shēngbìng', hv:'sinh bệnh', vi:'bị ốm', pos:'động từ' },
+        { zh:'药', pinyin:'yào', hv:'dược', vi:'thuốc', pos:'danh từ' },
+        { zh:'休息', pinyin:'xiūxi', hv:'hưu tức', vi:'nghỉ ngơi', pos:'động từ' },
+        { zh:'舒服', pinyin:'shūfu', hv:'thư phục', vi:'dễ chịu, khoẻ', pos:'tính từ' },
+        { zh:'慢慢', pinyin:'mànmàn', hv:'mạn mạn', vi:'từ từ, chậm rãi', pos:'phó từ' },
+        { zh:'一下', pinyin:'yíxià', hv:'nhất hạ', vi:'một chút, thử', pos:'số lượng' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'你怎么不吃了？', pinyin:'Nǐ zěnme bù chī le?', vi:'Sao bạn không ăn nữa?' },
+        { sp:'B', zh:'我已经饱了。', pinyin:'Wǒ yǐjīng bǎo le.', vi:'Mình no rồi.' },
+        { sp:'A', zh:'你不舒服吗？', pinyin:'Nǐ bù shūfu ma?', vi:'Bạn không khoẻ à?' },
+        { sp:'B', zh:'有点儿累，想休息一下。', pinyin:'Yǒudiǎnr lèi, xiǎng xiūxi yíxià.', vi:'Hơi mệt, muốn nghỉ một chút.' }
+      ]
     }
   ]
 };
+
+/* Bài nào chưa ghi cấp thì thuộc HSK1 */
+COURSE_ZH.lessons.forEach(l => { if (!l.level) l.level = 'hsk1'; });
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { COURSE_ZH, STROKES_ZH, RADICALS_ZH, PINYIN_ZH };

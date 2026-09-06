@@ -1243,7 +1243,7 @@ function aboutView(){
   return `
   <div class="about">
     <div class="about-hero">
-      <div class="about-logo"><img src="logo-full.png?v=260922" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
+      <div class="about-logo"><img src="logo-full.png?v=260923" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
       <h1 class="sr-only">LangLab</h1>
       <p class="about-tag">Phòng thí nghiệm ngôn ngữ — học ngoại ngữ theo bài, có tra từ điển, luyện nghe–nói và trợ lý AI.</p>
     </div>
@@ -1870,8 +1870,8 @@ function zhSpeak(text){
   } catch(e){}
 }
 function zhLevel(){ return _ZC.levels.find(x => x.id === state.zh.level) || _ZC.levels[0] || { vi:'HSK 1', zh:'HSK 1' }; }
-function zhLessonList(){ return state.zh.level === 'hsk1' ? _ZC.lessons : []; }
-function zhCurLesson(){ return _ZC.lessons.find(l => l.no === state.zh.lesson); }
+function zhLessonList(){ return _ZC.lessons.filter(l => l.level === state.zh.level); }
+function zhCurLesson(){ return _ZC.lessons.find(l => l.no === state.zh.lesson && l.level === state.zh.level); }
 function zhWriteChars(){
   const set = [];
   const push = c => { if (c && hasHanzi(c) && set.indexOf(c) < 0) set.push(c); };
@@ -1896,7 +1896,7 @@ function zhTokens(str){
 
 /* ---------------- Views tiếng Trung ---------------- */
 VIEWS.zh_home = function(){
-  const lv = zhLevel(), L = zhLessonList(), total = 15;
+  const lv = zhLevel(), L = zhLessonList(), total = lv.lessons || 15;
   const cards = [
     ['zh_strokes','Các nét','8 nét cơ bản của chữ Hán','⼂'],
     ['zh_radicals','Bộ thủ','Bộ thường gặp + Hán–Việt','部'],
@@ -3232,7 +3232,7 @@ document.addEventListener('click', e => {
   const zSpeak = t.closest('[data-zh-speak]');
   if (zSpeak){ zhSpeak(zSpeak.dataset.zhSpeak); return; }
   const zLv = t.closest('[data-zh-level]');
-  if (zLv){ if (zLv.dataset.zhLevel === 'hsk1'){ state.zh.level = 'hsk1'; render(); } return; }
+  if (zLv){ const id = zLv.dataset.zhLevel, lv = _ZC.levels.find(x => x.id === id); if (lv && lv.status === 'active'){ state.zh.level = id; state.zh.lesson = null; render(); } return; }
   const zLes = t.closest('[data-zh-lesson]');
   if (zLes){ state.zh.lesson = +zLes.dataset.zhLesson; go('zh_lesson'); return; }
   const zWr = t.closest('[data-zh-write]');
