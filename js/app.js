@@ -1319,26 +1319,27 @@ function asstAudioTab(){
 
 function asstAudioResult(r){
   const isKo = /^ko/i.test(r.lang || '');
-  const head = `<div class="asst-lang">Ngôn ngữ nhận diện: <b>${esc(r.langVi || r.lang || 'không rõ')}</b>${isKo ? ' · bấm vào từng từ để tra từ điển' : ''}</div>`;
-  const sents = (r.sentences || []).map((s, i) => {
+  const sentences = r.sentences || [];
+  const fullText = sentences.map(s => s.text || '').filter(Boolean).join(' ');
+  const fullVi   = sentences.map(s => s.vi   || '').filter(Boolean).join(' ');
+  const head = `<div class="asst-lang">Ngôn ngữ nhận diện: <b>${esc(r.langVi || r.lang || 'không rõ')}</b>${isKo ? ' · bấm vào từng từ để tra; từ chưa có sẽ hiện nút thêm vào từ điển' : ''}</div>`;
+  const tools = `<div class="asst-para-tools">
+    <button class="pbtn" data-speak="${esc(fullText)}"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg> Nghe cả đoạn</button>
+    <button class="pbtn" data-asst-trans="1">Dịch cả đoạn</button>
+    <button class="pbtn" data-asst-audio-reset="1">↻ Tệp khác</button>
+  </div>`;
+  // Một đoạn văn liền mạch: mỗi câu là một cụm, trong cụm mỗi từ là token bấm được; các câu ngắt nghỉ nhẹ.
+  const para = sentences.map(s => {
     const words = (s.words || []).map(w => {
       const ww = String(w.w || '');
       const tip = [w.rom, w.vi].filter(Boolean).join(' · ');
       return `<button class="asst-word" data-asst-word="${esc(ww)}" data-asst-lang="${esc(r.lang || '')}" data-asst-rom="${esc(w.rom || '')}" data-asst-vi="${esc(w.vi || '')}" title="${esc(tip)}">${esc(ww)}</button>`;
     }).join(' ');
-    return `
-    <div class="asst-sent">
-      <div class="asst-sent-bar">
-        <span class="asst-sent-no">${i + 1}</span>
-        <button class="pbtn tiny" data-speak="${esc(s.text || '')}" title="Nghe câu">▶ Nghe</button>
-      </div>
-      <div class="asst-sent-ko ${isKo ? 'ko' : ''}">${words || esc(s.text || '')}</div>
-      ${s.rom ? `<div class="asst-sent-rom">${esc(s.rom)}</div>` : ''}
-      <div class="asst-sent-vi">${esc(s.vi || '')}</div>
-    </div>`;
-  }).join('');
-  return `${head}<div class="asst-sents">${sents}</div>
-    <div class="wp-actions" style="padding:12px 0 0"><button class="pbtn" data-asst-audio-reset="1">↻ Phân tích tệp khác</button></div>`;
+    return `<span class="asst-clause">${words || esc(s.text || '')}</span>`;
+  }).join('<span class="asst-pause"></span>');
+  return `${head}${tools}
+    <div class="asst-para ${isKo ? 'ko' : ''}">${para}</div>
+    <div class="asst-para-vi" id="asstParaVi" hidden><span class="asst-vi-lbl">Bản dịch cả đoạn</span>${esc(fullVi)}</div>`;
 }
 
 /* Thẻ nghĩa nhanh cho từ không phải tiếng Hàn (tiếng Hàn dùng bảng tra đầy đủ) */
@@ -1418,6 +1419,19 @@ function asstHandleFile(file){
   };
   reader.onerror = () => { A.busy = false; A.error = 'Không đọc được tệp âm thanh.'; render(); };
   reader.readAsDataURL(file);
+}
+
+/* Từ điển tự bồi: thêm từ (nghĩa do AI đọc từ âm thanh), lưu trong trình duyệt và làm giàu kho tra. */
+function addUserWord(ko, rom, vi){
+  ko = String(ko || '').trim(); if (!ko || !vi) return;
+  const entry = { ko: ko, rom: String(rom || ''), vi: String(vi), pos: 'từ tự thêm' };
+  if (window.Words && Words.addDict) Words.addDict([entry]);
+  const ud = store.get('userdict', []) || [];
+  if (!ud.some(x => x.ko === ko)){ ud.push(entry); store.set('userdict', ud); }
+}
+function loadUserDict(){
+  const ud = store.get('userdict', []) || [];
+  if (ud.length && window.Words && Words.addDict) Words.addDict(ud);
 }
 
 /* ============================================================
@@ -2217,7 +2231,7 @@ function wordPanel(){
   return el;
 }
 
-function openWord(token, queryOverride){
+function openWord(token, queryOverride, gloss){
   const a  = Words.analyze(token);
   const q  = queryOverride || a.best;
   wordState = { token: token, query: q };
@@ -2273,7 +2287,12 @@ ${WP_TOOLS}
     <div class="wp-sec">
       <h5>Mục từ</h5>
       ${hit ? dictEntryHtml(hit)
-      : `<p class="wp-empty">Chưa có trong ${Words.index().words.length} từ của LangLab. Dùng các từ điển bên dưới để tra.</p>`}
+      : `<p class="wp-empty">Chưa có trong ${Words.index().words.length} từ của LangLab. Dùng các từ điển bên dưới để tra.</p>
+         ${gloss && gloss.vi ? `<div class="wp-addbox">
+           <div class="wp-add-gloss"><b class="ko">${esc(token)}</b>${gloss.rom ? ` <span class="wp-rom">[${esc(gloss.rom)}]</span>` : ''} — ${esc(gloss.vi)}</div>
+           <button class="pbtn primary" data-dict-add="${esc(token)}" data-rom="${esc(gloss.rom || '')}" data-vi="${esc(gloss.vi)}">+ Thêm vào từ điển</button>
+           <p class="wp-hint">Nghĩa do AI đọc từ âm thanh. Thêm vào để lần sau tra được và làm giàu kho từ (lưu trong trình duyệt của bạn).</p>
+         </div>` : ''}`}
     </div>
 
     <div class="wp-sec">
@@ -2693,12 +2712,24 @@ document.addEventListener('click', e => {
   if (t.closest('[data-asst-send]')){ asstSend(); return; }
   if (t.closest('[data-asst-clear]')){ if (confirm('Xoá toàn bộ hội thoại?')){ state.assistant.messages = []; render(); } return; }
   if (t.closest('[data-asst-audio-reset]')){ const A = state.assistant.audio; A.result = null; A.error = null; A.name = ''; render(); return; }
+  if (t.closest('[data-asst-trans]')){
+    const box = $('#asstParaVi'); const btn = t.closest('[data-asst-trans]');
+    if (box){ box.hidden = !box.hidden; btn.textContent = box.hidden ? 'Dịch cả đoạn' : 'Ẩn bản dịch'; }
+    return;
+  }
   const aword = t.closest('[data-asst-word]');
   if (aword){
     const w = aword.dataset.asstWord || '';
     const lang = aword.dataset.asstLang || '';
-    if (/^ko/i.test(lang) || /[가-힣]/.test(w)) openWord(w);
-    else asstGloss(w, aword.dataset.asstRom || '', aword.dataset.asstVi || '');
+    const gloss = { rom: aword.dataset.asstRom || '', vi: aword.dataset.asstVi || '' };
+    if (/^ko/i.test(lang) || /[가-힣]/.test(w)) openWord(w, null, gloss);
+    else asstGloss(w, gloss.rom, gloss.vi);
+    return;
+  }
+  const dadd = t.closest('[data-dict-add]');
+  if (dadd){
+    addUserWord(dadd.dataset.dictAdd, dadd.dataset.rom || '', dadd.dataset.vi || '');
+    openWord(dadd.dataset.dictAdd);   // mở lại: giờ đã có trong từ điển
     return;
   }
 
@@ -2764,6 +2795,7 @@ if (typeof window !== "undefined") window.__langlab_wordcount = () => (Words.ind
 Words.build(COURSE_KO,
   (typeof VOCAB_COMMON !== 'undefined') ? VOCAB_COMMON : [],
   (typeof DICT_KO !== 'undefined') ? DICT_KO : []);
+loadUserDict();   // nạp các từ người dùng đã tự thêm (lưu ở trình duyệt)
 
 /* ---------- nạp từ điển KRDict kiểu lazy ----------
    Từ điển lớn (có thể tới ~50k mục) không tải lúc khởi động để app hiện nhanh.

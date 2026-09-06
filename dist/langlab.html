@@ -1004,25 +1004,27 @@ body:has(.mplayer.open) .view{padding-bottom:110px}
 @keyframes asstSpin{to{transform:rotate(360deg)}}
 .asst-error{margin-top:16px;padding:14px 16px;border:1px solid var(--seal);background:var(--seal-soft);color:var(--seal);border-radius:12px;font-size:14px;line-height:1.55}
 
-.asst-lang{margin:18px 0 12px;font-size:14px;color:var(--muted)}
+.asst-lang{margin:18px 0 10px;font-size:14px;color:var(--muted)}
 .asst-lang b{color:var(--ink)}
-.asst-sents{display:flex;flex-direction:column;gap:14px}
-.asst-sent{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:14px 16px}
-.asst-sent-bar{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.asst-sent-no{width:22px;height:22px;flex:none;display:grid;place-items:center;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;color:var(--accent);background:var(--accent-soft);border-radius:6px}
 .pbtn.tiny{padding:3px 9px;font-size:12px}
-.asst-sent-ko{font-size:19px;line-height:1.9;word-break:keep-all}
-.asst-word{appearance:none;border:none;background:none;font:inherit;font-size:inherit;color:var(--ink);cursor:pointer;padding:1px 3px;border-radius:6px;border-bottom:1.5px dotted var(--line-strong);transition:background .12s,color .12s}
+.asst-para-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.asst-para{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:18px 20px;font-size:20px;line-height:2.05;word-break:keep-all}
+.asst-clause{display:inline}
+.asst-pause{display:inline-block;width:0;padding:0 4px}    /* khoảng ngắt nghỉ nhẹ giữa các câu */
+.asst-word{appearance:none;border:none;background:none;font:inherit;font-size:inherit;color:var(--ink);cursor:pointer;padding:1px 2px;border-radius:6px;border-bottom:1.5px dotted var(--line-strong);transition:background .12s,color .12s}
 .asst-word:hover{background:var(--accent-soft);color:var(--accent);border-bottom-color:var(--accent)}
-.asst-sent-rom{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--muted);margin-top:4px}
-.asst-sent-vi{font-size:14px;color:var(--ink);margin-top:6px;padding-top:8px;border-top:1px dashed var(--line)}
+.asst-para-vi{margin-top:14px;padding:14px 16px;border:1px dashed var(--line);border-radius:12px;background:var(--ground);font-size:15px;line-height:1.7;color:var(--ink)}
+.asst-vi-lbl{display:block;font-size:12px;font-weight:600;color:var(--accent);margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
 
 .wp-body{padding:14px 4px 4px}
 .wp-gloss{font-size:15px;line-height:1.6;color:var(--ink);margin:0 0 8px}
+.wp-addbox{margin-top:12px;padding:13px 15px;border:1px solid var(--accent-soft);background:var(--accent-soft);border-radius:12px}
+.wp-add-gloss{font-size:15px;color:var(--ink);margin-bottom:10px}
+.wp-addbox .pbtn{align-self:flex-start}
 
 @media (max-width:640px){
   .asst-bubble{max-width:90%}
-  .asst-sent-ko{font-size:17px}
+  .asst-para{font-size:18px;line-height:1.95;padding:14px 15px}
 }
 
 @media (prefers-reduced-motion:reduce){
@@ -8179,26 +8181,27 @@ function asstAudioTab(){
 
 function asstAudioResult(r){
   const isKo = /^ko/i.test(r.lang || '');
-  const head = `<div class="asst-lang">Ngôn ngữ nhận diện: <b>${esc(r.langVi || r.lang || 'không rõ')}</b>${isKo ? ' · bấm vào từng từ để tra từ điển' : ''}</div>`;
-  const sents = (r.sentences || []).map((s, i) => {
+  const sentences = r.sentences || [];
+  const fullText = sentences.map(s => s.text || '').filter(Boolean).join(' ');
+  const fullVi   = sentences.map(s => s.vi   || '').filter(Boolean).join(' ');
+  const head = `<div class="asst-lang">Ngôn ngữ nhận diện: <b>${esc(r.langVi || r.lang || 'không rõ')}</b>${isKo ? ' · bấm vào từng từ để tra; từ chưa có sẽ hiện nút thêm vào từ điển' : ''}</div>`;
+  const tools = `<div class="asst-para-tools">
+    <button class="pbtn" data-speak="${esc(fullText)}"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg> Nghe cả đoạn</button>
+    <button class="pbtn" data-asst-trans="1">Dịch cả đoạn</button>
+    <button class="pbtn" data-asst-audio-reset="1">↻ Tệp khác</button>
+  </div>`;
+  // Một đoạn văn liền mạch: mỗi câu là một cụm, trong cụm mỗi từ là token bấm được; các câu ngắt nghỉ nhẹ.
+  const para = sentences.map(s => {
     const words = (s.words || []).map(w => {
       const ww = String(w.w || '');
       const tip = [w.rom, w.vi].filter(Boolean).join(' · ');
       return `<button class="asst-word" data-asst-word="${esc(ww)}" data-asst-lang="${esc(r.lang || '')}" data-asst-rom="${esc(w.rom || '')}" data-asst-vi="${esc(w.vi || '')}" title="${esc(tip)}">${esc(ww)}</button>`;
     }).join(' ');
-    return `
-    <div class="asst-sent">
-      <div class="asst-sent-bar">
-        <span class="asst-sent-no">${i + 1}</span>
-        <button class="pbtn tiny" data-speak="${esc(s.text || '')}" title="Nghe câu">▶ Nghe</button>
-      </div>
-      <div class="asst-sent-ko ${isKo ? 'ko' : ''}">${words || esc(s.text || '')}</div>
-      ${s.rom ? `<div class="asst-sent-rom">${esc(s.rom)}</div>` : ''}
-      <div class="asst-sent-vi">${esc(s.vi || '')}</div>
-    </div>`;
-  }).join('');
-  return `${head}<div class="asst-sents">${sents}</div>
-    <div class="wp-actions" style="padding:12px 0 0"><button class="pbtn" data-asst-audio-reset="1">↻ Phân tích tệp khác</button></div>`;
+    return `<span class="asst-clause">${words || esc(s.text || '')}</span>`;
+  }).join('<span class="asst-pause"></span>');
+  return `${head}${tools}
+    <div class="asst-para ${isKo ? 'ko' : ''}">${para}</div>
+    <div class="asst-para-vi" id="asstParaVi" hidden><span class="asst-vi-lbl">Bản dịch cả đoạn</span>${esc(fullVi)}</div>`;
 }
 
 /* Thẻ nghĩa nhanh cho từ không phải tiếng Hàn (tiếng Hàn dùng bảng tra đầy đủ) */
@@ -8278,6 +8281,19 @@ function asstHandleFile(file){
   };
   reader.onerror = () => { A.busy = false; A.error = 'Không đọc được tệp âm thanh.'; render(); };
   reader.readAsDataURL(file);
+}
+
+/* Từ điển tự bồi: thêm từ (nghĩa do AI đọc từ âm thanh), lưu trong trình duyệt và làm giàu kho tra. */
+function addUserWord(ko, rom, vi){
+  ko = String(ko || '').trim(); if (!ko || !vi) return;
+  const entry = { ko: ko, rom: String(rom || ''), vi: String(vi), pos: 'từ tự thêm' };
+  if (window.Words && Words.addDict) Words.addDict([entry]);
+  const ud = store.get('userdict', []) || [];
+  if (!ud.some(x => x.ko === ko)){ ud.push(entry); store.set('userdict', ud); }
+}
+function loadUserDict(){
+  const ud = store.get('userdict', []) || [];
+  if (ud.length && window.Words && Words.addDict) Words.addDict(ud);
 }
 
 /* ============================================================
@@ -9077,7 +9093,7 @@ function wordPanel(){
   return el;
 }
 
-function openWord(token, queryOverride){
+function openWord(token, queryOverride, gloss){
   const a  = Words.analyze(token);
   const q  = queryOverride || a.best;
   wordState = { token: token, query: q };
@@ -9133,7 +9149,12 @@ ${WP_TOOLS}
     <div class="wp-sec">
       <h5>Mục từ</h5>
       ${hit ? dictEntryHtml(hit)
-      : `<p class="wp-empty">Chưa có trong ${Words.index().words.length} từ của LangLab. Dùng các từ điển bên dưới để tra.</p>`}
+      : `<p class="wp-empty">Chưa có trong ${Words.index().words.length} từ của LangLab. Dùng các từ điển bên dưới để tra.</p>
+         ${gloss && gloss.vi ? `<div class="wp-addbox">
+           <div class="wp-add-gloss"><b class="ko">${esc(token)}</b>${gloss.rom ? ` <span class="wp-rom">[${esc(gloss.rom)}]</span>` : ''} — ${esc(gloss.vi)}</div>
+           <button class="pbtn primary" data-dict-add="${esc(token)}" data-rom="${esc(gloss.rom || '')}" data-vi="${esc(gloss.vi)}">+ Thêm vào từ điển</button>
+           <p class="wp-hint">Nghĩa do AI đọc từ âm thanh. Thêm vào để lần sau tra được và làm giàu kho từ (lưu trong trình duyệt của bạn).</p>
+         </div>` : ''}`}
     </div>
 
     <div class="wp-sec">
@@ -9553,12 +9574,24 @@ document.addEventListener('click', e => {
   if (t.closest('[data-asst-send]')){ asstSend(); return; }
   if (t.closest('[data-asst-clear]')){ if (confirm('Xoá toàn bộ hội thoại?')){ state.assistant.messages = []; render(); } return; }
   if (t.closest('[data-asst-audio-reset]')){ const A = state.assistant.audio; A.result = null; A.error = null; A.name = ''; render(); return; }
+  if (t.closest('[data-asst-trans]')){
+    const box = $('#asstParaVi'); const btn = t.closest('[data-asst-trans]');
+    if (box){ box.hidden = !box.hidden; btn.textContent = box.hidden ? 'Dịch cả đoạn' : 'Ẩn bản dịch'; }
+    return;
+  }
   const aword = t.closest('[data-asst-word]');
   if (aword){
     const w = aword.dataset.asstWord || '';
     const lang = aword.dataset.asstLang || '';
-    if (/^ko/i.test(lang) || /[가-힣]/.test(w)) openWord(w);
-    else asstGloss(w, aword.dataset.asstRom || '', aword.dataset.asstVi || '');
+    const gloss = { rom: aword.dataset.asstRom || '', vi: aword.dataset.asstVi || '' };
+    if (/^ko/i.test(lang) || /[가-힣]/.test(w)) openWord(w, null, gloss);
+    else asstGloss(w, gloss.rom, gloss.vi);
+    return;
+  }
+  const dadd = t.closest('[data-dict-add]');
+  if (dadd){
+    addUserWord(dadd.dataset.dictAdd, dadd.dataset.rom || '', dadd.dataset.vi || '');
+    openWord(dadd.dataset.dictAdd);   // mở lại: giờ đã có trong từ điển
     return;
   }
 
@@ -9624,6 +9657,7 @@ if (typeof window !== "undefined") window.__langlab_wordcount = () => (Words.ind
 Words.build(COURSE_KO,
   (typeof VOCAB_COMMON !== 'undefined') ? VOCAB_COMMON : [],
   (typeof DICT_KO !== 'undefined') ? DICT_KO : []);
+loadUserDict();   // nạp các từ người dùng đã tự thêm (lưu ở trình duyệt)
 
 /* ---------- nạp từ điển KRDict kiểu lazy ----------
    Từ điển lớn (có thể tới ~50k mục) không tải lúc khởi động để app hiện nhanh.
