@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
 <meta name="description" content="Ứng dụng học ngoại ngữ theo bài. Bắt đầu với tiếng Hàn: từ vựng, ngữ pháp, hội thoại, tra từ điển và hướng dẫn thứ tự nét viết chữ Hangul.">
-<link rel="icon" type="image/png" href="logo-icon.png?v=260925">
-<link rel="manifest" href="manifest.webmanifest?v=260925">
+<link rel="icon" type="image/png" href="logo-icon.png?v=260926">
+<link rel="manifest" href="manifest.webmanifest?v=260926">
 <meta name="theme-color" content="#EAF1FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260925">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260926">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="LangLab">
@@ -1333,7 +1333,7 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   <header class="nav">
     <div class="nav-in">
       <div class="brand" data-go="about" role="link" tabindex="0" title="Giới thiệu LangLab">
-        <span class="brand-mark"><img src="logo-icon.png?v=260925" alt="LangLab" width="40" height="40"></span>
+        <span class="brand-mark"><img src="logo-icon.png?v=260926" alt="LangLab" width="40" height="40"></span>
         <span class="brand-name">LangLab</span>
       </div>
 
@@ -7244,7 +7244,7 @@ const COURSE_ZH = {
     { id:'hsk1', zh:'HSK 1', vi:'HSK 1 · Sơ cấp', lessons:15, status:'active'  },
     { id:'hsk2', zh:'HSK 2', vi:'HSK 2 · Sơ–trung cấp', lessons:15, status:'active'  },
     { id:'hsk3', zh:'HSK 3', vi:'HSK 3 · Trung cấp', lessons:20, status:'active'  },
-    { id:'hsk4', zh:'HSK 4', vi:'HSK 4',           lessons:20, status:'planned' },
+    { id:'hsk4', zh:'HSK 4', vi:'HSK 4 · Trung–cao cấp', lessons:20, status:'active' },
     { id:'hsk5', zh:'HSK 5', vi:'HSK 5 · Cao cấp', lessons:36, status:'planned' }
   ],
 
@@ -8853,6 +8853,700 @@ const COURSE_ZH = {
         { sp:'B', zh:'是啊，空气也新鲜得很。', pinyin:'Shì a, kōngqì yě xīnxiān de hěn.', vi:'Ừ, không khí cũng trong lành lắm.' },
         { sp:'A', zh:'爬了三个小时的山，我累死了。', pinyin:'Pá le sān ge xiǎoshí de shān, wǒ lèi sǐ le.', vi:'Leo núi ba tiếng, mình mệt chết đi được.' },
         { sp:'B', zh:'虽然累，但是值得。把照片发给我吧！', pinyin:'Suīrán lèi, dànshì zhíde. Bǎ zhàopiàn fā gěi wǒ ba!', vi:'Tuy mệt nhưng đáng. Gửi ảnh cho mình nhé!' }
+      ]
+    },
+
+    /* ================= HSK 4 ================= */
+    {
+      level:'hsk4', no:1, zh:'不管多忙，他都坚持锻炼', pinyin:'Bùguǎn duō máng, tā dōu jiānchí duànliàn', vi:'Dù bận đến đâu anh ấy vẫn tập luyện',
+      skill:'Điều kiện vô điều kiện: 不管/无论…都; 既然…就',
+      grammar:[
+        { form:'不管 / 无论 + (nghi vấn) …，都/也 …', vi:'“bất kể / dù … cũng …”',
+          note:'Vế trước phải chứa yếu tố nghi vấn hoặc lựa chọn: 不管多忙 / 无论谁 / 不管刮风还是下雨. 无论 trang trọng hơn 不管.',
+          ex:{ zh:'无论遇到什么困难，我们都不会放弃。', pinyin:'Wúlùn yùdào shénme kùnnan, wǒmen dōu bú huì fàngqì.', vi:'Dù gặp khó khăn gì chúng tôi cũng không bỏ cuộc.' } },
+        { form:'既然 A，就 B', vi:'“đã … thì …” (nêu sự thật rồi suy ra)',
+          note:'既然 dẫn một việc đã xác lập, vế sau kết luận với 就/那/也. Vd 既然来了，就多住几天吧.',
+          ex:{ zh:'既然你身体不舒服，就早点儿回去休息吧。', pinyin:'Jìrán nǐ shēntǐ bù shūfu, jiù zǎodiǎnr huíqù xiūxi ba.', vi:'Đã không khoẻ thì về nghỉ sớm đi.' } }
+      ],
+      vocab:[
+        { zh:'不管', pinyin:'bùguǎn', hv:'bất quản', vi:'bất kể, dù', pos:'liên từ' },
+        { zh:'无论', pinyin:'wúlùn', hv:'vô luận', vi:'bất luận, dù', pos:'liên từ' },
+        { zh:'既然', pinyin:'jìrán', hv:'ký nhiên', vi:'đã … (thì)', pos:'liên từ' },
+        { zh:'困难', pinyin:'kùnnan', hv:'khốn nan', vi:'khó khăn', pos:'danh từ; tính từ' },
+        { zh:'遇到', pinyin:'yùdào', hv:'ngộ đáo', vi:'gặp phải', pos:'động từ' },
+        { zh:'坚持', pinyin:'jiānchí', hv:'kiên trì', vi:'kiên trì', pos:'động từ' },
+        { zh:'规律', pinyin:'guīlǜ', hv:'quy luật', vi:'quy luật; điều độ', pos:'danh từ; tính từ' },
+        { zh:'习惯', pinyin:'xíguàn', hv:'tập quán', vi:'thói quen', pos:'danh từ; động từ' },
+        { zh:'压力', pinyin:'yālì', hv:'áp lực', vi:'áp lực', pos:'danh từ' },
+        { zh:'精神', pinyin:'jīngshén', hv:'tinh thần', vi:'tinh thần', pos:'danh từ' },
+        { zh:'效果', pinyin:'xiàoguǒ', hv:'hiệu quả', vi:'hiệu quả', pos:'danh từ' },
+        { zh:'佩服', pinyin:'pèifú', hv:'bội phục', vi:'khâm phục', pos:'động từ' },
+        { zh:'羡慕', pinyin:'xiànmù', hv:'tiện mộ', vi:'ngưỡng mộ, ghen tị', pos:'động từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'你每天都去健身房吗？', pinyin:'Nǐ měitiān dōu qù jiànshēnfáng ma?', vi:'Ngày nào bạn cũng đến phòng gym à?' },
+        { sp:'B', zh:'对，不管多忙，我都坚持锻炼一个小时。', pinyin:'Duì, bùguǎn duō máng, wǒ dōu jiānchí duànliàn yí ge xiǎoshí.', vi:'Ừ, dù bận đến đâu mình vẫn tập một tiếng.' },
+        { sp:'A', zh:'真佩服你。我工作压力大，总是没精神。', pinyin:'Zhēn pèifú nǐ. Wǒ gōngzuò yālì dà, zǒngshì méi jīngshén.', vi:'Khâm phục thật. Mình áp lực công việc lớn, lúc nào cũng uể oải.' },
+        { sp:'B', zh:'既然这样，就更应该运动。生活有规律，效果很明显。', pinyin:'Jìrán zhèyàng, jiù gèng yīnggāi yùndòng. Shēnghuó yǒu guīlǜ, xiàoguǒ hěn míngxiǎn.', vi:'Đã vậy thì càng nên vận động. Sống điều độ, hiệu quả rất rõ.' }
+      ]
+    },
+
+    {
+      level:'hsk4', no:2, zh:'即使下雨，比赛也照常进行', pinyin:'Jíshǐ xiàyǔ, bǐsài yě zhàocháng jìnxíng', vi:'Dù mưa trận đấu vẫn diễn ra như thường',
+      skill:'Nhượng bộ giả định 即使…也; loại trừ 除非…否则',
+      grammar:[
+        { form:'即使 A，也 B', vi:'“cho dù A thì cũng B” (giả định)',
+          note:'Khác 虽然 (sự thật đã xảy ra), 即使 nêu tình huống giả định/cực đoan. Vd 即使失败了，也不要灰心.',
+          ex:{ zh:'即使再贵，这本书我也要买。', pinyin:'Jíshǐ zài guì, zhè běn shū wǒ yě yào mǎi.', vi:'Cho dù đắt nữa tôi cũng phải mua cuốn này.' } },
+        { form:'除非 A，否则 B / 除非 A，才 B', vi:'“trừ phi A, nếu không thì B”',
+          note:'除非 nêu điều kiện duy nhất. Vd 除非你去，否则我不去 / 除非有证明，才能进去.',
+          ex:{ zh:'除非提前预订，否则周末订不到座位。', pinyin:'Chúfēi tíqián yùdìng, fǒuzé zhōumò dìng bu dào zuòwèi.', vi:'Trừ phi đặt trước, nếu không cuối tuần không có chỗ.' } }
+      ],
+      vocab:[
+        { zh:'即使', pinyin:'jíshǐ', hv:'tức sử', vi:'cho dù', pos:'liên từ' },
+        { zh:'除非', pinyin:'chúfēi', hv:'trừ phi', vi:'trừ phi', pos:'liên từ' },
+        { zh:'否则', pinyin:'fǒuzé', hv:'phủ tắc', vi:'nếu không thì', pos:'liên từ' },
+        { zh:'照常', pinyin:'zhàocháng', hv:'chiếu thường', vi:'như thường lệ', pos:'phó từ' },
+        { zh:'进行', pinyin:'jìnxíng', hv:'tiến hành', vi:'tiến hành, diễn ra', pos:'động từ' },
+        { zh:'提前', pinyin:'tíqián', hv:'đề tiền', vi:'trước (thời hạn)', pos:'động từ' },
+        { zh:'预订', pinyin:'yùdìng', hv:'dự đính', vi:'đặt trước', pos:'động từ' },
+        { zh:'座位', pinyin:'zuòwèi', hv:'toạ vị', vi:'chỗ ngồi', pos:'danh từ' },
+        { zh:'取消', pinyin:'qǔxiāo', hv:'thủ tiêu', vi:'huỷ bỏ', pos:'động từ' },
+        { zh:'推迟', pinyin:'tuīchí', hv:'suy trì', vi:'hoãn lại', pos:'động từ' },
+        { zh:'失败', pinyin:'shībài', hv:'thất bại', vi:'thất bại', pos:'động từ; danh từ' },
+        { zh:'灰心', pinyin:'huīxīn', hv:'hôi tâm', vi:'nản lòng', pos:'tính từ' },
+        { zh:'观众', pinyin:'guānzhòng', hv:'quan chúng', vi:'khán giả', pos:'danh từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'明天要下大雨，比赛会取消吗？', pinyin:'Míngtiān yào xià dàyǔ, bǐsài huì qǔxiāo ma?', vi:'Mai mưa to, trận đấu có huỷ không?' },
+        { sp:'B', zh:'即使下雨，比赛也照常进行，除非有大风。', pinyin:'Jíshǐ xiàyǔ, bǐsài yě zhàocháng jìnxíng, chúfēi yǒu dàfēng.', vi:'Dù mưa vẫn đấu như thường, trừ phi có gió lớn.' },
+        { sp:'A', zh:'那我们得提前预订座位。', pinyin:'Nà wǒmen děi tíqián yùdìng zuòwèi.', vi:'Vậy mình phải đặt chỗ trước.' },
+        { sp:'B', zh:'对，否则观众太多，就没位子了。', pinyin:'Duì, fǒuzé guānzhòng tài duō, jiù méi wèizi le.', vi:'Đúng, nếu không khán giả đông quá là hết chỗ.' }
+      ]
+    },
+
+    {
+      level:'hsk4', no:3, zh:'由于天气原因，航班延误了', pinyin:'Yóuyú tiānqì yuányīn, hángbān yánwù le', vi:'Do thời tiết, chuyến bay bị hoãn',
+      skill:'Nguyên nhân – kết quả trang trọng: 由于…因此; 之所以…是因为',
+      grammar:[
+        { form:'由于 A，(因此/所以) B', vi:'“do A nên B” (văn viết)',
+          note:'由于 trang trọng hơn 因为, thường đứng đầu câu; vế sau có thể dùng 因此. Vd 由于路上堵车，因此我迟到了.',
+          ex:{ zh:'由于人数太多，活动改在礼堂举行。', pinyin:'Yóuyú rénshù tài duō, huódòng gǎi zài lǐtáng jǔxíng.', vi:'Do số người quá đông, hoạt động chuyển sang hội trường.' } },
+        { form:'A 之所以 B，是因为 C', vi:'“sở dĩ A B là vì C” (nêu kết quả trước, nguyên nhân sau)',
+          note:'Dùng khi muốn nhấn mạnh nguyên nhân. Vd 他之所以成功，是因为他很努力.',
+          ex:{ zh:'航班之所以延误，是因为北京下大雪。', pinyin:'Hángbān zhī suǒyǐ yánwù, shì yīnwèi Běijīng xià dàxuě.', vi:'Chuyến bay sở dĩ hoãn là vì Bắc Kinh tuyết lớn.' } }
+      ],
+      vocab:[
+        { zh:'由于', pinyin:'yóuyú', hv:'do vu', vi:'do, bởi vì', pos:'giới từ; liên từ' },
+        { zh:'因此', pinyin:'yīncǐ', hv:'nhân thử', vi:'vì thế', pos:'liên từ' },
+        { zh:'之所以', pinyin:'zhī suǒyǐ', hv:'chi sở dĩ', vi:'sở dĩ', pos:'liên từ' },
+        { zh:'原因', pinyin:'yuányīn', hv:'nguyên nhân', vi:'nguyên nhân', pos:'danh từ' },
+        { zh:'航班', pinyin:'hángbān', hv:'hàng ban', vi:'chuyến bay', pos:'danh từ' },
+        { zh:'延误', pinyin:'yánwù', hv:'diên ngộ', vi:'hoãn, chậm trễ', pos:'động từ' },
+        { zh:'起飞', pinyin:'qǐfēi', hv:'khởi phi', vi:'cất cánh', pos:'động từ' },
+        { zh:'降落', pinyin:'jiàngluò', hv:'giáng lạc', vi:'hạ cánh', pos:'động từ' },
+        { zh:'登机牌', pinyin:'dēngjīpái', hv:'đăng cơ bài', vi:'thẻ lên máy bay', pos:'danh từ' },
+        { zh:'礼堂', pinyin:'lǐtáng', hv:'lễ đường', vi:'hội trường', pos:'danh từ' },
+        { zh:'举行', pinyin:'jǔxíng', hv:'cử hành', vi:'tổ chức, cử hành', pos:'động từ' },
+        { zh:'通知', pinyin:'tōngzhī', hv:'thông tri', vi:'thông báo', pos:'động từ; danh từ' },
+        { zh:'耐心', pinyin:'nàixīn', hv:'nại tâm', vi:'kiên nhẫn', pos:'tính từ; danh từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'请问，去北京的航班为什么还没起飞？', pinyin:'Qǐngwèn, qù Běijīng de hángbān wèishénme hái méi qǐfēi?', vi:'Xin hỏi, sao chuyến đi Bắc Kinh vẫn chưa cất cánh?' },
+        { sp:'B', zh:'由于天气原因，航班延误了，大概两个小时。', pinyin:'Yóuyú tiānqì yuányīn, hángbān yánwù le, dàgài liǎng ge xiǎoshí.', vi:'Do thời tiết, chuyến bay hoãn khoảng hai tiếng.' },
+        { sp:'A', zh:'之所以延误，是因为北京下大雪吗？', pinyin:'Zhī suǒyǐ yánwù, shì yīnwèi Běijīng xià dàxuě ma?', vi:'Hoãn là vì Bắc Kinh tuyết lớn à?' },
+        { sp:'B', zh:'是的。请您耐心等待，有新通知我们会马上广播。', pinyin:'Shì de. Qǐng nín nàixīn děngdài, yǒu xīn tōngzhī wǒmen huì mǎshàng guǎngbō.', vi:'Vâng. Xin kiên nhẫn chờ, có thông báo mới sẽ phát loa ngay.' }
+      ]
+    },
+
+    {
+      level:'hsk4', no:4, zh:'他不但没生气，反而笑了', pinyin:'Tā búdàn méi shēngqì, fǎn’ér xiào le', vi:'Anh ấy không những không giận mà ngược lại còn cười',
+      skill:'Ngược với dự đoán 反而; tăng tiến cực đoan 甚至',
+      grammar:[
+        { form:'不但不/没 A，反而 B', vi:'“không những không A mà ngược lại còn B”',
+          note:'反而 chỉ kết quả trái với mong đợi. Có thể dùng một mình: 吃了药，病反而更重了.',
+          ex:{ zh:'雨不但没停，反而越下越大。', pinyin:'Yǔ búdàn méi tíng, fǎn’ér yuè xià yuè dà.', vi:'Mưa không những không tạnh mà còn càng lúc càng to.' } },
+        { form:'…，甚至 …', vi:'“thậm chí …”',
+          note:'甚至 nêu trường hợp nổi bật nhất trong loạt ví dụ, thường kèm 都/也. Vd 他很忙，甚至周末也要工作.',
+          ex:{ zh:'这道菜太辣了，甚至四川人都受不了。', pinyin:'Zhè dào cài tài là le, shènzhì Sìchuānrén dōu shòu bu liǎo.', vi:'Món này cay quá, thậm chí người Tứ Xuyên cũng chịu không nổi.' } }
+      ],
+      vocab:[
+        { zh:'反而', pinyin:'fǎn’ér', hv:'phản nhi', vi:'trái lại, ngược lại', pos:'phó từ' },
+        { zh:'甚至', pinyin:'shènzhì', hv:'thậm chí', vi:'thậm chí', pos:'phó từ; liên từ' },
+        { zh:'受不了', pinyin:'shòu bu liǎo', hv:'thụ bất liễu', vi:'chịu không nổi', pos:'động từ' },
+        { zh:'道歉', pinyin:'dàoqiàn', hv:'đạo khiểm', vi:'xin lỗi', pos:'động từ' },
+        { zh:'原谅', pinyin:'yuánliàng', hv:'nguyên lượng', vi:'tha thứ', pos:'động từ' },
+        { zh:'态度', pinyin:'tàidu', hv:'thái độ', vi:'thái độ', pos:'danh từ' },
+        { zh:'脾气', pinyin:'píqi', hv:'tỳ khí', vi:'tính khí', pos:'danh từ' },
+        { zh:'幽默', pinyin:'yōumò', hv:'u mặc', vi:'hài hước', pos:'tính từ' },
+        { zh:'吃惊', pinyin:'chījīng', hv:'cật kinh', vi:'kinh ngạc', pos:'động từ' },
+        { zh:'相反', pinyin:'xiāngfǎn', hv:'tương phản', vi:'trái lại, ngược lại', pos:'tính từ; liên từ' },
+        { zh:'打碎', pinyin:'dǎsuì', hv:'đả toái', vi:'làm vỡ', pos:'động từ' },
+        { zh:'安慰', pinyin:'ānwèi', hv:'an uỷ', vi:'an ủi', pos:'động từ' },
+        { zh:'性格', pinyin:'xìnggé', hv:'tính cách', vi:'tính cách', pos:'danh từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'听说你把老板的杯子打碎了？他生气了吧？', pinyin:'Tīngshuō nǐ bǎ lǎobǎn de bēizi dǎsuì le? Tā shēngqì le ba?', vi:'Nghe nói bạn làm vỡ cốc của sếp? Ông ấy giận chứ?' },
+        { sp:'B', zh:'我马上道歉了。他不但没生气，反而笑着安慰我。', pinyin:'Wǒ mǎshàng dàoqiàn le. Tā búdàn méi shēngqì, fǎn’ér xiàozhe ānwèi wǒ.', vi:'Mình xin lỗi ngay. Ông ấy không những không giận mà còn cười an ủi mình.' },
+        { sp:'A', zh:'真让人吃惊，他脾气这么好？', pinyin:'Zhēn ràng rén chījīng, tā píqi zhème hǎo?', vi:'Bất ngờ thật, tính ông ấy tốt vậy sao?' },
+        { sp:'B', zh:'他很幽默，甚至说那个杯子本来就该换了。', pinyin:'Tā hěn yōumò, shènzhì shuō nàge bēizi běnlái jiù gāi huàn le.', vi:'Ông ấy hài hước lắm, thậm chí bảo cái cốc đó vốn nên thay rồi.' }
+      ]
+    },
+
+    {
+      level:'hsk4', no:5, zh:'你到底想说什么', pinyin:'Nǐ dàodǐ xiǎng shuō shénme', vi:'Rốt cuộc bạn muốn nói gì',
+      skill:'Truy vấn 到底/究竟; phản vấn 难道…吗',
+      grammar:[
+        { form:'到底 / 究竟 + câu hỏi', vi:'“rốt cuộc …?”',
+          note:'Nhấn mạnh muốn biết rõ; không dùng với 吗. 究竟 trang trọng hơn. Vd 你到底去不去？/ 这究竟是怎么回事？',
+          ex:{ zh:'你到底同意不同意？', pinyin:'Nǐ dàodǐ tóngyì bù tóngyì?', vi:'Rốt cuộc bạn có đồng ý không?' } },
+        { form:'难道 … (吗)?', vi:'“chẳng lẽ …?” (phản vấn)',
+          note:'Câu hỏi tu từ, ngụ ý ngược lại. Vd 难道你忘了吗？(= bạn không thể quên được).',
+          ex:{ zh:'难道你不知道今天是她的生日吗？', pinyin:'Nándào nǐ bù zhīdào jīntiān shì tā de shēngrì ma?', vi:'Chẳng lẽ bạn không biết hôm nay là sinh nhật cô ấy?' } }
+      ],
+      vocab:[
+        { zh:'到底', pinyin:'dàodǐ', hv:'đáo để', vi:'rốt cuộc', pos:'phó từ' },
+        { zh:'究竟', pinyin:'jiūjìng', hv:'cứu cánh', vi:'rốt cuộc, thực ra', pos:'phó từ' },
+        { zh:'难道', pinyin:'nándào', hv:'nan đạo', vi:'chẳng lẽ', pos:'phó từ' },
+        { zh:'怎么回事', pinyin:'zěnme huí shì', hv:'chẩm ma hồi sự', vi:'chuyện gì thế', pos:'cụm cố định' },
+        { zh:'秘密', pinyin:'mìmì', hv:'bí mật', vi:'bí mật', pos:'danh từ' },
+        { zh:'猜', pinyin:'cāi', hv:'sai', vi:'đoán', pos:'động từ' },
+        { zh:'惊喜', pinyin:'jīngxǐ', hv:'kinh hỉ', vi:'bất ngờ thú vị', pos:'danh từ' },
+        { zh:'礼物', pinyin:'lǐwù', hv:'lễ vật', vi:'quà', pos:'danh từ' },
+        { zh:'邀请', pinyin:'yāoqǐng', hv:'yêu thỉnh', vi:'mời', pos:'động từ' },
+        { zh:'隐瞒', pinyin:'yǐnmán', hv:'ẩn man', vi:'giấu giếm', pos:'động từ' },
+        { zh:'坦白', pinyin:'tǎnbái', hv:'thản bạch', vi:'thẳng thắn, thú thật', pos:'tính từ; động từ' },
+        { zh:'明明', pinyin:'míngmíng', hv:'minh minh', vi:'rõ ràng là', pos:'phó từ' },
+        { zh:'弄清楚', pinyin:'nòng qīngchu', hv:'lộng thanh sở', vi:'làm rõ', pos:'động từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'你今天怪怪的，到底想说什么？', pinyin:'Nǐ jīntiān guàiguài de, dàodǐ xiǎng shuō shénme?', vi:'Hôm nay bạn lạ lạ, rốt cuộc muốn nói gì?' },
+        { sp:'B', zh:'没什么，你猜猜看。', pinyin:'Méi shénme, nǐ cāicai kàn.', vi:'Không có gì, bạn đoán thử xem.' },
+        { sp:'A', zh:'难道你们准备了惊喜？明明有秘密还隐瞒我。', pinyin:'Nándào nǐmen zhǔnbèi le jīngxǐ? Míngmíng yǒu mìmì hái yǐnmán wǒ.', vi:'Chẳng lẽ mọi người chuẩn bị bất ngờ? Rõ ràng có bí mật mà còn giấu.' },
+        { sp:'B', zh:'好吧，我坦白：晚上大家想邀请你去吃饭。', pinyin:'Hǎo ba, wǒ tǎnbái: wǎnshang dàjiā xiǎng yāoqǐng nǐ qù chīfàn.', vi:'Được rồi, mình thú thật: tối nay mọi người muốn mời bạn đi ăn.' }
+      ]
+    },
+
+    {
+      level:'hsk4', no:6, zh:'恐怕来不及了', pinyin:'Kǒngpà láibují le', vi:'E là không kịp rồi',
+      skill:'Phỏng đoán lo ngại 恐怕; 来得及/来不及; khuyên nhủ 千万',
+      grammar:[
+        { form:'恐怕 + mệnh đề', vi:'“e rằng, sợ là …” (phỏng đoán không mong muốn)',
+          note:'恐怕 là phó từ, không phải động từ “sợ”; không dùng 我恐怕他. Vd 恐怕要下雨了.',
+          ex:{ zh:'现在出发恐怕赶不上火车了。', pinyin:'Xiànzài chūfā kǒngpà gǎn bu shàng huǒchē le.', vi:'Giờ xuất phát e không kịp tàu.' } },
+        { form:'来得及 / 来不及 (+ V); 千万 + 别/要', vi:'“còn kịp / không kịp”; “nhất định (đừng/phải)”',
+          note:'来得及 chỉ có đủ thời gian. 千万 dùng trong câu cầu khiến để dặn dò khẩn thiết: 千万别忘了 / 千万要小心.',
+          ex:{ zh:'千万别忘了带护照。', pinyin:'Qiānwàn bié wàng le dài hùzhào.', vi:'Nhất định đừng quên mang hộ chiếu.' } }
+      ],
+      vocab:[
+        { zh:'恐怕', pinyin:'kǒngpà', hv:'khủng phạ', vi:'e rằng', pos:'phó từ' },
+        { zh:'来得及', pinyin:'láidejí', hv:'lai đắc cập', vi:'còn kịp', pos:'động từ' },
+        { zh:'来不及', pinyin:'láibují', hv:'lai bất cập', vi:'không kịp', pos:'động từ' },
+        { zh:'千万', pinyin:'qiānwàn', hv:'thiên vạn', vi:'nhất định, chớ có', pos:'phó từ' },
+        { zh:'赶', pinyin:'gǎn', hv:'cản', vi:'đuổi kịp, vội đến', pos:'động từ' },
+        { zh:'出发', pinyin:'chūfā', hv:'xuất phát', vi:'xuất phát', pos:'động từ' },
+        { zh:'护照', pinyin:'hùzhào', hv:'hộ chiếu', vi:'hộ chiếu', pos:'danh từ' },
+        { zh:'签证', pinyin:'qiānzhèng', hv:'thiêm chứng', vi:'thị thực, visa', pos:'danh từ' },
+        { zh:'登机', pinyin:'dēngjī', hv:'đăng cơ', vi:'lên máy bay', pos:'động từ' },
+        { zh:'排队', pinyin:'páiduì', hv:'bài đội', vi:'xếp hàng', pos:'động từ' },
+        { zh:'安检', pinyin:'ānjiǎn', hv:'an kiểm', vi:'kiểm tra an ninh', pos:'danh từ' },
+        { zh:'来回', pinyin:'láihuí', hv:'lai hồi', vi:'khứ hồi, đi về', pos:'danh từ; động từ' },
+        { zh:'着急', pinyin:'zháojí', hv:'trước cấp', vi:'sốt ruột', pos:'tính từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'飞机十点起飞，我们八点半出发来得及吗？', pinyin:'Fēijī shí diǎn qǐfēi, wǒmen bā diǎn bàn chūfā láidejí ma?', vi:'Máy bay 10 giờ cất cánh, 8 rưỡi xuất phát có kịp không?' },
+        { sp:'B', zh:'恐怕来不及了，安检要排很长的队。', pinyin:'Kǒngpà láibují le, ānjiǎn yào pái hěn cháng de duì.', vi:'E không kịp, an ninh phải xếp hàng dài.' },
+        { sp:'A', zh:'那七点半走吧。护照和签证我都放包里了。', pinyin:'Nà qī diǎn bàn zǒu ba. Hùzhào hé qiānzhèng wǒ dōu fàng bāo li le.', vi:'Vậy 7 rưỡi đi. Hộ chiếu và visa mình để trong túi rồi.' },
+        { sp:'B', zh:'千万别着急，出门前再检查一遍。', pinyin:'Qiānwàn bié zháojí, chūmén qián zài jiǎnchá yí biàn.', vi:'Nhất định đừng cuống, trước khi đi kiểm tra lại một lượt.' }
+      ]
+    },
+
+    {
+      level:'hsk4', no:7, zh:'幸亏你提醒我', pinyin:'Xìngkuī nǐ tíxǐng wǒ', vi:'May mà bạn nhắc tôi',
+      skill:'May mắn 幸亏/多亏; bất đắc dĩ 只好/不得不',
+      grammar:[
+        { form:'幸亏 / 多亏 A，(要不然) B', vi:'“may mà A, (nếu không) B”',
+          note:'幸亏 là phó từ; 多亏 là động từ, có thể theo sau bằng người: 多亏了你. Vế sau thường nêu hậu quả tránh được.',
+          ex:{ zh:'幸亏带了伞，要不然全身都湿了。', pinyin:'Xìngkuī dài le sǎn, yàoburán quánshēn dōu shī le.', vi:'May mang ô, không thì ướt hết người.' } },
+        { form:'只好 / 不得不 + V', vi:'“đành phải / buộc phải”',
+          note:'只好 nhẹ hơn, chọn phương án duy nhất còn lại; 不得不 nhấn sự bắt buộc. Vd 没有车，只好走路 / 他不得不承认错误.',
+          ex:{ zh:'商店关门了，我们只好明天再来。', pinyin:'Shāngdiàn guānmén le, wǒmen zhǐhǎo míngtiān zài lái.', vi:'Cửa hàng đóng rồi, đành mai quay lại.' } }
+      ],
+      vocab:[
+        { zh:'幸亏', pinyin:'xìngkuī', hv:'hạnh khuy', vi:'may mà', pos:'phó từ' },
+        { zh:'多亏', pinyin:'duōkuī', hv:'đa khuy', vi:'nhờ có, may nhờ', pos:'động từ' },
+        { zh:'要不然', pinyin:'yàoburán', hv:'yếu bất nhiên', vi:'nếu không thì', pos:'liên từ' },
+        { zh:'只好', pinyin:'zhǐhǎo', hv:'chỉ hảo', vi:'đành phải', pos:'phó từ' },
+        { zh:'不得不', pinyin:'bùdébù', hv:'bất đắc bất', vi:'buộc phải', pos:'phó từ' },
+        { zh:'提醒', pinyin:'tíxǐng', hv:'đề tỉnh', vi:'nhắc nhở', pos:'động từ' },
+        { zh:'截止', pinyin:'jiézhǐ', hv:'tiệt chỉ', vi:'hết hạn, chốt', pos:'động từ' },
+        { zh:'日期', pinyin:'rìqī', hv:'nhật kỳ', vi:'ngày tháng', pos:'danh từ' },
+        { zh:'报名', pinyin:'bàomíng', hv:'báo danh', vi:'đăng ký', pos:'động từ' },
+        { zh:'材料', pinyin:'cáiliào', hv:'tài liệu', vi:'tài liệu, hồ sơ', pos:'danh từ' },
+        { zh:'复印', pinyin:'fùyìn', hv:'phục ấn', vi:'photocopy', pos:'động từ' },
+        { zh:'承认', pinyin:'chéngrèn', hv:'thừa nhận', vi:'thừa nhận', pos:'động từ' },
+        { zh:'粗心', pinyin:'cūxīn', hv:'thô tâm', vi:'bất cẩn', pos:'tính từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'HSK报名今天截止，你交材料了吗？', pinyin:'HSK bàomíng jīntiān jiézhǐ, nǐ jiāo cáiliào le ma?', vi:'Đăng ký HSK hôm nay chốt, bạn nộp hồ sơ chưa?' },
+        { sp:'B', zh:'幸亏你提醒我，要不然我就错过日期了。', pinyin:'Xìngkuī nǐ tíxǐng wǒ, yàoburán wǒ jiù cuòguò rìqī le.', vi:'May mà bạn nhắc, không thì mình lỡ mất ngày.' },
+        { sp:'A', zh:'复印店关门了，怎么办？', pinyin:'Fùyìndiàn guānmén le, zěnme bàn?', vi:'Tiệm photo đóng cửa rồi, làm sao?' },
+        { sp:'B', zh:'我只好去学校打印。我得承认自己太粗心了。', pinyin:'Wǒ zhǐhǎo qù xuéxiào dǎyìn. Wǒ děi chéngrèn zìjǐ tài cūxīn le.', vi:'Đành lên trường in. Phải thừa nhận mình bất cẩn quá.' }
+      ]
+    },
+
+    {
+      level:'hsk4', no:8, zh:'毕竟他还是个孩子', pinyin:'Bìjìng tā háishi ge háizi', vi:'Dù sao nó vẫn là trẻ con',
+      skill:'Lý lẽ 毕竟; giới hạn 至少/至多; đánh giá 值得',
+      grammar:[
+        { form:'毕竟 + mệnh đề', vi:'“dù sao thì, xét cho cùng”',
+          note:'Nêu lý do/bản chất để biện hộ hoặc kết luận. Vd 别怪他，毕竟他是第一次做.',
+          ex:{ zh:'毕竟是第一次，做得不好也正常。', pinyin:'Bìjìng shì dì-yī cì, zuò de bù hǎo yě zhèngcháng.', vi:'Dù sao là lần đầu, làm chưa tốt cũng bình thường.' } },
+        { form:'至少 / 至多 + số lượng; 值得 + V', vi:'“ít nhất / nhiều nhất”; “đáng để …”',
+          note:'至少 = tối thiểu, 至多 = tối đa. 值得 + động từ: 值得一看, 值得学习; phủ định 不值得.',
+          ex:{ zh:'这部电影至少要看两遍才看得懂，但很值得。', pinyin:'Zhè bù diànyǐng zhìshǎo yào kàn liǎng biàn cái kàn de dǒng, dàn hěn zhíde.', vi:'Phim này ít nhất phải xem hai lượt mới hiểu, nhưng rất đáng.' } }
+      ],
+      vocab:[
+        { zh:'毕竟', pinyin:'bìjìng', hv:'tất cánh', vi:'dù sao, xét cho cùng', pos:'phó từ' },
+        { zh:'至少', pinyin:'zhìshǎo', hv:'chí thiểu', vi:'ít nhất', pos:'phó từ' },
+        { zh:'至多', pinyin:'zhìduō', hv:'chí đa', vi:'nhiều nhất', pos:'phó từ' },
+        { zh:'值得', pinyin:'zhíde', hv:'trị đắc', vi:'đáng (để)', pos:'động từ' },
+        { zh:'正常', pinyin:'zhèngcháng', hv:'chính thường', vi:'bình thường', pos:'tính từ' },
+        { zh:'责备', pinyin:'zébèi', hv:'trách bị', vi:'trách móc', pos:'động từ' },
+        { zh:'教育', pinyin:'jiàoyù', hv:'giáo dục', vi:'giáo dục, dạy dỗ', pos:'động từ; danh từ' },
+        { zh:'成长', pinyin:'chéngzhǎng', hv:'thành trưởng', vi:'trưởng thành', pos:'động từ' },
+        { zh:'经历', pinyin:'jīnglì', hv:'kinh lịch', vi:'trải qua; trải nghiệm', pos:'động từ; danh từ' },
+        { zh:'弄坏', pinyin:'nòng huài', hv:'lộng hoại', vi:'làm hỏng', pos:'động từ' },
+        { zh:'耐心', pinyin:'nàixīn', hv:'nại tâm', vi:'kiên nhẫn', pos:'tính từ; danh từ' },
+        { zh:'冷静', pinyin:'lěngjìng', hv:'lãnh tĩnh', vi:'bình tĩnh', pos:'tính từ' },
+        { zh:'部', pinyin:'bù', hv:'bộ', vi:'bộ (phim), cuốn', pos:'lượng từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'儿子又把手机弄坏了，我真想责备他。', pinyin:'Érzi yòu bǎ shǒujī nòng huài le, wǒ zhēn xiǎng zébèi tā.', vi:'Con trai lại làm hỏng điện thoại, tôi muốn mắng nó thật.' },
+        { sp:'B', zh:'冷静一点儿，毕竟他还是个孩子。', pinyin:'Lěngjìng yìdiǎnr, bìjìng tā háishi ge háizi.', vi:'Bình tĩnh, dù sao nó vẫn là trẻ con.' },
+        { sp:'A', zh:'可这至少是第三次了。', pinyin:'Kě zhè zhìshǎo shì dì-sān cì le.', vi:'Nhưng đây ít nhất là lần thứ ba rồi.' },
+        { sp:'B', zh:'耐心教育比责备更值得。孩子在经历中成长。', pinyin:'Nàixīn jiàoyù bǐ zébèi gèng zhíde. Háizi zài jīnglì zhōng chéngzhǎng.', vi:'Kiên nhẫn dạy đáng hơn trách mắng. Trẻ trưởng thành qua trải nghiệm.' }
+      ]
+    },
+
+    {
+      level:'hsk4', no:9, zh:'这个问题值得我们认真讨论', pinyin:'Zhège wèntí zhíde wǒmen rènzhēn tǎolùn', vi:'Vấn đề này đáng để chúng ta thảo luận nghiêm túc',
+      skill:'Nêu ý kiến trong thảo luận: 对…来说, 在…看来, 首先…其次…',
+      grammar:[
+        { form:'对 + người + 来说 / 在 + người + 看来', vi:'“đối với … mà nói / theo … thấy”',
+          note:'对…来说 nêu góc nhìn/ảnh hưởng; 在…看来 nêu quan điểm. Vd 对我来说，健康最重要 / 在他看来，这不是问题.',
+          ex:{ zh:'对学生来说，时间管理非常重要。', pinyin:'Duì xuésheng lái shuō, shíjiān guǎnlǐ fēicháng zhòngyào.', vi:'Đối với sinh viên, quản lý thời gian rất quan trọng.' } },
+        { form:'首先 …，其次 …，另外/最后 …', vi:'liệt kê luận điểm',
+          note:'Dùng khi trình bày nhiều lý do theo thứ tự. 另外 bổ sung, 总之 tóm lại.',
+          ex:{ zh:'首先要听懂，其次要敢说，最后才是写。', pinyin:'Shǒuxiān yào tīng dǒng, qícì yào gǎn shuō, zuìhòu cái shì xiě.', vi:'Trước hết phải nghe hiểu, sau là dám nói, cuối cùng mới là viết.' } }
+      ],
+      vocab:[
+        { zh:'来说', pinyin:'lái shuō', hv:'lai thuyết', vi:'(đối với) … mà nói', pos:'cụm cố định' },
+        { zh:'看来', pinyin:'kànlái', hv:'khán lai', vi:'xem ra; theo … thấy', pos:'động từ' },
+        { zh:'首先', pinyin:'shǒuxiān', hv:'thủ tiên', vi:'trước hết', pos:'phó từ' },
+        { zh:'其次', pinyin:'qícì', hv:'kỳ thứ', vi:'thứ đến', pos:'đại từ' },
+        { zh:'另外', pinyin:'lìngwài', hv:'lánh ngoại', vi:'ngoài ra', pos:'liên từ' },
+        { zh:'总之', pinyin:'zǒngzhī', hv:'tổng chi', vi:'tóm lại', pos:'liên từ' },
+        { zh:'讨论', pinyin:'tǎolùn', hv:'thảo luận', vi:'thảo luận', pos:'động từ' },
+        { zh:'管理', pinyin:'guǎnlǐ', hv:'quản lý', vi:'quản lý', pos:'động từ; danh từ' },
+        { zh:'方面', pinyin:'fāngmiàn', hv:'phương diện', vi:'mặt, phương diện', pos:'danh từ' },
+        { zh:'观点', pinyin:'guāndiǎn', hv:'quan điểm', vi:'quan điểm', pos:'danh từ' },
+        { zh:'支持', pinyin:'zhīchí', hv:'chi trì', vi:'ủng hộ', pos:'động từ' },
+        { zh:'反对', pinyin:'fǎnduì', hv:'phản đối', vi:'phản đối', pos:'động từ' },
+        { zh:'网课', pinyin:'wǎngkè', hv:'võng khoá', vi:'học trực tuyến', pos:'danh từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'你支持还是反对上网课？', pinyin:'Nǐ zhīchí háishi fǎnduì shàng wǎngkè?', vi:'Bạn ủng hộ hay phản đối học online?' },
+        { sp:'B', zh:'对我来说，网课很方便。首先省时间，其次可以反复看。', pinyin:'Duì wǒ lái shuō, wǎngkè hěn fāngbiàn. Shǒuxiān shěng shíjiān, qícì kěyǐ fǎnfù kàn.', vi:'Với mình, học online rất tiện. Trước hết tiết kiệm thời gian, sau nữa xem lại được.' },
+        { sp:'A', zh:'在我看来，交流方面网课还是差一些。', pinyin:'Zài wǒ kànlái, jiāoliú fāngmiàn wǎngkè háishi chà yìxiē.', vi:'Theo mình, về mặt giao lưu thì online vẫn kém hơn.' },
+        { sp:'B', zh:'总之，这个问题值得我们认真讨论。', pinyin:'Zǒngzhī, zhège wèntí zhíde wǒmen rènzhēn tǎolùn.', vi:'Tóm lại, vấn đề này đáng để thảo luận nghiêm túc.' }
+      ]
+    },
+
+    {
+      level:'hsk4', no:10, zh:'随着经济的发展，生活越来越好', pinyin:'Suízhe jīngjì de fāzhǎn, shēnghuó yuèláiyuè hǎo', vi:'Cùng với sự phát triển kinh tế, đời sống ngày càng tốt',
+      skill:'Biến đổi theo thời gian: 随着…; 越来越; 通过…',
+      grammar:[
+        { form:'随着 + N/mệnh đề，…', vi:'“cùng với, theo đà …”',
+          note:'随着 dẫn điều kiện thay đổi, vế sau là kết quả thay đổi theo. Vd 随着年龄的增长，人会更成熟.',
+          ex:{ zh:'随着科技的发展，人们的生活方式改变了很多。', pinyin:'Suízhe kējì de fāzhǎn, rénmen de shēnghuó fāngshì gǎibiàn le hěn duō.', vi:'Cùng với sự phát triển của khoa học công nghệ, lối sống thay đổi nhiều.' } },
+        { form:'通过 + cách thức，… ; 越来越 + adj', vi:'“thông qua …”; “ngày càng …”',
+          note:'通过 nêu phương tiện đạt kết quả: 通过努力，他考上了大学. 越来越 chỉ mức độ tăng theo thời gian, không kèm 很.',
+          ex:{ zh:'通过这次活动，大家越来越了解中国文化了。', pinyin:'Tōngguò zhè cì huódòng, dàjiā yuèláiyuè liǎojiě Zhōngguó wénhuà le.', vi:'Qua hoạt động này, mọi người ngày càng hiểu văn hoá Trung Quốc.' } }
+      ],
+      vocab:[
+        { zh:'随着', pinyin:'suízhe', hv:'tuỳ trước', vi:'cùng với, theo', pos:'giới từ' },
+        { zh:'越来越', pinyin:'yuèláiyuè', hv:'việt lai việt', vi:'ngày càng', pos:'phó từ' },
+        { zh:'通过', pinyin:'tōngguò', hv:'thông quá', vi:'thông qua', pos:'giới từ; động từ' },
+        { zh:'经济', pinyin:'jīngjì', hv:'kinh tế', vi:'kinh tế', pos:'danh từ' },
+        { zh:'发展', pinyin:'fāzhǎn', hv:'phát triển', vi:'phát triển', pos:'động từ; danh từ' },
+        { zh:'科技', pinyin:'kējì', hv:'khoa kỹ', vi:'khoa học công nghệ', pos:'danh từ' },
+        { zh:'方式', pinyin:'fāngshì', hv:'phương thức', vi:'phương thức, cách', pos:'danh từ' },
+        { zh:'改变', pinyin:'gǎibiàn', hv:'cải biến', vi:'thay đổi', pos:'động từ' },
+        { zh:'增长', pinyin:'zēngzhǎng', hv:'tăng trưởng', vi:'tăng trưởng', pos:'động từ' },
+        { zh:'收入', pinyin:'shōurù', hv:'thu nhập', vi:'thu nhập', pos:'danh từ' },
+        { zh:'购物', pinyin:'gòuwù', hv:'cấu vật', vi:'mua sắm', pos:'động từ' },
+        { zh:'网络', pinyin:'wǎngluò', hv:'võng lạc', vi:'mạng internet', pos:'danh từ' },
+        { zh:'了解', pinyin:'liǎojiě', hv:'liễu giải', vi:'hiểu rõ, tìm hiểu', pos:'động từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'你觉得这几年这里变化大吗？', pinyin:'Nǐ juéde zhè jǐ nián zhèlǐ biànhuà dà ma?', vi:'Bạn thấy mấy năm nay nơi này thay đổi nhiều không?' },
+        { sp:'B', zh:'很大。随着经济的发展，人们的收入越来越高。', pinyin:'Hěn dà. Suízhe jīngjì de fāzhǎn, rénmen de shōurù yuèláiyuè gāo.', vi:'Rất nhiều. Cùng với kinh tế phát triển, thu nhập ngày càng cao.' },
+        { sp:'A', zh:'购物方式也改变了，现在都在网络上买。', pinyin:'Gòuwù fāngshì yě gǎibiàn le, xiànzài dōu zài wǎngluò shang mǎi.', vi:'Cách mua sắm cũng đổi, giờ toàn mua trên mạng.' },
+        { sp:'B', zh:'对，通过手机，几分钟就能买到东西。', pinyin:'Duì, tōngguò shǒujī, jǐ fēnzhōng jiù néng mǎidào dōngxi.', vi:'Đúng, qua điện thoại, vài phút là mua được.' }
+      ]
+    },
+
+    {
+      level:'hsk4', no:11, zh:'这份工作适合你', pinyin:'Zhè fèn gōngzuò shìhé nǐ', vi:'Công việc này hợp với bạn',
+      skill:'Phỏng vấn – xin việc; 对…感兴趣; 有 + kinh nghiệm/năng lực',
+      grammar:[
+        { form:'对 + N + 感兴趣 / 有兴趣', vi:'“hứng thú với …”',
+          note:'Phủ định: 对…不感兴趣. Mức độ: 很感兴趣 / 特别感兴趣.',
+          ex:{ zh:'我对市场营销很感兴趣。', pinyin:'Wǒ duì shìchǎng yíngxiāo hěn gǎn xìngqù.', vi:'Tôi rất hứng thú với marketing.' } },
+        { form:'具有 / 有 + 经验·能力·责任心', vi:'nêu năng lực bản thân',
+          note:'Câu trang trọng khi giới thiệu bản thân: 我有三年的工作经验 / 具有较强的沟通能力.',
+          ex:{ zh:'我有两年的翻译经验，责任心也很强。', pinyin:'Wǒ yǒu liǎng nián de fānyì jīngyàn, zérènxīn yě hěn qiáng.', vi:'Tôi có hai năm kinh nghiệm dịch, tinh thần trách nhiệm cũng cao.' } }
+      ],
+      vocab:[
+        { zh:'适合', pinyin:'shìhé', hv:'thích hợp', vi:'phù hợp', pos:'động từ' },
+        { zh:'份', pinyin:'fèn', hv:'phần', vi:'(lượng từ) công việc, bản', pos:'lượng từ' },
+        { zh:'应聘', pinyin:'yìngpìn', hv:'ứng sính', vi:'ứng tuyển', pos:'động từ' },
+        { zh:'招聘', pinyin:'zhāopìn', hv:'chiêu sính', vi:'tuyển dụng', pos:'động từ' },
+        { zh:'简历', pinyin:'jiǎnlì', hv:'giản lịch', vi:'sơ yếu lý lịch, CV', pos:'danh từ' },
+        { zh:'经验', pinyin:'jīngyàn', hv:'kinh nghiệm', vi:'kinh nghiệm', pos:'danh từ' },
+        { zh:'能力', pinyin:'nénglì', hv:'năng lực', vi:'năng lực', pos:'danh từ' },
+        { zh:'责任心', pinyin:'zérènxīn', hv:'trách nhiệm tâm', vi:'tinh thần trách nhiệm', pos:'danh từ' },
+        { zh:'沟通', pinyin:'gōutōng', hv:'câu thông', vi:'giao tiếp, trao đổi', pos:'động từ' },
+        { zh:'翻译', pinyin:'fānyì', hv:'phiên dịch', vi:'dịch; phiên dịch viên', pos:'động từ; danh từ' },
+        { zh:'工资', pinyin:'gōngzī', hv:'công tư', vi:'lương', pos:'danh từ' },
+        { zh:'加班', pinyin:'jiābān', hv:'gia ban', vi:'tăng ca', pos:'động từ' },
+        { zh:'录取', pinyin:'lùqǔ', hv:'lục thủ', vi:'tuyển, nhận', pos:'động từ' },
+        { zh:'兴趣', pinyin:'xìngqù', hv:'hứng thú', vi:'hứng thú', pos:'danh từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'请你简单介绍一下自己。', pinyin:'Qǐng nǐ jiǎndān jièshào yíxià zìjǐ.', vi:'Mời bạn giới thiệu ngắn về mình.' },
+        { sp:'B', zh:'我学的是汉语，有两年翻译经验，对贵公司的工作很感兴趣。', pinyin:'Wǒ xué de shì Hànyǔ, yǒu liǎng nián fānyì jīngyàn, duì guì gōngsī de gōngzuò hěn gǎn xìngqù.', vi:'Tôi học tiếng Trung, có hai năm kinh nghiệm dịch, rất hứng thú với công việc ở quý công ty.' },
+        { sp:'A', zh:'这份工作经常要加班，你能接受吗？', pinyin:'Zhè fèn gōngzuò jīngcháng yào jiābān, nǐ néng jiēshòu ma?', vi:'Việc này thường phải tăng ca, bạn chấp nhận được không?' },
+        { sp:'B', zh:'可以。我责任心强，沟通能力也不错。', pinyin:'Kěyǐ. Wǒ zérènxīn qiáng, gōutōng nénglì yě búcuò.', vi:'Được. Tôi có trách nhiệm, khả năng giao tiếp cũng ổn.' },
+        { sp:'A', zh:'好，我觉得这份工作很适合你。', pinyin:'Hǎo, wǒ juéde zhè fèn gōngzuò hěn shìhé nǐ.', vi:'Tốt, tôi thấy công việc này rất hợp với bạn.' }
+      ]
+    },
+
+    {
+      level:'hsk4', no:12, zh:'房子租下来了', pinyin:'Fángzi zū xiàlái le', vi:'Thuê được nhà rồi',
+      skill:'Thuê nhà; bổ ngữ xu hướng nghĩa mở rộng 下来/下去/出来',
+      grammar:[
+        { form:'V + 下来 (cố định, lưu lại)', vi:'“… lại, … xuống” (kết quả được giữ)',
+          note:'租下来 thuê được, 记下来 ghi lại, 停下来 dừng lại, 安静下来 yên lặng dần.',
+          ex:{ zh:'请把房东的电话记下来。', pinyin:'Qǐng bǎ fángdōng de diànhuà jì xiàlái.', vi:'Hãy ghi lại số điện thoại chủ nhà.' } },
+        { form:'V + 出来 (xuất hiện, nhận ra)', vi:'“… ra”',
+          note:'想出来 nghĩ ra, 看出来 nhìn ra, 认出来 nhận ra. Khả năng: 看得出来 / 看不出来.',
+          ex:{ zh:'我看不出来这房子有什么问题。', pinyin:'Wǒ kàn bu chūlái zhè fángzi yǒu shénme wèntí.', vi:'Tôi không nhìn ra căn nhà này có vấn đề gì.' } }
+      ],
+      vocab:[
+        { zh:'租', pinyin:'zū', hv:'tô', vi:'thuê', pos:'động từ' },
+        { zh:'房东', pinyin:'fángdōng', hv:'phòng đông', vi:'chủ nhà (cho thuê)', pos:'danh từ' },
+        { zh:'房租', pinyin:'fángzū', hv:'phòng tô', vi:'tiền thuê nhà', pos:'danh từ' },
+        { zh:'合同', pinyin:'hétong', hv:'hợp đồng', vi:'hợp đồng', pos:'danh từ' },
+        { zh:'押金', pinyin:'yājīn', hv:'áp kim', vi:'tiền đặt cọc', pos:'danh từ' },
+        { zh:'家具', pinyin:'jiājù', hv:'gia cụ', vi:'đồ đạc, nội thất', pos:'danh từ' },
+        { zh:'卧室', pinyin:'wòshì', hv:'ngoạ thất', vi:'phòng ngủ', pos:'danh từ' },
+        { zh:'厨房', pinyin:'chúfáng', hv:'trù phòng', vi:'bếp', pos:'danh từ' },
+        { zh:'卫生间', pinyin:'wèishēngjiān', hv:'vệ sinh gian', vi:'nhà vệ sinh', pos:'danh từ' },
+        { zh:'交通', pinyin:'jiāotōng', hv:'giao thông', vi:'giao thông', pos:'danh từ' },
+        { zh:'邻居', pinyin:'línjū', hv:'lân cư', vi:'hàng xóm', pos:'danh từ' },
+        { zh:'搬家', pinyin:'bānjiā', hv:'ban gia', vi:'chuyển nhà', pos:'động từ' },
+        { zh:'签', pinyin:'qiān', hv:'thiêm', vi:'ký', pos:'động từ' },
+        { zh:'认出来', pinyin:'rèn chūlái', hv:'nhận xuất lai', vi:'nhận ra', pos:'động từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'听说你把学校附近的房子租下来了？', pinyin:'Tīngshuō nǐ bǎ xuéxiào fùjìn de fángzi zū xiàlái le?', vi:'Nghe nói bạn thuê được nhà gần trường rồi?' },
+        { sp:'B', zh:'对，两室一厅，家具齐全，交通也方便。', pinyin:'Duì, liǎng shì yì tīng, jiājù qíquán, jiāotōng yě fāngbiàn.', vi:'Ừ, hai phòng ngủ một phòng khách, đủ nội thất, đi lại tiện.' },
+        { sp:'A', zh:'房租多少？签合同了吗？', pinyin:'Fángzū duōshao? Qiān hétong le ma?', vi:'Tiền thuê bao nhiêu? Ký hợp đồng chưa?' },
+        { sp:'B', zh:'一个月三千，押金一个月。合同签了一年，我把条款都记下来了。', pinyin:'Yí ge yuè sānqiān, yājīn yí ge yuè. Hétong qiān le yì nián, wǒ bǎ tiáokuǎn dōu jì xiàlái le.', vi:'Ba nghìn một tháng, cọc một tháng. Hợp đồng một năm, mình ghi lại hết điều khoản rồi.' }
+      ]
+    },
+
+    {
+      level:'hsk4', no:13, zh:'医生建议我多休息', pinyin:'Yīshēng jiànyì wǒ duō xiūxi', vi:'Bác sĩ khuyên tôi nghỉ ngơi nhiều',
+      skill:'Khám bệnh; động từ kiêm ngữ 建议/劝/让; 好像 phỏng đoán',
+      grammar:[
+        { form:'S + 建议/劝/要求 + người + V', vi:'câu kiêm ngữ “khuyên/yêu cầu ai làm gì”',
+          note:'Tân ngữ của động từ 1 làm chủ ngữ của động từ 2. Vd 医生劝我戒烟 / 老师要求我们准时.',
+          ex:{ zh:'医生建议我每天散步半个小时。', pinyin:'Yīshēng jiànyì wǒ měitiān sànbù bàn ge xiǎoshí.', vi:'Bác sĩ khuyên tôi mỗi ngày đi bộ nửa tiếng.' } },
+        { form:'好像 … (似的); 看样子 …', vi:'“hình như, có vẻ …”',
+          note:'好像 phỏng đoán hoặc so sánh. Vd 他好像感冒了 / 看样子要下雨了.',
+          ex:{ zh:'你好像发烧了，脸很红。', pinyin:'Nǐ hǎoxiàng fāshāo le, liǎn hěn hóng.', vi:'Hình như bạn sốt rồi, mặt đỏ lắm.' } }
+      ],
+      vocab:[
+        { zh:'建议', pinyin:'jiànyì', hv:'kiến nghị', vi:'đề nghị, khuyên', pos:'động từ; danh từ' },
+        { zh:'劝', pinyin:'quàn', hv:'khuyến', vi:'khuyên', pos:'động từ' },
+        { zh:'好像', pinyin:'hǎoxiàng', hv:'hảo tượng', vi:'hình như', pos:'phó từ' },
+        { zh:'发烧', pinyin:'fāshāo', hv:'phát thiêu', vi:'sốt', pos:'động từ' },
+        { zh:'咳嗽', pinyin:'késou', hv:'khái thấu', vi:'ho', pos:'động từ' },
+        { zh:'感冒', pinyin:'gǎnmào', hv:'cảm mạo', vi:'cảm', pos:'động từ; danh từ' },
+        { zh:'症状', pinyin:'zhèngzhuàng', hv:'chứng trạng', vi:'triệu chứng', pos:'danh từ' },
+        { zh:'检查', pinyin:'jiǎnchá', hv:'kiểm tra', vi:'kiểm tra, khám', pos:'động từ' },
+        { zh:'打针', pinyin:'dǎzhēn', hv:'đả châm', vi:'tiêm', pos:'động từ' },
+        { zh:'药', pinyin:'yào', hv:'dược', vi:'thuốc', pos:'danh từ' },
+        { zh:'按时', pinyin:'ànshí', hv:'án thời', vi:'đúng giờ', pos:'phó từ' },
+        { zh:'恢复', pinyin:'huīfù', hv:'khôi phục', vi:'hồi phục', pos:'động từ' },
+        { zh:'厉害', pinyin:'lìhai', hv:'lệ hại', vi:'nặng, dữ dội; giỏi', pos:'tính từ' },
+        { zh:'散步', pinyin:'sànbù', hv:'tán bộ', vi:'đi dạo', pos:'động từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'医生，我咳嗽得厉害，好像还有点儿发烧。', pinyin:'Yīshēng, wǒ késou de lìhai, hǎoxiàng hái yǒudiǎnr fāshāo.', vi:'Bác sĩ, tôi ho dữ, hình như còn hơi sốt.' },
+        { sp:'B', zh:'我检查一下。是感冒，不用打针，吃药就行。', pinyin:'Wǒ jiǎnchá yíxià. Shì gǎnmào, búyòng dǎzhēn, chī yào jiù xíng.', vi:'Để tôi khám. Bị cảm, không cần tiêm, uống thuốc là được.' },
+        { sp:'A', zh:'需要注意什么吗？', pinyin:'Xūyào zhùyì shénme ma?', vi:'Cần chú ý gì không?' },
+        { sp:'B', zh:'按时吃药，多喝水。我建议你多休息，几天就能恢复。', pinyin:'Ànshí chī yào, duō hē shuǐ. Wǒ jiànyì nǐ duō xiūxi, jǐ tiān jiù néng huīfù.', vi:'Uống thuốc đúng giờ, uống nhiều nước. Tôi khuyên nghỉ nhiều, vài ngày là khỏi.' }
+      ]
+    },
+
+    {
+      level:'hsk4', no:14, zh:'我被他的故事感动了', pinyin:'Wǒ bèi tā de gùshi gǎndòng le', vi:'Tôi xúc động vì câu chuyện của anh ấy',
+      skill:'Cảm xúc & bình luận phim/sách; 被/让/叫 bị động; 使/令',
+      grammar:[
+        { form:'S + 被/让/叫 + O + V + …', vi:'bị động (让/叫 khẩu ngữ)',
+          note:'让/叫 bị động bắt buộc có tác nhân: 让雨淋了 / 叫人拿走了. 被 có thể lược tác nhân.',
+          ex:{ zh:'我的自行车让人骑走了。', pinyin:'Wǒ de zìxíngchē ràng rén qí zǒu le.', vi:'Xe đạp của tôi bị người ta đi mất.' } },
+        { form:'A 使/令 B + trạng thái', vi:'“A khiến B …”',
+          note:'使 trung tính, 令 trang trọng hơn, thường đi với cảm xúc: 令人感动, 令人失望, 使人难忘.',
+          ex:{ zh:'这部电影的结尾令人感动。', pinyin:'Zhè bù diànyǐng de jiéwěi lìng rén gǎndòng.', vi:'Đoạn kết bộ phim này khiến người ta xúc động.' } }
+      ],
+      vocab:[
+        { zh:'感动', pinyin:'gǎndòng', hv:'cảm động', vi:'xúc động', pos:'động từ; tính từ' },
+        { zh:'使', pinyin:'shǐ', hv:'sử', vi:'khiến', pos:'động từ' },
+        { zh:'令', pinyin:'lìng', hv:'lệnh', vi:'khiến (trang trọng)', pos:'động từ' },
+        { zh:'故事', pinyin:'gùshi', hv:'cố sự', vi:'câu chuyện', pos:'danh từ' },
+        { zh:'情节', pinyin:'qíngjié', hv:'tình tiết', vi:'tình tiết', pos:'danh từ' },
+        { zh:'结尾', pinyin:'jiéwěi', hv:'kết vĩ', vi:'kết thúc', pos:'danh từ' },
+        { zh:'演员', pinyin:'yǎnyuán', hv:'diễn viên', vi:'diễn viên', pos:'danh từ' },
+        { zh:'失望', pinyin:'shīwàng', hv:'thất vọng', vi:'thất vọng', pos:'tính từ' },
+        { zh:'激动', pinyin:'jīdòng', hv:'kích động', vi:'xúc động mạnh, phấn khích', pos:'tính từ' },
+        { zh:'难忘', pinyin:'nánwàng', hv:'nan vong', vi:'khó quên', pos:'tính từ' },
+        { zh:'流泪', pinyin:'liúlèi', hv:'lưu lệ', vi:'rơi nước mắt', pos:'động từ' },
+        { zh:'推荐', pinyin:'tuījiàn', hv:'suy tiến', vi:'giới thiệu, gợi ý', pos:'động từ' },
+        { zh:'评价', pinyin:'píngjià', hv:'bình giá', vi:'đánh giá', pos:'động từ; danh từ' },
+        { zh:'淋', pinyin:'lín', hv:'lâm', vi:'dội, ướt (mưa)', pos:'động từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'昨天那部电影怎么样？', pinyin:'Zuótiān nà bù diànyǐng zěnmeyàng?', vi:'Bộ phim hôm qua thế nào?' },
+        { sp:'B', zh:'我被主人公的故事感动了，结尾让我流泪了。', pinyin:'Wǒ bèi zhǔréngōng de gùshi gǎndòng le, jiéwěi ràng wǒ liúlèi le.', vi:'Mình xúc động vì câu chuyện nhân vật chính, đoạn kết làm mình khóc.' },
+        { sp:'A', zh:'网上评价说情节有点儿慢。', pinyin:'Wǎngshàng píngjià shuō qíngjié yǒudiǎnr màn.', vi:'Đánh giá trên mạng bảo tình tiết hơi chậm.' },
+        { sp:'B', zh:'开头是慢，但演员的表演令人难忘。我推荐你去看。', pinyin:'Kāitóu shì màn, dàn yǎnyuán de biǎoyǎn lìng rén nánwàng. Wǒ tuījiàn nǐ qù kàn.', vi:'Đầu phim chậm thật, nhưng diễn xuất khó quên. Mình gợi ý bạn đi xem.' }
+      ]
+    },
+
+    {
+      level:'hsk4', no:15, zh:'那家餐厅的服务态度不错', pinyin:'Nà jiā cāntīng de fúwù tàidu búcuò', vi:'Thái độ phục vụ của nhà hàng đó khá tốt',
+      skill:'Khiếu nại & khen chê dịch vụ; 对…满意/不满; V + 得 + đánh giá',
+      grammar:[
+        { form:'对 + N + 满意 / 有意见', vi:'“hài lòng / có ý kiến với …”',
+          note:'Vd 顾客对服务很满意 / 我对这个安排有意见. Mức độ: 非常满意, 不太满意.',
+          ex:{ zh:'我对这家店的态度很不满意。', pinyin:'Wǒ duì zhè jiā diàn de tàidu hěn bù mǎnyì.', vi:'Tôi rất không hài lòng với thái độ của cửa hàng này.' } },
+        { form:'V + 得 + đánh giá (太/不够/够 + adj)', vi:'bổ ngữ trạng thái khi nhận xét',
+          note:'菜上得太慢 / 味道做得不够好 / 服务员解释得很清楚.',
+          ex:{ zh:'菜上得太慢了，我们等了四十分钟。', pinyin:'Cài shàng de tài màn le, wǒmen děng le sìshí fēnzhōng.', vi:'Món lên chậm quá, chúng tôi đợi bốn mươi phút.' } }
+      ],
+      vocab:[
+        { zh:'服务', pinyin:'fúwù', hv:'phục vụ', vi:'phục vụ; dịch vụ', pos:'động từ; danh từ' },
+        { zh:'顾客', pinyin:'gùkè', hv:'cố khách', vi:'khách hàng', pos:'danh từ' },
+        { zh:'满意', pinyin:'mǎnyì', hv:'mãn ý', vi:'hài lòng', pos:'tính từ' },
+        { zh:'抱怨', pinyin:'bàoyuàn', hv:'bão oán', vi:'than phiền', pos:'động từ' },
+        { zh:'投诉', pinyin:'tóusù', hv:'đầu tố', vi:'khiếu nại', pos:'động từ' },
+        { zh:'味道', pinyin:'wèidao', hv:'vị đạo', vi:'mùi vị', pos:'danh từ' },
+        { zh:'新鲜', pinyin:'xīnxiān', hv:'tân tiên', vi:'tươi', pos:'tính từ' },
+        { zh:'账单', pinyin:'zhàngdān', hv:'trướng đơn', vi:'hoá đơn', pos:'danh từ' },
+        { zh:'打折', pinyin:'dǎzhé', hv:'đả chiết', vi:'giảm giá', pos:'động từ' },
+        { zh:'免费', pinyin:'miǎnfèi', hv:'miễn phí', vi:'miễn phí', pos:'động từ' },
+        { zh:'经理', pinyin:'jīnglǐ', hv:'kinh lý', vi:'quản lý, giám đốc', pos:'danh từ' },
+        { zh:'解释', pinyin:'jiěshì', hv:'giải thích', vi:'giải thích', pos:'động từ' },
+        { zh:'够', pinyin:'gòu', hv:'cú', vi:'đủ', pos:'động từ; phó từ' },
+        { zh:'态度', pinyin:'tàidu', hv:'thái độ', vi:'thái độ', pos:'danh từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'服务员，我们的菜上得太慢了。', pinyin:'Fúwùyuán, wǒmen de cài shàng de tài màn le.', vi:'Nhân viên ơi, món của chúng tôi lên chậm quá.' },
+        { sp:'B', zh:'非常抱歉，今天顾客特别多。我马上去催。', pinyin:'Fēicháng bàoqiàn, jīntiān gùkè tèbié duō. Wǒ mǎshàng qù cuī.', vi:'Rất xin lỗi, hôm nay khách đông. Tôi đi giục ngay.' },
+        { sp:'A', zh:'而且这个菜不够新鲜，味道也不对。', pinyin:'Érqiě zhège cài bú gòu xīnxiān, wèidao yě bú duì.', vi:'Với lại món này không đủ tươi, vị cũng không đúng.' },
+        { sp:'B', zh:'我请经理来解释，这道菜给您免费，账单打八折。', pinyin:'Wǒ qǐng jīnglǐ lái jiěshì, zhè dào cài gěi nín miǎnfèi, zhàngdān dǎ bā zhé.', vi:'Tôi mời quản lý ra giải thích, món này miễn phí, hoá đơn giảm 20%.' },
+        { sp:'A', zh:'好吧，你们的服务态度还不错。', pinyin:'Hǎo ba, nǐmen de fúwù tàidu hái búcuò.', vi:'Được rồi, thái độ phục vụ của các bạn cũng ổn.' }
+      ]
+    },
+
+    {
+      level:'hsk4', no:16, zh:'环境保护人人有责', pinyin:'Huánjìng bǎohù rénrén yǒu zé', vi:'Bảo vệ môi trường là trách nhiệm của mọi người',
+      skill:'Chủ đề xã hội: môi trường; 禁止/提倡; 一方面…另一方面',
+      grammar:[
+        { form:'一方面 A，另一方面 B', vi:'“một mặt A, mặt khác B”',
+          note:'Nêu hai khía cạnh song song của cùng một việc. Vd 一方面要发展经济，另一方面要保护环境.',
+          ex:{ zh:'一方面要减少污染，另一方面要节约资源。', pinyin:'Yì fāngmiàn yào jiǎnshǎo wūrǎn, lìng yì fāngmiàn yào jiéyuē zīyuán.', vi:'Một mặt giảm ô nhiễm, mặt khác tiết kiệm tài nguyên.' } },
+        { form:'禁止 / 提倡 / 应该 + V (câu khẩu hiệu)', vi:'cấm / khuyến khích / nên',
+          note:'Văn phong thông báo: 禁止吸烟, 提倡绿色出行. 人人有责 = mọi người đều có trách nhiệm.',
+          ex:{ zh:'公共场所禁止吸烟。', pinyin:'Gōnggòng chǎngsuǒ jìnzhǐ xīyān.', vi:'Nơi công cộng cấm hút thuốc.' } }
+      ],
+      vocab:[
+        { zh:'环境', pinyin:'huánjìng', hv:'hoàn cảnh', vi:'môi trường', pos:'danh từ' },
+        { zh:'保护', pinyin:'bǎohù', hv:'bảo hộ', vi:'bảo vệ', pos:'động từ' },
+        { zh:'污染', pinyin:'wūrǎn', hv:'ô nhiễm', vi:'ô nhiễm', pos:'động từ; danh từ' },
+        { zh:'垃圾', pinyin:'lājī', hv:'lạp ngập', vi:'rác', pos:'danh từ' },
+        { zh:'分类', pinyin:'fēnlèi', hv:'phân loại', vi:'phân loại', pos:'động từ' },
+        { zh:'节约', pinyin:'jiéyuē', hv:'tiết ước', vi:'tiết kiệm', pos:'động từ' },
+        { zh:'资源', pinyin:'zīyuán', hv:'tư nguyên', vi:'tài nguyên', pos:'danh từ' },
+        { zh:'禁止', pinyin:'jìnzhǐ', hv:'cấm chỉ', vi:'cấm', pos:'động từ' },
+        { zh:'提倡', pinyin:'tíchàng', hv:'đề xướng', vi:'khuyến khích, đề xướng', pos:'động từ' },
+        { zh:'塑料袋', pinyin:'sùliàodài', hv:'tố liệu đại', vi:'túi ni-lông', pos:'danh từ' },
+        { zh:'减少', pinyin:'jiǎnshǎo', hv:'giảm thiểu', vi:'giảm bớt', pos:'động từ' },
+        { zh:'责任', pinyin:'zérèn', hv:'trách nhiệm', vi:'trách nhiệm', pos:'danh từ' },
+        { zh:'公共', pinyin:'gōnggòng', hv:'công cộng', vi:'công cộng', pos:'tính từ' },
+        { zh:'吸烟', pinyin:'xīyān', hv:'hấp yên', vi:'hút thuốc', pos:'động từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'现在超市不免费提供塑料袋了。', pinyin:'Xiànzài chāoshì bù miǎnfèi tígōng sùliàodài le.', vi:'Giờ siêu thị không phát túi ni-lông miễn phí nữa.' },
+        { sp:'B', zh:'对，政府提倡减少污染，还要求垃圾分类。', pinyin:'Duì, zhèngfǔ tíchàng jiǎnshǎo wūrǎn, hái yāoqiú lājī fēnlèi.', vi:'Ừ, chính phủ khuyến khích giảm ô nhiễm, còn yêu cầu phân loại rác.' },
+        { sp:'A', zh:'一方面有点儿麻烦，另一方面确实对环境好。', pinyin:'Yì fāngmiàn yǒudiǎnr máfan, lìng yì fāngmiàn quèshí duì huánjìng hǎo.', vi:'Một mặt hơi phiền, mặt khác đúng là tốt cho môi trường.' },
+        { sp:'B', zh:'环境保护人人有责，从小事做起吧。', pinyin:'Huánjìng bǎohù rénrén yǒu zé, cóng xiǎoshì zuò qǐ ba.', vi:'Bảo vệ môi trường là trách nhiệm của mọi người, bắt đầu từ việc nhỏ.' }
+      ]
+    },
+
+    {
+      level:'hsk4', no:17, zh:'我差点儿忘了', pinyin:'Wǒ chàdiǎnr wàng le', vi:'Tôi suýt nữa quên',
+      skill:'Phó từ tinh tế: 差点儿 / 几乎 / 简直 / 总算 / 竟然',
+      grammar:[
+        { form:'差点儿 (没) + V', vi:'“suýt nữa …”',
+          note:'Việc không mong muốn: 差点儿摔倒 = 差点儿没摔倒 (đều là không ngã). Việc mong muốn: 差点儿没赶上 = suýt lỡ nhưng kịp; 差点儿赶上 = không kịp.',
+          ex:{ zh:'今天早上我差点儿迟到。', pinyin:'Jīntiān zǎoshang wǒ chàdiǎnr chídào.', vi:'Sáng nay tôi suýt muộn.' } },
+        { form:'竟然 / 总算 / 简直 + V/adj', vi:'“không ngờ / cuối cùng cũng / quả thật là”',
+          note:'竟然 bất ngờ ngoài dự đoán; 总算 sau khi chờ đợi lâu; 简直 cường điệu (简直太棒了).',
+          ex:{ zh:'等了三个月，签证总算办下来了。', pinyin:'Děng le sān ge yuè, qiānzhèng zǒngsuàn bàn xiàlái le.', vi:'Đợi ba tháng, visa cuối cùng cũng xong.' } }
+      ],
+      vocab:[
+        { zh:'差点儿', pinyin:'chàdiǎnr', hv:'sai điểm nhi', vi:'suýt nữa', pos:'phó từ' },
+        { zh:'几乎', pinyin:'jīhū', hv:'cơ hồ', vi:'hầu như', pos:'phó từ' },
+        { zh:'简直', pinyin:'jiǎnzhí', hv:'giản trực', vi:'quả thật, đúng là', pos:'phó từ' },
+        { zh:'总算', pinyin:'zǒngsuàn', hv:'tổng toán', vi:'cuối cùng cũng', pos:'phó từ' },
+        { zh:'竟然', pinyin:'jìngrán', hv:'cánh nhiên', vi:'không ngờ, lại', pos:'phó từ' },
+        { zh:'摔倒', pinyin:'shuāidǎo', hv:'suất đảo', vi:'ngã', pos:'động từ' },
+        { zh:'钥匙', pinyin:'yàoshi', hv:'thược thi', vi:'chìa khoá', pos:'danh từ' },
+        { zh:'锁', pinyin:'suǒ', hv:'toả', vi:'khoá; ổ khoá', pos:'động từ; danh từ' },
+        { zh:'出门', pinyin:'chūmén', hv:'xuất môn', vi:'ra khỏi nhà', pos:'động từ' },
+        { zh:'半路', pinyin:'bànlù', hv:'bán lộ', vi:'giữa đường', pos:'danh từ' },
+        { zh:'想起', pinyin:'xiǎngqǐ', hv:'tưởng khởi', vi:'nhớ ra', pos:'động từ' },
+        { zh:'吓', pinyin:'xià', hv:'hách', vi:'làm sợ, giật mình', pos:'động từ' },
+        { zh:'马虎', pinyin:'mǎhu', hv:'mã hổ', vi:'cẩu thả', pos:'tính từ' },
+        { zh:'办', pinyin:'bàn', hv:'biện', vi:'làm (thủ tục)', pos:'động từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'你怎么又回来了？', pinyin:'Nǐ zěnme yòu huílái le?', vi:'Sao bạn lại quay về?' },
+        { sp:'B', zh:'我差点儿忘了带钥匙，走到半路才想起来。', pinyin:'Wǒ chàdiǎnr wàng le dài yàoshi, zǒu dào bànlù cái xiǎng qǐlái.', vi:'Suýt quên mang chìa khoá, đi nửa đường mới nhớ ra.' },
+        { sp:'A', zh:'你竟然没锁门？简直太马虎了。', pinyin:'Nǐ jìngrán méi suǒ mén? Jiǎnzhí tài mǎhu le.', vi:'Bạn lại không khoá cửa? Đúng là cẩu thả quá.' },
+        { sp:'B', zh:'吓死我了。总算没丢东西。', pinyin:'Xià sǐ wǒ le. Zǒngsuàn méi diū dōngxi.', vi:'Sợ chết mất. May cuối cùng không mất gì.' }
+      ]
+    },
+
+    {
+      level:'hsk4', no:18, zh:'按照说明书安装', pinyin:'Ànzhào shuōmíngshū ānzhuāng', vi:'Lắp theo hướng dẫn sử dụng',
+      skill:'Giới từ chỉ căn cứ/cách thức: 按照 / 根据 / 以…为 / 用…来',
+      grammar:[
+        { form:'按照 / 根据 + N，…', vi:'“theo / căn cứ vào …”',
+          note:'按照 = làm đúng theo quy định/thứ tự; 根据 = dựa vào thông tin để suy ra. Vd 按照规定 / 根据天气预报.',
+          ex:{ zh:'根据调查，大部分人支持这个计划。', pinyin:'Gēnjù diàochá, dà bùfen rén zhīchí zhège jìhuà.', vi:'Theo khảo sát, phần lớn mọi người ủng hộ kế hoạch này.' } },
+        { form:'以 A 为 B', vi:'“lấy A làm B”',
+          note:'Cấu trúc văn viết: 以健康为主 (lấy sức khoẻ làm chính), 以…为例 (lấy … làm ví dụ).',
+          ex:{ zh:'我们以质量为第一标准。', pinyin:'Wǒmen yǐ zhìliàng wéi dì-yī biāozhǔn.', vi:'Chúng tôi lấy chất lượng làm tiêu chuẩn số một.' } }
+      ],
+      vocab:[
+        { zh:'按照', pinyin:'ànzhào', hv:'án chiếu', vi:'theo, dựa theo', pos:'giới từ' },
+        { zh:'根据', pinyin:'gēnjù', hv:'căn cứ', vi:'căn cứ vào', pos:'giới từ' },
+        { zh:'说明书', pinyin:'shuōmíngshū', hv:'thuyết minh thư', vi:'sách hướng dẫn', pos:'danh từ' },
+        { zh:'安装', pinyin:'ānzhuāng', hv:'an trang', vi:'lắp đặt, cài đặt', pos:'động từ' },
+        { zh:'步骤', pinyin:'bùzhòu', hv:'bộ sậu', vi:'các bước', pos:'danh từ' },
+        { zh:'零件', pinyin:'língjiàn', hv:'linh kiện', vi:'linh kiện', pos:'danh từ' },
+        { zh:'标准', pinyin:'biāozhǔn', hv:'tiêu chuẩn', vi:'tiêu chuẩn', pos:'danh từ' },
+        { zh:'质量', pinyin:'zhìliàng', hv:'chất lượng', vi:'chất lượng', pos:'danh từ' },
+        { zh:'调查', pinyin:'diàochá', hv:'điều tra', vi:'khảo sát, điều tra', pos:'động từ; danh từ' },
+        { zh:'规定', pinyin:'guīdìng', hv:'quy định', vi:'quy định', pos:'danh từ; động từ' },
+        { zh:'顺利', pinyin:'shùnlì', hv:'thuận lợi', vi:'thuận lợi', pos:'tính từ' },
+        { zh:'售后', pinyin:'shòuhòu', hv:'thụ hậu', vi:'hậu mãi', pos:'danh từ' },
+        { zh:'保修', pinyin:'bǎoxiū', hv:'bảo tu', vi:'bảo hành', pos:'động từ' },
+        { zh:'部分', pinyin:'bùfen', hv:'bộ phận', vi:'phần, bộ phận', pos:'danh từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'新买的书架怎么装？零件太多了。', pinyin:'Xīn mǎi de shūjià zěnme zhuāng? Língjiàn tài duō le.', vi:'Giá sách mới mua lắp sao? Linh kiện nhiều quá.' },
+        { sp:'B', zh:'按照说明书一步一步来，别跳步骤。', pinyin:'Ànzhào shuōmíngshū yí bù yí bù lái, bié tiào bùzhòu.', vi:'Theo hướng dẫn từng bước một, đừng nhảy bước.' },
+        { sp:'A', zh:'根据说明，这块板应该先装。', pinyin:'Gēnjù shuōmíng, zhè kuài bǎn yīnggāi xiān zhuāng.', vi:'Theo hướng dẫn, tấm này phải lắp trước.' },
+        { sp:'B', zh:'对。要是装不好，可以联系售后，他们以服务为主，保修一年。', pinyin:'Duì. Yàoshi zhuāng bu hǎo, kěyǐ liánxì shòuhòu, tāmen yǐ fúwù wéi zhǔ, bǎoxiū yì nián.', vi:'Đúng. Nếu lắp không được thì liên hệ hậu mãi, họ lấy dịch vụ làm chính, bảo hành một năm.' }
+      ]
+    },
+
+    {
+      level:'hsk4', no:19, zh:'这件事跟他毫无关系', pinyin:'Zhè jiàn shì gēn tā háowú guānxi', vi:'Việc này chẳng liên quan gì đến anh ấy',
+      skill:'Phủ định nhấn mạnh: 毫无 / 一点儿也不 / 从不 / 并不',
+      grammar:[
+        { form:'一点儿也/都 + 不/没 + V/adj', vi:'“chẳng … chút nào”',
+          note:'Phủ định tuyệt đối. Vd 一点儿也不累 / 一点儿都没变. Văn viết: 毫无 + N (毫无关系, 毫无办法).',
+          ex:{ zh:'他对这件事一点儿也不知情。', pinyin:'Tā duì zhè jiàn shì yìdiǎnr yě bù zhīqíng.', vi:'Anh ấy chẳng biết gì về việc này.' } },
+        { form:'并不 / 并没(有) + V', vi:'“hoàn toàn không …” (bác lại ý người khác)',
+          note:'并 nhấn mạnh phủ định trái với điều được cho là đúng. Vd 我并不喜欢 / 事情并没有那么严重.',
+          ex:{ zh:'事情并没有你想的那么严重。', pinyin:'Shìqing bìng méiyǒu nǐ xiǎng de nàme yánzhòng.', vi:'Sự việc hoàn toàn không nghiêm trọng như bạn nghĩ.' } }
+      ],
+      vocab:[
+        { zh:'毫无', pinyin:'háowú', hv:'hào vô', vi:'không hề, chẳng chút', pos:'động từ' },
+        { zh:'并', pinyin:'bìng', hv:'tịnh', vi:'(nhấn mạnh phủ định) hoàn toàn', pos:'phó từ' },
+        { zh:'关系', pinyin:'guānxi', hv:'quan hệ', vi:'quan hệ, liên quan', pos:'danh từ' },
+        { zh:'严重', pinyin:'yánzhòng', hv:'nghiêm trọng', vi:'nghiêm trọng', pos:'tính từ' },
+        { zh:'误会', pinyin:'wùhuì', hv:'ngộ hội', vi:'hiểu lầm', pos:'danh từ; động từ' },
+        { zh:'证明', pinyin:'zhèngmíng', hv:'chứng minh', vi:'chứng minh', pos:'động từ; danh từ' },
+        { zh:'怀疑', pinyin:'huáiyí', hv:'hoài nghi', vi:'nghi ngờ', pos:'động từ' },
+        { zh:'冤枉', pinyin:'yuānwang', hv:'oan uổng', vi:'oan', pos:'động từ; tính từ' },
+        { zh:'相信', pinyin:'xiāngxìn', hv:'tương tín', vi:'tin tưởng', pos:'động từ' },
+        { zh:'事实', pinyin:'shìshí', hv:'sự thực', vi:'sự thật', pos:'danh từ' },
+        { zh:'从不', pinyin:'cóngbù', hv:'tòng bất', vi:'không bao giờ', pos:'phó từ' },
+        { zh:'撒谎', pinyin:'sāhuǎng', hv:'tán hoang', vi:'nói dối', pos:'động từ' },
+        { zh:'监控', pinyin:'jiānkòng', hv:'giám khống', vi:'camera giám sát', pos:'danh từ' },
+        { zh:'知情', pinyin:'zhīqíng', hv:'tri tình', vi:'biết chuyện', pos:'động từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'有人怀疑小张拿了办公室的钱。', pinyin:'Yǒu rén huáiyí Xiǎo Zhāng ná le bàngōngshì de qián.', vi:'Có người nghi Tiểu Trương lấy tiền của văn phòng.' },
+        { sp:'B', zh:'不可能，这件事跟他毫无关系，他那天并没有来。', pinyin:'Bù kěnéng, zhè jiàn shì gēn tā háowú guānxi, tā nà tiān bìng méiyǒu lái.', vi:'Không thể, việc này chẳng liên quan gì đến cậu ấy, hôm đó cậu ấy đâu có đến.' },
+        { sp:'A', zh:'你怎么证明？', pinyin:'Nǐ zěnme zhèngmíng?', vi:'Bạn chứng minh sao?' },
+        { sp:'B', zh:'监控可以证明。他从不撒谎，别冤枉他。', pinyin:'Jiānkòng kěyǐ zhèngmíng. Tā cóngbù sāhuǎng, bié yuānwang tā.', vi:'Camera chứng minh được. Cậu ấy không bao giờ nói dối, đừng đổ oan.' }
+      ]
+    },
+
+    {
+      level:'hsk4', no:20, zh:'回顾这一年', pinyin:'Huígù zhè yì nián', vi:'Nhìn lại một năm qua',
+      skill:'Tổng ôn HSK4: kể lại + nhận xét; 曾经 / 既…又 / 总的来说',
+      grammar:[
+        { form:'曾经 + V + 过', vi:'“đã từng …” (quá khứ xa, nay không còn)',
+          note:'曾经 nhấn mạnh trước đây; đối lập với 现在. Vd 我曾经在北京住过两年.',
+          ex:{ zh:'我曾经害怕开口说汉语，现在不怕了。', pinyin:'Wǒ céngjīng hàipà kāikǒu shuō Hànyǔ, xiànzài bú pà le.', vi:'Tôi từng sợ mở miệng nói tiếng Trung, giờ không sợ nữa.' } },
+        { form:'Tổng ôn: 不管…都 / 即使…也 / 由于 / 反而 / 到底 / 恐怕 / 幸亏 / 随着 / 按照 / 并不', vi:'Điểm ngữ pháp trọng tâm HSK4',
+          note:'总的来说 (nhìn chung) + 既…又… (vừa… vừa…) dùng để kết luận. Tự viết một đoạn 6–8 câu kể lại năm học của bạn với ít nhất 5 mẫu trên.',
+          ex:{ zh:'总的来说，这一年既辛苦又充实。', pinyin:'Zǒng de lái shuō, zhè yì nián jì xīnkǔ yòu chōngshí.', vi:'Nhìn chung, năm nay vừa vất vả vừa trọn vẹn.' } }
+      ],
+      vocab:[
+        { zh:'回顾', pinyin:'huígù', hv:'hồi cố', vi:'nhìn lại', pos:'động từ' },
+        { zh:'曾经', pinyin:'céngjīng', hv:'tằng kinh', vi:'đã từng', pos:'phó từ' },
+        { zh:'总的来说', pinyin:'zǒng de lái shuō', hv:'tổng đích lai thuyết', vi:'nhìn chung', pos:'cụm cố định' },
+        { zh:'充实', pinyin:'chōngshí', hv:'sung thực', vi:'trọn vẹn, phong phú', pos:'tính từ' },
+        { zh:'辛苦', pinyin:'xīnkǔ', hv:'tân khổ', vi:'vất vả', pos:'tính từ' },
+        { zh:'收获', pinyin:'shōuhuò', hv:'thu hoạch', vi:'thu hoạch, thành quả', pos:'danh từ; động từ' },
+        { zh:'目标', pinyin:'mùbiāo', hv:'mục tiêu', vi:'mục tiêu', pos:'danh từ' },
+        { zh:'实现', pinyin:'shíxiàn', hv:'thực hiện', vi:'thực hiện, đạt được', pos:'động từ' },
+        { zh:'遗憾', pinyin:'yíhàn', hv:'di hám', vi:'tiếc nuối', pos:'tính từ; danh từ' },
+        { zh:'期待', pinyin:'qīdài', hv:'kỳ đãi', vi:'mong đợi', pos:'động từ' },
+        { zh:'感谢', pinyin:'gǎnxiè', hv:'cảm tạ', vi:'cảm ơn', pos:'động từ' },
+        { zh:'开口', pinyin:'kāikǒu', hv:'khai khẩu', vi:'mở miệng, cất lời', pos:'động từ' },
+        { zh:'进步', pinyin:'jìnbù', hv:'tiến bộ', vi:'tiến bộ', pos:'động từ; danh từ' },
+        { zh:'挑战', pinyin:'tiǎozhàn', hv:'khiêu chiến', vi:'thử thách', pos:'danh từ; động từ' }
+      ],
+      dialogue:[
+        { sp:'A', zh:'回顾这一年，你最大的收获是什么？', pinyin:'Huígù zhè yì nián, nǐ zuì dà de shōuhuò shì shénme?', vi:'Nhìn lại năm qua, thành quả lớn nhất của bạn là gì?' },
+        { sp:'B', zh:'我曾经害怕开口，现在不管跟谁都敢用汉语聊天。', pinyin:'Wǒ céngjīng hàipà kāikǒu, xiànzài bùguǎn gēn shéi dōu gǎn yòng Hànyǔ liáotiān.', vi:'Mình từng sợ mở miệng, giờ dù với ai cũng dám nói chuyện bằng tiếng Trung.' },
+        { sp:'A', zh:'有什么遗憾吗？', pinyin:'Yǒu shénme yíhàn ma?', vi:'Có tiếc nuối gì không?' },
+        { sp:'B', zh:'恐怕是没实现读完一本中文小说的目标。总的来说，这一年既辛苦又充实。', pinyin:'Kǒngpà shì méi shíxiàn dú wán yì běn Zhōngwén xiǎoshuō de mùbiāo. Zǒng de lái shuō, zhè yì nián jì xīnkǔ yòu chōngshí.', vi:'E là chưa đạt mục tiêu đọc xong một cuốn tiểu thuyết tiếng Trung. Nhìn chung, năm nay vừa vất vả vừa trọn vẹn.' },
+        { sp:'A', zh:'期待明年的新挑战！', pinyin:'Qīdài míngnián de xīn tiǎozhàn!', vi:'Mong chờ thử thách mới năm sau!' }
       ]
     }
   ]
