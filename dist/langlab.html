@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
 <meta name="description" content="Ứng dụng học ngoại ngữ theo bài. Bắt đầu với tiếng Hàn: từ vựng, ngữ pháp, hội thoại, tra từ điển và hướng dẫn thứ tự nét viết chữ Hangul.">
-<link rel="icon" type="image/png" href="logo-icon.png?v=260927">
-<link rel="manifest" href="manifest.webmanifest?v=260927">
+<link rel="icon" type="image/png" href="logo-icon.png?v=260928">
+<link rel="manifest" href="manifest.webmanifest?v=260928">
 <meta name="theme-color" content="#EAF1FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260927">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260928">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="LangLab">
@@ -1300,6 +1300,53 @@ body:has(.mplayer.open) .view{padding-bottom:110px}
 .zh-exq-no{width:24px;height:24px;flex:none;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-size:12px;font-weight:600}
 .zh-exam-progress{font-size:13px;color:var(--muted)}
 
+/* ===== Thi thử HSK (đề soạn sẵn) — dùng chung khung .topik-bar/.tk-q của TOPIK ===== */
+.hsk-tabs{flex-basis:100%;display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding-top:6px;border-top:1px dashed var(--line)}
+.hsk-tab{font:inherit;font-size:12.5px;padding:4px 11px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.hsk-tab:hover{border-color:var(--accent);color:var(--accent)}
+.hsk-free{margin-left:auto;font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px;cursor:pointer}
+.hsk-resume{max-width:900px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border:1px solid var(--accent);background:var(--accent-soft);border-radius:var(--r);padding:12px 16px;margin-bottom:16px;font-size:13.5px}
+.topik-card.quick{border-style:dashed}
+.tkg-table.hsk .tkg-row{grid-template-columns:1fr .8fr 1.6fr 1.6fr}
+.hsk-paused{max-width:760px;border:1px solid var(--line-strong);background:var(--surface-2);border-radius:var(--r);padding:26px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:16px}
+.hsk-paused b{font-size:18px}.hsk-paused span{font-size:13px;color:var(--muted)}
+.topik-quiz.paused{filter:blur(7px);pointer-events:none;user-select:none;opacity:.55}
+.hsk-pic{font-size:64px;line-height:1.1;margin:4px 0 10px}
+.hsk-pic.sm{font-size:34px;line-height:1;margin:0}
+.hsk-tf{flex:none;width:30px;height:30px;border-radius:8px;border:1px solid var(--line-strong);display:grid;place-items:center;font-size:18px;font-weight:700}
+.tk-opts.hsk-row{flex-direction:row;flex-wrap:wrap}
+.tk-opts.hsk-row .tk-opt{width:auto;flex:1 1 120px}
+.hsk-py{font-size:13px;color:var(--muted);font-weight:400}
+.hsk-bank{max-width:760px;display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 6px}
+.hsk-bank-it{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line-strong);background:var(--surface);border-radius:9px;padding:7px 11px;font-size:14px}
+.hsk-bank.pics .hsk-bank-it .ko{font-size:34px;line-height:1}
+.hsk-example{max-width:760px;font-size:13px;color:var(--faint);margin:0 0 4px;padding:0 4px}
+.hsk-part-p{max-width:760px;margin:10px 0 4px;font-size:15.5px}
+.hsk-script{margin-top:8px;font-size:14px}
+.hsk-order-line{min-height:46px;border:1px dashed var(--line-strong);border-radius:9px;padding:8px 10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:17px;margin-bottom:10px}
+.hsk-order-pool{display:flex;flex-wrap:wrap;gap:8px}
+.hsk-chunk{font:inherit;font-size:16px;padding:6px 12px;border-radius:8px;border:1px solid var(--line-strong);background:var(--surface);cursor:pointer;color:var(--ink)}
+.hsk-chunk:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.hsk-chunk:disabled{opacity:.35;cursor:default}
+.hsk-chunk.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);cursor:default}
+.hsk-hint{font-size:13px;color:var(--faint)}
+.hsk-words{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}
+.hsk-inline{display:flex;align-items:center;gap:12px}
+.hsk-in{font:inherit;font-size:20px;padding:8px 12px;border:1px solid var(--line-strong);border-radius:9px;background:var(--surface);color:var(--ink);width:120px;text-align:center}
+.hsk-in.hsk-ta{width:100%;max-width:640px;font-size:16px;line-height:1.7;text-align:left;resize:vertical}
+.hsk-in:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.hsk-cnt{font-size:12px;color:var(--faint);margin-top:4px}
+.hsk-answer{font-size:14px;line-height:1.6;margin-top:6px}
+.hsk-answer .tk-passage{margin:4px 0 8px}
+.hsk-half{color:var(--seal);font-weight:600}
+.hsk-q.ok{border-color:var(--ok)}
+.hsk-q.bad{border-color:var(--seal)}
+.hsk-secs{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 6px}
+.hsk-sec{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:10px 14px;min-width:120px;display:flex;flex-direction:column;gap:2px}
+.hsk-sec b{font-size:15px}.hsk-sec span{font-size:11.5px;color:var(--faint)}.hsk-sec i{font-style:normal;font-family:"JetBrains Mono",monospace;font-size:20px;font-weight:700}.hsk-sec small{color:var(--muted)}
+.hsk-sec.ok i{color:var(--ok)}.hsk-sec.bad i{color:var(--seal)}
+@media (max-width:640px){ .tkg-table.hsk .tkg-row{grid-template-columns:1fr 1fr} .tkg-table.hsk .tkg-row.head{display:none} .tk-opts.hsk-row .tk-opt{flex-basis:100%} }
+
 /* ===== TÔNG MÀU TIẾNG TRUNG — đỏ trầm (áp khi đang ở màn tiếng Trung, data-lang="zh") =====
    Hán–Việt/nhấn phụ chuyển sang vàng đồng để không lẫn với accent đỏ.
    Tương phản WCAG (đã đo): sáng — accent/surface 6.9:1, accent/accent-soft 5.6:1, seal/surface 6.0:1;
@@ -1336,7 +1383,7 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   <header class="nav">
     <div class="nav-in">
       <div class="brand" data-go="about" role="link" tabindex="0" title="Giới thiệu LangLab">
-        <span class="brand-mark"><img src="logo-icon.png?v=260927" alt="LangLab" width="40" height="40"></span>
+        <span class="brand-mark"><img src="logo-icon.png?v=260928" alt="LangLab" width="40" height="40"></span>
         <span class="brand-name">LangLab</span>
       </div>
 
@@ -10836,6 +10883,678 @@ if (typeof module!=="undefined" && module.exports) module.exports = window.HANZI
 </script>
 <script>
 /* ============================================================
+   LangLab — Đề thi thử HSK (tự soạn theo cấu trúc HSK 2.0, không phải đề chính thức)
+
+   Mỗi đề: { id, level, badge, title, official, minutes, maxScore, pass, plays, sections:[...] }
+   plays  : số lần được nghe mỗi câu (HSK1–3: 2, HSK4–5: 1)
+   section: { id, name (中文), vi, parts:[ { title, ins (中文), vi, bank?, example?, qs:[...] } ] }
+   câu    : k = listen | read | write
+            t = tf    (√/×; pic + a/q)            c: 0 = √, 1 = ×
+                pic   (chọn tranh; a + o[emoji])   c: chỉ số
+                mc    (trắc nghiệm; a?/p? + q + o) c: chỉ số
+                bank  (chọn A–F từ khung chung của phần; q [+py]) c: chỉ số trong bank
+                order (sắp xếp; parts[] → ans, alt[])
+                char  (viết chữ theo pinyin; q có （ ）, py, ans, alt[])
+                sent  (viết câu theo từ + tranh; word, pic, model)
+                essay (viết đoạn; words[] hoặc pic, min, model)
+            a = lời đọc (phần Nghe, phát bằng giọng máy), p = đoạn văn, q = câu hỏi/câu đề, py = pinyin,
+            e = giải thích tiếng Việt (hiện khi xem đáp án)
+   ============================================================ */
+const HSK_EXAMS = [
+
+/* ======================= HSK 1 — Đề A ======================= */
+{
+  id:'hsk1-a', level:'hsk1', badge:'HSK 1', title:'Đề thi thử HSK 1 — Đề A',
+  official:'Đúng cấu trúc đề thật: Nghe 20 câu (4 phần) + Đọc 20 câu (4 phần) · 200 điểm, đạt ≥ 120',
+  minutes:40, maxScore:200, pass:120, plays:2,
+  sections:[
+    { id:'L', name:'听力', vi:'Nghe', parts:[
+      { title:'第一部分', ins:'第1-5题：听录音，判断图片对错。', vi:'Câu 1–5: Nghe rồi xét tranh có đúng với lời đọc không (√ đúng / × sai). Mỗi câu nghe 2 lần.',
+        qs:[
+          { k:'listen', t:'tf', pic:'🍎', a:'苹果', c:0, e:'píngguǒ = quả táo, tranh là quả táo → √.' },
+          { k:'listen', t:'tf', pic:'🐈', a:'狗', c:1, e:'gǒu = con chó, tranh là con mèo (猫 māo) → ×.' },
+          { k:'listen', t:'tf', pic:'📖', a:'看书', c:0, e:'kàn shū = đọc sách → √.' },
+          { k:'listen', t:'tf', pic:'☔', a:'下雨', c:0, e:'xiàyǔ = trời mưa → √.' },
+          { k:'listen', t:'tf', pic:'🚕', a:'坐飞机', c:1, e:'zuò fēijī = đi máy bay, tranh là taxi (出租车) → ×.' }
+        ] },
+      { title:'第二部分', ins:'第6-10题：听录音，选出与录音一致的图片。', vi:'Câu 6–10: Nghe câu rồi chọn tranh phù hợp (A/B/C).',
+        qs:[
+          { k:'listen', t:'pic', a:'他在喝水。', o:['🥤','🍚','📺'], c:0, e:'hē shuǐ = uống nước.' },
+          { k:'listen', t:'pic', a:'我妈妈是医生。', o:['👩‍🏫','👩‍⚕️','👮'], c:1, e:'yīshēng = bác sĩ.' },
+          { k:'listen', t:'pic', a:'今天很冷。', o:['🥵','😴','🥶'], c:2, e:'lěng = lạnh.' },
+          { k:'listen', t:'pic', a:'我们去商店买东西。', o:['🏥','🏪','🏫'], c:1, e:'shāngdiàn = cửa hàng; 医院 bệnh viện, 学校 trường học.' },
+          { k:'listen', t:'pic', a:'他喜欢打电话。', o:['✈️','🚗','📞'], c:2, e:'dǎ diànhuà = gọi điện thoại.' }
+        ] },
+      { title:'第三部分', ins:'第11-15题：听对话，选出对应的图片。', vi:'Câu 11–15: Nghe hội thoại ngắn rồi chọn tranh A–F tương ứng.',
+        bank:['🍜','🎂','📚','🚕','🍵','⚽'],
+        qs:[
+          { k:'listen', t:'bank', a:'女：你吃什么？ 男：我吃面条。', c:0, e:'miàntiáo = mì → tranh A.' },
+          { k:'listen', t:'bank', a:'男：今天是你的生日吗？ 女：是，我们吃蛋糕吧。', c:1, e:'shēngrì sinh nhật, dàngāo bánh kem → B.' },
+          { k:'listen', t:'bank', a:'女：这是谁的书？ 男：是老师的。', c:2, e:'shū = sách → C.' },
+          { k:'listen', t:'bank', a:'男：我们怎么去？ 女：坐出租车去吧。', c:3, e:'chūzūchē = taxi → D.' },
+          { k:'listen', t:'bank', a:'女：你喝茶吗？ 男：好，谢谢。', c:4, e:'chá = trà → E. Tranh F (bóng đá) không dùng.' }
+        ] },
+      { title:'第四部分', ins:'第16-20题：听录音，选出正确答案。', vi:'Câu 16–20: Nghe câu/hội thoại và câu hỏi, chọn đáp án đúng.',
+        qs:[
+          { k:'listen', t:'mc', a:'我今年二十岁。 问：他今年多大？', o:['二十岁','十二岁','两岁'], c:0, e:'èrshí suì = 20 tuổi (khác 十二 shí’èr = 12).' },
+          { k:'listen', t:'mc', a:'女：你是哪国人？ 男：我是中国人。 问：男的是哪国人？', o:['美国人','中国人','韩国人'], c:1, e:'Zhōngguórén = người Trung Quốc.' },
+          { k:'listen', t:'mc', a:'男：现在几点？ 女：八点半。 问：现在几点？', o:['八点','八点半','九点'], c:1, e:'bā diǎn bàn = 8 giờ rưỡi.' },
+          { k:'listen', t:'mc', a:'女：你爸爸在哪儿工作？ 男：他在医院工作。 问：男的的爸爸在哪儿工作？', o:['学校','商店','医院'], c:2, e:'yīyuàn = bệnh viện.' },
+          { k:'listen', t:'mc', a:'男：明天你去学校吗？ 女：不去，明天是星期天。 问：明天星期几？', o:['星期六','星期天','星期一'], c:1, e:'xīngqītiān = Chủ nhật.' }
+        ] }
+    ]},
+    { id:'R', name:'阅读', vi:'Đọc', parts:[
+      { title:'第一部分', ins:'第21-25题：判断图片与词语是否一致。', vi:'Câu 21–25: Xét tranh có đúng với từ/câu không (√/×). Đề HSK1 có kèm pinyin.',
+        qs:[
+          { k:'read', t:'tf', pic:'🍵', q:'茶', py:'chá', c:0, e:'茶 = trà → √.' },
+          { k:'read', t:'tf', pic:'🚗', q:'飞机', py:'fēijī', c:1, e:'飞机 = máy bay, tranh là ô tô (车) → ×.' },
+          { k:'read', t:'tf', pic:'🐶', q:'狗', py:'gǒu', c:0, e:'狗 = chó → √.' },
+          { k:'read', t:'tf', pic:'🏠', q:'学校', py:'xuéxiào', c:1, e:'学校 = trường học, tranh là ngôi nhà (家) → ×.' },
+          { k:'read', t:'tf', pic:'☀️', q:'天气很好。', py:'Tiānqì hěn hǎo.', c:0, e:'Trời nắng đẹp = 天气很好 → √.' }
+        ] },
+      { title:'第二部分', ins:'第26-30题：选出与句子对应的图片。', vi:'Câu 26–30: Đọc câu rồi chọn tranh A–F tương ứng.',
+        bank:['🍚','📺','💤','🍎','👨‍🍳','✍️'],
+        qs:[
+          { k:'read', t:'bank', q:'我有三个苹果。', py:'Wǒ yǒu sān ge píngguǒ.', c:3, e:'苹果 = táo → D.' },
+          { k:'read', t:'bank', q:'他在看电视。', py:'Tā zài kàn diànshì.', c:1, e:'电视 = ti vi → B.' },
+          { k:'read', t:'bank', q:'她在睡觉。', py:'Tā zài shuìjiào.', c:2, e:'睡觉 = ngủ → C.' },
+          { k:'read', t:'bank', q:'爸爸会做饭。', py:'Bàba huì zuòfàn.', c:4, e:'做饭 = nấu cơm → E.' },
+          { k:'read', t:'bank', q:'我在写汉字。', py:'Wǒ zài xiě Hànzì.', c:5, e:'写汉字 = viết chữ Hán → F. Tranh A (cơm) không dùng.' }
+        ] },
+      { title:'第三部分', ins:'第31-35题：选出对应的答语。', vi:'Câu 31–35: Chọn câu đáp lại phù hợp (A–F).',
+        bank:['我叫王明。 Wǒ jiào Wáng Míng.','不客气。 Bú kèqi.','三个。 Sān ge.','在北京。 Zài Běijīng.','明天见！ Míngtiān jiàn!','我不喜欢。 Wǒ bù xǐhuan.'],
+        qs:[
+          { k:'read', t:'bank', q:'你叫什么名字？', py:'Nǐ jiào shénme míngzi?', c:0, e:'Hỏi tên → trả lời 我叫….' },
+          { k:'read', t:'bank', q:'谢谢你！', py:'Xièxie nǐ!', c:1, e:'Đáp lại cảm ơn → 不客气.' },
+          { k:'read', t:'bank', q:'你家有几个人？', py:'Nǐ jiā yǒu jǐ ge rén?', c:2, e:'几个人 → trả lời số lượng 三个.' },
+          { k:'read', t:'bank', q:'你住在哪儿？', py:'Nǐ zhù zài nǎr?', c:3, e:'哪儿 → trả lời nơi chốn 在北京.' },
+          { k:'read', t:'bank', q:'我明天来看你。', py:'Wǒ míngtiān lái kàn nǐ.', c:4, e:'Hẹn mai gặp → 明天见.' }
+        ] },
+      { title:'第四部分', ins:'第36-40题：选词填空。', vi:'Câu 36–40: Chọn từ A–F điền vào chỗ trống.',
+        bank:['喜欢 xǐhuan','岁 suì','那儿 nàr','认识 rènshi','会 huì','没有 méiyǒu'],
+        qs:[
+          { k:'read', t:'bank', q:'我儿子今年五（　）了。', py:'Wǒ érzi jīnnián wǔ (　) le.', c:1, e:'Số + 岁 = … tuổi.' },
+          { k:'read', t:'bank', q:'我很（　）吃中国菜。', py:'Wǒ hěn (　) chī Zhōngguó cài.', c:0, e:'很喜欢 + động từ = rất thích làm gì.' },
+          { k:'read', t:'bank', q:'你（　）说汉语吗？', py:'Nǐ (　) shuō Hànyǔ ma?', c:4, e:'会 + động từ = biết (kỹ năng).' },
+          { k:'read', t:'bank', q:'我（　）钱，不能买。', py:'Wǒ (　) qián, bù néng mǎi.', c:5, e:'没有钱 = không có tiền.' },
+          { k:'read', t:'bank', q:'你（　）王老师吗？', py:'Nǐ (　) Wáng lǎoshī ma?', c:3, e:'认识 + người = quen biết ai.' }
+        ] }
+    ]}
+  ]
+},
+
+/* ======================= HSK 2 — Đề A ======================= */
+{
+  id:'hsk2-a', level:'hsk2', badge:'HSK 2', title:'Đề thi thử HSK 2 — Đề A',
+  official:'Đúng cấu trúc đề thật: Nghe 35 câu (4 phần) + Đọc 25 câu (4 phần) · 200 điểm, đạt ≥ 120',
+  minutes:55, maxScore:200, pass:120, plays:2,
+  sections:[
+    { id:'L', name:'听力', vi:'Nghe', parts:[
+      { title:'第一部分', ins:'第1-10题：听录音，判断图片对错。', vi:'Câu 1–10: Nghe câu rồi xét tranh đúng (√) hay sai (×). Mỗi câu nghe 2 lần.',
+        qs:[
+          { k:'listen', t:'tf', pic:'🏃', a:'他每天早上跑步。', c:0, e:'pǎobù = chạy bộ → √.' },
+          { k:'listen', t:'tf', pic:'📚', a:'我想买一件衣服。', c:1, e:'yīfu = quần áo, tranh là sách → ×.' },
+          { k:'listen', t:'tf', pic:'❄️', a:'今天下雪了，很冷。', c:0, e:'xiàxuě = có tuyết → √.' },
+          { k:'listen', t:'tf', pic:'🍉', a:'这个西瓜真大！', c:0, e:'xīguā = dưa hấu → √.' },
+          { k:'listen', t:'tf', pic:'🚌', a:'我们坐公共汽车去吧。', c:0, e:'gōnggòng qìchē = xe buýt → √.' },
+          { k:'listen', t:'tf', pic:'⚽', a:'他喜欢打篮球。', c:1, e:'lánqiú = bóng rổ, tranh là bóng đá (足球) → ×.' },
+          { k:'listen', t:'tf', pic:'💊', a:'医生说要按时吃药。', c:0, e:'chī yào = uống thuốc → √.' },
+          { k:'listen', t:'tf', pic:'🎤', a:'她唱歌唱得很好。', c:0, e:'chànggē = hát → √.' },
+          { k:'listen', t:'tf', pic:'🚲', a:'他骑自行车上班。', c:0, e:'qí zìxíngchē = đi xe đạp → √.' },
+          { k:'listen', t:'tf', pic:'☕', a:'我要一杯牛奶。', c:1, e:'niúnǎi = sữa, tranh là cà phê (咖啡) → ×.' }
+        ] },
+      { title:'第二部分', ins:'第11-20题：听对话，选出对应的图片。', vi:'Câu 11–15 và 16–20: Nghe hội thoại rồi chọn tranh A–F (mỗi nhóm 5 câu có khung tranh riêng).',
+        bank:['🎁','📱','🏥','🎬','🌧️','🍎'],
+        qs:[
+          { k:'listen', t:'bank', a:'男：你的手机是新的吗？ 女：是，昨天买的。', c:1, e:'shǒujī = điện thoại → B.' },
+          { k:'listen', t:'bank', a:'女：你怎么了？ 男：我生病了，要去医院。', c:2, e:'yīyuàn = bệnh viện → C.' },
+          { k:'listen', t:'bank', a:'男：这是给你的礼物。 女：谢谢，太漂亮了！', c:0, e:'lǐwù = quà → A.' },
+          { k:'listen', t:'bank', a:'女：晚上我们去看电影吧。 男：好啊，几点？', c:3, e:'diànyǐng = phim → D.' },
+          { k:'listen', t:'bank', a:'男：外面下雨了。 女：那我们别出去了。', c:4, e:'xiàyǔ = mưa → E. Tranh F không dùng.' }
+        ] },
+      { title:'第二部分（续）', ins:'第16-20题：听对话，选出对应的图片。', vi:'Câu 16–20: Nghe hội thoại rồi chọn tranh A–F.',
+        bank:['🐱','✈️','📖','🍲','🏊','🛏️'],
+        qs:[
+          { k:'listen', t:'bank', a:'女：你几点起床？ 男：七点，我睡得很晚。', c:5, e:'qǐchuáng dậy / shuì ngủ → giường F.' },
+          { k:'listen', t:'bank', a:'男：你会游泳吗？ 女：会，我每个星期都去。', c:4, e:'yóuyǒng = bơi → E.' },
+          { k:'listen', t:'bank', a:'女：这是谁的猫？ 男：是我姐姐的。', c:0, e:'māo = mèo → A.' },
+          { k:'listen', t:'bank', a:'男：你什么时候到北京？ 女：我坐飞机，下午三点到。', c:1, e:'fēijī = máy bay → B.' },
+          { k:'listen', t:'bank', a:'女：这个菜是你做的吗？ 男：对，你尝尝。', c:3, e:'cài = món ăn → D. Tranh C (sách) không dùng.' }
+        ] },
+      { title:'第三部分', ins:'第21-30题：听对话和问题，选出正确答案。', vi:'Câu 21–30: Nghe hội thoại ngắn và câu hỏi, chọn đáp án A/B/C.',
+        qs:[
+          { k:'listen', t:'mc', a:'男：你去过上海吗？ 女：去过两次，很漂亮。 问：女的去过上海几次？', o:['一次','两次','三次'], c:1, e:'两次 liǎng cì = hai lần.' },
+          { k:'listen', t:'mc', a:'女：这件衣服多少钱？ 男：一百五十块。 问：这件衣服多少钱？', o:['150块','115块','50块'], c:0, e:'一百五十 = 150.' },
+          { k:'listen', t:'mc', a:'男：我们几点见面？ 女：九点在学校门口吧。 问：他们在哪儿见面？', o:['商店','学校','车站'], c:1, e:'学校门口 = cổng trường.' },
+          { k:'listen', t:'mc', a:'女：你为什么没来上课？ 男：我妈妈病了，我在家帮她。 问：男的为什么没来上课？', o:['他病了','他妈妈病了','他去旅游了'], c:1, e:'妈妈病了 = mẹ ốm.' },
+          { k:'listen', t:'mc', a:'男：你哥哥做什么工作？ 女：他是服务员，在饭馆工作。 问：女的的哥哥在哪儿工作？', o:['医院','公司','饭馆'], c:2, e:'饭馆 fànguǎn = quán ăn.' },
+          { k:'listen', t:'mc', a:'女：明天的考试你准备好了吗？ 男：还没有，我今天晚上再看看书。 问：男的今天晚上做什么？', o:['看书','考试','睡觉'], c:0, e:'再看看书 = xem sách thêm.' },
+          { k:'listen', t:'mc', a:'男：外面很热，喝点儿什么？ 女：我要一杯咖啡，不要牛奶。 问：女的要什么？', o:['牛奶','咖啡','茶'], c:1, e:'要咖啡, không lấy sữa.' },
+          { k:'listen', t:'mc', a:'男：从你家到公司远吗？ 女：不远，走路十分钟。 问：女的怎么去公司？', o:['走路','坐车','骑自行车'], c:0, e:'走路 zǒulù = đi bộ.' },
+          { k:'listen', t:'mc', a:'女：这个周末你想做什么？ 男：我想去游泳，你呢？ 女：我想在家休息。 问：女的周末想做什么？', o:['游泳','休息','旅游'], c:1, e:'Người nữ: 在家休息.' },
+          { k:'listen', t:'mc', a:'男：小王，你的生日是几月几号？ 女：五月十号。 问：女的的生日是什么时候？', o:['五月十号','十月五号','五月五号'], c:0, e:'五月十号 = ngày 10 tháng 5 (chú ý không nhầm 十月五号).' }
+        ] },
+      { title:'第四部分', ins:'第31-35题：听对话和问题，选出正确答案。', vi:'Câu 31–35: Nghe hội thoại dài hơn (4–5 lượt) và câu hỏi, chọn A/B/C.',
+        qs:[
+          { k:'listen', t:'mc', a:'女：你今天怎么这么高兴？ 男：我找到工作了。 女：真的吗？在哪儿？ 男：在一家公司，离我家很近。 问：男的为什么高兴？', o:['他找到工作了','他买了新房子','他要去旅游'], c:0, e:'找到工作 = tìm được việc.' },
+          { k:'listen', t:'mc', a:'男：这个星期六你有时间吗？ 女：有，什么事？ 男：我们班同学一起去公园玩儿。 女：好，我很喜欢去公园。 问：他们星期六要做什么？', o:['去看电影','去公园','去买东西'], c:1, e:'去公园玩儿.' },
+          { k:'listen', t:'mc', a:'女：服务员，我要一碗米饭和一个鱼。 男：好的，还要什么？ 女：再来一杯茶。 男：好，请等一下。 问：女的没要什么？', o:['米饭','茶','咖啡'], c:2, e:'Gọi cơm, cá, trà — không gọi cà phê.' },
+          { k:'listen', t:'mc', a:'男：你的汉语说得真好，学了几年了？ 女：两年了。 男：你是在中国学的吗？ 女：不是，在我们国家学的。 问：女的学汉语学了多长时间？', o:['一年','两年','三年'], c:1, e:'两年了 = hai năm rồi.' },
+          { k:'listen', t:'mc', a:'女：喂，你在哪儿？ 男：我在路上，车太多了。 女：会议九点开始，你快一点儿。 男：好，我十分钟后到。 问：男的为什么来晚了？', o:['车太多','他生病了','他起晚了'], c:0, e:'车太多了 = tắc đường.' }
+        ] }
+    ]},
+    { id:'R', name:'阅读', vi:'Đọc', parts:[
+      { title:'第一部分', ins:'第36-40题：选出与句子对应的图片。', vi:'Câu 36–40: Đọc câu rồi chọn tranh A–F.',
+        bank:['🎂','🚗','☀️','📝','🐕','🛒'],
+        qs:[
+          { k:'read', t:'bank', q:'今天天气真好，我们出去玩儿吧。', py:'Jīntiān tiānqì zhēn hǎo, wǒmen chūqù wánr ba.', c:2, e:'天气真好 → trời nắng C.' },
+          { k:'read', t:'bank', q:'他在写字。', py:'Tā zài xiězì.', c:3, e:'写字 = viết chữ → D.' },
+          { k:'read', t:'bank', q:'妈妈去商店买东西了。', py:'Māma qù shāngdiàn mǎi dōngxi le.', c:5, e:'买东西 = mua đồ → F.' },
+          { k:'read', t:'bank', q:'这是我的小狗，它叫欢欢。', py:'Zhè shì wǒ de xiǎo gǒu, tā jiào Huānhuan.', c:4, e:'小狗 → E.' },
+          { k:'read', t:'bank', q:'我开车去公司。', py:'Wǒ kāichē qù gōngsī.', c:1, e:'开车 = lái xe → B. Tranh A không dùng.' }
+        ] },
+      { title:'第二部分', ins:'第41-45题：选词填空。', vi:'Câu 41–45: Chọn từ A–F điền vào chỗ trống.',
+        bank:['已经 yǐjīng','因为 yīnwèi','离 lí','件 jiàn','希望 xīwàng','都 dōu'],
+        qs:[
+          { k:'read', t:'bank', q:'我家（　）学校很近。', py:'Wǒ jiā (　) xuéxiào hěn jìn.', c:2, e:'A 离 B 很近/远 = A cách B gần/xa.' },
+          { k:'read', t:'bank', q:'他（　）来了，你去看看吧。', py:'Tā (　) lái le, nǐ qù kànkan ba.', c:0, e:'已经…了 = đã … rồi.' },
+          { k:'read', t:'bank', q:'这（　）衣服是我妈妈买的。', py:'Zhè (　) yīfu shì wǒ māma mǎi de.', c:3, e:'件 là lượng từ của 衣服.' },
+          { k:'read', t:'bank', q:'（　）下雨，所以我们没去。', py:'(　) xiàyǔ, suǒyǐ wǒmen méi qù.', c:1, e:'因为…所以… = vì … nên ….' },
+          { k:'read', t:'bank', q:'我们（　）是学生。', py:'Wǒmen (　) shì xuésheng.', c:5, e:'都 = đều. 希望 không dùng.' }
+        ] },
+      { title:'第三部分', ins:'第46-50题：判断对错。', vi:'Câu 46–50: Đọc đoạn ngắn, xét câu ★ đúng (√) hay sai (×).',
+        qs:[
+          { k:'read', t:'tf', p:'我叫李明，今年二十岁，是大学生。我有一个妹妹，她今年十五岁。', q:'★ 李明的妹妹十五岁。', c:0, e:'妹妹今年十五岁 → √.' },
+          { k:'read', t:'tf', p:'今天是星期天，我不用上班。上午我在家看书，下午和朋友去踢足球。', q:'★ 他今天要上班。', c:1, e:'不用上班 = không phải đi làm → ×.' },
+          { k:'read', t:'tf', p:'这个饭馆的菜很好吃，但是有点儿贵，所以我一个月只来一次。', q:'★ 这个饭馆的菜不贵。', c:1, e:'有点儿贵 = hơi đắt → ×.' },
+          { k:'read', t:'tf', p:'小王每天坐公共汽车上班，从他家到公司要一个小时。', q:'★ 小王上班要一个小时。', c:0, e:'要一个小时 → √.' },
+          { k:'read', t:'tf', p:'我很喜欢旅游，去年我去了北京和上海，今年我想去西安。', q:'★ 他今年想去北京。', c:1, e:'今年想去西安, Bắc Kinh là năm ngoái → ×.' }
+        ] },
+      { title:'第四部分', ins:'第51-55题：选出对应的句子。', vi:'Câu 51–55: Chọn câu A–F nối tiếp/đáp lại phù hợp.',
+        bank:['我也不知道，你问问老师吧。','是的，我们一起去。','我在家看电视。','我觉得红的好看。','没关系，下次早点儿来。','太好了，谢谢你！'],
+        qs:[
+          { k:'read', t:'bank', q:'对不起，我来晚了。', c:4, e:'Xin lỗi đến muộn → 没关系 (không sao).' },
+          { k:'read', t:'bank', q:'昨天晚上你做什么了？', c:2, e:'Hỏi làm gì → 在家看电视.' },
+          { k:'read', t:'bank', q:'你觉得哪个颜色好看？', c:3, e:'Hỏi màu → 红的好看.' },
+          { k:'read', t:'bank', q:'明天的考试几点开始？', c:0, e:'Hỏi giờ thi → không biết, hỏi thầy.' },
+          { k:'read', t:'bank', q:'这是我送你的生日礼物。', c:5, e:'Nhận quà → 太好了，谢谢你.' }
+        ] },
+      { title:'第四部分（续）', ins:'第56-60题：选出对应的句子。', vi:'Câu 56–60: Chọn câu A–F phù hợp.',
+        bank:['因为我的手机坏了。','你多喝点儿水，早点儿休息。','一个小时。','我姓张，叫张小明。','他是我的同学。','在桌子上。'],
+        qs:[
+          { k:'read', t:'bank', q:'我有点儿不舒服。', c:1, e:'Không khoẻ → khuyên uống nước, nghỉ sớm.' },
+          { k:'read', t:'bank', q:'你怎么没给我打电话？', c:0, e:'Hỏi lý do → 因为手机坏了.' },
+          { k:'read', t:'bank', q:'那个人是谁？', c:4, e:'Hỏi ai → 他是我的同学.' },
+          { k:'read', t:'bank', q:'我的书在哪儿？', c:5, e:'Hỏi ở đâu → 在桌子上.' },
+          { k:'read', t:'bank', q:'从这儿到火车站要多长时间？', c:2, e:'Hỏi bao lâu → 一个小时. D không dùng.' }
+        ] }
+    ]}
+  ]
+},
+
+/* ======================= HSK 3 — Đề A ======================= */
+{
+  id:'hsk3-a', level:'hsk3', badge:'HSK 3', title:'Đề thi thử HSK 3 — Đề A',
+  official:'Đúng cấu trúc đề thật: Nghe 40 + Đọc 30 + Viết 10 · 300 điểm, đạt ≥ 180',
+  minutes:90, maxScore:300, pass:180, plays:2,
+  sections:[
+    { id:'L', name:'听力', vi:'Nghe', parts:[
+      { title:'第一部分', ins:'第1-5题：听对话，选出对应的图片。', vi:'Câu 1–5: Nghe hội thoại rồi chọn tranh A–F. Mỗi câu nghe 2 lần.',
+        bank:['🎂','🧳','📷','🏥','🌧️','🏀'],
+        qs:[
+          { k:'listen', t:'bank', a:'女：你要去哪儿旅行？ 男：去云南，我已经收拾好行李了。', c:1, e:'行李 xíngli = hành lý → B.' },
+          { k:'listen', t:'bank', a:'男：这张照片真漂亮，是在哪儿拍的？ 女：在长城。', c:2, e:'照片/拍 = ảnh/chụp → máy ảnh C.' },
+          { k:'listen', t:'bank', a:'女：你脸色不太好，怎么了？ 男：有点儿发烧，我想去医院看看。', c:3, e:'医院 → D.' },
+          { k:'listen', t:'bank', a:'男：今天是妈妈的生日，我们买个蛋糕吧。 女：好主意！', c:0, e:'蛋糕 → A.' },
+          { k:'listen', t:'bank', a:'女：周末一起打篮球怎么样？ 男：好啊，几点？', c:5, e:'篮球 → F. Tranh E (mưa) không dùng.' }
+        ] },
+      { title:'第一部分（续）', ins:'第6-10题：听对话，选出对应的图片。', vi:'Câu 6–10: Nghe hội thoại rồi chọn tranh A–F.',
+        bank:['🧹','📧','🍜','🚕','👓','☕'],
+        qs:[
+          { k:'listen', t:'bank', a:'男：你的房间真干净！ 女：我刚打扫完。', c:0, e:'打扫 dǎsǎo = quét dọn → A.' },
+          { k:'listen', t:'bank', a:'女：你给经理发电子邮件了吗？ 男：发了，他还没回。', c:1, e:'电子邮件 = email → B.' },
+          { k:'listen', t:'bank', a:'男：我们打车去吧，快一点儿。 女：好，你叫车。', c:3, e:'打车 = bắt taxi → D.' },
+          { k:'listen', t:'bank', a:'女：你的眼镜呢？ 男：坏了，我得再买一副。', c:4, e:'眼镜 yǎnjìng = kính → E.' },
+          { k:'listen', t:'bank', a:'男：这家面馆的牛肉面特别好吃。 女：那我也要一碗。', c:2, e:'牛肉面 = mì bò → C. F không dùng.' }
+        ] },
+      { title:'第二部分', ins:'第11-20题：听录音，判断★句子对错。', vi:'Câu 11–20: Nghe đoạn ngắn, xét câu ★ (đã in) đúng √ hay sai ×.',
+        qs:[
+          { k:'listen', t:'tf', a:'我每天早上七点起床，然后跑半个小时步，再去上班。', q:'★ 他早上跑步。', c:0, e:'跑半个小时步 → √.' },
+          { k:'listen', t:'tf', a:'小李的汉语说得很好，因为他在北京住了五年。', q:'★ 小李在北京住了三年。', c:1, e:'住了五年, không phải ba năm → ×.' },
+          { k:'listen', t:'tf', a:'这个周末我本来想去爬山，但是天气预报说会下雨，所以我决定在家看书。', q:'★ 他周末要去爬山。', c:1, e:'本来想去 nhưng quyết định ở nhà → ×.' },
+          { k:'listen', t:'tf', a:'我妹妹今年大学毕业，她想找一份和音乐有关的工作。', q:'★ 他妹妹喜欢音乐。', c:0, e:'Muốn làm việc liên quan âm nhạc → suy ra thích âm nhạc √.' },
+          { k:'listen', t:'tf', a:'虽然这家饭馆有点儿远，但是菜很好吃，价格也不贵，我们经常去。', q:'★ 这家饭馆的菜很贵。', c:1, e:'价格不贵 → ×.' },
+          { k:'listen', t:'tf', a:'张老师对学生很热情，学生们有问题都愿意问他。', q:'★ 学生们喜欢张老师。', c:0, e:'Thầy nhiệt tình, học sinh sẵn sàng hỏi → √.' },
+          { k:'listen', t:'tf', a:'昨天我把手机忘在出租车上了，幸好司机给我送了回来。', q:'★ 他的手机找到了。', c:0, e:'司机送回来 → tìm được √.' },
+          { k:'listen', t:'tf', a:'我们公司离地铁站很近，走五分钟就到了，上班很方便。', q:'★ 公司离地铁站很远。', c:1, e:'很近 → ×.' },
+          { k:'listen', t:'tf', a:'今天的会议改到下午三点了，请大家不要迟到。', q:'★ 会议下午三点开始。', c:0, e:'改到下午三点 → √.' },
+          { k:'listen', t:'tf', a:'我以前不喜欢喝咖啡，现在每天不喝一杯就没精神。', q:'★ 他现在每天喝咖啡。', c:0, e:'现在每天不喝一杯就没精神 → √.' }
+        ] },
+      { title:'第三部分', ins:'第21-30题：听对话和问题，选出正确答案。', vi:'Câu 21–30: Nghe hội thoại ngắn và câu hỏi, chọn A/B/C.',
+        qs:[
+          { k:'listen', t:'mc', a:'女：你比以前瘦多了，是在减肥吗？ 男：没有，最近工作太忙了。 问：男的为什么瘦了？', o:['在减肥','工作忙','生病了'], c:1, e:'工作太忙.' },
+          { k:'listen', t:'mc', a:'男：请问，去图书馆怎么走？ 女：一直往前走，到红绿灯往左拐就是。 问：图书馆在哪儿？', o:['红绿灯左边','红绿灯右边','一直往前走就到'], c:0, e:'往左拐 = rẽ trái.' },
+          { k:'listen', t:'mc', a:'女：这双鞋多少钱？ 男：原价三百，现在打八折。 问：这双鞋现在多少钱？', o:['三百','二百四','二百八'], c:1, e:'打八折 = 80% giá → 300 × 0.8 = 240.' },
+          { k:'listen', t:'mc', a:'男：你的行李箱怎么这么重？ 女：我带了很多书。 问：女的行李箱里有什么？', o:['衣服','书','水果'], c:1, e:'带了很多书.' },
+          { k:'listen', t:'mc', a:'女：明天的会议几点开始？ 男：九点，你最好早点儿到。 问：男的希望女的怎么样？', o:['早点儿到','晚点儿到','不用来'], c:0, e:'最好早点儿到.' },
+          { k:'listen', t:'mc', a:'男：你昨天为什么没来上课？ 女：我感冒了，在家休息。 问：女的昨天怎么了？', o:['去旅游了','感冒了','上班了'], c:1, e:'感冒 gǎnmào = cảm.' },
+          { k:'listen', t:'mc', a:'女：这个周末去看电影还是去公园？ 男：天气这么好，去公园吧。 问：他们周末去哪儿？', o:['公园','电影院','商店'], c:0, e:'去公园吧.' },
+          { k:'listen', t:'mc', a:'男：你的手表真漂亮，在哪儿买的？ 女：不是买的，是我丈夫送的。 问：手表是怎么来的？', o:['自己买的','丈夫送的','朋友送的'], c:1, e:'丈夫送的.' },
+          { k:'listen', t:'mc', a:'女：你搬家了？新家怎么样？ 男：房子不大，但是离公司近，很方便。 问：男的的新家怎么样？', o:['很大','离公司近','很贵'], c:1, e:'离公司近.' },
+          { k:'listen', t:'mc', a:'男：小王，你的电脑修好了吗？ 女：还没有，明天才能拿。 问：女的什么时候拿电脑？', o:['今天','明天','后天'], c:1, e:'明天才能拿.' }
+        ] },
+      { title:'第四部分', ins:'第31-40题：听对话和问题，选出正确答案。', vi:'Câu 31–40: Nghe hội thoại dài (4–5 lượt) và câu hỏi, chọn A/B/C.',
+        qs:[
+          { k:'listen', t:'mc', a:'女：你周末一般做什么？ 男：以前常去踢球，现在有了孩子，周末都在家陪他。 女：那你不觉得累吗？ 男：累是累，但是很开心。 问：男的现在周末做什么？', o:['踢球','陪孩子','工作'], c:1, e:'现在周末都在家陪他 (孩子).' },
+          { k:'listen', t:'mc', a:'男：这个菜太咸了。 女：是吗？我觉得还可以。 男：你口味重，我平时吃得很清淡。 女：那下次我少放点儿盐。 问：男的觉得菜怎么样？', o:['太咸','太甜','很好吃'], c:0, e:'太咸 = quá mặn.' },
+          { k:'listen', t:'mc', a:'女：你的照片拍得真好，是用手机拍的吗？ 男：不是，是用相机拍的。 女：能教教我吗？ 男：当然可以，周末我们去公园练习。 问：照片是用什么拍的？', o:['手机','相机','电脑'], c:1, e:'用相机拍的.' },
+          { k:'listen', t:'mc', a:'男：喂，小张，你到了吗？ 女：还没有，路上堵车。 男：会议已经开始了。 女：对不起，我十分钟后到。 问：女的为什么迟到？', o:['堵车','起晚了','忘了'], c:0, e:'路上堵车.' },
+          { k:'listen', t:'mc', a:'女：你的汉语水平提高得真快！ 男：谢谢，我每天都跟中国朋友聊天。 女：难怪。 男：而且我还看中文电视。 问：男的是怎么提高汉语的？', o:['只看书','跟朋友聊天','去上课'], c:1, e:'每天跟中国朋友聊天.' },
+          { k:'listen', t:'mc', a:'男：这个周末去哪儿玩儿？ 女：我想去海边。 男：太远了，开车要四个小时。 女：那我们去附近的山上吧。 问：他们最后决定去哪儿？', o:['海边','山上','公园'], c:1, e:'最后: 去附近的山上.' },
+          { k:'listen', t:'mc', a:'女：你怎么又换手机了？ 男：旧的太慢了，用起来不方便。 女：新的多少钱？ 男：三千多，有点儿贵。 问：男的为什么换手机？', o:['旧的坏了','旧的太慢','新的便宜'], c:1, e:'旧的太慢了.' },
+          { k:'listen', t:'mc', a:'男：你妹妹考上大学了吧？ 女：考上了，她想学医。 男：那要学很多年。 女：是啊，但她一直想当医生。 问：女的的妹妹想做什么？', o:['当老师','当医生','当护士'], c:1, e:'一直想当医生.' },
+          { k:'listen', t:'mc', a:'女：这本书我看了三遍，太有意思了。 男：讲什么的？ 女：一个中国家庭的故事。 男：借我看看吧。 问：女的看了几遍？', o:['一遍','两遍','三遍'], c:2, e:'看了三遍.' },
+          { k:'listen', t:'mc', a:'男：明天我要去上海出差。 女：去几天？ 男：三天，星期五回来。 女：那周末我们还可以一起吃饭。 问：男的星期几回来？', o:['星期三','星期五','星期天'], c:1, e:'星期五回来.' }
+        ] }
+    ]},
+    { id:'R', name:'阅读', vi:'Đọc', parts:[
+      { title:'第一部分', ins:'第41-45题：选出对应的句子。', vi:'Câu 41–45: Chọn câu A–F đáp lại/nối tiếp phù hợp.',
+        bank:['当然可以，你什么时候用？','我们明天早上八点出发。','别担心，医生说没什么问题。','是的，他一直很努力。','因为我忘记带钥匙了。','我更喜欢秋天，不冷不热。'],
+        qs:[
+          { k:'read', t:'bank', q:'你能把你的照相机借给我吗？', c:0, e:'Hỏi mượn → 当然可以.' },
+          { k:'read', t:'bank', q:'你怎么站在门口？', c:4, e:'Đứng ngoài cửa vì quên chìa khoá.' },
+          { k:'read', t:'bank', q:'小明这次考试考得很好。', c:3, e:'Khen → 他一直很努力.' },
+          { k:'read', t:'bank', q:'你最喜欢哪个季节？', c:5, e:'Hỏi mùa → 秋天.' },
+          { k:'read', t:'bank', q:'你爸爸的身体怎么样了？', c:2, e:'Hỏi sức khoẻ → 别担心… B không dùng.' }
+        ] },
+      { title:'第一部分（续）', ins:'第46-50题：选出对应的句子。', vi:'Câu 46–50: Chọn câu A–F phù hợp.',
+        bank:['好啊，我正好也饿了。','我打算先工作两年再读研究生。','是我姐姐送给我的。','公园里人太多，我们换个地方吧。','他去接他女儿了。','我的邻居是个很热情的人。'],
+        qs:[
+          { k:'read', t:'bank', q:'经理怎么这么早就走了？', c:4, e:'去接女儿.' },
+          { k:'read', t:'bank', q:'毕业后你有什么打算？', c:1, e:'Hỏi dự định → 先工作两年….' },
+          { k:'read', t:'bank', q:'你的帽子真好看，在哪儿买的？', c:2, e:'姐姐送的.' },
+          { k:'read', t:'bank', q:'我们先去吃点儿东西吧。', c:0, e:'正好也饿了.' },
+          { k:'read', t:'bank', q:'周末去公园锻炼怎么样？', c:3, e:'公园人太多，换地方. F không dùng.' }
+        ] },
+      { title:'第二部分', ins:'第51-55题：选词填空。', vi:'Câu 51–55: Chọn từ A–F điền vào chỗ trống.',
+        bank:['干净 gānjìng','突然 tūrán','关于 guānyú','照顾 zhàogù','其实 qíshí','聪明 cōngming'],
+        qs:[
+          { k:'read', t:'bank', q:'这个房间很（　），是谁打扫的？', c:0, e:'房间很干净.' },
+          { k:'read', t:'bank', q:'（　）这个问题，我想再考虑一下。', c:2, e:'关于 + vấn đề.' },
+          { k:'read', t:'bank', q:'他看起来很严肃，（　）人很好。', c:4, e:'其实 = thực ra (đối lập với vẻ ngoài).' },
+          { k:'read', t:'bank', q:'妈妈生病了，我要在家（　）她。', c:3, e:'照顾 = chăm sóc.' },
+          { k:'read', t:'bank', q:'天气（　）变冷了，我们多穿点儿衣服。', c:1, e:'突然 = đột nhiên. 聪明 không dùng.' }
+        ] },
+      { title:'第二部分（续）', ins:'第56-60题：选词填空。', vi:'Câu 56–60: Chọn từ A–F điền vào chỗ trống trong hội thoại.',
+        bank:['一直 yìzhí','影响 yǐngxiǎng','害怕 hàipà','几乎 jīhū','极 jí','努力 nǔlì'],
+        qs:[
+          { k:'read', t:'bank', q:'A：你怎么了？脸色这么白。 B：我（　）坐飞机。', c:2, e:'害怕 = sợ.' },
+          { k:'read', t:'bank', q:'A：这个菜好吃吗？ B：好吃（　）了，你尝尝。', c:4, e:'adj + 极了 = cực kỳ.' },
+          { k:'read', t:'bank', q:'A：他的汉语说得真好。 B：是啊，他（　）每天都在学。', c:0, e:'一直 = luôn, suốt.' },
+          { k:'read', t:'bank', q:'A：你别在这儿打电话。 B：对不起，会（　）大家吗？', c:1, e:'影响 = ảnh hưởng.' },
+          { k:'read', t:'bank', q:'A：这次考试你准备得怎么样？ B：（　）所有的题我都做过了。', c:3, e:'几乎 = hầu như. 努力 không dùng.' }
+        ] },
+      { title:'第三部分', ins:'第61-70题：读短文，选出正确答案。', vi:'Câu 61–70: Đọc đoạn ngắn và chọn đáp án A/B/C.',
+        qs:[
+          { k:'read', t:'mc', p:'小时候我很不喜欢吃蔬菜，妈妈总是想办法让我多吃一点儿。现在我明白了，多吃蔬菜对身体好。', q:'他现在对蔬菜的看法是：', o:['不好吃','对身体好','太贵了'], c:1, e:'现在明白多吃蔬菜对身体好.' },
+          { k:'read', t:'mc', p:'很多人觉得学外语只要多背单词就行了，其实听和说更重要。每天说一点儿，进步会更快。', q:'这段话主要告诉我们学外语要：', o:['多背单词','多听多说','多写汉字'], c:1, e:'其实听和说更重要.' },
+          { k:'read', t:'mc', p:'张先生每天早上六点起床，先跑步，然后给家人做早饭。他说这样一天都有精神。', q:'张先生早上做的第一件事是：', o:['做早饭','跑步','上班'], c:1, e:'先跑步，然后做早饭.' },
+          { k:'read', t:'mc', p:'我们公司的新经理很年轻，才三十岁，但是工作经验很丰富，大家都很喜欢他。', q:'关于新经理，可以知道：', o:['年纪很大','没有经验','大家喜欢他'], c:2, e:'大家都很喜欢他.' },
+          { k:'read', t:'mc', p:'天气热的时候，最好不要在中午出去锻炼，早上或者晚上比较好，还要记得多喝水。', q:'天气热时，什么时候锻炼比较好？', o:['中午','早上或晚上','什么时候都可以'], c:1, e:'早上或者晚上比较好.' },
+          { k:'read', t:'mc', p:'这个周末图书馆有一个关于中国历史的讲座，欢迎大家参加。讲座不用报名，但座位有限，请早点儿到。', q:'参加讲座需要：', o:['报名','早点儿到','买票'], c:1, e:'不用报名, 座位有限 → 早点儿到.' },
+          { k:'read', t:'mc', p:'小王本来打算坐火车去北京，但是票已经卖完了，最后他只好坐飞机去。', q:'小王最后怎么去北京？', o:['坐火车','坐飞机','开车'], c:1, e:'只好坐飞机.' },
+          { k:'read', t:'mc', p:'我家附近新开了一家超市，东西比别的地方便宜，而且送货上门，我妈妈特别满意。', q:'妈妈为什么满意这家超市？', o:['离家远','东西便宜还送货','东西很贵'], c:1, e:'便宜 + 送货上门.' },
+          { k:'read', t:'mc', p:'很多年轻人喜欢晚上熬夜，早上起不来。其实早睡早起不但对身体好，工作学习的效率也更高。', q:'这段话建议大家：', o:['晚上熬夜','早睡早起','多睡觉'], c:1, e:'早睡早起.' },
+          { k:'read', t:'mc', p:'我的邻居王阿姨退休以后开始学画画，两年过去了，她的画已经可以在学校展览了。', q:'王阿姨学画画多长时间了？', o:['两年','退休以前','很多年'], c:0, e:'两年过去了.' }
+        ] }
+    ]},
+    { id:'W', name:'书写', vi:'Viết', parts:[
+      { title:'第一部分', ins:'第71-75题：完成句子。', vi:'Câu 71–75: Sắp xếp các từ thành câu đúng (bấm từng từ theo thứ tự).',
+        example:'Ví dụ: 小船 上 一 河 条 有 → 河上有一条小船。',
+        qs:[
+          { k:'write', t:'order', parts:['把','请','窗户','打开'], ans:'请把窗户打开', e:'Câu chữ 把: 请 + 把 + tân ngữ + động từ + bổ ngữ.' },
+          { k:'write', t:'order', parts:['比','今天','昨天','冷','多了'], ans:'今天比昨天冷多了', e:'A 比 B + tính từ + 多了.' },
+          { k:'write', t:'order', parts:['被','我的','弟弟','手机','弄坏了'], ans:'我的手机被弟弟弄坏了', e:'Câu bị động: chủ ngữ + 被 + tác nhân + động từ + kết quả.' },
+          { k:'write', t:'order', parts:['越来越','他的','好','汉语'], ans:'他的汉语越来越好', e:'越来越 + tính từ.' },
+          { k:'write', t:'order', parts:['一边','听','一边','写','音乐','作业','她'], ans:'她一边听音乐一边写作业', alt:['她一边写作业一边听音乐'], e:'一边 A 一边 B; hai vế có thể đổi chỗ.' }
+        ] },
+      { title:'第二部分', ins:'第76-80题：根据拼音写汉字。', vi:'Câu 76–80: Viết chữ Hán theo pinyin cho trước.',
+        qs:[
+          { k:'write', t:'char', q:'我每天七点起（　）。', py:'chuáng', ans:'床', e:'起床 qǐchuáng = dậy (khỏi giường).' },
+          { k:'write', t:'char', q:'这个（　）题很难。', py:'wèn', ans:'问', e:'问题 wèntí = vấn đề, câu hỏi.' },
+          { k:'write', t:'char', q:'他很（　）欢打篮球。', py:'xǐ', ans:'喜', e:'喜欢 xǐhuan = thích.' },
+          { k:'write', t:'char', q:'外面下（　）了，别出去了。', py:'yǔ', ans:'雨', e:'下雨 xiàyǔ = mưa.' },
+          { k:'write', t:'char', q:'请把门（　）上。', py:'guān', ans:'关', e:'关上 guānshàng = đóng lại.' }
+        ] }
+    ]}
+  ]
+},
+
+/* ======================= HSK 4 — Đề A ======================= */
+{
+  id:'hsk4-a', level:'hsk4', badge:'HSK 4', title:'Đề thi thử HSK 4 — Đề A',
+  official:'Đúng cấu trúc đề thật: Nghe 45 + Đọc 40 + Viết 15 · 300 điểm, đạt ≥ 180 · mỗi câu nghe 1 lần',
+  minutes:105, maxScore:300, pass:180, plays:1,
+  sections:[
+    { id:'L', name:'听力', vi:'Nghe', parts:[
+      { title:'第一部分', ins:'第1-10题：判断对错。', vi:'Câu 1–10: Nghe đoạn ngắn, xét câu ★ đúng (√) hay sai (×). Từ HSK4 mỗi câu chỉ nghe 1 lần.',
+        qs:[
+          { k:'listen', t:'tf', a:'我原来打算这个周末去爬山，可是天气预报说有大雨，看来只能改天了。', q:'★ 他这个周末不去爬山了。', c:0, e:'只能改天了 → hoãn → √.' },
+          { k:'listen', t:'tf', a:'小张刚来公司的时候什么都不懂，现在已经是我们部门最有经验的人了。', q:'★ 小张现在经验很丰富。', c:0, e:'最有经验的人 → √.' },
+          { k:'listen', t:'tf', a:'这家饭馆的菜虽然味道一般，但是环境很安静，适合谈工作。', q:'★ 这家饭馆的菜非常好吃。', c:1, e:'味道一般 = bình thường → ×.' },
+          { k:'listen', t:'tf', a:'很多人以为多喝咖啡对身体不好，其实每天一两杯并没有什么问题。', q:'★ 每天喝一两杯咖啡没有问题。', c:0, e:'并没有什么问题 → √.' },
+          { k:'listen', t:'tf', a:'我弟弟大学学的是经济，毕业以后却当了一名摄影师，全家人都很吃惊。', q:'★ 弟弟现在的工作和经济有关。', c:1, e:'当了摄影师, không liên quan kinh tế → ×.' },
+          { k:'listen', t:'tf', a:'各位乘客请注意，由于天气原因，飞往上海的航班将推迟一个小时起飞，给您带来的不便，我们深表歉意。', q:'★ 航班会晚一个小时起飞。', c:0, e:'推迟一个小时起飞 → √.' },
+          { k:'listen', t:'tf', a:'这本小说我看了一半就看不下去了，情节太慢，人物也没有意思。', q:'★ 他看完了这本小说。', c:1, e:'看了一半就看不下去了 → ×.' },
+          { k:'listen', t:'tf', a:'孩子考试没考好，家长首先应该冷静，和孩子一起找原因，而不是批评他。', q:'★ 孩子考得不好时，家长应该先批评他。', c:1, e:'而不是批评他 → ×.' },
+          { k:'listen', t:'tf', a:'我们公司离地铁站只有五分钟，但是附近没有停车的地方，所以大部分同事都坐地铁上班。', q:'★ 大部分同事坐地铁上班。', c:0, e:'大部分同事都坐地铁 → √.' },
+          { k:'listen', t:'tf', a:'李老师教了三十年书，退休以后还经常回学校，给年轻老师提建议。', q:'★ 李老师退休后不再去学校了。', c:1, e:'还经常回学校 → ×.' }
+        ] },
+      { title:'第二部分', ins:'第11-25题：听对话和问题，选出正确答案。', vi:'Câu 11–25: Nghe hội thoại ngắn (2 lượt) và câu hỏi, chọn A/B/C/D.',
+        qs:[
+          { k:'listen', t:'mc', a:'女：你的感冒好点儿了吗？ 男：好多了，就是还有点儿咳嗽。 问：男的现在怎么样？', o:['完全好了','还在发烧','还有点儿咳嗽','病得更重了'], c:2, e:'还有点儿咳嗽.' },
+          { k:'listen', t:'mc', a:'男：这次旅行你打算坐火车还是坐飞机？ 女：坐火车吧，可以看看沿途的风景。 问：女的为什么选择坐火车？', o:['便宜','安全','可以看风景','时间短'], c:2, e:'可以看看沿途的风景.' },
+          { k:'listen', t:'mc', a:'女：会议材料我已经打印好了，一共三十份。 男：再多打十份吧，可能还有别的部门的人来。 问：男的让女的做什么？', o:['再打十份','打三十份','不用打印','发电子邮件'], c:0, e:'再多打十份.' },
+          { k:'listen', t:'mc', a:'男：听说你换工作了？ 女：对，新公司离家近，工资也比以前高一些。 问：关于新公司，可以知道什么？', o:['离家远','工资更低','工作更累','离家近'], c:3, e:'离家近, 工资高一些.' },
+          { k:'listen', t:'mc', a:'女：这个周末的演出票太难买了，网上一放就没了。 男：别急，我有个朋友在售票处工作，我帮你问问。 问：男的打算怎么帮女的？', o:['自己去排队','找朋友帮忙','送她去看演出','在网上买'], c:1, e:'我有个朋友在售票处工作.' },
+          { k:'listen', t:'mc', a:'男：你的房间怎么这么乱？ 女：我在找我的护照，明天就要出国了。 问：女的在做什么？', o:['打扫房间','找护照','收拾行李','整理书'], c:1, e:'在找我的护照.' },
+          { k:'listen', t:'mc', a:'女：老王，你的孩子今年上几年级了？ 男：刚上小学一年级，每天都很兴奋。 问：老王的孩子怎么样？', o:['上幼儿园','上一年级','上中学','很害怕上学'], c:1, e:'刚上小学一年级.' },
+          { k:'listen', t:'mc', a:'男：这份报告下午就要交，我怕来不及。 女：别担心，我来帮你整理数据，你写结论。 问：女的准备做什么？', o:['写结论','整理数据','交报告','请假'], c:1, e:'我来帮你整理数据.' },
+          { k:'listen', t:'mc', a:'女：你昨天怎么没参加同学聚会？ 男：临时加班，实在走不开，太遗憾了。 问：男的为什么没参加聚会？', o:['生病了','忘记了','要加班','不想去'], c:2, e:'临时加班.' },
+          { k:'listen', t:'mc', a:'男：这台笔记本电脑用了五年了，越来越慢。 女：那你干脆换一台新的吧，现在正打折。 问：女的建议男的怎么做？', o:['修一修','换新的','继续用','借别人的'], c:1, e:'干脆换一台新的.' },
+          { k:'listen', t:'mc', a:'女：小李，你把会议时间通知大家了吗？ 男：发了邮件，不过有几个人还没回复，我再打电话确认一下。 问：男的接下来要做什么？', o:['开会','发邮件','打电话确认','改时间'], c:2, e:'再打电话确认一下.' },
+          { k:'listen', t:'mc', a:'男：你觉得这套房子怎么样？ 女：房子是不错，就是离孩子的学校太远了。 问：女的对房子不满意的地方是什么？', o:['太小','太贵','离学校远','太旧'], c:2, e:'离孩子的学校太远.' },
+          { k:'listen', t:'mc', a:'女：你怎么突然开始学游泳了？ 男：医生说我腰不好，游泳对腰有好处。 问：男的为什么学游泳？', o:['为了减肥','为了健康','朋友推荐','为了比赛'], c:1, e:'游泳对腰有好处 → vì sức khoẻ.' },
+          { k:'listen', t:'mc', a:'男：这个月的电费怎么比上个月多了一倍？ 女：天太热，空调开得多。 问：电费为什么多了？', o:['电价涨了','空调开得多','人多了','冰箱坏了'], c:1, e:'空调开得多.' },
+          { k:'listen', t:'mc', a:'女：您好，我想退这件衣服，大小不合适。 男：可以，请出示购物小票，我们给您办理。 问：女的为什么退衣服？', o:['颜色不喜欢','质量不好','大小不合适','太贵了'], c:2, e:'大小不合适.' }
+        ] },
+      { title:'第三部分', ins:'第26-35题：听对话和问题，选出正确答案。', vi:'Câu 26–35: Nghe hội thoại dài (4–5 lượt) và câu hỏi, chọn A/B/C/D.',
+        qs:[
+          { k:'listen', t:'mc', a:'男：你周末一般怎么安排？ 女：上午去健身房，下午在家看书。 男：你真有规律。 女：习惯了，不这样反而不舒服。 问：女的周末上午做什么？', o:['看书','去健身房','睡觉','逛街'], c:1, e:'上午去健身房.' },
+          { k:'listen', t:'mc', a:'女：你的普通话说得真标准，是北京人吗？ 男：不是，我是广东人，小时候在北京上过学。 女：难怪。 男：不过我的粤语已经说得不太好了。 问：关于男的，可以知道什么？', o:['是北京人','小时候在北京上学','粤语说得很好','没去过北京'], c:1, e:'小时候在北京上过学.' },
+          { k:'listen', t:'mc', a:'男：这个项目的截止日期是下周五，来得及吗？ 女：如果材料今天能到，就没问题。 男：材料下午就到。 女：那我们今晚就开始。 问：他们今晚要做什么？', o:['等材料','开始做项目','开会','休息'], c:1, e:'我们今晚就开始.' },
+          { k:'listen', t:'mc', a:'女：听说你要搬去上海了？ 男：对，公司派我去那边负责新办公室。 女：要去多久？ 男：至少两年。 问：男的要去上海多长时间？', o:['两个月','半年','至少两年','不知道'], c:2, e:'至少两年.' },
+          { k:'listen', t:'mc', a:'男：妈，我想养一只小狗。 女：养狗要每天遛，你有时间吗？ 男：我保证每天早晚各遛一次。 女：那先试一个月，做不到就送回去。 问：妈妈的态度是什么？', o:['完全反对','同意先试一个月','让他养猫','让他等一年'], c:1, e:'先试一个月.' },
+          { k:'listen', t:'mc', a:'女：这次考试我数学只考了六十分。 男：别难过，你的语文不是考了九十多吗？ 女：可是数学是我最想学好的。 男：那就每天多做几道题，我帮你。 问：女的哪门课考得不好？', o:['语文','数学','英语','历史'], c:1, e:'数学只考了六十分.' },
+          { k:'listen', t:'mc', a:'男：小姐，我的行李箱在飞机上被摔坏了。 女：请您填一下这张表，我们会赔偿。 男：大概要多久？ 女：一周之内会联系您。 问：男的遇到了什么问题？', o:['行李丢了','行李箱坏了','航班取消','护照丢了'], c:1, e:'行李箱被摔坏了.' },
+          { k:'listen', t:'mc', a:'女：你最近怎么总是那么晚下班？ 男：年底了，报告特别多。 女：注意身体，别太累。 男：放心，忙完这两周就好了。 问：男的什么时候能不那么忙？', o:['明天','这周末','两周以后','明年'], c:2, e:'忙完这两周就好了.' },
+          { k:'listen', t:'mc', a:'男：这幅画是你画的？太漂亮了。 女：谢谢，我学画画才半年。 男：半年就画得这么好，你很有天赋。 女：主要是老师教得好。 问：女的学画画多长时间了？', o:['半年','一年','三年','五年'], c:0, e:'才半年.' },
+          { k:'listen', t:'mc', a:'女：明天的面试你准备好了吗？ 男：简历打印好了，就是有点儿紧张。 女：正常，提前到，穿得正式一点儿。 男：好，谢谢你的建议。 问：女的给了男的什么建议？', o:['多睡觉','提前到并穿正式','带礼物','不用紧张'], c:1, e:'提前到，穿得正式一点儿.' }
+        ] },
+      { title:'第三部分（续）', ins:'第36-45题：听短文和问题，选出正确答案。', vi:'Câu 36–45: Nghe đoạn văn ngắn, mỗi đoạn có 2 câu hỏi, chọn A/B/C/D.',
+        qs:[
+          { k:'listen', t:'mc', a:'很多人喜欢在睡觉前看手机，觉得这样能放松。其实，手机屏幕的光会让大脑更兴奋，反而让人更难入睡。医生建议，睡前一小时最好把手机放在另一个房间，读一读纸质书或者听听轻音乐。 问：睡前看手机会怎么样？', o:['更容易入睡','更难入睡','眼睛更好','没有影响'], c:1, e:'反而让人更难入睡.' },
+          { k:'listen', t:'mc', a:'很多人喜欢在睡觉前看手机，觉得这样能放松。其实，手机屏幕的光会让大脑更兴奋，反而让人更难入睡。医生建议，睡前一小时最好把手机放在另一个房间，读一读纸质书或者听听轻音乐。 问：医生建议睡前做什么？', o:['看手机','运动','读纸质书','喝咖啡'], c:2, e:'读一读纸质书或者听听轻音乐.' },
+          { k:'listen', t:'mc', a:'王先生是一位出租车司机，开了二十年车。他有一个习惯：每天出车前都把车里打扫得干干净净，还在车上准备了雨伞和水，免费给乘客用。很多乘客都记住了他的车牌号，打车时专门找他。 问：王先生的习惯是什么？', o:['开车很快','每天打扫车','不收车费','只在晚上开车'], c:1, e:'每天出车前都把车里打扫得干干净净.' },
+          { k:'listen', t:'mc', a:'王先生是一位出租车司机，开了二十年车。他有一个习惯：每天出车前都把车里打扫得干干净净，还在车上准备了雨伞和水，免费给乘客用。很多乘客都记住了他的车牌号，打车时专门找他。 问：乘客为什么专门找他？', o:['他的车便宜','他的车新','服务好','他认识路'], c:2, e:'Chuẩn bị ô và nước miễn phí → phục vụ tốt.' },
+          { k:'listen', t:'mc', a:'我们公司下个月要举办一次读书活动。每位同事可以推荐一本自己最喜欢的书，写一段一百字左右的推荐语。被推荐次数最多的十本书，公司会买回来放在休息室，大家可以免费借阅。 问：同事需要做什么？', o:['买一本书','推荐一本书并写推荐语','读十本书','写一篇报告'], c:1, e:'推荐一本书 + 写推荐语.' },
+          { k:'listen', t:'mc', a:'我们公司下个月要举办一次读书活动。每位同事可以推荐一本自己最喜欢的书，写一段一百字左右的推荐语。被推荐次数最多的十本书，公司会买回来放在休息室，大家可以免费借阅。 问：公司会买多少本书？', o:['一本','十本','一百本','所有推荐的书'], c:1, e:'被推荐次数最多的十本书.' },
+          { k:'listen', t:'mc', a:'小时候，我家住在一条小河边。夏天，我和哥哥常常去河里游泳，妈妈总是担心，站在岸边喊我们上来。现在河边盖起了高楼，河水也不像以前那么清了，但每次回家，我还是会去河边走走。 问：说话人小时候常在河边做什么？', o:['钓鱼','游泳','画画','跑步'], c:1, e:'常常去河里游泳.' },
+          { k:'listen', t:'mc', a:'小时候，我家住在一条小河边。夏天，我和哥哥常常去河里游泳，妈妈总是担心，站在岸边喊我们上来。现在河边盖起了高楼，河水也不像以前那么清了，但每次回家，我还是会去河边走走。 问：现在的小河怎么样了？', o:['更清了','没有了','不如以前清','变宽了'], c:2, e:'河水不像以前那么清了.' },
+          { k:'listen', t:'mc', a:'各位旅客，欢迎乘坐本次列车。列车预计晚点四十分钟，需要在济南站换乘的旅客，请到七号车厢找列车员登记，我们会帮您改签。餐车在八号车厢，提供热饭和饮料。谢谢您的理解。 问：列车怎么了？', o:['提前到达','晚点四十分钟','取消了','换了车厢'], c:1, e:'预计晚点四十分钟.' },
+          { k:'listen', t:'mc', a:'各位旅客，欢迎乘坐本次列车。列车预计晚点四十分钟，需要在济南站换乘的旅客，请到七号车厢找列车员登记，我们会帮您改签。餐车在八号车厢，提供热饭和饮料。谢谢您的理解。 问：需要换乘的旅客应该去哪儿？', o:['七号车厢','八号车厢','餐车','车站'], c:0, e:'到七号车厢找列车员登记.' }
+        ] }
+    ]},
+    { id:'R', name:'阅读', vi:'Đọc', parts:[
+      { title:'第一部分', ins:'第46-50题：选词填空。', vi:'Câu 46–50: Chọn từ A–F điền vào chỗ trống.',
+        bank:['尽管 jǐnguǎn','熟悉 shúxi','出乎意料 chūhū yìliào','丰富 fēngfù','理解 lǐjiě','推迟 tuīchí'],
+        qs:[
+          { k:'read', t:'bank', q:'（　）天气不好，比赛还是照常进行了。', c:0, e:'尽管…还是… = mặc dù … vẫn ….' },
+          { k:'read', t:'bank', q:'这位老师的教学经验很（　），学生都喜欢上她的课。', c:3, e:'经验丰富 = kinh nghiệm phong phú.' },
+          { k:'read', t:'bank', q:'由于台风，航班（　）到明天上午。', c:5, e:'推迟到 = hoãn đến.' },
+          { k:'read', t:'bank', q:'我刚来这个城市，对这里的路还不太（　）。', c:1, e:'对…熟悉 = quen thuộc với.' },
+          { k:'read', t:'bank', q:'这个结果完全（　），谁也没想到他会得第一名。', c:2, e:'出乎意料 = ngoài dự đoán. 理解 không dùng.' }
+        ] },
+      { title:'第一部分（续）', ins:'第51-55题：选词填空。', vi:'Câu 51–55: Chọn từ A–F điền vào chỗ trống trong hội thoại.',
+        bank:['恐怕 kǒngpà','幸亏 xìngkuī','邀请 yāoqǐng','否则 fǒuzé','态度 tàidu','坚持 jiānchí'],
+        qs:[
+          { k:'read', t:'bank', q:'A：你怎么这么早就到了？ B：（　）我提前出门，不然肯定堵在路上。', c:1, e:'幸亏 = may mà.' },
+          { k:'read', t:'bank', q:'A：明天的会你能来吗？ B：（　）不行，我要去外地出差。', c:0, e:'恐怕 = e rằng.' },
+          { k:'read', t:'bank', q:'A：他为什么被批评了？ B：不是因为能力，是工作（　）不认真。', c:4, e:'工作态度 = thái độ làm việc.' },
+          { k:'read', t:'bank', q:'A：你减肥成功了吗？ B：成功了，关键是要（　），不能三天打鱼两天晒网。', c:5, e:'坚持 = kiên trì.' },
+          { k:'read', t:'bank', q:'A：材料一定要今天交吗？ B：对，（　）就赶不上这次报名了。', c:3, e:'否则 = nếu không thì. 邀请 không dùng.' }
+        ] },
+      { title:'第二部分', ins:'第56-65题：排列顺序。', vi:'Câu 56–65: Sắp xếp ba câu A/B/C thành đoạn hợp lý (bấm theo thứ tự).',
+        qs:[
+          { k:'read', t:'order', parts:['这样才能在出现问题时冷静地解决','所以出发前一定要做好计划','旅行中总会遇到一些想不到的事情'], ans:'旅行中总会遇到一些想不到的事情所以出发前一定要做好计划这样才能在出现问题时冷静地解决', e:'Thứ tự C–B–A: nêu hiện tượng → 所以 → 这样才能.' },
+          { k:'read', t:'order', parts:['他从小就喜欢画画','现在已经是一位有名的画家了','大学毕业后又去国外学习了三年'], ans:'他从小就喜欢画画大学毕业后又去国外学习了三年现在已经是一位有名的画家了', e:'Theo thời gian: 从小 → 大学毕业后 → 现在.' },
+          { k:'read', t:'order', parts:['否则很容易感冒','秋天早晚温差很大','出门时最好带一件外套'], ans:'秋天早晚温差很大出门时最好带一件外套否则很容易感冒', e:'Nguyên nhân → lời khuyên → 否则 hậu quả.' },
+          { k:'read', t:'order', parts:['不但没有生气','反而耐心地给他讲了一遍','老师看到他的作业错了很多'], ans:'老师看到他的作业错了很多不但没有生气反而耐心地给他讲了一遍', e:'不但没有… 反而….' },
+          { k:'read', t:'order', parts:['所以每天都有很多人来参观','而且门票是免费的','这个博物馆不仅历史悠久'], ans:'这个博物馆不仅历史悠久而且门票是免费的所以每天都有很多人来参观', e:'不仅…而且… → 所以.' },
+          { k:'read', t:'order', parts:['我们只好改坐地铁','结果路上堵得厉害','本来打算打车去机场'], ans:'本来打算打车去机场结果路上堵得厉害我们只好改坐地铁', e:'本来… 结果… 只好….' },
+          { k:'read', t:'order', parts:['一旦养成习惯就很难改掉','因此从小就要注意','很多坏习惯都是小时候形成的'], ans:'很多坏习惯都是小时候形成的一旦养成习惯就很难改掉因此从小就要注意', e:'Hiện tượng → 一旦… → 因此.' },
+          { k:'read', t:'order', parts:['我们决定把会议改到下周','由于经理临时出差','请大家重新安排时间'], ans:'由于经理临时出差我们决定把会议改到下周请大家重新安排时间', e:'由于 nguyên nhân → quyết định → yêu cầu.' },
+          { k:'read', t:'order', parts:['也是他坚持锻炼的结果','他七十岁了身体还这么好','除了生活有规律以外'], ans:'他七十岁了身体还这么好除了生活有规律以外也是他坚持锻炼的结果', e:'除了…以外，也….' },
+          { k:'read', t:'order', parts:['我才明白她当时为什么那么难过','直到很多年以后','小时候我常常和妹妹吵架'], ans:'小时候我常常和妹妹吵架直到很多年以后我才明白她当时为什么那么难过', e:'直到…才….' }
+        ] },
+      { title:'第三部分', ins:'第66-75题：读短文，选出正确答案。', vi:'Câu 66–75: Đọc đoạn ngắn, chọn đáp án A/B/C/D.',
+        qs:[
+          { k:'read', t:'mc', p:'现在越来越多的年轻人选择在网上买菜。手机上下单，一个小时以内就能送到家，价格也不比菜市场贵多少。不过，也有人觉得自己去挑选更放心。', q:'关于网上买菜，下列哪项正确？', o:['价格贵很多','送货很慢','一小时内送到','所有人都喜欢'], c:2, e:'一个小时以内就能送到家.' },
+          { k:'read', t:'mc', p:'"失败是成功之母"，这句话很多人都听过。但真正重要的不是失败本身，而是失败之后你是否认真总结了原因。同样的错误犯两次，就不能怪运气了。', q:'这段话认为失败后最重要的是：', o:['重新开始','总结原因','等待运气','放弃'], c:1, e:'是否认真总结了原因.' },
+          { k:'read', t:'mc', p:'王阿姨退休后在小区里办了一个"共享书架"，谁都可以把看完的书放上去，也可以随便拿走一本。三年过去了，书架从一个变成了五个。', q:'关于共享书架，可以知道：', o:['只能放书不能拿','要交钱','越来越多','三年前就有五个'], c:2, e:'从一个变成了五个.' },
+          { k:'read', t:'mc', p:'很多人以为运动时间越长效果越好，其实每次三十到四十分钟就够了，关键是要坚持。每周运动三次以上，比一次运动两三个小时更有效。', q:'这段话建议怎样运动？', o:['每次两三个小时','时间越长越好','每周三次以上','只在周末运动'], c:2, e:'每周三次以上，每次三四十分钟.' },
+          { k:'read', t:'mc', p:'我的一位朋友是导游，每年要带几十个团。他说，做导游最难的不是记住景点的历史，而是处理各种突然发生的情况，比如有人生病、有人走丢。', q:'朋友觉得做导游最难的是：', o:['记住历史','处理突发情况','带太多团','说外语'], c:1, e:'处理各种突然发生的情况.' },
+          { k:'read', t:'mc', p:'通知：本周六上午图书馆的电脑系统升级，暂停借还书服务，阅览室照常开放。周日恢复正常。给您带来的不便，敬请谅解。', q:'周六上午图书馆：', o:['完全关门','可以借书','阅览室开放','周日也关门'], c:2, e:'暂停借还书, 阅览室照常开放.' },
+          { k:'read', t:'mc', p:'小时候我最讨厌吃苦瓜，怎么也不肯吃。奶奶没有强迫我，而是每次做菜时放一点点，慢慢地我居然喜欢上了它的味道。', q:'奶奶是怎么让"我"喜欢上苦瓜的？', o:['强迫我吃','每次放一点点','告诉我它有营养','用糖做'], c:1, e:'每次做菜时放一点点.' },
+          { k:'read', t:'mc', p:'一项调查显示，超过百分之六十的上班族午饭后有睡午觉的习惯，但其中一半的人午睡时间超过一个小时。专家提醒，午睡二十到三十分钟最合适，睡太久反而会更累。', q:'专家认为午睡多长时间最好？', o:['十分钟','二十到三十分钟','一个小时','越长越好'], c:1, e:'二十到三十分钟最合适.' },
+          { k:'read', t:'mc', p:'张经理说话总是很直接，刚开始很多同事不习惯，觉得他不够客气。时间长了大家发现，他从来不在背后说别人，有问题当面提出来，反而让人很放心。', q:'同事们后来为什么放心？', o:['他很客气','他不在背后说人','他说话很少','他经常表扬人'], c:1, e:'从来不在背后说别人.' },
+          { k:'read', t:'mc', p:'学习一门外语，最好的方法不是把语法书从头看到尾，而是在使用中学习：看电影、听歌、和人聊天。犯错误并不可怕，可怕的是因为怕犯错而不敢开口。', q:'作者认为学外语可怕的是：', o:['犯错误','不看语法书','不敢开口','看电影'], c:2, e:'可怕的是因为怕犯错而不敢开口.' }
+        ] },
+      { title:'第三部分（续）', ins:'第76-85题：读短文，每篇回答两个问题。', vi:'Câu 76–85: Đọc 5 đoạn văn, mỗi đoạn 2 câu hỏi.',
+        qs:[
+          { k:'read', t:'mc', p:'我父亲是一名中学老师，教了一辈子数学。他有一个原则：从不给学生补课收钱。有家长过意不去，送来水果和礼物，他总是笑着退回去，说："孩子学好了就是最好的礼物。"退休那天，几十个已经工作的学生从各地赶回来看他，教室里坐得满满的。', q:'父亲从不做什么？', o:['教数学','补课收钱','收学生的水果','退休'], c:1, e:'从不给学生补课收钱.' },
+          { k:'read', t:'mc', p:'我父亲是一名中学老师，教了一辈子数学。他有一个原则：从不给学生补课收钱。有家长过意不去，送来水果和礼物，他总是笑着退回去，说："孩子学好了就是最好的礼物。"退休那天，几十个已经工作的学生从各地赶回来看他，教室里坐得满满的。', q:'退休那天发生了什么？', o:['没有人来','学生们赶回来看他','家长送了礼物','他去了外地'], c:1, e:'几十个学生从各地赶回来.' },
+          { k:'read', t:'mc', p:'共享单车刚出现的时候，大家都觉得很方便：手机一扫就能骑走，随便停在哪儿都行。可是没过多久问题就来了：很多车被随便停在路边，甚至扔进河里。后来，城市开始规定停车区域，不按规定停车的人要交罚款，情况才慢慢好起来。', q:'共享单车出现了什么问题？', o:['太贵','不好骑','被乱停乱放','数量太少'], c:2, e:'被随便停在路边，甚至扔进河里.' },
+          { k:'read', t:'mc', p:'共享单车刚出现的时候，大家都觉得很方便：手机一扫就能骑走，随便停在哪儿都行。可是没过多久问题就来了：很多车被随便停在路边，甚至扔进河里。后来，城市开始规定停车区域，不按规定停车的人要交罚款，情况才慢慢好起来。', q:'情况是怎么好起来的？', o:['减少了车','规定停车区域并罚款','取消了共享单车','降低了价格'], c:1, e:'规定停车区域 + 罚款.' },
+          { k:'read', t:'mc', p:'很多人认为，聪明的人一定能成功。但心理学家发现，比智商更重要的是"坚持力"：面对困难时不放弃，失败后能很快站起来。他们跟踪调查了几百名学生，发现最后取得好成绩的，往往不是最聪明的，而是最能坚持的。', q:'心理学家认为什么比智商更重要？', o:['运气','家庭','坚持力','朋友'], c:2, e:'比智商更重要的是"坚持力".' },
+          { k:'read', t:'mc', p:'很多人认为，聪明的人一定能成功。但心理学家发现，比智商更重要的是"坚持力"：面对困难时不放弃，失败后能很快站起来。他们跟踪调查了几百名学生，发现最后取得好成绩的，往往不是最聪明的，而是最能坚持的。', q:'调查发现取得好成绩的学生往往是：', o:['最聪明的','最有钱的','最能坚持的','最年轻的'], c:2, e:'往往是最能坚持的.' },
+          { k:'read', t:'mc', p:'上周我去了一趟云南。那里的天空特别蓝，空气也很新鲜。最让我难忘的是当地人的热情：迷路的时候，一位老奶奶不但给我指路，还带我走了很远。临走时她说，欢迎下次再来。我想，旅行最美的风景，也许不是山水，而是人。', q:'作者最难忘的是什么？', o:['蓝天','空气','当地人的热情','山水'], c:2, e:'最让我难忘的是当地人的热情.' },
+          { k:'read', t:'mc', p:'上周我去了一趟云南。那里的天空特别蓝，空气也很新鲜。最让我难忘的是当地人的热情：迷路的时候，一位老奶奶不但给我指路，还带我走了很远。临走时她说，欢迎下次再来。我想，旅行最美的风景，也许不是山水，而是人。', q:'作者认为旅行最美的风景是：', o:['山水','天空','人','食物'], c:2, e:'不是山水，而是人.' },
+          { k:'read', t:'mc', p:'现在很多公司允许员工在家办公。支持的人认为，这样可以节省上下班的时间，工作效率更高；反对的人则担心，同事之间见面少了，交流会出问题，新员工也很难学到东西。其实，最好的办法可能是两者结合：每周有几天在公司，几天在家。', q:'反对在家办公的人担心什么？', o:['浪费时间','效率低','交流出问题','成本高'], c:2, e:'交流会出问题.' },
+          { k:'read', t:'mc', p:'现在很多公司允许员工在家办公。支持的人认为，这样可以节省上下班的时间，工作效率更高；反对的人则担心，同事之间见面少了，交流会出问题，新员工也很难学到东西。其实，最好的办法可能是两者结合：每周有几天在公司，几天在家。', q:'作者认为最好的办法是：', o:['都在家办公','都在公司办公','两者结合','取消办公室'], c:2, e:'两者结合.' }
+        ] }
+    ]},
+    { id:'W', name:'书写', vi:'Viết', parts:[
+      { title:'第一部分', ins:'第86-95题：完成句子。', vi:'Câu 86–95: Sắp xếp các từ thành câu đúng.',
+        qs:[
+          { k:'write', t:'order', parts:['对','这个','很','消息','大家','吃惊','感到'], ans:'大家对这个消息感到很吃惊', e:'对 + N + 感到 + adj.' },
+          { k:'write', t:'order', parts:['被','已经','那本书','借走了','同学'], ans:'那本书已经被同学借走了', e:'Bị động 被; 已经 đứng trước 被.' },
+          { k:'write', t:'order', parts:['把','请','填写','这张表格','完整'], ans:'请把这张表格填写完整', e:'把 + tân ngữ + động từ + bổ ngữ kết quả.' },
+          { k:'write', t:'order', parts:['越来越','天气','了','暖和'], ans:'天气越来越暖和了', e:'越来越 + adj + 了.' },
+          { k:'write', t:'order', parts:['难道','你','忘了','吗','我们的约定'], ans:'难道你忘了我们的约定吗', e:'难道…吗 = chẳng lẽ.' },
+          { k:'write', t:'order', parts:['无论','他','都','多忙','坚持','锻炼'], ans:'无论多忙他都坚持锻炼', alt:['他无论多忙都坚持锻炼'], e:'无论…都….' },
+          { k:'write', t:'order', parts:['这次','是','我','第一次','出国','旅行'], ans:'这次是我第一次出国旅行', e:'第一次 + động từ.' },
+          { k:'write', t:'order', parts:['来不及','恐怕','了','现在','出发'], ans:'现在出发恐怕来不及了', e:'恐怕 + mệnh đề phỏng đoán.' },
+          { k:'write', t:'order', parts:['一直','妈妈','照顾','在','生病的','奶奶'], ans:'妈妈一直在照顾生病的奶奶', e:'一直在 + động từ.' },
+          { k:'write', t:'order', parts:['随着','的','发展','经济','生活','越来越好'], ans:'随着经济的发展生活越来越好', e:'随着…的发展.' }
+        ] },
+      { title:'第二部分', ins:'第96-100题：看图，用词造句。', vi:'Câu 96–100: Dựa vào tranh và từ cho trước, viết một câu (≥5 chữ Hán, phải dùng từ đã cho).',
+        qs:[
+          { k:'write', t:'sent', pic:'🏃', word:'坚持', model:'他每天早上都坚持跑步。', e:'Câu mẫu: 他每天早上都坚持跑步。 — chủ ngữ + thời gian + 坚持 + động từ.' },
+          { k:'write', t:'sent', pic:'🎂', word:'祝', model:'祝你生日快乐！', e:'祝 + người + lời chúc.' },
+          { k:'write', t:'sent', pic:'🌧️', word:'伞', model:'外面下雨了，别忘了带伞。', e:'Kết hợp tình huống trời mưa + 带伞.' },
+          { k:'write', t:'sent', pic:'📚', word:'安静', model:'图书馆里很安静，大家都在看书。', e:'安静 làm vị ngữ mô tả nơi chốn.' },
+          { k:'write', t:'sent', pic:'🤝', word:'合作', model:'我们公司希望和你们合作。', e:'和/跟 + đối tác + 合作.' }
+        ] }
+    ]}
+  ]
+},
+
+/* ======================= HSK 5 — Đề A ======================= */
+{
+  id:'hsk5-a', level:'hsk5', badge:'HSK 5', title:'Đề thi thử HSK 5 — Đề A',
+  official:'Đúng cấu trúc đề thật: Nghe 45 + Đọc 45 + Viết 10 (8 câu sắp xếp + 2 bài viết 80 chữ) · 300 điểm, đạt ≥ 180 · nghe 1 lần',
+  minutes:125, maxScore:300, pass:180, plays:1,
+  sections:[
+    { id:'L', name:'听力', vi:'Nghe', parts:[
+      { title:'第一部分', ins:'第1-20题：听对话和问题，选出正确答案。', vi:'Câu 1–20: Nghe hội thoại ngắn (2 lượt) và câu hỏi, chọn A/B/C/D. Nghe 1 lần.',
+        qs:[
+          { k:'listen', t:'mc', a:'女：这个项目的预算已经超了百分之二十，再这样下去公司会有意见的。 男：我明白，我会重新调整方案。 问：男的打算怎么做？', o:['放弃项目','增加预算','调整方案','向公司道歉'], c:2, e:'重新调整方案.' },
+          { k:'listen', t:'mc', a:'男：你不是最怕坐飞机吗？怎么这次主动要去出差？ 女：客户在国外，总不能一直让别人替我去。 问：女的为什么主动出差？', o:['她不再怕坐飞机了','不想麻烦别人','想去旅游','公司要求的'], c:1, e:'总不能一直让别人替我去 → không muốn phiền người khác.' },
+          { k:'listen', t:'mc', a:'女：小王的演讲怎么样？ 男：内容很充实，就是语速太快，后面几排的人几乎听不清。 问：男的觉得演讲有什么问题？', o:['内容太少','声音太小','语速太快','时间太长'], c:2, e:'语速太快.' },
+          { k:'listen', t:'mc', a:'男：听说你把工作辞了，准备开咖啡馆？ 女：对，与其在办公室里熬着，不如做点儿自己真正喜欢的事。 问：女的为什么辞职？', o:['工资太低','想做喜欢的事','身体不好','公司倒闭了'], c:1, e:'做点儿自己真正喜欢的事.' },
+          { k:'listen', t:'mc', a:'女：这台洗衣机才用了两年就坏了，质量也太差了。 男：先别急着换，我朋友是修家电的，让他来看看。 问：男的建议怎么做？', o:['马上换新的','找朋友修','向商店投诉','自己修'], c:1, e:'让修家电的朋友来看看.' },
+          { k:'listen', t:'mc', a:'男：你儿子钢琴弹得越来越好了，是不是请了名师？ 女：哪有，全靠他自己每天练两个小时。 问：儿子钢琴弹得好的原因是什么？', o:['请了名师','天赋好','每天坚持练习','参加了比赛'], c:2, e:'全靠他自己每天练两个小时.' },
+          { k:'listen', t:'mc', a:'女：这篇论文的数据是三年前的，恐怕说服力不够。 男：那我这周把最新的统计补进去。 问：论文的问题是什么？', o:['数据过时','字数不够','格式不对','没有结论'], c:0, e:'数据是三年前的 → cũ.' },
+          { k:'listen', t:'mc', a:'男：这次比赛你只差一分就进决赛了，太可惜了。 女：没关系，我已经比去年进步了很多。 问：女的的态度是什么？', o:['非常失望','无所谓','积极乐观','想放弃'], c:2, e:'比去年进步了很多 → lạc quan.' },
+          { k:'listen', t:'mc', a:'女：您好，我订的是双人间，可是房间只有一张床。 男：非常抱歉，我马上给您换一间。 问：对话最可能发生在哪儿？', o:['医院','酒店','火车站','商店'], c:1, e:'双人间/房间/床 → khách sạn.' },
+          { k:'listen', t:'mc', a:'男：小李工作能力不错，就是太骄傲，听不进别人的意见。 女：年轻人嘛，多经历几次失败就好了。 问：小李的缺点是什么？', o:['能力差','太骄傲','不努力','经常迟到'], c:1, e:'太骄傲，听不进意见.' },
+          { k:'listen', t:'mc', a:'女：这个牌子的手机广告做得铺天盖地，实际用起来怎么样？ 男：说实话，一般，电池不太经用。 问：男的对这款手机的评价是什么？', o:['非常好','很一般','电池很好','广告很少'], c:1, e:'说实话，一般.' },
+          { k:'listen', t:'mc', a:'男：你怎么一个人在这儿？其他人呢？ 女：他们去爬山了，我腿受过伤，不敢冒险。 问：女的为什么没去爬山？', o:['不喜欢爬山','腿受过伤','要照顾孩子','没有时间'], c:1, e:'腿受过伤.' },
+          { k:'listen', t:'mc', a:'女：老张，你退休以后怎么比上班时还忙？ 男：我在社区教老人用智能手机，还在老年大学学书法。 问：老张退休后做什么？', o:['在家休息','教老人用手机','继续上班','旅游'], c:1, e:'在社区教老人用智能手机.' },
+          { k:'listen', t:'mc', a:'男：你的中文进步真快，有什么秘诀？ 女：也没什么，就是脸皮厚，不怕说错。 问：女的学中文的秘诀是什么？', o:['背单词','看电视','不怕说错','请家教'], c:2, e:'不怕说错.' },
+          { k:'listen', t:'mc', a:'女：这么大的雪，今天的会还开吗？ 男：改成线上了，你在家登录会议系统就行。 问：今天的会怎么开？', o:['取消了','改到明天','在网上开','换了地点'], c:2, e:'改成线上了.' },
+          { k:'listen', t:'mc', a:'男：这幅画的作者是谁？风格很特别。 女：是一位八十岁的老人，六十岁才开始学画。 问：关于画的作者，可以知道什么？', o:['很年轻','六十岁开始学画','是著名画家','不喜欢画画'], c:1, e:'六十岁才开始学画.' },
+          { k:'listen', t:'mc', a:'女：你看，这份合同的第三条对我们不太有利。 男：确实，我们得和对方再谈一次。 问：他们接下来要做什么？', o:['签合同','和对方再谈','放弃合作','找律师'], c:1, e:'和对方再谈一次.' },
+          { k:'listen', t:'mc', a:'男：你家孩子每天玩儿手机的时间你管吗？ 女：管，我们约好每天不超过一个小时，做到了周末可以多玩儿半小时。 问：女的怎么管孩子玩儿手机？', o:['完全禁止','不管','约定时间','没收手机'], c:2, e:'约好每天不超过一个小时.' },
+          { k:'listen', t:'mc', a:'女：这条路怎么这么堵？ 男：前面在修路，我们绕一下吧，虽然远点儿，但至少能动。 问：男的建议怎么做？', o:['等一会儿','绕路走','换乘地铁','回去'], c:1, e:'绕一下.' },
+          { k:'listen', t:'mc', a:'男：你的简历写得太长了，有五页。 女：那我把和这个职位无关的经历删掉。 问：女的打算怎么修改简历？', o:['增加内容','换照片','删掉无关经历','改格式'], c:2, e:'删掉无关的经历.' }
+        ] },
+      { title:'第二部分', ins:'第21-30题：听对话和问题，选出正确答案。', vi:'Câu 21–30: Nghe hội thoại dài (4–5 lượt) và câu hỏi, chọn A/B/C/D.',
+        qs:[
+          { k:'listen', t:'mc', a:'女：你最近在看什么书？ 男：一本关于时间管理的。 女：有用吗？ 男：有，我按书上说的，每天早上先做最重要的三件事，效率高多了。 女：那我也买一本。 问：男的按书上做了什么？', o:['早起跑步','先做最重要的三件事','不用手机','晚上不加班'], c:1, e:'每天早上先做最重要的三件事.' },
+          { k:'listen', t:'mc', a:'男：这次装修你打算花多少钱？ 女：预算十万，主要是厨房和卫生间。 男：客厅不动？ 女：客厅只换一下灯，沙发还能用。 问：女的装修重点是什么？', o:['客厅','厨房和卫生间','卧室','换沙发'], c:1, e:'主要是厨房和卫生间.' },
+          { k:'listen', t:'mc', a:'女：老李，你怎么开始种菜了？ 男：退休以后闲不住，在阳台上种点儿西红柿和辣椒。 女：能吃吗？ 男：当然，比买的新鲜多了，就是产量不高。 问：老李种的菜怎么样？', o:['不能吃','产量很高','比买的新鲜','味道不好'], c:2, e:'比买的新鲜多了.' },
+          { k:'listen', t:'mc', a:'男：听说你要去南极旅行？ 女：对，已经准备了一年。 男：不冷吗？ 女：冷是冷，但那是我从小的梦想。 男：真佩服你。 问：关于女的，可以知道什么？', o:['怕冷所以不去','准备了一年','去过南极','是导游'], c:1, e:'已经准备了一年.' },
+          { k:'listen', t:'mc', a:'女：公司新来的实习生怎么样？ 男：很勤奋，就是太紧张，开会时不敢发言。 女：给他点儿时间，我们当年也这样。 男：我打算下周让他负责一个小项目。 问：男的打算怎么帮助实习生？', o:['批评他','让他负责小项目','让他多开会','换部门'], c:1, e:'让他负责一个小项目.' },
+          { k:'listen', t:'mc', a:'男：你孩子的学校要求家长每周做一次义工？ 女：对，可以在图书馆帮忙，也可以在食堂。 男：你觉得有必要吗？ 女：一开始觉得麻烦，后来发现对了解孩子很有帮助。 问：女的现在对做义工的看法是什么？', o:['很麻烦','浪费时间','有帮助','应该取消'], c:2, e:'对了解孩子很有帮助.' },
+          { k:'listen', t:'mc', a:'女：这家公司的面试通过了，可是工资比现在低。 男：那你去吗？ 女：我在犹豫，那边发展空间大。 男：年轻的时候，平台比工资重要。 问：男的的观点是什么？', o:['工资最重要','平台比工资重要','应该留在原公司','应该继续找'], c:1, e:'平台比工资重要.' },
+          { k:'listen', t:'mc', a:'男：医生，我最近总是睡不好。 女：几点睡？ 男：一般一两点，睡前习惯刷手机。 女：先把手机放到客厅，十一点前上床，坚持两周再看。 问：医生建议男的怎么做？', o:['吃药','十一点前睡并远离手机','多运动','喝牛奶'], c:1, e:'把手机放到客厅，十一点前上床.' },
+          { k:'listen', t:'mc', a:'女：你这次的摄影作品得奖了，恭喜！ 男：谢谢，其实那张照片是我等了三天才拍到的。 女：三天？ 男：对，为了等日出时的光线。 问：男的为什么等了三天？', o:['相机坏了','天气不好','等合适的光线','没有时间'], c:2, e:'为了等日出时的光线.' },
+          { k:'listen', t:'mc', a:'男：咱们社区的垃圾分类做得怎么样？ 女：一开始很多人嫌麻烦，后来志愿者每天在垃圾桶旁边指导。 男：现在呢？ 女：现在百分之九十的家庭都能分对了。 问：垃圾分类是怎么做好的？', o:['罚款','志愿者指导','减少垃圾桶','发奖金'], c:1, e:'志愿者每天在垃圾桶旁边指导.' }
+        ] },
+      { title:'第二部分（续）', ins:'第31-45题：听短文和问题，选出正确答案。', vi:'Câu 31–45: Nghe 5 đoạn văn, mỗi đoạn 3 câu hỏi.',
+        qs:[
+          { k:'listen', t:'mc', a:'有一位年轻人向老木匠学手艺。头一年，老木匠只让他磨工具，什么都不教。年轻人很不耐烦，想离开。老木匠说："工具磨不好，做出来的东西再好看也不结实。"年轻人留了下来。十年后，他成了当地最好的木匠，而他带徒弟的第一课，也是磨工具。 问：老木匠第一年让年轻人做什么？', o:['做家具','磨工具','卖东西','打扫'], c:1, e:'只让他磨工具.' },
+          { k:'listen', t:'mc', a:'有一位年轻人向老木匠学手艺。头一年，老木匠只让他磨工具，什么都不教。年轻人很不耐烦，想离开。老木匠说："工具磨不好，做出来的东西再好看也不结实。"年轻人留了下来。十年后，他成了当地最好的木匠，而他带徒弟的第一课，也是磨工具。 问：年轻人一开始的态度是什么？', o:['很高兴','很耐心','不耐烦','很害怕'], c:2, e:'很不耐烦，想离开.' },
+          { k:'listen', t:'mc', a:'有一位年轻人向老木匠学手艺。头一年，老木匠只让他磨工具，什么都不教。年轻人很不耐烦，想离开。老木匠说："工具磨不好，做出来的东西再好看也不结实。"年轻人留了下来。十年后，他成了当地最好的木匠，而他带徒弟的第一课，也是磨工具。 问：这段话主要想说明什么？', o:['木匠很难学','基础最重要','要经常换工具','年轻人应该离开'], c:1, e:'Mài dụng cụ = nền tảng; ý chính: cơ bản là quan trọng nhất.' },
+          { k:'listen', t:'mc', a:'一项调查发现，超过一半的城市居民每天走路不到三千步。专家说，走路是最简单也最安全的运动，每天六千到八千步就能明显降低患病的风险。建议大家把走路安排进日常生活：上下班提前一站下车，午饭后散步十五分钟，打电话时站起来走一走。 问：调查发现城市居民每天走多少步？', o:['不到三千步','六千步','八千步','一万步'], c:0, e:'超过一半的人不到三千步.' },
+          { k:'listen', t:'mc', a:'一项调查发现，超过一半的城市居民每天走路不到三千步。专家说，走路是最简单也最安全的运动，每天六千到八千步就能明显降低患病的风险。建议大家把走路安排进日常生活：上下班提前一站下车，午饭后散步十五分钟，打电话时站起来走一走。 问：专家建议每天走多少步？', o:['三千步','六千到八千步','一万步以上','越多越好'], c:1, e:'每天六千到八千步.' },
+          { k:'listen', t:'mc', a:'一项调查发现，超过一半的城市居民每天走路不到三千步。专家说，走路是最简单也最安全的运动，每天六千到八千步就能明显降低患病的风险。建议大家把走路安排进日常生活：上下班提前一站下车，午饭后散步十五分钟，打电话时站起来走一走。 问：下列哪项不是专家的建议？', o:['提前一站下车','午饭后散步','打电话时走一走','每天跑五公里'], c:3, e:'跑五公里 không được nhắc đến.' },
+          { k:'listen', t:'mc', a:'小林大学学的是计算机，毕业后进了一家大公司，工资很高。可是三年后，他辞职回到农村老家，开了一家网店，专门卖家乡的茶叶。朋友们都不理解。小林说，家乡的茶很好，却因为没人会推广而卖不出去，他想用自己学的东西帮帮乡亲们。现在，网店一年的销售额已经超过了五百万。 问：小林大学学的是什么？', o:['农业','计算机','市场营销','茶艺'], c:1, e:'大学学的是计算机.' },
+          { k:'listen', t:'mc', a:'小林大学学的是计算机，毕业后进了一家大公司，工资很高。可是三年后，他辞职回到农村老家，开了一家网店，专门卖家乡的茶叶。朋友们都不理解。小林说，家乡的茶很好，却因为没人会推广而卖不出去，他想用自己学的东西帮帮乡亲们。现在，网店一年的销售额已经超过了五百万。 问：小林为什么回农村？', o:['公司倒闭了','想帮乡亲卖茶','身体不好','父母要求'], c:1, e:'想用自己学的东西帮帮乡亲们.' },
+          { k:'listen', t:'mc', a:'小林大学学的是计算机，毕业后进了一家大公司，工资很高。可是三年后，他辞职回到农村老家，开了一家网店，专门卖家乡的茶叶。朋友们都不理解。小林说，家乡的茶很好，却因为没人会推广而卖不出去，他想用自己学的东西帮帮乡亲们。现在，网店一年的销售额已经超过了五百万。 问：网店现在怎么样？', o:['已经关了','没人买','销售额超过五百万','只在本地卖'], c:2, e:'一年的销售额超过五百万.' },
+          { k:'listen', t:'mc', a:'很多人觉得幽默是天生的，其实幽默是可以学习的。第一，多观察生活，很多笑话都来自平常的小事；第二，学会自嘲，敢拿自己开玩笑的人，别人也更愿意亲近；第三，注意场合，同样的话在朋友聚会上很好笑，在正式会议上可能就很失礼。 问：说话人认为幽默是：', o:['天生的','可以学习的','不重要的','很危险的'], c:1, e:'幽默是可以学习的.' },
+          { k:'listen', t:'mc', a:'很多人觉得幽默是天生的，其实幽默是可以学习的。第一，多观察生活，很多笑话都来自平常的小事；第二，学会自嘲，敢拿自己开玩笑的人，别人也更愿意亲近；第三，注意场合，同样的话在朋友聚会上很好笑，在正式会议上可能就很失礼。 问：为什么要学会自嘲？', o:['显得聪明','别人更愿意亲近','可以批评别人','让会议更轻松'], c:1, e:'别人也更愿意亲近.' },
+          { k:'listen', t:'mc', a:'很多人觉得幽默是天生的，其实幽默是可以学习的。第一，多观察生活，很多笑话都来自平常的小事；第二，学会自嘲，敢拿自己开玩笑的人，别人也更愿意亲近；第三，注意场合，同样的话在朋友聚会上很好笑，在正式会议上可能就很失礼。 问：关于"注意场合"，说话人的意思是：', o:['开会时多讲笑话','同样的话在不同场合效果不同','不要参加聚会','正式场合不能说话'], c:1, e:'同样的话在不同场合效果不同.' },
+          { k:'listen', t:'mc', a:'各位听众，下面播报天气。受冷空气影响，今天夜间到明天白天，本市将出现大风降温天气，最低气温降到零下五度，部分地区有小雪。请市民注意保暖，减少户外活动；驾驶员朋友注意路面结冰，减速慢行。后天天气转晴，气温逐渐回升。 问：明天的最低气温是多少？', o:['零度','零下五度','五度','零下十度'], c:1, e:'最低气温降到零下五度.' },
+          { k:'listen', t:'mc', a:'各位听众，下面播报天气。受冷空气影响，今天夜间到明天白天，本市将出现大风降温天气，最低气温降到零下五度，部分地区有小雪。请市民注意保暖，减少户外活动；驾驶员朋友注意路面结冰，减速慢行。后天天气转晴，气温逐渐回升。 问：驾驶员要注意什么？', o:['大雾','路面结冰','堵车','限行'], c:1, e:'注意路面结冰，减速慢行.' },
+          { k:'listen', t:'mc', a:'各位听众，下面播报天气。受冷空气影响，今天夜间到明天白天，本市将出现大风降温天气，最低气温降到零下五度，部分地区有小雪。请市民注意保暖，减少户外活动；驾驶员朋友注意路面结冰，减速慢行。后天天气转晴，气温逐渐回升。 问：后天天气怎么样？', o:['继续下雪','更冷','转晴回暖','有大雨'], c:2, e:'后天天气转晴，气温逐渐回升.' }
+        ] }
+    ]},
+    { id:'R', name:'阅读', vi:'Đọc', parts:[
+      { title:'第一部分', ins:'第46-48题：选词填空。', vi:'Câu 46–60: Đọc đoạn văn có chỗ trống (46)(47)…, chọn từ/cụm thích hợp cho từng chỗ.',
+        p:'很多人认为，读书越多越好。（46），读书的数量并不是最重要的，关键在于是否真正理解了书中的内容。一本好书，认真读一遍，（47）读十本一般的书。所以，与其追求数量，不如把时间花在（48）经典上。',
+        qs:[
+          { k:'read', t:'mc', q:'(46)', o:['其实','于是','否则','因此'], c:0, e:'其实 = thực ra, phản bác quan niệm trước đó.' },
+          { k:'read', t:'mc', q:'(47)', o:['不如','胜过','等于','超过'], c:1, e:'胜过 = hơn hẳn; 读一本好书 胜过 读十本一般的书.' },
+          { k:'read', t:'mc', q:'(48)', o:['阅读','购买','收藏','翻译'], c:0, e:'把时间花在阅读经典上.' }
+        ] },
+      { title:'第一部分（续）', ins:'第49-52题：选词填空。', vi:'Câu 49–52.',
+        p:'我小时候特别怕黑，晚上不敢一个人睡。父亲没有笑话我，而是每天晚上陪我在黑暗中坐十分钟，让我（49）听窗外的声音：风声、虫叫、远处的汽车。（50），我发现黑暗并没有那么可怕。后来我明白，父亲教给我的不只是不怕黑，（51）面对恐惧的方法：先停下来，慢慢（52）它。',
+        qs:[
+          { k:'read', t:'mc', q:'(49)', o:['仔细','紧张','偶尔','轻易'], c:0, e:'仔细听 = lắng nghe kỹ.' },
+          { k:'read', t:'mc', q:'(50)', o:['突然','渐渐地','立刻','偏偏'], c:1, e:'渐渐地 = dần dần.' },
+          { k:'read', t:'mc', q:'(51)', o:['还是','而是','就是','或是'], c:1, e:'不只是…而是… (không chỉ … mà là …).' },
+          { k:'read', t:'mc', q:'(52)', o:['放弃','躲开','熟悉','忘记'], c:2, e:'慢慢熟悉它 = từ từ làm quen với nó.' }
+        ] },
+      { title:'第一部分（续）', ins:'第53-56题：选词填空。', vi:'Câu 53–56.',
+        p:'随着生活水平的提高，人们对食品安全越来越（53）。过去，大家只关心东西够不够吃；现在，更关心吃得健不健康。一些商家（54）这一点，在包装上写上"纯天然""无添加"，价格也随之翻倍。（55），消费者不能只看包装，更要学会看成分表，理性判断，（56）被广告牵着鼻子走。',
+        qs:[
+          { k:'read', t:'mc', q:'(53)', o:['重视','轻视','放松','忽略'], c:0, e:'对…重视 = coi trọng.' },
+          { k:'read', t:'mc', q:'(54)', o:['抓住','放过','忘记','否认'], c:0, e:'抓住这一点 = nắm lấy điểm này.' },
+          { k:'read', t:'mc', q:'(55)', o:['因此','虽然','除非','即使'], c:0, e:'因此 = vì vậy, dẫn kết luận.' },
+          { k:'read', t:'mc', q:'(56)', o:['难免','以免','未免','不免'], c:1, e:'以免 = để tránh (bị quảng cáo dắt mũi).' }
+        ] },
+      { title:'第一部分（续）', ins:'第57-60题：选词填空。', vi:'Câu 57–60.',
+        p:'张大爷今年七十八岁，是我们小区有名的"发明家"。他的（57）都来自生活：看到老人弯腰捡东西不方便，就做了一个带夹子的长杆；看到小孩总是忘记关水龙头，就装了一个会响的提醒器。有人劝他去申请专利，他摆摆手说："我又不（58）赚钱，大家用着方便就行。"（59）他自己不在乎，小区还是帮他申请了三项专利。张大爷说，人老了，脑子（60）不能闲着。',
+        qs:[
+          { k:'read', t:'mc', q:'(57)', o:['灵感','资源','工资','资料'], c:0, e:'灵感 = cảm hứng (sáng chế).' },
+          { k:'read', t:'mc', q:'(58)', o:['指望','希望','失望','盼望'], c:0, e:'不指望赚钱 = không trông mong kiếm tiền.' },
+          { k:'read', t:'mc', q:'(59)', o:['尽管','由于','既然','假如'], c:0, e:'尽管…还是… = dù … vẫn ….' },
+          { k:'read', t:'mc', q:'(60)', o:['千万','万一','难道','何必'], c:0, e:'千万不能… = nhất định không được.' }
+        ] },
+      { title:'第二部分', ins:'第61-70题：选出与试题内容一致的一项。', vi:'Câu 61–70: Đọc đoạn ngắn, chọn câu đúng với nội dung.',
+        qs:[
+          { k:'read', t:'mc', p:'"慢生活"并不是让人什么都不做，而是提醒我们在快节奏中留出时间给自己：好好吃一顿饭，认真读一本书，或者只是发一会儿呆。它反对的不是效率，而是为了效率牺牲掉生活本身。', q:'与这段话内容一致的是：', o:['慢生活就是什么都不做','慢生活反对效率','慢生活提醒人留时间给自己','慢生活只适合老年人'], c:2, e:'提醒我们在快节奏中留出时间给自己.' },
+          { k:'read', t:'mc', p:'研究发现，人在饥饿的时候更容易做出冲动的决定，比如买不需要的东西或者和人吵架。因此，做重要决定之前，最好先吃点儿东西，让大脑恢复正常的判断力。', q:'与这段话内容一致的是：', o:['饿的时候判断力更好','饿的时候容易冲动','吃饱了就不会吵架','重要决定要在饭前做'], c:1, e:'饥饿时更容易做出冲动的决定.' },
+          { k:'read', t:'mc', p:'我们公司规定，每个新员工入职的第一个月都要在客服部门轮岗，直接接听客户电话。很多技术人员一开始不理解，后来发现，只有真正听过客户的抱怨，才知道产品该往哪儿改。', q:'与这段话内容一致的是：', o:['新员工第一个月在技术部','轮岗是为了了解客户','技术人员不用轮岗','客服部门人手不够'], c:1, e:'只有真正听过客户的抱怨，才知道产品该往哪儿改.' },
+          { k:'read', t:'mc', p:'很多家长给孩子报了大量的兴趣班，从画画到编程，一周排得满满的。但兴趣的前提是"有兴趣"，如果孩子只是被动地完成任务，那么学得越多，可能越讨厌学习。', q:'作者的观点是：', o:['兴趣班越多越好','孩子应该学编程','被动学习可能让孩子讨厌学习','家长不应该管孩子'], c:2, e:'被动地完成任务 → 越讨厌学习.' },
+          { k:'read', t:'mc', p:'这座城市的老城区保留了大量百年以上的建筑。政府没有把它们拆掉建高楼，而是修旧如旧，把一部分改造成书店、咖啡馆和小型博物馆。如今这里成了年轻人最喜欢去的地方之一。', q:'与这段话内容一致的是：', o:['老建筑都被拆掉了','老城区建了很多高楼','老建筑被改造后很受欢迎','年轻人不喜欢老城区'], c:2, e:'改造成书店、咖啡馆… 年轻人最喜欢去.' },
+          { k:'read', t:'mc', p:'有人问一位百岁老人长寿的秘诀，老人笑着说："没什么秘诀，就是不生气。年轻的时候我也爱发脾气，后来发现气坏的是自己，别人一点儿事都没有，慢慢就想开了。"', q:'老人认为长寿的秘诀是：', o:['多运动','吃得清淡','不生气','早睡早起'], c:2, e:'就是不生气.' },
+          { k:'read', t:'mc', p:'电子书出现以后，很多人预言纸质书会消失。但十几年过去了，纸质书的销量不但没有下降，反而在最近几年有所回升。不少读者表示，翻纸页的感觉和在书上做笔记的习惯，是电子书替代不了的。', q:'与这段话内容一致的是：', o:['纸质书已经消失','纸质书销量近年回升','电子书完全替代了纸质书','读者不喜欢做笔记'], c:1, e:'纸质书销量在最近几年有所回升.' },
+          { k:'read', t:'mc', p:'学习一项新技能，最初的进步往往很快，让人充满信心；但过一段时间就会进入"平台期"，怎么练都不见提高。很多人在这个阶段放弃了。其实，平台期正是大脑在整理和巩固已学的内容，坚持过去，就会迎来下一次飞跃。', q:'关于"平台期"，正确的是：', o:['是学习的开始','说明没有天赋','是大脑在巩固内容','应该马上放弃'], c:2, e:'平台期正是大脑在整理和巩固已学的内容.' },
+          { k:'read', t:'mc', p:'王医生每次给病人看病，都会先问一句："最近睡得好吗？"他说，很多病看起来是身体的问题，根子却在睡眠和情绪上。药能治病，但治不了熬夜和焦虑。', q:'王医生认为很多病的根源是：', o:['吃药太少','天气变化','睡眠和情绪','运动不够'], c:2, e:'根子却在睡眠和情绪上.' },
+          { k:'read', t:'mc', p:'我们常说"眼见为实"，但在网络时代，一张照片、一段视频都可能经过加工。看到让人愤怒或者感动的内容时，不妨先冷静几分钟，查一查来源，再决定要不要转发。', q:'这段话建议我们：', o:['不要上网','看到内容马上转发','转发前先查来源','不要相信照片'], c:2, e:'先冷静，查一查来源，再决定要不要转发.' }
+        ] },
+      { title:'第三部分', ins:'第71-74题：读短文，选出正确答案。', vi:'Câu 71–90: Đọc 5 bài đọc dài, mỗi bài 4 câu hỏi.',
+        p:'李华是一家餐厅的老板。餐厅开业的头两年生意一直不好，他试过降价、发传单、请明星做广告，效果都不明显。后来，一位老顾客随口说了一句："你们的菜不错，就是每次来都要等很久，等得都没胃口了。"李华这才意识到，问题不在菜，而在等待。他重新设计了厨房的流程，把最受欢迎的几道菜提前准备好，又在等位区放了免费的小吃和杂志。三个月后，顾客的平均等待时间从四十分钟缩短到十五分钟，生意也慢慢好了起来。李华说，最有价值的建议往往不是花钱买来的，而是认真听顾客说话时"捡"来的。',
+        qs:[
+          { k:'read', t:'mc', q:'餐厅开业头两年，李华试过哪些办法？', o:['换厨师','降价、发传单、做广告','搬到别的地方','改变菜单'], c:1, e:'降价、发传单、请明星做广告.' },
+          { k:'read', t:'mc', q:'老顾客指出的问题是什么？', o:['菜不好吃','价格太贵','等待时间太长','服务员态度差'], c:2, e:'每次来都要等很久.' },
+          { k:'read', t:'mc', q:'李华是怎么解决问题的？', o:['多招服务员','重新设计厨房流程','减少菜的种类','提高价格'], c:1, e:'重新设计厨房的流程 + 提前准备 + 等位区小吃.' },
+          { k:'read', t:'mc', q:'李华认为最有价值的建议来自：', o:['专家','广告公司','认真听顾客说话','明星'], c:2, e:'认真听顾客说话时"捡"来的.' }
+        ] },
+      { title:'第三部分（续）', ins:'第75-78题：读短文，选出正确答案。', vi:'Câu 75–78.',
+        p:'在很多人的印象里，沙漠是生命的禁区。但在中国西北的一片沙漠边缘，有一群人用了四十年的时间，种出了一片绿色的森林。刚开始，他们种下的树苗十棵里有九棵会被风沙吹死。他们没有放弃，而是研究出了"草方格"的办法：先用麦草在沙地上扎成一个个方格，固定住流沙，再在方格里种树。这个办法看起来笨，却非常有效。如今，这片森林不仅挡住了风沙，还吸引了很多动物回来安家，当地人也靠种植沙漠水果有了稳定的收入。有记者问他们苦不苦，一位老人说："苦，但看着树一年年长高，比什么都甜。"',
+        qs:[
+          { k:'read', t:'mc', q:'刚开始种树时遇到的最大困难是什么？', o:['没有水','树苗被风沙吹死','没有人手','没有钱'], c:1, e:'十棵里有九棵会被风沙吹死.' },
+          { k:'read', t:'mc', q:'"草方格"的作用是：', o:['给树浇水','固定流沙','挡住太阳','吸引动物'], c:1, e:'固定住流沙.' },
+          { k:'read', t:'mc', q:'关于这片森林，下列哪项正确？', o:['只用了十年','没有动物','让当地人有了收入','已经消失了'], c:2, e:'当地人靠种植沙漠水果有了稳定的收入.' },
+          { k:'read', t:'mc', q:'老人的话表达了什么？', o:['后悔种树','觉得太苦想放弃','虽然辛苦但很有成就感','希望记者帮忙'], c:2, e:'苦，但看着树长高比什么都甜.' }
+        ] },
+      { title:'第三部分（续）', ins:'第79-82题：读短文，选出正确答案。', vi:'Câu 79–82.',
+        p:'小时候，父亲总说我"三分钟热度"：学吉他学了一个月就丢在角落里，学游泳换了两个教练也没学会。上大学后，我遇到了一位教书法的老师。第一节课，他没有教我们写字，而是让我们磨了一节课的墨。他说："急的人写不好字。"这句话不知怎么打动了我。从那以后，我每天练半小时，坚持了四年。毕业时，我的作品在学校展出，父亲专程从老家赶来看，站在我的字前面看了很久，说："原来你不是没有耐心，只是没有遇到让你愿意慢下来的事。"我想，每个人都有一件值得慢下来的事，只是有的人找到得早，有的人找到得晚。',
+        qs:[
+          { k:'read', t:'mc', q:'小时候，父亲觉得"我"怎么样？', o:['很有耐心','做事没有长性','很聪明','不爱学习'], c:1, e:'"三分钟热度" = làm gì cũng chóng chán.' },
+          { k:'read', t:'mc', q:'书法老师第一节课让学生做什么？', o:['写字','磨墨','看书','背诗'], c:1, e:'让我们磨了一节课的墨.' },
+          { k:'read', t:'mc', q:'"我"练书法坚持了多长时间？', o:['一个月','一年','四年','十年'], c:2, e:'坚持了四年.' },
+          { k:'read', t:'mc', q:'这篇文章最想说明的是：', o:['书法很难学','父亲很严格','每个人都有值得慢下来的事','学吉他没有用'], c:2, e:'每个人都有一件值得慢下来的事.' }
+        ] },
+      { title:'第三部分（续）', ins:'第83-86题：读短文，选出正确答案。', vi:'Câu 83–86.',
+        p:'"断舍离"是近几年很流行的一种生活方式：断，是不买不需要的东西；舍，是处理掉多余的东西；离，是不被物质所控制。支持者认为，家里东西少了，心也跟着安静了，找东西的时间省了，打扫也更轻松。但也有人提出不同意见：把还能用的东西扔掉，本身就是一种浪费；而且，很多"多余"的东西承载着回忆，比如旧照片、孩子小时候的画，扔掉就再也找不回来了。也许，"断舍离"真正的意义不在于扔掉多少，而在于学会问自己：这件东西，我到底需不需要？',
+        qs:[
+          { k:'read', t:'mc', q:'"舍"的意思是：', o:['不买东西','处理掉多余的东西','不被物质控制','把东西送人'], c:1, e:'舍，是处理掉多余的东西.' },
+          { k:'read', t:'mc', q:'支持者认为"断舍离"的好处不包括：', o:['心里更安静','省找东西的时间','打扫更轻松','省钱'], c:3, e:'省钱 không được nêu.' },
+          { k:'read', t:'mc', q:'反对者担心什么？', o:['房子太大','会浪费和失去回忆','东西不够用','打扫更难'], c:1, e:'是一种浪费 + 回忆扔掉找不回来.' },
+          { k:'read', t:'mc', q:'作者认为"断舍离"真正的意义是：', o:['扔得越多越好','什么都不买','学会判断自己是否需要','保留所有回忆'], c:2, e:'学会问自己需不需要.' }
+        ] },
+      { title:'第三部分（续）', ins:'第87-90题：读短文，选出正确答案。', vi:'Câu 87–90.',
+        p:'人工智能正在改变翻译这个行业。十年前，机器翻译出来的句子常常让人哭笑不得；如今，日常对话、新闻报道这类文本，机器已经能翻译得相当准确。有人因此断言："翻译这个职业很快就会消失。"但一位从业二十年的老翻译并不这么看。她说，机器擅长的是"字面"，而翻译真正难的是"字面之外"：一个笑话怎样在另一种文化里同样好笑，一句外交辞令怎样既准确又不失礼，一首诗的节奏怎样保留。这些需要对两种文化的深刻理解，短期内机器还做不到。在她看来，未来的翻译不是被机器取代，而是和机器合作：把重复的部分交给机器，把创造的部分留给自己。',
+        qs:[
+          { k:'read', t:'mc', q:'十年前的机器翻译怎么样？', o:['非常准确','经常出错','没有人用','只能翻译诗歌'], c:1, e:'常常让人哭笑不得 = hay sai đến buồn cười.' },
+          { k:'read', t:'mc', q:'老翻译认为翻译真正难的是：', o:['字面意思','打字速度','字面之外的文化理解','学习外语'], c:2, e:'翻译真正难的是"字面之外".' },
+          { k:'read', t:'mc', q:'下列哪项是文中提到的例子？', o:['翻译菜单','翻译笑话','翻译合同','翻译说明书'], c:1, e:'一个笑话怎样在另一种文化里同样好笑.' },
+          { k:'read', t:'mc', q:'老翻译对未来的看法是：', o:['翻译会消失','翻译和机器合作','机器会完全失败','翻译不需要机器'], c:1, e:'不是被机器取代，而是和机器合作.' }
+        ] }
+    ]},
+    { id:'W', name:'书写', vi:'Viết', parts:[
+      { title:'第一部分', ins:'第91-98题：完成句子。', vi:'Câu 91–98: Sắp xếp các từ thành câu đúng.',
+        qs:[
+          { k:'write', t:'order', parts:['与其','不如','抱怨','想办法','解决'], ans:'与其抱怨不如想办法解决', e:'与其 A 不如 B.' },
+          { k:'write', t:'order', parts:['这个','消息','让','大家','感到','十分','意外'], ans:'这个消息让大家感到十分意外', e:'让 + người + 感到 + mức độ + adj.' },
+          { k:'write', t:'order', parts:['他','被','评为','年度','优秀员工'], ans:'他被评为年度优秀员工', e:'被评为 = được bình chọn là.' },
+          { k:'write', t:'order', parts:['一旦','就','养成','很难','改掉','坏习惯'], ans:'坏习惯一旦养成就很难改掉', alt:['一旦养成坏习惯就很难改掉'], e:'一旦…就….' },
+          { k:'write', t:'order', parts:['写信的人','随着','越来越','手机的普及','少'], ans:'随着手机的普及写信的人越来越少', e:'随着…的普及, chủ ngữ 写信的人 + 越来越少.' },
+          { k:'write', t:'order', parts:['这','是','值得','一部','反复','观看','的','电影'], ans:'这是一部值得反复观看的电影', e:'值得 + động từ làm định ngữ (…的电影).' },
+          { k:'write', t:'order', parts:['哪怕','再','困难','也','我们','不会','放弃'], ans:'哪怕再困难我们也不会放弃', e:'哪怕…也….' },
+          { k:'write', t:'order', parts:['对','他','这个','领域','了解','并不','深入'], ans:'他对这个领域了解并不深入', e:'对…了解 + 并不 + adj.' }
+        ] },
+      { title:'第二部分', ins:'第99题：请结合下列词语（要全部使用），写一篇80字左右的短文。', vi:'Câu 99: Viết đoạn văn khoảng 80 chữ, dùng đủ 5 từ cho trước. Chấm tự động: đủ ≥80 chữ Hán và có đủ 5 từ = trọn điểm.',
+        qs:[
+          { k:'write', t:'essay', words:['坚持','梦想','困难','终于','成功'], min:80, model:'每个人都有自己的梦想，但实现梦想的路上总会遇到困难。我的朋友小李从小想当歌手，家里人都反对，他一边打工一边练习，坚持了五年，终于在去年的比赛中获得了第一名。他的成功告诉我：只要不放弃，梦想就不会离你太远。', e:'Bài mẫu dùng đủ 5 từ, có mở (梦想) – thân (困难/坚持/终于) – kết (成功 + bài học).' },
+          { k:'write', t:'essay', pic:'🎓', min:80, model:'今天是我们大学毕业的日子。同学们穿着学士服，在校园里拍照留念。四年的时光过得真快，我们一起上课、一起熬夜复习，也一起哭过笑过。虽然明天大家就要各奔东西，但我相信，这段友谊会一直陪伴我们。祝大家前程似锦！', e:'Câu 100: Nhìn tranh (tốt nghiệp 🎓) viết đoạn 80 chữ: tả cảnh – kể việc – nêu cảm xúc. Không có từ bắt buộc; chấm theo độ dài (≥80 chữ Hán), hãy tự đối chiếu bài mẫu.' }
+        ] }
+    ]}
+  ]
+}
+
+];
+if (typeof module !== 'undefined') module.exports = { HSK_EXAMS };
+
+</script>
+<script>
+/* ============================================================
    LangLab — logic ứng dụng
    ============================================================ */
 (function(){
@@ -12655,7 +13374,7 @@ function render(){
     : `<button class="crumb-link" data-go="home">Tiếng Hàn</button> <span>›</span> <b>${CRUMBS[state.view]}</b>`;
 
   if (isZh) (window.requestAnimationFrame ? requestAnimationFrame : (f => setTimeout(f, 16)))(zhMount);
-  if (state.view === 'zh_exam' && state.zh.exam && state.zh.exam.phase === 'doing') zhExamStart(); else zhExamStop();
+  if (state.view === 'zh_exam' && state.zh.exam && state.zh.exam.phase === 'doing') hskMount(); else hskStop();
   if (state.view === 'write') mountWrite();
   if (state.view === 'dict'){ mountDict(); loadDict(added => { if (added && state.view === 'dict') render(); }); }
   if (state.view === 'shadow'){
@@ -13106,49 +13825,315 @@ VIEWS.zh_quiz = function(){
     <div class="stage-ctrl"><button class="pbtn primary" data-zh-qz-next="1">${Q.i + 1 < Q.qs.length ? 'Câu sau →' : 'Xem kết quả'}</button></div>` : ''}`;
 };
 
-VIEWS.zh_exam = function(){
-  const E = state.zh.exam;
-  if (!E || E.phase === 'intro' || !E.qs){
-    return `
-    <div class="page-head"><span class="eyebrow">Tiếng Trung · Thi thử HSK</span><h1>Thi thử ${zhPracLevel() === 'all' ? 'HSK' : esc(zhLevelName(zhPracLevel()))} (luyện tập)</h1>
-      <p>20 câu trắc nghiệm từ vốn từ ${zhPracLevel() === 'all' ? 'mọi cấp' : esc(zhLevelName(zhPracLevel()))}, có <b>đồng hồ đếm ngược 8 phút</b>. Làm hết rồi bấm Nộp bài để chấm — hoặc hết giờ tự nộp. Đây là đề luyện tự soạn, không phải đề chính thức.</p></div>
-    ${zhLevelChips('data-zh-prac', zhPracLevel(), true)}
-    <div class="stage-ctrl"><button class="pbtn primary" data-zh-ex-start="1">▶ Bắt đầu thi</button></div>`;
-  }
-  if (E.phase === 'done'){
-    const score = E.qs.filter((q, i) => E.picked[i] === q.answer).length, pct = Math.round(score / E.qs.length * 100);
-    return `
-    <div class="page-head"><span class="eyebrow">Tiếng Trung · Thi thử HSK</span><h1>Kết quả: ${score}/${E.qs.length} (${pct}%)</h1>
-      <p>${pct >= 80 ? 'Xuất sắc!' : pct >= 60 ? 'Đạt rồi!' : 'Cần ôn thêm nhé.'}</p></div>
-    <div class="qz-review">${E.qs.map((q, i) => `<div class="qz-rev ${E.picked[i] === q.answer ? 'ok' : 'no'}"><span>${E.picked[i] === q.answer ? '✓' : '✗'}</span> ${esc(q.explain)}${E.picked[i] && E.picked[i] !== q.answer ? ` <i>(bạn chọn: ${esc(E.picked[i])})</i>` : ''}</div>`).join('')}</div>
-    <div class="stage-ctrl"><button class="pbtn primary" data-zh-ex-start="1">↻ Thi lại</button></div>`;
-  }
-  return `
-  <div class="zh-exam-head">
-    <div><span class="eyebrow">Tiếng Trung · Thi thử HSK</span><h1>Đề luyện · ${E.qs.length} câu</h1></div>
-    <div class="zh-exam-timer" id="zhExamTimer">${zhFmtTime(E.remaining)}</div>
-  </div>
-  <div class="zh-exam-qs">${E.qs.map((q, i) => `
-    <div class="zh-exq">
-      <div class="zh-exq-top"><span class="zh-exq-no">${i + 1}</span> ${esc(q.prompt)}</div>
-      <div class="qz-main sm">${q.main}</div>
-      <div class="qz-opts">${q.opts.map(o => `<button class="qz-opt${q.oc ? ' ' + q.oc : ''}${E.picked[i] === o ? ' picked' : ''}" data-zh-ex-i="${i}" data-zh-ex-pick="${esc(o)}">${esc(o)}</button>`).join('')}</div>
-    </div>`).join('')}</div>
-  <div class="stage-ctrl"><button class="pbtn primary" data-zh-ex-submit="1">Nộp bài</button> <span class="zh-exam-progress">Đã làm ${Object.keys(E.picked).length}/${E.qs.length}</span></div>`;
-};
+/* ============================================================
+   THI THỬ HSK — đề soạn sẵn đúng cấu trúc (js/hsk-exams.js) + đề nhanh từ vựng.
+   Dạng câu: tf (√/×), pic (chọn tranh), mc (trắc nghiệm), bank (chọn A–F từ khung chung),
+             order (sắp xếp thành câu), char (viết chữ theo pinyin), sent (viết câu theo từ + tranh),
+             essay (viết đoạn ≥80 chữ). Nghe: phát bằng giọng đọc, giới hạn số lần như thi thật.
+   ============================================================ */
+const _HX = (typeof HSK_EXAMS !== 'undefined') ? HSK_EXAMS : [];
+let hskTimerId = null, hskSaveT = null;
 
-let zhExamTimer = null;
-function zhExamStop(){ if (zhExamTimer){ clearInterval(zhExamTimer); zhExamTimer = null; } }
-function zhExamStart(){
-  if (zhExamTimer) return;
-  zhExamTimer = setInterval(() => {
-    const E = state.zh.exam;
-    if (!E || E.phase !== 'doing'){ zhExamStop(); return; }
+function hskFind(id){
+  const E = state.zh.exam;
+  if (E && E.quick && E.quick.id === id) return E.quick;
+  return _HX.find(x => x.id === id) || null;
+}
+/* Danh sách câu phẳng, đánh số liên tục 1..N như đề thật */
+function hskFlat(t){
+  if (t._flat) return t._flat;
+  const out = []; let no = 0;
+  (t.sections || []).forEach((s, si) => (s.parts || []).forEach((p, pi) => (p.qs || []).forEach(q => { no++; out.push({ q, si, pi, no, sec:s, part:p }); })));
+  t._flat = out; return out;
+}
+function hskQuick(level){                       // đề nhanh từ vựng (20 câu) sinh từ vốn từ của cấp
+  const prev = state.zh.pracLevel; state.zh.pracLevel = level;
+  const qs = zhMakeQuestions(20).map(q => ({ k:'read', t:'mc', html:q.main, q:q.prompt, o:q.opts, c:q.opts.indexOf(q.answer), oc:q.oc, e:q.explain }));
+  state.zh.pracLevel = prev;
+  return { id:'quick-' + level + '-' + Date.now(), level, quick:true, badge:zhLevelName(level), title:'Kiểm tra nhanh từ vựng ' + zhLevelName(level),
+    official:'20 câu ngẫu nhiên từ vốn từ của cấp · 8 phút · chấm theo %', minutes:8, maxScore:100, pass:60, plays:0,
+    sections:[{ id:'V', name:'词汇', vi:'Từ vựng', parts:[{ title:'', ins:'选出正确答案。', vi:'Chọn đáp án đúng.', qs }] }] };
+}
+function hskSave(){
+  const E = state.zh.exam;
+  if (!E || E.quick){ store.set('hskExam', null); return; }
+  store.set('hskExam', { testId:E.testId, phase:E.phase, answers:E.answers, remaining:E.remaining, plays:E.plays, free:E.free, t:Date.now() });
+}
+function hskSaved(){ const s = store.get('hskExam', null); return (s && s.phase === 'doing' && _HX.some(x => x.id === s.testId)) ? s : null; }
+function hskStart(id, level){
+  let quick = null;
+  if (id === 'quick'){ quick = hskQuick(level || zhPracLevel()); id = quick.id; }
+  const t = quick || _HX.find(x => x.id === id); if (!t) return;
+  state.zh.exam = { testId:id, phase:'doing', answers:{}, remaining:t.minutes * 60, paused:false, plays:{}, free:false, quick, filter:'all' };
+  hskSave(); render(); window.scrollTo({ top:0 });
+}
+function hskResume(){
+  const s = hskSaved(); if (!s) return;
+  state.zh.exam = { testId:s.testId, phase:'doing', answers:s.answers || {}, remaining:s.remaining, paused:true, plays:s.plays || {}, free:!!s.free, quick:null, filter:'all' };
+  render(); window.scrollTo({ top:0 });
+}
+function hskStop(){ if (hskTimerId){ clearInterval(hskTimerId); hskTimerId = null; } }
+function hskMount(){
+  hskStop();
+  hskTimerId = setInterval(() => {
+    const E = state.zh.exam, el = $('#hskTimer');
+    if (!E || E.phase !== 'doing' || !el){ hskStop(); return; }
+    if (E.paused) return;
     E.remaining--;
-    const el = $('#zhExamTimer'); if (el) el.textContent = zhFmtTime(E.remaining);
-    if (E.remaining <= 0){ zhExamStop(); E.phase = 'done'; render(); }
+    el.textContent = topikClock(E.remaining);
+    if (E.remaining <= 60) el.classList.add('low');
+    if (E.remaining % 15 === 0) hskSave();
+    if (E.remaining <= 0){ hskStop(); E.phase = 'done'; hskSave(); render(); window.scrollTo({ top:0 }); }
   }, 1000);
 }
+function hskNorm(s){ return String(s || '').replace(/[\s，。！？、,.!?;；:："'“”‘’()（）]/g, ''); }
+function hskHan(s){ return (String(s || '').match(/[一-鿿]/g) || []).length; }
+/* Chấm một câu → 1 (đúng) / 0.5 (đạt một phần, chỉ với bài viết) / 0 */
+function hskCheck(q, a){
+  if (a == null || a === '' || (Array.isArray(a) && !a.length)) return 0;
+  const alts = [q.ans].concat(q.alt || []);
+  if (q.t === 'order'){ const s = Array.isArray(a) ? a.map(i => q.parts[i]).join('') : String(a); return alts.some(x => hskNorm(x) === hskNorm(s)) ? 1 : 0; }
+  if (q.t === 'char'){ return alts.indexOf(String(a).trim()) >= 0 ? 1 : 0; }
+  if (q.t === 'sent'){ const s = String(a), h = hskHan(s); return (h >= 5 && s.indexOf(q.word) >= 0) ? 1 : (h >= 5 ? 0.5 : 0); }
+  if (q.t === 'essay'){
+    const s = String(a), h = hskHan(s), need = q.words || [], hit = need.filter(w => s.indexOf(w) >= 0).length, min = q.min || 80;
+    if (h >= min && hit === need.length) return 1;
+    if (h >= min * 0.6 && (need.length ? hit >= Math.ceil(need.length / 2) : true)) return 0.5;
+    return 0;
+  }
+  return (+a === q.c) ? 1 : 0;
+}
+function hskAnswered(a){ return !(a == null || a === '' || (Array.isArray(a) && !a.length)); }
+function hskGrade(t){
+  const E = state.zh.exam, flat = hskFlat(t);
+  const secs = (t.sections || []).map((s, si) => {
+    const items = flat.filter(f => f.si === si);
+    const got = items.reduce((acc, f) => acc + hskCheck(f.q, E.answers[f.no]), 0);
+    return { id:s.id, name:s.name, vi:s.vi, got, total:items.length, score: items.length ? Math.round(got / items.length * 100) : 0 };
+  });
+  const got = secs.reduce((a, s) => a + s.got, 0), total = flat.length;
+  const maxScore = t.maxScore || secs.length * 100;
+  const score = t.quick ? Math.round(got / total * 100) : secs.reduce((a, s) => a + s.score, 0);
+  const unanswered = flat.filter(f => !hskAnswered(E.answers[f.no])).length;
+  return { secs, got, total, score, maxScore, pass: t.pass || Math.round(maxScore * 0.6), unanswered };
+}
+function hskSpeech(a){ return String(a || '').replace(/[男女甲乙]：/g, '').replace(/问：/g, '问，'); }
+const HSK_LETTERS = 'ABCDEF';
+function hskGuide(){
+  return `
+  <div class="tk-guide">
+    <div class="tkg-card">
+      <h4>HSK là gì?</h4>
+      <p><b>HSK</b> (<span class="ko">汉语水平考试</span> · Hànyǔ Shuǐpíng Kǎoshì) là kỳ thi năng lực Hán ngữ tiêu chuẩn quốc tế dành cho người không nói tiếng Trung như tiếng mẹ đẻ, do <b>Trung tâm Hợp tác Giao lưu Ngôn ngữ Trung Quốc – Nước ngoài</b> (CLEC, thuộc Bộ Giáo dục Trung Quốc; trước đây gọi là Hanban) ban hành và <b>Chinese Testing International</b> (汉考国际) tổ chức trên toàn cầu.</p>
+      <p>Chứng chỉ được công nhận rộng rãi tại Trung Quốc và nhiều nước; kỳ thi tổ chức nhiều đợt mỗi năm, thi trên giấy hoặc thi trên máy.</p>
+    </div>
+    <div class="tkg-card">
+      <h4>Dùng để làm gì?</h4>
+      <ul>
+        <li><b>Du học Trung Quốc:</b> điều kiện bắt buộc với đa số chương trình (thường HSK 4 cho đại học, HSK 5 cho cao học; nhiều học bổng yêu cầu thêm HSKK).</li>
+        <li><b>Xin việc:</b> công ty Trung Quốc/Đài Loan, doanh nghiệp FDI, biên–phiên dịch, xuất khẩu lao động.</li>
+        <li><b>Đánh giá trình độ:</b> chuẩn đầu ra ngành tiếng Trung ở nhiều trường đại học Việt Nam.</li>
+        <li>Kết quả có sau khoảng <b>2–4 tuần</b>; chứng chỉ thường được xét trong <b>2 năm</b> khi nộp hồ sơ du học.</li>
+      </ul>
+    </div>
+    <div class="tkg-card wide">
+      <h4>6 cấp độ HSK &amp; cấu trúc đề</h4>
+      <div class="tkg-table hsk">
+        <div class="tkg-row head"><span>Cấp</span><span>Từ vựng</span><span>Kỹ năng · số câu</span><span>Thời gian · điểm đạt</span></div>
+        <div class="tkg-row"><span><b>HSK 1</b><br><small>Sơ cấp · A1</small></span><span>150 từ</span><span>Nghe 20 · Đọc 20</span><span>≈ 40 phút · 200 điểm, đạt ≥ 120</span></div>
+        <div class="tkg-row"><span><b>HSK 2</b><br><small>Sơ cấp · A2</small></span><span>300 từ</span><span>Nghe 35 · Đọc 25</span><span>≈ 55 phút · 200 điểm, đạt ≥ 120</span></div>
+        <div class="tkg-row"><span><b>HSK 3</b><br><small>Trung cấp · B1</small></span><span>600 từ</span><span>Nghe 40 · Đọc 30 · Viết 10</span><span>≈ 90 phút · 300 điểm, đạt ≥ 180</span></div>
+        <div class="tkg-row"><span><b>HSK 4</b><br><small>Trung cấp · B2</small></span><span>1.200 từ</span><span>Nghe 45 · Đọc 40 · Viết 15</span><span>≈ 105 phút · 300 điểm, đạt ≥ 180</span></div>
+        <div class="tkg-row"><span><b>HSK 5</b><br><small>Cao cấp · C1</small></span><span>2.500 từ</span><span>Nghe 45 · Đọc 45 · Viết 10</span><span>≈ 125 phút · 300 điểm, đạt ≥ 180</span></div>
+        <div class="tkg-row"><span><b>HSK 6</b><br><small>Cao cấp · C2</small></span><span>5.000+ từ</span><span>Nghe 50 · Đọc 50 · Viết 1 (tóm tắt)</span><span>≈ 140 phút · 300 điểm, đạt ≥ 180</span></div>
+      </div>
+      <p class="tkg-note">Mỗi kỹ năng chấm tối đa 100 điểm. HSK 1–2 có kèm pinyin trong đề; từ HSK 3 không còn pinyin và có phần Viết (sắp xếp từ thành câu, viết chữ theo pinyin; HSK 4 viết câu theo tranh; HSK 5 viết đoạn 80 chữ; HSK 6 tóm tắt bài đọc 1.000 chữ thành 400 chữ). Phần Nghe: HSK 1–3 mỗi câu phát <b>2 lần</b>, HSK 4–6 phát <b>1 lần</b>. Kỳ thi nói <b>HSKK</b> (sơ – trung – cao cấp) thi riêng.</p>
+      <p class="tkg-note">Từ 2021, Trung Quốc công bố chuẩn mới “HSK 3.0” với 9 cấp; hiện các cấp 1–6 vẫn thi theo dạng thức trên, cấp 7–9 là một bài thi riêng dành cho trình độ rất cao.</p>
+    </div>
+    <div class="tkg-card">
+      <h4>Đăng ký thi</h4>
+      <ul>
+        <li>Đăng ký trực tuyến tại <b>www.chinesetest.cn</b> (chọn điểm thi, ngày thi, thi giấy hay thi máy), nộp lệ phí theo hướng dẫn của điểm thi.</li>
+        <li>Tại Việt Nam có điểm thi ở nhiều trường đại học lớn (Hà Nội, TP.HCM, Huế, Thái Nguyên…); mỗi năm nhiều đợt, hạn đăng ký thường trước ngày thi ~1 tháng (thi giấy) hoặc ~10 ngày (thi máy).</li>
+        <li>Mang giấy báo dự thi + giấy tờ tuỳ thân; thi giấy dùng bút chì 2B.</li>
+      </ul>
+    </div>
+    <div class="tkg-card">
+      <h4>Gợi ý chiến lược ôn</h4>
+      <ul>
+        <li>Nắm chắc <b>bộ từ vựng của cấp</b> (khoá học trong LangLab bám sát); HSK 3+ phải viết được chữ, không chỉ nhận mặt.</li>
+        <li>Nghe: tập đoán tình huống từ vài từ khoá, ghi nhanh số liệu/thời gian.</li>
+        <li>Đọc: đọc câu hỏi trước rồi tìm ý; câu điền từ chú ý từ loại (danh/động/tính/lượng từ).</li>
+        <li>Viết: sắp xếp câu theo trật tự <i>chủ ngữ – thời gian – nơi chốn – động từ – tân ngữ</i>; luyện đoạn 80 chữ có mở–thân–kết.</li>
+        <li>Làm đề <b>đúng thời gian</b>, sau đó xem giải thích từng câu sai.</li>
+      </ul>
+    </div>
+  </div>`;
+}
+function hskList(){
+  const saved = hskSaved();
+  const lvls = _ZC.levels.filter(v => v.status === 'active');
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Trung · Thi thử HSK</span>
+    <h1>Thi thử HSK</h1>
+    <p>Tìm hiểu kỳ thi HSK và luyện với <b>đề đầy đủ đúng cấu trúc đề thật</b> — có <b>bấm giờ</b>, <b>tạm dừng</b>, nộp bài, chấm điểm từng kỹ năng và <b>đáp án kèm giải thích</b>. Câu Nghe phát bằng giọng đọc của máy (bấm “Nghe”), tranh minh hoạ bằng biểu tượng. Đề do LangLab tự soạn theo dạng thức, không phải đề thi chính thức.</p>
+  </div>
+  ${saved ? `<div class="hsk-resume"><div><b>Bạn có đề đang làm dở:</b> ${esc((_HX.find(x => x.id === saved.testId) || {}).title || saved.testId)} · còn ${topikClock(saved.remaining)} · đã làm ${Object.keys(saved.answers || {}).length} câu</div>
+    <div class="tk-bar-btns"><button class="pbtn primary" data-hsk-resume="1">Tiếp tục làm</button><button class="pbtn" data-hsk-discard="1">Bỏ đề này</button></div></div>` : ''}
+  ${hskGuide()}
+  <h2 class="tk-list-title">Chọn một đề để bắt đầu</h2>
+  ${lvls.map(v => {
+    const tests = _HX.filter(t => t.level === v.id);
+    return `<h3 class="tk-band-title">${esc(v.vi)} · ${tests.length} đề đầy đủ + kiểm tra nhanh</h3>
+    <div class="topik-list">
+      ${tests.map(t => { const n = hskFlat(t).length; return `
+        <div class="topik-card">
+          <span class="tk-badge">${esc(t.badge)}</span>
+          <h3>${esc(t.title)}</h3>
+          <p class="tk-meta">${n} câu · ${t.minutes} phút · ${t.sections.map(s => `${esc(s.name)} ${hskFlat(t).filter(f => f.sec === s).length}`).join(' · ')}</p>
+          <p class="tk-official">${esc(t.official)}</p>
+          <button class="pbtn primary" data-hsk-start="${t.id}">Bắt đầu làm bài</button>
+        </div>`; }).join('')}
+      <div class="topik-card quick">
+        <span class="tk-badge">${esc(v.zh)} · nhanh</span>
+        <h3>Kiểm tra nhanh từ vựng ${esc(v.zh)}</h3>
+        <p class="tk-meta">20 câu · 8 phút · sinh ngẫu nhiên mỗi lần</p>
+        <p class="tk-official">Đoán nghĩa, chọn chữ, chọn pinyin từ ${zhPool(v.id).length} từ của cấp. Không theo cấu trúc đề thật — dùng để ôn từ.</p>
+        <button class="pbtn" data-hsk-start="quick" data-hsk-level="${v.id}">Làm nhanh</button>
+      </div>
+    </div>`;
+  }).join('')}
+  <p class="tk-disclaimer">Đề do LangLab biên soạn theo cấu trúc HSK (2.0) để luyện tập, không phải đề thi chính thức của Chinese Testing International. Điểm số chỉ ước lượng theo tỉ lệ câu đúng; phần Viết chấm tự động theo tiêu chí đơn giản (đủ độ dài, dùng đúng từ cho trước) — hãy tự đối chiếu với bài mẫu.</p>`;
+}
+function hskOptLabel(t, q, o, oi){
+  if (q.t === 'tf') return `<span class="hsk-tf">${oi === 0 ? '√' : '×'}</span><span>${oi === 0 ? '对 · Đúng' : '错 · Sai'}</span>`;
+  if (q.t === 'pic') return `<span class="tk-onum">${HSK_LETTERS[oi]}</span><span class="hsk-pic sm">${esc(o)}</span>`;
+  const isPic = /^\p{Extended_Pictographic}/u.test(String(o));
+  return `<span class="tk-onum">${HSK_LETTERS[oi]}</span><span class="${isPic ? 'hsk-pic sm' : (q.oc === 'py' ? 'py' : 'ko')}">${esc(o)}</span>`;
+}
+function hskQ(t, S, f, review){
+  const q = f.q, no = f.no, a = S.answers[no], E = S;
+  const sec = f.sec, tag = `${esc(sec.name)} · ${esc(sec.vi)}`;
+  const res = review ? hskCheck(q, a) : null;
+  const status = review ? (res === 1 ? '<span class="tk-ok">✓ Đúng</span>' : res === 0.5 ? '<span class="hsk-half">◐ Đạt một phần</span>' : `<span class="tk-no">✗ ${hskAnswered(a) ? 'Sai' : 'Chưa làm'}</span>`) : '';
+  if (review && S.filter === 'wrong' && res === 1) return '';
+  let head = '';
+  if (q.k === 'listen'){
+    const limit = E.free ? Infinity : (t.plays == null ? 2 : t.plays);
+    const used = E.plays[no] || 0, left = limit - used;
+    head = `<button class="pbtn" data-hsk-play="${no}"${(!review && left <= 0) ? ' disabled' : ''}><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg> ${review ? 'Nghe lại' : 'Nghe câu ' + no}${(!review && limit !== Infinity) ? ` <small>(còn ${Math.max(0, left)} lần)</small>` : ''}</button>`
+      + (review ? `<div class="tk-passage ko hsk-script">${esc(q.a)}</div>` : '');
+  } else if (q.p) head = `<div class="tk-passage ko">${esc(q.p)}</div>`;
+  const pic = q.pic ? `<div class="hsk-pic">${esc(q.pic)}</div>` : '';
+  const body = q.html ? `<div class="qz-main sm">${q.html}</div>` : '';
+  const qtext = q.q ? `<div class="tk-q-text ko">${q.py ? `<span class="py hsk-py">${esc(q.py)}</span><br>` : ''}${esc(q.q)}</div>` : '';
+  let opts = '';
+  if (q.t === 'tf' || q.t === 'pic' || q.t === 'mc' || q.t === 'bank'){
+    const list = q.t === 'tf' ? ['√','×'] : q.t === 'bank' ? (f.part.bank || []) : (q.o || []);
+    opts = `<div class="tk-opts${q.t === 'pic' || (q.t === 'bank' && list.some(o => /^\p{Extended_Pictographic}/u.test(String(o)))) ? ' hsk-row' : ''}${q.t === 'tf' ? ' hsk-row' : ''}">${list.map((o, oi) => {
+      const on = +a === oi;
+      if (review) return `<div class="tk-opt${oi === q.c ? ' correct' : ''}${on && oi !== q.c ? ' wrong' : ''}">${hskOptLabel(t, q, o, oi)}</div>`;
+      return `<button class="tk-opt${on ? ' on' : ''}" data-hsk-ans="${no}" data-opt="${oi}">${hskOptLabel(t, q, o, oi)}</button>`;
+    }).join('')}</div>`;
+  } else if (q.t === 'order'){
+    const chosen = Array.isArray(a) ? a : [];
+    const line = chosen.map(i => `<span class="hsk-chunk on">${esc(q.parts[i])}</span>`).join('') || '<span class="hsk-hint">Bấm các từ bên dưới theo đúng thứ tự…</span>';
+    opts = `<div class="hsk-order">
+      <div class="hsk-order-line ko">${line}${(!review && chosen.length) ? `<button class="mini" data-hsk-ord-clear="${no}">↺ Xoá</button>` : ''}</div>
+      ${review ? '' : `<div class="hsk-order-pool">${q.parts.map((p, i) => `<button class="hsk-chunk ko" data-hsk-ord="${no}" data-ci="${i}"${chosen.indexOf(i) >= 0 ? ' disabled' : ''}>${esc(p)}</button>`).join('')}</div>`}
+      ${review ? `<div class="hsk-answer">Đáp án: <b class="ko">${esc(q.ans)}</b>${q.alt && q.alt.length ? ` <i>(hoặc: ${q.alt.map(esc).join(' / ')})</i>` : ''}</div>` : ''}
+    </div>`;
+  } else if (q.t === 'char'){
+    opts = review
+      ? `<div class="hsk-answer">Bạn viết: <b class="ko">${esc(a || '—')}</b> · Đáp án: <b class="ko">${esc(q.ans)}</b></div>`
+      : `<div class="hsk-inline"><span class="py hsk-py">${esc(q.py || '')}</span><input class="hsk-in ko" data-hsk-in="${no}" maxlength="4" value="${esc(a || '')}" placeholder="chữ" autocomplete="off"></div>`;
+  } else if (q.t === 'sent' || q.t === 'essay'){
+    const n = hskHan(a);
+    const words = q.words ? `<div class="hsk-words">${q.words.map(w => `<span class="ko hsk-chunk${review && String(a || '').indexOf(w) >= 0 ? ' on' : ''}">${esc(w)}</span>`).join('')}</div>` : (q.word ? `<div class="hsk-words"><span class="ko hsk-chunk${review && String(a || '').indexOf(q.word) >= 0 ? ' on' : ''}">${esc(q.word)}</span></div>` : '');
+    opts = words + (review
+      ? `<div class="hsk-answer"><div>Bài của bạn (${n} chữ Hán):</div><div class="tk-passage ko">${esc(a || '—')}</div><div>Bài mẫu tham khảo:</div><div class="tk-passage ko">${esc(q.model || '')}</div></div>`
+      : `<textarea class="hsk-in ko hsk-ta" data-hsk-in="${no}" rows="${q.t === 'essay' ? 5 : 2}" placeholder="${q.t === 'essay' ? 'Viết đoạn văn ít nhất ' + (q.min || 80) + ' chữ…' : 'Viết một câu có dùng từ cho trước…'}">${esc(a || '')}</textarea><div class="hsk-cnt" id="hskCnt${no}">${n} chữ Hán${q.min ? ' / tối thiểu ' + q.min : ''}</div>`);
+  }
+  return `<div class="tk-q hsk-q${review ? (res === 1 ? ' ok' : ' bad') : ''}" id="hskQ${no}">
+    <div class="tk-q-no">Câu ${no} <span class="tk-tag">${tag}</span> ${status}</div>
+    ${head}${pic}${body}${qtext}${opts}
+    ${review && q.e ? `<div class="tk-explain"><b>Giải thích:</b> ${esc(q.e)}</div>` : ''}
+  </div>`;
+}
+function hskPart(t, S, si, pi, part, review){
+  const flat = hskFlat(t).filter(f => f.si === si && f.pi === pi);
+  const first = flat[0] ? flat[0].no : 0, last = flat.length ? flat[flat.length - 1].no : 0;
+  const head = `<div class="tk-section"${pi === 0 ? ` id="hskS-${t.sections[si].id}"` : ''}>
+    <span class="tk-sec-ko ko">${esc(t.sections[si].name)}${part.title ? ' · ' + esc(part.title) : ''} · 第${first}–${last}题</span>
+    <span class="tk-sec-ko ko">${esc(part.ins || '')}</span>
+    <span class="tk-sec-vi">${esc(part.vi || '')}</span>
+  </div>`;
+  const bank = part.bank ? `<div class="hsk-bank${part.bank.some(o => /^\p{Extended_Pictographic}/u.test(String(o))) ? ' pics' : ''}">${part.bank.map((o, oi) => `<span class="hsk-bank-it"><span class="tk-onum">${HSK_LETTERS[oi]}</span><span class="ko">${esc(o)}</span></span>`).join('')}</div>` : '';
+  const ex = (part.example ? `<div class="hsk-example">${esc(part.example)}</div>` : '')
+    + (part.p ? `<div class="tk-passage ko hsk-part-p">${esc(part.p)}</div>` : '');
+  const qs = flat.map(f => hskQ(t, S, f, review)).join('');
+  if (review && !qs.trim()) return '';
+  return head + bank + ex + qs;
+}
+function hskBar(t, S){
+  const flat = hskFlat(t);
+  const tabs = t.sections.map(s => { const items = flat.filter(f => f.sec === s); const done = items.filter(f => hskAnswered(S.answers[f.no])).length;
+    return `<button class="hsk-tab" data-hsk-jump="hskS-${s.id}"><span class="ko">${esc(s.name)}</span> ${done}/${items.length}</button>`; }).join('');
+  return `
+  <div class="topik-bar" id="hskBar">
+    <div class="tk-bar-info"><span class="eyebrow">${esc(t.badge)}</span><b>${esc(t.title)}</b></div>
+    <div class="tk-timer${S.paused ? ' paused' : ''}${S.remaining <= 60 ? ' low' : ''}" id="hskTimer">${topikClock(S.remaining)}</div>
+    <div class="tk-bar-btns">
+      <button class="pbtn" data-hsk-exit="1">← Chọn đề khác</button>
+      <button class="pbtn" data-hsk-pause="1">${S.paused ? '▶ Tiếp tục' : '⏸ Tạm dừng'}</button>
+      <button class="pbtn" data-hsk-reset="1">Làm lại</button>
+      <button class="pbtn primary" data-hsk-submit="1">Nộp bài</button>
+    </div>
+    <div class="hsk-tabs">${tabs}${t.plays ? `<label class="hsk-free"><input type="checkbox" data-hsk-free="1"${S.free ? ' checked' : ''}> Nghe không giới hạn</label>` : ''}</div>
+  </div>`;
+}
+function hskResult(t){
+  const S = state.zh.exam, g = hskGrade(t);
+  const used = topikClock(t.minutes * 60 - Math.max(0, S.remaining));
+  const passed = g.score >= g.pass;
+  return `
+  <div class="page-head">
+    <span class="eyebrow">${esc(t.badge)} · Kết quả</span>
+    <h1>${g.score}/${g.maxScore} điểm · ${passed ? 'ĐẠT' : 'chưa đạt'}</h1>
+    <p>${Math.round(g.got)}/${g.total} câu đúng · thời gian đã dùng ${used} / ${t.minutes} phút · mức đạt ${g.pass} điểm. ${passed ? (g.score >= g.maxScore * 0.85 ? 'Xuất sắc! 🎉' : 'Chúc mừng, bạn đã vượt ngưỡng.') : 'Xem lại các câu sai bên dưới rồi thử lại nhé.'}</p>
+    <div class="hsk-secs">${g.secs.map(s => `<div class="hsk-sec ${s.score >= 60 ? 'ok' : 'bad'}"><b class="ko">${esc(s.name)}</b><span>${esc(s.vi)}</span><i>${s.score}/100</i><small>${Math.round(s.got * 10) / 10}/${s.total} câu</small></div>`).join('')}</div>
+    <p class="tk-note-small">Điểm ước lượng theo tỉ lệ câu đúng của từng kỹ năng (mỗi kỹ năng 100 điểm), không phải cách chấm chính thức. Bài viết chấm tự động theo tiêu chí đơn giản — hãy đối chiếu với bài mẫu.</p>
+    <div class="wp-actions" style="padding:6px 0 0">
+      <button class="pbtn primary" data-hsk-retry="${esc(t.id)}"${t.quick ? ` data-hsk-level="${esc(t.level)}"` : ''}>Làm lại đề này</button>
+      <button class="pbtn" data-hsk-home="1">← Chọn đề khác</button>
+      <button class="pbtn" data-hsk-filter="${S.filter === 'wrong' ? 'all' : 'wrong'}">${S.filter === 'wrong' ? 'Hiện tất cả câu' : 'Chỉ hiện câu sai'}</button>
+    </div>
+  </div>
+  <div class="topik-quiz review">
+    ${t.sections.map((s, si) => s.parts.map((p, pi) => hskPart(t, S, si, pi, p, true)).join('')).join('')}
+  </div>`;
+}
+/* Vẽ lại một câu tại chỗ (giữ vị trí cuộn) + cập nhật đếm câu đã làm trên thanh */
+function hskRefreshQ(no){
+  const E = state.zh.exam, T = E && hskFind(E.testId); if (!T) return;
+  const f = hskFlat(T).find(x => x.no === no), el = document.getElementById('hskQ' + no);
+  if (f && el){ const tmp = document.createElement('div'); tmp.innerHTML = hskQ(T, E, f, false); el.replaceWith(tmp.firstElementChild); }
+  const bar = $('#hskBar'); if (bar){ const tmp = document.createElement('div'); tmp.innerHTML = hskBar(T, E); bar.querySelector('.hsk-tabs').innerHTML = tmp.querySelector('.hsk-tabs').innerHTML; }
+}
+VIEWS.zh_exam = function(){
+  const S = state.zh.exam;
+  if (!S || !S.testId) return hskList();
+  const t = hskFind(S.testId);
+  if (!t){ state.zh.exam = null; return hskList(); }
+  if (S.phase === 'done') return hskResult(t);
+  return hskBar(t, S) + `
+  ${S.paused ? `<div class="hsk-paused"><b>⏸ Đang tạm dừng</b><span>Đề được che lại. Bấm “Tiếp tục” để làm tiếp — đồng hồ đang dừng.</span><button class="pbtn primary" data-hsk-pause="1">▶ Tiếp tục</button></div>` : ''}
+  <div class="topik-quiz${S.paused ? ' paused' : ''}">
+    ${t.sections.map((s, si) => s.parts.map((p, pi) => hskPart(t, S, si, pi, p, false)).join('')).join('')}
+  </div>
+  <div class="topik-foot"><button class="pbtn primary" data-hsk-submit="1">Nộp bài · chấm điểm</button></div>`;
+};
 
 /* ---------------- Hanzi Writer ---------------- */
 let zhWriter = null;
@@ -14148,10 +15133,42 @@ document.addEventListener('click', e => {
   const zqz = t.closest('[data-zh-qz]');
   if (zqz){ const Q = state.zh.quiz; if (Q && Q.picked[Q.i] == null){ Q.picked[Q.i] = zqz.dataset.zhQz; render(); } return; }
   if (t.closest('[data-zh-qz-next]')){ if (state.zh.quiz){ state.zh.quiz.i++; render(); } return; }
-  if (t.closest('[data-zh-ex-start]')){ state.zh.exam = { qs: zhMakeQuestions(20), picked:{}, phase:'doing', remaining:480 }; render(); return; }
-  const zex = t.closest('[data-zh-ex-pick]');
-  if (zex){ if (state.zh.exam){ state.zh.exam.picked[+zex.dataset.zhExI] = zex.dataset.zhExPick; render(); } return; }
-  if (t.closest('[data-zh-ex-submit]')){ if (state.zh.exam){ zhExamStop(); state.zh.exam.phase = 'done'; render(); } return; }
+  /* ----- thi thử HSK ----- */
+  const hs = t.closest('[data-hsk-start]');
+  if (hs){ hskStart(hs.dataset.hskStart, hs.dataset.hskLevel); return; }
+  if (t.closest('[data-hsk-resume]')){ hskResume(); return; }
+  if (t.closest('[data-hsk-discard]')){ store.set('hskExam', null); render(); return; }
+  const ha = t.closest('[data-hsk-ans]');
+  if (ha){ const E = state.zh.exam; if (E && E.phase === 'doing' && !E.paused){ E.answers[+ha.dataset.hskAns] = +ha.dataset.opt; hskSave();
+      // cập nhật tại chỗ, không vẽ lại cả đề (giữ vị trí cuộn)
+      const box = ha.parentElement; $$('.tk-opt', box).forEach(b => b.classList.toggle('on', b === ha));
+      const bar = $('#hskBar'); if (bar){ const tmp = document.createElement('div'); tmp.innerHTML = hskBar(hskFind(E.testId), E); bar.querySelector('.hsk-tabs').innerHTML = tmp.querySelector('.hsk-tabs').innerHTML; } }
+    return; }
+  const hp = t.closest('[data-hsk-play]');
+  if (hp){ const E = state.zh.exam, T = E && hskFind(E.testId); if (!T) return;
+    const no = +hp.dataset.hskPlay, f = hskFlat(T).find(x => x.no === no); if (!f) return;
+    if (E.phase === 'doing'){ if (E.paused) return; const limit = E.free ? Infinity : (T.plays == null ? 2 : T.plays); const used = E.plays[no] || 0; if (used >= limit) return;
+      E.plays[no] = used + 1; hskSave(); const left = limit - E.plays[no];
+      if (limit !== Infinity){ const s = hp.querySelector('small'); if (s) s.textContent = `(còn ${left} lần)`; if (left <= 0) hp.disabled = true; } }
+    zhSpeak(hskSpeech(f.q.a)); return; }
+  const ho = t.closest('[data-hsk-ord]');
+  if (ho){ const E = state.zh.exam; if (E && E.phase === 'doing' && !E.paused){ const no = +ho.dataset.hskOrd; const arr = Array.isArray(E.answers[no]) ? E.answers[no].slice() : []; arr.push(+ho.dataset.ci); E.answers[no] = arr; hskSave(); hskRefreshQ(no); } return; }
+  const hoc = t.closest('[data-hsk-ord-clear]');
+  if (hoc){ const E = state.zh.exam; if (E){ delete E.answers[+hoc.dataset.hskOrdClear]; hskSave(); hskRefreshQ(+hoc.dataset.hskOrdClear); } return; }
+  const hj = t.closest('[data-hsk-jump]');
+  if (hj){ const el = document.getElementById(hj.dataset.hskJump); if (el) el.scrollIntoView({ behavior:'smooth', block:'start' }); return; }
+  if (t.closest('[data-hsk-pause]')){ const E = state.zh.exam; if (E && E.phase === 'doing'){ E.paused = !E.paused; if (E.paused){ try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch(e){} } hskSave(); render(); } return; }
+  if (t.closest('[data-hsk-reset]')){ const E = state.zh.exam; if (E && confirm('Làm lại từ đầu? Toàn bộ câu trả lời và thời gian sẽ được đặt lại.')){ const T = hskFind(E.testId); hskStop(); hskStart(T && T.quick ? 'quick' : E.testId, T && T.level); } return; }
+  if (t.closest('[data-hsk-submit]')){ const E = state.zh.exam; if (E && E.phase === 'doing'){ const T = hskFind(E.testId); const g = T ? hskGrade(T) : { unanswered:0 };
+      if (g.unanswered > 0 && !confirm(`Còn ${g.unanswered} câu chưa làm. Nộp bài luôn?`)) return;
+      hskStop(); E.phase = 'done'; E.paused = false; store.set('hskExam', null); render(); window.scrollTo({ top:0 }); } return; }
+  const hr = t.closest('[data-hsk-retry]');
+  if (hr){ const E = state.zh.exam; const T = E && hskFind(E.testId); hskStart(T && T.quick ? 'quick' : hr.dataset.hskRetry, hr.dataset.hskLevel || (T && T.level)); return; }
+  if (t.closest('[data-hsk-home]') || t.closest('[data-hsk-exit]')){ const E = state.zh.exam;
+    if (E && E.phase === 'doing'){ if (!confirm('Thoát ra danh sách đề? Bài đang làm sẽ được lưu để tiếp tục sau (trừ đề kiểm tra nhanh).')) return; E.paused = true; hskSave(); }
+    hskStop(); state.zh.exam = null; render(); window.scrollTo({ top:0 }); return; }
+  const hf = t.closest('[data-hsk-filter]');
+  if (hf){ if (state.zh.exam){ state.zh.exam.filter = hf.dataset.hskFilter; render(); } return; }
 
   const nav = t.closest('[data-go]');
   if (nav){ go(nav.dataset.go); return; }
@@ -14388,6 +15405,14 @@ document.addEventListener('keydown', e => {
   }
 });
 
+/* hộp kiểm "Nghe không giới hạn" trong đề HSK */
+document.addEventListener('change', e => {
+  if (e.target.dataset && e.target.dataset.hskFree != null){
+    const E = state.zh.exam; if (!E || E.phase !== 'doing') return;
+    E.free = !!e.target.checked; hskSave(); render();
+  }
+});
+
 /* tìm nhanh trên thanh trên cùng + ô chuyển số */
 document.addEventListener('input', e => {
   if (e.target.id === 'numInput'){
@@ -14402,6 +15427,15 @@ document.addEventListener('input', e => {
     return;
   }
   if (e.target.id === 'zhq'){ const box = $('#zhResults'); if (box) box.innerHTML = zhDictResults(e.target.value); return; }
+  if (e.target.dataset && e.target.dataset.hskIn != null){            // ô viết chữ / câu / đoạn trong đề HSK
+    const E = state.zh.exam; if (!E || E.phase !== 'doing') return;
+    const no = +e.target.dataset.hskIn, v = e.target.value;
+    if (v.trim()) E.answers[no] = v; else delete E.answers[no];
+    const T = hskFind(E.testId), f = T && hskFlat(T).find(x => x.no === no);
+    const c = document.getElementById('hskCnt' + no); if (c && f) c.textContent = `${hskHan(v)} chữ Hán${f.q.min ? ' / tối thiểu ' + f.q.min : ''}`;
+    clearTimeout(hskSaveT); hskSaveT = setTimeout(() => { hskSave(); const bar = $('#hskBar'); if (bar && T){ const tmp = document.createElement('div'); tmp.innerHTML = hskBar(T, E); bar.querySelector('.hsk-tabs').innerHTML = tmp.querySelector('.hsk-tabs').innerHTML; } }, 400);
+    return;
+  }
   if (e.target.id !== 'topq') return;
   const v = e.target.value.trim();
   if (!v) return;

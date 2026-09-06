@@ -1818,7 +1818,7 @@ function render(){
     : `<button class="crumb-link" data-go="home">Tiếng Hàn</button> <span>›</span> <b>${CRUMBS[state.view]}</b>`;
 
   if (isZh) (window.requestAnimationFrame ? requestAnimationFrame : (f => setTimeout(f, 16)))(zhMount);
-  if (state.view === 'zh_exam' && state.zh.exam && state.zh.exam.phase === 'doing') zhExamStart(); else zhExamStop();
+  if (state.view === 'zh_exam' && state.zh.exam && state.zh.exam.phase === 'doing') hskMount(); else hskStop();
   if (state.view === 'write') mountWrite();
   if (state.view === 'dict'){ mountDict(); loadDict(added => { if (added && state.view === 'dict') render(); }); }
   if (state.view === 'shadow'){
@@ -2269,49 +2269,315 @@ VIEWS.zh_quiz = function(){
     <div class="stage-ctrl"><button class="pbtn primary" data-zh-qz-next="1">${Q.i + 1 < Q.qs.length ? 'Câu sau →' : 'Xem kết quả'}</button></div>` : ''}`;
 };
 
-VIEWS.zh_exam = function(){
-  const E = state.zh.exam;
-  if (!E || E.phase === 'intro' || !E.qs){
-    return `
-    <div class="page-head"><span class="eyebrow">Tiếng Trung · Thi thử HSK</span><h1>Thi thử ${zhPracLevel() === 'all' ? 'HSK' : esc(zhLevelName(zhPracLevel()))} (luyện tập)</h1>
-      <p>20 câu trắc nghiệm từ vốn từ ${zhPracLevel() === 'all' ? 'mọi cấp' : esc(zhLevelName(zhPracLevel()))}, có <b>đồng hồ đếm ngược 8 phút</b>. Làm hết rồi bấm Nộp bài để chấm — hoặc hết giờ tự nộp. Đây là đề luyện tự soạn, không phải đề chính thức.</p></div>
-    ${zhLevelChips('data-zh-prac', zhPracLevel(), true)}
-    <div class="stage-ctrl"><button class="pbtn primary" data-zh-ex-start="1">▶ Bắt đầu thi</button></div>`;
-  }
-  if (E.phase === 'done'){
-    const score = E.qs.filter((q, i) => E.picked[i] === q.answer).length, pct = Math.round(score / E.qs.length * 100);
-    return `
-    <div class="page-head"><span class="eyebrow">Tiếng Trung · Thi thử HSK</span><h1>Kết quả: ${score}/${E.qs.length} (${pct}%)</h1>
-      <p>${pct >= 80 ? 'Xuất sắc!' : pct >= 60 ? 'Đạt rồi!' : 'Cần ôn thêm nhé.'}</p></div>
-    <div class="qz-review">${E.qs.map((q, i) => `<div class="qz-rev ${E.picked[i] === q.answer ? 'ok' : 'no'}"><span>${E.picked[i] === q.answer ? '✓' : '✗'}</span> ${esc(q.explain)}${E.picked[i] && E.picked[i] !== q.answer ? ` <i>(bạn chọn: ${esc(E.picked[i])})</i>` : ''}</div>`).join('')}</div>
-    <div class="stage-ctrl"><button class="pbtn primary" data-zh-ex-start="1">↻ Thi lại</button></div>`;
-  }
-  return `
-  <div class="zh-exam-head">
-    <div><span class="eyebrow">Tiếng Trung · Thi thử HSK</span><h1>Đề luyện · ${E.qs.length} câu</h1></div>
-    <div class="zh-exam-timer" id="zhExamTimer">${zhFmtTime(E.remaining)}</div>
-  </div>
-  <div class="zh-exam-qs">${E.qs.map((q, i) => `
-    <div class="zh-exq">
-      <div class="zh-exq-top"><span class="zh-exq-no">${i + 1}</span> ${esc(q.prompt)}</div>
-      <div class="qz-main sm">${q.main}</div>
-      <div class="qz-opts">${q.opts.map(o => `<button class="qz-opt${q.oc ? ' ' + q.oc : ''}${E.picked[i] === o ? ' picked' : ''}" data-zh-ex-i="${i}" data-zh-ex-pick="${esc(o)}">${esc(o)}</button>`).join('')}</div>
-    </div>`).join('')}</div>
-  <div class="stage-ctrl"><button class="pbtn primary" data-zh-ex-submit="1">Nộp bài</button> <span class="zh-exam-progress">Đã làm ${Object.keys(E.picked).length}/${E.qs.length}</span></div>`;
-};
+/* ============================================================
+   THI THỬ HSK — đề soạn sẵn đúng cấu trúc (js/hsk-exams.js) + đề nhanh từ vựng.
+   Dạng câu: tf (√/×), pic (chọn tranh), mc (trắc nghiệm), bank (chọn A–F từ khung chung),
+             order (sắp xếp thành câu), char (viết chữ theo pinyin), sent (viết câu theo từ + tranh),
+             essay (viết đoạn ≥80 chữ). Nghe: phát bằng giọng đọc, giới hạn số lần như thi thật.
+   ============================================================ */
+const _HX = (typeof HSK_EXAMS !== 'undefined') ? HSK_EXAMS : [];
+let hskTimerId = null, hskSaveT = null;
 
-let zhExamTimer = null;
-function zhExamStop(){ if (zhExamTimer){ clearInterval(zhExamTimer); zhExamTimer = null; } }
-function zhExamStart(){
-  if (zhExamTimer) return;
-  zhExamTimer = setInterval(() => {
-    const E = state.zh.exam;
-    if (!E || E.phase !== 'doing'){ zhExamStop(); return; }
+function hskFind(id){
+  const E = state.zh.exam;
+  if (E && E.quick && E.quick.id === id) return E.quick;
+  return _HX.find(x => x.id === id) || null;
+}
+/* Danh sách câu phẳng, đánh số liên tục 1..N như đề thật */
+function hskFlat(t){
+  if (t._flat) return t._flat;
+  const out = []; let no = 0;
+  (t.sections || []).forEach((s, si) => (s.parts || []).forEach((p, pi) => (p.qs || []).forEach(q => { no++; out.push({ q, si, pi, no, sec:s, part:p }); })));
+  t._flat = out; return out;
+}
+function hskQuick(level){                       // đề nhanh từ vựng (20 câu) sinh từ vốn từ của cấp
+  const prev = state.zh.pracLevel; state.zh.pracLevel = level;
+  const qs = zhMakeQuestions(20).map(q => ({ k:'read', t:'mc', html:q.main, q:q.prompt, o:q.opts, c:q.opts.indexOf(q.answer), oc:q.oc, e:q.explain }));
+  state.zh.pracLevel = prev;
+  return { id:'quick-' + level + '-' + Date.now(), level, quick:true, badge:zhLevelName(level), title:'Kiểm tra nhanh từ vựng ' + zhLevelName(level),
+    official:'20 câu ngẫu nhiên từ vốn từ của cấp · 8 phút · chấm theo %', minutes:8, maxScore:100, pass:60, plays:0,
+    sections:[{ id:'V', name:'词汇', vi:'Từ vựng', parts:[{ title:'', ins:'选出正确答案。', vi:'Chọn đáp án đúng.', qs }] }] };
+}
+function hskSave(){
+  const E = state.zh.exam;
+  if (!E || E.quick){ store.set('hskExam', null); return; }
+  store.set('hskExam', { testId:E.testId, phase:E.phase, answers:E.answers, remaining:E.remaining, plays:E.plays, free:E.free, t:Date.now() });
+}
+function hskSaved(){ const s = store.get('hskExam', null); return (s && s.phase === 'doing' && _HX.some(x => x.id === s.testId)) ? s : null; }
+function hskStart(id, level){
+  let quick = null;
+  if (id === 'quick'){ quick = hskQuick(level || zhPracLevel()); id = quick.id; }
+  const t = quick || _HX.find(x => x.id === id); if (!t) return;
+  state.zh.exam = { testId:id, phase:'doing', answers:{}, remaining:t.minutes * 60, paused:false, plays:{}, free:false, quick, filter:'all' };
+  hskSave(); render(); window.scrollTo({ top:0 });
+}
+function hskResume(){
+  const s = hskSaved(); if (!s) return;
+  state.zh.exam = { testId:s.testId, phase:'doing', answers:s.answers || {}, remaining:s.remaining, paused:true, plays:s.plays || {}, free:!!s.free, quick:null, filter:'all' };
+  render(); window.scrollTo({ top:0 });
+}
+function hskStop(){ if (hskTimerId){ clearInterval(hskTimerId); hskTimerId = null; } }
+function hskMount(){
+  hskStop();
+  hskTimerId = setInterval(() => {
+    const E = state.zh.exam, el = $('#hskTimer');
+    if (!E || E.phase !== 'doing' || !el){ hskStop(); return; }
+    if (E.paused) return;
     E.remaining--;
-    const el = $('#zhExamTimer'); if (el) el.textContent = zhFmtTime(E.remaining);
-    if (E.remaining <= 0){ zhExamStop(); E.phase = 'done'; render(); }
+    el.textContent = topikClock(E.remaining);
+    if (E.remaining <= 60) el.classList.add('low');
+    if (E.remaining % 15 === 0) hskSave();
+    if (E.remaining <= 0){ hskStop(); E.phase = 'done'; hskSave(); render(); window.scrollTo({ top:0 }); }
   }, 1000);
 }
+function hskNorm(s){ return String(s || '').replace(/[\s，。！？、,.!?;；:："'“”‘’()（）]/g, ''); }
+function hskHan(s){ return (String(s || '').match(/[一-鿿]/g) || []).length; }
+/* Chấm một câu → 1 (đúng) / 0.5 (đạt một phần, chỉ với bài viết) / 0 */
+function hskCheck(q, a){
+  if (a == null || a === '' || (Array.isArray(a) && !a.length)) return 0;
+  const alts = [q.ans].concat(q.alt || []);
+  if (q.t === 'order'){ const s = Array.isArray(a) ? a.map(i => q.parts[i]).join('') : String(a); return alts.some(x => hskNorm(x) === hskNorm(s)) ? 1 : 0; }
+  if (q.t === 'char'){ return alts.indexOf(String(a).trim()) >= 0 ? 1 : 0; }
+  if (q.t === 'sent'){ const s = String(a), h = hskHan(s); return (h >= 5 && s.indexOf(q.word) >= 0) ? 1 : (h >= 5 ? 0.5 : 0); }
+  if (q.t === 'essay'){
+    const s = String(a), h = hskHan(s), need = q.words || [], hit = need.filter(w => s.indexOf(w) >= 0).length, min = q.min || 80;
+    if (h >= min && hit === need.length) return 1;
+    if (h >= min * 0.6 && (need.length ? hit >= Math.ceil(need.length / 2) : true)) return 0.5;
+    return 0;
+  }
+  return (+a === q.c) ? 1 : 0;
+}
+function hskAnswered(a){ return !(a == null || a === '' || (Array.isArray(a) && !a.length)); }
+function hskGrade(t){
+  const E = state.zh.exam, flat = hskFlat(t);
+  const secs = (t.sections || []).map((s, si) => {
+    const items = flat.filter(f => f.si === si);
+    const got = items.reduce((acc, f) => acc + hskCheck(f.q, E.answers[f.no]), 0);
+    return { id:s.id, name:s.name, vi:s.vi, got, total:items.length, score: items.length ? Math.round(got / items.length * 100) : 0 };
+  });
+  const got = secs.reduce((a, s) => a + s.got, 0), total = flat.length;
+  const maxScore = t.maxScore || secs.length * 100;
+  const score = t.quick ? Math.round(got / total * 100) : secs.reduce((a, s) => a + s.score, 0);
+  const unanswered = flat.filter(f => !hskAnswered(E.answers[f.no])).length;
+  return { secs, got, total, score, maxScore, pass: t.pass || Math.round(maxScore * 0.6), unanswered };
+}
+function hskSpeech(a){ return String(a || '').replace(/[男女甲乙]：/g, '').replace(/问：/g, '问，'); }
+const HSK_LETTERS = 'ABCDEF';
+function hskGuide(){
+  return `
+  <div class="tk-guide">
+    <div class="tkg-card">
+      <h4>HSK là gì?</h4>
+      <p><b>HSK</b> (<span class="ko">汉语水平考试</span> · Hànyǔ Shuǐpíng Kǎoshì) là kỳ thi năng lực Hán ngữ tiêu chuẩn quốc tế dành cho người không nói tiếng Trung như tiếng mẹ đẻ, do <b>Trung tâm Hợp tác Giao lưu Ngôn ngữ Trung Quốc – Nước ngoài</b> (CLEC, thuộc Bộ Giáo dục Trung Quốc; trước đây gọi là Hanban) ban hành và <b>Chinese Testing International</b> (汉考国际) tổ chức trên toàn cầu.</p>
+      <p>Chứng chỉ được công nhận rộng rãi tại Trung Quốc và nhiều nước; kỳ thi tổ chức nhiều đợt mỗi năm, thi trên giấy hoặc thi trên máy.</p>
+    </div>
+    <div class="tkg-card">
+      <h4>Dùng để làm gì?</h4>
+      <ul>
+        <li><b>Du học Trung Quốc:</b> điều kiện bắt buộc với đa số chương trình (thường HSK 4 cho đại học, HSK 5 cho cao học; nhiều học bổng yêu cầu thêm HSKK).</li>
+        <li><b>Xin việc:</b> công ty Trung Quốc/Đài Loan, doanh nghiệp FDI, biên–phiên dịch, xuất khẩu lao động.</li>
+        <li><b>Đánh giá trình độ:</b> chuẩn đầu ra ngành tiếng Trung ở nhiều trường đại học Việt Nam.</li>
+        <li>Kết quả có sau khoảng <b>2–4 tuần</b>; chứng chỉ thường được xét trong <b>2 năm</b> khi nộp hồ sơ du học.</li>
+      </ul>
+    </div>
+    <div class="tkg-card wide">
+      <h4>6 cấp độ HSK &amp; cấu trúc đề</h4>
+      <div class="tkg-table hsk">
+        <div class="tkg-row head"><span>Cấp</span><span>Từ vựng</span><span>Kỹ năng · số câu</span><span>Thời gian · điểm đạt</span></div>
+        <div class="tkg-row"><span><b>HSK 1</b><br><small>Sơ cấp · A1</small></span><span>150 từ</span><span>Nghe 20 · Đọc 20</span><span>≈ 40 phút · 200 điểm, đạt ≥ 120</span></div>
+        <div class="tkg-row"><span><b>HSK 2</b><br><small>Sơ cấp · A2</small></span><span>300 từ</span><span>Nghe 35 · Đọc 25</span><span>≈ 55 phút · 200 điểm, đạt ≥ 120</span></div>
+        <div class="tkg-row"><span><b>HSK 3</b><br><small>Trung cấp · B1</small></span><span>600 từ</span><span>Nghe 40 · Đọc 30 · Viết 10</span><span>≈ 90 phút · 300 điểm, đạt ≥ 180</span></div>
+        <div class="tkg-row"><span><b>HSK 4</b><br><small>Trung cấp · B2</small></span><span>1.200 từ</span><span>Nghe 45 · Đọc 40 · Viết 15</span><span>≈ 105 phút · 300 điểm, đạt ≥ 180</span></div>
+        <div class="tkg-row"><span><b>HSK 5</b><br><small>Cao cấp · C1</small></span><span>2.500 từ</span><span>Nghe 45 · Đọc 45 · Viết 10</span><span>≈ 125 phút · 300 điểm, đạt ≥ 180</span></div>
+        <div class="tkg-row"><span><b>HSK 6</b><br><small>Cao cấp · C2</small></span><span>5.000+ từ</span><span>Nghe 50 · Đọc 50 · Viết 1 (tóm tắt)</span><span>≈ 140 phút · 300 điểm, đạt ≥ 180</span></div>
+      </div>
+      <p class="tkg-note">Mỗi kỹ năng chấm tối đa 100 điểm. HSK 1–2 có kèm pinyin trong đề; từ HSK 3 không còn pinyin và có phần Viết (sắp xếp từ thành câu, viết chữ theo pinyin; HSK 4 viết câu theo tranh; HSK 5 viết đoạn 80 chữ; HSK 6 tóm tắt bài đọc 1.000 chữ thành 400 chữ). Phần Nghe: HSK 1–3 mỗi câu phát <b>2 lần</b>, HSK 4–6 phát <b>1 lần</b>. Kỳ thi nói <b>HSKK</b> (sơ – trung – cao cấp) thi riêng.</p>
+      <p class="tkg-note">Từ 2021, Trung Quốc công bố chuẩn mới “HSK 3.0” với 9 cấp; hiện các cấp 1–6 vẫn thi theo dạng thức trên, cấp 7–9 là một bài thi riêng dành cho trình độ rất cao.</p>
+    </div>
+    <div class="tkg-card">
+      <h4>Đăng ký thi</h4>
+      <ul>
+        <li>Đăng ký trực tuyến tại <b>www.chinesetest.cn</b> (chọn điểm thi, ngày thi, thi giấy hay thi máy), nộp lệ phí theo hướng dẫn của điểm thi.</li>
+        <li>Tại Việt Nam có điểm thi ở nhiều trường đại học lớn (Hà Nội, TP.HCM, Huế, Thái Nguyên…); mỗi năm nhiều đợt, hạn đăng ký thường trước ngày thi ~1 tháng (thi giấy) hoặc ~10 ngày (thi máy).</li>
+        <li>Mang giấy báo dự thi + giấy tờ tuỳ thân; thi giấy dùng bút chì 2B.</li>
+      </ul>
+    </div>
+    <div class="tkg-card">
+      <h4>Gợi ý chiến lược ôn</h4>
+      <ul>
+        <li>Nắm chắc <b>bộ từ vựng của cấp</b> (khoá học trong LangLab bám sát); HSK 3+ phải viết được chữ, không chỉ nhận mặt.</li>
+        <li>Nghe: tập đoán tình huống từ vài từ khoá, ghi nhanh số liệu/thời gian.</li>
+        <li>Đọc: đọc câu hỏi trước rồi tìm ý; câu điền từ chú ý từ loại (danh/động/tính/lượng từ).</li>
+        <li>Viết: sắp xếp câu theo trật tự <i>chủ ngữ – thời gian – nơi chốn – động từ – tân ngữ</i>; luyện đoạn 80 chữ có mở–thân–kết.</li>
+        <li>Làm đề <b>đúng thời gian</b>, sau đó xem giải thích từng câu sai.</li>
+      </ul>
+    </div>
+  </div>`;
+}
+function hskList(){
+  const saved = hskSaved();
+  const lvls = _ZC.levels.filter(v => v.status === 'active');
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Trung · Thi thử HSK</span>
+    <h1>Thi thử HSK</h1>
+    <p>Tìm hiểu kỳ thi HSK và luyện với <b>đề đầy đủ đúng cấu trúc đề thật</b> — có <b>bấm giờ</b>, <b>tạm dừng</b>, nộp bài, chấm điểm từng kỹ năng và <b>đáp án kèm giải thích</b>. Câu Nghe phát bằng giọng đọc của máy (bấm “Nghe”), tranh minh hoạ bằng biểu tượng. Đề do LangLab tự soạn theo dạng thức, không phải đề thi chính thức.</p>
+  </div>
+  ${saved ? `<div class="hsk-resume"><div><b>Bạn có đề đang làm dở:</b> ${esc((_HX.find(x => x.id === saved.testId) || {}).title || saved.testId)} · còn ${topikClock(saved.remaining)} · đã làm ${Object.keys(saved.answers || {}).length} câu</div>
+    <div class="tk-bar-btns"><button class="pbtn primary" data-hsk-resume="1">Tiếp tục làm</button><button class="pbtn" data-hsk-discard="1">Bỏ đề này</button></div></div>` : ''}
+  ${hskGuide()}
+  <h2 class="tk-list-title">Chọn một đề để bắt đầu</h2>
+  ${lvls.map(v => {
+    const tests = _HX.filter(t => t.level === v.id);
+    return `<h3 class="tk-band-title">${esc(v.vi)} · ${tests.length} đề đầy đủ + kiểm tra nhanh</h3>
+    <div class="topik-list">
+      ${tests.map(t => { const n = hskFlat(t).length; return `
+        <div class="topik-card">
+          <span class="tk-badge">${esc(t.badge)}</span>
+          <h3>${esc(t.title)}</h3>
+          <p class="tk-meta">${n} câu · ${t.minutes} phút · ${t.sections.map(s => `${esc(s.name)} ${hskFlat(t).filter(f => f.sec === s).length}`).join(' · ')}</p>
+          <p class="tk-official">${esc(t.official)}</p>
+          <button class="pbtn primary" data-hsk-start="${t.id}">Bắt đầu làm bài</button>
+        </div>`; }).join('')}
+      <div class="topik-card quick">
+        <span class="tk-badge">${esc(v.zh)} · nhanh</span>
+        <h3>Kiểm tra nhanh từ vựng ${esc(v.zh)}</h3>
+        <p class="tk-meta">20 câu · 8 phút · sinh ngẫu nhiên mỗi lần</p>
+        <p class="tk-official">Đoán nghĩa, chọn chữ, chọn pinyin từ ${zhPool(v.id).length} từ của cấp. Không theo cấu trúc đề thật — dùng để ôn từ.</p>
+        <button class="pbtn" data-hsk-start="quick" data-hsk-level="${v.id}">Làm nhanh</button>
+      </div>
+    </div>`;
+  }).join('')}
+  <p class="tk-disclaimer">Đề do LangLab biên soạn theo cấu trúc HSK (2.0) để luyện tập, không phải đề thi chính thức của Chinese Testing International. Điểm số chỉ ước lượng theo tỉ lệ câu đúng; phần Viết chấm tự động theo tiêu chí đơn giản (đủ độ dài, dùng đúng từ cho trước) — hãy tự đối chiếu với bài mẫu.</p>`;
+}
+function hskOptLabel(t, q, o, oi){
+  if (q.t === 'tf') return `<span class="hsk-tf">${oi === 0 ? '√' : '×'}</span><span>${oi === 0 ? '对 · Đúng' : '错 · Sai'}</span>`;
+  if (q.t === 'pic') return `<span class="tk-onum">${HSK_LETTERS[oi]}</span><span class="hsk-pic sm">${esc(o)}</span>`;
+  const isPic = /^\p{Extended_Pictographic}/u.test(String(o));
+  return `<span class="tk-onum">${HSK_LETTERS[oi]}</span><span class="${isPic ? 'hsk-pic sm' : (q.oc === 'py' ? 'py' : 'ko')}">${esc(o)}</span>`;
+}
+function hskQ(t, S, f, review){
+  const q = f.q, no = f.no, a = S.answers[no], E = S;
+  const sec = f.sec, tag = `${esc(sec.name)} · ${esc(sec.vi)}`;
+  const res = review ? hskCheck(q, a) : null;
+  const status = review ? (res === 1 ? '<span class="tk-ok">✓ Đúng</span>' : res === 0.5 ? '<span class="hsk-half">◐ Đạt một phần</span>' : `<span class="tk-no">✗ ${hskAnswered(a) ? 'Sai' : 'Chưa làm'}</span>`) : '';
+  if (review && S.filter === 'wrong' && res === 1) return '';
+  let head = '';
+  if (q.k === 'listen'){
+    const limit = E.free ? Infinity : (t.plays == null ? 2 : t.plays);
+    const used = E.plays[no] || 0, left = limit - used;
+    head = `<button class="pbtn" data-hsk-play="${no}"${(!review && left <= 0) ? ' disabled' : ''}><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg> ${review ? 'Nghe lại' : 'Nghe câu ' + no}${(!review && limit !== Infinity) ? ` <small>(còn ${Math.max(0, left)} lần)</small>` : ''}</button>`
+      + (review ? `<div class="tk-passage ko hsk-script">${esc(q.a)}</div>` : '');
+  } else if (q.p) head = `<div class="tk-passage ko">${esc(q.p)}</div>`;
+  const pic = q.pic ? `<div class="hsk-pic">${esc(q.pic)}</div>` : '';
+  const body = q.html ? `<div class="qz-main sm">${q.html}</div>` : '';
+  const qtext = q.q ? `<div class="tk-q-text ko">${q.py ? `<span class="py hsk-py">${esc(q.py)}</span><br>` : ''}${esc(q.q)}</div>` : '';
+  let opts = '';
+  if (q.t === 'tf' || q.t === 'pic' || q.t === 'mc' || q.t === 'bank'){
+    const list = q.t === 'tf' ? ['√','×'] : q.t === 'bank' ? (f.part.bank || []) : (q.o || []);
+    opts = `<div class="tk-opts${q.t === 'pic' || (q.t === 'bank' && list.some(o => /^\p{Extended_Pictographic}/u.test(String(o)))) ? ' hsk-row' : ''}${q.t === 'tf' ? ' hsk-row' : ''}">${list.map((o, oi) => {
+      const on = +a === oi;
+      if (review) return `<div class="tk-opt${oi === q.c ? ' correct' : ''}${on && oi !== q.c ? ' wrong' : ''}">${hskOptLabel(t, q, o, oi)}</div>`;
+      return `<button class="tk-opt${on ? ' on' : ''}" data-hsk-ans="${no}" data-opt="${oi}">${hskOptLabel(t, q, o, oi)}</button>`;
+    }).join('')}</div>`;
+  } else if (q.t === 'order'){
+    const chosen = Array.isArray(a) ? a : [];
+    const line = chosen.map(i => `<span class="hsk-chunk on">${esc(q.parts[i])}</span>`).join('') || '<span class="hsk-hint">Bấm các từ bên dưới theo đúng thứ tự…</span>';
+    opts = `<div class="hsk-order">
+      <div class="hsk-order-line ko">${line}${(!review && chosen.length) ? `<button class="mini" data-hsk-ord-clear="${no}">↺ Xoá</button>` : ''}</div>
+      ${review ? '' : `<div class="hsk-order-pool">${q.parts.map((p, i) => `<button class="hsk-chunk ko" data-hsk-ord="${no}" data-ci="${i}"${chosen.indexOf(i) >= 0 ? ' disabled' : ''}>${esc(p)}</button>`).join('')}</div>`}
+      ${review ? `<div class="hsk-answer">Đáp án: <b class="ko">${esc(q.ans)}</b>${q.alt && q.alt.length ? ` <i>(hoặc: ${q.alt.map(esc).join(' / ')})</i>` : ''}</div>` : ''}
+    </div>`;
+  } else if (q.t === 'char'){
+    opts = review
+      ? `<div class="hsk-answer">Bạn viết: <b class="ko">${esc(a || '—')}</b> · Đáp án: <b class="ko">${esc(q.ans)}</b></div>`
+      : `<div class="hsk-inline"><span class="py hsk-py">${esc(q.py || '')}</span><input class="hsk-in ko" data-hsk-in="${no}" maxlength="4" value="${esc(a || '')}" placeholder="chữ" autocomplete="off"></div>`;
+  } else if (q.t === 'sent' || q.t === 'essay'){
+    const n = hskHan(a);
+    const words = q.words ? `<div class="hsk-words">${q.words.map(w => `<span class="ko hsk-chunk${review && String(a || '').indexOf(w) >= 0 ? ' on' : ''}">${esc(w)}</span>`).join('')}</div>` : (q.word ? `<div class="hsk-words"><span class="ko hsk-chunk${review && String(a || '').indexOf(q.word) >= 0 ? ' on' : ''}">${esc(q.word)}</span></div>` : '');
+    opts = words + (review
+      ? `<div class="hsk-answer"><div>Bài của bạn (${n} chữ Hán):</div><div class="tk-passage ko">${esc(a || '—')}</div><div>Bài mẫu tham khảo:</div><div class="tk-passage ko">${esc(q.model || '')}</div></div>`
+      : `<textarea class="hsk-in ko hsk-ta" data-hsk-in="${no}" rows="${q.t === 'essay' ? 5 : 2}" placeholder="${q.t === 'essay' ? 'Viết đoạn văn ít nhất ' + (q.min || 80) + ' chữ…' : 'Viết một câu có dùng từ cho trước…'}">${esc(a || '')}</textarea><div class="hsk-cnt" id="hskCnt${no}">${n} chữ Hán${q.min ? ' / tối thiểu ' + q.min : ''}</div>`);
+  }
+  return `<div class="tk-q hsk-q${review ? (res === 1 ? ' ok' : ' bad') : ''}" id="hskQ${no}">
+    <div class="tk-q-no">Câu ${no} <span class="tk-tag">${tag}</span> ${status}</div>
+    ${head}${pic}${body}${qtext}${opts}
+    ${review && q.e ? `<div class="tk-explain"><b>Giải thích:</b> ${esc(q.e)}</div>` : ''}
+  </div>`;
+}
+function hskPart(t, S, si, pi, part, review){
+  const flat = hskFlat(t).filter(f => f.si === si && f.pi === pi);
+  const first = flat[0] ? flat[0].no : 0, last = flat.length ? flat[flat.length - 1].no : 0;
+  const head = `<div class="tk-section"${pi === 0 ? ` id="hskS-${t.sections[si].id}"` : ''}>
+    <span class="tk-sec-ko ko">${esc(t.sections[si].name)}${part.title ? ' · ' + esc(part.title) : ''} · 第${first}–${last}题</span>
+    <span class="tk-sec-ko ko">${esc(part.ins || '')}</span>
+    <span class="tk-sec-vi">${esc(part.vi || '')}</span>
+  </div>`;
+  const bank = part.bank ? `<div class="hsk-bank${part.bank.some(o => /^\p{Extended_Pictographic}/u.test(String(o))) ? ' pics' : ''}">${part.bank.map((o, oi) => `<span class="hsk-bank-it"><span class="tk-onum">${HSK_LETTERS[oi]}</span><span class="ko">${esc(o)}</span></span>`).join('')}</div>` : '';
+  const ex = (part.example ? `<div class="hsk-example">${esc(part.example)}</div>` : '')
+    + (part.p ? `<div class="tk-passage ko hsk-part-p">${esc(part.p)}</div>` : '');
+  const qs = flat.map(f => hskQ(t, S, f, review)).join('');
+  if (review && !qs.trim()) return '';
+  return head + bank + ex + qs;
+}
+function hskBar(t, S){
+  const flat = hskFlat(t);
+  const tabs = t.sections.map(s => { const items = flat.filter(f => f.sec === s); const done = items.filter(f => hskAnswered(S.answers[f.no])).length;
+    return `<button class="hsk-tab" data-hsk-jump="hskS-${s.id}"><span class="ko">${esc(s.name)}</span> ${done}/${items.length}</button>`; }).join('');
+  return `
+  <div class="topik-bar" id="hskBar">
+    <div class="tk-bar-info"><span class="eyebrow">${esc(t.badge)}</span><b>${esc(t.title)}</b></div>
+    <div class="tk-timer${S.paused ? ' paused' : ''}${S.remaining <= 60 ? ' low' : ''}" id="hskTimer">${topikClock(S.remaining)}</div>
+    <div class="tk-bar-btns">
+      <button class="pbtn" data-hsk-exit="1">← Chọn đề khác</button>
+      <button class="pbtn" data-hsk-pause="1">${S.paused ? '▶ Tiếp tục' : '⏸ Tạm dừng'}</button>
+      <button class="pbtn" data-hsk-reset="1">Làm lại</button>
+      <button class="pbtn primary" data-hsk-submit="1">Nộp bài</button>
+    </div>
+    <div class="hsk-tabs">${tabs}${t.plays ? `<label class="hsk-free"><input type="checkbox" data-hsk-free="1"${S.free ? ' checked' : ''}> Nghe không giới hạn</label>` : ''}</div>
+  </div>`;
+}
+function hskResult(t){
+  const S = state.zh.exam, g = hskGrade(t);
+  const used = topikClock(t.minutes * 60 - Math.max(0, S.remaining));
+  const passed = g.score >= g.pass;
+  return `
+  <div class="page-head">
+    <span class="eyebrow">${esc(t.badge)} · Kết quả</span>
+    <h1>${g.score}/${g.maxScore} điểm · ${passed ? 'ĐẠT' : 'chưa đạt'}</h1>
+    <p>${Math.round(g.got)}/${g.total} câu đúng · thời gian đã dùng ${used} / ${t.minutes} phút · mức đạt ${g.pass} điểm. ${passed ? (g.score >= g.maxScore * 0.85 ? 'Xuất sắc! 🎉' : 'Chúc mừng, bạn đã vượt ngưỡng.') : 'Xem lại các câu sai bên dưới rồi thử lại nhé.'}</p>
+    <div class="hsk-secs">${g.secs.map(s => `<div class="hsk-sec ${s.score >= 60 ? 'ok' : 'bad'}"><b class="ko">${esc(s.name)}</b><span>${esc(s.vi)}</span><i>${s.score}/100</i><small>${Math.round(s.got * 10) / 10}/${s.total} câu</small></div>`).join('')}</div>
+    <p class="tk-note-small">Điểm ước lượng theo tỉ lệ câu đúng của từng kỹ năng (mỗi kỹ năng 100 điểm), không phải cách chấm chính thức. Bài viết chấm tự động theo tiêu chí đơn giản — hãy đối chiếu với bài mẫu.</p>
+    <div class="wp-actions" style="padding:6px 0 0">
+      <button class="pbtn primary" data-hsk-retry="${esc(t.id)}"${t.quick ? ` data-hsk-level="${esc(t.level)}"` : ''}>Làm lại đề này</button>
+      <button class="pbtn" data-hsk-home="1">← Chọn đề khác</button>
+      <button class="pbtn" data-hsk-filter="${S.filter === 'wrong' ? 'all' : 'wrong'}">${S.filter === 'wrong' ? 'Hiện tất cả câu' : 'Chỉ hiện câu sai'}</button>
+    </div>
+  </div>
+  <div class="topik-quiz review">
+    ${t.sections.map((s, si) => s.parts.map((p, pi) => hskPart(t, S, si, pi, p, true)).join('')).join('')}
+  </div>`;
+}
+/* Vẽ lại một câu tại chỗ (giữ vị trí cuộn) + cập nhật đếm câu đã làm trên thanh */
+function hskRefreshQ(no){
+  const E = state.zh.exam, T = E && hskFind(E.testId); if (!T) return;
+  const f = hskFlat(T).find(x => x.no === no), el = document.getElementById('hskQ' + no);
+  if (f && el){ const tmp = document.createElement('div'); tmp.innerHTML = hskQ(T, E, f, false); el.replaceWith(tmp.firstElementChild); }
+  const bar = $('#hskBar'); if (bar){ const tmp = document.createElement('div'); tmp.innerHTML = hskBar(T, E); bar.querySelector('.hsk-tabs').innerHTML = tmp.querySelector('.hsk-tabs').innerHTML; }
+}
+VIEWS.zh_exam = function(){
+  const S = state.zh.exam;
+  if (!S || !S.testId) return hskList();
+  const t = hskFind(S.testId);
+  if (!t){ state.zh.exam = null; return hskList(); }
+  if (S.phase === 'done') return hskResult(t);
+  return hskBar(t, S) + `
+  ${S.paused ? `<div class="hsk-paused"><b>⏸ Đang tạm dừng</b><span>Đề được che lại. Bấm “Tiếp tục” để làm tiếp — đồng hồ đang dừng.</span><button class="pbtn primary" data-hsk-pause="1">▶ Tiếp tục</button></div>` : ''}
+  <div class="topik-quiz${S.paused ? ' paused' : ''}">
+    ${t.sections.map((s, si) => s.parts.map((p, pi) => hskPart(t, S, si, pi, p, false)).join('')).join('')}
+  </div>
+  <div class="topik-foot"><button class="pbtn primary" data-hsk-submit="1">Nộp bài · chấm điểm</button></div>`;
+};
 
 /* ---------------- Hanzi Writer ---------------- */
 let zhWriter = null;
@@ -3311,10 +3577,42 @@ document.addEventListener('click', e => {
   const zqz = t.closest('[data-zh-qz]');
   if (zqz){ const Q = state.zh.quiz; if (Q && Q.picked[Q.i] == null){ Q.picked[Q.i] = zqz.dataset.zhQz; render(); } return; }
   if (t.closest('[data-zh-qz-next]')){ if (state.zh.quiz){ state.zh.quiz.i++; render(); } return; }
-  if (t.closest('[data-zh-ex-start]')){ state.zh.exam = { qs: zhMakeQuestions(20), picked:{}, phase:'doing', remaining:480 }; render(); return; }
-  const zex = t.closest('[data-zh-ex-pick]');
-  if (zex){ if (state.zh.exam){ state.zh.exam.picked[+zex.dataset.zhExI] = zex.dataset.zhExPick; render(); } return; }
-  if (t.closest('[data-zh-ex-submit]')){ if (state.zh.exam){ zhExamStop(); state.zh.exam.phase = 'done'; render(); } return; }
+  /* ----- thi thử HSK ----- */
+  const hs = t.closest('[data-hsk-start]');
+  if (hs){ hskStart(hs.dataset.hskStart, hs.dataset.hskLevel); return; }
+  if (t.closest('[data-hsk-resume]')){ hskResume(); return; }
+  if (t.closest('[data-hsk-discard]')){ store.set('hskExam', null); render(); return; }
+  const ha = t.closest('[data-hsk-ans]');
+  if (ha){ const E = state.zh.exam; if (E && E.phase === 'doing' && !E.paused){ E.answers[+ha.dataset.hskAns] = +ha.dataset.opt; hskSave();
+      // cập nhật tại chỗ, không vẽ lại cả đề (giữ vị trí cuộn)
+      const box = ha.parentElement; $$('.tk-opt', box).forEach(b => b.classList.toggle('on', b === ha));
+      const bar = $('#hskBar'); if (bar){ const tmp = document.createElement('div'); tmp.innerHTML = hskBar(hskFind(E.testId), E); bar.querySelector('.hsk-tabs').innerHTML = tmp.querySelector('.hsk-tabs').innerHTML; } }
+    return; }
+  const hp = t.closest('[data-hsk-play]');
+  if (hp){ const E = state.zh.exam, T = E && hskFind(E.testId); if (!T) return;
+    const no = +hp.dataset.hskPlay, f = hskFlat(T).find(x => x.no === no); if (!f) return;
+    if (E.phase === 'doing'){ if (E.paused) return; const limit = E.free ? Infinity : (T.plays == null ? 2 : T.plays); const used = E.plays[no] || 0; if (used >= limit) return;
+      E.plays[no] = used + 1; hskSave(); const left = limit - E.plays[no];
+      if (limit !== Infinity){ const s = hp.querySelector('small'); if (s) s.textContent = `(còn ${left} lần)`; if (left <= 0) hp.disabled = true; } }
+    zhSpeak(hskSpeech(f.q.a)); return; }
+  const ho = t.closest('[data-hsk-ord]');
+  if (ho){ const E = state.zh.exam; if (E && E.phase === 'doing' && !E.paused){ const no = +ho.dataset.hskOrd; const arr = Array.isArray(E.answers[no]) ? E.answers[no].slice() : []; arr.push(+ho.dataset.ci); E.answers[no] = arr; hskSave(); hskRefreshQ(no); } return; }
+  const hoc = t.closest('[data-hsk-ord-clear]');
+  if (hoc){ const E = state.zh.exam; if (E){ delete E.answers[+hoc.dataset.hskOrdClear]; hskSave(); hskRefreshQ(+hoc.dataset.hskOrdClear); } return; }
+  const hj = t.closest('[data-hsk-jump]');
+  if (hj){ const el = document.getElementById(hj.dataset.hskJump); if (el) el.scrollIntoView({ behavior:'smooth', block:'start' }); return; }
+  if (t.closest('[data-hsk-pause]')){ const E = state.zh.exam; if (E && E.phase === 'doing'){ E.paused = !E.paused; if (E.paused){ try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch(e){} } hskSave(); render(); } return; }
+  if (t.closest('[data-hsk-reset]')){ const E = state.zh.exam; if (E && confirm('Làm lại từ đầu? Toàn bộ câu trả lời và thời gian sẽ được đặt lại.')){ const T = hskFind(E.testId); hskStop(); hskStart(T && T.quick ? 'quick' : E.testId, T && T.level); } return; }
+  if (t.closest('[data-hsk-submit]')){ const E = state.zh.exam; if (E && E.phase === 'doing'){ const T = hskFind(E.testId); const g = T ? hskGrade(T) : { unanswered:0 };
+      if (g.unanswered > 0 && !confirm(`Còn ${g.unanswered} câu chưa làm. Nộp bài luôn?`)) return;
+      hskStop(); E.phase = 'done'; E.paused = false; store.set('hskExam', null); render(); window.scrollTo({ top:0 }); } return; }
+  const hr = t.closest('[data-hsk-retry]');
+  if (hr){ const E = state.zh.exam; const T = E && hskFind(E.testId); hskStart(T && T.quick ? 'quick' : hr.dataset.hskRetry, hr.dataset.hskLevel || (T && T.level)); return; }
+  if (t.closest('[data-hsk-home]') || t.closest('[data-hsk-exit]')){ const E = state.zh.exam;
+    if (E && E.phase === 'doing'){ if (!confirm('Thoát ra danh sách đề? Bài đang làm sẽ được lưu để tiếp tục sau (trừ đề kiểm tra nhanh).')) return; E.paused = true; hskSave(); }
+    hskStop(); state.zh.exam = null; render(); window.scrollTo({ top:0 }); return; }
+  const hf = t.closest('[data-hsk-filter]');
+  if (hf){ if (state.zh.exam){ state.zh.exam.filter = hf.dataset.hskFilter; render(); } return; }
 
   const nav = t.closest('[data-go]');
   if (nav){ go(nav.dataset.go); return; }
@@ -3551,6 +3849,14 @@ document.addEventListener('keydown', e => {
   }
 });
 
+/* hộp kiểm "Nghe không giới hạn" trong đề HSK */
+document.addEventListener('change', e => {
+  if (e.target.dataset && e.target.dataset.hskFree != null){
+    const E = state.zh.exam; if (!E || E.phase !== 'doing') return;
+    E.free = !!e.target.checked; hskSave(); render();
+  }
+});
+
 /* tìm nhanh trên thanh trên cùng + ô chuyển số */
 document.addEventListener('input', e => {
   if (e.target.id === 'numInput'){
@@ -3565,6 +3871,15 @@ document.addEventListener('input', e => {
     return;
   }
   if (e.target.id === 'zhq'){ const box = $('#zhResults'); if (box) box.innerHTML = zhDictResults(e.target.value); return; }
+  if (e.target.dataset && e.target.dataset.hskIn != null){            // ô viết chữ / câu / đoạn trong đề HSK
+    const E = state.zh.exam; if (!E || E.phase !== 'doing') return;
+    const no = +e.target.dataset.hskIn, v = e.target.value;
+    if (v.trim()) E.answers[no] = v; else delete E.answers[no];
+    const T = hskFind(E.testId), f = T && hskFlat(T).find(x => x.no === no);
+    const c = document.getElementById('hskCnt' + no); if (c && f) c.textContent = `${hskHan(v)} chữ Hán${f.q.min ? ' / tối thiểu ' + f.q.min : ''}`;
+    clearTimeout(hskSaveT); hskSaveT = setTimeout(() => { hskSave(); const bar = $('#hskBar'); if (bar && T){ const tmp = document.createElement('div'); tmp.innerHTML = hskBar(T, E); bar.querySelector('.hsk-tabs').innerHTML = tmp.querySelector('.hsk-tabs').innerHTML; } }, 400);
+    return;
+  }
   if (e.target.id !== 'topq') return;
   const v = e.target.value.trim();
   if (!v) return;
