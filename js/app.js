@@ -1241,11 +1241,9 @@ function aboutView(){
   return `
   <div class="about">
     <div class="about-hero">
-      <div class="about-logo"><img src="logo-icon.png?v=260908" alt="LangLab"></div>
-      <div>
-        <h1>LangLab</h1>
-        <p class="about-tag">Phòng thí nghiệm ngôn ngữ — học ngoại ngữ theo bài, có tra từ điển, luyện nghe–nói và trợ lý AI.</p>
-      </div>
+      <div class="about-logo"><img src="logo-full.png?v=260911" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
+      <h1 class="sr-only">LangLab</h1>
+      <p class="about-tag">Phòng thí nghiệm ngôn ngữ — học ngoại ngữ theo bài, có tra từ điển, luyện nghe–nói và trợ lý AI.</p>
     </div>
 
     <section class="about-sec">
@@ -1789,9 +1787,16 @@ function render(){
   view.innerHTML = VIEWS[state.view]();
   view.classList.toggle('wide', state.view === 'write');
 
-  $$('.nav-btn').forEach(b => {
+  const KO_VIEWS = ['home','lesson','write','shadow','srs','dict','quiz','numbers','topik'];
+  $$('.nav-main [data-go]').forEach(b => {
     const on = b.dataset.go === state.view || (state.view === 'lesson' && b.dataset.go === 'home');
     b.setAttribute('aria-current', on ? 'page' : 'false');
+  });
+  const koDrop = $('#koDrop');
+  if (koDrop) koDrop.classList.toggle('active', KO_VIEWS.includes(state.view));
+  $$('.nav-drop.open').forEach(d => {
+    d.classList.remove('open');
+    const bb = d.querySelector('.nav-drop-btn'); if (bb) bb.setAttribute('aria-expanded', 'false');
   });
   updateLabiNav();
 
@@ -2516,6 +2521,21 @@ document.addEventListener('scroll', hideTip, true);
 document.addEventListener('click', e => {
   const t = e.target;
 
+  /* ----- navbar: dropdown Tiếng Hàn ----- */
+  if (!t.closest('.nav-drop')){
+    $$('.nav-drop.open').forEach(d => {
+      d.classList.remove('open');
+      const bb = d.querySelector('.nav-drop-btn'); if (bb) bb.setAttribute('aria-expanded', 'false');
+    });
+  }
+  const drpBtn = t.closest('.nav-drop-btn');
+  if (drpBtn){
+    const d = drpBtn.closest('.nav-drop');
+    const open = d.classList.toggle('open');
+    drpBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    return;
+  }
+
   /* ----- bảng tra từ ----- */
   // gồm cả span .kw trong câu và ô .tok trong bảng tra câu
   const kw = t.closest('[data-kw]');
@@ -2946,7 +2966,16 @@ function applyTheme(){
   if (state.theme === 'auto') r.removeAttribute('data-theme');
   else r.setAttribute('data-theme', state.theme);
   const b = $('#themeBtn');
-  if (b) b.textContent = { auto:'Giao diện: theo hệ thống', light:'Giao diện: sáng', dark:'Giao diện: tối' }[state.theme];
+  if (b){
+    const lbl = { auto:'Giao diện: theo hệ thống', light:'Giao diện: sáng', dark:'Giao diện: tối' }[state.theme];
+    const ico = {
+      auto:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor" stroke="none"/></svg>',
+      light:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M2 12h2.4M19.6 12H22M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7"/></svg>',
+      dark:'<svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5z"/></svg>'
+    }[state.theme];
+    b.innerHTML = ico;
+    b.title = lbl; b.setAttribute('aria-label', lbl);
+  }
 }
 
 /* ---------- khởi động ---------- */

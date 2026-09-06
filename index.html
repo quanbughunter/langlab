@@ -5,71 +5,56 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
 <meta name="description" content="Ứng dụng học ngoại ngữ theo bài. Bắt đầu với tiếng Hàn: từ vựng, ngữ pháp, hội thoại, tra từ điển và hướng dẫn thứ tự nét viết chữ Hangul.">
-<link rel="icon" type="image/png" href="logo-icon.png?v=260908">
+<link rel="icon" type="image/png" href="logo-icon.png?v=260911">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Lexend:wght@300;400;500;600&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="css/langlab.css?v=260908">
+<link rel="stylesheet" href="css/langlab.css?v=260911">
 </head>
 <body>
 
 <div class="app">
-  <aside class="side">
-    <div class="brand" data-go="home" role="link" tabindex="0" title="Về trang chủ LangLab">
-      <span class="brand-mark"><img src="logo-icon.png?v=260908" alt="LangLab" width="42" height="42"></span>
-      <span>
+  <header class="nav">
+    <div class="nav-in">
+      <div class="brand" data-go="home" role="link" tabindex="0" title="Về trang chủ LangLab">
+        <span class="brand-mark"><img src="logo-icon.png?v=260911" alt="LangLab" width="40" height="40"></span>
         <span class="brand-name">LangLab</span>
-        <span class="brand-sub">언어 실험실</span>
-      </span>
+      </div>
+
+      <nav class="nav-main" aria-label="Điều hướng chính">
+        <button class="nav-item" data-go="about">Giới thiệu</button>
+
+        <div class="nav-drop">
+          <button class="nav-item nav-drop-btn" id="koDrop" aria-haspopup="true" aria-expanded="false">
+            Tiếng Hàn
+            <svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="nav-menu" role="menu" aria-label="Tiếng Hàn">
+            <button class="nav-mi" data-go="home"    role="menuitem">Khoá học <span class="mi-count">15</span></button>
+            <button class="nav-mi" data-go="write"   role="menuitem">Tập viết <span class="mi-count">40</span></button>
+            <button class="nav-mi" data-go="shadow"  role="menuitem">Shadowing</button>
+            <button class="nav-mi" data-go="srs"     role="menuitem">Ôn tập <span class="mi-count">28</span></button>
+            <button class="nav-mi" data-go="dict"    role="menuitem">Từ điển</button>
+            <button class="nav-mi" data-go="quiz"    role="menuitem">Bài tập</button>
+            <button class="nav-mi" data-go="numbers" role="menuitem">Số đếm</button>
+            <button class="nav-mi" data-go="topik"   role="menuitem">Thi thử TOPIK</button>
+          </div>
+        </div>
+
+        <button class="nav-item nav-soon" disabled title="Sắp có">Tiếng Nhật <span class="soon">sắp có</span></button>
+        <button class="nav-item nav-soon" disabled title="Sắp có">Tiếng Trung <span class="soon">sắp có</span></button>
+        <button class="nav-item nav-soon" disabled title="Sắp có">Tiếng Anh <span class="soon">sắp có</span></button>
+        <button class="nav-item nav-soon" disabled title="Sắp có">Tiếng Nga <span class="soon">sắp có</span></button>
+
+        <button class="nav-item nav-labi" id="labiNav" data-labi-toggle="1" aria-current="false">
+          <svg class="labi-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Labi <span class="labi-badge">AI</span>
+        </button>
+
+        <button class="nav-icobtn" id="themeBtn" title="Giao diện" aria-label="Đổi giao diện"></button>
+      </nav>
     </div>
-
-    <div class="lang-switch" id="langSwitch"></div>
-
-    <div class="nav-label"><span class="eyebrow">Học tập</span></div>
-
-    <button class="nav-btn" data-go="home" aria-current="page">
-      <span class="nav-ico"><svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10"/></svg></span>
-      Khoá học <span class="nav-count">15</span>
-    </button>
-    <button class="nav-btn" data-go="write">
-      <span class="nav-ico"><svg viewBox="0 0 24 24"><path d="M12 19l7-7-4-4-7 7v4h4z"/><path d="M5 19h3"/></svg></span>
-      Tập viết <span class="nav-count">40</span>
-    </button>
-    <button class="nav-btn" data-go="shadow">
-      <span class="nav-ico"><svg viewBox="0 0 24 24"><path d="M4 8v8M8 5v14M12 9v6M16 6v12M20 10v4"/></svg></span>
-      Shadowing
-    </button>
-    <button class="nav-btn" data-go="srs">
-      <span class="nav-ico"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="M7 3h14v12"/></svg></span>
-      Ôn tập <span class="nav-count">28</span>
-    </button>
-    <button class="nav-btn" data-go="dict">
-      <span class="nav-ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>
-      Từ điển
-    </button>
-    <button class="nav-btn" data-go="quiz">
-      <span class="nav-ico"><svg viewBox="0 0 24 24"><path d="M9 11l2 2 4-4"/><rect x="3" y="4" width="18" height="16" rx="2"/></svg></span>
-      Bài tập
-    </button>
-    <button class="nav-btn" data-go="numbers">
-      <span class="nav-ico"><svg viewBox="0 0 24 24"><path d="M4 9h16M4 15h16M10 3L8 21M16 3l-2 18"/></svg></span>
-      Số đếm
-    </button>
-    <button class="nav-btn" data-go="topik">
-      <span class="nav-ico"><svg viewBox="0 0 24 24"><path d="M9 5h6M9 9h6M9 13h4"/><rect x="4" y="2" width="16" height="20" rx="2"/></svg></span>
-      Thi thử TOPIK
-    </button>
-    <button class="nav-btn" id="labiNav" data-labi-toggle="1" aria-current="false">
-      <span class="nav-ico"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
-      Labi <span class="nav-count">AI</span>
-    </button>
-
-    <div class="side-foot">
-      <span class="streak">Chuỗi ngày học <b>17</b></span>
-      <button class="theme-btn" id="themeBtn">Giao diện: theo hệ thống</button>
-      <button class="foot-link" data-go="about">Giới thiệu LangLab</button>
-    </div>
-  </aside>
+  </header>
 
   <div class="main">
     <header class="topbar">
@@ -83,23 +68,14 @@
   </div>
 </div>
 
-<script src="js/strokes.js?v=260908"></script>
-<script src="js/course-ko.js?v=260908"></script>
-<script src="js/vocab-common.js?v=260908"></script>
-<script src="js/tts.js?v=260908"></script>
-<script src="js/config.js?v=260908"></script>
-<script src="js/translate.js?v=260908"></script>
-<script src="js/speech.js?v=260908"></script>
-<script src="js/words.js?v=260908"></script>
-<script>
-/* danh sách ngôn ngữ ở thanh bên — dựng trước khi app.js chạy */
-document.getElementById('langSwitch').innerHTML = LANGUAGES.map(l => `
-  <button class="lang-btn" ${l.status === 'active' ? 'aria-current="true"' : 'disabled'} title="${l.note}">
-    <span class="lang-mark">${l.mark}</span>
-    <span>${l.label}</span>
-    ${l.status === 'active' ? '' : '<span class="lang-soon">sắp có</span>'}
-  </button>`).join('');
-</script>
-<script src="js/app.js?v=260908"></script>
+<script src="js/strokes.js?v=260911"></script>
+<script src="js/course-ko.js?v=260911"></script>
+<script src="js/vocab-common.js?v=260911"></script>
+<script src="js/tts.js?v=260911"></script>
+<script src="js/config.js?v=260911"></script>
+<script src="js/translate.js?v=260911"></script>
+<script src="js/speech.js?v=260911"></script>
+<script src="js/words.js?v=260911"></script>
+<script src="js/app.js?v=260911"></script>
 </body>
 </html>
