@@ -108,6 +108,125 @@ async function callOpenAICompat(sentences, base, model, key) {
   return extractArray(data.choices[0].message.content, sentences.length);
 }
 
+/* ================= Hỏi đáp (chatbot học ngôn ngữ) ================= */
+const CHAT_SYSTEM = [
+  'Bạn là trợ lý học tiếng Hàn của ứng dụng LangLab, nói chuyện với người Việt đang học tiếng Hàn.',
+  'Trả lời bằng TIẾNG VIỆT là chính, tự nhiên, ngắn gọn, dễ hiểu.',
+  'Khi giải thích ngữ pháp hoặc từ vựng, hãy nêu ví dụ tiếng Hàn kèm nghĩa tiếng Việt và phiên âm khi cần.',
+  'Phạm vi: CHỈ hỗ trợ việc học ngôn ngữ (chủ yếu tiếng Hàn) — ngữ pháp, từ vựng, phát âm, cách dùng, luyện thi TOPIK, mẹo học, khác biệt văn hoá liên quan đến ngôn ngữ.',
+  'Nếu người dùng hỏi việc KHÔNG liên quan đến học ngôn ngữ (chính trị, y tế, tài chính, chuyện phiếm, code, v.v.), hãy từ chối lịch sự bằng một câu và gợi ý quay lại chủ đề học tiếng Hàn.',
+  'Không bịa. Nếu không chắc, nói thẳng là không chắc. Giữ câu trả lời trong khoảng vài câu, trừ khi cần ví dụ dài.'
+].join('\n');
+
+async function geminiChat(messages, key) {
+  const contents = messages.map(m => ({
+    role: m.role === 'assistant' ? 'model' : 'user',
+    parts: [{ text: String(m.content || '').slice(0, 4000) }]
+  }));
+  const body = {
+    systemInstruction: { parts: [{ text: CHAT_SYSTEM }] },
+    contents,
+    generationConfig: { temperature: 0.6, maxOutputTokens: 1024 }
+  };
+  let lastErr = 'không rõ lỗi';
+  for (const model of GEMINI_MODELS) {
+    const url = 'https://generativelanguage.googleapis.com/v1beta/models/' +
+                encodeURIComponent(model) + ':generateContent?key=' + encodeURIComponent(key);
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      if (r.ok) {
+        const data = await r.json();
+        const parts = (((data.candidates || [])[0] || {}).content || {}).parts || [];
+        const text = parts.map(p => p.text || '').join('').trim();
+        if (text) return text;
+        lastErr = 'phản hồi rỗng';
+      } else {
+        lastErr = 'HTTP ' + r.status + ' — ' + (await r.text()).slice(0, 200);
+        if ((r.status === 503 || r.status === 429) && attempt === 0) { await new Promise(res => setTimeout(res, 1200)); continue; }
+      }
+      break;
+    }
+  }
+  throw new Error(lastErr);
+}
+
+async function openaiChat(messages, base, model, key) {
+  const r = await fetch(base.replace(/\/$/, '') + '/chat/completions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key },
+    body: JSON.stringify({
+      model, temperature: 0.6, max_tokens: 1024,
+      messages: [{ role: 'system', content: CHAT_SYSTEM }].concat(
+        messages.map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: String(m.content || '').slice(0, 4000) })))
+    })
+  });
+  if (!r.ok) throw new Error('HTTP ' + r.status + ' — ' + (await r.text()).slice(0, 200));
+  const data = await r.json();
+  return String(data.choices[0].message.content || '').trim();
+}
+
+/* ================= Phân tích tệp âm thanh (Gemini đa phương thức) ================= */
+const AUDIO_SYSTEM = [
+  'Bạn là công cụ phân tích âm thanh cho ứng dụng học ngôn ngữ, phục vụ người Việt.',
+  'Bạn nhận một đoạn âm thanh và phải: (1) nhận diện ngôn ngữ; (2) chép lời chính xác;',
+  '(3) tách thành từng câu; (4) với mỗi câu tách thành từng từ có nghĩa; (5) dịch sang tiếng Việt tự nhiên.',
+  '',
+  'Trả về DUY NHẤT một đối tượng JSON, không kèm chữ nào khác, theo đúng dạng:',
+  '{',
+  '  "lang": "mã ngôn ngữ ISO (vd: ko, en, ja, vi, zh)",',
+  '  "langVi": "tên ngôn ngữ bằng tiếng Việt (vd: Tiếng Hàn)",',
+  '  "sentences": [',
+  '    {',
+  '      "text": "nguyên văn câu",',
+  '      "rom": "phiên âm Latinh cả câu (rỗng nếu là chữ Latinh)",',
+  '      "vi": "bản dịch tiếng Việt tự nhiên của câu",',
+  '      "words": [ { "w": "từ", "rom": "phiên âm từ (rỗng nếu Latinh)", "vi": "nghĩa tiếng Việt ngắn của từ" } ]',
+  '    }',
+  '  ]',
+  '}',
+  '',
+  'Quy tắc: tách từ theo đơn vị có nghĩa (với tiếng Hàn: tách theo 어절/từ, bỏ trợ từ dính nếu tách được nghĩa rõ hơn thì vẫn giữ nguyên 어절).',
+  'Không thêm dấu câu không có. Nếu không nghe rõ, cứ chép phần nghe được. Không bịa nội dung.',
+  'Giới hạn tối đa 40 câu để phản hồi gọn.'
+].join('\n');
+
+function extractObject(text) {
+  let t = String(text).trim().replace(/^```(?:json)?\s*/, '').replace(/\s*```$/, '');
+  const i = t.indexOf('{'), j = t.lastIndexOf('}');
+  if (i >= 0 && j > i) t = t.slice(i, j + 1);
+  const obj = JSON.parse(t);
+  if (!obj || typeof obj !== 'object') throw new Error('không phải JSON hợp lệ');
+  return obj;
+}
+
+async function geminiAudio(audioB64, mime, key) {
+  const body = {
+    systemInstruction: { parts: [{ text: AUDIO_SYSTEM }] },
+    contents: [{ role: 'user', parts: [
+      { text: 'Phân tích đoạn âm thanh sau và trả về JSON đúng dạng đã quy định.' },
+      { inlineData: { mimeType: mime || 'audio/mpeg', data: audioB64 } }
+    ] }],
+    generationConfig: { temperature: 0.2, maxOutputTokens: 8192, responseMimeType: 'application/json' }
+  };
+  let lastErr = 'không rõ lỗi';
+  for (const model of GEMINI_MODELS) {
+    const url = 'https://generativelanguage.googleapis.com/v1beta/models/' +
+                encodeURIComponent(model) + ':generateContent?key=' + encodeURIComponent(key);
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      if (r.ok) {
+        const data = await r.json();
+        const parts = (((data.candidates || [])[0] || {}).content || {}).parts || [];
+        return extractObject(parts.map(p => p.text || '').join(''));
+      }
+      lastErr = 'HTTP ' + r.status + ' — ' + (await r.text()).slice(0, 200);
+      if ((r.status === 503 || r.status === 429) && attempt === 0) { await new Promise(res => setTimeout(res, 1500)); continue; }
+      break;
+    }
+  }
+  throw new Error(lastErr);
+}
+
 function json(obj, extra) {
   return new Response(JSON.stringify(obj), {
     headers: Object.assign({ 'Content-Type': 'application/json; charset=utf-8' }, extra || {})
@@ -130,8 +249,44 @@ export default {
       return json({
         ok: hasKey,
         provider: env.LLM_API_KEY ? 'openai-compat' : 'gemini',
-        model: env.LLM_MODEL || '(tự chọn)'
+        model: env.LLM_MODEL || '(tự chọn)',
+        chat: hasKey,
+        audio: !!env.GEMINI_API_KEY   // phân tích âm thanh cần Gemini đa phương thức
       }, cors);
+    }
+
+    if (url.pathname.endsWith('/_chat') && request.method === 'POST') {
+      if (!hasKey) return json({ error: 'no-key' }, cors);
+      let messages;
+      try {
+        const req = await request.json();
+        messages = (req.messages || [])
+          .filter(m => m && m.content && (m.role === 'user' || m.role === 'assistant'))
+          .slice(-12);
+      } catch (e) { return json({ error: 'body không hợp lệ' }, cors); }
+      if (!messages.length) return json({ error: 'trống' }, cors);
+      try {
+        const reply = env.LLM_API_KEY
+          ? await openaiChat(messages, env.LLM_BASE_URL || 'https://api.openai.com/v1', env.LLM_MODEL || 'gpt-4o-mini', env.LLM_API_KEY)
+          : await geminiChat(messages, env.GEMINI_API_KEY);
+        return json({ reply }, cors);
+      } catch (e) { return json({ error: String(e && e.message || e) }, cors); }
+    }
+
+    if (url.pathname.endsWith('/_audio') && request.method === 'POST') {
+      if (!env.GEMINI_API_KEY) return json({ error: 'no-gemini' }, cors);   // audio cần Gemini
+      let audio, mime;
+      try {
+        const req = await request.json();
+        audio = String(req.audio || '');
+        mime = String(req.mime || 'audio/mpeg');
+      } catch (e) { return json({ error: 'body không hợp lệ' }, cors); }
+      if (!audio) return json({ error: 'thiếu âm thanh' }, cors);
+      if (audio.length > 26000000) return json({ error: 'tệp quá lớn (giới hạn khoảng 18 MB)' }, cors);
+      try {
+        const result = await geminiAudio(audio, mime, env.GEMINI_API_KEY);
+        return json(result, cors);
+      } catch (e) { return json({ error: String(e && e.message || e) }, cors); }
     }
 
     if (url.pathname.endsWith('/_translate') && request.method === 'POST') {

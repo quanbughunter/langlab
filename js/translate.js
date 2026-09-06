@@ -89,6 +89,30 @@ function googleUrl(text){
        + encodeURIComponent(String(text).slice(0, 4500));
 }
 
-return { hash, status, run, googleUrl, online };
+/* Gửi POST tới Worker (hoặc máy chủ cục bộ), thử lần lượt các endpoint. */
+function post(path, payload, cb){
+  const eps = base !== null ? [base] : endpoints();
+  if (!eps.length){ cb(null, 'offline'); return; }
+  let i = 0;
+  const tryNext = (lastErr) => {
+    if (i >= eps.length){ cb(null, lastErr || 'no-server'); return; }
+    const ep = eps[i++];
+    fetch(ep + path, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+    })
+      .then(r => r.ok ? r.json() : Promise.reject('HTTP ' + r.status))
+      .then(j => { base = ep; cb(j, (j && j.error) || null); })
+      .catch(e => tryNext(String(e && e.message || e)));
+  };
+  tryNext();
+}
+
+/** Hỏi đáp: messages = [{role:'user'|'assistant', content}] → cb(reply, err) */
+function chat(messages, cb){ post('/_chat', { messages: messages }, (j, err) => cb((j && j.reply) || '', err)); }
+
+/** Phân tích âm thanh: audio base64 + mime → cb(result, err) */
+function analyzeAudio(audio, mime, cb){ post('/_audio', { audio: audio, mime: mime }, cb); }
+
+return { hash, status, run, googleUrl, online, chat, analyzeAudio };
 })();
 if (typeof window !== 'undefined') window.Translate = Translate;

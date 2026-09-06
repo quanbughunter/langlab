@@ -24,6 +24,8 @@ const state = {
   speed: 1,
   quiz: null,
   topik: null,
+  assistant: { tab:'chat', messages:[], busy:false,
+               audio:{ busy:false, result:null, error:null, name:'', lang:'' } },
   deck: store.get('deck', []),
   done: store.get('done', {}),
   theme: store.get('theme', 'auto'),
@@ -1225,8 +1227,198 @@ numbers(){
 /* ---------------- Thi thử TOPIK ---------------- */
 topik(){
   return topikView();
+},
+
+/* ---------------- Trợ lý AI ---------------- */
+assistant(){
+  return assistantView();
 }
 };
+
+/* ============================================================
+   TRỢ LÝ AI — hỏi đáp + phân tích tệp âm thanh (qua Worker/Gemini)
+   ============================================================ */
+function mdLite(s){
+  let t = esc(String(s));
+  t = t.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+  t = t.replace(/`([^`]+)`/g, '<code>$1</code>');
+  t = t.replace(/\n/g, '<br>');
+  return t;
+}
+function asstErrMsg(e){
+  const map = {
+    'offline':  'Tính năng này cần máy chủ AI. Hãy mở app qua link đã cấu hình Worker (js/config.js), đừng mở bằng file trực tiếp.',
+    'no-server':'Không gọi được máy chủ AI. Kiểm tra URL Worker trong js/config.js và secret của Worker.',
+    'no-key':   'Máy chủ AI chưa có khoá API. Đặt secret GEMINI_API_KEY cho Worker.',
+    'no-gemini':'Phân tích âm thanh cần Gemini. Hãy đặt secret GEMINI_API_KEY cho Worker.'
+  };
+  return map[e] || ('Lỗi: ' + e);
+}
+
+function assistantView(){
+  const A = state.assistant;
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Trợ lý AI · học tiếng Hàn</span>
+    <h1>Trợ lý AI</h1>
+    <p>Hỏi đáp nhanh về tiếng Hàn, hoặc tải lên một tệp âm thanh để AI nhận diện ngôn ngữ, tách câu–từ, tra nghĩa và dịch. Chạy qua máy chủ AI của bạn — khoá API nằm an toàn ở Worker.</p>
+  </div>
+  <div class="asst-tabs">
+    <button class="asst-tab${A.tab === 'chat' ? ' on' : ''}" data-asst-tab="chat">💬 Hỏi đáp</button>
+    <button class="asst-tab${A.tab === 'audio' ? ' on' : ''}" data-asst-tab="audio">🎧 Phân tích âm thanh</button>
+  </div>
+  ${A.tab === 'chat' ? asstChatTab() : asstAudioTab()}`;
+}
+
+function asstChatTab(){
+  const A = state.assistant;
+  const body = A.messages.length
+    ? A.messages.map(m => `
+        <div class="asst-msg ${m.role}">
+          <div class="asst-bubble">${m.role === 'user' ? esc(m.content) : mdLite(m.content)}</div>
+        </div>`).join('')
+    : `<div class="asst-hint">
+        <p><b>Xin chào!</b> Mình có thể giúp bạn về tiếng Hàn: ngữ pháp, từ vựng, cách dùng, luyện TOPIK, mẹo học… Thử một câu hỏi:</p>
+        <div class="asst-suggest">
+          ${['Phân biệt 은/는 và 이/가','“-(으)ㄹ 수 있다” dùng thế nào?','Cách xưng hô lịch sự trong tiếng Hàn','Mẹo nhớ từ vựng nhanh']
+            .map(s => `<button class="asst-chip" data-asst-ask="${esc(s)}">${esc(s)}</button>`).join('')}
+        </div>
+      </div>`;
+  return `
+  <div class="asst-chat">
+    <div class="asst-msgs" id="asstMsgs">
+      ${body}
+      ${A.busy ? '<div class="asst-msg assistant"><div class="asst-bubble typing"><span></span><span></span><span></span></div></div>' : ''}
+    </div>
+    <div class="asst-input">
+      <textarea id="asstInput" rows="1" placeholder="Hỏi về tiếng Hàn… (Enter để gửi)"${A.busy ? ' disabled' : ''}></textarea>
+      <button class="pbtn primary" data-asst-send="1"${A.busy ? ' disabled' : ''}>Gửi</button>
+      ${A.messages.length ? '<button class="pbtn" data-asst-clear="1" title="Xoá hội thoại">Xoá</button>' : ''}
+    </div>
+    <p class="asst-note">Chỉ hỗ trợ chủ đề học ngôn ngữ. Câu trả lời do AI tạo, có thể chưa chính xác tuyệt đối.</p>`
+    + '</div>';
+}
+
+function asstAudioTab(){
+  const A = state.assistant.audio;
+  let body = '';
+  if (A.busy)       body = `<div class="asst-audio-busy"><div class="asst-spin"></div><p>Đang phân tích “${esc(A.name)}”… có thể mất 10–30 giây.</p></div>`;
+  else if (A.error) body = `<div class="asst-error">${esc(A.error)}</div>`;
+  else if (A.result) body = asstAudioResult(A.result);
+  return `
+  <div class="asst-audio">
+    <label class="asst-drop" for="asstFile">
+      <div class="asst-drop-ico">🎧</div>
+      <div><b>Chọn tệp âm thanh</b> để phân tích<br><small>mp3, m4a, wav, ogg… · nên ngắn (≤ ~2 phút) · tối đa ~15 MB</small></div>
+      <input type="file" id="asstFile" accept="audio/*" hidden>
+    </label>
+    ${body}
+    <p class="asst-note">Tệp được gửi tới máy chủ AI của bạn để phân tích, không lưu lại. Với tiếng Hàn, bấm vào từng từ để tra từ điển đầy đủ.</p>
+  </div>`;
+}
+
+function asstAudioResult(r){
+  const isKo = /^ko/i.test(r.lang || '');
+  const head = `<div class="asst-lang">Ngôn ngữ nhận diện: <b>${esc(r.langVi || r.lang || 'không rõ')}</b>${isKo ? ' · bấm vào từng từ để tra từ điển' : ''}</div>`;
+  const sents = (r.sentences || []).map((s, i) => {
+    const words = (s.words || []).map(w => {
+      const ww = String(w.w || '');
+      const tip = [w.rom, w.vi].filter(Boolean).join(' · ');
+      return `<button class="asst-word" data-asst-word="${esc(ww)}" data-asst-lang="${esc(r.lang || '')}" data-asst-rom="${esc(w.rom || '')}" data-asst-vi="${esc(w.vi || '')}" title="${esc(tip)}">${esc(ww)}</button>`;
+    }).join(' ');
+    return `
+    <div class="asst-sent">
+      <div class="asst-sent-bar">
+        <span class="asst-sent-no">${i + 1}</span>
+        <button class="pbtn tiny" data-speak="${esc(s.text || '')}" title="Nghe câu">▶ Nghe</button>
+      </div>
+      <div class="asst-sent-ko ${isKo ? 'ko' : ''}">${words || esc(s.text || '')}</div>
+      ${s.rom ? `<div class="asst-sent-rom">${esc(s.rom)}</div>` : ''}
+      <div class="asst-sent-vi">${esc(s.vi || '')}</div>
+    </div>`;
+  }).join('');
+  return `${head}<div class="asst-sents">${sents}</div>
+    <div class="wp-actions" style="padding:12px 0 0"><button class="pbtn" data-asst-audio-reset="1">↻ Phân tích tệp khác</button></div>`;
+}
+
+/* Thẻ nghĩa nhanh cho từ không phải tiếng Hàn (tiếng Hàn dùng bảng tra đầy đủ) */
+function asstGloss(w, rom, vi){
+  const el = wordPanel();
+  el.innerHTML = `
+    <div class="wp-head">
+      <div>
+        <span class="eyebrow">Từ trong âm thanh</span>
+        <div class="wp-word">${esc(w)}</div>
+        ${rom ? `<div class="wp-rom">${esc(rom)}</div>` : ''}
+      </div>
+${WP_TOOLS}
+    </div>
+    <div class="wp-body">
+      <p class="wp-gloss">${vi ? esc(vi) : 'Không có nghĩa kèm theo.'}</p>
+      <p class="asst-note">Từ điển tích hợp chỉ có tiếng Hàn; đây là nghĩa nhanh do AI cung cấp.</p>
+    </div>`;
+  showPanel(el);
+}
+
+function autoGrow(ta){ ta.style.height = 'auto'; ta.style.height = Math.min(ta.scrollHeight, 160) + 'px'; }
+
+function mountAssistant(){
+  const A = state.assistant;
+  if (A.tab === 'chat'){
+    const ta = $('#asstInput');
+    if (ta){
+      autoGrow(ta);
+      ta.addEventListener('input', () => autoGrow(ta));
+      ta.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); asstSend(); } });
+      if (!A.busy) ta.focus();
+    }
+    const box = $('#asstMsgs'); if (box) box.scrollTop = box.scrollHeight;
+  } else {
+    const f = $('#asstFile');
+    if (f) f.addEventListener('change', () => { if (f.files && f.files[0]) asstHandleFile(f.files[0]); });
+  }
+}
+
+function asstSend(text){
+  const A = state.assistant;
+  const ta = $('#asstInput');
+  const msg = String(text != null ? text : (ta ? ta.value : '')).trim();
+  if (!msg || A.busy) return;
+  A.messages.push({ role:'user', content: msg });
+  A.busy = true;
+  render();
+  Translate.chat(A.messages, (reply, err) => {
+    A.busy = false;
+    A.messages.push({ role:'assistant', content: err ? ('Xin lỗi, mình chưa trả lời được. ' + asstErrMsg(err)) : (reply || '(không có nội dung)') });
+    if (state.view === 'assistant') render();
+  });
+}
+
+function asstHandleFile(file){
+  const A = state.assistant.audio;
+  A.name = file.name;
+  if (file.size > 15 * 1024 * 1024){
+    A.error = 'Tệp quá lớn (' + Math.round(file.size / 1048576) + ' MB). Giới hạn khoảng 15 MB — hãy cắt ngắn đoạn âm thanh rồi thử lại.';
+    A.result = null; A.busy = false; render(); return;
+  }
+  A.error = null; A.result = null; A.busy = true;
+  render();
+  const reader = new FileReader();
+  reader.onload = () => {
+    const dataUrl = String(reader.result || '');
+    const comma = dataUrl.indexOf(',');
+    const b64 = comma >= 0 ? dataUrl.slice(comma + 1) : dataUrl;
+    Translate.analyzeAudio(b64, file.type || 'audio/mpeg', (res, err) => {
+      A.busy = false;
+      if (err || !res) A.error = asstErrMsg(err || 'no-server');
+      else if (res.error) A.error = asstErrMsg(res.error);
+      else { A.result = res; A.lang = res.lang || ''; A.error = null; }
+      if (state.view === 'assistant') render();
+    });
+  };
+  reader.onerror = () => { A.busy = false; A.error = 'Không đọc được tệp âm thanh.'; render(); };
+  reader.readAsDataURL(file);
+}
 
 /* ============================================================
    BÀI TẬP — sinh câu hỏi từ dữ liệu khoá học
@@ -1417,7 +1609,7 @@ function quizSummary(){
 const CRUMBS = {
   home:'Khoá học', lesson:'Bài học', write:'Tập viết',
   srs:'Ôn tập', dict:'Từ điển', quiz:'Bài tập', shadow:'Luyện shadowing',
-  numbers:'Số đếm', topik:'Thi thử TOPIK'
+  numbers:'Số đếm', topik:'Thi thử TOPIK', assistant:'Trợ lý AI'
 };
 
 function render(){
@@ -1443,6 +1635,7 @@ function render(){
   }
   if (state.view === 'lesson' && state.tab === 'write') mountTrace();
   if (state.view === 'topik' && state.topik && state.topik.phase === 'doing') mountTopik(); else topikStopTimer();
+  if (state.view === 'assistant') mountAssistant();
   window.scrollTo({ top:0, behavior:'instant' in window ? 'instant' : 'auto' });
 }
 
@@ -2489,6 +2682,23 @@ document.addEventListener('click', e => {
   if (t.closest('[data-topik-home]')){ topikStopTimer(); state.topik = null; render(); return; }
   if (t.closest('[data-topik-exit]')){
     if (state.topik && confirm('Thoát và chọn đề khác? Bài đang làm sẽ không được lưu.')){ topikStopTimer(); state.topik = null; render(); }
+    return;
+  }
+
+  /* ---- Trợ lý AI ---- */
+  const atab = t.closest('[data-asst-tab]');
+  if (atab){ state.assistant.tab = atab.dataset.asstTab; render(); return; }
+  const aask = t.closest('[data-asst-ask]');
+  if (aask){ asstSend(aask.dataset.asstAsk); return; }
+  if (t.closest('[data-asst-send]')){ asstSend(); return; }
+  if (t.closest('[data-asst-clear]')){ if (confirm('Xoá toàn bộ hội thoại?')){ state.assistant.messages = []; render(); } return; }
+  if (t.closest('[data-asst-audio-reset]')){ const A = state.assistant.audio; A.result = null; A.error = null; A.name = ''; render(); return; }
+  const aword = t.closest('[data-asst-word]');
+  if (aword){
+    const w = aword.dataset.asstWord || '';
+    const lang = aword.dataset.asstLang || '';
+    if (/^ko/i.test(lang) || /[가-힣]/.test(w)) openWord(w);
+    else asstGloss(w, aword.dataset.asstRom || '', aword.dataset.asstVi || '');
     return;
   }
 
