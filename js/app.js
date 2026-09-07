@@ -1251,7 +1251,7 @@ function aboutView(){
 
     <section class="about-sec">
       <h2>LangLab là gì?</h2>
-      <p>LangLab là ứng dụng web giúp người Việt học ngoại ngữ một cách bài bản. Hiện có <b>tiếng Hàn</b> (6 cấp từ Sơ cấp đến Cao cấp, thi thử TOPIK), <b>tiếng Trung</b> (HSK 1–5 — nét cơ bản, bộ thủ, pinyin, tập viết theo thứ tự nét, thi thử HSK) và <b>tiếng Nga</b> (A1–B2 theo khung ТРКИ — bảng chữ cái, phát âm, viết tay, luyện nói, thi thử ТРКИ), sẽ mở rộng thêm các ngôn ngữ khác. Mỗi bài giữ nguyên cấu trúc quen thuộc: từ vựng → ngữ pháp → hội thoại → phát âm → văn hoá.</p>
+      <p>LangLab là ứng dụng web giúp người Việt học ngoại ngữ một cách bài bản. Hiện có <b>tiếng Hàn</b> (6 cấp từ Sơ cấp đến Cao cấp, thi thử TOPIK), <b>tiếng Trung</b> (HSK 1–5 — nét cơ bản, bộ thủ, pinyin, tập viết theo thứ tự nét, thi thử HSK) và <b>tiếng Nga</b> (A1–C2 theo khung ТРКИ — bảng chữ cái, phát âm, viết tay, luyện nói, thi thử ТРКИ), sẽ mở rộng thêm các ngôn ngữ khác. Mỗi bài giữ nguyên cấu trúc quen thuộc: từ vựng → ngữ pháp → hội thoại → phát âm → văn hoá.</p>
       <ul class="about-feats">
         <li>Khoá học chia cấp, bám khung giáo trình chuẩn của từng ngôn ngữ.</li>
         <li>Từ điển tra nhanh — bấm vào từ nào cũng xem được nghĩa và cách dùng.</li>
@@ -2278,7 +2278,7 @@ VIEWS.zh_quiz = function(){
 };
 
 /* ============================================================
-   TIẾNG NGA (русский язык) — bảng chữ cái · phát âm · tập viết · khoá A1–B2 · luyện nói · ТРКИ
+   TIẾNG NGA (русский язык) — bảng chữ cái · phát âm · tập viết · khoá A1–C2 · luyện nói · ТРКИ
    ============================================================ */
 const _RC = (typeof COURSE_RU   !== 'undefined') ? COURSE_RU   : { levels:[], lessons:[] };
 const _RA = (typeof ALPHABET_RU !== 'undefined') ? ALPHABET_RU : [];
@@ -2587,7 +2587,7 @@ VIEWS.ru_dict = function(){
   <div class="page-head">
     <span class="eyebrow">Tiếng Nga</span>
     <h1>Từ điển</h1>
-    <p>Tra trong ${Object.keys(RU_LOOKUP).length} từ của khoá A1–B2 (gõ không cần dấu trọng âm, ё = е). Bấm một từ trong bài học cũng mở tra ở đây; nút ↗ mở Wiktionary tiếng Nga để xem bảng biến cách.</p>
+    <p>Tra trong ${Object.keys(RU_LOOKUP).length} từ của khoá A1–C2 (gõ không cần dấu trọng âm, ё = е). Bấm một từ trong bài học cũng mở tra ở đây; nút ↗ mở Wiktionary tiếng Nga để xem bảng biến cách.</p>
   </div>
   <div class="zh-dict-search">
     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>

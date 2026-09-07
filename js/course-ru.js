@@ -1,6 +1,6 @@
 /* ============================================================
-   LangLab — TIẾNG NGA: bảng chữ cái, phát âm, khoá học A1–B2
-   Nội dung tự soạn cho người Việt, bám khung ТРКИ (A1 ТЭУ · A2 ТБУ · B1 ТРКИ-1 · B2 ТРКИ-2)
+   LangLab — TIẾNG NGA: bảng chữ cái, phát âm, khoá học A1–C2
+   Nội dung tự soạn cho người Việt, bám khung ТРКИ (A1 ТЭУ · A2 ТБУ · B1 ТРКИ-1 · B2 ТРКИ-2 · C1 ТРКИ-3 · C2 ТРКИ-4)
    và trình tự của giáo trình «Дорога в Россию» (chỉ dùng làm khung, không sao chép).
    Trọng âm ghi bằng dấu sắc kết hợp (U+0301) sau nguyên âm: молоко́. Chữ ё luôn mang trọng âm.
    ============================================================ */
@@ -68,7 +68,9 @@ const COURSE_RU = {
     { id:'a1', ru:'A1 · ТЭУ',    vi:'A1 · Sơ cấp (Элементарный)', lessons:15, status:'active' },
     { id:'a2', ru:'A2 · ТБУ',    vi:'A2 · Cơ bản (Базовый)',      lessons:15, status:'active' },
     { id:'b1', ru:'B1 · ТРКИ-1', vi:'B1 · Trung cấp 1',           lessons:15, status:'active' },
-    { id:'b2', ru:'B2 · ТРКИ-2', vi:'B2 · Trung cấp 2',           lessons:15, status:'active' }
+    { id:'b2', ru:'B2 · ТРКИ-2', vi:'B2 · Trung cấp 2',           lessons:15, status:'active' },
+    { id:'c1', ru:'C1 · ТРКИ-3', vi:'C1 · Cao cấp 1',             lessons:15, status:'active' },
+    { id:'c2', ru:'C2 · ТРКИ-4', vi:'C2 · Cao cấp 2',             lessons:15, status:'active' }
   ],
   lessons:[
 
@@ -2242,6 +2244,1088 @@ const COURSE_RU = {
         { sp:'B', ru:'Пишу́ по одному́ эссе́ в день по чек-ли́сту: вступле́ние с вопро́сом, два аргуме́нта, контраргуме́нт, вы́вод.', vi:'Mỗi ngày viết một bài theo checklist: mở bằng câu hỏi, hai luận cứ, phản luận, kết luận.' },
         { sp:'A', ru:'А грамма́тику как прове́рить?', vi:'Còn ngữ pháp thì kiểm tra thế nào?' },
         { sp:'B', ru:'Отмеча́ю: есть ли прича́стие, дееприча́стие, «вопреки́», «при усло́вии» и хотя́ бы оди́н фразеологи́зм. Как бы ни бы́ло тру́дно — э́то рабо́тает.', vi:'Đánh dấu: có tính động từ, trạng động từ, «вопреки», «при условии» và ít nhất một thành ngữ chưa. Dù khó thế nào — cách này hiệu quả.' }
+      ]
+    },
+
+    /* ================= C1 ================= */
+    {
+      level:'c1', no:1, ru:'Синони́мы и стилисти́ческая окра́ска', vi:'Đồng nghĩa và sắc thái phong cách',
+      skill:'Chọn từ đúng phong cách: sách vở – trung tính – khẩu ngữ – thông tục',
+      grammar:[
+        { form:'Dãy đồng nghĩa theo phong cách: о́чи (thơ) — глаза́ (trung tính) — зе́нки (thông tục); спать — почива́ть (cổ, mỉa) — дры́хнуть (thô); лицо́ — лик — фи́зиономия — мо́рда', vi:'một nghĩa, nhiều thang phong cách',
+          note:'Từ điển đánh dấu: книжн. (sách vở), высок. (trang trọng), разг. (khẩu ngữ), прост. (thông tục), груб. (thô). Trong bài thi C1, dùng sai thang = lỗi. Trung tính luôn an toàn.',
+          ex:{ ru:'В докла́де «умере́ть» заменя́ют на «сконча́ться», а в разгово́ре с друзья́ми ска́жут «ушёл» и́ли, гру́бо, «дал ду́ба».', vi:'Trong báo cáo, «chết» được thay bằng «từ trần», còn nói với bạn bè thì «đi rồi» hoặc thô hơn «ngoẻo».' } },
+        { form:'Từ vựng đánh giá: ласк. (у́мничка, до́мик), уменьш. (кни́жечка), пренебр. (кни́жонка, писа́ка), ирон. (умник); hậu tố -ишк-, -онк-, -ищ-', vi:'sắc thái cảm xúc qua hậu tố',
+          note:'до́мик (nhà nhỏ, trìu mến) / доми́шко (nhà xập xệ, coi thường) / доми́ще (nhà to đùng). Nói với trẻ em, người thân dùng -ик/-очк-; văn bản công vụ tuyệt đối tránh.',
+          ex:{ ru:'Кака́я у вас ми́лая соба́чка! — А у сосе́да не соба́ка, а соба́чища с телёнка.', vi:'Con cún của bạn dễ thương quá! — Còn nhà hàng xóm không phải chó mà là con chó to như con bê.' } }
+      ],
+      vocab:[
+        { ru:'стилисти́ческая окра́ска', vi:'sắc thái phong cách', pos:'cụm' },
+        { ru:'кни́жный', vi:'sách vở, văn viết', pos:'tính từ' },
+        { ru:'разгово́рный', vi:'khẩu ngữ', pos:'tính từ' },
+        { ru:'просторе́чие', vi:'tiếng thông tục', pos:'danh từ giống trung' },
+        { ru:'нейтра́льный', vi:'trung tính', pos:'tính từ' },
+        { ru:'о́чи', vi:'đôi mắt (thơ)', pos:'danh từ số nhiều' },
+        { ru:'сконча́ться', vi:'từ trần', pos:'động từ СВ' },
+        { ru:'почива́ть', vi:'ngủ (cổ, mỉa)', pos:'động từ NSV' },
+        { ru:'ласка́тельный', vi:'trìu mến (hậu tố)', pos:'tính từ' },
+        { ru:'пренебрежи́тельный', vi:'coi thường', pos:'tính từ' },
+        { ru:'ирони́ческий', vi:'mỉa mai', pos:'tính từ' },
+        { ru:'у́мница', vi:'người thông minh, giỏi (khen)', pos:'danh từ' },
+        { ru:'у́мник', vi:'kẻ ra vẻ thông thái (mỉa)', pos:'danh từ giống đực' },
+        { ru:'уме́стный', vi:'phù hợp (hoàn cảnh)', pos:'tính từ' },
+        { ru:'оттено́к значе́ния', vi:'sắc thái nghĩa', pos:'cụm' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'В официа́льном письме́ я написа́л «ребя́та из отде́ла». Э́то но́рмально?', vi:'Trong thư chính thức mình viết «mấy bạn ở phòng». Có ổn không?' },
+        { sp:'B', ru:'«Ребя́та» — разгово́рное. Пиши́ «сотру́дники отде́ла», ина́че то́н неуме́стный.', vi:'«Ребята» là khẩu ngữ. Viết «các nhân viên phòng», nếu không giọng điệu không phù hợp.' },
+        { sp:'A', ru:'А «ску́шать» вме́сто «съесть»?', vi:'Còn «скушать» thay «съесть»?' },
+        { sp:'B', ru:'«Ску́шать» говоря́т де́тям и́ли с иро́нией. Взро́слый в столо́вой про́сто «ест».', vi:'«Скушать» nói với trẻ con hoặc mỉa mai. Người lớn ở căng-tin thì đơn giản là «ăn».' }
+      ]
+    },
+
+    {
+      level:'c1', no:2, ru:'Паро́нимы', vi:'Từ đồng âm gần (paronym) dễ nhầm',
+      skill:'оде́ть/наде́ть, эффе́ктный/эффекти́вный, предста́вить/предоста́вить, неве́жа/неве́жда…',
+      grammar:[
+        { form:'Cặp paronym động từ: наде́ть (что — mặc vật lên mình) / оде́ть (кого́ — mặc cho ai) · предста́вить (giới thiệu, hình dung) / предоста́вить (cấp, cho) · освои́ть (nắm vững) / усво́ить (tiếp thu) · опла́тить (что) / заплати́ть (за что)', vi:'paronym động từ',
+          note:'Quy tắc nhớ: наде́ть оде́жду, оде́ть Наде́жду. Предоста́вить сло́во (nhường lời) — предста́вить го́стя (giới thiệu khách).',
+          ex:{ ru:'Он наде́л пальто́, оде́л ребёнка и предоста́вил води́телю пра́во вы́брать маршру́т.', vi:'Anh ấy mặc áo khoác, mặc đồ cho con và trao cho tài xế quyền chọn lộ trình.' } },
+        { form:'Paronym tính từ/danh từ: эффе́ктный (gây ấn tượng) / эффекти́вный (hiệu quả) · дипломати́чный (khéo) / дипломати́ческий (thuộc ngoại giao) · неве́жа (vô lễ) / неве́жда (dốt) · а́дресат (người nhận) / адреса́нт (người gửi) · экономи́ческий / экономи́чный / экономи́чный', vi:'paronym tính từ, danh từ',
+          note:'Thi ТРКИ-3 có bài chọn paronym. Cách học: nhớ theo cặp với ví dụ đối lập.',
+          ex:{ ru:'Речь была́ эффе́ктной, но не эффекти́вной: краси́вые слова́ ничего́ не измени́ли.', vi:'Bài phát biểu gây ấn tượng nhưng không hiệu quả: lời hay chẳng thay đổi gì.' } }
+      ],
+      vocab:[
+        { ru:'паро́ним', vi:'từ gần âm dễ nhầm', pos:'danh từ giống đực' },
+        { ru:'надева́ть / наде́ть', vi:'mặc, đeo (vật)', pos:'động từ НСВ/СВ' },
+        { ru:'одева́ть / оде́ть', vi:'mặc cho (ai)', pos:'động từ НСВ/СВ' },
+        { ru:'представля́ть / предста́вить', vi:'giới thiệu; hình dung', pos:'động từ НСВ/СВ' },
+        { ru:'предоставля́ть / предоста́вить', vi:'cấp, trao', pos:'động từ НСВ/СВ' },
+        { ru:'осва́ивать / осво́ить', vi:'làm chủ, nắm vững', pos:'động từ НСВ/СВ' },
+        { ru:'усва́ивать / усво́ить', vi:'tiếp thu', pos:'động từ НСВ/СВ' },
+        { ru:'эффе́ктный', vi:'gây ấn tượng', pos:'tính từ' },
+        { ru:'эффекти́вный', vi:'hiệu quả', pos:'tính từ' },
+        { ru:'дипломати́чный', vi:'khéo léo', pos:'tính từ' },
+        { ru:'дипломати́ческий', vi:'thuộc ngoại giao', pos:'tính từ' },
+        { ru:'неве́жа', vi:'kẻ vô lễ', pos:'danh từ' },
+        { ru:'неве́жда', vi:'kẻ dốt nát', pos:'danh từ' },
+        { ru:'адреса́т', vi:'người nhận', pos:'danh từ giống đực' },
+        { ru:'маршру́т', vi:'lộ trình', pos:'danh từ giống đực' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Прове́рь фра́зу: «Дире́ктор оде́л но́вый костю́м и предста́вил нам о́тпуск».', vi:'Kiểm tra câu này giúp: «Giám đốc mặc (одел) bộ vest mới và giới thiệu (представил) cho chúng tôi kỳ nghỉ».' },
+        { sp:'B', ru:'Две оши́бки: «наде́л костю́м» и «предоста́вил о́тпуск». Оде́ть мо́жно то́лько кого́-то.', vi:'Hai lỗi: «надел костюм» và «предоставил отпуск». Одеть chỉ dùng với người.' },
+        { sp:'A', ru:'А «эффе́ктный ме́тод обуче́ния»?', vi:'Còn «эффектный метод обучения»?' },
+        { sp:'B', ru:'Е́сли ме́тод даёт результа́т — «эффекти́вный». «Эффе́ктный» — э́то про вне́шнее впечатле́ние.', vi:'Nếu phương pháp cho kết quả — «эффективный». «Эффектный» là về ấn tượng bên ngoài.' }
+      ]
+    },
+
+    {
+      level:'c1', no:3, ru:'Управле́ние глаго́лов', vi:'Chi phối của động từ — các trường hợp khó',
+      skill:'Giới từ và cách sau động từ dễ sai; động từ gần nghĩa nhưng khác chi phối',
+      grammar:[
+        { form:'Cặp gần nghĩa, khác chi phối: опла́тить прое́зд / заплати́ть за прое́зд · скуча́ть по до́му (cách 3) · беспоко́иться о ком / трево́житься за кого́ · уве́ренность в чём / ве́ра во что · удивля́ться чему́ / поража́ться чем', vi:'chi phối động từ',
+          note:'Lỗi phổ biến: «оплатить за проезд» (sai), «скучать за тобой» (phương ngữ nam, sai chuẩn). Отзыв о кни́ге (nhận xét về) ≠ реце́нзия на кни́гу.',
+          ex:{ ru:'Она́ скуча́ет по роди́телям, беспоко́ится об их здоро́вье и уве́рена в том, что ле́том пое́дет домо́й.', vi:'Cô ấy nhớ bố mẹ, lo cho sức khoẻ của họ và tin chắc rằng hè sẽ về nhà.' } },
+        { form:'Danh từ phái sinh đổi chi phối: уча́ствовать в чём → уча́стие в чём; влия́ть на что → влия́ние на что; управля́ть чем → управле́ние чем; препя́тствовать чему́ → препя́тствие для чего́', vi:'chi phối của danh từ',
+          note:'Không phải lúc nào cũng giữ nguyên: интересова́ться чем → интере́с к чему́; наблюда́ть за чем → наблюде́ние за чем.',
+          ex:{ ru:'Уча́стие в конфере́нции оказа́ло влия́ние на его́ интере́с к нау́ке.', vi:'Việc tham gia hội thảo đã ảnh hưởng tới mối quan tâm của anh ấy với khoa học.' } }
+      ],
+      vocab:[
+        { ru:'управле́ние (глаго́ла)', vi:'chi phối (của động từ)', pos:'thuật ngữ' },
+        { ru:'опла́чивать / оплати́ть', vi:'thanh toán (что)', pos:'động từ НСВ/СВ' },
+        { ru:'плати́ть / заплати́ть', vi:'trả tiền (за что)', pos:'động từ НСВ/СВ' },
+        { ru:'скуча́ть по', vi:'nhớ (ai/gì + cách 3)', pos:'động từ NSV' },
+        { ru:'беспоко́иться о', vi:'lo lắng về', pos:'động từ NSV' },
+        { ru:'трево́житься за', vi:'lo cho', pos:'động từ NSV' },
+        { ru:'уве́ренность в', vi:'sự tin chắc vào', pos:'danh từ giống cái' },
+        { ru:'удивля́ться', vi:'ngạc nhiên (+ cách 3)', pos:'động từ NSV' },
+        { ru:'о́тзыв о', vi:'nhận xét về', pos:'danh từ giống đực' },
+        { ru:'реце́нзия на', vi:'bài phê bình về', pos:'danh từ giống cái' },
+        { ru:'влия́ние на', vi:'ảnh hưởng tới', pos:'danh từ giống trung' },
+        { ru:'препя́тствовать', vi:'cản trở (+ cách 3)', pos:'động từ NSV' },
+        { ru:'наблюде́ние за', vi:'sự quan sát', pos:'danh từ giống trung' },
+        { ru:'интере́с к', vi:'mối quan tâm tới', pos:'danh từ giống đực' },
+        { ru:'опира́ться на', vi:'dựa vào', pos:'động từ NSV' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Я написа́л: «Мы опла́тили за биле́ты и о́чень скуча́ем за Москво́й».', vi:'Mình viết: «Chúng tôi đã thanh toán (за) vé và rất nhớ (за) Moskva».' },
+        { sp:'B', ru:'«Оплати́ли биле́ты» — без предло́га, а «скуча́ем по Москве́». Э́то класси́ческие оши́бки.', vi:'«Оплатили билеты» — không giới từ, còn «скучаем по Москве». Đó là lỗi kinh điển.' },
+        { sp:'A', ru:'А «уверен на успех»?', vi:'Còn «уверен на успех»?' },
+        { sp:'B', ru:'«Уве́рен в успе́хе». Запо́мни па́ру: ве́ра во что — уве́ренность в чём.', vi:'«Уверен в успехе». Nhớ cặp: вера во что — уверенность в чём.' }
+      ]
+    },
+
+    {
+      level:'c1', no:4, ru:'Согласова́ние сказу́емого', vi:'Hoà hợp vị ngữ với chủ ngữ phức',
+      skill:'большинство́, ряд, не́сколько, кто́-то из, số đếm + danh từ, danh từ chung giống',
+      grammar:[
+        { form:'Chủ ngữ lượng (большинство́, ряд, часть, мно́жество, не́сколько, пять…) + vị ngữ số ít (trung tính, sách vở) hoặc số nhiều (nhấn tính chủ động của nhiều người)', vi:'hoà hợp số',
+          note:'Большинство́ студе́нтов сда́ло экза́мен (chính thức) / сда́ли (khẩu ngữ, nhấn từng người). Với danh từ vô tri → số ít: Ряд вопро́сов был решён. Со số đếm chỉ thời gian/lượng → số ít: Прошло́ пять лет.',
+          ex:{ ru:'Не́сколько челове́к опозда́ли, а большинство́ уже́ сиде́ло в за́ле, когда́ прошло́ де́сять мину́т.', vi:'Vài người đến muộn, còn đa số đã ngồi trong hội trường khi mười phút trôi qua.' } },
+        { form:'Giống của vị ngữ: danh từ chung giống (врач, профе́ссор, дире́ктор) + nữ → động từ giống cái, tính từ giống đực: Дире́ктор Ивано́ва подписа́ла прика́з, но: но́вый дире́ктор. Кто (đực số ít): Кто из де́вушек пришёл? Đại từ + ai: Я, как и ты, устал.', vi:'hoà hợp giống',
+          note:'Cụm «X с Y»: Брат с сестро́й пришли́ (cả hai chủ động) / Мать с ребёнком пришла́ (một chủ thể chính).',
+          ex:{ ru:'Кто из вас реши́л зада́чу? — Реши́ла Анна: она́ о́пытный инжене́р.', vi:'Ai trong các bạn giải được bài? — Anna giải rồi: cô ấy là kỹ sư có kinh nghiệm.' } }
+      ],
+      vocab:[
+        { ru:'согласова́ние', vi:'sự hoà hợp', pos:'danh từ giống trung' },
+        { ru:'сказу́емое', vi:'vị ngữ', pos:'danh từ giống trung' },
+        { ru:'подлежа́щее', vi:'chủ ngữ', pos:'danh từ giống trung' },
+        { ru:'большинство́', vi:'đa số', pos:'danh từ giống trung' },
+        { ru:'меньшинство́', vi:'thiểu số', pos:'danh từ giống trung' },
+        { ru:'ряд', vi:'một loạt', pos:'danh từ giống đực' },
+        { ru:'мно́жество', vi:'vô số', pos:'danh từ giống trung' },
+        { ru:'часть', vi:'một phần', pos:'danh từ giống cái' },
+        { ru:'о́бщий род', vi:'giống chung', pos:'cụm' },
+        { ru:'прика́з', vi:'mệnh lệnh, quyết định', pos:'danh từ giống đực' },
+        { ru:'подпи́сывать / подписа́ть', vi:'ký', pos:'động từ НСВ/СВ' },
+        { ru:'опа́здывать / опозда́ть', vi:'đến muộn', pos:'động từ НСВ/СВ' },
+        { ru:'зал', vi:'hội trường', pos:'danh từ giống đực' },
+        { ru:'нейтра́льно', vi:'một cách trung tính', pos:'trạng từ' },
+        { ru:'подчёркивать', vi:'nhấn mạnh', pos:'động từ NSV' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'«Большинство́ прие́хали» и́ли «прие́хало»?', vi:'«Большинство приехали» hay «приехало»?' },
+        { sp:'B', ru:'О́ба вариа́нта возмо́жны. В официа́льном те́ксте безопа́снее еди́нственное число́.', vi:'Cả hai đều được. Trong văn bản chính thức số ít an toàn hơn.' },
+        { sp:'A', ru:'А «прошло́ пять лет» — почему́ не «прошли́»?', vi:'Còn «прошло пять лет» — sao không «прошли»?' },
+        { sp:'B', ru:'Вре́мя и коли́чество как еди́ное це́лое — сре́дний род, еди́нственное число́.', vi:'Thời gian và số lượng như một khối — giống trung, số ít.' }
+      ]
+    },
+
+    {
+      level:'c1', no:5, ru:'Инве́рсия и обособле́ние', vi:'Đảo ngữ và thành phần biệt lập',
+      skill:'Trật tự từ trong văn viết; dấu phẩy với thành phần biệt lập; парцелляция',
+      grammar:[
+        { form:'Đảo ngữ (инве́рсия) đưa từ quan trọng lên đầu hoặc cuối để nhấn: Тишина́ стоя́ла удиви́тельная. Пришёл он по́здно. Tính từ sau danh từ = trang trọng/thơ: ночь тёмная', vi:'đảo ngữ biểu cảm',
+          note:'Trong văn báo chí, đảo ngữ tạo giọng điệu; trong văn khoa học tránh. Không đảo tuỳ tiện: nghĩa có thể đổi (xem B2 bài 9).',
+          ex:{ ru:'Удиви́тельным был э́тот го́род: ти́хий днём, шу́мный но́чью.', vi:'Thành phố này thật lạ: ngày yên tĩnh, đêm ồn ào.' } },
+        { form:'Thành phần biệt lập (обособле́ние) ngăn bằng dấu phẩy: định ngữ sau danh từ (дом, постро́енный в XIX ве́ке), trạng ngữ (Верну́вшись, он…), bổ ngữ (кро́ме…, за исключе́нием…), từ chêm, đồng vị ngữ (Ива́н, наш сосе́д,…). Парцелля́ция: tách câu bằng dấu chấm để nhấn — Он ушёл. Навсегда́.', vi:'dấu câu văn viết',
+          note:'Định ngữ TRƯỚC danh từ không ngăn phẩy: постро́енный в XIX ве́ке дом. Đại từ + định ngữ luôn ngăn: Уста́лый, он молча́л.',
+          ex:{ ru:'Все, кро́ме Анто́на, на́шего но́вого колле́ги, уже́ зна́ли реше́ние. Он у́знал после́дним. Как всегда́.', vi:'Tất cả, trừ Anton, đồng nghiệp mới của chúng tôi, đã biết quyết định. Anh ấy biết sau cùng. Như mọi khi.' } }
+      ],
+      vocab:[
+        { ru:'инве́рсия', vi:'đảo ngữ', pos:'danh từ giống cái' },
+        { ru:'обособле́ние', vi:'thành phần biệt lập', pos:'danh từ giống trung' },
+        { ru:'парцелля́ция', vi:'tách câu để nhấn', pos:'danh từ giống cái' },
+        { ru:'определе́ние', vi:'định ngữ', pos:'danh từ giống trung' },
+        { ru:'обстоя́тельство', vi:'trạng ngữ', pos:'danh từ giống trung' },
+        { ru:'приложе́ние', vi:'đồng vị ngữ; phụ lục', pos:'danh từ giống trung' },
+        { ru:'за исключе́нием', vi:'ngoại trừ (+ cách 2)', pos:'cụm' },
+        { ru:'запята́я', vi:'dấu phẩy', pos:'danh từ giống cái' },
+        { ru:'тире́', vi:'dấu gạch ngang', pos:'danh từ (bất biến)' },
+        { ru:'двоето́чие', vi:'dấu hai chấm', pos:'danh từ giống trung' },
+        { ru:'вырази́тельность', vi:'tính biểu cảm', pos:'danh từ giống cái' },
+        { ru:'тон', vi:'giọng điệu', pos:'danh từ giống đực' },
+        { ru:'тишина́', vi:'sự yên tĩnh', pos:'danh từ giống cái' },
+        { ru:'навсегда́', vi:'mãi mãi', pos:'trạng từ' },
+        { ru:'после́дний', vi:'cuối cùng', pos:'tính từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Реда́ктор верну́л мне статью́: «сли́шком мно́го инве́рсий».', vi:'Biên tập viên trả lại bài: «quá nhiều đảo ngữ».' },
+        { sp:'B', ru:'Для нау́чной статьи́ э́то ве́рно. Прямо́й поря́док слов — по умолча́нию.', vi:'Với bài khoa học thì đúng. Trật tự thuận là mặc định.' },
+        { sp:'A', ru:'А в эссе́ мо́жно?', vi:'Còn trong tiểu luận thì được chứ?' },
+        { sp:'B', ru:'Мо́жно, но дози́рованно: одна́ инве́рсия на абза́ц, и обяза́тельно ста́вь запяты́е при обособле́нии.', vi:'Được, nhưng có liều lượng: một đảo ngữ mỗi đoạn, và nhất định đặt dấu phẩy ở thành phần biệt lập.' }
+      ]
+    },
+
+    {
+      level:'c1', no:6, ru:'Сло́жные предложе́ния', vi:'Câu phức nhiều mệnh đề và câu không liên từ',
+      skill:'Chuỗi mệnh đề phụ; câu không liên từ với dấu hai chấm / gạch ngang',
+      grammar:[
+        { form:'Nhiều mệnh đề phụ: nối tiếp (Я зна́ю, что он сказа́л, что придёт) → tránh lặp что; song song (когда…, е́сли…, то…); tránh «который» kép — thay bằng прича́стие', vi:'câu phức đa tầng',
+          note:'Sửa lỗi lặp: «Он сказа́л, что он ду́мает, что…» → «По его́ слова́м, он счита́ет, что…». Không đặt hai liên từ liền nhau nếu có thể: «что е́сли» → tách câu.',
+          ex:{ ru:'Когда́ прое́кт был заве́ршён, оказа́лось, что за́казчик, не дожда́вшись отчёта, уже́ отказа́лся от сотру́дничества.', vi:'Khi dự án hoàn tất, hoá ra khách hàng, không đợi báo cáo, đã từ chối hợp tác.' } },
+        { form:'Câu không liên từ: dấu hai chấm (:) = nguyên nhân / giải thích / bổ sung (Я молча́л: спо́рить бы́ло бесполе́зно); dấu gạch (—) = kết quả / đối lập / điều kiện / thời gian nhanh (Наста́нет ве́сна — пое́дем на да́чу)', vi:'бессою́зное предложе́ние',
+          note:'Thử thay liên từ: nếu hợp с потому́ что / а и́менно → «:»; nếu hợp с поэ́тому / а / е́сли / когда́ → «—».',
+          ex:{ ru:'Ле́с руби́ть — ще́пки летя́т. Он не пришёл: заболе́л.', vi:'Đốn rừng — dăm bay (tục ngữ: làm việc lớn khó tránh tổn thất). Anh ấy không đến: bị ốm.' } }
+      ],
+      vocab:[
+        { ru:'сложноподчинённое предложе́ние', vi:'câu phức chính phụ', pos:'thuật ngữ' },
+        { ru:'бессою́зное предложе́ние', vi:'câu không liên từ', pos:'thuật ngữ' },
+        { ru:'прида́точное', vi:'mệnh đề phụ', pos:'danh từ giống trung' },
+        { ru:'после́довательное подчине́ние', vi:'phụ thuộc nối tiếp', pos:'cụm' },
+        { ru:'по его́ слова́м', vi:'theo lời anh ấy', pos:'cụm' },
+        { ru:'заверша́ть / заверши́ть', vi:'hoàn tất', pos:'động từ НСВ/СВ' },
+        { ru:'ока́зываться / оказа́ться', vi:'hoá ra', pos:'động từ НСВ/СВ' },
+        { ru:'зака́зчик', vi:'khách hàng đặt hàng', pos:'danh từ giống đực' },
+        { ru:'дожида́ться / дожда́ться', vi:'đợi được', pos:'động từ НСВ/СВ' },
+        { ru:'бесполе́зно', vi:'vô ích', pos:'trạng từ' },
+        { ru:'спо́рить', vi:'tranh cãi', pos:'động từ NSV' },
+        { ru:'ще́пка', vi:'dăm gỗ', pos:'danh từ giống cái' },
+        { ru:'наступа́ть / наста́ть', vi:'đến (mùa, thời điểm)', pos:'động từ НСВ/СВ' },
+        { ru:'а и́менно', vi:'cụ thể là', pos:'cụm' },
+        { ru:'упроща́ть / упрости́ть', vi:'đơn giản hoá', pos:'động từ НСВ/СВ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Моё предложе́ние: «Он сказа́л, что он зна́ет, что прое́кт, кото́рый мы де́лаем, кото́рый ва́жен, отло́жен».', vi:'Câu của mình: «Anh ấy nói rằng anh ấy biết rằng dự án mà chúng ta làm, mà quan trọng, đã bị hoãn».' },
+        { sp:'B', ru:'Три «что» и два «кото́рый». Упрости́: «По его́ слова́м, наш ва́жный прое́кт отло́жен».', vi:'Ba «что» và hai «который». Đơn giản hoá: «Theo lời anh ấy, dự án quan trọng của chúng ta đã bị hoãn».' },
+        { sp:'A', ru:'А заче́м здесь двоето́чие: «Я молча́л: спо́рить бы́ло бесполе́зно»?', vi:'Còn dấu hai chấm ở đây để làm gì?' },
+        { sp:'B', ru:'Потому́ что втора́я часть объясня́ет пе́рвую. Заме́нишь на «потому́ что» — смысл тот же.', vi:'Vì vế sau giải thích vế trước. Thay bằng «потому что» — nghĩa không đổi.' }
+      ]
+    },
+
+    {
+      level:'c1', no:7, ru:'Оборо́ты: ти́пичные оши́бки', vi:'Cụm tính động từ / trạng động từ — lỗi điển hình',
+      skill:'Sửa lỗi dùng деепричастие, причастие; chuyển đổi cấu trúc trong văn khoa học',
+      grammar:[
+        { form:'Lỗi 1: trạng động từ khác chủ ngữ («Подъезжа́я к ста́нции, у меня́ слете́ла шля́па» — Chekhov giễu) · Lỗi 2: trạng động từ trong câu bị động/vô nhân xưng · Lỗi 3: thì không khớp (Прочита́в кни́гу, он чита́ет…)', vi:'trạng động từ',
+          note:'Sửa bằng mệnh đề phụ: Когда́ я подъезжа́л к ста́нции, у меня́ слете́ла шля́па. Trạng động từ chỉ với động từ nhân xưng, cùng chủ thể.',
+          ex:{ ru:'✗ Изуча́я текст, мне ста́ло я́сно. → ✓ Изуча́я текст, я по́нял. / Когда́ я изуча́л текст, мне ста́ло я́сно.', vi:'✗ (sai) → ✓ Khi nghiên cứu văn bản, tôi hiểu ra.' } },
+        { form:'Cụm tính động từ: không đặt danh từ giữa cụm (✗ постро́енный дом в про́шлом году́ → ✓ дом, постро́енный в про́шлом году́); không dùng прича́стие tương lai/giả định (✗ сде́лающий); thay бы: кото́рый сде́лал бы', vi:'tính động từ',
+          note:'Văn khoa học ưa bị động và danh từ hoá: «Да́нные, полу́ченные в хо́де экспериме́нта, свиде́тельствуют…». Khẩu ngữ thay bằng кото́рый.',
+          ex:{ ru:'Результа́ты, полу́ченные гру́ппой, подтвержда́ют гипо́тезу, вы́двинутую ра́нее.', vi:'Kết quả nhóm thu được xác nhận giả thuyết đã nêu trước đó.' } }
+      ],
+      vocab:[
+        { ru:'оборо́т', vi:'cụm (ngữ pháp)', pos:'danh từ giống đực' },
+        { ru:'ти́пичная оши́бка', vi:'lỗi điển hình', pos:'cụm' },
+        { ru:'подъезжа́ть / подъе́хать', vi:'đi xe lại gần', pos:'động từ НСВ/СВ' },
+        { ru:'слета́ть / слете́ть', vi:'bay mất', pos:'động từ НСВ/СВ' },
+        { ru:'шля́па', vi:'mũ (vành)', pos:'danh từ giống cái' },
+        { ru:'безли́чное предложе́ние', vi:'câu vô nhân xưng', pos:'thuật ngữ' },
+        { ru:'станови́ться / стать я́сно', vi:'trở nên rõ', pos:'cụm' },
+        { ru:'да́нные', vi:'dữ liệu', pos:'danh từ số nhiều' },
+        { ru:'экспериме́нт', vi:'thí nghiệm', pos:'danh từ giống đực' },
+        { ru:'гипо́теза', vi:'giả thuyết', pos:'danh từ giống cái' },
+        { ru:'выдвига́ть / вы́двинуть', vi:'đề xuất, nêu', pos:'động từ НСВ/СВ' },
+        { ru:'подтвержда́ть / подтверди́ть', vi:'xác nhận', pos:'động từ НСВ/СВ' },
+        { ru:'опроверга́ть / опрове́ргнуть', vi:'bác bỏ', pos:'động từ НСВ/СВ' },
+        { ru:'исправля́ть / испра́вить', vi:'sửa', pos:'động từ НСВ/СВ' },
+        { ru:'корре́ктный', vi:'chính xác, đúng', pos:'tính từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'«Гото́вясь к экза́мену, у меня́ появи́лась иде́я». Что не так?', vi:'«Chuẩn bị thi, ở tôi xuất hiện một ý tưởng». Có gì sai?' },
+        { sp:'B', ru:'Дееприча́стие вися́щее: гото́вился ты, а появи́лась иде́я. Скажи́: «Гото́вясь к экза́мену, я приду́мал…».', vi:'Trạng động từ lơ lửng: chuẩn bị là cậu, còn xuất hiện là ý tưởng. Nói: «Khi chuẩn bị thi, tôi nghĩ ra…».' },
+        { sp:'A', ru:'А «сде́лающий рабо́ту студе́нт»?', vi:'Còn «сделающий работу студент»?' },
+        { sp:'B', ru:'Тако́й фо́рмы нет. «Студе́нт, кото́рый сде́лает рабо́ту».', vi:'Không có dạng đó. «Sinh viên sẽ làm bài».' }
+      ]
+    },
+
+    {
+      level:'c1', no:8, ru:'Оце́нка и отноше́ние', vi:'Biểu đạt đánh giá, mức độ chắc chắn',
+      skill:'Từ chêm theo mức độ tin cậy; tiểu từ tình thái; giảm nhẹ và nhấn mạnh',
+      grammar:[
+        { form:'Thang chắc chắn: несомне́нно / безусло́вно / разуме́ется (100%) → коне́чно, действи́тельно → по-ви́димому, вероя́тно, наве́рное (60%) → возмо́жно, мо́жет быть, пожа́луй (40%) → вряд ли, едва́ ли (20%)', vi:'mức độ tin cậy',
+          note:'Пожа́луй = có lẽ (thiên về đồng ý nhẹ). Едва́ ли = khó mà. Trong tranh luận lịch sự hạ mức: «Возмо́жно, я ошиба́юсь, но…».',
+          ex:{ ru:'Вряд ли он успе́ет; пожа́луй, лу́чше перенести́ встре́чу, хотя́, разуме́ется, реша́ть вам.', vi:'Khó mà anh ấy kịp; có lẽ nên dời cuộc gặp, dù dĩ nhiên là tuỳ ông quyết.' } },
+        { form:'Thái độ: к сча́стью / к сожале́нию / к удивле́нию (cảm xúc) · открове́нно говоря́, че́стно говоря́, по пра́вде сказа́ть (thẳng thắn) · мя́гко говоря́ (nói nhẹ đi) · про́ще говоря́, ины́ми слова́ми (diễn giải) · как ни стра́нно · чего́ до́брого (e rằng)', vi:'từ chêm thái độ',
+          note:'Tất cả ngăn bằng dấu phẩy. Мя́гко говоря́ báo hiệu sự thật khó nghe: «Отчёт, мя́гко говоря́, слаб».',
+          ex:{ ru:'Че́стно говоря́, докла́д, мя́гко говоря́, не убеди́л; как ни стра́нно, вопро́сов не́ было.', vi:'Nói thật, báo cáo, nói nhẹ đi, chưa thuyết phục; lạ thay, không có câu hỏi nào.' } }
+      ],
+      vocab:[
+        { ru:'разуме́ется', vi:'dĩ nhiên', pos:'từ chêm' },
+        { ru:'пожа́луй', vi:'có lẽ (nghiêng về đồng ý)', pos:'từ chêm' },
+        { ru:'едва́ ли', vi:'khó mà', pos:'tiểu từ' },
+        { ru:'по-ви́димому', vi:'xem ra', pos:'từ chêm' },
+        { ru:'открове́нно говоря́', vi:'nói thẳng', pos:'cụm' },
+        { ru:'мя́гко говоря́', vi:'nói nhẹ đi', pos:'cụm' },
+        { ru:'по пра́вде сказа́ть', vi:'nói thật', pos:'cụm' },
+        { ru:'как ни стра́нно', vi:'lạ thay', pos:'cụm' },
+        { ru:'чего́ до́брого', vi:'e rằng (điều xấu)', pos:'cụm' },
+        { ru:'к удивле́нию', vi:'thật ngạc nhiên', pos:'cụm' },
+        { ru:'убежда́ть / убеди́ть', vi:'thuyết phục', pos:'động từ НСВ/СВ' },
+        { ru:'сомнева́ться', vi:'nghi ngờ (в + cách 6)', pos:'động từ NSV' },
+        { ru:'допуска́ть / допусти́ть', vi:'cho phép, giả định', pos:'động từ НСВ/СВ' },
+        { ru:'исключа́ть / исключи́ть', vi:'loại trừ', pos:'động từ НСВ/СВ' },
+        { ru:'сла́бый', vi:'yếu', pos:'tính từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Как сказа́ть колле́ге, что его́ отчёт плохо́й, но вежли́во?', vi:'Nói với đồng nghiệp rằng báo cáo của anh ta kém, nhưng lịch sự, thế nào?' },
+        { sp:'B', ru:'«Отчёт, мя́гко говоря́, тре́бует дорабо́тки. Возмо́жно, я ошиба́юсь, но да́нные вы́глядят неубеди́тельно».', vi:'«Báo cáo, nói nhẹ đi, cần hoàn thiện thêm. Có thể tôi sai, nhưng số liệu trông chưa thuyết phục».' },
+        { sp:'A', ru:'А е́сли он спро́сит, успе́ем ли к сро́ку?', vi:'Nếu anh ấy hỏi có kịp hạn không?' },
+        { sp:'B', ru:'«Едва́ ли, но, пожа́луй, мо́жно попроси́ть неде́лю». Не говори́ «то́чно нет».', vi:'«Khó mà, nhưng có lẽ có thể xin thêm một tuần». Đừng nói «chắc chắn không».' }
+      ]
+    },
+
+    {
+      level:'c1', no:9, ru:'Диску́ссия', vi:'Tranh luận: nhượng bộ – phản bác – kết luận',
+      skill:'Kỹ thuật «да, но»; nêu và bác luận điểm; giữ lời và ngắt lời lịch sự',
+      grammar:[
+        { form:'Nhượng bộ rồi phản bác: Я согла́сен, что…, одна́ко… · Не могу́ не согласи́ться, но… · Э́то, безусло́вно, так, и всё же… · При всём уваже́нии, … · Позво́льте не согласи́ться', vi:'công thức «да, но»',
+          note:'Không dùng «Вы не пра́вы» trực tiếp trong tranh luận học thuật. Bác luận điểm qua bằng chứng: Фа́кты говоря́т об обра́тном; Э́то не подтвержда́ется да́нными.',
+          ex:{ ru:'При всём уваже́нии, позво́льте не согласи́ться: фа́кты говоря́т об обра́тном.', vi:'Với tất cả sự tôn trọng, cho phép tôi không đồng ý: các sự kiện nói điều ngược lại.' } },
+        { form:'Điều tiết hội thoại: Позво́льте зако́нчить мысль (giữ lời) · Извини́те, что перебива́ю (ngắt lời) · Вернёмся к вопро́су о… · Подведём ито́г · Ита́к, мы сошли́сь на том, что… · Оста́вим э́тот вопро́с откры́тым', vi:'điều khiển tranh luận',
+          note:'Câu hỏi làm rõ thay vì phản bác: Пра́вильно ли я понима́ю, что…? Что вы име́ете в виду́ под…?',
+          ex:{ ru:'Пра́вильно ли я понима́ю, что вы предлага́ете отложи́ть реше́ние? Тогда́ подведём ито́г.', vi:'Tôi hiểu đúng không, rằng anh đề nghị hoãn quyết định? Vậy ta tổng kết.' } }
+      ],
+      vocab:[
+        { ru:'диску́ссия', vi:'thảo luận, tranh luận', pos:'danh từ giống cái' },
+        { ru:'позво́льте', vi:'cho phép (tôi)', pos:'mệnh lệnh' },
+        { ru:'при всём уваже́нии', vi:'với tất cả sự tôn trọng', pos:'cụm' },
+        { ru:'всё же', vi:'dù vậy', pos:'tiểu từ' },
+        { ru:'обра́тное', vi:'điều ngược lại', pos:'danh từ giống trung' },
+        { ru:'перебива́ть / переби́ть', vi:'ngắt lời', pos:'động từ НСВ/СВ' },
+        { ru:'име́ть в виду́', vi:'ý muốn nói', pos:'cụm' },
+        { ru:'сходи́ться / сойти́сь на том, что', vi:'thống nhất rằng', pos:'cụm' },
+        { ru:'оставля́ть вопро́с откры́тым', vi:'để ngỏ vấn đề', pos:'cụm' },
+        { ru:'возраже́ние', vi:'sự phản đối', pos:'danh từ giống trung' },
+        { ru:'до́вод', vi:'lý lẽ', pos:'danh từ giống đực' },
+        { ru:'убеди́тельный', vi:'thuyết phục', pos:'tính từ' },
+        { ru:'компроми́сс', vi:'thoả hiệp', pos:'danh từ giống đực' },
+        { ru:'оппоне́нт', vi:'người phản biện', pos:'danh từ giống đực' },
+        { ru:'корре́ктно', vi:'đúng mực', pos:'trạng từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Вы утвержда́ете, что онла́йн-обуче́ние вы́годнее. Позво́льте не согласи́ться.', vi:'Anh khẳng định học trực tuyến có lợi hơn. Cho phép tôi không đồng ý.' },
+        { sp:'B', ru:'Извини́те, что перебива́ю: я говори́л не о вы́годе, а об удо́бстве.', vi:'Xin lỗi ngắt lời: tôi nói không phải về lợi ích mà về sự tiện lợi.' },
+        { sp:'A', ru:'Пра́вильно ли я понима́ю, что ка́чество вы не обсужда́ете?', vi:'Tôi hiểu đúng không, rằng chất lượng anh không bàn tới?' },
+        { sp:'B', ru:'Обсужда́ю, и здесь мы схо́димся: ка́чество зави́сит от преподава́теля, а не от форма́та.', vi:'Có bàn, và ở đây chúng ta thống nhất: chất lượng phụ thuộc giảng viên chứ không phải hình thức.' }
+      ]
+    },
+
+    {
+      level:'c1', no:10, ru:'Публицисти́ческий текст', vi:'Đọc hiểu báo chí: lập trường tác giả, mỉa mai, từ đánh giá',
+      skill:'Nhận diện ý kiến ẩn; từ ngữ đánh giá; tiêu đề và ẩn ý',
+      grammar:[
+        { form:'Dấu hiệu lập trường: từ đánh giá (так называ́емый = mỉa; печа́льно изве́стный; преслову́тый = tai tiếng), dấu ngoặc kép mỉa («рефо́рма»), tiểu từ (лишь, да́же, опя́ть), câu hỏi tu từ, so sánh ẩn', vi:'nhận diện đánh giá ẩn',
+          note:'«Так называ́емые экспе́рты» = tác giả không tin họ. Tiêu đề chơi chữ, ám chỉ câu nổi tiếng (прецеде́нтный текст): «Кому́ на Руси́ жить хорошо́» → «Кому́ в кри́зис жить хорошо́».',
+          ex:{ ru:'Так называ́емая «оптимиза́ция» опя́ть свела́сь к сокраще́нию: печа́льно изве́стный сцена́рий.', vi:'Cái gọi là «tối ưu hoá» lại quy về cắt giảm: kịch bản khét tiếng buồn.' } },
+        { form:'Cấu trúc bài báo: заголо́вок (tiêu đề) — лид (đoạn dẫn 2–3 câu trả lời кто/что/где/когда́) — основна́я часть (dẫn nguồn: по да́нным, как сообщи́л, по слова́м) — концо́вка (dự báo, câu hỏi mở)', vi:'khung tin bài',
+          note:'Tách sự kiện (факт) khỏi ý kiến (мне́ние): động từ dẫn nguồn trung tính (сообщи́л, заяви́л) vs đánh giá (призна́л, оправда́лся, уверя́ет).',
+          ex:{ ru:'Как сообщи́л представи́тель компа́нии, сбой устранён; одна́ко по́льзователи уверя́ют, что пробле́ма сохраня́ется.', vi:'Theo đại diện công ty, sự cố đã khắc phục; tuy nhiên người dùng khẳng định vấn đề vẫn còn.' } }
+      ],
+      vocab:[
+        { ru:'публици́стика', vi:'văn chính luận, báo chí', pos:'danh từ giống cái' },
+        { ru:'так называ́емый', vi:'cái gọi là', pos:'cụm' },
+        { ru:'печа́льно изве́стный', vi:'khét tiếng (buồn)', pos:'cụm' },
+        { ru:'преслову́тый', vi:'tai tiếng, hay bị nhắc', pos:'tính từ' },
+        { ru:'заголо́вок', vi:'tiêu đề', pos:'danh từ giống đực' },
+        { ru:'лид', vi:'đoạn dẫn', pos:'danh từ giống đực' },
+        { ru:'по да́нным', vi:'theo số liệu của', pos:'cụm' },
+        { ru:'заявля́ть / заяви́ть', vi:'tuyên bố', pos:'động từ НСВ/СВ' },
+        { ru:'уверя́ть', vi:'cam đoan, khẳng định', pos:'động từ NSV' },
+        { ru:'опра́вдываться', vi:'biện bạch', pos:'động từ NSV' },
+        { ru:'сокраще́ние', vi:'cắt giảm', pos:'danh từ giống trung' },
+        { ru:'сбой', vi:'sự cố, trục trặc', pos:'danh từ giống đực' },
+        { ru:'устраня́ть / устрани́ть', vi:'khắc phục', pos:'động từ НСВ/СВ' },
+        { ru:'прецеде́нтный текст', vi:'văn bản được ám chỉ (câu nổi tiếng)', pos:'cụm' },
+        { ru:'подте́кст', vi:'ẩn ý', pos:'danh từ giống đực' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'В статье́ пи́шут «так называ́емые волонтёры». Э́то нейтра́льно?', vi:'Bài báo viết «cái gọi là tình nguyện viên». Trung tính không?' },
+        { sp:'B', ru:'Нет, «так называ́емые» — сигна́л недове́рия. А́втор сомнева́ется, что они́ волонтёры.', vi:'Không, «cái gọi là» là dấu hiệu không tin. Tác giả nghi ngờ họ là tình nguyện viên.' },
+        { sp:'A', ru:'А заголо́вок «Го́ре от ума́-2»?', vi:'Còn tiêu đề «Khổ vì trí tuệ-2»?' },
+        { sp:'B', ru:'Отсы́лка к Грибое́дову: намёк, что у́мных опя́ть не слу́шают. Прецеде́нтный текст.', vi:'Ám chỉ Griboedov: gợi ý rằng người thông minh lại không được lắng nghe. Văn bản được ám chỉ.' }
+      ]
+    },
+
+    {
+      level:'c1', no:11, ru:'Нау́чный текст: терми́ны и дефини́ции', vi:'Văn bản khoa học: thuật ngữ, định nghĩa, phân loại',
+      skill:'Định nghĩa, phân loại, mô tả quy trình bằng ngôn ngữ khoa học',
+      grammar:[
+        { form:'Định nghĩa: X — э́то Y, кото́рый… · X представля́ет собо́й Y · Под X понима́ется Y · X называ́ется Y · X явля́ется Y (cách 5)', vi:'câu định nghĩa',
+          note:'Là + cách 5 với явля́ться, представля́ть собо́й (+ cách 4). Định nghĩa khoa học: loại (род) + đặc điểm phân biệt (ви́довое отли́чие).',
+          ex:{ ru:'Паро́ним представля́ет собо́й сло́во, бли́зкое по звуча́нию к друго́му, но отлича́ющееся значе́нием.', vi:'Paronym là từ gần âm với từ khác nhưng khác nghĩa.' } },
+        { form:'Phân loại & quy trình: дели́ться на (chia thành) · относи́ться к (thuộc về) · включа́ть в себя́ · состоя́ть из · различа́ть … и … · На пе́рвом эта́пе… зате́м… в заключе́ние… · Câu vô nhân xưng: сле́дует отме́тить, мо́жно вы́делить, необходи́мо учи́тывать', vi:'phân loại, trình tự',
+          note:'Tránh «я»: «нами бы́ло устано́влено» hoặc «в рабо́те устана́вливается». Số liệu: составля́ет 40%, увели́чился на 5%, в 2 ра́за.',
+          ex:{ ru:'Глаго́лы движе́ния де́лятся на две гру́ппы; к пе́рвой отно́сятся глаго́лы однонапра́вленного движе́ния.', vi:'Động từ chuyển động chia thành hai nhóm; nhóm một gồm các động từ chuyển động một hướng.' } }
+      ],
+      vocab:[
+        { ru:'терми́н', vi:'thuật ngữ', pos:'danh từ giống đực' },
+        { ru:'дефини́ция', vi:'định nghĩa', pos:'danh từ giống cái' },
+        { ru:'представля́ть собо́й', vi:'là, tạo thành', pos:'cụm động từ' },
+        { ru:'явля́ться', vi:'là (+ cách 5)', pos:'động từ NSV' },
+        { ru:'под … понима́ется', vi:'… được hiểu là', pos:'cụm' },
+        { ru:'дели́ться на', vi:'chia thành', pos:'động từ NSV' },
+        { ru:'относи́ться к', vi:'thuộc về', pos:'động từ NSV' },
+        { ru:'включа́ть в себя́', vi:'bao gồm', pos:'cụm động từ' },
+        { ru:'различа́ть', vi:'phân biệt', pos:'động từ NSV' },
+        { ru:'эта́п', vi:'giai đoạn', pos:'danh từ giống đực' },
+        { ru:'устана́вливать / установи́ть', vi:'xác lập, xác định', pos:'động từ НСВ/СВ' },
+        { ru:'составля́ть', vi:'chiếm, bằng (số liệu)', pos:'động từ NSV' },
+        { ru:'увели́чиваться на / в', vi:'tăng thêm / tăng gấp', pos:'cụm' },
+        { ru:'ви́довое отли́чие', vi:'đặc điểm phân biệt', pos:'cụm' },
+        { ru:'закономе́рность', vi:'quy luật', pos:'danh từ giống cái' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Как да́ть определе́ние сло́ву «фразеологи́зм» по-нау́чному?', vi:'Định nghĩa từ «thành ngữ» kiểu khoa học thế nào?' },
+        { sp:'B', ru:'Род плюс отли́чие: «Фразеологи́зм — усто́йчивое сочета́ние слов, значе́ние кото́рого не выво́дится из значе́ний компоне́нтов».', vi:'Loại cộng đặc điểm: «Thành ngữ là tổ hợp từ cố định mà nghĩa không suy ra từ nghĩa các thành phần».' },
+        { sp:'A', ru:'А мо́жно написа́ть «я ду́маю, что фразеологи́змы де́лятся…»?', vi:'Có được viết «tôi nghĩ thành ngữ chia thành…» không?' },
+        { sp:'B', ru:'В нау́чном сти́ле — «фразеологи́змы принято́ дели́ть на…». Без «я».', vi:'Trong văn khoa học — «thành ngữ thường được chia thành…». Không «tôi».' }
+      ]
+    },
+
+    {
+      level:'c1', no:12, ru:'Официа́льные жа́нры', vi:'Thể loại công vụ: докладная, объяснительная, протокол, договор',
+      skill:'Bố cục và клише của các văn bản hành chính; đọc hợp đồng',
+      grammar:[
+        { form:'Докладна́я запи́ска (báo cáo lên cấp trên): Дово́жу до Ва́шего све́дения, что… Прошу́ приня́ть ме́ры. · Объясни́тельная (giải trình): …отсу́тствовал по причи́не…, что подтвержда́ется спра́вкой. · Протоко́л: Слу́шали — Выступи́ли — Постанови́ли', vi:'ba thể loại nội bộ',
+          note:'Cấu trúc góc phải: кому́ — от кого́; giữa: tên thể loại; ngày, chữ ký. Câu ngắn, danh từ hoá, không cảm xúc.',
+          ex:{ ru:'Дово́жу до Ва́шего све́дения, что 5 ма́рта в лаборато́рии вы́шел из стро́я прибо́р. Прошу́ вы́делить сре́дства на ремо́нт.', vi:'Kính báo cáo: ngày 5/3 thiết bị trong phòng thí nghiệm bị hỏng. Kính đề nghị cấp kinh phí sửa chữa.' } },
+        { form:'Hợp đồng (догово́р): Стороны́ (Зака́зчик / Исполни́тель) · Предме́т догово́ра · Права́ и обя́занности · Сто́имость и поря́док опла́ты · Отве́тственность сторо́н · Срок де́йствия · Реквизи́ты. Động từ: обязу́ется, вправе, несёт отве́тственность, вступа́ет в си́лу', vi:'đọc hợp đồng',
+          note:'«Исполни́тель обязу́ется…» = bên B cam kết. «Догово́р вступа́ет в си́лу с моме́нта подписа́ния». Phạt: неусто́йка в разме́ре 0,1% за ка́ждый день просро́чки.',
+          ex:{ ru:'Исполни́тель обязу́ется сдать рабо́ту в срок, а Зака́зчик вправе тре́бовать неусто́йку в слу́чае просро́чки.', vi:'Bên thực hiện cam kết bàn giao đúng hạn, còn Bên đặt hàng có quyền yêu cầu phạt nếu chậm.' } }
+      ],
+      vocab:[
+        { ru:'докладна́я запи́ска', vi:'báo cáo (nội bộ)', pos:'cụm' },
+        { ru:'объясни́тельная запи́ска', vi:'bản giải trình', pos:'cụm' },
+        { ru:'протоко́л', vi:'biên bản', pos:'danh từ giống đực' },
+        { ru:'постанови́ть', vi:'quyết nghị', pos:'động từ СВ' },
+        { ru:'приня́ть ме́ры', vi:'áp dụng biện pháp', pos:'cụm' },
+        { ru:'вы́йти из стро́я', vi:'hỏng (thiết bị)', pos:'cụm' },
+        { ru:'выделя́ть / вы́делить сре́дства', vi:'cấp kinh phí', pos:'cụm' },
+        { ru:'сторона́', vi:'bên (hợp đồng)', pos:'danh từ giống cái' },
+        { ru:'исполни́тель', vi:'bên thực hiện', pos:'danh từ giống đực' },
+        { ru:'обязу́ется', vi:'cam kết', pos:'động từ' },
+        { ru:'впра́ве', vi:'có quyền', pos:'trạng từ vị ngữ' },
+        { ru:'неусто́йка', vi:'tiền phạt vi phạm', pos:'danh từ giống cái' },
+        { ru:'просро́чка', vi:'sự chậm trễ', pos:'danh từ giống cái' },
+        { ru:'вступа́ть в си́лу', vi:'có hiệu lực', pos:'cụm' },
+        { ru:'реквизи́ты', vi:'thông tin pháp nhân', pos:'danh từ số nhiều' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Меня́ проси́ли написа́ть объясни́тельную за опозда́ние.', vi:'Người ta yêu cầu mình viết giải trình vì đến muộn.' },
+        { sp:'B', ru:'Кра́тко: «Я, Куан, опозда́л на заня́тие 3 ма́рта по причи́не заде́ржки авто́буса, что подтвержда́ется спра́вкой перево́зчика».', vi:'Ngắn gọn: «Tôi, Quân, đến muộn buổi học ngày 3/3 do xe buýt trễ, có xác nhận của đơn vị vận tải».' },
+        { sp:'A', ru:'А в конце́ — «извини́те»?', vi:'Cuối đơn — «xin lỗi»?' },
+        { sp:'B', ru:'Нет. Да́та и по́дпись. Эмо́ции в официа́льном жа́нре не ну́жны.', vi:'Không. Ngày và chữ ký. Thể loại công vụ không cần cảm xúc.' }
+      ]
+    },
+
+    {
+      level:'c1', no:13, ru:'Усто́йчивые сочета́ния', vi:'Kết hợp từ cố định (collocations) với động từ',
+      skill:'ока́зывать влия́ние, принима́ть уча́стие, нести́ отве́тственность… — không thay động từ tuỳ ý',
+      grammar:[
+        { form:'Động từ «rỗng» + danh từ: ока́зывать (влия́ние, по́мощь, подде́ржку) · принима́ть (уча́стие, реше́ние, ме́ры) · нести́ (отве́тственность, поте́ри) · проводи́ть (иссле́дование, встре́чу) · игра́ть роль · име́ть значе́ние · вести́ (перегово́ры, борьбу́) · де́лать (вы́вод, вы́бор)', vi:'collocation động từ – danh từ',
+          note:'Lỗi: ✗ де́лать влия́ние, ✗ игра́ть значе́ние. Cặp thay thế: ока́зывать по́мощь = помога́ть; принима́ть уча́стие = уча́ствовать (đơn giản hơn).',
+          ex:{ ru:'Университе́т ока́зывает подде́ржку студе́нтам, кото́рые принима́ют уча́стие в иссле́дованиях и несу́т отве́тственность за результа́т.', vi:'Trường hỗ trợ sinh viên tham gia nghiên cứu và chịu trách nhiệm về kết quả.' } },
+        { form:'Tính từ – danh từ cố định: прое́зд — платный, вопро́с — насу́щный/о́стрый, дождь — проливно́й, успе́х — оглуши́тельный, побе́да — у́бедительная, тишина́ — мёртвая, приме́р — нагля́дный', vi:'collocation tính từ – danh từ',
+          note:'Từ điển kết hợp (слова́рь сочета́емости) là công cụ C1. Sai kết hợp không phải lỗi ngữ pháp nhưng nghe «ngoại quốc».',
+          ex:{ ru:'Проливно́й дождь не помеша́л у́бедительной побе́де, кото́рую встре́тили оглуши́тельными аплодисме́нтами.', vi:'Mưa như trút không cản được chiến thắng thuyết phục, được đón bằng tràng pháo tay vang dội.' } }
+      ],
+      vocab:[
+        { ru:'усто́йчивое сочета́ние', vi:'kết hợp cố định', pos:'cụm' },
+        { ru:'ока́зывать влия́ние', vi:'gây ảnh hưởng', pos:'cụm' },
+        { ru:'ока́зывать подде́ржку', vi:'hỗ trợ', pos:'cụm' },
+        { ru:'принима́ть уча́стие', vi:'tham gia', pos:'cụm' },
+        { ru:'принима́ть реше́ние', vi:'ra quyết định', pos:'cụm' },
+        { ru:'нести́ отве́тственность', vi:'chịu trách nhiệm', pos:'cụm' },
+        { ru:'проводи́ть иссле́дование', vi:'tiến hành nghiên cứu', pos:'cụm' },
+        { ru:'игра́ть роль', vi:'đóng vai trò', pos:'cụm' },
+        { ru:'име́ть значе́ние', vi:'có ý nghĩa', pos:'cụm' },
+        { ru:'вести́ перегово́ры', vi:'đàm phán', pos:'cụm' },
+        { ru:'проливно́й дождь', vi:'mưa như trút', pos:'cụm' },
+        { ru:'о́стрый вопро́с', vi:'vấn đề gay gắt', pos:'cụm' },
+        { ru:'оглуши́тельный успе́х', vi:'thành công vang dội', pos:'cụm' },
+        { ru:'нагля́дный приме́р', vi:'ví dụ trực quan', pos:'cụm' },
+        { ru:'сочета́емость', vi:'khả năng kết hợp', pos:'danh từ giống cái' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Я написа́л «э́то игра́ет большо́е значе́ние».', vi:'Mình viết «điều này đóng ý nghĩa lớn».' },
+        { sp:'B', ru:'Класси́ческая контамина́ция: и́ли «игра́ет роль», и́ли «име́ет значе́ние».', vi:'Lỗi trộn kinh điển: hoặc «играет роль», hoặc «имеет значение».' },
+        { sp:'A', ru:'А «сде́лать иссле́дование»?', vi:'Còn «сделать исследование»?' },
+        { sp:'B', ru:'Поня́тно, но не по-ру́сски. «Провести́ иссле́дование». Заведи́ тетра́дь сочета́ний.', vi:'Hiểu được, nhưng không phải tiếng Nga chuẩn. «Провести исследование». Lập một sổ kết hợp từ đi.' }
+      ]
+    },
+
+    {
+      level:'c1', no:14, ru:'Разгово́рные констру́кции', vi:'Cấu trúc khẩu ngữ tự nhiên',
+      skill:'Tỉnh lược, cảm thán «ну и…!», «что за…!», «как бы не…», «чуть не…», «было»',
+      grammar:[
+        { form:'Cảm thán/đánh giá: Ну и пого́да! (thật là) · Что за шум? (gì thế) · Вот э́то да! · Ещё бы! (còn phải nói) · То́же мне специали́ст! (mỉa) · Хоть бы раз позвони́л! (giá mà)', vi:'câu cảm khẩu ngữ',
+          note:'Ngữ điệu quyết định nghĩa: «Ну и что?» (thì sao) ≠ «Ну и дела́!» (chuyện lạ). «Как бы не опозда́ть» = sợ rằng sẽ muộn.',
+          ex:{ ru:'Ну и о́чередь! Как бы не опозда́ть на по́езд. — Ещё бы, пра́здники же!', vi:'Xếp hàng gì mà dài thế! Chỉ sợ lỡ tàu. — Còn phải nói, lễ mà!' } },
+        { form:'Tỉnh lược và tiểu từ: чуть не + quá khứ (suýt) · бы́ло + quá khứ (định làm rồi thôi: Он пошёл бы́ло, но верну́лся) · дава́й(те) без… · и то (mà cũng) · разве что · а то и (thậm chí) · де́лать не́чего (đành vậy)', vi:'sắc thái nhỏ nhưng quan trọng',
+          note:'Tỉnh lược động từ: Ты куда́? — В магази́н. — Я с тобо́й. Mệnh lệnh khẩu ngữ: Молчи́! Пошли́! Дава́й быстре́е!',
+          ex:{ ru:'Я чуть не забы́л ключи́, пошёл бы́ло обра́тно, но де́лать не́чего — по́езд че́рез пять мину́т, а то и ра́ньше.', vi:'Tôi suýt quên chìa khoá, đã toan quay lại, nhưng đành vậy — năm phút nữa tàu chạy, thậm chí sớm hơn.' } }
+      ],
+      vocab:[
+        { ru:'ну и …!', vi:'thật là …!', pos:'cấu trúc cảm thán' },
+        { ru:'что за …?', vi:'… gì thế?', pos:'cấu trúc' },
+        { ru:'вот э́то да!', vi:'ồ tuyệt!', pos:'thán ngữ' },
+        { ru:'ещё бы!', vi:'còn phải nói!', pos:'thán ngữ' },
+        { ru:'то́же мне …', vi:'cũng đòi là … (mỉa)', pos:'cấu trúc' },
+        { ru:'хоть бы', vi:'giá mà', pos:'tiểu từ' },
+        { ru:'как бы не', vi:'chỉ sợ', pos:'cấu trúc' },
+        { ru:'чуть не', vi:'suýt', pos:'tiểu từ' },
+        { ru:'бы́ло (+ quá khứ)', vi:'toan, đã định', pos:'tiểu từ' },
+        { ru:'а то и', vi:'thậm chí', pos:'cụm' },
+        { ru:'де́лать не́чего', vi:'đành vậy', pos:'cụm' },
+        { ru:'и то', vi:'mà cũng', pos:'tiểu từ' },
+        { ru:'о́чередь', vi:'hàng (xếp hàng)', pos:'danh từ giống cái' },
+        { ru:'пошли́!', vi:'đi thôi!', pos:'mệnh lệnh khẩu ngữ' },
+        { ru:'ла́дно уж', vi:'thôi được rồi', pos:'cụm' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Ну и моро́з! Чуть не отморо́зил у́ши.', vi:'Rét gì mà rét! Suýt cóng tai.' },
+        { sp:'B', ru:'То́же мне се́верянин! Ми́нус пять — э́то не моро́з.', vi:'Cũng đòi là người phương Bắc! Âm năm độ chưa phải rét.' },
+        { sp:'A', ru:'Я пошёл бы́ло домо́й, да вспо́мнил про заня́тие. Как бы не опозда́ть.', vi:'Mình đã toan về nhà, rồi nhớ ra có tiết. Chỉ sợ muộn.' },
+        { sp:'B', ru:'Пошли́, ещё успе́ем. Де́лать не́чего.', vi:'Đi thôi, còn kịp. Đành vậy.' }
+      ]
+    },
+
+    {
+      level:'c1', no:15, ru:'Аргументи́рованное эссе́', vi:'Tiểu luận lập luận 250–300 từ — tổng ôn C1',
+      skill:'Cấu trúc, phong cách, tự kiểm; đề luyện ТРКИ-3',
+      grammar:[
+        { form:'Khung: 1) Đặt vấn đề + luận điểm (те́зис) 2) Luận cứ 1 + ví dụ 3) Luận cứ 2 + số liệu/trích dẫn 4) Phản luận + bác bỏ (Мо́гут возрази́ть, что…; одна́ко…) 5) Kết: quay lại luận điểm ở mức khái quát', vi:'bố cục tiểu luận C1',
+          note:'Mỗi đoạn một ý. Câu chủ đề đứng đầu đoạn. Dùng liên kết: во-пе́рвых…, кро́ме того́, бо́лее того́, наконе́ц; таки́м о́бразом. Không dùng khẩu ngữ (bài 14) trong eссе́.',
+          ex:{ ru:'Мо́гут возрази́ть, что маши́нный перево́д уже́ доста́точно то́чен. Одна́ко то́чность не равна́ уме́стности: маши́на не различа́ет стилисти́ческую окра́ску.', vi:'Có thể phản bác rằng dịch máy đã đủ chính xác. Tuy nhiên chính xác không bằng phù hợp: máy không phân biệt sắc thái phong cách.' } },
+        { form:'Checklist C1: ☐ từ đúng thang phong cách ☐ không nhầm paronym ☐ chi phối động từ đúng ☐ hoà hợp vị ngữ ☐ dấu phẩy thành phần biệt lập ☐ không lặp что/который ☐ trạng động từ cùng chủ ngữ ☐ từ chêm mức độ ☐ collocation chuẩn ☐ 250–300 từ', vi:'tự kiểm trước khi nộp',
+          note:'Đề luyện: «Ну́жно ли изуча́ть класси́ческую литерату́ру в шко́ле?», «Го́род бу́дущего: техноло́гии и́ли лю́ди?», «Профе́ссия ме́чты и профе́ссия по необходи́мости».',
+          ex:{ ru:'Таки́м о́бразом, вопро́с не в том, замени́т ли маши́на перево́дчика, а в том, кем ста́нет перево́дчик, владе́ющий маши́ной.', vi:'Như vậy, vấn đề không phải máy có thay dịch giả không, mà là dịch giả làm chủ được máy sẽ trở thành ai.' } }
+      ],
+      vocab:[
+        { ru:'аргументи́рованный', vi:'có lập luận', pos:'tính từ' },
+        { ru:'постано́вка пробле́мы', vi:'đặt vấn đề', pos:'cụm' },
+        { ru:'мо́гут возрази́ть, что', vi:'có thể phản bác rằng', pos:'cụm' },
+        { ru:'бо́лее того́', vi:'hơn thế nữa', pos:'cụm' },
+        { ru:'цита́та', vi:'trích dẫn', pos:'danh từ giống cái' },
+        { ru:'ссыла́ться на', vi:'dẫn nguồn', pos:'động từ NSV' },
+        { ru:'обобща́ть / обобщи́ть', vi:'khái quát', pos:'động từ НСВ/СВ' },
+        { ru:'то́чность', vi:'độ chính xác', pos:'danh từ giống cái' },
+        { ru:'уме́стность', vi:'tính phù hợp', pos:'danh từ giống cái' },
+        { ru:'владе́ть', vi:'làm chủ (+ cách 5)', pos:'động từ NSV' },
+        { ru:'заменя́ть / замени́ть', vi:'thay thế', pos:'động từ НСВ/СВ' },
+        { ru:'абза́ц', vi:'đoạn văn', pos:'danh từ giống đực' },
+        { ru:'тема́тическое предложе́ние', vi:'câu chủ đề', pos:'cụm' },
+        { ru:'самопрове́рка', vi:'tự kiểm tra', pos:'danh từ giống cái' },
+        { ru:'объём', vi:'dung lượng', pos:'danh từ giống đực' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Мой преподава́тель говори́т, что в эссе́ у меня́ «сли́шком мно́го я».', vi:'Thầy bảo tiểu luận của mình «quá nhiều tôi».' },
+        { sp:'B', ru:'Заме́ни «я ду́маю» на «представля́ется, что», «мо́жно утвержда́ть», «сле́дует призна́ть».', vi:'Thay «tôi nghĩ» bằng «có thể cho rằng», «có thể khẳng định», «cần thừa nhận».' },
+        { sp:'A', ru:'А контраргуме́нт обяза́телен?', vi:'Còn phản luận có bắt buộc không?' },
+        { sp:'B', ru:'На C1 — да. Без «мо́гут возрази́ть» эссе́ вы́глядит односторо́нним.', vi:'Ở C1 — có. Không có «có thể phản bác», tiểu luận trông một chiều.' }
+      ]
+    },
+
+    /* ================= C2 ================= */
+    {
+      level:'c2', no:1, ru:'Коннота́ция и эвфеми́змы', vi:'Sắc thái liên tưởng và uyển ngữ',
+      skill:'Nghĩa liên tưởng của từ; uyển ngữ trong đời sống, chính trị, công sở',
+      grammar:[
+        { form:'Коннота́ция — lớp nghĩa cảm xúc/đánh giá kèm theo: худо́й (trung tính) / стро́йный (+) / то́щий (–); бережли́вый (+) / скупо́й (–); настойчивый (+) / упря́мый (–)', vi:'cùng sự việc, khác thái độ',
+          note:'Chọn từ theo thái độ muốn thể hiện. Trong dịch thuật, sai коннотация = sai thông điệp dù đúng nghĩa từ điển.',
+          ex:{ ru:'Он не скупо́й, а бережли́вый; не упря́мый, а насто́йчивый — так говоря́т о тех, кого́ лю́бят.', vi:'Anh ấy không keo mà tiết kiệm; không bướng mà kiên định — người ta nói vậy về người mình quý.' } },
+        { form:'Эвфеми́змы: уйти́ из жи́зни (chết), в возрасте (già), непра́вда (nói dối), сокраще́ние шта́тов (sa thải), оптимиза́ция (cắt giảm), лю́ди с ограни́ченными возмо́жностями, «нетра́диционный», зага́дочные «ме́ры»', vi:'nói giảm, nói tránh',
+          note:'Uyển ngữ chính trị/công sở cần đọc ra bản chất: «отрица́тельный рост» = giảm. Trong đối thoại lịch sự: «Вы неве́рно проинформи́рованы» thay «Вы врёте».',
+          ex:{ ru:'Компа́ния объяви́ла об «оптимиза́ции» — про́ще говоря́, сократи́ла треть сотру́дников.', vi:'Công ty công bố «tối ưu hoá» — nói đơn giản, cắt một phần ba nhân viên.' } }
+      ],
+      vocab:[
+        { ru:'коннота́ция', vi:'nghĩa liên tưởng', pos:'danh từ giống cái' },
+        { ru:'эвфеми́зм', vi:'uyển ngữ', pos:'danh từ giống đực' },
+        { ru:'стро́йный', vi:'thon thả', pos:'tính từ' },
+        { ru:'то́щий', vi:'gầy gò', pos:'tính từ' },
+        { ru:'бережли́вый', vi:'tiết kiệm (tốt)', pos:'tính từ' },
+        { ru:'скупо́й', vi:'keo kiệt', pos:'tính từ' },
+        { ru:'насто́йчивый', vi:'kiên định', pos:'tính từ' },
+        { ru:'упря́мый', vi:'bướng', pos:'tính từ' },
+        { ru:'уйти́ из жи́зни', vi:'qua đời', pos:'uyển ngữ' },
+        { ru:'в во́зрасте', vi:'có tuổi', pos:'uyển ngữ' },
+        { ru:'сокраще́ние шта́тов', vi:'cắt giảm biên chế', pos:'cụm' },
+        { ru:'отрица́тельный рост', vi:'tăng trưởng âm', pos:'uyển ngữ' },
+        { ru:'проинформи́рован', vi:'được thông tin', pos:'dạng ngắn' },
+        { ru:'табу́', vi:'điều cấm kỵ', pos:'danh từ (bất biến)' },
+        { ru:'политкорре́ктность', vi:'sự đúng mực chính trị', pos:'danh từ giống cái' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'В но́вости: «В отрасли́ наблюда́ется отрица́тельный рост». Что э́то?', vi:'Tin: «Ngành ghi nhận tăng trưởng âm». Là gì vậy?' },
+        { sp:'B', ru:'Эвфеми́зм: про́сто паде́ние. Так звучи́т мя́гче.', vi:'Uyển ngữ: đơn giản là sụt giảm. Nghe êm hơn.' },
+        { sp:'A', ru:'А как назва́ть колле́гу, кото́рый счита́ет ка́ждую копе́йку, но не оби́деть?', vi:'Gọi đồng nghiệp tính từng xu mà không làm mất lòng thì gọi sao?' },
+        { sp:'B', ru:'«Бережли́вый». «Скупо́й» — уже́ оце́нка.', vi:'«Tiết kiệm». «Keo» — đã là đánh giá.' }
+      ]
+    },
+
+    {
+      level:'c2', no:2, ru:'Иро́ния и языкова́я игра́', vi:'Mỉa mai, chơi chữ và câu nói kinh điển',
+      skill:'Nhận ra mỉa mai; каламбур; прецедентные тексты từ phim và văn học',
+      grammar:[
+        { form:'Иро́ния = nói ngược với hàm ý, nhận qua ngữ cảnh/ngữ điệu: «Ну ты и герой!» (khi ai làm việc dại) · Từ báo hiệu: ну коне́чно, как же, я́сное де́ло · Sarcasm mạnh hơn, châm biếm', vi:'đọc mỉa mai',
+          note:'Dấu ngoặc kép, giọng kéo dài, «прямо» (Он у нас пря́мо ге́ний) đều báo mỉa. Người học thường hiểu mỉa mai theo nghĩa đen — lỗi C2 hay gặp.',
+          ex:{ ru:'— Ты опя́ть забы́л ключи́? — Ну коне́чно, я же у нас са́мый организо́ванный.', vi:'— Cậu lại quên chìa khoá? — Ừ chứ, tôi là người ngăn nắp nhất nhà mà.' } },
+        { form:'Языкова́я игра́: каламбу́р (đồng âm: «Не́ту ло́жки — ешь по ло́жке»), прецеде́нтные фра́зы (trích phim/văn học, ai cũng biết): «Восто́к — де́ло то́нкое», «Заграни́ца нам помо́жет», «Счастли́вые часо́в не наблюда́ют», «А судьи́ кто?», «Кра́ткость — сестра́ тала́нта»', vi:'trích dẫn văn hoá đại chúng',
+          note:'Nguồn: Грибое́дов «Го́ре от ума́», Че́хов, phim «Бе́лое со́лнце пусты́ни», «Иро́ния судьбы́», Ильф и Петро́в. Biết chúng = hiểu 30% báo chí hài hước.',
+          ex:{ ru:'«Кра́ткость — сестра́ тала́нта», — напо́мнил реда́ктор, вычёркивая полови́ну статьи́.', vi:'«Ngắn gọn là chị em của tài năng» — biên tập viên nhắc, gạch đi nửa bài.' } }
+      ],
+      vocab:[
+        { ru:'иро́ния', vi:'mỉa mai', pos:'danh từ giống cái' },
+        { ru:'сарка́зм', vi:'châm biếm cay', pos:'danh từ giống đực' },
+        { ru:'каламбу́р', vi:'chơi chữ', pos:'danh từ giống đực' },
+        { ru:'языкова́я игра́', vi:'trò chơi ngôn ngữ', pos:'cụm' },
+        { ru:'прецеде́нтный', vi:'được ám chỉ, kinh điển', pos:'tính từ' },
+        { ru:'крыла́тое выраже́ние', vi:'thành ngữ có cánh (câu nổi tiếng)', pos:'cụm' },
+        { ru:'я́сное де́ло', vi:'rõ rồi (mỉa)', pos:'cụm' },
+        { ru:'пря́мо (ге́ний)', vi:'đúng là (mỉa)', pos:'tiểu từ' },
+        { ru:'Восто́к — де́ло то́нкое', vi:'Phương Đông là chuyện tế nhị (phim)', pos:'câu nổi tiếng' },
+        { ru:'Счастли́вые часо́в не наблюда́ют', vi:'Người hạnh phúc không nhìn đồng hồ (Griboedov)', pos:'câu nổi tiếng' },
+        { ru:'А су́дьи кто?', vi:'Mà quan toà là ai? (Griboedov)', pos:'câu nổi tiếng' },
+        { ru:'Кра́ткость — сестра́ тала́нта', vi:'Ngắn gọn là chị em của tài năng (Chekhov)', pos:'câu nổi tiếng' },
+        { ru:'вычёркивать / вы́черкнуть', vi:'gạch bỏ', pos:'động từ НСВ/СВ' },
+        { ru:'намёк', vi:'ám chỉ', pos:'danh từ giống đực' },
+        { ru:'подко́лка', vi:'lời trêu chọc', pos:'danh từ giống cái' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Колле́га сказа́л: «Ну ты и мастер парко́вки!» — а я поцара́пал маши́ну. Он серьёзно?', vi:'Đồng nghiệp bảo: «Cậu đúng là bậc thầy đỗ xe!» — mà mình vừa làm xước xe. Anh ta nói thật à?' },
+        { sp:'B', ru:'Э́то иро́ния: смысл обра́тный. Отве́ть в тон: «Ста́рый конь борозды́ не по́ртит».', vi:'Đó là mỉa mai: nghĩa ngược lại. Đáp lại cùng giọng: «Ngựa già không làm hỏng luống cày».' },
+        { sp:'A', ru:'А «Восто́к — де́ло то́нкое» — э́то отку́да?', vi:'Còn «Phương Đông là chuyện tế nhị» — từ đâu?' },
+        { sp:'B', ru:'Из фи́льма «Бе́лое со́лнце пусты́ни». Говоря́т, когда́ что́-то сло́жно объясни́ть.', vi:'Từ phim «Mặt trời trắng của sa mạc». Nói khi có chuyện khó giải thích.' }
+      ]
+    },
+
+    {
+      level:'c2', no:3, ru:'Посло́вицы и погово́рки', vi:'Tục ngữ và cách dùng trong lời nói',
+      skill:'20 tục ngữ thông dụng; dùng đúng tình huống; rút gọn nửa câu',
+      grammar:[
+        { form:'Tục ngữ về việc – thời gian: Без труда́ не вы́тащишь и ры́бку из пруда́ · Де́лу вре́мя, поте́хе час · Семь раз отме́рь, оди́н раз отре́жь · Тише е́дешь — да́льше бу́дешь · Поспеши́шь — люде́й насмеши́шь · Не откла́дывай на за́втра то, что мо́жно сде́лать сего́дня', vi:'nhóm lao động, cẩn trọng',
+          note:'Người Nga thường nói nửa đầu: «Семь раз отме́рь…» — người nghe tự hiểu. Trong văn viết trang trọng dùng có chừng mực.',
+          ex:{ ru:'Пре́жде чем подпи́сывать, семь раз отме́рь: по́сле сде́лки жале́ть по́здно.', vi:'Trước khi ký hãy đo bảy lần: sau giao dịch hối cũng muộn.' } },
+        { form:'Tục ngữ về người – quan hệ: Скажи́ мне, кто твой друг, и я скажу́, кто ты · Ста́рый друг лу́чше но́вых двух · В гостя́х хорошо́, а до́ма лу́чше · Не име́й сто рубле́й, а име́й сто друзе́й · Я́блоко от я́блони недалеко́ па́дает · Мир те́сен · Не́ было бы сча́стья, да несча́стье помогло́ · Что напи́сано перо́м, не вы́рубишь топоро́м', vi:'nhóm quan hệ, số phận',
+          note:'Ghép với tình huống: an ủi thất bại → «Не́ было бы сча́стья, да несча́стье помогло́»; gặp người quen bất ngờ → «Мир те́сен».',
+          ex:{ ru:'Мы встре́тились в Москве́ случа́йно — во́т уж мир те́сен! Впро́чем, ста́рый друг лу́чше но́вых двух.', vi:'Chúng tôi gặp nhau ở Moskva tình cờ — đúng là thế giới nhỏ! Vả lại, bạn cũ hơn hai bạn mới.' } }
+      ],
+      vocab:[
+        { ru:'посло́вица', vi:'tục ngữ', pos:'danh từ giống cái' },
+        { ru:'погово́рка', vi:'ngạn ngữ, thành ngữ dân gian', pos:'danh từ giống cái' },
+        { ru:'Без труда́ не вы́тащишь и ры́бку из пруда́', vi:'Không có công thì không bắt được cá', pos:'tục ngữ' },
+        { ru:'Де́лу вре́мя, поте́хе час', vi:'Việc trước, chơi sau', pos:'tục ngữ' },
+        { ru:'Семь раз отме́рь, оди́н раз отре́жь', vi:'Đo bảy lần, cắt một lần', pos:'tục ngữ' },
+        { ru:'Ти́ше е́дешь — да́льше бу́дешь', vi:'Chậm mà chắc', pos:'tục ngữ' },
+        { ru:'Поспеши́шь — люде́й насмеши́шь', vi:'Vội vàng thì thành trò cười', pos:'tục ngữ' },
+        { ru:'Ста́рый друг лу́чше но́вых двух', vi:'Bạn cũ hơn hai bạn mới', pos:'tục ngữ' },
+        { ru:'В гостя́х хорошо́, а до́ма лу́чше', vi:'Đi đâu cũng không bằng nhà', pos:'tục ngữ' },
+        { ru:'Я́блоко от я́блони недалеко́ па́дает', vi:'Cha nào con nấy', pos:'tục ngữ' },
+        { ru:'Мир те́сен', vi:'Thế giới nhỏ bé', pos:'ngạn ngữ' },
+        { ru:'Не́ было бы сча́стья, да несча́стье помогло́', vi:'Trong rủi có may', pos:'tục ngữ' },
+        { ru:'Что напи́сано перо́м, не вы́рубишь топоро́м', vi:'Bút sa gà chết', pos:'tục ngữ' },
+        { ru:'сде́лка', vi:'thương vụ', pos:'danh từ giống cái' },
+        { ru:'впро́чем', vi:'vả lại', pos:'từ chêm' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Я провали́л собесе́дование, но на вы́ходе познако́мился с бу́дущим партнёром.', vi:'Mình trượt phỏng vấn, nhưng lúc ra về làm quen được đối tác tương lai.' },
+        { sp:'B', ru:'Не́ было бы сча́стья, да несча́стье помогло́!', vi:'Trong rủi có may!' },
+        { sp:'A', ru:'Он предлага́ет подписа́ть догово́р за́втра же.', vi:'Anh ta đề nghị ký hợp đồng ngay mai.' },
+        { sp:'B', ru:'Семь раз отме́рь. Поспеши́шь — люде́й насмеши́шь.', vi:'Đo bảy lần đã. Vội vàng thành trò cười.' }
+      ]
+    },
+
+    {
+      level:'c2', no:4, ru:'Архаи́змы и церковнославяни́змы', vi:'Từ cổ và gốc Slav nhà thờ trong tiếng Nga hiện đại',
+      skill:'Nhận diện từ cổ trong văn học, thành ngữ, phong cách trang trọng',
+      grammar:[
+        { form:'Cặp Slav nhà thờ (trang trọng/thơ) — Nga bản địa (trung tính): град — го́род, глас — го́лос, о́чи — глаза́, чело́ — лоб, уста́ — рот, дре́во — де́рево, злато́ — зо́лото, брег — бе́рег, хлад — хо́лод, нощь — ночь', vi:'từ Slav nhà thờ (-ра-/-ла- thay -оро-/-оло-)',
+          note:'Dấu hiệu: -ра-/-ла-/-ре- không đầy đủ (град), ж thay đổi sang жд (одежда/одёжа), щ thay ч (освещать/свеча). Chúng sống trong thành ngữ: глас во́пиющего в пусты́не, во главе́, прах, вопреки́.',
+          ex:{ ru:'В стихотворе́нии «град Петро́в» звучи́т торже́ственно; в но́востях сказа́ли бы «го́род Петербу́рг».', vi:'Trong thơ «thành Piotr» nghe trang trọng; trong tin tức sẽ nói «thành phố Petersburg».' } },
+        { form:'Историзмы (vật đã mất: боя́рин, кафта́н, аршин, крепостно́й) vs архаизмы (cách gọi cũ: ла́нита = щека, пии́т = поэ́т, сей = э́тот, дабы́ = что́бы, ны́не = сейча́с, весьма́ = о́чень). Vẫn dùng: сей час → сейча́с; до сих пор; по сей день; ны́не.', vi:'từ cổ còn dấu vết',
+          note:'Trong văn công vụ hiện đại còn: сим (bằng văn bản này), настоя́щим, вышеука́занный, надлежи́т, дабы́ (hiếm). Dùng trong bài viết C2 để tạo giọng trang trọng/hài hước có chủ ý.',
+          ex:{ ru:'Сей во́прос, по сей день не решённый, ны́не вы́несен на обсужде́ние, дабы́ поста́вить то́чку.', vi:'Vấn đề này, tới nay chưa giải quyết, giờ được đưa ra bàn để đặt dấu chấm hết.' } }
+      ],
+      vocab:[
+        { ru:'архаи́зм', vi:'từ cổ', pos:'danh từ giống đực' },
+        { ru:'истори́зм', vi:'từ chỉ vật đã mất', pos:'danh từ giống đực' },
+        { ru:'церковнославяни́зм', vi:'từ gốc Slav nhà thờ', pos:'danh từ giống đực' },
+        { ru:'град', vi:'thành (cổ)', pos:'danh từ giống đực' },
+        { ru:'глас', vi:'tiếng nói (cổ)', pos:'danh từ giống đực' },
+        { ru:'уста́', vi:'miệng (thơ)', pos:'danh từ số nhiều' },
+        { ru:'чело́', vi:'trán (thơ)', pos:'danh từ giống trung' },
+        { ru:'сей / сия́ / сие́', vi:'này (cổ)', pos:'đại từ' },
+        { ru:'дабы́', vi:'để (cổ)', pos:'liên từ' },
+        { ru:'ны́не', vi:'hiện nay (trang trọng)', pos:'trạng từ' },
+        { ru:'весьма́', vi:'rất (sách vở)', pos:'trạng từ' },
+        { ru:'по сей день', vi:'tới tận nay', pos:'cụm' },
+        { ru:'вышеука́занный', vi:'nêu trên', pos:'tính từ' },
+        { ru:'надлежи́т', vi:'cần phải (công vụ)', pos:'động từ' },
+        { ru:'торже́ственно', vi:'trang trọng', pos:'trạng từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'В докуме́нте: «Вышеука́занному лицу́ надлежи́т яви́ться». Почему́ так стра́нно?', vi:'Trong văn bản: «Người nêu trên cần phải có mặt». Sao lạ thế?' },
+        { sp:'B', ru:'Канцеля́рский стиль храни́т архаи́змы. Перево́д: «Э́тот челове́к до́лжен прийти́».', vi:'Văn phong hành chính giữ từ cổ. Dịch: «Người này phải đến».' },
+        { sp:'A', ru:'А «град» вме́сто «го́род» в стиха́х?', vi:'Còn «град» thay «город» trong thơ?' },
+        { sp:'B', ru:'Церковнославяни́зм: торже́ственно и на слог коро́че — поэ́там удо́бно.', vi:'Từ Slav nhà thờ: trang trọng và ngắn hơn một âm tiết — tiện cho nhà thơ.' }
+      ]
+    },
+
+    {
+      level:'c2', no:5, ru:'Ритори́ческие фигу́ры', vi:'Biện pháp tu từ cú pháp',
+      skill:'Анафора, параллелизм, градация, антитеза, период — dùng trong diễn văn và tiểu luận',
+      grammar:[
+        { form:'Ана́фора (lặp đầu câu): «Мы у́чимся… Мы рабо́таем… Мы побежда́ем.» · Параллели́зм (cấu trúc song song) · Града́ция (tăng dần: хоро́ший, прекра́сный, гениа́льный) · Антите́за (đối lập: Уче́нье — свет, а неуче́нье — тьма) · Эпи́фора (lặp cuối)', vi:'các hình thái cú pháp',
+          note:'Dùng trong diễn văn, kết bài, khẩu hiệu. Trong văn khoa học tránh. Quá liều = giả tạo.',
+          ex:{ ru:'Мы не про́сто учи́ли язы́к — мы откры́ли страну́, откры́ли люде́й, откры́ли себя́.', vi:'Chúng ta không chỉ học ngôn ngữ — chúng ta đã khám phá đất nước, khám phá con người, khám phá chính mình.' } },
+        { form:'Пери́од — câu dài nhiều vế song song dâng lên rồi hạ xuống (Когда́…, когда́…, когда́… — тогда́…) · Ритори́ческий вопро́с · Умолча́ние (…) · Инве́рсия (C1) · Оксю́морон (живо́й труп, горя́чий снег)', vi:'câu chu kỳ và dấu lặng',
+          note:'Пери́од hợp diễn văn khai mạc/kết thúc; đọc lên cần ngữ điệu tăng–giảm rõ (ИК-3 chuỗi rồi ИК-1).',
+          ex:{ ru:'Когда́ ты не понима́ешь ни сло́ва, когда́ ка́ждый паде́ж ка́жется врагом, когда́ хо́чется всё бро́сить — и́менно тогда́ и начина́ется настоя́щее изуче́ние языка́.', vi:'Khi bạn không hiểu một từ, khi mỗi cách như kẻ thù, khi muốn bỏ hết — chính lúc đó việc học ngôn ngữ thật sự mới bắt đầu.' } }
+      ],
+      vocab:[
+        { ru:'ритори́ческая фигу́ра', vi:'biện pháp tu từ', pos:'cụm' },
+        { ru:'ана́фора', vi:'điệp đầu', pos:'danh từ giống cái' },
+        { ru:'эпи́фора', vi:'điệp cuối', pos:'danh từ giống cái' },
+        { ru:'параллели́зм', vi:'song hành', pos:'danh từ giống đực' },
+        { ru:'града́ция', vi:'tăng cấp', pos:'danh từ giống cái' },
+        { ru:'антите́за', vi:'đối lập', pos:'danh từ giống cái' },
+        { ru:'пери́од', vi:'câu chu kỳ', pos:'danh từ giống đực' },
+        { ru:'оксю́морон', vi:'nghịch dụ', pos:'danh từ giống đực' },
+        { ru:'умолча́ние', vi:'dấu lặng (bỏ lửng)', pos:'danh từ giống trung' },
+        { ru:'ора́тор', vi:'diễn giả', pos:'danh từ giống đực' },
+        { ru:'ло́зунг', vi:'khẩu hiệu', pos:'danh từ giống đực' },
+        { ru:'Уче́нье — свет, а неуче́нье — тьма', vi:'Học là ánh sáng, không học là bóng tối', pos:'tục ngữ (antithesis)' },
+        { ru:'торже́ственная речь', vi:'diễn văn trang trọng', pos:'cụm' },
+        { ru:'па́фос', vi:'giọng hùng hồn', pos:'danh từ giống đực' },
+        { ru:'вычу́рный', vi:'cầu kỳ, giả tạo', pos:'tính từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Мне пору́чили сказа́ть речь на выпускно́м. Как не быть ску́чным?', vi:'Mình được giao phát biểu ở lễ tốt nghiệp. Làm sao để không nhạt?' },
+        { sp:'B', ru:'Одна́ ана́фора в нача́ле, антите́за в середи́не, града́ция в конце́. И ни одного́ канцеляри́зма.', vi:'Một điệp đầu ở mở, một đối lập ở giữa, một tăng cấp ở cuối. Và không một từ hành chính nào.' },
+        { sp:'A', ru:'Не бу́дет ли сли́шком па́фосно?', vi:'Có quá hùng hồn không?' },
+        { sp:'B', ru:'Па́фос уме́стен раз в год. Гла́вное — не вычу́рно: коро́ткие слова́, дли́нные па́узы.', vi:'Hùng hồn mỗi năm một lần là hợp. Quan trọng là không cầu kỳ: từ ngắn, ngừng dài.' }
+      ]
+    },
+
+    {
+      level:'c2', no:6, ru:'Стиль а́втора', vi:'Phong cách tác giả và điểm nhìn trần thuật',
+      skill:'So sánh Chekhov – Tolstoy – Dostoevsky qua câu; người kể chuyện; điểm nhìn',
+      grammar:[
+        { form:'Đặc trưng: Че́хов — câu ngắn, chi tiết đắt, kết mở, «краткость»; Толсто́й — câu dài nhiều mệnh đề, phân tích tâm lý, lặp cố ý; Достое́вский — đối thoại căng, «вдруг», dòng ý thức, từ nói lắp bắp; Го́голь — cường điệu, liệt kê, hài kỳ dị', vi:'nhận diện văn phong qua cú pháp',
+          note:'Đọc một trang: đếm độ dài câu, số «вдруг», số so sánh. Bài thi C2 có thể yêu cầu xác định tác giả/phong cách theo đoạn trích.',
+          ex:{ ru:'«Он вдруг по́нял, что всё, реши́тельно всё бы́ло ло́жью» — так мог написа́ть Достое́вский, но не Че́хов.', vi:'«Anh bỗng hiểu rằng tất cả, tuyệt đối tất cả, là dối trá» — Dostoevsky có thể viết vậy, Chekhov thì không.' } },
+        { form:'Người kể (повествова́тель): ngôi thứ nhất (я — hạn chế, chủ quan), ngôi thứ ba toàn tri (всезна́ющий а́втор), ngôi thứ ba hạn chế (qua mắt nhân vật), сказ (giả giọng dân gian — Ле́сков, Зо́щенко). Несо́бственно-пряма́я речь: lời nhân vật lẫn vào lời kể không dấu ngoặc', vi:'điểm nhìn',
+          note:'Несобственно-прямая речь: «Она́ останови́лась. Заче́м он э́то сказа́л? Ведь зна́л же!» — câu hỏi là suy nghĩ nhân vật, không phải tác giả.',
+          ex:{ ru:'Он шёл домо́й. Ну и пусть. Пусть ду́мают что хотя́т. — Здесь мы́сли геро́я звуча́т без кавы́чек: несо́бственно-пряма́я речь.', vi:'Anh về nhà. Thì thôi vậy. Mặc họ nghĩ gì thì nghĩ. — Ở đây suy nghĩ nhân vật vang lên không dấu ngoặc: lời nửa trực tiếp.' } }
+      ],
+      vocab:[
+        { ru:'повествова́тель', vi:'người kể chuyện', pos:'danh từ giống đực' },
+        { ru:'то́чка зре́ния', vi:'điểm nhìn', pos:'cụm' },
+        { ru:'всезна́ющий а́втор', vi:'tác giả toàn tri', pos:'cụm' },
+        { ru:'сказ', vi:'lối kể giả giọng dân gian', pos:'danh từ giống đực' },
+        { ru:'несо́бственно-пряма́я речь', vi:'lời nửa trực tiếp', pos:'thuật ngữ' },
+        { ru:'пото́к созна́ния', vi:'dòng ý thức', pos:'cụm' },
+        { ru:'дета́ль', vi:'chi tiết (nghệ thuật)', pos:'danh từ giống cái' },
+        { ru:'откры́тый фина́л', vi:'kết mở', pos:'cụm' },
+        { ru:'гроте́ск', vi:'kỳ dị, cường điệu', pos:'danh từ giống đực' },
+        { ru:'психологи́зм', vi:'tính tâm lý', pos:'danh từ giống đực' },
+        { ru:'реши́тельно всё', vi:'tuyệt đối tất cả', pos:'cụm' },
+        { ru:'ложь', vi:'sự dối trá', pos:'danh từ giống cái' },
+        { ru:'отры́вок', vi:'đoạn trích', pos:'danh từ giống đực' },
+        { ru:'интона́ция а́втора', vi:'giọng tác giả', pos:'cụm' },
+        { ru:'подража́ть', vi:'bắt chước (+ cách 3)', pos:'động từ NSV' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Как отличи́ть Че́хова от Толсто́го, е́сли не зна́ешь те́кста?', vi:'Phân biệt Chekhov với Tolstoy thế nào nếu không biết tác phẩm?' },
+        { sp:'B', ru:'Посчита́й слова́ в предложе́нии. У Че́хова — де́сять, у Толсто́го — пятьдеся́т и три «кото́рый».', vi:'Đếm số từ trong câu. Chekhov — mười, Tolstoy — năm mươi và ba «который».' },
+        { sp:'A', ru:'А е́сли геро́й ду́мает без кавы́чек?', vi:'Còn nếu nhân vật suy nghĩ mà không có dấu ngoặc?' },
+        { sp:'B', ru:'Несо́бственно-пряма́я речь. Её люби́ли и Че́хов, и Толсто́й — но по-ра́зному.', vi:'Lời nửa trực tiếp. Cả Chekhov lẫn Tolstoy đều thích — nhưng theo cách khác nhau.' }
+      ]
+    },
+
+    {
+      level:'c2', no:7, ru:'Безэквивале́нтная ле́ксика', vi:'Từ không có tương đương và thực tại văn hoá khi dịch',
+      skill:'да́ча, тоска́, аво́сь, пошлость, быт; cách dịch thực tại (реалии)',
+      grammar:[
+        { form:'Từ khó dịch: да́ча (nhà vườn ngoại ô + văn hoá cuối tuần), тоска́ (nỗi buồn khắc khoải không rõ nguyên do), аво́сь (hy vọng may rủi), по́шлость (tầm thường phô trương), быт (đời sống thường nhật), душа́, во́ля (tự do + không gian), сутки (24 giờ)', vi:'từ mang văn hoá',
+          note:'Cách xử lý khi dịch: transliteration + giải thích (дача → "dacha, nhà nghỉ ngoại ô"), dịch mô tả, hoặc thay bằng tương đương gần (не тоска́, а «nhớ nhung buồn bã»). Người học C2 phải giải thích được bằng tiếng Nga.',
+          ex:{ ru:'«Аво́сь» — э́то наде́жда на уда́чу без основа́ний: «Пое́ду без биле́та — аво́сь не прове́рят».', vi:'«Авось» là hy vọng vào may mắn không căn cứ: «Đi không vé — biết đâu không kiểm tra».' } },
+        { form:'Реа́лии Việt–Nga: Тет (Tết) → лу́нный Но́вый год; áo dài → аоза́й (traditional), phở → фо; xe ôm → мототакси́; bánh chưng → квадра́тный ри́совый пиро́г; đình → о́бщинный дом. Kỹ thuật: транслитера́ция, ка́лька, описа́тельный перево́д, приближённый перево́д', vi:'dịch thực tại Việt Nam sang tiếng Nga',
+          note:'Trong bài nói về Việt Nam, giới thiệu thực tại bằng cấu trúc: «Х — э́то (loại), кото́рый (đặc điểm)».',
+          ex:{ ru:'Ба́ньтьынг — э́то квадра́тный пиро́г из кле́йкого ри́са с фасо́лью и свини́ной, кото́рый гото́вят на Тет.', vi:'Bánh chưng là chiếc bánh vuông từ gạo nếp với đậu và thịt lợn, được nấu vào dịp Tết.' } }
+      ],
+      vocab:[
+        { ru:'безэквивале́нтная ле́ксика', vi:'từ vựng không có tương đương', pos:'cụm' },
+        { ru:'реа́лия', vi:'thực tại văn hoá', pos:'danh từ giống cái' },
+        { ru:'да́ча', vi:'nhà vườn ngoại ô', pos:'danh từ giống cái' },
+        { ru:'тоска́', vi:'nỗi buồn khắc khoải', pos:'danh từ giống cái' },
+        { ru:'аво́сь', vi:'biết đâu may', pos:'tiểu từ / danh từ' },
+        { ru:'по́шлость', vi:'sự tầm thường phô trương', pos:'danh từ giống cái' },
+        { ru:'быт', vi:'đời sống thường nhật', pos:'danh từ giống đực' },
+        { ru:'во́ля', vi:'ý chí; tự do', pos:'danh từ giống cái' },
+        { ru:'су́тки', vi:'ngày đêm (24 giờ)', pos:'danh từ số nhiều' },
+        { ru:'транслитера́ция', vi:'chuyển tự', pos:'danh từ giống cái' },
+        { ru:'ка́лька', vi:'dịch sao phỏng', pos:'danh từ giống cái' },
+        { ru:'описа́тельный перево́д', vi:'dịch mô tả', pos:'cụm' },
+        { ru:'приближённый перево́д', vi:'dịch tương đương gần', pos:'cụm' },
+        { ru:'кле́йкий рис', vi:'gạo nếp', pos:'cụm' },
+        { ru:'мототакси́', vi:'xe ôm', pos:'danh từ (bất biến)' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Как перевести́ «тоска́» на вьетна́мский?', vi:'Dịch «тоска» sang tiếng Việt thế nào?' },
+        { sp:'B', ru:'Одни́м сло́вом — никак. Э́то и грусть, и ску́ка, и жела́ние чего́-то, чего́ нет. Опи́сывай.', vi:'Một từ — không được. Đó vừa là buồn, vừa chán, vừa khát khao điều không có. Phải mô tả.' },
+        { sp:'A', ru:'А «xe ôm» на ру́сский?', vi:'Còn «xe ôm» sang tiếng Nga?' },
+        { sp:'B', ru:'«Мототакси́» — приближённый перево́д. Для ру́сского чита́теля доба́вь: «мотоци́кл с води́телем, кото́рый везёт пассажи́ра».', vi:'«Мототакси» — dịch gần. Với độc giả Nga thêm: «xe máy có tài xế chở khách».' }
+      ]
+    },
+
+    {
+      level:'c2', no:8, ru:'Просторе́чие, жарго́н, сленг', vi:'Tiếng thông tục, biệt ngữ, tiếng lóng',
+      skill:'Hiểu (không nhất thiết dùng) lớp từ ngoài chuẩn; nhận biết để tránh dùng sai chỗ',
+      grammar:[
+        { form:'Просторе́чие (thông tục, lệch chuẩn): ло́жить (→ класть), зво́нит (→ звони́т), ихний (→ их), е́хай (→ поезжа́й), куре́нь… · Жарго́н nghề: физик — «кванты», IT — «ба́г», «фи́ча», «релиз»; sinh viên — «ботать» (cày), «хвост» (nợ môn), «шпо́ра» (phao)', vi:'ngoài chuẩn nhưng cần hiểu',
+          note:'Dấu hiệu người có học: không nói «ло́жить», «зво́нит», «одева́ть пальто́». Biệt ngữ nghề dùng trong nhóm, không trong văn bản.',
+          ex:{ ru:'У меня́ два хвоста́, сего́дня бота́ю всю ночь — без шпор, ла́дно?', vi:'Tôi nợ hai môn, tối nay cày cả đêm — không phao đâu nhé?' } },
+        { form:'Сленг молодёжи (thay đổi nhanh): кла́ссно/кру́то (tuyệt), стрёмно (ngại), зави́сать (đi chơi lâu), тусо́вка (buổi tụ tập), пари́ться (lo lắng), ре́ально (thật sự), ка́пец (toi rồi), лайкну́ть, чи́лить (thư giãn) · Từ vay mượn: дедла́йн, фи́дбек, хайп, кри́нж', vi:'tiếng lóng giới trẻ và vay mượn',
+          note:'Nhận ra trong phim, mạng xã hội; dùng chỉ với bạn bè cùng tuổi. Trong ТРКИ-4 có thể gặp ở bài nghe đối thoại tự nhiên.',
+          ex:{ ru:'Не пари́сь, дедла́йн перенесли́; ве́чером чи́лим, тусо́вка у Ма́ши — ре́ально кру́то.', vi:'Đừng lo, hạn chót dời rồi; tối thư giãn, tụ tập ở nhà Masha — thật sự tuyệt.' } }
+      ],
+      vocab:[
+        { ru:'просторе́чие', vi:'tiếng thông tục', pos:'danh từ giống trung' },
+        { ru:'жарго́н', vi:'biệt ngữ', pos:'danh từ giống đực' },
+        { ru:'сленг', vi:'tiếng lóng', pos:'danh từ giống đực' },
+        { ru:'класть (не ло́жить)', vi:'đặt (chuẩn)', pos:'động từ' },
+        { ru:'звони́т (не зво́нит)', vi:'gọi (trọng âm chuẩn)', pos:'động từ' },
+        { ru:'бота́ть', vi:'cày (học)', pos:'động từ (lóng)' },
+        { ru:'хвост', vi:'môn nợ', pos:'danh từ (lóng)' },
+        { ru:'шпо́ра', vi:'phao thi', pos:'danh từ (lóng)' },
+        { ru:'кру́то', vi:'tuyệt', pos:'trạng từ (lóng)' },
+        { ru:'стрёмно', vi:'ngại, kỳ', pos:'trạng từ (lóng)' },
+        { ru:'пари́ться', vi:'lo lắng (lóng)', pos:'động từ' },
+        { ru:'тусо́вка', vi:'buổi tụ tập', pos:'danh từ giống cái' },
+        { ru:'дедла́йн', vi:'hạn chót', pos:'danh từ giống đực' },
+        { ru:'фи́дбек', vi:'phản hồi', pos:'danh từ giống đực' },
+        { ru:'но́рма литерату́рного языка́', vi:'chuẩn ngôn ngữ văn học', pos:'cụm' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Однокурсник сказа́л: «Не пари́сь, ка́пец отмени́ли». Я не по́нял ни сло́ва.', vi:'Bạn cùng khoá nói: «Đừng lo, «toi» huỷ rồi». Mình không hiểu từ nào.' },
+        { sp:'B', ru:'Сленг: «не волну́йся, катастро́фу отмени́ли» — наве́рное, экза́мен перенесли́.', vi:'Tiếng lóng: «đừng lo, thảm hoạ bị huỷ» — chắc là kỳ thi được dời.' },
+        { sp:'A', ru:'Мне так говори́ть мо́жно?', vi:'Mình nói thế được không?' },
+        { sp:'B', ru:'С ним — да. С преподава́телем — «не беспоко́йтесь, экза́мен перенесён». И никогда́ не говори́ «ло́жить».', vi:'Với cậu ấy — được. Với thầy — «đừng lo, kỳ thi đã dời». Và không bao giờ nói «ложить».' }
+      ]
+    },
+
+    {
+      level:'c2', no:9, ru:'Речево́й этике́т высо́кого у́ровня', vi:'Nghi thức lời nói cấp cao: chúc mừng, chia buồn, phát biểu',
+      skill:'Тост, поздравление, соболезнование, официальное выступление',
+      grammar:[
+        { form:'Chúc mừng: Разреши́те поздра́вить Вас с… · От всей души́ жела́ю… · Пусть … (Пусть сбу́дутся все мечты́) · Tiệc (тост): Дава́йте вы́пьем за… · За здоро́вье! · За на́шу дру́жбу! · Го́рько! (đám cưới)', vi:'chúc mừng và nâng ly',
+          note:'Cấu trúc тост: lý do → lời chúc → nâng ly. Người Nga thích тост có câu chuyện ngắn. Sinh nhật: С днём рожде́ния! Жела́ю здоро́вья, сча́стья, успе́хов.',
+          ex:{ ru:'Дороги́е друзья́! Разреши́те подня́ть бока́л за на́шего юбиля́ра: пусть ка́ждый но́вый год бу́дет ще́дрым на встре́чи! За вас!', vi:'Các bạn thân mến! Cho phép nâng ly vì người mừng thọ hôm nay: mong mỗi năm mới đều hào phóng những cuộc gặp! Vì các bạn!' } },
+        { form:'Chia buồn: Прими́те мои́ и́скренние соболе́знования · Скорблю́ вме́сте с ва́ми · Све́тлая па́мять · Держи́тесь (thân) · Phát biểu chính thức: Уважа́емые колле́ги! Позво́льте от и́мени … приве́тствовать … · В заключе́ние хочу́ вы́разить благода́рность …', vi:'chia buồn và phát biểu',
+          note:'Chia buồn viết ngắn, không hỏi chi tiết. Phát biểu: xưng hô → cảm ơn ban tổ chức → nội dung → cảm ơn vì lắng nghe (Благодарю́ за внима́ние).',
+          ex:{ ru:'Позво́льте от и́мени вьетна́мских студе́нтов поприве́тствовать уча́стников конфере́нции и вы́разить благода́рность организа́торам.', vi:'Cho phép tôi thay mặt sinh viên Việt Nam chào mừng các đại biểu hội thảo và cảm ơn ban tổ chức.' } }
+      ],
+      vocab:[
+        { ru:'речево́й этике́т', vi:'nghi thức lời nói', pos:'cụm' },
+        { ru:'тост', vi:'lời nâng ly', pos:'danh từ giống đực' },
+        { ru:'юбиля́р', vi:'người mừng tuổi tròn', pos:'danh từ giống đực' },
+        { ru:'подня́ть бока́л', vi:'nâng ly', pos:'cụm' },
+        { ru:'от всей души́', vi:'từ tận đáy lòng', pos:'cụm' },
+        { ru:'пусть сбу́дутся мечты́', vi:'chúc ước mơ thành hiện thực', pos:'cụm' },
+        { ru:'Го́рько!', vi:'(hô ở đám cưới để cô dâu chú rể hôn)', pos:'thán ngữ' },
+        { ru:'соболе́знование', vi:'lời chia buồn', pos:'danh từ giống trung' },
+        { ru:'скорбе́ть', vi:'đau buồn (tang)', pos:'động từ NSV' },
+        { ru:'све́тлая па́мять', vi:'tưởng nhớ (người mất)', pos:'cụm' },
+        { ru:'держи́тесь', vi:'hãy vững vàng', pos:'mệnh lệnh' },
+        { ru:'от и́мени', vi:'thay mặt (+ cách 2)', pos:'cụm' },
+        { ru:'приве́тствовать', vi:'chào mừng', pos:'động từ' },
+        { ru:'вы́разить благода́рность', vi:'bày tỏ lòng biết ơn', pos:'cụm' },
+        { ru:'Благодарю́ за внима́ние', vi:'Cảm ơn đã lắng nghe', pos:'cụm' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Меня́ попроси́ли сказа́ть тост на сва́дьбе ру́сского дру́га.', vi:'Mình được nhờ nâng ly ở đám cưới người bạn Nga.' },
+        { sp:'B', ru:'Расскажи́ коро́ткую исто́рию, как вы познако́мились, пожела́й молоды́м терпе́ния и любви́ — и «Го́рько!».', vi:'Kể một chuyện ngắn về lần làm quen, chúc đôi trẻ kiên nhẫn và yêu thương — rồi hô «Горько!».' },
+        { sp:'A', ru:'А е́сли у колле́ги умер оте́ц — что написа́ть?', vi:'Còn nếu bố đồng nghiệp mất — viết gì?' },
+        { sp:'B', ru:'«Прими́те мои́ и́скренние соболе́знования. Све́тлая па́мять». Коро́тко и без вопро́сов.', vi:'«Xin nhận lời chia buồn chân thành. Tưởng nhớ». Ngắn và không hỏi han.' }
+      ]
+    },
+
+    {
+      level:'c2', no:10, ru:'Юриди́ческий и делово́й язы́к', vi:'Ngôn ngữ pháp lý và kinh doanh',
+      skill:'Đọc điều khoản, quy chế; câu điều kiện pháp lý; động từ chuyên biệt',
+      grammar:[
+        { form:'Cấu trúc điều khoản: В слу́чае + cách 2, … (trường hợp) · При + cách 6 (khi) · Е́сли ино́е не предусмо́трено догово́ром (trừ khi hợp đồng quy định khác) · Сторона́, наруши́вшая…, обя́зана… · Настоя́щий догово́р составлен в двух экземпля́рах, име́ющих одина́ковую юриди́ческую си́лу', vi:'khuôn câu pháp lý',
+          note:'Danh từ hoá dày đặc, прича́стие thay который, số thứ tự điều khoản (пункт 3.2). Đọc: tìm chủ thể → nghĩa vụ (обя́зан) / quyền (впра́ве) → điều kiện → chế tài.',
+          ex:{ ru:'В слу́чае наруше́ния сро́ков поста́вки Поставщи́к упла́чивает Покупа́телю неусто́йку, е́сли ино́е не предусмо́трено дополни́тельным соглаше́нием.', vi:'Trường hợp vi phạm thời hạn giao hàng, Bên bán trả cho Bên mua khoản phạt, trừ khi thoả thuận bổ sung quy định khác.' } },
+        { form:'Động từ pháp lý: заключа́ть (ký kết), расторга́ть (huỷ), обжа́ловать (kháng), возмеща́ть уще́рб (bồi thường), нести́ отве́тственность, вступа́ть в си́лу, утра́чивать си́лу, регули́роваться (được điều chỉnh bởi), удостоверя́ть (chứng thực)', vi:'từ vựng hợp đồng – luật',
+          note:'Phân biệt: соглаше́ние (thoả thuận) — догово́р (hợp đồng) — контра́кт (hợp đồng ngoại thương/lao động); зако́н — постановле́ние — распоряже́ние — уста́в.',
+          ex:{ ru:'Спо́ры, не урегули́рованные сторона́ми, подлежа́т рассмотре́нию в суде́ по ме́сту нахожде́ния отве́тчика.', vi:'Tranh chấp các bên không tự giải quyết được sẽ được xem xét tại toà theo nơi cư trú của bị đơn.' } }
+      ],
+      vocab:[
+        { ru:'юриди́ческая си́ла', vi:'hiệu lực pháp lý', pos:'cụm' },
+        { ru:'экземпля́р', vi:'bản (văn bản)', pos:'danh từ giống đực' },
+        { ru:'е́сли ино́е не предусмо́трено', vi:'trừ khi có quy định khác', pos:'cụm' },
+        { ru:'заключа́ть / заключи́ть догово́р', vi:'ký kết hợp đồng', pos:'cụm' },
+        { ru:'расторга́ть / расто́ргнуть', vi:'huỷ (hợp đồng)', pos:'động từ НСВ/СВ' },
+        { ru:'обжа́ловать', vi:'kháng cáo', pos:'động từ' },
+        { ru:'возмеща́ть уще́рб', vi:'bồi thường thiệt hại', pos:'cụm' },
+        { ru:'утра́чивать си́лу', vi:'hết hiệu lực', pos:'cụm' },
+        { ru:'регули́роваться', vi:'được điều chỉnh bởi', pos:'động từ' },
+        { ru:'удостоверя́ть / удостове́рить', vi:'chứng thực', pos:'động từ НСВ/СВ' },
+        { ru:'поставщи́к / покупа́тель', vi:'bên bán / bên mua', pos:'danh từ' },
+        { ru:'отве́тчик / исте́ц', vi:'bị đơn / nguyên đơn', pos:'danh từ' },
+        { ru:'подлежа́ть', vi:'phải chịu, thuộc diện', pos:'động từ' },
+        { ru:'уста́в', vi:'điều lệ', pos:'danh từ giống đực' },
+        { ru:'постановле́ние', vi:'nghị định, quyết nghị', pos:'danh từ giống trung' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'В догово́ре: «Споры подлежа́т рассмотре́нию по ме́сту нахожде́ния отве́тчика». Э́то опа́сно для нас?', vi:'Hợp đồng ghi: «Tranh chấp được xem xét theo nơi của bị đơn». Có nguy hiểm cho ta không?' },
+        { sp:'B', ru:'Е́сли отве́тчиком ока́жетесь вы — суд бу́дет у вас, э́то удо́бно. Е́сли они́ — придётся е́хать к ним.', vi:'Nếu các anh là bị đơn — toà ở chỗ các anh, tiện. Nếu là họ — phải đến chỗ họ.' },
+        { sp:'A', ru:'А «е́сли ино́е не предусмо́трено соглаше́нием»?', vi:'Còn «trừ khi thoả thuận quy định khác»?' },
+        { sp:'B', ru:'Зна́чит, отде́льным докуме́нтом мо́жно измени́ть э́тот пункт. Прочита́йте все приложе́ния.', vi:'Nghĩa là có thể sửa điều khoản này bằng văn bản riêng. Đọc hết các phụ lục.' }
+      ]
+    },
+
+    {
+      level:'c2', no:11, ru:'Ме́диа и факт-че́кинг', vi:'Truyền thông: tin, phỏng vấn, thông cáo và kiểm chứng',
+      skill:'Phân biệt sự kiện – ý kiến – thao túng; ngôn ngữ thông cáo báo chí',
+      grammar:[
+        { form:'Ngôn ngữ tin: động từ dẫn trung tính (сообщи́л, заяви́л, отме́тил) — có thái độ (призна́л, опра́вдывался, уверя́ет, похва́стался); nguồn: по слова́м, по да́нным, как ста́ло изве́стно, исто́чник, бли́зкий к…; số liệu: по оце́нкам, приме́рно, свы́ше, поря́дка', vi:'đọc tin có phê phán',
+          note:'Thao túng: từ đánh giá ngụy trang (так называ́емый, скандально изве́стный), số liệu không nguồn, khái quát hoá (все, всегда́), câu hỏi dẫn dắt. Проверя́й: кто сказа́л, где опублико́вано, когда́.',
+          ex:{ ru:'«Свы́ше 90% экспе́ртов уве́рены…» — каки́х экспе́ртов, кто счита́л? Без исто́чника э́то не факт, а приём.', vi:'«Trên 90% chuyên gia tin rằng…» — chuyên gia nào, ai đếm? Không nguồn thì đó không phải sự kiện mà là thủ thuật.' } },
+        { form:'Пресс-рели́з: заголо́вок → лид (кто, что, когда́, где) → цита́та руководи́теля («…», — отме́тил дире́ктор) → спра́вка о компа́нии → конта́кты. Интервью́: вопро́с открытый (Как вы оце́ниваете…?) vs закрытый; уточня́ющий (Что вы име́ете в виду́?)', vi:'viết thông cáo, đặt câu hỏi phỏng vấn',
+          note:'Câu trích dẫn trong tin: «Мы гото́вы к диало́гу», — заяви́л министр (dấu phẩy, gạch, động từ dẫn sau ngoặc kép).',
+          ex:{ ru:'«Мы откры́ты для сотру́дничества», — отме́тил дире́ктор, добавив, что дета́ли бу́дут объя́влены в ма́е.', vi:'«Chúng tôi mở cửa hợp tác», — giám đốc nhấn mạnh, nói thêm rằng chi tiết sẽ công bố vào tháng Năm.' } }
+      ],
+      vocab:[
+        { ru:'факт-че́кинг', vi:'kiểm chứng thông tin', pos:'danh từ giống đực' },
+        { ru:'исто́чник', vi:'nguồn tin', pos:'danh từ giống đực' },
+        { ru:'по оце́нкам', vi:'theo ước tính', pos:'cụm' },
+        { ru:'свы́ше', vi:'trên (số lượng)', pos:'giới từ' },
+        { ru:'поря́дка', vi:'cỡ khoảng', pos:'giới từ' },
+        { ru:'манипуля́ция', vi:'sự thao túng', pos:'danh từ giống cái' },
+        { ru:'приём', vi:'thủ thuật', pos:'danh từ giống đực' },
+        { ru:'пресс-рели́з', vi:'thông cáo báo chí', pos:'danh từ giống đực' },
+        { ru:'цита́та', vi:'trích dẫn', pos:'danh từ giống cái' },
+        { ru:'отмеча́ть / отме́тить', vi:'nhấn mạnh, lưu ý', pos:'động từ НСВ/СВ' },
+        { ru:'признава́ть / призна́ть', vi:'thừa nhận', pos:'động từ НСВ/СВ' },
+        { ru:'хва́статься / похва́статься', vi:'khoe', pos:'động từ НСВ/СВ' },
+        { ru:'откры́тый вопро́с', vi:'câu hỏi mở', pos:'cụm' },
+        { ru:'уточня́ющий вопро́с', vi:'câu hỏi làm rõ', pos:'cụm' },
+        { ru:'достове́рность', vi:'độ tin cậy', pos:'danh từ giống cái' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Но́вость: «Как ста́ло изве́стно из исто́чников, бли́зких к министе́рству, рефо́рму отменя́т».', vi:'Tin: «Theo nguồn tin thân cận với bộ, cải cách sẽ bị huỷ».' },
+        { sp:'B', ru:'«Исто́чники, бли́зкие к…» — анони́мно. Пока́ министе́рство не заяви́ло официа́льно, э́то слух.', vi:'«Nguồn tin thân cận với…» — ẩn danh. Chừng nào bộ chưa tuyên bố chính thức, đó là tin đồn.' },
+        { sp:'A', ru:'А как написа́ть пресс-рели́з о на́шей конфере́нции?', vi:'Còn viết thông cáo về hội thảo của chúng ta thế nào?' },
+        { sp:'B', ru:'Лид с четырьмя́ вопро́сами, одна́ цита́та ре́ктора, спра́вка — и ни одного́ прилага́тельного «уника́льный».', vi:'Đoạn dẫn trả lời bốn câu hỏi, một trích dẫn hiệu trưởng, phần giới thiệu — và không một tính từ «độc nhất» nào.' }
+      ]
+    },
+
+    {
+      level:'c2', no:12, ru:'Нау́чная диску́ссия: реце́нзия и те́зисы', vi:'Thảo luận khoa học: phản biện và tóm tắt báo cáo',
+      skill:'Viết реце́нзия có phê bình xây dựng; те́зисы 1 trang; trả lời phản biện',
+      grammar:[
+        { form:'Реце́нзия: актуа́льность → структу́ра → достои́нства (заслу́живает внима́ния, убеди́тельно пока́зано) → замеча́ния (вызыва́ет сомне́ние, не вполне́ обосно́вано, тре́бует уточне́ния, автор не учи́тывает) → вы́вод (рекоменду́ется к печа́ти / по́сле дорабо́тки)', vi:'khung phản biện',
+          note:'Phê bình về luận điểm, không về người: «положе́ние не обосно́вано» thay «а́втор ошиба́ется». Mức độ: спо́рно (tranh cãi) < сомни́тельно (đáng ngờ) < оши́бочно (sai).',
+          ex:{ ru:'Положе́ние о влия́нии билингви́зма на па́мять представля́ется не вполне́ обосно́ванным: вы́борка невелика́, а контро́льная гру́ппа отсу́тствует.', vi:'Luận điểm về ảnh hưởng của song ngữ lên trí nhớ có vẻ chưa đủ căn cứ: mẫu nhỏ và thiếu nhóm đối chứng.' } },
+        { form:'Те́зисы (tóm tắt báo cáo 300 từ): пробле́ма → цель → материа́л и ме́тод → результа́ты → вы́воды; câu định danh không đại từ. Trả lời phản biện: Благодарю́ за вопро́с. Вы соверше́нно пра́вы в том, что…, одна́ко… / Э́то предме́т дальне́йшего иссле́дования', vi:'tóm tắt và đối đáp',
+          note:'Câu trả lời hay: thừa nhận giới hạn + nêu hướng khắc phục. Không tranh cãi, không «нет».',
+          ex:{ ru:'Благодарю́ за замеча́ние. Ограни́ченность вы́борки действи́тельно снижа́ет обобща́емость вы́водов; расшире́ние материа́ла — зада́ча сле́дующего эта́па.', vi:'Cảm ơn nhận xét. Hạn chế của mẫu quả thật giảm khả năng khái quát; mở rộng tư liệu là nhiệm vụ giai đoạn tiếp theo.' } }
+      ],
+      vocab:[
+        { ru:'реце́нзия', vi:'bài phản biện', pos:'danh từ giống cái' },
+        { ru:'те́зисы', vi:'tóm tắt báo cáo', pos:'danh từ số nhiều' },
+        { ru:'достои́нство', vi:'ưu điểm', pos:'danh từ giống trung' },
+        { ru:'замеча́ние', vi:'nhận xét, góp ý', pos:'danh từ giống trung' },
+        { ru:'заслу́живать внима́ния', vi:'đáng chú ý', pos:'cụm' },
+        { ru:'вызыва́ть сомне́ние', vi:'gây nghi ngờ', pos:'cụm' },
+        { ru:'не вполне́ обосно́ванный', vi:'chưa đủ căn cứ', pos:'cụm' },
+        { ru:'тре́бовать уточне́ния', vi:'cần làm rõ', pos:'cụm' },
+        { ru:'рекомендова́ть к печа́ти', vi:'đề nghị cho đăng', pos:'cụm' },
+        { ru:'дорабо́тка', vi:'sự hoàn thiện thêm', pos:'danh từ giống cái' },
+        { ru:'вы́борка', vi:'mẫu (nghiên cứu)', pos:'danh từ giống cái' },
+        { ru:'контро́льная гру́ппа', vi:'nhóm đối chứng', pos:'cụm' },
+        { ru:'обобща́емость', vi:'khả năng khái quát', pos:'danh từ giống cái' },
+        { ru:'предме́т дальне́йшего иссле́дования', vi:'đối tượng nghiên cứu tiếp', pos:'cụm' },
+        { ru:'соверше́нно пра́вы', vi:'hoàn toàn đúng', pos:'cụm' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Реце́нзент написа́л: «вы́воды вызыва́ют сомне́ние». Э́то прова́л?', vi:'Người phản biện viết: «kết luận gây nghi ngờ». Thế là toi à?' },
+        { sp:'B', ru:'Нет, э́то сре́дний у́ровень крити́чности. «Оши́бочны» бы́ло бы прова́лом. Отве́ть по существу́.', vi:'Không, đó là mức phê bình trung bình. «Sai» mới là thất bại. Trả lời đúng trọng tâm.' },
+        { sp:'A', ru:'Как?', vi:'Thế nào?' },
+        { sp:'B', ru:'«Благодарю́ за замеча́ние. Согла́сен, что вы́борка мала́; расши́рю в сле́дующей рабо́те». Кра́тко, без оправда́ний.', vi:'«Cảm ơn nhận xét. Đồng ý mẫu nhỏ; sẽ mở rộng ở công trình tiếp». Ngắn, không biện bạch.' }
+      ]
+    },
+
+    {
+      level:'c2', no:13, ru:'Числа́ и стати́стика', vi:'Mô tả số liệu, biểu đồ, xu hướng',
+      skill:'Diễn đạt tăng/giảm, tỉ lệ, so sánh; đọc biểu đồ trong bài nói ТРКИ-4',
+      grammar:[
+        { form:'Động từ xu hướng: расти́ / увели́чиваться / повыша́ться (tăng) — снижа́ться / па́дать / сокраща́ться (giảm) — остава́ться стаби́льным; mức: ре́зко (mạnh), значи́тельно, незначи́тельно, плавно, вдво́е, втро́е, на треть, на 15 проце́нтов, в полтора́ ра́за', vi:'động từ và mức độ',
+          note:'на + số = tăng thêm (на 20%); в + số раз = gấp (в 2 ра́за). С 2015 по 2020 год; за после́дние пять лет; по сравне́нию с про́шлым го́дом.',
+          ex:{ ru:'За после́дние пять лет число́ студе́нтов вы́росло на треть, а в 2023 году́ ре́зко сократи́лось — почти́ вдво́е.', vi:'Năm năm qua số sinh viên tăng một phần ba, còn năm 2023 giảm mạnh — gần một nửa.' } },
+        { form:'Mô tả biểu đồ: Диагра́мма/гра́фик отража́ет/пока́зывает… · По вертика́ли ука́зано…, по горизонта́ли — … · Пик прихо́дится на… · Наблюда́ется тенде́нция к… · До́ля составля́ет… · Ка́ждый второ́й (50%), ка́ждый пя́тый (20%), подавля́ющее большинство́ (>80%), незначи́тельная часть', vi:'khung mô tả biểu đồ',
+          note:'Kết bài mô tả: Таки́м о́бразом, да́нные свиде́тельствуют о… / позволя́ют предположи́ть…',
+          ex:{ ru:'Гра́фик отража́ет динамику продаж: пик прихо́дится на дека́брь, а до́ля онла́йн-зака́зов составля́ет ка́ждый второ́й.', vi:'Đồ thị phản ánh diễn biến doanh số: đỉnh rơi vào tháng 12, còn tỉ trọng đơn trực tuyến là một nửa.' } }
+      ],
+      vocab:[
+        { ru:'стати́стика', vi:'thống kê', pos:'danh từ giống cái' },
+        { ru:'диагра́мма', vi:'biểu đồ', pos:'danh từ giống cái' },
+        { ru:'гра́фик', vi:'đồ thị', pos:'danh từ giống đực' },
+        { ru:'тенде́нция', vi:'xu hướng', pos:'danh từ giống cái' },
+        { ru:'дина́мика', vi:'diễn biến, động thái', pos:'danh từ giống cái' },
+        { ru:'пик прихо́дится на', vi:'đỉnh rơi vào', pos:'cụm' },
+        { ru:'до́ля', vi:'tỉ trọng', pos:'danh từ giống cái' },
+        { ru:'ре́зко', vi:'mạnh, đột ngột', pos:'trạng từ' },
+        { ru:'пла́вно', vi:'từ từ', pos:'trạng từ' },
+        { ru:'вдво́е / втро́е', vi:'gấp đôi / gấp ba', pos:'trạng từ' },
+        { ru:'на треть', vi:'một phần ba', pos:'cụm' },
+        { ru:'ка́ждый второ́й', vi:'cứ hai người có một', pos:'cụm' },
+        { ru:'подавля́ющее большинство́', vi:'đại đa số', pos:'cụm' },
+        { ru:'по сравне́нию с', vi:'so với', pos:'cụm' },
+        { ru:'свиде́тельствовать о', vi:'chứng tỏ', pos:'động từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'На экза́мене дали́ диагра́мму: как её описа́ть за две мину́ты?', vi:'Trong thi được cho biểu đồ: mô tả trong hai phút thế nào?' },
+        { sp:'B', ru:'Что пока́зывает — гла́вная тенде́нция — пик и мини́мум — одно́ сравне́ние — вы́вод. Пять предложе́ний.', vi:'Cho thấy gì — xu hướng chính — đỉnh và đáy — một so sánh — kết luận. Năm câu.' },
+        { sp:'A', ru:'«Вы́росло на два ра́за» — пра́вильно?', vi:'«Tăng lên hai lần (на)» — đúng không?' },
+        { sp:'B', ru:'«В два ра́за» и́ли «вдво́е». «На» — то́лько с проце́нтами и величи́нами.', vi:'«В два раза» hoặc «вдвое». «На» — chỉ với phần trăm và đại lượng.' }
+      ]
+    },
+
+    {
+      level:'c2', no:14, ru:'Интона́ция и темп ре́чи', vi:'Ngữ điệu nâng cao và nhịp nói',
+      skill:'ИК-4…ИК-7; trọng âm logic; ngắt nghỉ; đọc diễn cảm',
+      grammar:[
+        { form:'ИК-4 (hỏi tiếp nối, giọng lên–giữ: «А вы?»), ИК-5 (đánh giá cảm thán hai đỉnh: «Кака́я пого́да!»), ИК-6 (ngạc nhiên/khen, đỉnh cao ở cuối: «Как здо́рово!»), ИК-7 (mỉa mai, phủ định: «Хоро́ш друг!» = bạn gì mà thế)', vi:'bảy cấu trúc ngữ điệu',
+          note:'ИК-7 là chìa khoá hiểu mỉa mai (bài 2): «Кака́я она́ краса́вица!» với ИК-5 = khen thật; với ИК-7 = chê. Nghe phim để bắt.',
+          ex:{ ru:'— Он сдал экза́мен. — А ты? (ИК-4) — Я? Хоро́ш вопро́с! (ИК-7)', vi:'— Anh ấy thi đỗ. — Còn cậu? — Tớ à? Hỏi hay nhỉ! (mỉa)' } },
+        { form:'Trọng âm logic (логи́ческое ударе́ние): từ được nhấn đổi nghĩa câu: Я ЗА́ВТРА е́ду в Москву́ (không phải hôm nay) / Я за́втра е́ду в МОСКВУ́ (không phải nơi khác). Ngắt nghỉ (па́уза) đúng chỗ dấu câu; темп: chậm ở ý chính, nhanh ở phụ.', vi:'nhấn và ngắt',
+          note:'Đọc diễn cảm bài thi: đánh dấu ‖ (ngắt dài), | (ngắt ngắn), gạch chân từ nhấn. Người Việt hay nhấn đều mọi từ → nghe «phẳng».',
+          ex:{ ru:'Не ТЫ ошиба́ешься — ошиба́ется ме́тод. ‖ И и́менно поэ́тому | ме́тод ну́жно меня́ть.', vi:'Không phải CẬU sai — phương pháp sai. ‖ Và chính vì thế | phương pháp cần thay đổi.' } }
+      ],
+      vocab:[
+        { ru:'интонацио́нная констру́кция (ИК)', vi:'cấu trúc ngữ điệu', pos:'thuật ngữ' },
+        { ru:'логи́ческое ударе́ние', vi:'trọng âm logic', pos:'cụm' },
+        { ru:'па́уза', vi:'chỗ ngắt', pos:'danh từ giống cái' },
+        { ru:'темп ре́чи', vi:'nhịp nói', pos:'cụm' },
+        { ru:'вырази́тельное чте́ние', vi:'đọc diễn cảm', pos:'cụm' },
+        { ru:'восклица́ние', vi:'câu cảm thán', pos:'danh từ giống trung' },
+        { ru:'Хоро́ш друг!', vi:'Bạn gì mà thế! (mỉa)', pos:'cụm ИК-7' },
+        { ru:'центр ИК', vi:'trung tâm ngữ điệu', pos:'cụm' },
+        { ru:'повыше́ние то́на', vi:'nâng giọng', pos:'cụm' },
+        { ru:'пониже́ние то́на', vi:'hạ giọng', pos:'cụm' },
+        { ru:'моното́нно', vi:'đều đều', pos:'trạng từ' },
+        { ru:'акце́нт', vi:'giọng ngoại quốc; nhấn', pos:'danh từ giống đực' },
+        { ru:'скорогово́рка', vi:'câu luyện nói nhanh', pos:'danh từ giống cái' },
+        { ru:'Ка́рл у Кла́ры укра́л кора́ллы', vi:'(câu luyện phát âm р–л)', pos:'скороговорка' },
+        { ru:'вслух', vi:'thành tiếng', pos:'trạng từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Мне говоря́т, что я говорю́ по-ру́сски «пло́ско». Что э́то зна́чит?', vi:'Người ta bảo mình nói tiếng Nga «phẳng». Nghĩa là sao?' },
+        { sp:'B', ru:'Ты нажима́ешь на ка́ждое сло́во одина́ково. Вы́бери одно́ гла́вное в фра́зе и подними́ на нём тон.', vi:'Cậu nhấn mọi từ như nhau. Chọn một từ chính trong câu và nâng giọng ở đó.' },
+        { sp:'A', ru:'А как поня́ть, что «Хоро́ш друг!» — э́то не похвала́?', vi:'Còn làm sao biết «Хорош друг!» không phải lời khen?' },
+        { sp:'B', ru:'По ИК-7: тон ре́зко вверх и обры́в. Похвала́ звуча́ла бы пла́вно, ИК-5.', vi:'Theo ИК-7: giọng vút lên rồi cắt. Lời khen sẽ mượt, ИК-5.' }
+      ]
+    },
+
+    {
+      level:'c2', no:15, ru:'Ито́говый прое́кт', vi:'Dự án tổng kết: báo cáo miệng + phản biện viết — tổng ôn C2',
+      skill:'Kết hợp mọi kỹ năng: diễn văn, phân tích, phong cách; checklist ТРКИ-4',
+      grammar:[
+        { form:'Báo cáo miệng 5 phút: mở (прецеде́нтная фра́за hoặc câu hỏi tu từ) → luận điểm → 2 luận cứ với số liệu (bài 13) → nhượng bộ (bài C1-9) → kết bằng град́ация/ана́фора (bài 5) → «Благодарю́ за внима́ние, гото́в отве́тить на вопро́сы»', vi:'khung báo cáo',
+          note:'Ghi âm và nghe lại: kiểm tra ngữ điệu (bài 14), không đọc từ giấy, tối đa 1 uyển ngữ hài (bài 1), 1 tục ngữ (bài 3).',
+          ex:{ ru:'«Кра́ткость — сестра́ тала́нта», поэ́тому я уложу́сь в пять мину́т: одна́ мысль, две ци́фры, оди́н вы́вод.', vi:'«Ngắn gọn là chị em của tài năng», nên tôi sẽ gói trong năm phút: một ý, hai con số, một kết luận.' } },
+        { form:'Checklist C2: ☐ коннота́ция đúng thái độ ☐ nhận ra mỉa mai/ám chỉ ☐ 1 tục ngữ đúng chỗ ☐ không archaism vô ý ☐ 2 hình thái tu từ ☐ phong cách nhất quán ☐ реалии được giải thích ☐ không lóng/thông tục trong văn viết ☐ etiquette đúng thể loại ☐ số liệu có nguồn ☐ phản biện «по существу́» ☐ ngữ điệu không phẳng', vi:'tự đánh giá cuối khoá',
+          note:'Sau C2: đọc báo Nga hằng ngày, xem phim không phụ đề, viết nhật ký 100 từ mỗi ngày bằng tiếng Nga, đổi phong cách mỗi tuần.',
+          ex:{ ru:'Язы́к вы́учен не тогда́, когда́ ты понима́ешь слова́, а тогда́, когда́ понима́ешь, почему́ вы́брано и́менно э́то сло́во.', vi:'Ngôn ngữ được học xong không phải khi bạn hiểu từ, mà khi hiểu vì sao người ta chọn chính từ đó.' } }
+      ],
+      vocab:[
+        { ru:'ито́говый', vi:'tổng kết, cuối cùng', pos:'tính từ' },
+        { ru:'у́стный докла́д', vi:'báo cáo miệng', pos:'cụm' },
+        { ru:'укла́дываться / уложи́ться в', vi:'gói gọn trong', pos:'động từ НСВ/СВ' },
+        { ru:'гото́в отве́тить на вопро́сы', vi:'sẵn sàng trả lời câu hỏi', pos:'cụm' },
+        { ru:'за́пись', vi:'bản ghi âm', pos:'danh từ giống cái' },
+        { ru:'по существу́', vi:'đúng bản chất', pos:'cụm' },
+        { ru:'после́довательность', vi:'tính nhất quán, trình tự', pos:'danh từ giống cái' },
+        { ru:'самооце́нка', vi:'tự đánh giá', pos:'danh từ giống cái' },
+        { ru:'дневни́к', vi:'nhật ký', pos:'danh từ giống đực' },
+        { ru:'без субти́тров', vi:'không phụ đề', pos:'cụm' },
+        { ru:'носи́тель языка́', vi:'người bản ngữ', pos:'cụm' },
+        { ru:'бе́глость', vi:'sự trôi chảy', pos:'danh từ giống cái' },
+        { ru:'то́чность выраже́ния', vi:'độ chính xác diễn đạt', pos:'cụm' },
+        { ru:'чу́вство языка́', vi:'cảm ngôn ngữ', pos:'cụm' },
+        { ru:'вы́бор сло́ва', vi:'lựa chọn từ', pos:'cụm' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Че́рез ме́сяц ТРКИ-4. Что де́лать в после́дние неде́ли?', vi:'Một tháng nữa thi ТРКИ-4. Làm gì trong những tuần cuối?' },
+        { sp:'B', ru:'Ка́ждый день: одна́ статья́ с ана́лизом иро́нии, один докла́д на дикто́фон, одна́ реце́нзия на сто слов.', vi:'Mỗi ngày: một bài báo phân tích mỉa mai, một báo cáo thu vào máy ghi âm, một phản biện trăm từ.' },
+        { sp:'A', ru:'А грамма́тика?', vi:'Còn ngữ pháp?' },
+        { sp:'B', ru:'На э́том у́ровне грамма́тика — э́то вы́бор сло́ва. Чита́й вслух и спра́шивай себя́: почему́ и́менно э́то сло́во?', vi:'Ở cấp này ngữ pháp chính là lựa chọn từ. Đọc thành tiếng và tự hỏi: vì sao lại chính từ đó?' }
       ]
     }
   ]
