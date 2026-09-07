@@ -2831,8 +2831,10 @@ function trkiGuide(){
         <div class="tkg-row head"><span>Cấp</span><span>Từ vựng</span><span>Các phần · số câu</span><span>Thời gian · điểm đạt</span></div>
         <div class="tkg-row"><span><b>ТЭУ · A1</b><br><small>Элементарный</small></span><span>≈ 780 từ</span><span>Từ vựng–Ngữ pháp 100 · Đọc 15 · Nghe 15 · Viết 2 · Nói 5</span><span>≈ 3 giờ · mỗi phần ≥ 66%</span></div>
         <div class="tkg-row"><span><b>ТБУ · A2</b><br><small>Базовый</small></span><span>≈ 1.300 từ</span><span>Từ vựng–Ngữ pháp 110 · Đọc 20–30 · Nghe 20–30 · Viết 2–3 · Nói 5–10</span><span>≈ 3,5 giờ · ≥ 66%</span></div>
-        <div class="tkg-row"><span><b>ТРКИ-1 · B1</b><br><small>Первый сертификационный</small></span><span>≈ 2.300 từ</span><span>Từ vựng–Ngữ pháp 165 · Đọc 20 · Nghe 30 · Viết 3 · Nói 4 tình huống + hội thoại</span><span>≈ 4,5 giờ · ≥ 66%</span></div>
+        <div class="tkg-row"><span><b>ТРКИ-1 · B1</b><br><small>Первый сертификационный</small></span><span>≈ 2.300 từ</span><span>Từ vựng–Ngữ pháp 165 · Đọc 20 · Nghe 30 · Viết 2 · Nói 4 tình huống + hội thoại</span><span>≈ 4,5 giờ · ≥ 66%</span></div>
         <div class="tkg-row"><span><b>ТРКИ-2 · B2</b><br><small>Второй сертификационный</small></span><span>≈ 6.000 từ</span><span>Từ vựng–Ngữ pháp 150 · Đọc 25 · Nghe 25 · Viết 3 · Nói 15</span><span>≈ 5,5 giờ · ≥ 66%</span></div>
+        <div class="tkg-row"><span><b>ТРКИ-3 · C1</b><br><small>Третий сертификационный</small></span><span>≈ 12.000 từ</span><span>Từ vựng–Ngữ pháp 100 · Đọc 25 · Nghe 25 · Viết 3 · Nói 15</span><span>≈ 6 giờ · ≥ 66%</span></div>
+        <div class="tkg-row"><span><b>ТРКИ-4 · C2</b><br><small>Четвёртый сертификационный</small></span><span>≈ 20.000 từ</span><span>Từ vựng–Ngữ pháp 100 · Đọc 25 · Nghe 25 · Viết 3 · Nói 15</span><span>≈ 6,5 giờ · ≥ 66%</span></div>
       </div>
       <p class="tkg-note">Điểm từng phần tính theo % câu đúng; <b>đạt</b> khi mọi phần ≥ 66% (được phép thi lại một phần dưới 66% nhưng trên 60%). Phần Nói thi trực tiếp với giám khảo — LangLab thay bằng mục <b>Luyện nói</b> có bài mẫu.</p>
     </div>
@@ -3056,8 +3058,8 @@ function hskList(){
           <button class="pbtn primary" data-hsk-start="${t.id}">Bắt đầu làm bài</button>
         </div>`; }).join('')}
       <div class="topik-card quick">
-        <span class="tk-badge">${esc(v.zh)} · nhanh</span>
-        <h3>Kiểm tra nhanh từ vựng ${esc(v.zh)}</h3>
+        <span class="tk-badge">${esc(v.zh || v.ru)} · nhanh</span>
+        <h3>Kiểm tra nhanh từ vựng ${esc(v.zh || v.ru)}</h3>
         <p class="tk-meta">20 câu · 8 phút · sinh ngẫu nhiên mỗi lần</p>
         <p class="tk-official">${C.quickDesc(v.id)}</p>
         <button class="pbtn" data-hsk-start="quick" data-hsk-level="${v.id}">Làm nhanh</button>
@@ -3067,7 +3069,7 @@ function hskList(){
   <p class="tk-disclaimer">${C.disclaimer}</p>`;
 }
 function hskOptLabel(t, q, o, oi){
-  if (q.t === 'tf') return `<span class="hsk-tf">${oi === 0 ? '√' : '×'}</span><span>${oi === 0 ? '对 · Đúng' : '错 · Sai'}</span>`;
+  if (q.t === 'tf') return `<span class="hsk-tf">${oi === 0 ? '√' : '×'}</span><span>${exCtx().lang === 'ru' ? (oi === 0 ? 'Верно · Đúng' : 'Неверно · Sai') : (oi === 0 ? '对 · Đúng' : '错 · Sai')}</span>`;
   if (q.t === 'pic') return `<span class="tk-onum">${exCtx().letters[oi]}</span><span class="hsk-pic sm">${esc(o)}</span>`;
   const isPic = /^\p{Extended_Pictographic}/u.test(String(o));
   return `<span class="tk-onum">${exCtx().letters[oi]}</span><span class="${isPic ? 'hsk-pic sm' : (q.oc === 'py' ? 'py' : 'ko')}">${esc(o)}</span>`;
@@ -3125,7 +3127,7 @@ function hskPart(t, S, si, pi, part, review){
   const flat = hskFlat(t).filter(f => f.si === si && f.pi === pi);
   const first = flat[0] ? flat[0].no : 0, last = flat.length ? flat[flat.length - 1].no : 0;
   const head = `<div class="tk-section"${pi === 0 ? ` id="hskS-${t.sections[si].id}"` : ''}>
-    <span class="tk-sec-ko ko">${esc(t.sections[si].name)}${part.title ? ' · ' + esc(part.title) : ''} · 第${first}–${last}题</span>
+    <span class="tk-sec-ko ko">${esc(t.sections[si].name)}${part.title ? ' · ' + esc(part.title) : ''} · ${exCtx().lang === 'ru' ? `задания ${first}–${last}` : `第${first}–${last}题`}</span>
     <span class="tk-sec-ko ko">${esc(part.ins || '')}</span>
     <span class="tk-sec-vi">${esc(part.vi || '')}</span>
   </div>`;
