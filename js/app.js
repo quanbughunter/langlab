@@ -4950,7 +4950,8 @@ const EN_IRREG = {
   wore:'wear', worn:'wear', chose:'choose', chosen:'choose', ate:'eat', eaten:'eat', slept:'sleep',
   won:'win', taught:'teach', caught:'catch', sold:'sell', flew:'fly', flown:'fly', threw:'throw',
   children:'child', men:'man', women:'woman', people:'person', feet:'foot', teeth:'tooth',
-  mice:'mouse', geese:'goose', better:'good', best:'good', worse:'bad', worst:'bad', more:'much', most:'much'
+  mice:'mouse', geese:'goose', better:'good', best:'good', worse:'bad', worst:'bad', more:'much', most:'much',
+  further:'far', furthest:'far', farther:'far', farthest:'far', knives:'knife', lives:'life', wives:'wife', leaves:'leaf'
 };
 function enLemma(raw){
   const w = String(raw || '').toLowerCase().replace(/[’]/g, "'");
@@ -4971,7 +4972,14 @@ function enLemma(raw){
   if (/ed$/.test(w)) cand.push(w.slice(0, -2), w.slice(0, -1), w.slice(0, -3));
   if (/er$/.test(w)) cand.push(w.slice(0, -2), w.slice(0, -1));
   if (/est$/.test(w)) cand.push(w.slice(0, -3), w.slice(0, -2));
-  if (/ly$/.test(w)) cand.push(w.slice(0, -2));
+  if (/ly$/.test(w)) cand.push(w.slice(0, -2), w.slice(0, -2) + 'e', w.slice(0, -3) + 'y');
+  /* phụ âm gấp đôi: bigger → big · running → run · stopped → stop */
+  const dbl = w.match(/^(.*?)([bdfglmnprtz])\2(ing|ed|er|est|y)$/);
+  if (dbl) cand.push(dbl[1] + dbl[2]);
+  if (/ies$/.test(w)) cand.push(w.slice(0, -2));
+  if (/ves$/.test(w)) cand.push(w.slice(0, -3) + 'f', w.slice(0, -3) + 'fe');
+  if (/(ness|ment|tion|sion|ity|ance|ence)$/.test(w)) cand.push(w.replace(/(ness|ment|ity|ance|ence)$/, ''), w.replace(/(tion|sion)$/, 'e'), w.replace(/(tion|sion)$/, ''));
+  if (/^(un|in|im|dis|re|non)/.test(w)) cand.push(w.replace(/^(un|in|im|dis|re|non)/, ''));
   for (let i = 0; i < cand.length; i++) if (cand[i] && L[cand[i]]) return cand[i];
   return L[w] ? w : '';
 }
