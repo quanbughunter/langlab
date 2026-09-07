@@ -21,6 +21,7 @@ const state = {
   tab: 'vocab',
   zh: { level:'hsk1', lesson:null, writeChar:'', srs:null },
   ru: { level:'a1', lesson:null, letter:'А', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, trace:true },
+  ja: { level:'n5', lesson:null, kana:'hiragana', kanaSel:'あ', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, kanjiLevel:null, kanjiSel:null, writeChar:'あ', furi:true },
   jamo: 'ㄱ',
   syll: { cho:'ㅎ', jung:'ㅏ', jong:'ㄴ' },
   speed: 1,
@@ -1251,7 +1252,7 @@ function aboutView(){
 
     <section class="about-sec">
       <h2>LangLab là gì?</h2>
-      <p>LangLab là ứng dụng web giúp người Việt học ngoại ngữ một cách bài bản. Hiện có <b>tiếng Hàn</b> (6 cấp từ Sơ cấp đến Cao cấp, thi thử TOPIK), <b>tiếng Trung</b> (HSK 1–5 — nét cơ bản, bộ thủ, pinyin, tập viết theo thứ tự nét, thi thử HSK) và <b>tiếng Nga</b> (A1–C2 theo khung ТРКИ — bảng chữ cái, phát âm, viết tay, luyện nói, thi thử ТРКИ), sẽ mở rộng thêm các ngôn ngữ khác. Mỗi bài giữ nguyên cấu trúc quen thuộc: từ vựng → ngữ pháp → hội thoại → phát âm → văn hoá.</p>
+      <p>LangLab là ứng dụng web giúp người Việt học ngoại ngữ một cách bài bản. Hiện có <b>tiếng Hàn</b> (6 cấp từ Sơ cấp đến Cao cấp, thi thử TOPIK), <b>tiếng Trung</b> (HSK 1–5 — nét cơ bản, bộ thủ, pinyin, tập viết theo thứ tự nét, thi thử HSK) <b>tiếng Nga</b> (A1–C2 theo khung ТРКИ — bảng chữ cái, phát âm, viết tay, luyện nói, thi thử ТРКИ) và <b>tiếng Nhật</b> (N5–N2 theo khung JLPT — kana, kanji có âm Hán–Việt, tập viết theo nét, chia động từ, thi thử JLPT), sẽ mở rộng thêm các ngôn ngữ khác. Mỗi bài giữ nguyên cấu trúc quen thuộc: từ vựng → ngữ pháp → hội thoại → phát âm → văn hoá.</p>
       <ul class="about-feats">
         <li>Khoá học chia cấp, bám khung giáo trình chuẩn của từng ngôn ngữ.</li>
         <li>Từ điển tra nhanh — bấm vào từ nào cũng xem được nghĩa và cách dùng.</li>
@@ -1278,7 +1279,7 @@ function aboutView(){
       <p class="about-note">Góp ý, báo lỗi hay đề xuất thêm ngôn ngữ mới — cứ nhắn cho mình nhé.</p>
     </section>
 
-    <p class="about-foot">© LangLab · Nguyễn Đình Quân. Ghi công dữ liệu mở: 국립국어원 (CC BY-SA) · Make Me a Hanzi.</p>
+    <p class="about-foot">© LangLab · Nguyễn Đình Quân. Ghi công dữ liệu mở: 국립국어원 (CC BY-SA) · Make Me a Hanzi (Arphic PL) · Hanzi Writer (MIT) · hanzi-writer-data-jp / AnimCJK (LGPL, Arphic PL) cho nét kana–kanji · cấu trúc JLPT theo jlpt.jp.</p>
   </div>`;
 }
 
@@ -1796,8 +1797,8 @@ function render(){
     const on = b.dataset.go === state.view || (state.view === 'lesson' && b.dataset.go === 'home');
     b.setAttribute('aria-current', on ? 'page' : 'false');
   });
-  const isZh = state.view.indexOf('zh_') === 0, isRu = state.view.indexOf('ru_') === 0;
-  document.documentElement.setAttribute('data-lang', isZh ? 'zh' : isRu ? 'ru' : 'ko');   // tông màu theo ngôn ngữ
+  const isZh = state.view.indexOf('zh_') === 0, isRu = state.view.indexOf('ru_') === 0, isJa = state.view.indexOf('ja_') === 0;
+  document.documentElement.setAttribute('data-lang', isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : 'ko');   // tông màu theo ngôn ngữ
   if (typeof syncThemeColor === 'function') syncThemeColor();
   const koDrop = $('#koDrop');
   if (koDrop) koDrop.classList.toggle('active', KO_VIEWS.includes(state.view));
@@ -1805,8 +1806,10 @@ function render(){
   if (zhDrop) zhDrop.classList.toggle('active', isZh);
   const ruDrop = $('#ruDrop');
   if (ruDrop) ruDrop.classList.toggle('active', isRu);
+  const jaDrop = $('#jaDrop');
+  if (jaDrop) jaDrop.classList.toggle('active', isJa);
   const tq = $('#topq');
-  if (tq) tq.placeholder = isZh ? 'Tra nhanh tiếng Trung (chữ Hán / pinyin / nghĩa)…' : isRu ? 'Tra nhanh tiếng Nga (không cần dấu trọng âm)…' : state.view === 'about' ? 'Tra nhanh: 한국어 · 中文 · русский · tiếng Việt…' : 'Tra nhanh tiếng Hàn (Hangul / romaja / nghĩa)…';
+  if (tq) tq.placeholder = isZh ? 'Tra nhanh tiếng Trung (chữ Hán / pinyin / nghĩa)…' : isRu ? 'Tra nhanh tiếng Nga (không cần dấu trọng âm)…' : isJa ? 'Tra nhanh tiếng Nhật (kana / kanji / romaji / nghĩa)…' : state.view === 'about' ? 'Tra nhanh: 한국어 · 中文 · русский · tiếng Việt…' : 'Tra nhanh tiếng Hàn (Hangul / romaja / nghĩa)…';
   $$('.nav-drop.open').forEach(d => {
     d.classList.remove('open');
     const bb = d.querySelector('.nav-drop-btn'); if (bb) bb.setAttribute('aria-expanded', 'false');
@@ -1818,15 +1821,17 @@ function render(){
     ? zhCrumb()
     : isRu
     ? ruCrumb()
+    : isJa
+    ? jaCrumb()
     : state.view === 'about'
     ? `<b>Giới thiệu LangLab</b>`
     : state.view === 'lesson' && l
     ? `<button class="crumb-link" data-go="home">Tiếng Hàn</button> <span>›</span> <button class="crumb-link" data-go="home">Sơ cấp 1</button> <span>›</span> <b>Bài ${String(l.no).padStart(2,'0')} · ${esc(l.vi)}</b>`
     : `<button class="crumb-link" data-go="home">Tiếng Hàn</button> <span>›</span> <b>${CRUMBS[state.view]}</b>`;
 
-  if (isZh) (window.requestAnimationFrame ? requestAnimationFrame : (f => setTimeout(f, 16)))(zhMount);
+  if (isZh || isJa) (window.requestAnimationFrame ? requestAnimationFrame : (f => setTimeout(f, 16)))(zhMount);
   if (state.view === 'ru_write') (window.requestAnimationFrame ? requestAnimationFrame : (f => setTimeout(f, 16)))(ruTraceMount);
-  if ((state.view === 'zh_exam' || state.view === 'ru_exam') && exCtx().st.exam && exCtx().st.exam.phase === 'doing') hskMount(); else hskStop();
+  if ((state.view === 'zh_exam' || state.view === 'ru_exam' || state.view === 'ja_exam') && exCtx().st.exam && exCtx().st.exam.phase === 'doing') hskMount(); else hskStop();
   if (state.view === 'write') mountWrite();
   if (state.view === 'dict'){ mountDict(); loadDict(added => { if (added && state.view === 'dict') render(); }); }
   if (state.view === 'shadow'){
@@ -1880,7 +1885,16 @@ function zhLevelChips(attr, cur, withAll){
 }
 
 function getCssVar(v){ try { return getComputedStyle(document.body).getPropertyValue(v).trim(); } catch(e){ return ''; } }
-function hasHanzi(ch){ return /[一-鿿]/.test(ch || ''); }
+function hasHanzi(ch){ return /[一-鿿぀-ヿ]/.test(ch || ''); }
+/* Dữ liệu nét tiếng Nhật (kana + kanji, gói hanzi-writer-data-jp): hanzi-jp/<codepoint>.json */
+function jaLoadChar(c){
+  const D = window.HANZI_JP || (window.HANZI_JP = {});
+  if (D[c]) return Promise.resolve(D[c]);
+  if (typeof fetch !== 'function') return Promise.reject(new Error('no fetch'));
+  return fetch('hanzi-jp/' + c.codePointAt(0).toString(16) + '.json')
+    .then(r => { if (!r.ok) throw new Error('404'); return r.json(); })
+    .then(d => { D[c] = d; return d; });
+}
 /* Dữ liệu nét: có sẵn trong bundle (HSK1–2) thì dùng ngay, không thì tải hanzi/<codepoint>.json theo nhu cầu */
 function zhLoadChar(c){
   const D = window.HANZI_DATA || (window.HANZI_DATA = {});
@@ -3057,11 +3071,679 @@ function trkiGuide(){
              order (sắp xếp thành câu), char (viết chữ theo pinyin), sent (viết câu theo từ + tranh),
              essay (viết đoạn ≥80 chữ). Nghe: phát bằng giọng đọc, giới hạn số lần như thi thật.
    ============================================================ */
+/* ============================================================
+   TIẾNG NHẬT (日本語) — kana · kanji · tập viết · khoá N5→N2 · từ điển (chia động từ, deinflect) · ôn tập · bài tập · JLPT
+   ============================================================ */
+const _JC = (typeof COURSE_JA !== 'undefined') ? COURSE_JA : { levels:[], lessons:[] };
+const _JKN = (typeof KANA_JA !== 'undefined') ? KANA_JA : { rows:[], dakuten:[], yoon:[], rules:[] };
+const _JKJ = (typeof KANJI_JA !== 'undefined') ? KANJI_JA : [];
+const _JM = (typeof JaMorph !== 'undefined') ? JaMorph : null;
+const _JE = (typeof JA_EXERCISES !== 'undefined') ? JA_EXERCISES : [];
+const _JX = (typeof JLPT_EXAMS !== 'undefined') ? JLPT_EXAMS : [];
+const _JSPK = (typeof SPEAKING_JA !== 'undefined') ? SPEAKING_JA : [];
+/* Văn bản: 漢字[かな] = furigana; các từ tách bằng dấu cách (hiển thị ghép liền) */
+function jaPlain(s){ return String(s || '').replace(/([^\s\[\]]+)\[[^\]]*\]/g, '$1').replace(/\s+/g, ''); }
+function jaReading(s){ return String(s || '').replace(/([^\s\[\]]+)\[([^\]]*)\]/g, '$2').replace(/\s+/g, ''); }
+function jaHasKanji(s){ return /[一-鿿々]/.test(s || ''); }
+function jaRubyTok(tok){ return esc(tok).replace(/([^\s\[\]]+)\[([^\]]*)\]/g, '<ruby>$1<rt>$2</rt></ruby>'); }
+/* Câu có furigana + từng từ bấm được (data-jaw = bề mặt không furigana) */
+function jaTokens(str){
+  return String(str || '').split(/\s+/).filter(Boolean).map(tok => {
+    const surf = jaPlain(tok).replace(/[。、！？「」（）『』…・,.!?()]/g, '');
+    if (!surf || !/[぀-ヿ一-鿿々]/.test(surf)) return `<span class="ja-punct">${jaRubyTok(tok)}</span>`;
+    return `<span class="zc ja-tok" data-jaw="${esc(surf)}" title="Tra từ này">${jaRubyTok(tok)}</span>`;
+  }).join('');
+}
+function jaRuby(str){ return String(str || '').split(/\s+/).filter(Boolean).map(jaRubyTok).join(''); }
+function jaSpeak(text){
+  try {
+    const synth = window.speechSynthesis; if (!synth){ toast('Trình duyệt chưa hỗ trợ phát âm'); return; }
+    const plain = jaPlain(text).replace(/[「」『』]/g, '');
+    let done = false;
+    const speak = () => {
+      if (done) return; done = true;
+      synth.cancel();
+      const u = new SpeechSynthesisUtterance(plain);
+      u.lang = 'ja-JP'; u.rate = 0.9;
+      const vs = synth.getVoices() || [];
+      const ja = vs.find(v => /^ja\b|ja[-_]|japan|日本/i.test((v.lang || '') + ' ' + (v.name || '')));
+      if (ja) u.voice = ja;
+      else if (!jaSpeak._warned && !vs.some(v => /^ja/i.test(v.lang || ''))){ jaSpeak._warned = true; toast('Máy chưa có giọng đọc tiếng Nhật — cài gói giọng ja-JP (日本語) trong hệ điều hành.'); }
+      synth.speak(u);
+    };
+    const vs = synth.getVoices() || [];
+    if (vs.length) speak();
+    else { try { synth.addEventListener('voiceschanged', speak, { once:true }); } catch(e){} setTimeout(speak, 300); }
+  } catch(e){}
+}
+function jaSpeech(a){ return jaPlain(String(a || '')).replace(/(男|女|男の人|女の人|先生|学生|店員|客|母|父|アナウンス|A|B)\s*[:：]\s*/g, '').replace(/(^|\s)[—–-]\s*/g, '$1'); }
+function jaSpeakBtn(text, cls){ return `<button class="${cls || 'icon-btn'}" data-ja-speak="${esc(jaPlain(text))}" title="Nghe">🔊</button>`; }
+/* Kho từ: từ vựng các bài + kho nghĩa soạn tay (JA_DICT) */
+const JA_LOOKUP = (function(){
+  const m = {};
+  _JC.lessons.forEach(l => l.vocab.forEach(w => {
+    const lv = l.level || 'n5', k = String(w.jp).trim();
+    if (!m[k]) m[k] = Object.assign({ key:k, refs:[], levels:[] }, w);
+    const e = m[k];
+    if (!e.refs.some(r => r.lv === lv && r.no === l.no)) e.refs.push({ lv, no:l.no });
+    if (e.levels.indexOf(lv) < 0) e.levels.push(lv);
+  }));
+  const D = (typeof JA_DICT !== 'undefined') ? JA_DICT : {};
+  Object.keys(D).forEach(k => { const d = D[k]; if (m[k]) m[k].dict = d; else m[k] = { key:k, jp:k, kana:d.kana || k, romaji:d.romaji || (_JM ? _JM.kanaToRomaji(d.kana || k) : ''), vi:d.vi || (d.senses && d.senses[0] ? d.senses[0].vi : ''), pos:d.pos || '', g:d.g, note:'', refs:[], levels:[], dict:d }; });
+  return m;
+})();
+function jaKind(w){ const p = w.pos || ''; if (/động từ/.test(p) && !/cụm|trợ/.test(p)) return 'verb'; if (/tính từ い/.test(p)) return 'iadj'; if (/tính từ な/.test(p)) return 'naadj'; return 'other'; }
+let _jaFormIdx = null;
+function jaFormIndex(){
+  if (_jaFormIdx) return _jaFormIdx;
+  const idx = {}; const add = (f, key) => { f = String(f || '').trim(); if (!f) return; (idx[f] = idx[f] || []); if (idx[f].indexOf(key) < 0) idx[f].push(key); };
+  Object.values(JA_LOOKUP).forEach(w => {
+    add(w.jp, w.key); add(w.kana, w.key); add(String(w.jp).replace(/^[〜～]/, ''), w.key); add(String(w.kana).replace(/^[〜～]/, ''), w.key);
+    if (!_JM) return;
+    const kind = jaKind(w);
+    try {
+      if (kind === 'verb'){ [w.jp, w.kana].forEach(base => { const v = _JM.verb(base, w.g, w.kana); Object.values(v.forms).forEach(f => add(f, w.key)); }); }
+      else if (kind === 'iadj' || kind === 'naadj'){ [w.jp, w.kana].forEach(base => { const a = _JM.adj(base, kind === 'iadj' ? 'i' : 'na'); Object.values(a.forms).forEach(f => add(f, w.key)); }); }
+    } catch(e){}
+  });
+  _jaFormIdx = idx; return idx;
+}
+function jaLemmatize(tok){
+  const s = String(tok || '').replace(/[。、！？「」（）『』…・\s]/g, '');
+  if (!s) return [];
+  const idx = jaFormIndex(), out = [];
+  const push = k => { if (out.indexOf(k) < 0) out.push(k); };
+  (idx[s] || []).forEach(push);
+  if (_JM){ _JM.deinflect(s).forEach(c => (idx[c] || []).forEach(push)); const h = _JM.hira(s); (idx[h] || []).forEach(push); }
+  if (!out.length) Object.values(JA_LOOKUP).forEach(w => { if (String(w.jp).replace(/^[〜～]/, '') === s || String(w.kana).replace(/^[〜～]/, '') === s) push(w.key); });
+  return out;
+}
+function jaLevel(){ return _JC.levels.find(x => x.id === state.ja.level) || _JC.levels[0] || { vi:'N5', jp:'N5' }; }
+function jaLevelName(id){ const v = _JC.levels.find(x => x.id === id); return v ? v.jp.split(' ')[0] : (id || '').toUpperCase(); }
+function jaLessonList(){ return _JC.lessons.filter(l => l.level === state.ja.level); }
+function jaCurLesson(){ return _JC.lessons.find(l => l.no === state.ja.lesson && l.level === state.ja.level); }
+function jaPracLevel(){
+  const ids = _JC.levels.filter(v => v.status === 'active').map(v => v.id);
+  const cur = state.ja.pracLevel || state.ja.level;
+  return cur === 'all' ? 'all' : (ids.indexOf(cur) >= 0 ? cur : (ids[0] || 'n5'));
+}
+function jaPool(level){ const all = Object.values(JA_LOOKUP).filter(w => w.refs.length); if (!level || level === 'all') return all; const p = all.filter(w => w.levels.indexOf(level) >= 0); return p.length >= 12 ? p : all; }
+function jaLevelChips(attr, cur, withAll){
+  const act = _JC.levels.filter(v => v.status === 'active');
+  return `<div class="level-strip compact">${act.map(v => `<button class="level-chip" ${attr}="${v.id}"${cur === v.id ? ' aria-pressed="true"' : ''}>${esc(jaLevelName(v.id))}</button>`).join('')}${withAll ? `<button class="level-chip" ${attr}="all"${cur === 'all' ? ' aria-pressed="true"' : ''}>Tất cả</button>` : ''}</div>`;
+}
+function jaCrumb(){
+  const map = { ja_home:'Khoá học', ja_kana:'Bảng chữ Kana', ja_kanji:'Kanji', ja_write:'Tập viết', ja_dict:'Từ điển', ja_srs:'Ôn tập', ja_quiz:'Bài tập', ja_speak:'Luyện nói', ja_exam:'Thi thử JLPT' };
+  const L = jaCurLesson();
+  if (state.view === 'ja_lesson' && L)
+    return `<button class="crumb-link" data-go="ja_home">Tiếng Nhật</button> <span>›</span> <button class="crumb-link" data-go="ja_home">${esc(jaLevelName(state.ja.level))}</button> <span>›</span> <b>Bài ${String(L.no).padStart(2,'0')} · ${esc(L.vi)}</b>`;
+  return `<button class="crumb-link" data-go="ja_home">Tiếng Nhật</button> <span>›</span> <b>${esc(map[state.view] || '')}</b>`;
+}
+function jaKanjiOf(ch){ return _JKJ.find(k => k.k === ch) || null; }
+
+/* ---------- Khoá học ---------- */
+VIEWS.ja_home = function(){
+  const lv = jaLevel(), L = jaLessonList(), total = lv.lessons || 20;
+  const cards = [
+    ['ja_kana','Bảng chữ Kana','Hiragana · Katakana · âm ghép · quy tắc','あ'],
+    ['ja_kanji','Kanji','Chữ Hán theo cấp: âm On/Kun, Hán–Việt, nét','漢'],
+    ['ja_write','Tập viết','Xem thứ tự nét, tự viết kana và kanji','✍'],
+    ['ja_speak','Luyện nói','Chủ đề hội thoại có bài mẫu','💬']
+  ];
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Khoá tiếng Nhật · ${esc(lv.jp)}</span>
+    <h1>Tiếng Nhật từ Kana tới JLPT</h1>
+    <p>Học nền tảng (kana · kanji · viết) rồi vào bài theo khung <em>JLPT</em> (N5 → N2 ≈ A1 → B2): mỗi bài có ngữ pháp, từ vựng đủ kanji/kana/romaji, hội thoại có furigana và kanji của bài. Hiện có ${L.length}/${total} bài của ${esc(lv.vi)}.</p>
+  </div>
+  <div class="zh-found">
+    ${cards.map(c => `<button class="zh-found-card" data-go="${c[0]}"><span class="zh-found-ico ja">${c[3]}</span><span class="zh-found-tx"><b>${c[1]}</b><i>${c[2]}</i></span></button>`).join('')}
+  </div>
+  <div class="level-strip">
+    ${_JC.levels.map(v => {
+      const active = v.status === 'active';
+      return `<button class="level-chip" data-ja-level="${v.id}"${state.ja.level === v.id ? ' aria-pressed="true"' : ''}${active ? '' : ' disabled'} title="${active ? '' : 'Đang biên soạn'}">${esc(v.vi)} <span class="lv-ko">${esc(v.jp)}</span>${active ? '' : ' <span class="lv-soon">sắp có</span>'}</button>`;
+    }).join('')}
+  </div>
+  <div class="lesson-grid">
+    ${L.map(l => `
+      <button class="lesson-card" data-ja-lesson="${l.no}">
+        <span class="lesson-no"><i></i> BÀI ${String(l.no).padStart(2,'0')}</span>
+        <h3 class="ja">${esc(l.jp)}</h3>
+        <p class="vi">${esc(l.vi)}</p>
+        <span class="lesson-meta">${l.vocab.length} từ · ${l.grammar.length} ngữ pháp · ${(l.kanji || []).length} kanji</span>
+      </button>`).join('')}
+    ${Array.from({ length: Math.max(0, total - L.length) }, (_, i) => `<div class="lesson-card soon"><span class="lesson-no"><i></i> BÀI ${String(L.length + i + 1).padStart(2,'0')}</span><h3 class="ja">·····</h3><p class="vi">sắp có</p></div>`).join('')}
+  </div>`;
+};
+VIEWS.ja_lesson = function(){
+  const L = jaCurLesson();
+  if (!L) return `<div class="page-head"><h1>Chưa chọn bài</h1><p>Quay lại <button class="crumb-link" data-go="ja_home">danh sách bài</button>.</p></div>`;
+  const furi = state.ja.furi !== false;
+  return `
+  <article class="zh-lesson${furi ? '' : ' ja-rt-off'}">
+    <header class="zh-les-head">
+      <div class="zh-les-title ja">${esc(L.jp)} ${jaSpeakBtn(L.jp)}</div>
+      <div class="zh-les-sub">${esc(L.vi)}</div>
+      <p class="zh-les-skill">${esc(L.skill)}</p>
+    </header>
+    <div class="ru-click-hint">💡 Từ có <span class="ja"><span class="zc">gạch chấm</span></span> bấm được: mở nghĩa, cách chia và ví dụ. <button class="mini" data-ja-furi="1">${furi ? 'Ẩn furigana' : 'Hiện furigana'}</button></div>
+    <section class="zh-sec">
+      <h2>Ngữ pháp</h2>
+      ${L.grammar.map(g => `
+        <div class="zh-gram">
+          <div class="zh-gram-form ja">${esc(g.form)} <span class="zh-gram-vi">— ${esc(g.vi)}</span></div>
+          <p class="zh-gram-note">${esc(g.note)}</p>
+          <div class="zh-gram-ex"><span class="ja ja-sent">${jaTokens(g.ex.jp)}</span> ${jaSpeakBtn(g.ex.jp)}<div class="zh-ex-vi">${esc(g.ex.vi)}</div></div>
+        </div>`).join('')}
+    </section>
+    <section class="zh-sec">
+      <h2>Từ vựng <span class="zh-count">${L.vocab.length}</span></h2>
+      <div class="zh-vocab">
+        ${L.vocab.map(w => `
+          <div class="zh-word">
+            <div class="zh-word-hz ja ja-word" data-jaw="${esc(w.jp)}" title="Mở mục từ điển">${esc(w.jp)}</div>
+            <div class="zh-word-mid">
+              <div class="zh-word-vi">${esc(w.vi)}</div>
+              <div class="zh-word-meta"><span class="ja-kana-sub">${w.kana !== w.jp ? esc(w.kana) + ' · ' : ''}</span><span class="ja-romaji">${esc(w.romaji)}</span> · ${esc(w.pos)}${w.note ? ' · ' + esc(w.note) : ''}</div>
+            </div>
+            <div class="zh-word-act">${jaSpeakBtn(w.kana)}</div>
+          </div>`).join('')}
+      </div>
+    </section>
+    ${(L.kanji || []).length ? `<section class="zh-sec">
+      <h2>Kanji của bài <span class="zh-count">${L.kanji.length}</span></h2>
+      <div class="ja-kanji-row">${L.kanji.map(k => { const K = jaKanjiOf(k); return `<button class="ja-kcard" data-ja-kanji="${esc(k)}" title="Xem chi tiết"><span class="ja-kcard-k ja">${esc(k)}</span><span class="ja-kcard-hv">${K ? esc(K.hv) : ''}</span><span class="ja-kcard-vi">${K ? esc(K.vi) : ''}</span></button>`; }).join('')}</div>
+      <div class="stage-ctrl"><button class="pbtn" data-ja-write="${esc(L.kanji[0])}">✎ Luyện viết kanji của bài</button></div>
+    </section>` : ''}
+    <section class="zh-sec">
+      <h2>Hội thoại</h2>
+      <div class="zh-dia">
+        ${L.dialogue.map(d => `
+          <div class="zh-line">
+            <span class="zh-sp">${esc(d.sp)}</span>
+            <div class="zh-line-body">
+              <div class="zh-line-zh ja ja-sent">${jaTokens(d.jp)} ${jaSpeakBtn(d.jp)}</div>
+              <div class="zh-line-vi">${esc(d.vi)}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+      <div class="stage-ctrl"><button class="pbtn" data-ja-speak="${esc(jaPlain(L.dialogue.map(d => d.jp).join('。')))}">🔊 Nghe cả hội thoại</button></div>
+    </section>
+    <div class="stage-ctrl">
+      <button class="pbtn primary" data-go="ja_quiz">✎ Làm bài tập</button>
+      <button class="pbtn" data-go="ja_home">← Về danh sách bài</button>
+    </div>
+  </article>`;
+};
+
+/* ---------- Kana ---------- */
+VIEWS.ja_kana = function(){
+  const mode = state.ja.kana === 'katakana' ? 'k' : 'h';
+  const sel = state.ja.kanaSel || 'あ';
+  const all = [];
+  _JKN.rows.forEach(r => r.items.forEach(it => { if (it) all.push(it); }));
+  const dakAll = []; _JKN.dakuten.forEach(r => r.items.forEach(a => dakAll.push({ h:a[0], k:a[1], r:a[2], ex:[a[3], a[4], a[5]] })));
+  const yoAll = _JKN.yoon.map(a => ({ h:a[0], k:a[1], r:a[2], ex:[a[3], a[4], a[5]] }));
+  const cur = all.concat(dakAll, yoAll).find(x => x.h === sel || x.k === sel) || all[0];
+  const glyph = mode === 'k' ? cur.k : cur.h;
+  const cell = it => it ? `<button class="ja-kana-cell${(it.h === sel || it.k === sel) ? ' on' : ''}" data-ja-kana="${esc(mode === 'k' ? it.k : it.h)}"><span class="ja-kana-g ja">${esc(mode === 'k' ? it.k : it.h)}</span><span class="ja-kana-r">${esc(it.r)}</span></button>` : '<span class="ja-kana-cell empty"></span>';
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Nhật · Nền tảng</span>
+    <h1>Bảng chữ Kana</h1>
+    <p>Tiếng Nhật dùng hai bộ chữ ghi âm: <b>Hiragana</b> (ひらがな, mềm — từ thuần Nhật, ngữ pháp) và <b>Katakana</b> (カタカナ, góc cạnh — từ mượn, tên nước ngoài), cộng với <b>Kanji</b>. Mỗi chữ = một âm tiết (mora). Bấm một chữ để xem cách viết theo nét, cách đọc, ví dụ và mẹo nhớ.</p>
+  </div>
+  <div class="level-strip compact"><button class="level-chip" data-ja-kanaset="hiragana"${mode === 'h' ? ' aria-pressed="true"' : ''}>ひらがな Hiragana</button><button class="level-chip" data-ja-kanaset="katakana"${mode === 'k' ? ' aria-pressed="true"' : ''}>カタカナ Katakana</button></div>
+  <div class="ja-kana-detail" id="jaKanaDetail">
+    <div class="hz" data-hz="${esc(glyph)}" data-src="jp" data-size="150"></div>
+    <div class="ja-kana-info">
+      <div class="ja-kana-big ja">${esc(cur.h)} <span class="ja-kana-alt">${esc(cur.k)}</span> <span class="ja-kana-rom">${esc(cur.r)}</span> ${jaSpeakBtn(cur.h, 'pbtn')}</div>
+      ${cur.hint ? `<p class="ja-kana-hint">💡 ${esc(cur.hint)}</p>` : ''}
+      ${cur.ex ? `<p class="ja-kana-ex">Ví dụ: <b class="ja">${esc(cur.ex[0])}</b> <span class="ja-romaji">${esc(cur.ex[1])}</span> — ${esc(cur.ex[2])} ${jaSpeakBtn(cur.ex[0], 'mini')}</p>` : ''}
+      <div class="stage-ctrl"><button class="pbtn" data-hzw="anim">▶ Xem thứ tự nét</button><button class="pbtn" data-ja-write="${esc(glyph)}">✎ Tập viết chữ này</button></div>
+    </div>
+  </div>
+  <h2 class="ja-sec-h">Bảng 46 chữ cơ bản (五十音)</h2>
+  <div class="ja-kana-grid">
+    <div class="ja-kana-head"></div>${['a','i','u','e','o'].map(c => `<div class="ja-kana-head">${c}</div>`).join('')}
+    ${_JKN.rows.map(r => `<div class="ja-kana-rowh ja">${esc(r.name)}</div>${r.items.map(cell).join('')}`).join('')}
+  </div>
+  <h2 class="ja-sec-h">Âm đục ゛ và bán đục ゜</h2>
+  <div class="ja-kana-grid">
+    <div class="ja-kana-head"></div>${['a','i','u','e','o'].map(c => `<div class="ja-kana-head">${c}</div>`).join('')}
+    ${_JKN.dakuten.map(r => `<div class="ja-kana-rowh ja">${esc(r.name)}</div>${r.items.map(a => cell({ h:a[0], k:a[1], r:a[2] })).join('')}`).join('')}
+  </div>
+  <h2 class="ja-sec-h">Âm ghép (拗音)</h2>
+  <div class="ja-kana-grid yoon">${yoAll.map(cell).join('')}</div>
+  <h2 class="ja-sec-h">Quy tắc phát âm &amp; chính tả</h2>
+  <div class="ru-phon">
+    ${_JKN.rules.map((r, i) => `
+      <div class="ru-phon-card">
+        <h3>${i + 1}. ${esc(r.title)}</h3>
+        <p>${esc(r.desc)}</p>
+        <div class="ru-detail-ex">${r.ex.map(e => `<span class="ru-ex"><b class="ja">${esc(e[0])}</b><span><span class="ja-romaji">${esc(e[1])}</span> · ${esc(e[2])}</span>${jaSpeakBtn(e[0].replace(/\s*[↘↗].*$/, '').replace(/[()（）]/g, ' ').split(/\s+/)[0], 'mini')}</span>`).join('')}</div>
+      </div>`).join('')}
+  </div>`;
+};
+
+/* ---------- Kanji ---------- */
+function jaKanjiLevel(){ const ids = _JC.levels.filter(v => v.status === 'active').map(v => v.id); const cur = state.ja.kanjiLevel || state.ja.level; return ids.indexOf(cur) >= 0 ? cur : (ids[0] || 'n5'); }
+VIEWS.ja_kanji = function(){
+  const lv = jaKanjiLevel();
+  const list = _JKJ.filter(k => k.lv === lv);
+  const extra = lv === 'n5' ? _JKJ.filter(k => k.lv !== 'n5' && _JC.lessons.some(l => l.level === 'n5' && (l.kanji || []).indexOf(k.k) >= 0)) : [];
+  const sel = state.ja.kanjiSel && jaKanjiOf(state.ja.kanjiSel) ? state.ja.kanjiSel : (list[0] ? list[0].k : '日');
+  const K = jaKanjiOf(sel);
+  const inWords = Object.values(JA_LOOKUP).filter(w => String(w.jp).indexOf(sel) >= 0).slice(0, 8);
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Nhật · Nền tảng</span>
+    <h1>Kanji theo cấp JLPT</h1>
+    <p>Mỗi chữ có <b>âm On</b> (Hán), <b>âm Kun</b> (thuần Nhật), <b>âm Hán–Việt</b> để người Việt nhớ nhanh, số nét, từ ví dụ và hoạt hình thứ tự nét. ${lv === 'n5' ? 'N5 chuẩn ≈ 100 chữ; các chữ xuất hiện sớm trong bài (mức N4) liệt kê riêng bên dưới.' : ''}</p>
+  </div>
+  ${jaLevelChips('data-ja-klevel', lv, false)}
+  <div class="ja-kanji-detail">
+    <div class="hz" data-hz="${esc(sel)}" data-src="jp" data-size="170"></div>
+    <div class="ja-kanji-info">
+      <div class="ja-kanji-big ja">${esc(sel)} ${K ? `<span class="ja-kanji-hv">${esc(K.hv)}</span>` : ''} ${K ? jaSpeakBtn(K.ex && K.ex[0] ? K.ex[0][1] : (K.kun[0] || K.on[0] || sel), 'pbtn') : ''}</div>
+      ${K ? `<div class="ja-kanji-meta"><b>Nghĩa:</b> ${esc(K.vi)} · <b>Nét:</b> ${K.st} · <b>Cấp:</b> ${esc(jaLevelName(K.lv))}</div>
+      <div class="ja-kanji-read"><span><b>On</b> <span class="ja">${K.on.length ? K.on.map(esc).join('・') : '—'}</span></span><span><b>Kun</b> <span class="ja">${K.kun.length ? K.kun.map(esc).join('・') : '—'}</span></span></div>
+      <div class="ja-kanji-ex">${(K.ex || []).map(e => `<span class="ru-ex"><b class="ja zc" data-jaw="${esc(e[0])}">${esc(e[0])}</b><span><span class="ja">${esc(e[1])}</span> · ${esc(e[2])}</span>${jaSpeakBtn(e[1], 'mini')}</span>`).join('')}</div>` : '<p class="zh-empty">Chưa có dữ liệu chữ này.</p>'}
+      ${inWords.length ? `<div class="ja-kanji-words"><b>Trong từ đã học:</b> ${inWords.map(w => `<button class="zh-ref ja" data-ja-entry="${esc(w.key)}">${esc(w.jp)}</button>`).join(' ')}</div>` : ''}
+      <div class="stage-ctrl"><button class="pbtn" data-hzw="anim">▶ Thứ tự nét</button><button class="pbtn" data-ja-write="${esc(sel)}">✎ Tập viết</button></div>
+    </div>
+  </div>
+  <div class="eyebrow" style="margin-top:14px">${esc(jaLevelName(lv))} · ${list.length} chữ</div>
+  <div class="ja-kanji-grid">${list.map(k => `<button class="ja-kcard${k.k === sel ? ' on' : ''}" data-ja-kanji="${esc(k.k)}"><span class="ja-kcard-k ja">${esc(k.k)}</span><span class="ja-kcard-hv">${esc(k.hv)}</span><span class="ja-kcard-vi">${esc(k.vi)}</span></button>`).join('')}</div>
+  ${extra.length ? `<div class="eyebrow" style="margin-top:14px">Xuất hiện sớm trong bài (mức N4–N3) · ${extra.length} chữ</div><div class="ja-kanji-grid">${extra.map(k => `<button class="ja-kcard${k.k === sel ? ' on' : ''}" data-ja-kanji="${esc(k.k)}"><span class="ja-kcard-k ja">${esc(k.k)}</span><span class="ja-kcard-hv">${esc(k.hv)}</span><span class="ja-kcard-vi">${esc(k.vi)}</span></button>`).join('')}</div>` : ''}`;
+};
+
+/* ---------- Tập viết ---------- */
+VIEWS.ja_write = function(){
+  const cur = state.ja.writeChar && /[぀-ヿ一-鿿々]/.test(state.ja.writeChar) ? state.ja.writeChar : 'あ';
+  const K = jaKanjiOf(cur);
+  const kanaRow = []; _JKN.rows.forEach(r => r.items.forEach(it => { if (it) kanaRow.push(it.h); }));
+  const kataRow = []; _JKN.rows.forEach(r => r.items.forEach(it => { if (it) kataRow.push(it.k); }));
+  const L = jaCurLesson();
+  const lessonK = L ? (L.kanji || []) : [];
+  const lvK = _JKJ.filter(k => k.lv === jaKanjiLevel()).map(k => k.k);
+  const chips = (arr) => `<div class="hz-chips">${arr.map(c => `<button class="hz-chip ja${c === cur ? ' on' : ''}" data-ja-write="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
+  const kanaInfo = (() => { let hit = null; _JKN.rows.forEach(r => r.items.forEach(it => { if (it && (it.h === cur || it.k === cur)) hit = it; })); return hit; })();
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Nhật · Nền tảng</span>
+    <h1>Tập viết — kana và kanji theo nét</h1>
+    <p>Bấm <b>Xem thứ tự nét</b> để xem chữ được viết ra sao, rồi <b>Luyện viết</b> để tự tô theo bằng chuột hoặc ngón tay. Chữ Nhật viết từ trên xuống, trái sang phải; nét ngang trước nét dọc.</p>
+  </div>
+  <div class="zh-write">
+    <div class="zh-write-stage">
+      <div class="hz-big"><div class="hz" id="hzBig" data-hz="${esc(cur)}" data-src="jp" data-size="248" data-mode="write"></div></div>
+      <div class="zh-write-side">
+        <div class="zh-write-char ja">${esc(cur)}</div>
+        <div class="zh-write-meta">${K ? `<b>${esc(K.hv)}</b> · ${esc(K.vi)} · ${K.st} nét<div class="zh-write-vi">On: <span class="ja">${K.on.map(esc).join('・') || '—'}</span> · Kun: <span class="ja">${K.kun.map(esc).join('・') || '—'}</span></div>` : kanaInfo ? `<span class="ja-romaji">${esc(kanaInfo.r)}</span><div class="zh-write-vi">${esc(kanaInfo.hint || '')}</div>` : '<span class="zh-write-vi">Luyện thứ tự nét.</span>'}</div>
+        <div class="zh-write-ctrl">
+          <button class="pbtn primary" data-hzw="anim">▶ Xem thứ tự nét</button>
+          <button class="pbtn" data-hzw="quiz">✎ Luyện viết</button>
+          <button class="pbtn" data-hzw="reset">↺ Làm lại</button>
+          <button class="pbtn" data-ja-speak="${esc(K && K.ex && K.ex[0] ? K.ex[0][1] : cur)}">🔊 Nghe</button>
+        </div>
+      </div>
+    </div>
+    <div class="zh-write-pick">
+      <div class="eyebrow">Hiragana</div>${chips(kanaRow)}
+      <div class="eyebrow" style="margin-top:10px">Katakana</div>${chips(kataRow)}
+      ${lessonK.length ? `<div class="eyebrow" style="margin-top:10px">Kanji bài ${L.no}</div>${chips(lessonK)}` : ''}
+      <div class="eyebrow" style="margin-top:10px">Kanji ${esc(jaLevelName(jaKanjiLevel()))}</div>${chips(lvK)}
+    </div>
+  </div>`;
+};
+
+/* ---------- Từ điển ---------- */
+function jaVerbTable(w){
+  if (!_JM) return '';
+  const v = _JM.verb(w.jp, w.g, w.kana);
+  const vk = (w.kana && w.kana !== w.jp) ? _JM.verb(w.kana, w.g, w.kana) : null;
+  const gname = { '1':'nhóm I (五段)', '2':'nhóm II (一段)', '3':'nhóm III (bất quy tắc)' }[v.group] || '';
+  const rows = _JM.FORM_LABELS.map(([k, label]) => `<tr><th>${esc(label)}</th><td class="ja">${esc(v.forms[k] || '—')}</td>${vk ? `<td class="ja ja-kana-sub">${esc(vk.forms[k] || '')}</td>` : ''}</tr>`).join('');
+  return `<div class="ru-morph-head"><b>Chia động từ</b> · ${esc(gname)}</div><div class="ru-tbl-wrap"><table class="ru-tbl ru-tbl-verb"><thead><tr><th></th><th>Dạng</th>${vk ? '<th>Kana</th>' : ''}</tr></thead><tbody>${rows}</tbody></table></div>${v.notes.length ? `<p class="ru-morph-note">${v.notes.map(esc).join(' ')}</p>` : ''}`;
+}
+function jaAdjTable(w, type){
+  if (!_JM) return '';
+  const a = _JM.adj(w.jp, type), ak = (w.kana && w.kana !== w.jp) ? _JM.adj(w.kana, type) : null;
+  const rows = _JM.ADJ_LABELS.map(([k, label]) => `<tr><th>${esc(label)}</th><td class="ja">${esc(a.forms[k] || '—')}</td>${ak ? `<td class="ja ja-kana-sub">${esc(ak.forms[k] || '')}</td>` : ''}</tr>`).join('');
+  return `<div class="ru-morph-head"><b>Biến đổi tính từ ${type === 'i' ? 'い' : 'な'}</b></div><div class="ru-tbl-wrap"><table class="ru-tbl"><thead><tr><th></th><th>Dạng</th>${ak ? '<th>Kana</th>' : ''}</tr></thead><tbody>${rows}</tbody></table></div>${a.notes.length ? `<p class="ru-morph-note">${a.notes.map(esc).join(' ')}</p>` : ''}`;
+}
+function jaExamplesFor(w, limit){
+  const forms = new Set([w.jp, w.kana].filter(Boolean).map(x => String(x).replace(/^[〜～]/, '')));
+  if (_JM){ try { const kind = jaKind(w); if (kind === 'verb') Object.values(_JM.verb(w.jp, w.g, w.kana).forms).forEach(f => forms.add(f)); else if (kind !== 'other') Object.values(_JM.adj(w.jp, kind === 'iadj' ? 'i' : 'na').forms).forEach(f => forms.add(f)); } catch(e){} }
+  const hits = [];
+  const test = txt => { const toks = String(txt).split(/\s+/).map(t => jaPlain(t).replace(/[。、！？「」（）『』…・]/g, '')); return toks.some(t => forms.has(t)); };
+  outer: for (const L of _JC.lessons){
+    for (const d of (L.dialogue || [])){ if (test(d.jp)){ hits.push({ jp:d.jp, vi:d.vi, lv:L.level, no:L.no }); if (hits.length >= limit) break outer; } }
+    for (const g of (L.grammar || [])){ if (g.ex && test(g.ex.jp)){ hits.push({ jp:g.ex.jp, vi:g.ex.vi, lv:L.level, no:L.no }); if (hits.length >= limit) break outer; } }
+  }
+  return hits;
+}
+function jaSenses(w){
+  const out = [], seen = new Set();
+  const push = (vi, ex, note) => { const k = (vi || '').trim().toLowerCase(); if (!k || seen.has(k)) return; seen.add(k); out.push({ vi, ex, note }); };
+  if (w.dict && w.dict.senses) w.dict.senses.forEach(s => push(s.vi, s.ex, s.note));
+  _JC.lessons.forEach(L => L.vocab.forEach(v => { if (v.jp === w.jp) push(v.vi, null, v.note); }));
+  if (!out.length) push(w.vi, null, w.note);
+  return out;
+}
+function jaEntryHTML(key){
+  const w = JA_LOOKUP[key]; if (!w) return '';
+  const kind = jaKind(w), d = w.dict || {};
+  const senses = jaSenses(w);
+  let morph = '';
+  if (kind === 'verb') morph = jaVerbTable(w);
+  else if (kind === 'iadj') morph = jaAdjTable(w, 'i');
+  else if (kind === 'naadj') morph = jaAdjTable(w, 'na');
+  const kanjis = [...String(w.jp)].filter(ch => /[一-鿿]/.test(ch)).map(ch => jaKanjiOf(ch)).filter(Boolean);
+  const ex = jaExamplesFor(w, 6);
+  const refs = w.refs.map(r => `<button class="zh-ref" data-ja-open="${r.lv}:${r.no}" title="Mở bài học">${esc(jaLevelName(r.lv))} bài ${r.no}</button>`).join(' ');
+  return `
+  <article class="ru-entry">
+    <header class="ru-entry-head">
+      <div class="ru-entry-word ja">${esc(w.jp)} ${w.kana && w.kana !== w.jp ? `<span class="ja-entry-kana">${esc(w.kana)}</span>` : ''} <span class="ja-romaji">${esc(w.romaji || '')}</span> ${jaSpeakBtn(w.kana || w.jp)}</div>
+      <div class="ru-entry-meta">${esc(w.pos || '')}${w.g ? ` · ${{ '1':'nhóm I', '2':'nhóm II', '3':'nhóm III' }[w.g]}` : ''}${d.gov ? ` · <span class="ru-gov">${esc(d.gov)}</span>` : ''}</div>
+      ${refs ? `<div class="ru-entry-refs">${refs}</div>` : '<div class="ru-entry-refs"><span class="ru-dict-tag">từ lõi · kho nghĩa mở rộng</span></div>'}
+    </header>
+    <section class="ru-entry-sec">
+      <h3>Nghĩa</h3>
+      <ol class="ru-senses">${senses.map(s => `<li><div class="ru-sense-vi">${esc(s.vi)}</div>${s.note ? `<div class="ru-sense-note">${esc(s.note)}</div>` : ''}${s.ex && s.ex[0] ? `<div class="ru-sense-ex"><span class="ja">${jaTokens(s.ex[0])}</span> ${jaSpeakBtn(s.ex[0], 'mini')}${s.ex[1] ? `<span class="ru-sense-exvi">${esc(s.ex[1])}</span>` : ''}</div>` : ''}</li>`).join('')}</ol>
+      ${d.coll && d.coll.length ? `<h3>Cách dùng · kết hợp từ</h3><ul class="ru-coll">${d.coll.map(c => `<li><span class="ja">${jaTokens(c.split(' — ')[0])}</span>${c.indexOf(' — ') > 0 ? ` <span class="ru-coll-vi">— ${esc(c.split(' — ').slice(1).join(' — '))}</span>` : ''}</li>`).join('')}</ul>` : ''}
+      ${d.note ? `<p class="ru-entry-note">📌 ${esc(d.note)}</p>` : ''}
+    </section>
+    ${kanjis.length ? `<section class="ru-entry-sec"><h3>Kanji trong từ</h3><div class="ja-kanji-row">${kanjis.map(K => `<button class="ja-kcard" data-ja-kanji="${esc(K.k)}"><span class="ja-kcard-k ja">${esc(K.k)}</span><span class="ja-kcard-hv">${esc(K.hv)}</span><span class="ja-kcard-vi">${esc(K.vi)} · On ${K.on.map(esc).join('・') || '—'} · Kun ${K.kun.map(esc).join('・') || '—'}</span></button>`).join('')}</div></section>` : ''}
+    ${morph ? `<section class="ru-entry-sec ru-entry-morph">${morph}</section>` : ''}
+    ${ex.length ? `<section class="ru-entry-sec"><h3>Ví dụ trong khoá học</h3><div class="ru-ex-list">${ex.map(e => `<div class="ru-ex-item"><div class="ja ja-sent">${jaTokens(e.jp)} ${jaSpeakBtn(e.jp, 'mini')}</div><div class="ru-ex-vi">${esc(e.vi)} · <button class="zh-ref" data-ja-open="${e.lv}:${e.no}">${esc(jaLevelName(e.lv))} bài ${e.no}</button></div></div>`).join('')}</div></section>` : ''}
+    <p class="ru-morph-note">Đối chiếu thêm: <a href="https://jisho.org/search/${encodeURIComponent(w.jp)}" target="_blank" rel="noopener noreferrer">Jisho ↗</a></p>
+  </article>`;
+}
+function jaRomajiKey(s){ return (_JM ? _JM.kanaToRomaji(s) : s).toLowerCase().replace(/[āáà]/g, 'a').replace(/[īí]/g, 'i').replace(/[ūú]/g, 'u').replace(/[ēé]/g, 'e').replace(/[ōó]/g, 'o').replace(/'/g, ''); }
+function jaDictResults(q){
+  q = (q || '').trim();
+  let items = Object.values(JA_LOOKUP);
+  let lemmaHits = [];
+  if (q){
+    const ql = q.toLowerCase(), qh = _JM ? _JM.hira(q) : q, isLatin = /^[a-zA-Z' -]+$/.test(q);
+    const qk = isLatin ? ql.replace(/[^a-z]/g, '') : null;
+    const qkana = (isLatin && _JM) ? _JM.romajiToKana(q) : null;
+    lemmaHits = jaLemmatize(q);
+    items = items.filter(w => String(w.jp).indexOf(q) >= 0 || String(w.kana).indexOf(qh) >= 0 || (w.vi || '').toLowerCase().indexOf(ql) >= 0 || lemmaHits.indexOf(w.key) >= 0 || (qk && (jaRomajiKey(w.kana).indexOf(qk) >= 0 || String(w.romaji || '').toLowerCase().replace(/[^a-z]/g, '').indexOf(qk) >= 0)) || (qkana && String(w.kana).indexOf(qkana) >= 0));
+    const rank = w => lemmaHits.indexOf(w.key) >= 0 ? 0 : (w.jp === q || w.kana === qh ? 1 : (String(w.jp).indexOf(q) === 0 || String(w.kana).indexOf(qh) === 0 ? 2 : 3));
+    items.sort((a, b) => rank(a) - rank(b));
+  }
+  const total = items.length; items = items.slice(0, 80);
+  if (!items.length) return `<p class="zh-empty">Không thấy từ nào khớp. Gõ kanji, kana, romaji (gakusei) — kể cả dạng đã chia (食べました, 行って) — hoặc nghĩa tiếng Việt.</p>` + crossDictHint(q, 'ja');
+  const lemmaNote = (q && lemmaHits.length && JA_LOOKUP[lemmaHits[0]].jp !== q && JA_LOOKUP[lemmaHits[0]].kana !== q) ? `<div class="ru-lemma-note">«${esc(q)}» là dạng biến đổi của <b class="ja">${esc(JA_LOOKUP[lemmaHits[0]].jp)}</b></div>` : '';
+  return `<div class="zh-res-count">${total} từ${total > 80 ? ' · hiện 80 đầu, gõ thêm để thu hẹp' : ''}</div>` + lemmaNote + crossDictHint(q, 'ja') + items.map(w => `
+    <div class="zh-res ru-res" data-ja-entry="${esc(w.key)}" role="button" tabindex="0" title="Mở mục từ">
+      <div class="zh-res-hz ja" style="font-size:22px;min-width:0">${esc(w.jp)}</div>
+      <div class="zh-res-mid">
+        <div class="zh-res-vi">${esc(w.vi)}</div>
+        <div class="zh-res-meta"><span class="ja-kana-sub">${w.kana !== w.jp ? esc(w.kana) + ' · ' : ''}</span><span class="ja-romaji">${esc(w.romaji || '')}</span> · ${esc(w.pos)}${w.refs.length ? ' · ' + w.refs.map(r => `<button class="zh-ref" data-ja-open="${r.lv}:${r.no}" title="Mở bài học">${esc(jaLevelName(r.lv))} bài ${r.no}</button>`).join(' ') : ' · <span class="ru-dict-tag">từ lõi</span>'}</div>
+      </div>
+      <div class="zh-res-act">${jaSpeakBtn(w.kana || w.jp)}<button class="icon-btn" data-ja-entry="${esc(w.key)}" title="Mở mục từ">▸</button></div>
+    </div>`).join('');
+}
+VIEWS.ja_dict = function(){
+  const q = state.ja.dictQ || '';
+  const entry = state.ja.entry && JA_LOOKUP[state.ja.entry] ? state.ja.entry : null;
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Nhật</span>
+    <h1>Từ điển</h1>
+    <p>Tra trong ${Object.keys(JA_LOOKUP).length} từ (khoá N5–N2 + từ lõi). Gõ kanji, kana hoặc romaji — kể cả dạng đã chia (食べました → 食べる) — hoặc nghĩa tiếng Việt. Mỗi mục từ có nghĩa, kanji thành phần (âm Hán–Việt), bảng chia động từ / tính từ và ví dụ từ bài học.</p>
+  </div>
+  <div class="zh-dict-search">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    <input id="jaq" type="search" value="${esc(q)}" placeholder="学生 / がくせい / gakusei / sinh viên…" autocomplete="off">
+  </div>
+  ${entry ? `<div id="jaEntry">${jaEntryHTML(entry)}<div class="stage-ctrl"><button class="pbtn" data-ja-entry-close="1">← Danh sách kết quả</button></div></div>` : ''}
+  <div id="jaResults" class="zh-results"${entry ? ' hidden' : ''}>${jaDictResults(q)}</div>`;
+};
+function jaOpenWord(tok){
+  const keys = jaLemmatize(tok);
+  state.ja.dictQ = jaPlain(tok);
+  state.ja.entry = keys.length ? keys[0] : null;
+  if (state.view !== 'ja_dict') go('ja_dict'); else render();
+  try { window.scrollTo({ top:0 }); } catch(e){}
+}
+try { window.__jaDict = { lemmatize: jaLemmatize, lookup: JA_LOOKUP, forms: jaFormIndex }; } catch(e){}
+
+/* ---------- Ôn tập ---------- */
+VIEWS.ja_srs = function(){
+  const lv = jaPracLevel(), deck = jaPool(lv);
+  if (!state.ja.srs || state.ja.srs.n !== deck.length || state.ja.srs.lv !== lv) state.ja.srs = { i:0, show:false, n:deck.length, lv };
+  const s = state.ja.srs;
+  const w = deck[s.i % deck.length] || deck[0] || { jp:'はい', kana:'はい', vi:'vâng', pos:'' };
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Nhật</span>
+    <h1>Ôn tập từ vựng</h1>
+    <p>Thẻ ghi nhớ ${deck.length} từ ${lv === 'all' ? 'mọi cấp' : esc(jaLevelName(lv))}. Nhìn từ (kanji), đọc to, đoán nghĩa rồi lật thẻ xem kana + nghĩa.</p>
+  </div>
+  ${jaLevelChips('data-ja-prac', lv, true)}
+  <div class="zh-srs">
+    <div class="zh-card ${s.show ? 'open' : ''}" id="zhCard">
+      <div class="zh-card-front ja" style="font-size:40px">${esc(w.jp)}</div>
+      <div class="zh-card-back"><div class="zh-card-vi">${esc(w.vi)}</div><div class="zh-card-hv ja">${w.kana !== w.jp ? esc(w.kana) + ' · ' : ''}<span class="ja-romaji">${esc(w.romaji || '')}</span> · ${esc(w.pos)}</div></div>
+    </div>
+    <div class="zh-srs-ctrl">
+      ${jaSpeakBtn(w.kana || w.jp, 'pbtn')}
+      <button class="pbtn primary" id="zhFlip">${s.show ? 'Ẩn đáp án' : 'Lật thẻ'}</button>
+      <button class="pbtn" data-ja-srs="next">Thẻ sau →</button>
+    </div>
+    <div class="zh-srs-count">${(s.i % deck.length) + 1} / ${deck.length}</div>
+  </div>`;
+};
+
+/* ---------- Bài tập ---------- */
+const JA_QZ_MODES = [['mix','Trộn tất cả'],['vocab','Từ vựng'],['reading','Cách đọc kanji'],['kanji','Kanji'],['grammar','Ngữ pháp'],['order','Sắp xếp câu'],['trans','Dịch'],['listen','Nghe'],['dialog','Hội thoại']];
+function jaQzMode(){ return JA_QZ_MODES.some(m => m[0] === state.ja.qzMode) ? state.ja.qzMode : 'mix'; }
+function jaSentences(level){
+  const out = [];
+  _JC.lessons.forEach(L => {
+    if (level && level !== 'all' && L.level !== level) return;
+    (L.grammar || []).forEach(g => { if (g.ex) out.push({ jp:g.ex.jp, vi:g.ex.vi, lv:L.level }); });
+    (L.dialogue || []).forEach((d, i, arr) => { out.push({ jp:d.jp, vi:d.vi, lv:L.level, next: arr[i + 1] ? arr[i + 1].jp : null }); });
+  });
+  return out;
+}
+function jaGrammarBank(level){
+  const bank = _JE.slice();
+  _JX.forEach(t => (t.sections || []).forEach(sec => { if (sec.id !== 'G' && sec.id !== 'V') return; sec.parts.forEach(p => p.qs.forEach(q => { if (q.t === 'mc' && q.q) bank.push({ level:t.level, topic:'jlpt', q:q.q, o:q.o, c:q.c, e:q.e }); })); }));
+  return (level && level !== 'all') ? bank.filter(b => b.level === level) : bank;
+}
+function jaSplitSent(jp){ return String(jp).split(/\s+/).filter(t => t && !/^[。、！？…]+$/.test(t)).map(t => t.replace(/[。、！？]+$/, '')).filter(Boolean); }
+function jaMakeQuestions(n, mode){
+  mode = mode || jaQzMode();
+  const level = jaPracLevel(), pool = jaPool(level), sents = jaSentences(level), bank = jaGrammarBank(level);
+  const kanjiPool = _JKJ.filter(k => level === 'all' || k.lv === level || (level === 'n5' && _JC.lessons.some(l => l.level === 'n5' && (l.kanji || []).indexOf(k.k) >= 0)));
+  const readPool = pool.filter(w => jaHasKanji(w.jp) && w.kana && w.kana !== w.jp && !/\//.test(w.kana));
+  const qs = [], used = {}; let guard = 0;
+  const weights = mode === 'mix' ? ['vocab','vocab','reading','reading','kanji','grammar','grammar','order','trans','listen','dialog'] : [mode];
+  const canDo = t => t === 'grammar' ? bank.length >= 4 : t === 'kanji' ? kanjiPool.length >= 4 : t === 'reading' ? readPool.length >= 4 : t === 'vocab' ? pool.length >= 4 : sents.length >= 4;
+  const others = (arr, self, key, k) => { const o = []; const cand = arr.filter(x => x !== self).sort(() => Math.random() - 0.5); for (const c of cand){ const v = key(c); if (v && v !== key(self) && o.indexOf(v) < 0) o.push(v); if (o.length >= k) break; } return o; };
+  const shuffle = a => a.slice().sort(() => Math.random() - 0.5);
+  while (qs.length < n && guard++ < n * 60){
+    let type = zhPick(weights); if (!canDo(type)) type = 'vocab';
+    let q = null, key = '';
+    if (type === 'vocab'){
+      const w = zhPick(pool); const t = zhPick(['mean','word']); key = 'v|' + t + '|' + w.key; if (used[key]) continue;
+      if (t === 'mean'){ const opts = shuffle(others(pool, w, x => x.vi, 3).concat([w.vi])); q = { type:'mc', tag:'Từ vựng · nghĩa', prompt:'Từ này nghĩa là gì?', main:`<span class="ja" style="font-size:34px">${esc(w.jp)}</span> <span class="ja-kana-sub">${w.kana !== w.jp ? esc(w.kana) : ''}</span>`, opts, answer:w.vi, speak:w.kana, explain:`${w.jp} (${w.kana}) = ${w.vi}` }; }
+      else { const opts = shuffle(others(pool, w, x => x.jp, 3).concat([w.jp])); q = { type:'mc', tag:'Từ vựng · từ', prompt:'Từ nào có nghĩa như sau?', main:`<span style="font-size:22px;font-weight:600">${esc(w.vi)}</span>`, opts, answer:w.jp, oc:'ja', speak:w.kana, explain:`${w.vi} = ${w.jp} (${w.kana})` }; }
+    }
+    else if (type === 'reading'){
+      const w = zhPick(readPool); key = 'r|' + w.key; if (used[key]) continue;
+      const opts = shuffle(others(readPool, w, x => x.kana, 3).concat([w.kana]));
+      q = { type:'mc', tag:'Cách đọc', prompt:'Chữ này đọc là gì?', main:`<span class="ja" style="font-size:36px">${esc(w.jp)}</span>`, opts, answer:w.kana, oc:'ja', speak:w.kana, explain:`${w.jp} đọc là ${w.kana} (${w.romaji}) — ${w.vi}` };
+    }
+    else if (type === 'kanji'){
+      const K = zhPick(kanjiPool); const t = zhPick(['mean','kanji']); key = 'k|' + t + '|' + K.k; if (used[key]) continue;
+      if (t === 'mean'){ const opts = shuffle(others(kanjiPool, K, x => x.vi, 3).concat([K.vi])); q = { type:'mc', tag:'Kanji · nghĩa', prompt:'Chữ Hán này nghĩa là gì?', main:`<span class="ja" style="font-size:52px">${esc(K.k)}</span>`, opts, answer:K.vi, speak:(K.ex && K.ex[0]) ? K.ex[0][1] : K.kun[0] || '', explain:`${K.k} (${K.hv}) = ${K.vi} · On ${K.on.join('・') || '—'} · Kun ${K.kun.join('・') || '—'}` }; }
+      else { const opts = shuffle(others(kanjiPool, K, x => x.k, 3).concat([K.k])); q = { type:'mc', tag:'Kanji · chữ', prompt:`Chữ Hán nào có nghĩa «${K.vi}» (Hán–Việt ${K.hv})?`, main:`<span style="font-size:22px;font-weight:600">${esc(K.vi)} · ${esc(K.hv)}</span>`, opts, answer:K.k, oc:'ja', explain:`${K.hv} = ${K.k} (${K.vi})` }; }
+    }
+    else if (type === 'grammar'){
+      const b = zhPick(bank); key = 'g|' + b.q; if (used[key]) continue;
+      q = { type:'mc', tag:'Ngữ pháp' + (b.topic && b.topic !== 'jlpt' ? ' · ' + b.topic : ''), prompt:'Chọn phương án đúng:', main:`<span class="ja" style="font-size:20px;line-height:1.6">${jaRuby(b.q)}</span>`, opts:b.o.slice(), answer:b.o[b.c], oc:'ja', keepOrder:true, explain:(b.e || '') };
+    }
+    else if (type === 'order'){
+      const cand = sents.filter(x => { const p = jaSplitSent(x.jp); return p.length >= 4 && p.length <= 9; }); if (!cand.length) continue;
+      const sn = zhPick(cand); key = 'o|' + sn.jp; if (used[key]) continue;
+      const parts = jaSplitSent(sn.jp).map(jaPlain);
+      q = { type:'order', tag:'Sắp xếp câu', prompt:'Ghép các từ thành câu đúng:', main:`<span style="font-size:17px">${esc(sn.vi)}</span>`, parts: shuffle(parts), answer: parts.join(''), speak: sn.jp, explain: jaPlain(sn.jp) + ' — ' + sn.vi };
+    }
+    else if (type === 'trans'){
+      const sn = zhPick(sents); key = 't|' + sn.jp; if (used[key]) continue;
+      const opts = shuffle(others(sents, sn, x => jaPlain(x.jp), 3).concat([jaPlain(sn.jp)]));
+      q = { type:'mc', tag:'Dịch', prompt:'Câu tiếng Nhật nào đúng với nghĩa sau?', main:`<span style="font-size:18px">${esc(sn.vi)}</span>`, opts, answer:jaPlain(sn.jp), oc:'ja', speak:sn.jp, explain: jaPlain(sn.jp) };
+    }
+    else if (type === 'listen'){
+      const sn = zhPick(sents); key = 'l|' + sn.jp; if (used[key]) continue;
+      const opts = shuffle(others(sents, sn, x => x.vi, 3).concat([sn.vi]));
+      q = { type:'mc', tag:'Nghe', prompt:'Nghe rồi chọn nghĩa đúng:', main:`<button class="pbtn primary" data-ja-speak="${esc(jaPlain(sn.jp))}">🔊 Nghe câu</button>`, opts, answer:sn.vi, speak:sn.jp, explain: jaPlain(sn.jp) + ' — ' + sn.vi };
+    }
+    else if (type === 'dialog'){
+      const cand = sents.filter(x => x.next); if (!cand.length) continue;
+      const sn = zhPick(cand); key = 'd|' + sn.jp; if (used[key]) continue;
+      const opts = shuffle(others(cand, sn, x => jaPlain(x.next), 3).concat([jaPlain(sn.next)]));
+      q = { type:'mc', tag:'Hội thoại', prompt:'Câu đáp lại nào hợp lý?', main:`<span class="ja" style="font-size:20px">${jaRuby(sn.jp)}</span><div class="zh-ex-vi">${esc(sn.vi)}</div>`, opts, answer:jaPlain(sn.next), oc:'ja', speak:sn.next, explain: jaPlain(sn.next) };
+    }
+    if (!q || (q.type !== 'order' && (!q.opts || q.opts.length < 2))) continue;
+    used[key] = 1; qs.push(q);
+  }
+  return qs;
+}
+function jaQuick(level){
+  const prev = state.ja.pracLevel, prevMode = state.ja.qzMode; state.ja.pracLevel = level; state.ja.qzMode = 'vocab';
+  const qs = jaMakeQuestions(28, 'mix').filter(q => q.type === 'mc').slice(0, 20).map(q => ({ k:'read', t:'mc', html:q.main, q:q.prompt, o:q.opts, c:q.opts.indexOf(q.answer), oc:q.oc, e:q.explain }));
+  state.ja.pracLevel = prev; state.ja.qzMode = prevMode;
+  return { id:'quick-' + level + '-' + Date.now(), level, quick:true, badge:jaLevelName(level), title:'Kiểm tra nhanh từ vựng ' + jaLevelName(level),
+    official:'20 câu ngẫu nhiên (từ vựng, cách đọc, kanji) · 8 phút · chấm theo %', minutes:8, maxScore:100, pass:60, plays:0,
+    sections:[{ id:'V', name:'文字・語彙', vi:'Chữ – Từ vựng', parts:[{ title:'', ins:'正しいものを一つえらんでください。', vi:'Chọn đáp án đúng.', qs }] }] };
+}
+function jaQzCorrect(q, p){ return p != null && String(p).replace(/\s+/g, '') === String(q.answer).replace(/\s+/g, ''); }
+VIEWS.ja_quiz = function(){
+  const Q = state.ja.quiz, mode = jaQzMode(), lv = jaPracLevel();
+  const modeChips = `<div class="level-strip compact" style="margin:8px 0 4px">${JA_QZ_MODES.map(m => `<button class="level-chip" data-ja-qzmode="${m[0]}"${mode === m[0] ? ' aria-pressed="true"' : ''}>${m[1]}</button>`).join('')}</div>`;
+  if (!Q || !Q.qs){
+    const bank = jaGrammarBank(lv).length, sents = jaSentences(lv).length;
+    return `
+    <div class="page-head"><span class="eyebrow">Tiếng Nhật · Bài tập</span><h1>Bài tập</h1>
+      <p>Câu hỏi sinh mới mỗi lần từ ${jaPool(lv).length} từ, ${sents} câu mẫu và ${bank} câu ngữ pháp của ${lv === 'all' ? 'mọi cấp' : esc(jaLevelName(lv))}. Chín dạng: nghĩa/từ, cách đọc kanji, kanji, ngữ pháp (trợ từ, thể động từ…), sắp xếp câu, dịch, nghe, chọn câu đáp lại. Có chấm điểm và giải thích.</p></div>
+    <div class="eyebrow">Cấp</div>${jaLevelChips('data-ja-prac', lv, true)}
+    <div class="eyebrow" style="margin-top:10px">Dạng bài</div>${modeChips}
+    <div class="stage-ctrl"><button class="pbtn primary" data-ja-qz-start="10">▶ 10 câu</button><button class="pbtn" data-ja-qz-start="20">20 câu</button><button class="pbtn" data-ja-qz-start="40">40 câu</button></div>`;
+  }
+  if (Q.i >= Q.qs.length){
+    const score = Q.qs.filter((q, i) => jaQzCorrect(q, Q.picked[i])).length, pct = Math.round(score / Q.qs.length * 100);
+    return `
+    <div class="page-head"><span class="eyebrow">Tiếng Nhật · Bài tập</span><h1>Kết quả: ${score}/${Q.qs.length}</h1>
+      <p>Đúng ${pct}%. ${pct >= 80 ? 'すばらしい！' : pct >= 50 ? 'よくできました — ôn thêm chút nhé.' : 'Cần luyện thêm nhé.'}</p></div>
+    <div class="qz-review">${Q.qs.map((q, i) => `<div class="qz-rev ${jaQzCorrect(q, Q.picked[i]) ? 'ok' : 'no'}"><span>${jaQzCorrect(q, Q.picked[i]) ? '✓' : '✗'}</span> <i class="qz-tag">${esc(q.tag)}</i> ${esc(q.explain)}${q.speak ? ' ' + jaSpeakBtn(q.speak, 'mini') : ''}</div>`).join('')}</div>
+    <div class="stage-ctrl"><button class="pbtn primary" data-ja-qz-start="${Q.qs.length}">↻ Đề mới (${Q.qs.length} câu)</button><button class="pbtn" data-ja-qz-home="1">← Chọn dạng khác</button></div>`;
+  }
+  const q = Q.qs[Q.i], picked = Q.picked[Q.i], done = picked != null;
+  const head = `<div class="page-head"><span class="eyebrow">Tiếng Nhật · Bài tập · ${esc(q.tag)}</span><h1>Câu <span class="qz-count">${Q.i + 1}/${Q.qs.length}</span> <button class="mini" data-ja-qz-start="${Q.qs.length}" title="Bỏ đề này, sinh đề mới">↻ Đề khác</button> <button class="mini" data-ja-qz-home="1" title="Về màn chọn cấp và dạng bài">☰ Dạng khác</button></h1><p>${esc(q.prompt)}</p></div>
+  <div class="qz-main">${q.main}</div>`;
+  let body = '';
+  if (q.type === 'order'){
+    const cur = Q.cur || [];
+    const line = cur.map(i => `<span class="hsk-chunk on">${esc(q.parts[i])}</span>`).join('') || '<span class="hsk-hint">Bấm các từ bên dưới theo thứ tự…</span>';
+    body = `<div class="hsk-order">
+      <div class="hsk-order-line ja">${line}${(!done && cur.length) ? `<button class="mini" data-ja-qz-clear="1">↺ Xoá</button>` : ''}</div>
+      ${done ? '' : `<div class="hsk-order-pool">${q.parts.map((p, i) => `<button class="hsk-chunk ja" data-ja-qz-ord="${i}"${cur.indexOf(i) >= 0 ? ' disabled' : ''}>${esc(p)}</button>`).join('')}</div>
+      <div class="stage-ctrl"><button class="pbtn primary" data-ja-qz-check="1"${cur.length === q.parts.length ? '' : ' disabled'}>Kiểm tra</button></div>`}
+    </div>`;
+  } else {
+    body = `<div class="qz-opts">${q.opts.map(o => {
+      let cls = 'qz-opt' + (q.oc ? ' ' + q.oc : '');
+      if (done){ if (o === q.answer) cls += ' correct'; else if (o === picked) cls += ' wrong'; }
+      return `<button class="${cls}" data-ja-qz="${esc(o)}"${done ? ' disabled' : ''}>${esc(o)}</button>`;
+    }).join('')}</div>`;
+  }
+  const ok = done && jaQzCorrect(q, picked);
+  return head + body + (done ? `<div class="qz-explain ${ok ? 'ok' : 'no'}">${ok ? '✓ Đúng! ' : '✗ Chưa đúng. '}${q.type === 'order' && !ok ? `Đáp án: <b class="ja">${esc(q.answer)}</b> · ` : ''}${esc(q.explain)} ${q.speak ? jaSpeakBtn(q.speak, 'mini') : ''}</div>
+    <div class="stage-ctrl"><button class="pbtn primary" data-ja-qz-next="1">${Q.i + 1 < Q.qs.length ? 'Câu sau →' : 'Xem kết quả'}</button></div>` : '');
+};
+
+/* ---------- Luyện nói ---------- */
+VIEWS.ja_speak = function(){
+  const topics = _JSPK;
+  const cur = topics.find(t => t.id === state.ja.topic) || null;
+  if (!topics.length) return `<div class="page-head"><span class="eyebrow">Tiếng Nhật</span><h1>Luyện nói</h1><p>Đang biên soạn chủ đề.</p></div>`;
+  if (!cur) return `
+  <div class="page-head"><span class="eyebrow">Tiếng Nhật</span><h1>Luyện nói</h1>
+    <p>Chủ đề hội thoại thường gặp (tự giới thiệu, gia đình, sở thích, một ngày của tôi, mua sắm, thời tiết…), mỗi chủ đề có từ khoá, câu hỏi gợi ý và bài mẫu có furigana, dịch và nút nghe để shadowing.</p></div>
+  <div class="ru-topics">${topics.map(t => `<button class="ru-topic" data-ja-topic="${esc(t.id)}"><span class="ru-topic-lv">${esc(t.level.toUpperCase())}</span><b class="ja">${esc(t.jp)}</b><i>${esc(t.vi)}</i></button>`).join('')}</div>`;
+  return `
+  <div class="page-head"><span class="eyebrow">Tiếng Nhật · Luyện nói · ${esc(cur.level.toUpperCase())}</span><h1 class="ja">${esc(cur.jp)}</h1><p>${esc(cur.vi)}${cur.src ? ` · <i>${esc(cur.src)}</i>` : ''}</p></div>
+  <div class="ru-speak">
+    <div class="ru-keys"><b>Từ khoá:</b> ${cur.keys.map(k => `<span class="ru-key"><span class="ja zc" data-jaw="${esc(jaPlain(k[0]))}">${jaRuby(k[0])}</span> <small>${esc(k[1])}</small></span>`).join('')}</div>
+    <div class="ru-qs"><b>Câu hỏi gợi ý:</b><ul>${cur.qs.map(q => `<li><span class="ja">${jaRuby(q)}</span> ${jaSpeakBtn(q, 'mini')}</li>`).join('')}</ul></div>
+    <div class="ru-model"><b>Bài mẫu</b>
+      ${cur.paras.map(p => `<div class="ru-para"><div class="ja ja-sent">${jaTokens(p.jp)} ${jaSpeakBtn(p.jp, 'mini')}</div><div class="ru-para-vi">${esc(p.vi)}</div></div>`).join('')}
+      <div class="stage-ctrl"><button class="pbtn primary" data-ja-speak="${esc(jaPlain(cur.paras.map(p => p.jp).join('。')))}">🔊 Nghe cả bài</button><button class="pbtn" data-ja-topic="">← Chủ đề khác</button></div>
+    </div>
+  </div>`;
+};
+
+/* ---------- Giới thiệu JLPT ---------- */
+function jlptGuide(){
+  return `
+  <div class="tk-guide">
+    <div class="tkg-card">
+      <h4>JLPT là gì?</h4>
+      <p><b>JLPT</b> (日本語能力試験 · Japanese-Language Proficiency Test) là kỳ thi năng lực tiếng Nhật lớn nhất thế giới dành cho người không nói tiếng Nhật như tiếng mẹ đẻ, do <b>Quỹ Giao lưu Quốc tế Nhật Bản (JF)</b> và <b>JEES</b> tổ chức, thi hai kỳ mỗi năm (tháng 7 và tháng 12; ở Việt Nam tổ chức tại Hà Nội, Đà Nẵng, Huế, TP.HCM). Chỉ có phần <b>đọc–nghe trắc nghiệm</b>, không thi nói và viết.</p>
+      <p>Năm cấp từ dễ đến khó: <b>N5</b> (≈ A1), <b>N4</b> (≈ A2), <b>N3</b> (≈ B1), <b>N2</b> (≈ B2), <b>N1</b> (≈ C1). Chứng chỉ không có thời hạn.</p>
+    </div>
+    <div class="tkg-card">
+      <h4>Dùng để làm gì?</h4>
+      <ul>
+        <li><b>Du học:</b> đa số trường đại học Nhật yêu cầu N2 (một số ngành N1); trường tiếng, senmon yêu cầu N4–N5 khi nhập học.</li>
+        <li><b>Làm việc:</b> kỹ sư, thực tập sinh, điều dưỡng (EPA), Tokutei Ginō: N4 là mức tối thiểu phổ biến; công ty Nhật ở Việt Nam thường yêu cầu N2–N3.</li>
+        <li><b>Điểm cộng:</b> N1 được tính điểm trong hệ thống «Nhân lực chất lượng cao» xin visa vĩnh trú.</li>
+      </ul>
+    </div>
+    <div class="tkg-card wide">
+      <h4>Cấu trúc đề thi (theo jlpt.jp, áp dụng từ 12/2020)</h4>
+      <div class="tkg-table hsk">
+        <div class="tkg-row head"><span>Cấp</span><span>Vốn từ · kanji</span><span>Các phần · thời gian</span><span>Điểm đạt</span></div>
+        <div class="tkg-row"><span><b>N5</b><br><small>≈ A1</small></span><span>≈ 800 từ · 100 kanji</span><span>文字・語彙 20′ · 文法・読解 40′ · 聴解 30′</span><span>80/180 · Ngôn ngữ+Đọc ≥ 38/120 · Nghe ≥ 19/60</span></div>
+        <div class="tkg-row"><span><b>N4</b><br><small>≈ A2</small></span><span>≈ 1.500 từ · 300 kanji</span><span>文字・語彙 25′ · 文法・読解 55′ · 聴解 35′</span><span>90/180 · ≥ 38/120 · Nghe ≥ 19/60</span></div>
+        <div class="tkg-row"><span><b>N3</b><br><small>≈ B1</small></span><span>≈ 3.700 từ · 650 kanji</span><span>文字・語彙 30′ · 文法・読解 70′ · 聴解 40′</span><span>95/180 · mỗi phần (Ngôn ngữ / Đọc / Nghe) ≥ 19/60</span></div>
+        <div class="tkg-row"><span><b>N2</b><br><small>≈ B2</small></span><span>≈ 6.000 từ · 1.000 kanji</span><span>言語知識・読解 105′ · 聴解 50′</span><span>90/180 · mỗi phần ≥ 19/60</span></div>
+        <div class="tkg-row"><span><b>N1</b><br><small>≈ C1</small></span><span>≈ 10.000 từ · 2.000 kanji</span><span>言語知識・読解 110′ · 聴解 55′</span><span>100/180 · mỗi phần ≥ 19/60</span></div>
+      </div>
+      <p class="tkg-note">Điểm thật được quy đổi theo thang chuẩn hoá (scaled score) chứ không phải số câu đúng; ở đây LangLab chấm <b>% câu đúng từng phần</b> và quy về thang 180 để ước lượng. Rớt nếu bất kỳ phần nào dưới điểm sàn dù tổng cao. Các dạng câu: đọc kanji, chính tả, chọn từ theo ngữ cảnh, đồng nghĩa, ngữ pháp 1 (chọn), ngữ pháp 2 (sắp xếp ★), ngữ pháp văn bản, đọc hiểu ngắn/vừa/dài, tìm thông tin; nghe: hiểu nhiệm vụ, ý chính, phát ngôn, đáp nhanh.</p>
+    </div>
+    <div class="tkg-card">
+      <h4>Đăng ký thi</h4>
+      <p>Đăng ký khoảng 3–4 tháng trước kỳ thi qua đơn vị tổ chức tại Việt Nam (Trường ĐH Khoa học Xã hội và Nhân văn, ĐH Ngoại ngữ – ĐHQG Hà Nội, ĐH Ngoại ngữ Huế, ĐH Đà Nẵng, ĐH KHXH&amp;NV TP.HCM). Lệ phí khoảng 500.000–650.000 đ tuỳ cấp. Kết quả sau ~2 tháng, tra trực tuyến trên jlpt.jp.</p>
+      <p>Trang chính thức: <a href="https://www.jlpt.jp/e/" target="_blank" rel="noopener noreferrer">jlpt.jp ↗</a> — có đề mẫu (Sample Questions) miễn phí.</p>
+    </div>
+  </div>`;
+}
+
 const _HX = (typeof HSK_EXAMS !== 'undefined') ? HSK_EXAMS : [];
 const _RX = (typeof TRKI_EXAMS !== 'undefined') ? TRKI_EXAMS : [];
 let hskTimerId = null, hskSaveT = null;
 /* Ngữ cảnh thi thử theo ngôn ngữ đang xem: HSK (tiếng Trung) hoặc ТРКИ (tiếng Nga) — cùng một engine */
 function exCtx(){
+  if (state.view.indexOf('ja_') === 0) return {
+    lang:'ja', st:state.ja, tests:_JX, key:'jlptExam', letters:'1234',
+    speak: t => jaSpeak(t), speech: jaSpeech, levels:_JC.levels, levelName:jaLevelName, quick:jaQuick, guide:jlptGuide,
+    eyebrow:'Tiếng Nhật · Thi thử JLPT', title:'Thi thử JLPT',
+    intro:'Tìm hiểu kỳ thi JLPT và luyện với <b>đề đầy đủ đúng cấu trúc đề thật</b> (文字・語彙 · 文法・読解 · 聴解) — có <b>bấm giờ</b>, <b>tạm dừng</b>, nộp bài, chấm điểm từng phần và <b>đáp án kèm giải thích</b>. Bài nghe phát bằng giọng máy ja-JP.',
+    quickDesc: lv => `Nghĩa, cách đọc, kanji từ ${jaPool(lv).length} từ của cấp. Không theo cấu trúc đề thật — dùng để ôn từ.`,
+    disclaimer:'Đề do LangLab biên soạn theo cấu trúc JLPT (jlpt.jp) để luyện tập, không phải đề thi chính thức của Japan Foundation / JEES. Điểm chỉ ước lượng theo % câu đúng, quy về thang 180.',
+    unit:'chữ', count: s => String(s || '').replace(/\s+/g, '').length
+  };
   if (state.view.indexOf('ru_') === 0) return {
     lang:'ru', st:state.ru, tests:_RX, key:'trkiExam', letters:'АБВГДЕ',
     speak: t => ruSpeak(t), speech: ruSpeech, levels:_RC.levels, levelName:ruLevelName, quick:ruQuick, guide:trkiGuide,
@@ -3083,8 +3765,8 @@ function exCtx(){
 }
 /* Đếm độ dài bài viết theo ngôn ngữ của đề (chữ Hán / từ) */
 function ruWords(s){ return (String(s || '').trim().match(/[А-Яа-яЁёA-Za-z0-9]+/g) || []).length; }
-function exCount(t, s){ return (t && t.lang === 'ru') ? ruWords(s) : hskHan(s); }
-function exUnit(t){ return (t && t.lang === 'ru') ? 'từ' : 'chữ Hán'; }
+function exCount(t, s){ return (t && t.lang === 'ru') ? ruWords(s) : (t && t.lang === 'ja') ? String(s || '').replace(/\s+/g, '').length : hskHan(s); }
+function exUnit(t){ return (t && t.lang === 'ru') ? 'từ' : (t && t.lang === 'ja') ? 'chữ' : 'chữ Hán'; }
 
 function hskFind(id){
   const E = exCtx().st.exam;
@@ -3251,8 +3933,8 @@ function hskList(){
           <button class="pbtn primary" data-hsk-start="${t.id}">Bắt đầu làm bài</button>
         </div>`; }).join('')}
       <div class="topik-card quick">
-        <span class="tk-badge">${esc(v.zh || v.ru)} · nhanh</span>
-        <h3>Kiểm tra nhanh từ vựng ${esc(v.zh || v.ru)}</h3>
+        <span class="tk-badge">${esc(v.zh || v.ru || v.jp)} · nhanh</span>
+        <h3>Kiểm tra nhanh từ vựng ${esc(v.zh || v.ru || v.jp)}</h3>
         <p class="tk-meta">20 câu · 8 phút · sinh ngẫu nhiên mỗi lần</p>
         <p class="tk-official">${C.quickDesc(v.id)}</p>
         <button class="pbtn" data-hsk-start="quick" data-hsk-level="${v.id}">Làm nhanh</button>
@@ -3262,7 +3944,7 @@ function hskList(){
   <p class="tk-disclaimer">${C.disclaimer}</p>`;
 }
 function hskOptLabel(t, q, o, oi){
-  if (q.t === 'tf') return `<span class="hsk-tf">${oi === 0 ? '√' : '×'}</span><span>${exCtx().lang === 'ru' ? (oi === 0 ? 'Верно · Đúng' : 'Неверно · Sai') : (oi === 0 ? '对 · Đúng' : '错 · Sai')}</span>`;
+  if (q.t === 'tf') return `<span class="hsk-tf">${oi === 0 ? '√' : '×'}</span><span>${exCtx().lang === 'ru' ? (oi === 0 ? 'Верно · Đúng' : 'Неверно · Sai') : exCtx().lang === 'ja' ? (oi === 0 ? '正しい · Đúng' : '正しくない · Sai') : (oi === 0 ? '对 · Đúng' : '错 · Sai')}</span>`;
   if (q.t === 'pic') return `<span class="tk-onum">${exCtx().letters[oi]}</span><span class="hsk-pic sm">${esc(o)}</span>`;
   const isPic = /^\p{Extended_Pictographic}/u.test(String(o));
   return `<span class="tk-onum">${exCtx().letters[oi]}</span><span class="${isPic ? 'hsk-pic sm' : (q.oc === 'py' ? 'py' : 'ko')}">${esc(o)}</span>`;
@@ -3320,7 +4002,7 @@ function hskPart(t, S, si, pi, part, review){
   const flat = hskFlat(t).filter(f => f.si === si && f.pi === pi);
   const first = flat[0] ? flat[0].no : 0, last = flat.length ? flat[flat.length - 1].no : 0;
   const head = `<div class="tk-section"${pi === 0 ? ` id="hskS-${t.sections[si].id}"` : ''}>
-    <span class="tk-sec-ko ko">${esc(t.sections[si].name)}${part.title ? ' · ' + esc(part.title) : ''} · ${exCtx().lang === 'ru' ? `задания ${first}–${last}` : `第${first}–${last}题`}</span>
+    <span class="tk-sec-ko ko">${esc(t.sections[si].name)}${part.title ? ' · ' + esc(part.title) : ''} · ${exCtx().lang === 'ru' ? `задания ${first}–${last}` : exCtx().lang === 'ja' ? `問${first}～${last}` : `第${first}–${last}题`}</span>
     <span class="tk-sec-ko ko">${esc(part.ins || '')}</span>
     <span class="tk-sec-vi">${esc(part.vi || '')}</span>
   </div>`;
@@ -3391,6 +4073,7 @@ function examView(){
 }
 VIEWS.zh_exam = examView;
 VIEWS.ru_exam = examView;
+VIEWS.ja_exam = examView;
 
 /* ---------------- Hanzi Writer ---------------- */
 let zhWriter = null;
@@ -3412,7 +4095,7 @@ function zhMount(){
           radicalColor: getCssVar('--seal') || '#C8402F',
           outlineColor: getCssVar('--line-strong') || '#B4C6DE',
           drawingColor: getCssVar('--accent-2') || '#2F6FBF',
-          charDataLoader: c => zhLoadChar(c),
+          charDataLoader: c => (el.dataset.src === 'jp' ? jaLoadChar(c) : zhLoadChar(c)),
           onLoadCharDataError: () => { el.classList.add('hz-miss'); el.textContent = ch; }
         });
       } catch(e){ el.classList.add('hz-miss'); el.textContent = ch; return; }
@@ -3441,10 +4124,10 @@ let _histReady = false, _applyingHist = false, _curDesc = null;
 function wordIsOpen(){ return document.body.classList.contains('wp-open'); }
 function histDesc(){
   const tok = (typeof wordState !== 'undefined' && wordState && wordState.token) || null;
-  return { v: state.view, lesson: state.lesson || null, zl: (state.zh && state.zh.lesson) || null, rl: (state.ru && state.ru.lesson) || null, word: wordIsOpen() ? (tok || 1) : null };
+  return { v: state.view, lesson: state.lesson || null, zl: (state.zh && state.zh.lesson) || null, rl: (state.ru && state.ru.lesson) || null, jl: (state.ja && state.ja.lesson) || null, word: wordIsOpen() ? (tok || 1) : null };
 }
 function descEq(a, b){
-  return !!a && !!b && a.v === b.v && (a.lesson || null) === (b.lesson || null) && (a.zl || null) === (b.zl || null) && (a.rl || null) === (b.rl || null) && !!a.word === !!b.word;
+  return !!a && !!b && a.v === b.v && (a.lesson || null) === (b.lesson || null) && (a.zl || null) === (b.zl || null) && (a.rl || null) === (b.rl || null) && (a.jl || null) === (b.jl || null) && !!a.word === !!b.word;
 }
 function syncHist(){
   if (!_histReady || _applyingHist) return;
@@ -3460,12 +4143,13 @@ function applyHist(s){
   _applyingHist = true;
   if (!s.word && wordIsOpen()) closeWord();
   else if (s.word && !wordIsOpen() && typeof s.word === 'string') openWord(s.word);
-  const changed = s.v !== state.view || (s.lesson || null) !== (state.lesson || null) || (s.zl || null) !== ((state.zh && state.zh.lesson) || null) || (s.rl || null) !== ((state.ru && state.ru.lesson) || null);
+  const changed = s.v !== state.view || (s.lesson || null) !== (state.lesson || null) || (s.zl || null) !== ((state.zh && state.zh.lesson) || null) || (s.rl || null) !== ((state.ru && state.ru.lesson) || null) || (s.jl || null) !== ((state.ja && state.ja.lesson) || null);
   if (changed){
     if (s.v !== state.view) stopAudio();
     state.view = s.v; state.lesson = s.lesson || null;
     if (state.zh) state.zh.lesson = s.zl || null;
     if (state.ru) state.ru.lesson = s.rl || null;
+    if (state.ja) state.ja.lesson = s.jl || null;
     render();
   }
   _curDesc = histDesc();
@@ -4387,7 +5071,7 @@ document.addEventListener('click', e => {
   }
   const zSrs = t.closest('[data-zh-srs]');
   if (zSrs){ if (state.zh.srs){ state.zh.srs.i++; state.zh.srs.show = false; render(); } return; }
-  if (t.closest('#zhFlip')){ const S = state.view === 'ru_srs' ? state.ru.srs : state.zh.srs; if (S){ S.show = !S.show; render(); } return; }
+  if (t.closest('#zhFlip')){ const S = state.view === 'ru_srs' ? state.ru.srs : state.view === 'ja_srs' ? state.ja.srs : state.zh.srs; if (S){ S.show = !S.show; render(); } return; }
   if (t.closest('[data-zh-qz-start]')){ state.zh.quiz = { qs: zhMakeQuestions(10), i:0, picked:[] }; render(); return; }
   const zqz = t.closest('[data-zh-qz]');
   if (zqz){ const Q = state.zh.quiz; if (Q && Q.picked[Q.i] == null){ Q.picked[Q.i] = zqz.dataset.zhQz; render(); } return; }
@@ -4412,7 +5096,7 @@ document.addEventListener('click', e => {
   const rE = t.closest('[data-ru-entry]');
   if (rE && !t.closest('[data-ru-open]') && !t.closest('[data-ru-speak]')){ state.ru.entry = rE.dataset.ruEntry; if (state.view !== 'ru_dict') go('ru_dict'); else render(); try { const el = $('#ruEntry'); if (el) el.scrollIntoView({ block:'start' }); } catch(e){} return; }
   const xd = t.closest('[data-cross]');
-  if (xd){ quickSearch(xd.dataset.q, xd.dataset.cross === 'dict' ? 'ko' : xd.dataset.cross === 'zh_dict' ? 'zh' : 'ru'); return; }
+  if (xd){ quickSearch(xd.dataset.q, xd.dataset.cross === 'dict' ? 'ko' : xd.dataset.cross === 'zh_dict' ? 'zh' : xd.dataset.cross === 'ja_dict' ? 'ja' : 'ru'); return; }
   const rOp = t.closest('[data-ru-open]');
   if (rOp){ const p = rOp.dataset.ruOpen.split(':'); const lv = _RC.levels.find(x => x.id === p[0]);
     if (lv && lv.status === 'active'){ state.ru.level = p[0]; state.ru.lesson = +p[1]; go('ru_lesson'); } return; }
@@ -4434,6 +5118,52 @@ document.addEventListener('click', e => {
   if (t.closest('[data-ru-qz-next]')){ if (state.ru.quiz){ state.ru.quiz.i++; state.ru.quiz.cur = []; render(); } return; }
   const rTp = t.closest('[data-ru-topic]');
   if (rTp){ state.ru.topic = rTp.dataset.ruTopic || null; render(); return; }
+
+  /* ----- tiếng Nhật ----- */
+  const jSpeak = t.closest('[data-ja-speak]');
+  if (jSpeak){ jaSpeak(jSpeak.dataset.jaSpeak); return; }
+  const jLv = t.closest('[data-ja-level]');
+  if (jLv){ const id = jLv.dataset.jaLevel, lv = _JC.levels.find(x => x.id === id); if (lv && lv.status === 'active'){ state.ja.level = id; state.ja.lesson = null; render(); } return; }
+  const jLes = t.closest('[data-ja-lesson]');
+  if (jLes){ state.ja.lesson = +jLes.dataset.jaLesson; go('ja_lesson'); return; }
+  if (t.closest('[data-ja-furi]')){ state.ja.furi = state.ja.furi === false; render(); return; }
+  const jKs = t.closest('[data-ja-kanaset]');
+  if (jKs){ state.ja.kana = jKs.dataset.jaKanaset; render(); return; }
+  const jKn = t.closest('[data-ja-kana]');
+  if (jKn){ state.ja.kanaSel = jKn.dataset.jaKana; render(); try { const el = $('#jaKanaDetail'); if (el) el.scrollIntoView({ block:'nearest' }); } catch(e){} return; }
+  const jKl = t.closest('[data-ja-klevel]');
+  if (jKl){ state.ja.kanjiLevel = jKl.dataset.jaKlevel; state.ja.kanjiSel = null; render(); return; }
+  const jKj = t.closest('[data-ja-kanji]');
+  if (jKj){ state.ja.kanjiSel = jKj.dataset.jaKanji; state.ja.kanjiLevel = (jaKanjiOf(jKj.dataset.jaKanji) || {}).lv || state.ja.kanjiLevel; if (state.view !== 'ja_kanji') go('ja_kanji'); else render(); try { window.scrollTo({ top:0 }); } catch(e){} return; }
+  const jWr = t.closest('[data-ja-write]');
+  if (jWr){ state.ja.writeChar = jWr.dataset.jaWrite; go('ja_write'); return; }
+  const jW = t.closest('[data-jaw]');
+  if (jW){ jaOpenWord(jW.dataset.jaw); return; }
+  const jEc = t.closest('[data-ja-entry-close]');
+  if (jEc){ state.ja.entry = null; render(); const q = $('#jaq'); if (q) q.focus(); return; }
+  const jE = t.closest('[data-ja-entry]');
+  if (jE && !t.closest('[data-ja-open]') && !t.closest('[data-ja-speak]')){ state.ja.entry = jE.dataset.jaEntry; if (state.view !== 'ja_dict') go('ja_dict'); else render(); try { const el = $('#jaEntry'); if (el) el.scrollIntoView({ block:'start' }); } catch(e){} return; }
+  const jOp = t.closest('[data-ja-open]');
+  if (jOp){ const p = jOp.dataset.jaOpen.split(':'); const lv = _JC.levels.find(x => x.id === p[0]);
+    if (lv && lv.status === 'active'){ state.ja.level = p[0]; state.ja.lesson = +p[1]; go('ja_lesson'); } return; }
+  const jPr = t.closest('[data-ja-prac]');
+  if (jPr){ state.ja.pracLevel = jPr.dataset.jaPrac; state.ja.srs = null; state.ja.quiz = null; if (state.view === 'ja_exam') exCtx().st.exam = null; render(); return; }
+  const jSrs = t.closest('[data-ja-srs]');
+  if (jSrs){ const S = state.ja.srs; if (S){ S.i++; S.show = false; render(); } return; }
+  const jqs = t.closest('[data-ja-qz-start]');
+  if (jqs){ const n = +jqs.dataset.jaQzStart || 10; state.ja.quiz = { qs: jaMakeQuestions(n), i:0, picked:[], cur:[] }; render(); try { window.scrollTo({ top:0 }); } catch(e){} return; }
+  if (t.closest('[data-ja-qz-home]')){ state.ja.quiz = null; render(); return; }
+  const jqm = t.closest('[data-ja-qzmode]');
+  if (jqm){ state.ja.qzMode = jqm.dataset.jaQzmode; state.ja.quiz = null; render(); return; }
+  const jqz = t.closest('[data-ja-qz]');
+  if (jqz){ const Q = state.ja.quiz; if (Q && Q.picked[Q.i] == null){ Q.picked[Q.i] = jqz.dataset.jaQz; render(); } return; }
+  const jqo = t.closest('[data-ja-qz-ord]');
+  if (jqo){ const Q = state.ja.quiz; if (Q){ Q.cur = Q.cur || []; const i = +jqo.dataset.jaQzOrd; if (Q.cur.indexOf(i) < 0) Q.cur.push(i); render(); } return; }
+  if (t.closest('[data-ja-qz-clear]')){ const Q = state.ja.quiz; if (Q){ Q.cur = []; render(); } return; }
+  if (t.closest('[data-ja-qz-check]')){ const Q = state.ja.quiz; if (Q && Q.picked[Q.i] == null){ const q = Q.qs[Q.i]; Q.picked[Q.i] = (Q.cur || []).map(i => q.parts[i]).join(''); render(); } return; }
+  if (t.closest('[data-ja-qz-next]')){ if (state.ja.quiz){ state.ja.quiz.i++; state.ja.quiz.cur = []; render(); } return; }
+  const jTp = t.closest('[data-ja-topic]');
+  if (jTp){ state.ja.topic = jTp.dataset.jaTopic || null; render(); return; }
 
   /* ----- thi thử HSK ----- */
   const hs = t.closest('[data-hsk-start]');
@@ -4729,6 +5459,7 @@ document.addEventListener('input', e => {
     return;
   }
   if (e.target.id === 'zhq'){ const box = $('#zhResults'); if (box) box.innerHTML = zhDictResults(e.target.value); return; }
+  if (e.target.id === 'jaq'){ state.ja.dictQ = e.target.value; if (state.ja.entry){ state.ja.entry = null; const en = $('#jaEntry'); if (en) en.remove(); } const box = $('#jaResults'); if (box){ box.hidden = false; box.innerHTML = jaDictResults(e.target.value); } return; }
   if (e.target.id === 'ruq'){ state.ru.dictQ = e.target.value; if (state.ru.entry){ state.ru.entry = null; const en = $('#ruEntry'); if (en) en.remove(); } const box = $('#ruResults'); if (box){ box.hidden = false; box.innerHTML = ruDictResults(e.target.value); } return; }
   if (e.target.dataset && e.target.dataset.hskIn != null){            // ô viết chữ / câu / đoạn trong đề HSK
     const E = exCtx().st.exam; if (!E || E.phase !== 'doing') return;
@@ -4748,14 +5479,16 @@ document.addEventListener('input', e => {
 /* ---------- Tra nhanh (ô trên cùng): chữ viết quyết định kho từ; chữ Latin/Việt → kho của ngôn ngữ đang xem ---------- */
 function quickLang(v){
   if (/[가-힣ㄱ-ㅎㅏ-ㅣ]/.test(v)) return 'ko';
-  if (/[一-鿿]/.test(v)) return 'zh';
-  if (/[А-Яа-яЁё]/.test(v)) return 'ru';
+  if (/[぀-ヿ]/.test(v)) return 'ja';
   const l = document.documentElement.getAttribute('data-lang');
-  return (l === 'zh' || l === 'ru') ? l : 'ko';
+  if (/[一-鿿]/.test(v)) return l === 'ja' ? 'ja' : 'zh';
+  if (/[А-Яа-яЁё]/.test(v)) return 'ru';
+  return (l === 'zh' || l === 'ru' || l === 'ja') ? l : 'ko';
 }
 function quickSearch(v, lang){
   lang = lang || quickLang(v);
   if (lang === 'zh'){ state.zh.dictQ = v; if (state.view !== 'zh_dict') go('zh_dict'); else { const q = $('#zhq'); if (q){ q.value = v; q.dispatchEvent(new Event('input', { bubbles:true })); } } return; }
+  if (lang === 'ja'){ state.ja.dictQ = v; const keys = jaLemmatize(v); state.ja.entry = keys.length ? keys[0] : null; if (state.view !== 'ja_dict') go('ja_dict'); else render(); return; }
   if (lang === 'ru'){ state.ru.dictQ = v; const keys = ruLemmatize(v); state.ru.entry = (keys.length && (ruKey(RU_LOOKUP[keys[0]].ru) === ruKey(v) || /[а-яё]/i.test(v))) ? keys[0] : null; if (state.view !== 'ru_dict') go('ru_dict'); else render(); return; }
   if (state.view !== 'dict') go('dict');
   const d = $('#dq'); if (d){ d.value = v; d.dispatchEvent(new Event('input')); }
@@ -4768,11 +5501,13 @@ function crossDictCounts(q){
   try { ko = allWords().filter(w => w.ko.includes(t) || (w.rom || '').includes(t) || (w.vi || '').toLowerCase().includes(t) || (w.hv || '').toLowerCase().includes(t)).length; } catch(e){}
   try { zh = Object.values(ZH_LOOKUP).filter(w => w.zh.indexOf(q.trim()) >= 0 || strip(w.pinyin).indexOf(strip(t)) >= 0 || w.vi.toLowerCase().indexOf(t) >= 0 || (w.hv || '').toLowerCase().indexOf(t) >= 0).length; } catch(e){}
   try { const qk = ruKey(t); ru = Object.values(RU_LOOKUP).filter(w => ruKey(w.ru).indexOf(qk) >= 0 || w.vi.toLowerCase().indexOf(t) >= 0).length; } catch(e){}
-  return { ko, zh, ru };
+  let ja = 0;
+  try { const qq = q.trim(), qh = _JM ? _JM.hira(qq) : qq; ja = Object.values(JA_LOOKUP).filter(w => String(w.jp).indexOf(qq) >= 0 || String(w.kana).indexOf(qh) >= 0 || (w.vi || '').toLowerCase().indexOf(t) >= 0 || (w.romaji || '').toLowerCase().indexOf(t) >= 0).length; } catch(e){}
+  return { ko, zh, ru, ja };
 }
 function crossDictHint(q, cur){
   const c = crossDictCounts(q); if (!c) return '';
-  const items = [['ko','🇰🇷 Tiếng Hàn','dict'],['zh','🇨🇳 Tiếng Trung','zh_dict'],['ru','🇷🇺 Tiếng Nga','ru_dict']].filter(x => x[0] !== cur && c[x[0]] > 0);
+  const items = [['ko','🇰🇷 Tiếng Hàn','dict'],['zh','🇨🇳 Tiếng Trung','zh_dict'],['ja','🇯🇵 Tiếng Nhật','ja_dict'],['ru','🇷🇺 Tiếng Nga','ru_dict']].filter(x => x[0] !== cur && c[x[0]] > 0);
   if (!items.length) return '';
   return `<div class="dict-cross">Từ khoá này còn có trong kho: ${items.map(x => `<button class="zh-ref" data-cross="${x[2]}" data-q="${esc(q)}">${x[1]} · ${c[x[0]]} từ</button>`).join(' ')}</div>`;
 }
@@ -4799,7 +5534,7 @@ function applyTheme(){
 function syncThemeColor(){
   try {
     const lang = document.documentElement.getAttribute('data-lang');
-    const pal = lang === 'zh' ? { light:'#F8F2F1', dark:'#17100F' } : lang === 'ru' ? { light:'#E6ECF6', dark:'#0B1428' } : { light:'#EAF1FB', dark:'#0B1220' };
+    const pal = lang === 'zh' ? { light:'#F8F2F1', dark:'#17100F' } : lang === 'ru' ? { light:'#E6ECF6', dark:'#0B1428' } : lang === 'ja' ? { light:'#F7ECEC', dark:'#1A0F11' } : { light:'#EAF1FB', dark:'#0B1220' };
     document.querySelectorAll('meta[name="theme-color"]').forEach(m => {
       const media = m.getAttribute('media') || '';
       m.setAttribute('content', /dark/.test(media) ? pal.dark : pal.light);
@@ -4841,6 +5576,8 @@ applyTheme();
     if (b && act.length) b.textContent = act.length > 1 ? `HSK1–${act.length}` : 'HSK1';
     const ra = _RC.levels.filter(v => v.status === 'active'), rb = document.querySelector('[data-go="ru_home"] .mi-count');
     if (rb && ra.length) rb.textContent = ra.length > 1 ? `A1–${ruLevelName(ra[ra.length - 1].id)}` : 'A1';
+    const ja = _JC.levels.filter(v => v.status === 'active'), jb = document.querySelector('[data-go="ja_home"] .mi-count');
+    if (jb && ja.length) jb.textContent = ja.length > 1 ? `${jaLevelName(ja[0].id)}–${jaLevelName(ja[ja.length - 1].id)}` : jaLevelName(ja[0].id);
   } catch(e){}
 })();
 render();

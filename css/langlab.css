@@ -1390,6 +1390,45 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   --logo-bg:#EEF3FB;
 }
 
+/* ===== TÔNG MÀU TIẾNG NHẬT — đỏ / trắng (data-lang="ja"), tương phản đo ≥ 5.8:1 =====
+   sáng: accent #A6192E trên trắng 7.5:1 · tối: accent #FF8F9B trên #24161A 8.0:1 */
+:root[data-lang="ja"]{
+  --ground:#F7ECEC; --surface:#FFFFFF; --surface-2:#F3DFE0;
+  --ink:#1B1416; --muted:#6B5A5D; --faint:#95848A;
+  --line:#E7CCCF; --line-strong:#D4AEB3;
+  --accent:#A6192E; --accent-2:#C2263D; --accent-soft:#F9E1E4;
+  --seal:#1F3A5F; --seal-soft:#E1E9F4;
+}
+@media (prefers-color-scheme: dark){
+  :root[data-lang="ja"]:not([data-theme="light"]){
+    --ground:#1A0F11; --surface:#24161A; --surface-2:#2E1C21;
+    --ink:#F5E9EA; --muted:#C2A9AD; --faint:#8E777C;
+    --line:#43282E; --line-strong:#5A353D;
+    --accent:#FF8F9B; --accent-2:#FFB0B8; --accent-soft:#4A2028;
+    --seal:#9CC4F0; --seal-soft:#1E2E44;
+    --logo-bg:#FBEEEF;
+  }
+}
+:root[data-lang="ja"][data-theme="dark"]{
+  --ground:#1A0F11; --surface:#24161A; --surface-2:#2E1C21;
+  --ink:#F5E9EA; --muted:#C2A9AD; --faint:#8E777C;
+  --line:#43282E; --line-strong:#5A353D;
+  --accent:#FF8F9B; --accent-2:#FFB0B8; --accent-soft:#4A2028;
+  --seal:#9CC4F0; --seal-soft:#1E2E44;
+  --logo-bg:#FBEEEF;
+}
+/* Chữ Nhật */
+.ja,.lesson-card h3.ja,.zh-les-title.ja,.zh-gram-form.ja,.zh-word-hz.ja,.zh-line-zh.ja,.zh-card-front.ja,.qz-hz.ja,.qz-opt.ja,.zh-res-hz.ja,.tk-passage.ja{font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic","Meiryo","Noto Sans KR",sans-serif;letter-spacing:0}
+.ja rt{font-size:.55em;color:var(--muted);font-weight:400;letter-spacing:0}
+.ja ruby{ruby-position:over}
+.ja-rt-off rt{display:none}
+.ja .zc{text-decoration:underline dotted;text-decoration-color:color-mix(in srgb,var(--accent) 55%,transparent);text-underline-offset:5px;text-decoration-thickness:1.5px;padding:0 1px;border-radius:3px;transition:background .12s,color .12s}
+.ja .zc:hover{color:var(--accent);background:var(--accent-soft);text-decoration-style:solid}
+.zh-word-hz.ja-word{cursor:pointer;text-decoration:underline dotted;text-decoration-color:color-mix(in srgb,var(--accent) 45%,transparent);text-underline-offset:6px;text-decoration-thickness:1.5px;border-radius:4px}
+.zh-word-hz.ja-word:hover{color:var(--accent);background:var(--accent-soft);text-decoration-style:solid}
+.ja-kana-sub{font-size:13px;color:var(--muted);font-family:"Noto Sans JP",sans-serif}
+.ja-romaji{font-family:"JetBrains Mono",ui-monospace,monospace;color:var(--accent-2);font-size:12.5px}
+
 /* ===== Tiếng Nga: bảng chữ cái, phát âm, tập viết, luyện nói ===== */
 /* Chữ Nga: dùng font hệ thống có đủ Cyrillic + neo dấu trọng âm (U+0301); letter-spacing âm làm dấu lệch nên tắt hẳn */
 .ru,.lesson-card h3.ru,.zh-les-title.ru,.zh-gram-form.ru,.zh-word-hz.ru,.zh-line-zh.ru,.zh-card-front.ru,.qz-hz.ru,.qz-opt.ru,.zh-res-hz.ru,.ru-l-big,.ru-detail-glyphs b,.ru-detail-glyphs i,.ru-write-forms b,.ru-write-forms i,.ru-chip{font-family:"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",Arial,"Noto Sans KR",sans-serif;letter-spacing:0;font-feature-settings:"mark","mkmk"}
@@ -1508,3 +1547,44 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 .ru-res{cursor:pointer}
 .ru-res:hover{border-color:color-mix(in srgb,var(--accent) 50%,transparent)}
 @media (max-width:640px){.ru-coll{columns:1}.ru-entry{padding:14px}.ru-entry-word{font-size:26px}.ru-seg-row{font-size:19px}}
+
+/* ---------- Tiếng Nhật: kana, kanji, mục từ ---------- */
+.ja-sent{line-height:2.1}
+.ja-punct{color:var(--muted)}
+.ja-sec-h{font-size:15px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:22px 0 10px}
+.ja-kana-grid{display:grid;grid-template-columns:auto repeat(5,minmax(58px,1fr));gap:6px;max-width:760px}
+.ja-kana-grid.yoon{grid-template-columns:repeat(auto-fill,minmax(70px,1fr))}
+.ja-kana-head{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted);text-align:center;align-self:end;padding-bottom:2px}
+.ja-kana-rowh{font-size:13px;color:var(--muted);align-self:center;padding-right:6px;white-space:nowrap}
+.ja-kana-cell{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:8px 4px 6px;text-align:center;cursor:pointer;display:flex;flex-direction:column;gap:1px;color:var(--ink);min-width:0}
+.ja-kana-cell:hover{border-color:var(--accent)}
+.ja-kana-cell.on{border-color:var(--accent);background:var(--accent-soft)}
+.ja-kana-cell.empty{border:0;background:transparent;cursor:default}
+.ja-kana-g{font-size:26px;line-height:1.15;font-weight:500}
+.ja-kana-r{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted)}
+.ja-kana-detail,.ja-kanji-detail{display:grid;grid-template-columns:auto 1fr;gap:18px 26px;align-items:start;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:18px 22px;margin:14px 0 6px;max-width:900px}
+.ja-kana-detail .hz,.ja-kanji-detail .hz{border:1px dashed var(--line-strong);border-radius:12px;background:var(--surface-2)}
+.ja-kana-big{font-size:44px;font-weight:700;line-height:1.1;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.ja-kana-alt{font-size:30px;color:var(--muted);font-weight:500}
+.ja-kana-rom{font-family:"JetBrains Mono",monospace;font-size:20px;color:var(--accent-2)}
+.ja-kana-hint{margin:8px 0 4px;font-size:14.5px}
+.ja-kana-ex{font-size:15px;margin:4px 0}
+.ja-kanji-big{font-size:48px;font-weight:700;line-height:1.1;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.ja-kanji-hv{font-size:18px;color:var(--seal);font-weight:700;letter-spacing:.06em}
+.ja-kanji-meta{font-size:14px;color:var(--muted);margin:6px 0}
+.ja-kanji-read{display:flex;gap:18px;flex-wrap:wrap;font-size:15px;margin:4px 0 8px}
+.ja-kanji-read .ja{font-size:17px}
+.ja-kanji-ex{display:flex;flex-direction:column;gap:5px;margin:4px 0}
+.ja-kanji-words{margin-top:8px;font-size:14px;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.ja-kanji-grid,.ja-kanji-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;max-width:960px}
+.ja-kcard{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:8px 6px;text-align:center;cursor:pointer;color:var(--ink);display:flex;flex-direction:column;gap:2px;min-width:0}
+.ja-kcard:hover{border-color:var(--accent)}
+.ja-kcard.on{border-color:var(--accent);background:var(--accent-soft)}
+.ja-kcard-k{font-size:30px;line-height:1.15;font-weight:600}
+.ja-kcard-hv{font-size:11px;color:var(--seal);font-weight:700;letter-spacing:.05em}
+.ja-kcard-vi{font-size:11.5px;color:var(--muted);line-height:1.25;overflow:hidden;text-overflow:ellipsis}
+.ja-entry-kana{font-size:20px;color:var(--muted);font-weight:500}
+.hz-chip.ja{font-family:"Noto Sans JP",sans-serif}
+.zh-write-char.ja,.zh-card-front.ja{font-family:"Noto Sans JP",sans-serif}
+.qz-opt.ja,.hsk-chunk.ja,.hsk-order-line.ja{font-family:"Noto Sans JP",sans-serif}
+@media (max-width:640px){.ja-kana-detail,.ja-kanji-detail{grid-template-columns:1fr;padding:14px}.ja-kana-big,.ja-kanji-big{font-size:34px}.ja-kana-grid{gap:4px}.ja-kana-g{font-size:22px}}
