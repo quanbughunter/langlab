@@ -1390,6 +1390,65 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   --logo-bg:#EEF3FB;
 }
 
+/* ===== TÔNG MÀU TIẾNG ANH — xanh rêu (British racing green) / kem (data-lang="en") =====
+   sáng: accent #1F6B45 trên trắng 6.5:1, trên nền 5.9:1 · tối: accent #63D69A trên #132019 9.3:1 */
+:root[data-lang="en"]{
+  --ground:#F6F4EC; --surface:#FFFFFF; --surface-2:#EAF0E6;
+  --ink:#14201A; --muted:#55665C; --faint:#6F8076;
+  --line:#DCE6D8; --line-strong:#BFCFB8;
+  --accent:#1F6B45; --accent-2:#2A8557; --accent-soft:#E3F0E7;
+  --seal:#8C2F39; --seal-soft:#F6E4E6;
+}
+@media (prefers-color-scheme: dark){
+  :root[data-lang="en"]:not([data-theme="light"]){
+    --ground:#0C1512; --surface:#132019; --surface-2:#1B2C22;
+    --ink:#E9F1EA; --muted:#A9BFB1; --faint:#7E9487;
+    --line:#28402F; --line-strong:#3A5B45;
+    --accent:#63D69A; --accent-2:#95E7BC; --accent-soft:#1D3A2A;
+    --seal:#F0A0A8; --seal-soft:#3A2126;
+    --logo-bg:#EDF3EC;
+  }
+}
+:root[data-lang="en"][data-theme="dark"]{
+  --ground:#0C1512; --surface:#132019; --surface-2:#1B2C22;
+  --ink:#E9F1EA; --muted:#A9BFB1; --faint:#7E9487;
+  --line:#28402F; --line-strong:#3A5B45;
+  --accent:#63D69A; --accent-2:#95E7BC; --accent-soft:#1D3A2A;
+  --seal:#F0A0A8; --seal-soft:#3A2126;
+  --logo-bg:#EDF3EC;
+}
+/* Chữ tiếng Anh + phiên âm IPA */
+.en,.lesson-card h3.en,.zh-les-title.en,.zh-gram-form.en,.zh-word-hz.en,.zh-line-zh.en,.zh-card-front.en,.qz-hz.en,.qz-opt.en,.zh-res-hz.en,.tk-passage.en{font-family:"Lexend","Segoe UI",system-ui,sans-serif;letter-spacing:0}
+.ipa{font-family:"Charis SIL","Doulos SIL","Gentium Plus","Segoe UI","DejaVu Sans",serif;color:var(--accent-2);font-size:.94em;letter-spacing:.01em;white-space:nowrap}
+.ipa.big{font-size:1.15em;font-weight:500}
+.en .zc{text-decoration:underline dotted;text-decoration-color:color-mix(in srgb,var(--accent) 55%,transparent);text-underline-offset:4px;text-decoration-thickness:1.5px;padding:0 1px;border-radius:3px;transition:background .12s,color .12s}
+.en .zc:hover{background:var(--accent-soft);color:var(--accent);cursor:pointer}
+/* Bảng âm vị */
+.ph-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px;margin-top:12px}
+.ph-cell{text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 11px;cursor:pointer;color:var(--ink);font:inherit;transition:border-color .15s,transform .12s,box-shadow .15s}
+.ph-cell:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.08)}
+.ph-cell[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.ph-sym{display:block;font-size:22px;font-weight:600}
+.ph-eg{display:block;font-size:12.5px;color:var(--muted);margin-top:3px}
+.ph-detail{margin-top:16px;background:var(--surface);border:1px solid var(--line-strong);border-radius:18px;padding:14px 16px}
+.ph-detail h3{margin:0 0 4px;font-size:22px}
+.ph-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.ph-tag{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--surface-2);color:var(--muted);font-size:12.5px}
+.ph-tag.hi{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.ph-words{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.ph-w{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2)}
+.ph-w b{font-weight:600}
+.ph-pair{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;padding:7px 10px;border:1px dashed var(--line-strong);border-radius:12px;margin-top:7px}
+.ph-pair .vs{color:var(--faint);font-size:12px}
+/* Trọng âm & nối âm */
+.st-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:12px}
+.st-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 13px}
+.st-card h4{margin:0 0 5px;font-size:15px;color:var(--accent)}
+.st-card p{margin:0 0 6px;font-size:14px;line-height:1.55;color:var(--muted)}
+.st-ex{display:flex;flex-wrap:wrap;gap:6px}
+.st-ex span{padding:3px 9px;border-radius:10px;background:var(--surface-2);font-size:13.5px}
+.st-ex b{color:var(--accent);font-weight:700}
+
 /* ===== TÔNG MÀU TIẾNG NHẬT — đỏ tươi (hinomaru) / trắng (data-lang="ja") =====
    sáng: accent #D01A32 trên trắng 5.4:1, trên nền 5.0:1 · tối: accent #FF6B7C trên #241318 6.5:1 */
 :root[data-lang="ja"]{

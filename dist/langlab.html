@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
-<meta name="description" content="Ứng dụng học ngoại ngữ theo bài cho người Việt: tiếng Hàn (TOPIK), tiếng Trung (HSK), tiếng Nga (ТРКИ) — từ vựng, ngữ pháp, hội thoại, tập viết, từ điển, thi thử.">
+<meta name="description" content="Ứng dụng học ngoại ngữ theo bài cho người Việt: tiếng Hàn (TOPIK), tiếng Nhật (JLPT), tiếng Trung (HSK), tiếng Nga (ТРКИ), tiếng Anh (IELTS/TOEFL) — từ vựng, ngữ pháp, hội thoại, tập viết, từ điển, thi thử.">
 <link rel="icon" type="image/png" href="logo-icon.png?v=260942">
 <link rel="manifest" href="manifest.webmanifest?v=260942">
 <meta name="theme-color" content="#EAF1FB" media="(prefers-color-scheme: light)">
@@ -1410,6 +1410,65 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   --logo-bg:#EEF3FB;
 }
 
+/* ===== TÔNG MÀU TIẾNG ANH — xanh rêu (British racing green) / kem (data-lang="en") =====
+   sáng: accent #1F6B45 trên trắng 6.5:1, trên nền 5.9:1 · tối: accent #63D69A trên #132019 9.3:1 */
+:root[data-lang="en"]{
+  --ground:#F6F4EC; --surface:#FFFFFF; --surface-2:#EAF0E6;
+  --ink:#14201A; --muted:#55665C; --faint:#6F8076;
+  --line:#DCE6D8; --line-strong:#BFCFB8;
+  --accent:#1F6B45; --accent-2:#2A8557; --accent-soft:#E3F0E7;
+  --seal:#8C2F39; --seal-soft:#F6E4E6;
+}
+@media (prefers-color-scheme: dark){
+  :root[data-lang="en"]:not([data-theme="light"]){
+    --ground:#0C1512; --surface:#132019; --surface-2:#1B2C22;
+    --ink:#E9F1EA; --muted:#A9BFB1; --faint:#7E9487;
+    --line:#28402F; --line-strong:#3A5B45;
+    --accent:#63D69A; --accent-2:#95E7BC; --accent-soft:#1D3A2A;
+    --seal:#F0A0A8; --seal-soft:#3A2126;
+    --logo-bg:#EDF3EC;
+  }
+}
+:root[data-lang="en"][data-theme="dark"]{
+  --ground:#0C1512; --surface:#132019; --surface-2:#1B2C22;
+  --ink:#E9F1EA; --muted:#A9BFB1; --faint:#7E9487;
+  --line:#28402F; --line-strong:#3A5B45;
+  --accent:#63D69A; --accent-2:#95E7BC; --accent-soft:#1D3A2A;
+  --seal:#F0A0A8; --seal-soft:#3A2126;
+  --logo-bg:#EDF3EC;
+}
+/* Chữ tiếng Anh + phiên âm IPA */
+.en,.lesson-card h3.en,.zh-les-title.en,.zh-gram-form.en,.zh-word-hz.en,.zh-line-zh.en,.zh-card-front.en,.qz-hz.en,.qz-opt.en,.zh-res-hz.en,.tk-passage.en{font-family:"Lexend","Segoe UI",system-ui,sans-serif;letter-spacing:0}
+.ipa{font-family:"Charis SIL","Doulos SIL","Gentium Plus","Segoe UI","DejaVu Sans",serif;color:var(--accent-2);font-size:.94em;letter-spacing:.01em;white-space:nowrap}
+.ipa.big{font-size:1.15em;font-weight:500}
+.en .zc{text-decoration:underline dotted;text-decoration-color:color-mix(in srgb,var(--accent) 55%,transparent);text-underline-offset:4px;text-decoration-thickness:1.5px;padding:0 1px;border-radius:3px;transition:background .12s,color .12s}
+.en .zc:hover{background:var(--accent-soft);color:var(--accent);cursor:pointer}
+/* Bảng âm vị */
+.ph-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px;margin-top:12px}
+.ph-cell{text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 11px;cursor:pointer;color:var(--ink);font:inherit;transition:border-color .15s,transform .12s,box-shadow .15s}
+.ph-cell:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.08)}
+.ph-cell[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.ph-sym{display:block;font-size:22px;font-weight:600}
+.ph-eg{display:block;font-size:12.5px;color:var(--muted);margin-top:3px}
+.ph-detail{margin-top:16px;background:var(--surface);border:1px solid var(--line-strong);border-radius:18px;padding:14px 16px}
+.ph-detail h3{margin:0 0 4px;font-size:22px}
+.ph-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.ph-tag{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--surface-2);color:var(--muted);font-size:12.5px}
+.ph-tag.hi{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.ph-words{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.ph-w{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2)}
+.ph-w b{font-weight:600}
+.ph-pair{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;padding:7px 10px;border:1px dashed var(--line-strong);border-radius:12px;margin-top:7px}
+.ph-pair .vs{color:var(--faint);font-size:12px}
+/* Trọng âm & nối âm */
+.st-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:12px}
+.st-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 13px}
+.st-card h4{margin:0 0 5px;font-size:15px;color:var(--accent)}
+.st-card p{margin:0 0 6px;font-size:14px;line-height:1.55;color:var(--muted)}
+.st-ex{display:flex;flex-wrap:wrap;gap:6px}
+.st-ex span{padding:3px 9px;border-radius:10px;background:var(--surface-2);font-size:13.5px}
+.st-ex b{color:var(--accent);font-weight:700}
+
 /* ===== TÔNG MÀU TIẾNG NHẬT — đỏ tươi (hinomaru) / trắng (data-lang="ja") =====
    sáng: accent #D01A32 trên trắng 5.4:1, trên nền 5.0:1 · tối: accent #FF6B7C trên #241318 6.5:1 */
 :root[data-lang="ja"]{
@@ -1686,6 +1745,24 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
             <button class="nav-mi" data-go="quiz"    role="menuitem">Bài tập</button>
             <button class="nav-mi" data-go="numbers" role="menuitem">Số đếm</button>
             <button class="nav-mi" data-go="topik"   role="menuitem">Thi thử TOPIK</button>
+            <button class="nav-mi" data-go="facts" role="menuitem">Bạn có biết?</button>
+          </div>
+        </div>
+
+        <div class="nav-drop">
+          <button class="nav-item nav-drop-btn" id="enDrop" aria-haspopup="true" aria-expanded="false">
+            Tiếng Anh
+            <svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="nav-menu" role="menu" aria-label="Tiếng Anh">
+            <button class="nav-mi" data-go="en_home"  role="menuitem">Khoá học <span class="mi-count">A1</span></button>
+            <button class="nav-mi" data-go="en_phon"  role="menuitem">Phát âm &amp; IPA</button>
+            <button class="nav-mi" data-go="en_dict"  role="menuitem">Từ điển</button>
+            <button class="nav-mi" data-go="en_srs"   role="menuitem">Ôn tập</button>
+            <button class="nav-mi" data-go="en_quiz"  role="menuitem">Bài tập</button>
+            <button class="nav-mi" data-go="en_idiom" role="menuitem">Idiom &amp; Phrasal verb</button>
+            <button class="nav-mi" data-go="en_speak" role="menuitem">Luyện nói</button>
+            <button class="nav-mi" data-go="en_exam"  role="menuitem">Thi thử IELTS / TOEFL</button>
             <button class="nav-mi" data-go="facts" role="menuitem">Bạn có biết?</button>
           </div>
         </div>
@@ -24908,6 +24985,1148 @@ if (typeof module !== 'undefined') module.exports = { JLPT_EXAMS };
 </script>
 <script>
 /* ============================================================
+   LangLab — Ngữ âm tiếng Anh (IPA)
+   44 âm vị chuẩn RP (Anh) kèm đối chiếu GA (Mỹ), quy tắc trọng âm,
+   quy tắc chính tả → âm, và các hiện tượng nối âm trong lời nói tự nhiên.
+   Biên soạn cho người Việt: mỗi âm có mô tả khẩu hình, lỗi thường gặp
+   của người Việt, cặp từ tối thiểu để tự kiểm tra.
+   ============================================================ */
+
+const PHON_EN = {
+
+  /* ---------- 12 nguyên âm đơn ---------- */
+  vowels: [
+    { s:'iː', type:'Nguyên âm dài', name:'i dài', us:'i',
+      vi:'Lưỡi đưa cao và ra trước, môi kéo dẹt sang hai bên như đang cười. Giữ âm dài hơn hẳn /ɪ/.',
+      spell:['ee — see, tree','ea — eat, sea','e_e — these','ie/ei — piece, receive','y cuối từ nhiều âm tiết — happy, city'],
+      eg:[['see','siː','nhìn thấy'],['eat','iːt','ăn'],['machine','məˈʃiːn','máy'],['believe','bɪˈliːv','tin']],
+      pair:[['sheep','ʃiːp','ship','ʃɪp','cừu / con tàu'],['feel','fiːl','fill','fɪl','cảm thấy / lấp đầy'],['seat','siːt','sit','sɪt','chỗ ngồi / ngồi']],
+      tip:'Người Việt hay đọc /iː/ và /ɪ/ giống nhau. Hãy nhớ: /iː/ căng, dài, môi dẹt; /ɪ/ ngắn, lỏng, hàm thả.' },
+
+    { s:'ɪ', type:'Nguyên âm ngắn', name:'i ngắn', us:'ɪ',
+      vi:'Lưỡi cao vừa, cơ hàm và môi thả lỏng. Âm rất ngắn, gần giữa «i» và «ê» tiếng Việt.',
+      spell:['i — sit, big','y — gym, myth','e ở tiền tố — begin, decide','a/e ở âm tiết không nhấn — village, wanted'],
+      eg:[['sit','sɪt','ngồi'],['big','bɪɡ','to'],['women','ˈwɪmɪn','phụ nữ (số nhiều)'],['minute','ˈmɪnɪt','phút']],
+      pair:[['bit','bɪt','beat','biːt','miếng nhỏ / đánh bại'],['live','lɪv','leave','liːv','sống / rời đi']],
+      tip:'Đừng kéo dài. Nếu bạn thấy môi mình đang cười thì có lẽ bạn đang đọc thành /iː/.' },
+
+    { s:'e', type:'Nguyên âm ngắn', name:'e', us:'ɛ',
+      vi:'Miệng mở vừa, lưỡi ở giữa và hơi trước. Rất gần âm «e» trong tiếng Việt.',
+      spell:['e — bed, ten','ea — head, bread','a — many, any','ai — said'],
+      eg:[['bed','bed','giường'],['head','hed','đầu'],['friend','frend','bạn'],['says','sez','nói (ngôi 3)']],
+      pair:[['bed','bed','bad','bæd','giường / tệ'],['men','men','man','mæn','những người đàn ông / một người đàn ông']],
+      tip:'Khác biệt lớn nhất là với /æ/: /e/ hàm mở ít, /æ/ hàm mở rộng hơn nhiều.' },
+
+    { s:'æ', type:'Nguyên âm ngắn', name:'a bẹt', us:'æ',
+      vi:'Mở hàm rộng, lưỡi thấp và ra trước, môi kéo ngang. Nằm giữa «e» và «a» của tiếng Việt.',
+      spell:['a trong âm tiết đóng — cat, map, black'],
+      eg:[['cat','kæt','con mèo'],['map','mæp','bản đồ'],['happy','ˈhæpi','vui'],['travel','ˈtrævl','đi lại']],
+      pair:[['cat','kæt','cut','kʌt','con mèo / cắt'],['bad','bæd','bed','bed','tệ / giường'],['man','mæn','men','men','đàn ông / những người đàn ông']],
+      tip:'Người Việt thường đọc thành «e» hoặc «a». Mẹo: hạ hàm như sắp cắn quả táo rồi mới phát âm.' },
+
+    { s:'ɑː', type:'Nguyên âm dài', name:'a dài sau', us:'ɑ',
+      vi:'Miệng mở to, lưỡi lùi về sau và hạ thấp, âm vang sâu trong họng, kéo dài.',
+      spell:['ar — car, start','a trước s/f/th (Anh) — fast, path, laugh','al — calm, palm'],
+      eg:[['car','kɑː','xe hơi'],['father','ˈfɑːðə','bố'],['start','stɑːt','bắt đầu'],['heart','hɑːt','trái tim']],
+      pair:[['cart','kɑːt','cut','kʌt','xe kéo / cắt'],['hard','hɑːd','head','hed','cứng / đầu']],
+      tip:'Giọng Anh không đọc chữ «r» trong car; giọng Mỹ thì có: /kɑːr/. Chọn một giọng và giữ nhất quán.' },
+
+    { s:'ɒ', type:'Nguyên âm ngắn', name:'o mở ngắn', us:'ɑː',
+      vi:'Môi tròn nhẹ, lưỡi lùi sau và hạ thấp, âm ngắn. Giọng Mỹ thường thay bằng /ɑː/.',
+      spell:['o — hot, box, stop','a sau w/qu — want, watch, quality'],
+      eg:[['hot','hɒt','nóng'],['stop','stɒp','dừng'],['watch','wɒtʃ','xem, đồng hồ'],['because','bɪˈkɒz','bởi vì']],
+      pair:[['cot','kɒt','caught','kɔːt','giường cũi / bắt (quá khứ)'],['not','nɒt','nut','nʌt','không / hạt']],
+      tip:'Ngắn và tròn môi. Nếu kéo dài, nó thành /ɔː/ (bought).' },
+
+    { s:'ɔː', type:'Nguyên âm dài', name:'o dài', us:'ɔ',
+      vi:'Môi tròn rõ và đưa ra trước, lưỡi lùi sau ở tầm giữa, giữ dài.',
+      spell:['or — sport, born','aw/au — saw, autumn','al — talk, walk','ough/augh — bought, caught','oor/our — door, four'],
+      eg:[['four','fɔː','bốn'],['talk','tɔːk','nói chuyện'],['thought','θɔːt','ý nghĩ'],['already','ɔːlˈredi','đã rồi']],
+      pair:[['port','pɔːt','pot','pɒt','cảng / cái nồi'],['walk','wɔːk','work','wɜːk','đi bộ / làm việc']],
+      tip:'walk /wɔːk/ và work /wɜːk/ là cặp gây nhầm kinh điển: một bên tròn môi, một bên môi trung hoà.' },
+
+    { s:'ʊ', type:'Nguyên âm ngắn', name:'u ngắn', us:'ʊ',
+      vi:'Môi tròn lỏng, lưỡi cao vừa và lùi sau. Rất ngắn, cơ miệng không căng.',
+      spell:['oo (ngắn) — book, good, look','u — put, full, push','ou — could, would, should'],
+      eg:[['book','bʊk','sách'],['good','ɡʊd','tốt'],['put','pʊt','đặt'],['woman','ˈwʊmən','phụ nữ']],
+      pair:[['full','fʊl','fool','fuːl','đầy / kẻ ngốc'],['pull','pʊl','pool','puːl','kéo / hồ bơi']],
+      tip:'Không đẩy môi ra trước. Nếu môi chu lại như thổi nến thì bạn đang đọc /uː/.' },
+
+    { s:'uː', type:'Nguyên âm dài', name:'u dài', us:'u',
+      vi:'Môi tròn và chu ra trước, lưỡi đưa cao và lùi sau, giữ âm dài.',
+      spell:['oo — food, moon','u_e — rule, June','ew/ue — new, blue','ou — group, soup'],
+      eg:[['food','fuːd','thức ăn'],['blue','bluː','màu xanh'],['June','dʒuːn','tháng Sáu'],['through','θruː','xuyên qua']],
+      pair:[['fool','fuːl','full','fʊl','kẻ ngốc / đầy'],['suit','suːt','soot','sʊt','bộ vest / bồ hóng']],
+      tip:'Sau /j/ thường thành /juː/: music /ˈmjuːzɪk/, new (Anh) /njuː/ nhưng Mỹ /nuː/.' },
+
+    { s:'ʌ', type:'Nguyên âm ngắn', name:'â ngắn', us:'ʌ',
+      vi:'Miệng mở vừa, lưỡi ở giữa và hơi lùi, môi hoàn toàn không tròn. Gần «â» của tiếng Việt nhưng ngắn hơn.',
+      spell:['u — cup, sun, but','o — come, love, money','ou — country, young','oo — blood, flood'],
+      eg:[['cup','kʌp','cái cốc'],['love','lʌv','yêu'],['money','ˈmʌni','tiền'],['enough','ɪˈnʌf','đủ']],
+      pair:[['cup','kʌp','cap','kæp','cốc / mũ lưỡi trai'],['luck','lʌk','lock','lɒk','may mắn / khoá']],
+      tip:'/ʌ/ luôn nằm ở âm tiết CÓ trọng âm; âm giống nó ở âm tiết không trọng âm là /ə/.' },
+
+    { s:'ɜː', type:'Nguyên âm dài', name:'ơ dài', us:'ɜr',
+      vi:'Lưỡi ở chính giữa khoang miệng, môi trung hoà, kéo dài. Giọng Mỹ cuộn lưỡi thành /ɝ/.',
+      spell:['er — her, term','ir — girl, first','ur — turn, nurse','ear — learn, earth','wor — word, work'],
+      eg:[['work','wɜːk','làm việc'],['girl','ɡɜːl','cô gái'],['learn','lɜːn','học'],['nurse','nɜːs','y tá']],
+      pair:[['work','wɜːk','walk','wɔːk','làm việc / đi bộ'],['bird','bɜːd','bed','bed','con chim / giường']],
+      tip:'Đây là nguyên âm dài duy nhất ở vị trí trung tâm — không tròn môi, không kéo môi.' },
+
+    { s:'ə', type:'Nguyên âm yếu', name:'schwa', us:'ə',
+      vi:'Âm mờ, ngắn nhất và phổ biến nhất trong tiếng Anh. Cơ miệng thả lỏng hoàn toàn, hầu như không tạo hình.',
+      spell:['a — about, sofa','e — taken, problem','o — today, police','u — support','er — teacher, water'],
+      eg:[['about','əˈbaʊt','về, khoảng'],['teacher','ˈtiːtʃə','giáo viên'],['banana','bəˈnɑːnə','quả chuối'],['computer','kəmˈpjuːtə','máy tính']],
+      pair:[['ˈdesert','ˈdezət','deˈssert','dɪˈzɜːt','sa mạc / món tráng miệng']],
+      tip:'Chìa khoá của nhịp điệu tiếng Anh: mọi âm tiết KHÔNG trọng âm đều có xu hướng rút về /ə/. Nói rõ từng âm tiết sẽ nghe rất «Việt».' }
+  ],
+
+  /* ---------- 8 nguyên âm đôi ---------- */
+  diphthongs: [
+    { s:'eɪ', type:'Nguyên âm đôi', name:'ây', us:'eɪ',
+      vi:'Bắt đầu ở /e/ rồi trượt lên /ɪ/. Phần đầu dài, phần sau nhẹ.',
+      spell:['a_e — make, name','ai — rain, wait','ay — day, play','ei/ey — eight, they'],
+      eg:[['make','meɪk','làm'],['day','deɪ','ngày'],['eight','eɪt','số tám'],['break','breɪk','làm vỡ, nghỉ']],
+      pair:[['late','leɪt','let','let','muộn / cho phép'],['pain','peɪn','pen','pen','đau / cái bút']],
+      tip:'Đừng dừng ở /e/. Phải nghe rõ đuôi trượt lên trên.' },
+
+    { s:'aɪ', type:'Nguyên âm đôi', name:'ai', us:'aɪ',
+      vi:'Bắt đầu miệng mở rộng ở /a/, trượt nhanh lên /ɪ/.',
+      spell:['i_e — time, nice','igh — light, night','y — my, try','ie — die, tie'],
+      eg:[['time','taɪm','thời gian'],['night','naɪt','đêm'],['buy','baɪ','mua'],['height','haɪt','chiều cao']],
+      pair:[['light','laɪt','let','let','ánh sáng / cho phép'],['bite','baɪt','bit','bɪt','cắn / miếng nhỏ']],
+      tip:'Rất giống «ai» tiếng Việt — đây là một trong các âm dễ nhất với người Việt.' },
+
+    { s:'ɔɪ', type:'Nguyên âm đôi', name:'oi', us:'ɔɪ',
+      vi:'Bắt đầu tròn môi ở /ɔː/ rồi trượt lên /ɪ/, môi từ tròn sang dẹt.',
+      spell:['oi — coin, voice','oy — boy, enjoy'],
+      eg:[['boy','bɔɪ','cậu bé'],['voice','vɔɪs','giọng nói'],['choice','tʃɔɪs','lựa chọn'],['enjoy','ɪnˈdʒɔɪ','tận hưởng']],
+      pair:[['boil','bɔɪl','bile','baɪl','đun sôi / mật']],
+      tip:'Phải thấy môi thay đổi hình rõ ràng từ tròn sang dẹt.' },
+
+    { s:'əʊ', type:'Nguyên âm đôi', name:'ơu (Anh)', us:'oʊ',
+      vi:'Giọng Anh bắt đầu ở /ə/ trung tâm rồi trượt lên /ʊ/. Giọng Mỹ bắt đầu tròn hơn: /oʊ/.',
+      spell:['o_e — home, note','oa — boat, road','ow — snow, know','o cuối từ — go, no'],
+      eg:[['home','həʊm','nhà'],['go','ɡəʊ','đi'],['know','nəʊ','biết'],['although','ɔːlˈðəʊ','mặc dù']],
+      pair:[['coat','kəʊt','caught','kɔːt','áo khoác / bắt'],['so','səʊ','saw','sɔː','vậy / đã thấy']],
+      tip:'Không đọc thành «ô» đơn của tiếng Việt — phải có đuôi trượt về phía /ʊ/.' },
+
+    { s:'aʊ', type:'Nguyên âm đôi', name:'ao', us:'aʊ',
+      vi:'Bắt đầu miệng mở rộng ở /a/, trượt về /ʊ/, môi khép tròn dần.',
+      spell:['ou — house, sound','ow — now, town, brown'],
+      eg:[['house','haʊs','ngôi nhà'],['now','naʊ','bây giờ'],['about','əˈbaʊt','về'],['crowd','kraʊd','đám đông']],
+      pair:[['loud','laʊd','load','ləʊd','ồn / tải'],['found','faʊnd','fond','fɒnd','tìm thấy / quý mến']],
+      tip:'ow có hai cách đọc: now /naʊ/ nhưng know /nəʊ/ — phải học theo từ.' },
+
+    { s:'ɪə', type:'Nguyên âm đôi', name:'ia (Anh)', us:'ɪr',
+      vi:'Bắt đầu ở /ɪ/, trượt về /ə/. Giọng Mỹ đọc thành /ɪr/ có cuộn lưỡi.',
+      spell:['ear — hear, near','eer — beer, deer','ere — here','ia — idea'],
+      eg:[['here','hɪə','ở đây'],['year','jɪə','năm'],['idea',"aɪˈdɪə",'ý tưởng'],['serious','ˈsɪəriəs','nghiêm túc']],
+      pair:[['here','hɪə','hair','heə','ở đây / tóc'],['beer','bɪə','bear','beə','bia / con gấu']],
+      tip:'Đây là một trong ba nguyên âm đôi «hướng tâm» kết thúc bằng /ə/.' },
+
+    { s:'eə', type:'Nguyên âm đôi', name:'ea (Anh)', us:'er',
+      vi:'Bắt đầu ở /e/, trượt về /ə/. Giọng Mỹ đọc thành /er/.',
+      spell:['air — hair, fair','are — care, share','ear — bear, wear','ere — there, where'],
+      eg:[['hair','heə','tóc'],['care','keə','quan tâm'],['where','weə','ở đâu'],['compare','kəmˈpeə','so sánh']],
+      pair:[['hair','heə','here','hɪə','tóc / ở đây'],['fair','feə','fear','fɪə','công bằng / sợ']],
+      tip:'wear /weə/ nhưng ear /ɪə/ — cùng chữ «ear» nhưng khác âm hoàn toàn.' },
+
+    { s:'ʊə', type:'Nguyên âm đôi', name:'ua (Anh)', us:'ʊr',
+      vi:'Bắt đầu ở /ʊ/, trượt về /ə/. Âm này đang mai một, nhiều người Anh trẻ đọc thành /ɔː/.',
+      spell:['ure — sure, cure','our — tour','oor — poor (một số người)'],
+      eg:[['tour','tʊə','chuyến du lịch'],['sure','ʃʊə','chắc chắn'],['pure','pjʊə','tinh khiết'],['during','ˈdjʊərɪŋ','trong suốt']],
+      pair:[['poor','pʊə','pour','pɔː','nghèo / rót']],
+      tip:'Nếu bạn nghe sure thành /ʃɔː/, đó là biến thể hiện đại — cả hai đều được chấp nhận.' }
+  ],
+
+  /* ---------- 24 phụ âm ---------- */
+  consonants: [
+    { s:'p', type:'Tắc, vô thanh', name:'p bật hơi', vi:'Hai môi ngậm rồi bật ra. Ở đầu từ có trọng âm phải bật một luồng hơi mạnh.',
+      spell:['p — pen, happy','pp — apple'],
+      eg:[['pen','pen','cái bút'],['happy','ˈhæpi','vui'],['stop','stɒp','dừng']],
+      pair:[['pin','pɪn','bin','bɪn','ghim / thùng rác'],['cap','kæp','cab','kæb','mũ / taxi']],
+      tip:'Người Việt hay quên bật hơi. Cầm tờ giấy trước miệng: đọc «pen» đúng thì tờ giấy phải rung.' },
+    { s:'b', type:'Tắc, hữu thanh', name:'b', vi:'Giống /p/ nhưng dây thanh rung và không bật hơi.',
+      spell:['b — book','bb — rubber'],
+      eg:[['book','bʊk','sách'],['about','əˈbaʊt','về'],['job','dʒɒb','công việc']],
+      pair:[['bad','bæd','pad','pæd','tệ / miếng đệm']], tip:'Đặt tay lên cổ họng: đọc /b/ phải thấy rung, /p/ thì không.' },
+    { s:'t', type:'Tắc, vô thanh', name:'t bật hơi', vi:'Đầu lưỡi chạm lợi trên rồi bật ra kèm hơi.',
+      spell:['t — ten','tt — better','ed sau âm vô thanh — worked /wɜːkt/'],
+      eg:[['ten','ten','mười'],['water','ˈwɔːtə','nước'],['worked','wɜːkt','đã làm']],
+      pair:[['ten','ten','den','den','mười / hang']],
+      tip:'Giọng Mỹ biến /t/ giữa hai nguyên âm thành âm vỗ giống /d/: water nghe như «wader».' },
+    { s:'d', type:'Tắc, hữu thanh', name:'d', vi:'Giống /t/ nhưng có rung dây thanh, không bật hơi.',
+      spell:['d — do','dd — ladder','ed sau âm hữu thanh — played /pleɪd/'],
+      eg:[['do','duː','làm'],['played','pleɪd','đã chơi'],['red','red','màu đỏ']],
+      pair:[['do','duː','to','tuː','làm / đến']], tip:'/d/ tiếng Anh là âm lợi, khác «đ» tiếng Việt vốn bật mạnh hơn.' },
+    { s:'k', type:'Tắc, vô thanh', name:'k bật hơi', vi:'Mặt lưỡi sau chạm ngạc mềm rồi bật ra kèm hơi.',
+      spell:['c trước a/o/u — cat, cup','k — key','ck — back','ch — school, character','qu — /kw/ quick'],
+      eg:[['cat','kæt','mèo'],['school','skuːl','trường'],['quick','kwɪk','nhanh']],
+      pair:[['coat','kəʊt','goat','ɡəʊt','áo khoác / con dê']], tip:'Sau /s/ thì KHÔNG bật hơi: school nghe gần như «sgool».' },
+    { s:'ɡ', type:'Tắc, hữu thanh', name:'g', vi:'Giống /k/ nhưng dây thanh rung.',
+      spell:['g trước a/o/u — go, game','gg — bigger','gu — guess'],
+      eg:[['go','ɡəʊ','đi'],['big','bɪɡ','to'],['guess','ɡes','đoán']],
+      pair:[['game','ɡeɪm','came','keɪm','trò chơi / đã đến']], tip:'g trước e/i/y thường thành /dʒ/: gentle, giant, gym.' },
+    { s:'tʃ', type:'Tắc xát, vô thanh', name:'ch', vi:'Lưỡi chạm lợi rồi nhả từ từ tạo tiếng xát. Bật hơi rõ.',
+      spell:['ch — chair','tch — watch','t + ure — picture, future'],
+      eg:[['chair','tʃeə','ghế'],['watch','wɒtʃ','xem'],['picture','ˈpɪktʃə','bức tranh']],
+      pair:[['chair','tʃeə','share','ʃeə','ghế / chia sẻ'],['cheap','tʃiːp','jeep','dʒiːp','rẻ / xe jeep']],
+      tip:'Khác «ch» tiếng Việt: âm Anh có phần bật /t/ rõ ở đầu.' },
+    { s:'dʒ', type:'Tắc xát, hữu thanh', name:'j', vi:'Giống /tʃ/ nhưng dây thanh rung.',
+      spell:['j — job','g trước e/i/y — gentle, gym','dge — bridge','du — education'],
+      eg:[['job','dʒɒb','việc'],['bridge','brɪdʒ','cây cầu'],['age','eɪdʒ','tuổi']],
+      pair:[['jeep','dʒiːp','cheap','tʃiːp','xe jeep / rẻ']], tip:'Người Việt hay đọc thành «gi» — nhớ giữ phần tắc /d/ ở đầu.' },
+    { s:'f', type:'Xát, vô thanh', name:'f', vi:'Răng trên chạm nhẹ môi dưới, đẩy hơi qua khe.',
+      spell:['f — five','ff — off','ph — phone','gh — laugh, enough'],
+      eg:[['five','faɪv','năm'],['phone','fəʊn','điện thoại'],['enough','ɪˈnʌf','đủ']],
+      pair:[['fan','fæn','van','væn','quạt / xe tải nhỏ']], tip:'Gần «ph» tiếng Việt — âm dễ với người Việt.' },
+    { s:'v', type:'Xát, hữu thanh', name:'v', vi:'Giống /f/ nhưng dây thanh rung. Răng phải chạm môi.',
+      spell:['v — very','ve cuối — love, give'],
+      eg:[['very','ˈveri','rất'],['love','lʌv','yêu'],['have','hæv','có']],
+      pair:[['vine','vaɪn','fine','faɪn','dây leo / ổn']],
+      tip:'LỖI RẤT PHỔ BIẾN: người Việt đọc /v/ thành «d» hoặc «z». Bắt buộc phải chạm răng vào môi dưới.' },
+    { s:'θ', type:'Xát, vô thanh', name:'th vô thanh', vi:'Đầu lưỡi đặt nhẹ giữa hai hàm răng, đẩy hơi ra, dây thanh KHÔNG rung.',
+      spell:['th — think, three, both'],
+      eg:[['think','θɪŋk','nghĩ'],['three','θriː','ba'],['month','mʌnθ','tháng']],
+      pair:[['think','θɪŋk','sink','sɪŋk','nghĩ / chìm'],['thin','θɪn','tin','tɪn','mỏng / thiếc']],
+      tip:'Người Việt hay thay bằng /t/ hoặc /s/. Soi gương: phải nhìn thấy đầu lưỡi thò ra.' },
+    { s:'ð', type:'Xát, hữu thanh', name:'th hữu thanh', vi:'Giống /θ/ nhưng dây thanh rung.',
+      spell:['th ở từ chức năng — the, this, that, they, there','th giữa nguyên âm — mother, weather'],
+      eg:[['this','ðɪs','cái này'],['mother','ˈmʌðə','mẹ'],['breathe','briːð','thở']],
+      pair:[['they','ðeɪ','day','deɪ','họ / ngày'],['breathe','briːð','breeze','briːz','thở / gió nhẹ']],
+      tip:'Quy tắc mẹo: từ ngữ pháp (the, this, then, though) thường /ð/; từ nội dung (think, thick, thank) thường /θ/.' },
+    { s:'s', type:'Xát, vô thanh', name:'s', vi:'Đầu lưỡi gần lợi trên, hơi thoát qua rãnh hẹp tạo tiếng rít.',
+      spell:['s — see','ss — miss','c trước e/i/y — city, ice','sc — science'],
+      eg:[['see','siː','thấy'],['city','ˈsɪti','thành phố'],['books','bʊks','những cuốn sách']],
+      pair:[['sip','sɪp','zip','zɪp','nhấp / khoá kéo']], tip:'Đuôi -s đọc /s/ sau âm vô thanh: cats, maps, books.' },
+    { s:'z', type:'Xát, hữu thanh', name:'z', vi:'Giống /s/ nhưng dây thanh rung.',
+      spell:['z — zoo','zz — buzz','s giữa nguyên âm — busy, easy','đuôi -s sau âm hữu thanh — dogs'],
+      eg:[['zoo','zuː','sở thú'],['easy','ˈiːzi','dễ'],['dogs','dɒɡz','những con chó']],
+      pair:[['zoo','zuː','sue','suː','sở thú / kiện']],
+      tip:'Người Việt hay bỏ hẳn đuôi -s. Nhớ: sau âm hữu thanh (b, d, g, v, n, l, nguyên âm) thì đọc /z/.' },
+    { s:'ʃ', type:'Xát, vô thanh', name:'sh', vi:'Lưỡi rút lui một chút so với /s/, môi hơi chu, tiếng xát trầm hơn.',
+      spell:['sh — she','ti + on — nation','ci/si — special, session','ch (gốc Pháp) — machine'],
+      eg:[['she','ʃiː','cô ấy'],['nation','ˈneɪʃn','quốc gia'],['machine','məˈʃiːn','máy']],
+      pair:[['ship','ʃɪp','sip','sɪp','tàu / nhấp']], tip:'Gần «s» tiếng Việt miền Nam nhưng môi tròn hơn.' },
+    { s:'ʒ', type:'Xát, hữu thanh', name:'zh', vi:'Giống /ʃ/ nhưng dây thanh rung. Âm hiếm nhất tiếng Anh.',
+      spell:['s + ure/ion — measure, vision','g (gốc Pháp) — genre, beige'],
+      eg:[['vision','ˈvɪʒn','tầm nhìn'],['usual','ˈjuːʒuəl','thường lệ'],['measure','ˈmeʒə','đo lường']],
+      pair:[['vision','ˈvɪʒn','fission','ˈfɪʃn','tầm nhìn / phân hạch']], tip:'Không bao giờ đứng đầu từ tiếng Anh gốc.' },
+    { s:'h', type:'Xát, vô thanh', name:'h', vi:'Chỉ là một luồng hơi thoát ra, không có cản trở trong miệng.',
+      spell:['h — hat, home','wh trong who, whole'],
+      eg:[['hat','hæt','mũ'],['who','huː','ai'],['behind','bɪˈhaɪnd','phía sau']],
+      pair:[['hair','heə','air','eə','tóc / không khí']],
+      tip:'h câm trong hour, honest, heir. Trong lời nói nhanh, h ở he/him/her cũng thường rơi mất.' },
+    { s:'m', type:'Mũi', name:'m', vi:'Hai môi ngậm, hơi thoát qua mũi, dây thanh rung.',
+      spell:['m — man','mm — summer','mb — climb (b câm)'],
+      eg:[['man','mæn','người đàn ông'],['summer','ˈsʌmə','mùa hè'],['climb','klaɪm','trèo']],
+      pair:[['some','sʌm','sun','sʌn','một vài / mặt trời']], tip:'Đuôi -m phải ngậm môi lại, không được nuốt mất.' },
+    { s:'n', type:'Mũi', name:'n', vi:'Đầu lưỡi chạm lợi trên, hơi thoát qua mũi.',
+      spell:['n — no','nn — dinner','kn — know (k câm)'],
+      eg:[['no','nəʊ','không'],['dinner','ˈdɪnə','bữa tối'],['know','nəʊ','biết']],
+      pair:[['thin','θɪn','thing','θɪŋ','mỏng / thứ']], tip:'Người Việt (miền Bắc) hay lẫn n/l — chú ý ở night, light.' },
+    { s:'ŋ', type:'Mũi', name:'ng', vi:'Mặt lưỡi sau chạm ngạc mềm, hơi thoát qua mũi. Không bao giờ đứng đầu từ.',
+      spell:['ng — sing, long','n trước k/g — think, finger'],
+      eg:[['sing','sɪŋ','hát'],['long','lɒŋ','dài'],['think','θɪŋk','nghĩ']],
+      pair:[['sing','sɪŋ','sin','sɪn','hát / tội lỗi'],['thing','θɪŋ','thin','θɪn','thứ / mỏng']],
+      tip:'Trong singer /ˈsɪŋə/ không có /ɡ/, nhưng finger /ˈfɪŋɡə/ thì có.' },
+    { s:'l', type:'Bên', name:'l', vi:'Đầu lưỡi chạm lợi, hơi thoát hai bên lưỡi. Cuối từ thành «l tối» — lưỡi sau nâng lên.',
+      spell:['l — like','ll — ball'],
+      eg:[['like','laɪk','thích'],['ball','bɔːl','quả bóng'],['people','ˈpiːpl','mọi người']],
+      pair:[['light','laɪt','right','raɪt','ánh sáng / phải']],
+      tip:'l cuối từ (full, milk, well) rất khác l đầu từ — nghe trầm và tối hơn hẳn.' },
+    { s:'r', type:'Tiếp cận', name:'r', vi:'Đầu lưỡi cong lên gần lợi nhưng KHÔNG chạm, môi hơi tròn. Tuyệt đối không rung lưỡi.',
+      spell:['r — red','rr — sorry','wr — write (w câm)'],
+      eg:[['red','red','đỏ'],['write','raɪt','viết'],['sorry','ˈsɒri','xin lỗi']],
+      pair:[['right','raɪt','light','laɪt','phải / ánh sáng']],
+      tip:'Giọng Anh chỉ đọc /r/ trước nguyên âm (car nhưng carry); giọng Mỹ đọc mọi vị trí.' },
+    { s:'w', type:'Tiếp cận', name:'w', vi:'Môi chu tròn mạnh rồi mở nhanh sang nguyên âm sau.',
+      spell:['w — we','wh — what, when','u sau q/g — quick, language'],
+      eg:[['we','wiː','chúng tôi'],['what','wɒt','cái gì'],['quick','kwɪk','nhanh']],
+      pair:[['west','west','vest','vest','phía tây / áo gilê']],
+      tip:'w câm trong write, wrong, answer, sword.' },
+    { s:'j', type:'Tiếp cận', name:'y', vi:'Lưỡi nâng cao về phía ngạc cứng như chuẩn bị đọc /iː/ rồi trượt sang nguyên âm sau.',
+      spell:['y đầu từ — yes, young','u/eu — use, Europe','i trong onion'],
+      eg:[['yes','jes','vâng'],['use','juːz','dùng'],['music','ˈmjuːzɪk','âm nhạc']],
+      pair:[['year','jɪə','ear','ɪə','năm / tai']],
+      tip:'Chú ý university /ˌjuːnɪˈvɜːsəti/ bắt đầu bằng /j/ nên dùng «a university» chứ không phải «an».' }
+  ],
+
+  /* ---------- Trọng âm từ ---------- */
+  stress: [
+    { t:'Danh từ và tính từ 2 âm tiết → phần lớn nhấn âm 1',
+      d:'Khoảng 80% danh từ hai âm tiết nhấn vào âm tiết đầu.',
+      ex:[['TAble','ˈteɪbl'],['HAPpy','ˈhæpi'],['MOUNtain','ˈmaʊntɪn'],['DOCtor','ˈdɒktə']] },
+    { t:'Động từ 2 âm tiết → phần lớn nhấn âm 2',
+      d:'Ngược lại với danh từ. Đây là cơ sở của các cặp danh–động cùng chính tả.',
+      ex:[['beGIN','bɪˈɡɪn'],['deCIDE','dɪˈsaɪd'],['reLAX','rɪˈlæks'],['forGET','fəˈɡet']] },
+    { t:'Cặp danh–động cùng mặt chữ: danh nhấn trước, động nhấn sau',
+      d:'Đổi trọng âm là đổi từ loại, và nguyên âm không trọng âm rút về /ə/.',
+      ex:[['a REcord ˈrekɔːd','to reCORD rɪˈkɔːd'],['a PREsent ˈpreznt','to preSENT prɪˈzent'],['an OBject ˈɒbdʒɪkt','to obJECT əbˈdʒekt'],['an INcrease ˈɪŋkriːs','to inCREASE ɪnˈkriːs']] },
+    { t:'Đuôi -ion, -ic, -ical, -ity, -ity → nhấn ngay TRƯỚC đuôi',
+      d:'Đây là nhóm quy tắc chắc chắn nhất, dùng được cho hàng nghìn từ.',
+      ex:[['naTIONal ˈnæʃnəl','eduCAtion ˌedʒuˈkeɪʃn'],['ecoNOMic ˌiːkəˈnɒmɪk'],['aBIlity əˈbɪləti'],['phoTOgraphy fəˈtɒɡrəfi']] },
+    { t:'Đuôi -ee, -eer, -ese, -ette, -esque → nhấn vào chính đuôi',
+      d:'Nhóm đuôi gốc Pháp giữ trọng âm ở cuối.',
+      ex:[['employEE ɪmplɔɪˈiː'],['engiNEER ˌendʒɪˈnɪə'],['VietnamESE ˌvjetnəˈmiːz'],['picturESQUE ˌpɪktʃəˈresk']] },
+    { t:'Đuôi -ate, -fy, -ise/-ize (động từ dài) → nhấn lùi hai âm tiết',
+      d:'Đếm ngược từ đuôi: đuôi, một âm tiết, rồi trọng âm.',
+      ex:[['ˈcommunicate kəˈmjuːnɪkeɪt'],['ˈidentify aɪˈdentɪfaɪ'],['ˈorganise ˈɔːɡənaɪz']] },
+    { t:'Từ ghép: danh + danh nhấn phần đầu, tính + danh nhấn phần sau',
+      d:'Đây là điểm phân biệt nghĩa quan trọng trong hội thoại.',
+      ex:[['a GREENhouse ˈɡriːnhaʊs = nhà kính','a green HOUSE = ngôi nhà màu xanh'],['a BLACKboard = bảng đen','a black BOARD = tấm ván màu đen']] },
+    { t:'Tiền tố un-, in-, dis-, re-, pre- thường KHÔNG nhận trọng âm',
+      d:'Trọng âm giữ nguyên ở gốc từ.',
+      ex:[['HAPpy → unHAPpy'],['CORrect → inCORrect'],['aGREE → disaGREE']] }
+  ],
+
+  /* ---------- Nhịp điệu & nối âm ---------- */
+  connected: [
+    { t:'Dạng yếu (weak forms)',
+      d:'Từ chức năng (a, an, the, of, to, for, and, can, was, are…) trong câu thường rút gọn về /ə/. Nói dạng mạnh ở mọi chỗ sẽ nghe rất gượng.',
+      ex:[['a cup of tea','ə ˈkʌp əv ˈtiː'],['fish and chips','ˈfɪʃ ən ˈtʃɪps'],['I can swim','aɪ kən ˈswɪm'],['Where are you from?','ˈweər ə ju ˈfrɒm']] },
+    { t:'Nối phụ âm với nguyên âm (linking)',
+      d:'Phụ âm cuối từ chạy sang nguyên âm đầu từ sau, ranh giới từ biến mất.',
+      ex:[['an apple','ə ˈnæpl'],['pick it up','ˈpɪ kɪ ˈtʌp'],['turn off','ˈtɜː ˈnɒf'],['not at all','ˈnɒ tə ˈtɔːl']] },
+    { t:'Nối bằng /j/ và /w/ (intrusive glide)',
+      d:'Giữa hai nguyên âm, người bản ngữ chèn một âm lướt rất nhẹ.',
+      ex:[['I am','aɪ‿jæm'],['go on','ɡəʊ‿wɒn'],['the end','ði‿jend'],['too old','tuː‿wəʊld']] },
+    { t:'Linking /r/ (giọng Anh)',
+      d:'Chữ r cuối từ vốn câm sẽ được đọc lên khi từ sau bắt đầu bằng nguyên âm.',
+      ex:[['far away','ˈfɑːr əˈweɪ'],['four apples','ˈfɔːr ˈæplz'],['mother and father','ˈmʌðər ən ˈfɑːðə']] },
+    { t:'Nuốt âm (elision)',
+      d:'/t/ và /d/ giữa hai phụ âm thường biến mất; âm /ə/ ở âm tiết yếu cũng có thể rơi.',
+      ex:[['next day','ˈneks ˈdeɪ'],['last night','ˈlɑːs ˈnaɪt'],['friendship','ˈfrenʃɪp'],['comfortable','ˈkʌmftəbl']] },
+    { t:'Đồng hoá (assimilation)',
+      d:'Âm cuối đổi cho giống âm đầu của từ kế tiếp để miệng đỡ phải di chuyển.',
+      ex:[['ten pounds','ˈtem ˈpaʊndz'],['good boy','ˈɡʊb ˈbɔɪ'],['this shop','ˈðɪʃ ˈʃɒp'],['did you','ˈdɪdʒu']] },
+    { t:'Nhịp theo trọng âm (stress-timed rhythm)',
+      d:'Tiếng Anh giữ khoảng cách đều giữa các âm tiết CÓ trọng âm, nén các âm tiết yếu ở giữa. Tiếng Việt thì mỗi âm tiết một nhịp — đây là khác biệt gốc rễ.',
+      ex:[['DOGS eat BONES','3 nhịp'],['the DOGS have EAten the BONES','vẫn 3 nhịp, chỉ nén phần yếu']] },
+    { t:'Ngữ điệu',
+      d:'Xuống giọng ở câu trần thuật và câu hỏi Wh-; lên giọng ở câu hỏi Yes/No và khi liệt kê chưa hết.',
+      ex:[['She lives in Hanoi. ↘'],['Where do you live? ↘'],['Do you live in Hanoi? ↗'],['tea ↗, coffee ↗, or juice ↘?']] }
+  ],
+
+  /* ---------- Quy tắc chính tả → âm ---------- */
+  spelling: [
+    { t:'Đuôi -s (số nhiều, ngôi 3 số ít, sở hữu)',
+      d:'/ɪz/ sau âm rít s, z, ʃ, ʒ, tʃ, dʒ · /s/ sau âm vô thanh khác · /z/ sau âm hữu thanh và nguyên âm.',
+      ex:[['watches','ˈwɒtʃɪz'],['books','bʊks'],['dogs','dɒɡz'],['plays','pleɪz']] },
+    { t:'Đuôi -ed (quá khứ, phân từ)',
+      d:'/ɪd/ sau /t/ và /d/ · /t/ sau âm vô thanh khác · /d/ sau âm hữu thanh và nguyên âm.',
+      ex:[['wanted','ˈwɒntɪd'],['worked','wɜːkt'],['played','pleɪd'],['needed','ˈniːdɪd']] },
+    { t:'Quy tắc «e câm» (magic e)',
+      d:'Chữ e cuối không đọc nhưng làm nguyên âm trước đó thành nguyên âm dài / đôi.',
+      ex:[['hat hæt → hate heɪt'],['bit bɪt → bite baɪt'],['not nɒt → note nəʊt'],['cut kʌt → cute kjuːt']] },
+    { t:'Chữ cái câm',
+      d:'Rất nhiều từ giữ chữ không đọc do lịch sử chính tả.',
+      ex:[['k câm — know, knee, knife'],['w câm — write, wrong, answer'],['b câm — climb, doubt, lamb'],['gh câm — night, though, weight'],['t câm — listen, castle, often'],['h câm — hour, honest, ghost']] },
+    { t:'ough — bảy cách đọc',
+      d:'Chuỗi chữ bất trị nhất tiếng Anh, phải học theo từ.',
+      ex:[['though','ðəʊ'],['through','θruː'],['tough','tʌf'],['cough','kɒf'],['bough','baʊ'],['thorough','ˈθʌrə'],['thought','θɔːt']] },
+    { t:'c và g mềm',
+      d:'Trước e, i, y thì c đọc /s/ và g đọc /dʒ/; trước a, o, u thì c đọc /k/ và g đọc /ɡ/.',
+      ex:[['city ˈsɪti · cat kæt'],['gym dʒɪm · go ɡəʊ'],['circle ˈsɜːkl'],['giant ˈdʒaɪənt']] }
+  ],
+
+  /* ---------- Anh vs Mỹ ---------- */
+  variants: [
+    { t:'Âm /r/ cuối âm tiết', uk:'không đọc — car /kɑː/, hard /hɑːd/', us:'đọc rõ và cuộn lưỡi — car /kɑːr/, hard /hɑːrd/' },
+    { t:'Chữ a trước s, f, th', uk:'/ɑː/ — bath /bɑːθ/, ask /ɑːsk/, dance /dɑːns/', us:'/æ/ — bath /bæθ/, ask /æsk/, dance /dæns/' },
+    { t:'Âm /ɒ/', uk:'giữ nguyên /ɒ/ — hot /hɒt/, not /nɒt/', us:'thành /ɑː/ — hot /hɑːt/, not /nɑːt/' },
+    { t:'/t/ giữa hai nguyên âm', uk:'giữ /t/ rõ — water /ˈwɔːtə/', us:'thành âm vỗ gần /d/ — water /ˈwɑːɾər/' },
+    { t:'/juː/ sau t, d, n', uk:'giữ /j/ — tune /tjuːn/, new /njuː/, duty /ˈdjuːti/', us:'rụng /j/ — tune /tuːn/, new /nuː/, duty /ˈduːti/' },
+    { t:'Trọng âm một số từ', uk:'ADdress ˈædres · GARage ˈɡærɑːʒ · BALlet ˈbæleɪ', us:'aDDRESS əˈdres · gaRAGE ɡəˈrɑːʒ · balLET bæˈleɪ' },
+    { t:'Chính tả', uk:'colour, centre, travelling, realise, defence, catalogue', us:'color, center, traveling, realize, defense, catalog' }
+  ]
+};
+
+/* Gộp toàn bộ âm vị thành một mảng phẳng để tra cứu */
+const PHON_EN_ALL = []
+  .concat(PHON_EN.vowels.map(x => Object.assign({ group:'vowel' }, x)))
+  .concat(PHON_EN.diphthongs.map(x => Object.assign({ group:'diph' }, x)))
+  .concat(PHON_EN.consonants.map(x => Object.assign({ group:'cons' }, x)));
+
+if (typeof module !== 'undefined'){ module.exports = { PHON_EN, PHON_EN_ALL }; }
+
+</script>
+<script>
+/* ============================================================
+   LangLab — Khoá tiếng Anh theo khung CEFR
+   Nhân vật xuyên suốt: Quan — sinh viên Hà Nội, học tiếng Anh rồi
+   đi làm, du học và làm việc quốc tế.
+   Mỗi unit: mục tiêu giao tiếp · ngữ pháp · từ vựng (IPA Anh/Mỹ) ·
+   collocation · hội thoại · bài đọc.
+   Nội dung do LangLab tự biên soạn.
+   ============================================================ */
+
+const COURSE_EN = {
+  levels: [
+    { id:'a1', vi:'A1 · Sơ cấp',        en:'Beginner',           lessons:20, status:'active' },
+    { id:'a2', vi:'A2 · Sơ trung cấp',  en:'Elementary',         lessons:20, status:'active' },
+    { id:'b1', vi:'B1 · Trung cấp',     en:'Intermediate',       lessons:20, status:'soon' },
+    { id:'b2', vi:'B2 · Trung cao cấp', en:'Upper-Intermediate', lessons:20, status:'soon' },
+    { id:'c1', vi:'C1 · Cao cấp',       en:'Advanced',           lessons:20, status:'soon' },
+    { id:'c2', vi:'C2 · Thành thạo',    en:'Proficiency',        lessons:20, status:'soon' }
+  ],
+
+  lessons: [
+  /* ==================== A1 ==================== */
+  { level:'a1', no:1, en:'Hello! Nice to meet you', vi:'Chào hỏi và giới thiệu bản thân', skill:'Giao tiếp',
+    grammar:[
+      { form:'I am / You are / He is — động từ «to be»', vi:'Động từ «be» nối chủ ngữ với tên, nghề, quốc tịch, tính chất.', note:'Dạng rút gọn dùng trong nói: I am → I’m, you are → you’re, he is → he’s.', ex:{ en:'I am Quan. I am from Hanoi.', vi:'Tôi là Quân. Tôi đến từ Hà Nội.' } },
+      { form:'Am I…? / Are you…? / Is he…? — câu hỏi Yes/No', vi:'Đảo «be» lên trước chủ ngữ để hỏi.', note:'Trả lời ngắn: Yes, I am. / No, I’m not. Không nói «Yes, I’m».', ex:{ en:'Are you a student? Yes, I am.', vi:'Bạn là sinh viên phải không? Vâng, đúng vậy.' } },
+      { form:'My / your / his / her — tính từ sở hữu', vi:'Đứng trước danh từ để chỉ ai sở hữu.', note:'Không đổi theo số nhiều: my book, my books.', ex:{ en:'My name is Quan. Her name is Linh.', vi:'Tên tôi là Quân. Tên cô ấy là Linh.' } },
+      { form:'a / an — mạo từ không xác định', vi:'Dùng trước danh từ đếm được số ít khi nhắc lần đầu.', note:'«an» đứng trước ÂM nguyên âm chứ không phải chữ cái: an hour, a university.', ex:{ en:'I am a student. She is an engineer.', vi:'Tôi là sinh viên. Cô ấy là kỹ sư.' } }
+    ],
+    vocab:[
+      { en:'hello', uk:'həˈləʊ', us:'həˈloʊ', vi:'xin chào', pos:'thán từ' },
+      { en:'name', uk:'neɪm', us:'neɪm', vi:'tên', pos:'danh từ' },
+      { en:'student', uk:'ˈstjuːdnt', us:'ˈstuːdnt', vi:'sinh viên, học sinh', pos:'danh từ', note:'Anh có /j/, Mỹ không.' },
+      { en:'teacher', uk:'ˈtiːtʃə', us:'ˈtiːtʃər', vi:'giáo viên', pos:'danh từ' },
+      { en:'engineer', uk:'ˌendʒɪˈnɪə', us:'ˌendʒɪˈnɪr', vi:'kỹ sư', pos:'danh từ', note:'Trọng âm ở đuôi -eer.' },
+      { en:'country', uk:'ˈkʌntri', us:'ˈkʌntri', vi:'đất nước', pos:'danh từ' },
+      { en:'city', uk:'ˈsɪti', us:'ˈsɪti', vi:'thành phố', pos:'danh từ' },
+      { en:'friend', uk:'frend', us:'frend', vi:'bạn', pos:'danh từ' },
+      { en:'nice', uk:'naɪs', us:'naɪs', vi:'dễ chịu, tốt', pos:'tính từ' },
+      { en:'meet', uk:'miːt', us:'miːt', vi:'gặp', pos:'động từ', note:'met — met' },
+      { en:'from', uk:'frɒm', us:'frɑːm', vi:'từ', pos:'giới từ' },
+      { en:'welcome', uk:'ˈwelkəm', us:'ˈwelkəm', vi:'chào mừng', pos:'thán từ, động từ' },
+      { en:'morning', uk:'ˈmɔːnɪŋ', us:'ˈmɔːrnɪŋ', vi:'buổi sáng', pos:'danh từ' },
+      { en:'afternoon', uk:'ˌɑːftəˈnuːn', us:'ˌæftərˈnuːn', vi:'buổi chiều', pos:'danh từ' },
+      { en:'evening', uk:'ˈiːvnɪŋ', us:'ˈiːvnɪŋ', vi:'buổi tối', pos:'danh từ' },
+      { en:'thanks', uk:'θæŋks', us:'θæŋks', vi:'cảm ơn', pos:'thán từ' },
+      { en:'sorry', uk:'ˈsɒri', us:'ˈsɑːri', vi:'xin lỗi', pos:'tính từ' },
+      { en:'please', uk:'pliːz', us:'pliːz', vi:'làm ơn', pos:'trạng từ' },
+      { en:'excuse', uk:'ɪkˈskjuːz', us:'ɪkˈskjuːz', vi:'thứ lỗi', pos:'động từ', note:'Excuse me — xin phép, làm phiền.' },
+      { en:'goodbye', uk:'ˌɡʊdˈbaɪ', us:'ˌɡʊdˈbaɪ', vi:'tạm biệt', pos:'thán từ' }
+    ],
+    colloc:[
+      { p:'Nice to meet you.', vi:'Rất vui được gặp bạn — câu chuẩn khi gặp lần đầu.', ex:'Nice to meet you, Linh.' },
+      { p:'Excuse me, …', vi:'Xin lỗi cho hỏi — mở lời với người lạ, KHÔNG phải xin lỗi vì lỗi.', ex:'Excuse me, are you Mr Brown?' },
+      { p:'How do you do?', vi:'Lối chào rất trang trọng; câu đáp cũng là How do you do?', ex:'How do you do? — How do you do?' }
+    ],
+    dialogue:[
+      { sp:'Linh', en:'Good morning. Are you Quan?', vi:'Chào buổi sáng. Bạn là Quân phải không?' },
+      { sp:'Quan', en:'Yes, I am. Nice to meet you.', vi:'Vâng, đúng vậy. Rất vui được gặp bạn.' },
+      { sp:'Linh', en:'Nice to meet you too. My name is Linh.', vi:'Tôi cũng vậy. Tên tôi là Linh.' },
+      { sp:'Quan', en:'Where are you from, Linh?', vi:'Bạn đến từ đâu vậy, Linh?' },
+      { sp:'Linh', en:'I am from Hue. And you?', vi:'Tôi đến từ Huế. Còn bạn?' },
+      { sp:'Quan', en:'I am from Hanoi. I am a student here.', vi:'Tôi đến từ Hà Nội. Tôi là sinh viên ở đây.' },
+      { sp:'Linh', en:'Me too. See you in class!', vi:'Tôi cũng thế. Hẹn gặp trong lớp nhé!' }
+    ],
+    reading:{ en:'My name is Quan. I am twenty years old and I am from Hanoi, the capital of Vietnam. I am a student at a university in the city. My friend Linh is from Hue. She is a student too. We are in the same English class. Our teacher is Mr Brown. He is from London.',
+      vi:'Tôi tên là Quân. Tôi hai mươi tuổi và đến từ Hà Nội, thủ đô của Việt Nam. Tôi là sinh viên một trường đại học trong thành phố. Bạn tôi, Linh, đến từ Huế. Cô ấy cũng là sinh viên. Chúng tôi học chung lớp tiếng Anh. Thầy giáo của chúng tôi là thầy Brown. Thầy đến từ London.' } },
+
+  { level:'a1', no:2, en:'Numbers, time and dates', vi:'Số đếm, giờ giấc và ngày tháng', skill:'Thông tin cơ bản',
+    grammar:[
+      { form:'Số đếm và số thứ tự', vi:'one, two, three… / first, second, third…', note:'Số thứ tự thêm -th trừ 1st, 2nd, 3rd và các số kết thúc bằng chúng.', ex:{ en:'She lives on the third floor.', vi:'Cô ấy sống ở tầng ba.' } },
+      { form:'What time is it? — It’s half past seven.', vi:'Cách nói giờ kiểu Anh: past (hơn) và to (kém).', note:'Kiểu Mỹ nói thẳng số: It’s seven thirty. Cả hai đều đúng.', ex:{ en:'It is a quarter to nine.', vi:'Bây giờ là chín giờ kém mười lăm.' } },
+      { form:'at / on / in — giới từ thời gian', vi:'at + giờ · on + ngày, thứ · in + tháng, mùa, năm.', note:'Ngoại lệ: at night, at the weekend (Anh) / on the weekend (Mỹ).', ex:{ en:'The class starts at eight on Monday.', vi:'Lớp bắt đầu lúc tám giờ vào thứ Hai.' } },
+      { form:'How old are you? — I am twenty.', vi:'Hỏi tuổi bằng «be», không dùng «have».', note:'Không nói «I have twenty years» — đó là lối tiếng Pháp/Việt.', ex:{ en:'My sister is fifteen years old.', vi:'Em gái tôi mười lăm tuổi.' } }
+    ],
+    vocab:[
+      { en:'number', uk:'ˈnʌmbə', us:'ˈnʌmbər', vi:'số', pos:'danh từ' },
+      { en:'one', uk:'wʌn', us:'wʌn', vi:'một', pos:'số' },
+      { en:'twelve', uk:'twelv', us:'twelv', vi:'mười hai', pos:'số' },
+      { en:'thirteen', uk:'ˌθɜːˈtiːn', us:'ˌθɜːrˈtiːn', vi:'mười ba', pos:'số', note:'Trọng âm cuối, khác thirty ˈθɜːti.' },
+      { en:'thirty', uk:'ˈθɜːti', us:'ˈθɜːrti', vi:'ba mươi', pos:'số' },
+      { en:'hundred', uk:'ˈhʌndrəd', us:'ˈhʌndrəd', vi:'trăm', pos:'số' },
+      { en:'thousand', uk:'ˈθaʊznd', us:'ˈθaʊznd', vi:'nghìn', pos:'số' },
+      { en:'clock', uk:'klɒk', us:'klɑːk', vi:'đồng hồ (treo)', pos:'danh từ' },
+      { en:'hour', uk:'ˈaʊə', us:'ˈaʊər', vi:'giờ', pos:'danh từ', note:'h câm — dùng «an hour».' },
+      { en:'minute', uk:'ˈmɪnɪt', us:'ˈmɪnɪt', vi:'phút', pos:'danh từ' },
+      { en:'quarter', uk:'ˈkwɔːtə', us:'ˈkwɔːrtər', vi:'một phần tư, mười lăm phút', pos:'danh từ' },
+      { en:'half', uk:'hɑːf', us:'hæf', vi:'một nửa', pos:'danh từ', note:'l câm.' },
+      { en:'Monday', uk:'ˈmʌndeɪ', us:'ˈmʌndeɪ', vi:'thứ Hai', pos:'danh từ' },
+      { en:'weekend', uk:'ˌwiːkˈend', us:'ˈwiːkend', vi:'cuối tuần', pos:'danh từ' },
+      { en:'month', uk:'mʌnθ', us:'mʌnθ', vi:'tháng', pos:'danh từ' },
+      { en:'January', uk:'ˈdʒænjuəri', us:'ˈdʒænjueri', vi:'tháng Một', pos:'danh từ' },
+      { en:'birthday', uk:'ˈbɜːθdeɪ', us:'ˈbɜːrθdeɪ', vi:'sinh nhật', pos:'danh từ' },
+      { en:'year', uk:'jɪə', us:'jɪr', vi:'năm', pos:'danh từ' },
+      { en:'today', uk:'təˈdeɪ', us:'təˈdeɪ', vi:'hôm nay', pos:'trạng từ' },
+      { en:'tomorrow', uk:'təˈmɒrəʊ', us:'təˈmɑːroʊ', vi:'ngày mai', pos:'trạng từ' }
+    ],
+    colloc:[
+      { p:'What time is it?', vi:'Mấy giờ rồi? — câu hỏi giờ thông dụng nhất.', ex:'Excuse me, what time is it?' },
+      { p:'on time / in time', vi:'on time = đúng giờ · in time = kịp lúc. Hai nghĩa khác nhau.', ex:'The train was on time, and we arrived in time for dinner.' },
+      { p:'What is the date today?', vi:'Hôm nay ngày mấy?', ex:'What is the date today? — It is the fifth of March.' }
+    ],
+    dialogue:[
+      { sp:'Quan', en:'Excuse me, what time is it?', vi:'Xin lỗi, mấy giờ rồi ạ?' },
+      { sp:'Linh', en:'It is half past seven.', vi:'Bảy giờ rưỡi.' },
+      { sp:'Quan', en:'Thanks. What time does the class start?', vi:'Cảm ơn. Lớp bắt đầu lúc mấy giờ?' },
+      { sp:'Linh', en:'At eight o’clock, in room twelve.', vi:'Lúc tám giờ, ở phòng mười hai.' },
+      { sp:'Quan', en:'And when is the test?', vi:'Còn bài kiểm tra khi nào?' },
+      { sp:'Linh', en:'On Friday, the tenth of May.', vi:'Vào thứ Sáu, ngày mười tháng Năm.' }
+    ],
+    reading:{ en:'Quan gets up at six o’clock every morning. He has breakfast at half past six and leaves home at seven. His first class starts at eight and finishes at half past nine. On Saturday he does not go to school. His birthday is on the third of April. This year it is on a Sunday, so his family will have lunch together at twelve.',
+      vi:'Quân dậy lúc sáu giờ mỗi sáng. Cậu ăn sáng lúc sáu rưỡi và rời nhà lúc bảy giờ. Lớp đầu tiên bắt đầu lúc tám giờ và kết thúc lúc chín rưỡi. Thứ Bảy cậu không đi học. Sinh nhật cậu vào ngày ba tháng Tư. Năm nay rơi vào Chủ nhật, nên cả nhà sẽ ăn trưa cùng nhau lúc mười hai giờ.' } },
+
+  { level:'a1', no:3, en:'My family', vi:'Gia đình và người thân', skill:'Miêu tả',
+    grammar:[
+      { form:'have got / have — sở hữu', vi:'Anh dùng «have got», Mỹ dùng «have». Nghĩa như nhau.', note:'I have got = I’ve got. Câu hỏi: Have you got…? / Do you have…?', ex:{ en:'I have got two sisters.', vi:'Tôi có hai chị em gái.' } },
+      { form:'’s sở hữu cách', vi:'Thêm ’s vào người sở hữu: my mother’s name.', note:'Danh từ số nhiều đã có -s thì chỉ thêm dấu phẩy trên: my parents’ house.', ex:{ en:'This is my brother’s bike.', vi:'Đây là xe đạp của anh trai tôi.' } },
+      { form:'Danh từ số nhiều', vi:'Thêm -s; -es sau ch, sh, s, x, o; -ies sau phụ âm + y.', note:'Bất quy tắc: child–children, man–men, woman–women, foot–feet, person–people.', ex:{ en:'I have three brothers and two babies at home.', vi:'Tôi có ba anh em trai và hai em bé ở nhà.' } },
+      { form:'There is / There are', vi:'Dùng để nói «có» cái gì ở đâu.', note:'Số ít → is, số nhiều → are. Phủ định: There isn’t / There aren’t.', ex:{ en:'There are five people in my family.', vi:'Gia đình tôi có năm người.' } }
+    ],
+    vocab:[
+      { en:'family', uk:'ˈfæməli', us:'ˈfæməli', vi:'gia đình', pos:'danh từ' },
+      { en:'parents', uk:'ˈpeərənts', us:'ˈperənts', vi:'bố mẹ', pos:'danh từ' },
+      { en:'father', uk:'ˈfɑːðə', us:'ˈfɑːðər', vi:'bố', pos:'danh từ' },
+      { en:'mother', uk:'ˈmʌðə', us:'ˈmʌðər', vi:'mẹ', pos:'danh từ' },
+      { en:'brother', uk:'ˈbrʌðə', us:'ˈbrʌðər', vi:'anh, em trai', pos:'danh từ' },
+      { en:'sister', uk:'ˈsɪstə', us:'ˈsɪstər', vi:'chị, em gái', pos:'danh từ' },
+      { en:'son', uk:'sʌn', us:'sʌn', vi:'con trai', pos:'danh từ' },
+      { en:'daughter', uk:'ˈdɔːtə', us:'ˈdɔːtər', vi:'con gái', pos:'danh từ', note:'gh câm.' },
+      { en:'grandmother', uk:'ˈɡrænmʌðə', us:'ˈɡrænmʌðər', vi:'bà', pos:'danh từ' },
+      { en:'uncle', uk:'ˈʌŋkl', us:'ˈʌŋkl', vi:'chú, bác, cậu', pos:'danh từ' },
+      { en:'aunt', uk:'ɑːnt', us:'ænt', vi:'cô, dì, bác gái', pos:'danh từ' },
+      { en:'cousin', uk:'ˈkʌzn', us:'ˈkʌzn', vi:'anh chị em họ', pos:'danh từ' },
+      { en:'husband', uk:'ˈhʌzbənd', us:'ˈhʌzbənd', vi:'chồng', pos:'danh từ' },
+      { en:'wife', uk:'waɪf', us:'waɪf', vi:'vợ', pos:'danh từ', note:'số nhiều: wives' },
+      { en:'child', uk:'tʃaɪld', us:'tʃaɪld', vi:'đứa trẻ', pos:'danh từ', note:'số nhiều: children ˈtʃɪldrən' },
+      { en:'married', uk:'ˈmærid', us:'ˈmerid', vi:'đã kết hôn', pos:'tính từ' },
+      { en:'single', uk:'ˈsɪŋɡl', us:'ˈsɪŋɡl', vi:'độc thân', pos:'tính từ' },
+      { en:'young', uk:'jʌŋ', us:'jʌŋ', vi:'trẻ', pos:'tính từ' },
+      { en:'old', uk:'əʊld', us:'oʊld', vi:'già, cũ', pos:'tính từ' },
+      { en:'together', uk:'təˈɡeðə', us:'təˈɡeðər', vi:'cùng nhau', pos:'trạng từ' }
+    ],
+    colloc:[
+      { p:'get married', vi:'kết hôn — «marry» dùng thẳng với tân ngữ: marry someone.', ex:'They got married last year.' },
+      { p:'look after someone', vi:'chăm sóc ai đó', ex:'She looks after her grandmother.' },
+      { p:'take after someone', vi:'giống ai (về ngoại hình, tính cách) — người trong họ', ex:'He takes after his father.' }
+    ],
+    dialogue:[
+      { sp:'Linh', en:'Is this a photo of your family?', vi:'Đây là ảnh gia đình bạn à?' },
+      { sp:'Quan', en:'Yes. There are five of us.', vi:'Ừ. Nhà tớ có năm người.' },
+      { sp:'Linh', en:'Who is the man on the left?', vi:'Người đàn ông bên trái là ai vậy?' },
+      { sp:'Quan', en:'That is my father. He is a doctor.', vi:'Đó là bố tớ. Bố tớ là bác sĩ.' },
+      { sp:'Linh', en:'Have you got any brothers or sisters?', vi:'Bạn có anh chị em không?' },
+      { sp:'Quan', en:'I have got one sister. She is sixteen.', vi:'Tớ có một em gái. Em ấy mười sáu tuổi.' },
+      { sp:'Linh', en:'She takes after your mother!', vi:'Em ấy giống mẹ bạn ghê!' }
+    ],
+    reading:{ en:'There are five people in Quan’s family: his parents, his grandmother, his sister and him. His father is a doctor and his mother is a teacher. His grandmother is seventy-eight years old and she lives with them. His sister’s name is Mai. She is sixteen and she is still at school. At the weekend the family often has dinner together and his father cooks.',
+      vi:'Gia đình Quân có năm người: bố mẹ, bà, em gái và cậu. Bố cậu là bác sĩ còn mẹ là giáo viên. Bà cậu bảy mươi tám tuổi và sống cùng gia đình. Em gái cậu tên Mai. Em ấy mười sáu tuổi và vẫn đang đi học. Cuối tuần cả nhà thường ăn tối cùng nhau và bố cậu nấu ăn.' } },
+
+  { level:'a1', no:4, en:'Daily routine', vi:'Thói quen hằng ngày', skill:'Kể việc thường làm',
+    grammar:[
+      { form:'Thì hiện tại đơn — khẳng định', vi:'Diễn tả thói quen, sự thật hiển nhiên.', note:'Ngôi thứ ba số ít (he/she/it) thêm -s: he works, she studies, it goes.', ex:{ en:'Quan studies English every day.', vi:'Quân học tiếng Anh mỗi ngày.' } },
+      { form:'do / does — phủ định và câu hỏi', vi:'Dùng trợ động từ do/does; động từ chính trở về nguyên thể.', note:'He doesn’t workS là sai — sau does, động từ KHÔNG thêm -s.', ex:{ en:'Does he work on Saturday? No, he doesn’t.', vi:'Anh ấy có làm việc thứ Bảy không? Không.' } },
+      { form:'Trạng từ tần suất', vi:'always > usually > often > sometimes > rarely > never.', note:'Đứng TRƯỚC động từ thường nhưng SAU động từ «be»: He is always late.', ex:{ en:'I usually get up at six.', vi:'Tôi thường dậy lúc sáu giờ.' } },
+      { form:'How often…? — every / once / twice', vi:'Hỏi và trả lời về mức độ thường xuyên.', note:'once a week, twice a month, three times a year.', ex:{ en:'How often do you go to the gym? Twice a week.', vi:'Bạn đi tập bao lâu một lần? Hai lần một tuần.' } }
+    ],
+    vocab:[
+      { en:'wake', uk:'weɪk', us:'weɪk', vi:'thức dậy', pos:'động từ', note:'wake up — woke — woken' },
+      { en:'breakfast', uk:'ˈbrekfəst', us:'ˈbrekfəst', vi:'bữa sáng', pos:'danh từ' },
+      { en:'shower', uk:'ˈʃaʊə', us:'ˈʃaʊər', vi:'vòi sen, tắm', pos:'danh từ' },
+      { en:'brush', uk:'brʌʃ', us:'brʌʃ', vi:'chải, đánh (răng)', pos:'động từ' },
+      { en:'leave', uk:'liːv', us:'liːv', vi:'rời đi', pos:'động từ', note:'left — left' },
+      { en:'arrive', uk:'əˈraɪv', us:'əˈraɪv', vi:'đến nơi', pos:'động từ', note:'arrive at / in, không dùng «arrive to».' },
+      { en:'work', uk:'wɜːk', us:'wɜːrk', vi:'làm việc', pos:'động từ, danh từ' },
+      { en:'study', uk:'ˈstʌdi', us:'ˈstʌdi', vi:'học', pos:'động từ' },
+      { en:'lunch', uk:'lʌntʃ', us:'lʌntʃ', vi:'bữa trưa', pos:'danh từ' },
+      { en:'dinner', uk:'ˈdɪnə', us:'ˈdɪnər', vi:'bữa tối', pos:'danh từ' },
+      { en:'finish', uk:'ˈfɪnɪʃ', us:'ˈfɪnɪʃ', vi:'kết thúc', pos:'động từ' },
+      { en:'always', uk:'ˈɔːlweɪz', us:'ˈɔːlweɪz', vi:'luôn luôn', pos:'trạng từ' },
+      { en:'usually', uk:'ˈjuːʒuəli', us:'ˈjuːʒuəli', vi:'thường', pos:'trạng từ' },
+      { en:'often', uk:'ˈɒfn', us:'ˈɔːfn', vi:'hay, thường xuyên', pos:'trạng từ', note:'t thường câm.' },
+      { en:'sometimes', uk:'ˈsʌmtaɪmz', us:'ˈsʌmtaɪmz', vi:'thỉnh thoảng', pos:'trạng từ' },
+      { en:'never', uk:'ˈnevə', us:'ˈnevər', vi:'không bao giờ', pos:'trạng từ' },
+      { en:'early', uk:'ˈɜːli', us:'ˈɜːrli', vi:'sớm', pos:'trạng từ, tính từ' },
+      { en:'late', uk:'leɪt', us:'leɪt', vi:'muộn', pos:'trạng từ, tính từ' },
+      { en:'busy', uk:'ˈbɪzi', us:'ˈbɪzi', vi:'bận', pos:'tính từ', note:'u đọc /ɪ/.' },
+      { en:'free', uk:'friː', us:'friː', vi:'rảnh, miễn phí', pos:'tính từ' }
+    ],
+    colloc:[
+      { p:'get up / wake up', vi:'wake up = tỉnh giấc · get up = ra khỏi giường. Hai việc khác nhau.', ex:'I wake up at six but I get up at half past six.' },
+      { p:'have breakfast / lunch / dinner', vi:'dùng «have», không dùng «eat» trong lối nói chuẩn.', ex:'We usually have dinner at seven.' },
+      { p:'go to bed / go to sleep', vi:'go to bed = lên giường · go to sleep = ngủ thiếp đi.', ex:'He goes to bed at ten and goes to sleep at half past ten.' }
+    ],
+    dialogue:[
+      { sp:'Linh', en:'What time do you usually get up?', vi:'Bạn thường dậy lúc mấy giờ?' },
+      { sp:'Quan', en:'At six. I never get up late.', vi:'Sáu giờ. Tớ không bao giờ dậy muộn.' },
+      { sp:'Linh', en:'Really? What do you do after breakfast?', vi:'Thật à? Sau bữa sáng bạn làm gì?' },
+      { sp:'Quan', en:'I go to the library and study for two hours.', vi:'Tớ tới thư viện và học hai tiếng.' },
+      { sp:'Linh', en:'Do you work in the afternoon?', vi:'Buổi chiều bạn có đi làm không?' },
+      { sp:'Quan', en:'Yes, I do. I work at a coffee shop three times a week.', vi:'Có. Tớ làm ở quán cà phê ba buổi một tuần.' }
+    ],
+    reading:{ en:'Quan has a busy week. He wakes up at six, has a quick breakfast and leaves home at seven. He arrives at university at half past seven and his first class starts at eight. He usually has lunch with Linh at twelve. Three times a week he works at a coffee shop from two to six. He gets home at seven, has dinner with his family and studies until ten. He never goes to bed after eleven.',
+      vi:'Quân có một tuần bận rộn. Cậu dậy lúc sáu giờ, ăn sáng nhanh và rời nhà lúc bảy giờ. Cậu tới trường lúc bảy rưỡi và lớp đầu tiên bắt đầu lúc tám giờ. Cậu thường ăn trưa với Linh lúc mười hai giờ. Ba buổi một tuần cậu làm ở quán cà phê từ hai đến sáu giờ. Cậu về nhà lúc bảy giờ, ăn tối cùng gia đình và học đến mười giờ. Cậu không bao giờ đi ngủ sau mười một giờ.' } },
+
+  { level:'a1', no:5, en:'Where I live', vi:'Nhà cửa và nơi ở', skill:'Miêu tả nơi chốn',
+    grammar:[
+      { form:'There is / There are + a, some, any', vi:'a + số ít · some trong câu khẳng định · any trong phủ định và câu hỏi.', note:'There isn’t any milk. Is there any bread?', ex:{ en:'There are some chairs but there isn’t any table.', vi:'Có mấy cái ghế nhưng không có cái bàn nào.' } },
+      { form:'Giới từ nơi chốn', vi:'in (trong) · on (trên bề mặt) · under · next to · between · behind · in front of · opposite.', note:'in the picture, on the wall, at the corner — mỗi cụm có giới từ cố định.', ex:{ en:'The lamp is next to the bed.', vi:'Cái đèn ở cạnh giường.' } },
+      { form:'this / that / these / those', vi:'this–these (gần) · that–those (xa).', note:'Dùng cả khi nghe điện thoại: This is Quan speaking.', ex:{ en:'This is my room and those are my books.', vi:'Đây là phòng tôi và kia là sách của tôi.' } },
+      { form:'Câu hỏi Wh-', vi:'What, Where, When, Who, Why, How, How many, How much.', note:'Trật tự: Wh- + trợ động từ + chủ ngữ + động từ.', ex:{ en:'How many rooms are there in your house?', vi:'Nhà bạn có mấy phòng?' } }
+    ],
+    vocab:[
+      { en:'house', uk:'haʊs', us:'haʊs', vi:'ngôi nhà', pos:'danh từ' },
+      { en:'flat', uk:'flæt', us:'flæt', vi:'căn hộ (Anh)', pos:'danh từ', note:'Mỹ: apartment' },
+      { en:'room', uk:'ruːm', us:'ruːm', vi:'phòng', pos:'danh từ' },
+      { en:'kitchen', uk:'ˈkɪtʃɪn', us:'ˈkɪtʃɪn', vi:'bếp', pos:'danh từ' },
+      { en:'bedroom', uk:'ˈbedruːm', us:'ˈbedruːm', vi:'phòng ngủ', pos:'danh từ' },
+      { en:'bathroom', uk:'ˈbɑːθruːm', us:'ˈbæθruːm', vi:'phòng tắm', pos:'danh từ' },
+      { en:'garden', uk:'ˈɡɑːdn', us:'ˈɡɑːrdn', vi:'vườn', pos:'danh từ' },
+      { en:'floor', uk:'flɔː', us:'flɔːr', vi:'sàn, tầng', pos:'danh từ' },
+      { en:'wall', uk:'wɔːl', us:'wɔːl', vi:'tường', pos:'danh từ' },
+      { en:'window', uk:'ˈwɪndəʊ', us:'ˈwɪndoʊ', vi:'cửa sổ', pos:'danh từ' },
+      { en:'door', uk:'dɔː', us:'dɔːr', vi:'cửa', pos:'danh từ' },
+      { en:'table', uk:'ˈteɪbl', us:'ˈteɪbl', vi:'bàn', pos:'danh từ' },
+      { en:'chair', uk:'tʃeə', us:'tʃer', vi:'ghế', pos:'danh từ' },
+      { en:'sofa', uk:'ˈsəʊfə', us:'ˈsoʊfə', vi:'ghế sofa', pos:'danh từ' },
+      { en:'lamp', uk:'læmp', us:'læmp', vi:'đèn', pos:'danh từ' },
+      { en:'quiet', uk:'ˈkwaɪət', us:'ˈkwaɪət', vi:'yên tĩnh', pos:'tính từ' },
+      { en:'noisy', uk:'ˈnɔɪzi', us:'ˈnɔɪzi', vi:'ồn ào', pos:'tính từ' },
+      { en:'comfortable', uk:'ˈkʌmftəbl', us:'ˈkʌmfərtəbl', vi:'thoải mái', pos:'tính từ' },
+      { en:'near', uk:'nɪə', us:'nɪr', vi:'gần', pos:'giới từ' },
+      { en:'between', uk:'bɪˈtwiːn', us:'bɪˈtwiːn', vi:'giữa (hai)', pos:'giới từ' }
+    ],
+    colloc:[
+      { p:'live in / live at', vi:'live in + thành phố, nước, phố · live at + số nhà cụ thể.', ex:'I live in Hanoi, at 25 Le Duan Street.' },
+      { p:'move house / move in', vi:'move house = chuyển nhà · move in = dọn vào ở.', ex:'They moved house last month and moved in on Sunday.' },
+      { p:'share a flat with someone', vi:'ở ghép, thuê chung căn hộ', ex:'He shares a flat with two friends.' }
+    ],
+    dialogue:[
+      { sp:'Linh', en:'Where do you live now?', vi:'Bây giờ bạn sống ở đâu?' },
+      { sp:'Quan', en:'I live in a small flat near the university.', vi:'Tớ ở một căn hộ nhỏ gần trường.' },
+      { sp:'Linh', en:'How many rooms are there?', vi:'Có mấy phòng vậy?' },
+      { sp:'Quan', en:'There are two: a bedroom and a kitchen.', vi:'Có hai: một phòng ngủ và một bếp.' },
+      { sp:'Linh', en:'Is it quiet?', vi:'Ở đó có yên tĩnh không?' },
+      { sp:'Quan', en:'Not really. There is a market in front of the building.', vi:'Không hẳn. Trước toà nhà có một cái chợ.' },
+      { sp:'Linh', en:'But it is convenient!', vi:'Nhưng mà tiện chứ!' }
+    ],
+    reading:{ en:'Quan lives in a small flat on the fourth floor of an old building. There is one bedroom, a small kitchen and a bathroom. In the bedroom there is a bed, a desk and a chair next to the window. There are some books on the desk and a lamp between the books and the computer. There is no garden, but there is a park opposite the building. It is not quiet, but the rent is cheap and the university is only ten minutes away.',
+      vi:'Quân sống trong một căn hộ nhỏ ở tầng bốn của một toà nhà cũ. Có một phòng ngủ, một bếp nhỏ và một phòng tắm. Trong phòng ngủ có một cái giường, một cái bàn học và một cái ghế cạnh cửa sổ. Trên bàn có mấy quyển sách và một cái đèn nằm giữa chồng sách với máy tính. Không có vườn, nhưng đối diện toà nhà có một công viên. Chỗ này không yên tĩnh, nhưng tiền thuê rẻ và trường chỉ cách mười phút.' } }
+
+  ]
+};
+
+if (typeof module !== 'undefined') module.exports = { COURSE_EN };
+
+</script>
+<script>
+/* ============================================================
+   LangLab — Từ điển Anh–Việt cho người học
+   Mỗi mục từ: phiên âm Anh/Mỹ, từ loại, các nghĩa xếp theo tần suất,
+   ví dụ có dịch, dạng biến đổi, họ từ, collocation, cụm động từ,
+   thành ngữ, từ đồng/trái nghĩa, nguồn gốc và ghi chú dùng từ.
+   Những từ chỉ có trong bài học mà chưa có mục chi tiết sẽ được
+   sinh mục cơ bản tự động từ COURSE_EN.
+   Nội dung do LangLab tự biên soạn.
+   ============================================================ */
+
+const EN_DICT = [
+
+/* ---------- ĐỘNG TỪ LÕI ---------- */
+{ w:'be', uk:'biː', us:'biː', pos:'động từ', reg:'trung tính',
+  forms:{ v:['be','am/is/are','was/were','been','being'] },
+  senses:[
+    { vi:'thì, là, ở — nối chủ ngữ với danh từ hoặc tính từ', ex:['She is a doctor.','Cô ấy là bác sĩ.'] },
+    { vi:'ở, nằm ở (chỉ vị trí)', ex:['The keys are on the table.','Chìa khoá ở trên bàn.'] },
+    { vi:'tồn tại, có (trong there is / there are)', ex:['There is a problem.','Có một vấn đề.'] },
+    { vi:'trợ động từ tạo thì tiếp diễn và bị động', ex:['The house is being painted.','Ngôi nhà đang được sơn.'] }
+  ],
+  colloc:['be about to (sắp sửa)','be able to (có thể)','be supposed to (lẽ ra phải)','be used to (đã quen với)'],
+  phrasal:[['be over','kết thúc — The meeting is over.'],['be up to','tuỳ vào ai / đang làm gì mờ ám'],['be off','đi khỏi; (đồ ăn) hỏng']],
+  idiom:[['be in the same boat','cùng cảnh ngộ'],['be on the ball','nhanh nhạy, bắt nhịp tốt']],
+  family:[['being','danh từ','sinh vật, sự tồn tại']],
+  note:'Người Việt hay bỏ «be» vì tiếng Việt không cần: «I happy» là lỗi phổ biến nhất của người mới học.' },
+
+{ w:'have', uk:'hæv', us:'hæv', pos:'động từ', reg:'trung tính',
+  forms:{ v:['have','has','had','had','having'] },
+  senses:[
+    { vi:'có, sở hữu', ex:['I have two brothers.','Tôi có hai anh em trai.'] },
+    { vi:'ăn, uống, dùng (bữa)', ex:['We had lunch at noon.','Chúng tôi ăn trưa lúc mười hai giờ.'] },
+    { vi:'trải qua, gặp phải', ex:['She had an accident.','Cô ấy gặp tai nạn.'] },
+    { vi:'trợ động từ tạo thì hoàn thành', ex:['They have finished.','Họ đã xong.'] },
+    { vi:'have something done — nhờ ai làm gì', ex:['I had my hair cut.','Tôi đi cắt tóc.'] }
+  ],
+  colloc:['have a shower','have a look','have a good time','have breakfast','have an idea','have a go (thử)'],
+  phrasal:[['have on','đang mặc; có lịch hẹn'],['have someone over','mời ai đến nhà']],
+  idiom:[['have a lot on your plate','có quá nhiều việc phải lo'],['have second thoughts','đổi ý, do dự']],
+  note:'Khi «have» nghĩa là sở hữu, người Anh hay thêm got: I have got a car. Khi là hành động (ăn, tắm) thì KHÔNG dùng got.' },
+
+{ w:'do', uk:'duː', us:'duː', pos:'động từ', reg:'trung tính',
+  forms:{ v:['do','does','did','done','doing'] },
+  senses:[
+    { vi:'làm, thực hiện (việc chung chung)', ex:['What do you do at the weekend?','Cuối tuần bạn làm gì?'] },
+    { vi:'trợ động từ tạo câu hỏi và phủ định', ex:['Do you like coffee?','Bạn có thích cà phê không?'] },
+    { vi:'dùng để nhấn mạnh', ex:['I do believe you.','Tôi thật sự tin bạn.'] }
+  ],
+  colloc:['do homework','do the washing-up','do business','do exercise','do research','do your best'],
+  phrasal:[['do up','cài, buộc; sửa sang lại'],['do without','xoay xở không cần'],['do away with','bãi bỏ']],
+  idiom:[['do the trick','có tác dụng, giải quyết được việc'],['easier said than done','nói dễ hơn làm']],
+  note:'DO hay MAKE? DO thiên về hành động, nhiệm vụ, công việc; MAKE thiên về tạo ra sản phẩm hoặc kết quả.' },
+
+{ w:'get', uk:'ɡet', us:'ɡet', pos:'động từ', reg:'thân mật hơn receive/become',
+  forms:{ v:['get','gets','got','got / gotten (Mỹ)','getting'] },
+  senses:[
+    { vi:'nhận được, có được', ex:['I got a letter yesterday.','Hôm qua tôi nhận được một lá thư.'] },
+    { vi:'mua, kiếm', ex:['Can you get some milk?','Bạn mua ít sữa được không?'] },
+    { vi:'trở nên (+ tính từ)', ex:['It is getting cold.','Trời đang lạnh dần.'] },
+    { vi:'đến nơi', ex:['We got to Hanoi at six.','Chúng tôi đến Hà Nội lúc sáu giờ.'] },
+    { vi:'hiểu (thân mật)', ex:['Sorry, I do not get it.','Xin lỗi, tôi không hiểu.'] }
+  ],
+  colloc:['get married','get dressed','get lost','get a job','get ready','get better'],
+  phrasal:[['get up','ra khỏi giường'],['get on with','hoà hợp với ai; tiếp tục làm'],['get over','vượt qua (nỗi buồn, bệnh)'],['get away with','thoát tội, không bị phạt'],['get across','truyền đạt được ý'],['get by','xoay xở đủ sống'],['get through','vượt qua; liên lạc được'],['get around to','rốt cuộc cũng làm được']],
+  idiom:[['get the hang of it','quen tay, nắm được cách làm'],['get cold feet','chùn bước phút chót']],
+  note:'GET là động từ nhiều nghĩa nhất trong tiếng Anh nói. Trong văn viết học thuật nên thay bằng receive, obtain, become tuỳ nghĩa.' },
+
+{ w:'take', uk:'teɪk', us:'teɪk', pos:'động từ',
+  forms:{ v:['take','takes','took','taken','taking'] },
+  senses:[
+    { vi:'cầm, lấy, mang đi', ex:['Take an umbrella with you.','Mang theo ô nhé.'] },
+    { vi:'mất (thời gian)', ex:['It takes two hours by train.','Đi tàu mất hai tiếng.'] },
+    { vi:'đi bằng (phương tiện)', ex:['I take the bus to work.','Tôi đi làm bằng xe buýt.'] },
+    { vi:'uống (thuốc); làm (bài thi)', ex:['She is taking the IELTS test.','Cô ấy đang thi IELTS.'] }
+  ],
+  colloc:['take a photo','take a break','take notes','take care','take part in','take place (diễn ra)'],
+  phrasal:[['take off','cất cánh; cởi ra; ăn nên làm ra'],['take up','bắt đầu một sở thích; chiếm chỗ'],['take after','giống ai trong nhà'],['take over','tiếp quản'],['take back','rút lại lời'],['take in','tiếp thu; lừa ai']],
+  idiom:[['take it easy','thư giãn đi'],['take something for granted','coi là đương nhiên']],
+  note:'take place = diễn ra (sự kiện), KHÔNG phải «lấy chỗ». Lấy chỗ là take up space.' },
+
+{ w:'make', uk:'meɪk', us:'meɪk', pos:'động từ',
+  forms:{ v:['make','makes','made','made','making'] },
+  senses:[
+    { vi:'làm ra, chế tạo', ex:['She made a cake.','Cô ấy làm một cái bánh.'] },
+    { vi:'khiến ai làm gì / trở nên thế nào', ex:['The film made me cry.','Bộ phim làm tôi khóc.'] },
+    { vi:'kiếm được (tiền)', ex:['He makes a good living.','Anh ấy kiếm sống khá tốt.'] }
+  ],
+  colloc:['make a decision','make a mistake','make friends','make progress','make sense','make an effort','make money'],
+  phrasal:[['make up','bịa ra; làm hoà; trang điểm'],['make out','nhìn/nghe ra được'],['make up for','bù đắp cho']],
+  idiom:[['make ends meet','kiếm đủ sống'],['make a fuss','làm om sòm']],
+  note:'Sau make (khiến) dùng động từ nguyên thể KHÔNG to: make me laugh. Nhưng ở bị động thì có to: I was made to wait.' },
+
+{ w:'go', uk:'ɡəʊ', us:'ɡoʊ', pos:'động từ',
+  forms:{ v:['go','goes','went','gone','going'] },
+  senses:[
+    { vi:'đi, đi tới', ex:['I go to school by bike.','Tôi đi học bằng xe đạp.'] },
+    { vi:'diễn ra, tiến triển', ex:['How did the interview go?','Buổi phỏng vấn thế nào?'] },
+    { vi:'trở nên (theo hướng xấu)', ex:['The milk has gone bad.','Sữa hỏng rồi.'] },
+    { vi:'be going to — sắp, dự định', ex:['It is going to rain.','Trời sắp mưa.'] }
+  ],
+  colloc:['go home','go shopping','go swimming','go abroad','go wrong','go online'],
+  phrasal:[['go on','tiếp tục; xảy ra'],['go out','ra ngoài chơi; (lửa, đèn) tắt'],['go through','trải qua; xem xét kỹ'],['go over','xem lại'],['go off','(chuông) reo; (đồ ăn) hỏng'],['go back','quay lại']],
+  idiom:[['go the extra mile','làm hơn mức được yêu cầu'],['go with the flow','thuận theo hoàn cảnh']],
+  note:'gone vs been: He has gone to Paris (vẫn đang ở đó) ≠ He has been to Paris (đã đi và về rồi).' },
+
+{ w:'come', uk:'kʌm', us:'kʌm', pos:'động từ',
+  forms:{ v:['come','comes','came','come','coming'] },
+  senses:[
+    { vi:'đến, tới (về phía người nói)', ex:['Come here, please.','Lại đây đi.'] },
+    { vi:'xuất xứ, đến từ', ex:['This tea comes from India.','Loại trà này đến từ Ấn Độ.'] },
+    { vi:'trở nên, xảy đến', ex:['His dream came true.','Giấc mơ của anh ấy thành sự thật.'] }
+  ],
+  colloc:['come first','come true','come to an end','come into effect'],
+  phrasal:[['come across','tình cờ gặp; gây ấn tượng là'],['come up with','nghĩ ra'],['come back','quay lại'],['come along','đi cùng; tiến triển'],['come down with','bị nhiễm (bệnh nhẹ)'],['come round','tỉnh lại; ghé chơi']],
+  idiom:[['come rain or shine','dù thế nào đi nữa'],['come out of the blue','đến bất ngờ']],
+  note:'come = đi về phía người nghe/người nói; go = đi khỏi. «I am coming» khi ai đó gọi bạn, không phải «I am going».' },
+
+{ w:'put', uk:'pʊt', us:'pʊt', pos:'động từ',
+  forms:{ v:['put','puts','put','put','putting'] },
+  senses:[
+    { vi:'đặt, để', ex:['Put the book on the shelf.','Đặt quyển sách lên giá.'] },
+    { vi:'diễn đạt bằng lời', ex:['How should I put it?','Tôi nên nói thế nào nhỉ?'] }
+  ],
+  colloc:['put pressure on','put an end to','put someone at ease'],
+  phrasal:[['put off','hoãn lại; làm mất hứng'],['put up with','chịu đựng'],['put on','mặc vào; bật lên; tăng cân'],['put out','dập tắt; gây phiền'],['put away','cất đi'],['put down','đặt xuống; chê bai'],['put forward','đề xuất']],
+  idiom:[['put your foot in it','lỡ miệng nói hớ'],['put two and two together','suy ra được']],
+  note:'put là động từ bất quy tắc «ba dạng như nhau»: put – put – put.' },
+
+{ w:'look', uk:'lʊk', us:'lʊk', pos:'động từ, danh từ',
+  forms:{ v:['look','looks','looked','looked','looking'] },
+  senses:[
+    { vi:'nhìn (chủ động hướng mắt về)', ex:['Look at this photo.','Nhìn tấm ảnh này xem.'] },
+    { vi:'trông có vẻ', ex:['You look tired.','Trông bạn có vẻ mệt.'] },
+    { vi:'cái nhìn, vẻ ngoài (danh từ)', ex:['Have a look at this.','Xem cái này đi.'] }
+  ],
+  colloc:['look carefully','have a quick look','good looks (ngoại hình đẹp)'],
+  phrasal:[['look for','tìm kiếm'],['look after','chăm sóc'],['look forward to','mong chờ (+ V-ing)'],['look up','tra từ; khá lên'],['look into','điều tra'],['look down on','coi thường'],['look up to','ngưỡng mộ']],
+  idiom:[['look on the bright side','nhìn vào mặt tích cực']],
+  note:'Ba động từ dễ lẫn: look (chủ động nhìn) · see (thấy, vô tình) · watch (theo dõi có chuyển động).' },
+
+{ w:'work', uk:'wɜːk', us:'wɜːrk', pos:'động từ, danh từ',
+  forms:{ v:['work','works','worked','worked','working'] },
+  senses:[
+    { vi:'làm việc', ex:['She works in a hospital.','Cô ấy làm việc trong bệnh viện.'] },
+    { vi:'(máy móc) chạy được, hoạt động', ex:['The lift is not working.','Thang máy không chạy.'] },
+    { vi:'(cách làm) có tác dụng', ex:['That idea will not work.','Ý đó sẽ không hiệu quả.'] },
+    { vi:'công việc, việc làm (danh từ không đếm được)', ex:['I have a lot of work today.','Hôm nay tôi có nhiều việc.'] }
+  ],
+  colloc:['work hard','work overtime','get to work','out of work (thất nghiệp)','work experience'],
+  phrasal:[['work out','tập thể dục; tính ra; ổn thoả'],['work on','đang làm dở việc gì']],
+  idiom:[['work like a charm','hiệu nghiệm ngay']],
+  family:[['worker','danh từ','người lao động'],['workshop','danh từ','xưởng; buổi tập huấn'],['workload','danh từ','khối lượng công việc']],
+  note:'work không đếm được — không nói «a work» hay «works» khi nói về công việc. Việc làm cụ thể là a job.' },
+
+{ w:'run', uk:'rʌn', us:'rʌn', pos:'động từ',
+  forms:{ v:['run','runs','ran','run','running'] },
+  senses:[
+    { vi:'chạy', ex:['He runs every morning.','Anh ấy chạy bộ mỗi sáng.'] },
+    { vi:'điều hành, quản lý', ex:['She runs a small business.','Cô ấy điều hành một doanh nghiệp nhỏ.'] },
+    { vi:'(máy, phần mềm) chạy', ex:['The program runs on any computer.','Chương trình chạy được trên mọi máy.'] }
+  ],
+  colloc:['run a business','run a risk','run late','run a test'],
+  phrasal:[['run out of','hết, cạn'],['run into','tình cờ gặp; đâm vào'],['run over','cán qua; đọc lướt'],['run after','đuổi theo']],
+  idiom:[['in the long run','xét về lâu dài'],['run in the family','có tính di truyền trong nhà']] },
+
+{ w:'turn', uk:'tɜːn', us:'tɜːrn', pos:'động từ, danh từ',
+  forms:{ v:['turn','turns','turned','turned','turning'] },
+  senses:[
+    { vi:'quay, rẽ', ex:['Turn left at the corner.','Rẽ trái ở góc phố.'] },
+    { vi:'trở nên, biến thành', ex:['The leaves turn yellow in autumn.','Lá chuyển vàng vào mùa thu.'] },
+    { vi:'lượt (danh từ)', ex:['It is your turn.','Đến lượt bạn.'] }
+  ],
+  colloc:['take turns','turn a corner','turn a profit'],
+  phrasal:[['turn on / off','bật / tắt'],['turn up','xuất hiện; vặn to'],['turn down','từ chối; vặn nhỏ'],['turn out','hoá ra là'],['turn into','biến thành']],
+  idiom:[['turn over a new leaf','làm lại từ đầu']] },
+
+{ w:'bring', uk:'brɪŋ', us:'brɪŋ', pos:'động từ',
+  forms:{ v:['bring','brings','brought','brought','bringing'] },
+  senses:[
+    { vi:'mang đến (về phía người nói)', ex:['Bring your passport tomorrow.','Mai mang hộ chiếu theo nhé.'] },
+    { vi:'gây ra, đem lại', ex:['The rain brought relief.','Cơn mưa mang lại sự dễ chịu.'] }
+  ],
+  phrasal:[['bring up','nuôi dạy; nêu ra chủ đề'],['bring about','gây ra, dẫn tới'],['bring back','gợi lại; trả lại']],
+  note:'bring (mang tới đây) ≠ take (mang đi chỗ khác) — cặp này song song với come/go.' },
+
+{ w:'break', uk:'breɪk', us:'breɪk', pos:'động từ, danh từ',
+  forms:{ v:['break','breaks','broke','broken','breaking'] },
+  senses:[
+    { vi:'làm vỡ, làm gãy', ex:['He broke his phone.','Anh ấy làm vỡ điện thoại.'] },
+    { vi:'vi phạm (luật, lời hứa)', ex:['Do not break the rules.','Đừng vi phạm quy định.'] },
+    { vi:'giờ nghỉ (danh từ)', ex:['Let us take a short break.','Nghỉ một chút nhé.'] }
+  ],
+  colloc:['break a record','break the news','break a habit','a lunch break'],
+  phrasal:[['break down','hỏng máy; suy sụp'],['break up','chia tay; tan (lớp học)'],['break into','đột nhập'],['break out','bùng nổ (chiến tranh, dịch)']],
+  idiom:[['break the ice','phá tan không khí ngượng ngùng'],['give someone a break','tha cho ai đi']] },
+
+{ w:'give', uk:'ɡɪv', us:'ɡɪv', pos:'động từ',
+  forms:{ v:['give','gives','gave','given','giving'] },
+  senses:[
+    { vi:'cho, đưa, tặng', ex:['She gave me a book.','Cô ấy tặng tôi một quyển sách.'] },
+    { vi:'tổ chức, thực hiện (bài nói, buổi tiệc)', ex:['He gave a talk on climate.','Anh ấy có một bài nói về khí hậu.'] }
+  ],
+  colloc:['give advice','give a hand (giúp một tay)','give permission','give an example'],
+  phrasal:[['give up','bỏ cuộc; từ bỏ (thói quen)'],['give in','nhượng bộ'],['give away','cho không; để lộ'],['give back','trả lại']],
+  idiom:[['give someone the benefit of the doubt','tin tưởng dù chưa chắc']] },
+
+{ w:'see', uk:'siː', us:'siː', pos:'động từ',
+  forms:{ v:['see','sees','saw','seen','seeing'] },
+  senses:[
+    { vi:'nhìn thấy (không chủ đích)', ex:['I saw her at the station.','Tôi thấy cô ấy ở ga.'] },
+    { vi:'hiểu', ex:['I see what you mean.','Tôi hiểu ý bạn.'] },
+    { vi:'gặp, hẹn gặp', ex:['I am seeing the doctor at four.','Tôi có hẹn bác sĩ lúc bốn giờ.'] }
+  ],
+  phrasal:[['see off','tiễn ai'],['see through','nhìn thấu; theo tới cùng'],['see to','lo liệu việc gì']],
+  idiom:[['see eye to eye','đồng quan điểm']],
+  note:'see là động từ tri giác nên thường KHÔNG chia tiếp diễn khi mang nghĩa «nhìn thấy»; chia được khi nghĩa là «gặp, hẹn hò».' },
+
+{ w:'know', uk:'nəʊ', us:'noʊ', pos:'động từ',
+  forms:{ v:['know','knows','knew','known','knowing'] },
+  senses:[
+    { vi:'biết (thông tin)', ex:['I know the answer.','Tôi biết câu trả lời.'] },
+    { vi:'quen biết (người, nơi chốn)', ex:['Do you know Linh?','Bạn có quen Linh không?'] }
+  ],
+  family:[['knowledge','danh từ','kiến thức'],['knowledgeable','tính từ','hiểu biết rộng'],['known','tính từ','được biết đến']],
+  idiom:[['know something inside out','thuộc như lòng bàn tay'],['for all I know','theo chỗ tôi biết thì']],
+  note:'k câm. know không chia tiếp diễn: «I am knowing» là sai.' },
+
+/* ---------- DANH TỪ THÔNG DỤNG ---------- */
+{ w:'time', uk:'taɪm', us:'taɪm', pos:'danh từ',
+  senses:[
+    { vi:'thời gian (không đếm được)', ex:['I do not have much time.','Tôi không có nhiều thời gian.'] },
+    { vi:'lần (đếm được)', ex:['I have been there three times.','Tôi đã đến đó ba lần.'] },
+    { vi:'giờ', ex:['What time is it?','Mấy giờ rồi?'] },
+    { vi:'thời kỳ, thời đại', ex:['in Shakespeare’s time','vào thời Shakespeare'] }
+  ],
+  colloc:['spend time','waste time','save time','have a good time','in time','on time','from time to time'],
+  idiom:[['time flies','thời gian trôi nhanh'],['kill time','giết thời gian'],['in the nick of time','vừa kịp lúc']],
+  family:[['timely','tính từ','đúng lúc'],['timetable','danh từ','thời khoá biểu']] },
+
+{ w:'way', uk:'weɪ', us:'weɪ', pos:'danh từ',
+  senses:[
+    { vi:'cách, phương pháp', ex:['This is the best way to learn.','Đây là cách học tốt nhất.'] },
+    { vi:'đường đi, lối', ex:['Do you know the way to the station?','Bạn có biết đường ra ga không?'] },
+    { vi:'khoảng cách', ex:['It is a long way from here.','Chỗ đó cách đây khá xa.'] }
+  ],
+  colloc:['by the way','in a way','no way','on the way','get in the way (cản trở)'],
+  idiom:[['go out of your way','cố gắng hết sức để giúp'],['rub someone up the wrong way','làm ai khó chịu']] },
+
+{ w:'thing', uk:'θɪŋ', us:'θɪŋ', pos:'danh từ',
+  senses:[
+    { vi:'thứ, vật', ex:['What is that thing on the table?','Cái thứ trên bàn kia là gì vậy?'] },
+    { vi:'việc, chuyện', ex:['One thing at a time.','Từng việc một thôi.'] },
+    { vi:'things — tình hình, đồ đạc', ex:['How are things?','Mọi việc thế nào?'] }
+  ],
+  idiom:[['first things first','việc quan trọng làm trước'],['for one thing','trước hết là']],
+  note:'Trong văn viết học thuật, «thing» quá mơ hồ — hãy thay bằng factor, aspect, issue, element.' },
+
+{ w:'people', uk:'ˈpiːpl', us:'ˈpiːpl', pos:'danh từ',
+  senses:[
+    { vi:'người, mọi người (số nhiều của person)', ex:['Many people were waiting.','Nhiều người đang đợi.'] },
+    { vi:'dân tộc (đếm được, số nhiều: peoples)', ex:['the peoples of Asia','các dân tộc châu Á'] }
+  ],
+  note:'people luôn đi với động từ số nhiều: People ARE, không phải People IS.' },
+
+{ w:'money', uk:'ˈmʌni', us:'ˈmʌni', pos:'danh từ',
+  senses:[{ vi:'tiền (không đếm được)', ex:['How much money do you need?','Bạn cần bao nhiêu tiền?'] }],
+  colloc:['earn money','spend money','save money','waste money','make money'],
+  idiom:[['money does not grow on trees','tiền không tự nhiên mà có'],['be worth every penny','đáng đồng tiền bát gạo']],
+  note:'Không đếm được: dùng «how much», không dùng «how many» hay «moneys».' },
+
+{ w:'problem', uk:'ˈprɒbləm', us:'ˈprɑːbləm', pos:'danh từ',
+  senses:[{ vi:'vấn đề, rắc rối', ex:['We have a small problem.','Chúng ta có một rắc rối nhỏ.'] }],
+  colloc:['solve a problem','cause a problem','face a problem','a serious problem'],
+  family:[['problematic','tính từ','có vấn đề, rắc rối']],
+  idiom:[['no problem','không sao đâu']] },
+
+{ w:'life', uk:'laɪf', us:'laɪf', pos:'danh từ', forms:{ pl:'lives /laɪvz/' },
+  senses:[
+    { vi:'cuộc sống, đời sống', ex:['City life is busy.','Cuộc sống thành phố bận rộn.'] },
+    { vi:'sinh mạng, mạng sống', ex:['The doctor saved his life.','Bác sĩ đã cứu mạng anh ấy.'] }
+  ],
+  colloc:['daily life','way of life','quality of life','make a living'],
+  family:[['live','động từ','sống'],['alive','tính từ','còn sống'],['lively','tính từ','sôi nổi'],['lifetime','danh từ','đời người']] },
+
+{ w:'water', uk:'ˈwɔːtə', us:'ˈwɑːtər', pos:'danh từ, động từ',
+  senses:[
+    { vi:'nước', ex:['A glass of water, please.','Cho tôi một cốc nước.'] },
+    { vi:'tưới (động từ)', ex:['She waters the plants every day.','Cô ấy tưới cây mỗi ngày.'] }
+  ],
+  colloc:['drinking water','fresh water','running water','water the plants'],
+  note:'Giọng Mỹ đọc chữ t giữa hai nguyên âm thành âm vỗ, nghe gần như «wader».' },
+
+/* ---------- TÍNH TỪ THÔNG DỤNG ---------- */
+{ w:'good', uk:'ɡʊd', us:'ɡʊd', pos:'tính từ', forms:{ cmp:'better', sup:'best' },
+  senses:[
+    { vi:'tốt, hay, giỏi', ex:['She is good at maths.','Cô ấy giỏi toán.'] },
+    { vi:'ngoan (về hành vi)', ex:['Be a good boy.','Ngoan nhé con.'] },
+    { vi:'có lợi cho sức khoẻ', ex:['Fruit is good for you.','Hoa quả tốt cho bạn.'] }
+  ],
+  colloc:['good at (giỏi việc gì)','good for (tốt cho)','good with (khéo với ai)','a good deal'],
+  family:[['goodness','danh từ','sự tốt lành'],['well','trạng từ','một cách tốt']],
+  note:'good là TÍNH TỪ, well là TRẠNG TỪ: He plays well, không phải «He plays good».' },
+
+{ w:'big', uk:'bɪɡ', us:'bɪɡ', pos:'tính từ', forms:{ cmp:'bigger', sup:'biggest' },
+  senses:[
+    { vi:'to, lớn (kích thước)', ex:['They live in a big house.','Họ sống trong một ngôi nhà lớn.'] },
+    { vi:'quan trọng, hệ trọng', ex:['This is a big decision.','Đây là một quyết định lớn.'] }
+  ],
+  note:'big thiên về đời thường, large trung tính hơn, great mang nghĩa vĩ đại hoặc rất nhiều.' },
+
+{ w:'happy', uk:'ˈhæpi', us:'ˈhæpi', pos:'tính từ', forms:{ cmp:'happier', sup:'happiest' },
+  senses:[
+    { vi:'vui, hạnh phúc', ex:['I am happy to see you.','Tôi vui khi gặp bạn.'] },
+    { vi:'hài lòng, sẵn lòng', ex:['I am happy to help.','Tôi sẵn lòng giúp.'] }
+  ],
+  family:[['happiness','danh từ','hạnh phúc'],['happily','trạng từ','một cách vui vẻ'],['unhappy','tính từ','không vui']],
+  colloc:['happy about / with (hài lòng về)','happy to do something'] },
+
+{ w:'difficult', uk:'ˈdɪfɪkəlt', us:'ˈdɪfɪkəlt', pos:'tính từ',
+  senses:[
+    { vi:'khó, gian nan', ex:['This exercise is difficult.','Bài tập này khó.'] },
+    { vi:'khó tính (về người)', ex:['He can be difficult.','Anh ấy đôi khi khó chiều.'] }
+  ],
+  family:[['difficulty','danh từ','sự khó khăn']],
+  colloc:['find it difficult to','a difficult decision','difficult to understand'],
+  note:'Cấu trúc quen dùng: It is difficult TO do something (không dùng V-ing sau difficult).' },
+
+/* ---------- TỪ CHỨC NĂNG ---------- */
+{ w:'can', uk:'kæn', us:'kæn', pos:'động từ khuyết thiếu',
+  forms:{ v:['can','can','could','been able to','—'] },
+  senses:[
+    { vi:'có thể (năng lực)', ex:['I can swim.','Tôi biết bơi.'] },
+    { vi:'được phép (xin phép, cho phép)', ex:['Can I come in?','Tôi vào được không?'] },
+    { vi:'có khả năng xảy ra', ex:['It can be very cold here.','Ở đây có thể rất lạnh.'] }
+  ],
+  note:'Sau can dùng động từ nguyên thể không «to»: I can go. Dạng yếu trong câu đọc là /kən/.' },
+
+{ w:'should', uk:'ʃʊd', us:'ʃʊd', pos:'động từ khuyết thiếu',
+  senses:[
+    { vi:'nên (lời khuyên)', ex:['You should see a doctor.','Bạn nên đi khám.'] },
+    { vi:'lẽ ra (should have + V3)', ex:['I should have called you.','Lẽ ra tôi nên gọi bạn.'] }
+  ],
+  note:'should nhẹ hơn must. must = bắt buộc, should = khuyên nhủ, ought to ≈ should nhưng trang trọng hơn.' },
+
+{ w:'because', uk:'bɪˈkɒz', us:'bɪˈkɔːz', pos:'liên từ',
+  senses:[{ vi:'bởi vì — nối mệnh đề nguyên nhân', ex:['I stayed home because it was raining.','Tôi ở nhà vì trời mưa.'] }],
+  note:'because + MỆNH ĐỀ (có chủ ngữ + động từ); because of + DANH TỪ: because of the rain.' },
+
+{ w:'about', uk:'əˈbaʊt', us:'əˈbaʊt', pos:'giới từ, trạng từ',
+  senses:[
+    { vi:'về, liên quan tới', ex:['a book about history','một cuốn sách về lịch sử'] },
+    { vi:'khoảng chừng', ex:['about twenty people','khoảng hai mươi người'] }
+  ],
+  colloc:['talk about','think about','worry about','be about to (sắp)'],
+  note:'Cả hai âm tiết đều có schwa hoặc nguyên âm đôi — đây là từ mẫu để luyện /ə/.' },
+/* ---------- ĐẠI TỪ ---------- */
+{ w:'i', uk:'aɪ', us:'aɪ', pos:'đại từ', senses:[{ vi:'tôi (chủ ngữ)', ex:['I live in Hanoi.','Tôi sống ở Hà Nội.'] }],
+  forms:{ v:['I','me (tân ngữ)','my (sở hữu)','mine','myself'] }, note:'Luôn viết hoa dù đứng giữa câu.' },
+{ w:'you', uk:'juː', us:'juː', pos:'đại từ', senses:[{ vi:'bạn, các bạn — dùng cho cả số ít và số nhiều', ex:['Are you ready?','Bạn sẵn sàng chưa?'] },{ vi:'người ta nói chung (nghĩa khái quát)', ex:['You cannot smoke here.','Ở đây không được hút thuốc.'] }],
+  forms:{ v:['you','you','your','yours','yourself / yourselves'] }, note:'Dạng yếu trong câu đọc là /jə/ hoặc /ju/.' },
+{ w:'he', uk:'hiː', us:'hiː', pos:'đại từ', senses:[{ vi:'anh ấy, ông ấy, cậu ấy', ex:['He works in a bank.','Anh ấy làm ở ngân hàng.'] }], forms:{ v:['he','him','his','his','himself'] } },
+{ w:'she', uk:'ʃiː', us:'ʃiː', pos:'đại từ', senses:[{ vi:'cô ấy, chị ấy, bà ấy', ex:['She is my sister.','Cô ấy là em gái tôi.'] }], forms:{ v:['she','her','her','hers','herself'] } },
+{ w:'it', uk:'ɪt', us:'ɪt', pos:'đại từ', senses:[{ vi:'nó (vật, con vật, khái niệm)', ex:['It is very cold today.','Hôm nay trời rất lạnh.'] },{ vi:'chủ ngữ giả cho thời tiết, giờ giấc, khoảng cách', ex:['It takes ten minutes.','Mất mười phút.'] }], forms:{ v:['it','it','its','—','itself'] }, note:'its (sở hữu) KHÔNG có dấu phẩy trên; it’s = it is hoặc it has.' },
+{ w:'we', uk:'wiː', us:'wiː', pos:'đại từ', senses:[{ vi:'chúng tôi, chúng ta', ex:['We are in the same class.','Chúng tôi học cùng lớp.'] }], forms:{ v:['we','us','our','ours','ourselves'] } },
+{ w:'they', uk:'ðeɪ', us:'ðeɪ', pos:'đại từ', senses:[{ vi:'họ, chúng nó', ex:['They live near here.','Họ sống gần đây.'] },{ vi:'dùng thay he/she khi chưa rõ giới tính', ex:['Someone left their bag.','Ai đó để quên túi.'] }], forms:{ v:['they','them','their','theirs','themselves'] } },
+{ w:'me', uk:'miː', us:'miː', pos:'đại từ', senses:[{ vi:'tôi (tân ngữ)', ex:['She called me yesterday.','Hôm qua cô ấy gọi tôi.'] }], note:'«Me too» là cách nói tự nhiên; «I too» rất trang trọng và hiếm.' },
+{ w:'my', uk:'maɪ', us:'maɪ', pos:'tính từ sở hữu', senses:[{ vi:'của tôi', ex:['My name is Quan.','Tên tôi là Quân.'] }] },
+{ w:'your', uk:'jɔː', us:'jʊr', pos:'tính từ sở hữu', senses:[{ vi:'của bạn', ex:['What is your name?','Bạn tên gì?'] }], note:'your (của bạn) ≠ you’re (you are) — lỗi chính tả phổ biến nhất của người bản ngữ.' },
+{ w:'his', uk:'hɪz', us:'hɪz', pos:'tính từ sở hữu, đại từ', senses:[{ vi:'của anh ấy', ex:['His father is a doctor.','Bố anh ấy là bác sĩ.'] }] },
+{ w:'her', uk:'hɜː', us:'hɜːr', pos:'tính từ sở hữu, đại từ', senses:[{ vi:'của cô ấy; cô ấy (tân ngữ)', ex:['I saw her at the library.','Tôi thấy cô ấy ở thư viện.'] }] },
+{ w:'our', uk:'ˈaʊə', us:'ˈaʊər', pos:'tính từ sở hữu', senses:[{ vi:'của chúng tôi', ex:['Our teacher is from London.','Thầy giáo chúng tôi đến từ London.'] }] },
+{ w:'this', uk:'ðɪs', us:'ðɪs', pos:'từ chỉ định', senses:[{ vi:'này, cái này (gần)', ex:['This is my room.','Đây là phòng tôi.'] }], forms:{ pl:'these /ðiːz/' }, note:'Trên điện thoại: «This is Quan speaking» — không nói «I am Quan speaking».' },
+{ w:'that', uk:'ðæt', us:'ðæt', pos:'từ chỉ định, liên từ, đại từ quan hệ', senses:[{ vi:'kia, đó (xa)', ex:['That is my bike.','Kia là xe của tôi.'] },{ vi:'rằng (nối mệnh đề)', ex:['I think that he is right.','Tôi nghĩ rằng anh ấy đúng.'] }], forms:{ pl:'those /ðəʊz/' }, note:'Liên từ «that» thường lược bỏ được trong lời nói: I think he is right.' },
+{ w:'who', uk:'huː', us:'huː', pos:'từ để hỏi, đại từ quan hệ', senses:[{ vi:'ai', ex:['Who is that man?','Người đàn ông kia là ai?'] }], note:'h câm ở đây.' },
+{ w:'what', uk:'wɒt', us:'wʌt', pos:'từ để hỏi', senses:[{ vi:'cái gì, gì', ex:['What do you do?','Bạn làm nghề gì?'] }] },
+{ w:'where', uk:'weə', us:'wer', pos:'từ để hỏi', senses:[{ vi:'ở đâu', ex:['Where are you from?','Bạn đến từ đâu?'] }] },
+{ w:'when', uk:'wen', us:'wen', pos:'từ để hỏi, liên từ', senses:[{ vi:'khi nào; khi', ex:['When does the class start?','Lớp bắt đầu khi nào?'] }] },
+{ w:'why', uk:'waɪ', us:'waɪ', pos:'từ để hỏi', senses:[{ vi:'tại sao', ex:['Why are you late?','Sao bạn đến muộn?'] }] },
+{ w:'how', uk:'haʊ', us:'haʊ', pos:'từ để hỏi', senses:[{ vi:'như thế nào; bao nhiêu (how many/much)', ex:['How do you go to work?','Bạn đi làm bằng gì?'] }],
+  colloc:['how much (không đếm được)','how many (đếm được)','how often','how long','how far'] },
+
+/* ---------- MẠO TỪ, LƯỢNG TỪ, LIÊN TỪ ---------- */
+{ w:'a', uk:'ə', us:'ə', pos:'mạo từ', senses:[{ vi:'một (danh từ đếm được số ít, nhắc lần đầu)', ex:['I am a student.','Tôi là sinh viên.'] }], note:'Dạng mạnh /eɪ/ chỉ dùng khi nhấn mạnh. Chọn a/an theo ÂM chứ không theo chữ: a university, an hour.' },
+{ w:'an', uk:'ən', us:'ən', pos:'mạo từ', senses:[{ vi:'một — đứng trước âm nguyên âm', ex:['She is an engineer.','Cô ấy là kỹ sư.'] }] },
+{ w:'the', uk:'ðə', us:'ðə', pos:'mạo từ', senses:[{ vi:'cái, con, người… — chỉ vật đã xác định', ex:['Close the door, please.','Làm ơn đóng cửa lại.'] }], note:'Đọc /ðiː/ trước âm nguyên âm: the apple /ði ˈæpl/. Người Việt hay bỏ mạo từ vì tiếng Việt không có.' },
+{ w:'some', uk:'sʌm', us:'sʌm', pos:'lượng từ', senses:[{ vi:'một vài, một ít — câu khẳng định', ex:['There are some books on the desk.','Có mấy quyển sách trên bàn.'] }], note:'Dùng some trong câu hỏi khi mời hoặc đề nghị: Would you like some tea?' },
+{ w:'any', uk:'ˈeni', us:'ˈeni', pos:'lượng từ', senses:[{ vi:'nào, chút nào — câu phủ định và câu hỏi', ex:['Do you have any questions?','Bạn có câu hỏi nào không?'] }] },
+{ w:'many', uk:'ˈmeni', us:'ˈmeni', pos:'lượng từ', senses:[{ vi:'nhiều — đi với danh từ đếm được', ex:['Many people were there.','Nhiều người đã ở đó.'] }], note:'many + đếm được · much + không đếm được · a lot of + cả hai.' },
+{ w:'much', uk:'mʌtʃ', us:'mʌtʃ', pos:'lượng từ', senses:[{ vi:'nhiều — đi với danh từ không đếm được', ex:['I do not have much time.','Tôi không có nhiều thời gian.'] }], forms:{ cmp:'more', sup:'most' } },
+{ w:'and', uk:'ænd', us:'ænd', pos:'liên từ', senses:[{ vi:'và', ex:['Linh and Quan are friends.','Linh và Quân là bạn.'] }], note:'Dạng yếu /ən/ hoặc /n/: fish and chips nghe như «fish’n chips».' },
+{ w:'but', uk:'bʌt', us:'bʌt', pos:'liên từ', senses:[{ vi:'nhưng', ex:['It is small but comfortable.','Nó nhỏ nhưng thoải mái.'] }] },
+{ w:'or', uk:'ɔː', us:'ɔːr', pos:'liên từ', senses:[{ vi:'hoặc, hay', ex:['Tea or coffee?','Trà hay cà phê?'] }] },
+{ w:'so', uk:'səʊ', us:'soʊ', pos:'liên từ, trạng từ', senses:[{ vi:'vì thế, nên', ex:['It was late, so we went home.','Muộn rồi nên chúng tôi về nhà.'] },{ vi:'rất, đến mức', ex:['It is so hot today.','Hôm nay nóng quá.'] }] },
+{ w:'also', uk:'ˈɔːlsəʊ', us:'ˈɔːlsoʊ', pos:'trạng từ', senses:[{ vi:'cũng — đứng giữa câu', ex:['She also speaks French.','Cô ấy cũng nói được tiếng Pháp.'] }], note:'also đứng trước động từ thường, sau «be»; too và as well đứng cuối câu.' },
+{ w:'too', uk:'tuː', us:'tuː', pos:'trạng từ', senses:[{ vi:'cũng — cuối câu', ex:['I am a student too.','Tôi cũng là sinh viên.'] },{ vi:'quá (mức chấp nhận được)', ex:['This coffee is too hot.','Cà phê này nóng quá.'] }], note:'too = quá mức tiêu cực; very = rất, trung tính.' },
+
+/* ---------- GIỚI TỪ ---------- */
+{ w:'in', uk:'ɪn', us:'ɪn', pos:'giới từ', senses:[{ vi:'trong (không gian ba chiều)', ex:['The keys are in my bag.','Chìa khoá ở trong túi tôi.'] },{ vi:'vào (tháng, năm, mùa, buổi)', ex:['in July, in 2026, in the morning','vào tháng Bảy, năm 2026, buổi sáng'] }],
+  colloc:['in time (kịp)','in the end (rốt cuộc)','in fact','interested in'] },
+{ w:'on', uk:'ɒn', us:'ɑːn', pos:'giới từ', senses:[{ vi:'trên (bề mặt)', ex:['The book is on the table.','Quyển sách ở trên bàn.'] },{ vi:'vào (ngày, thứ)', ex:['on Monday, on 5 May','vào thứ Hai, ngày 5 tháng Năm'] }],
+  colloc:['on time (đúng giờ)','on foot','on the phone','depend on'] },
+{ w:'at', uk:'æt', us:'æt', pos:'giới từ', senses:[{ vi:'tại (điểm cụ thể)', ex:['We met at the station.','Chúng tôi gặp nhau ở ga.'] },{ vi:'lúc (giờ)', ex:['at eight o’clock','lúc tám giờ'] }],
+  colloc:['at home','at work','at night','good at','look at'] },
+{ w:'to', uk:'tuː', us:'tuː', pos:'giới từ', senses:[{ vi:'đến, tới (hướng)', ex:['I go to school every day.','Tôi đi học mỗi ngày.'] },{ vi:'dấu hiệu động từ nguyên thể', ex:['I want to learn English.','Tôi muốn học tiếng Anh.'] }], note:'Không dùng «to» trước home: go home, không phải «go to home».' },
+{ w:'for', uk:'fɔː', us:'fɔːr', pos:'giới từ', senses:[{ vi:'cho, dành cho', ex:['This is for you.','Cái này cho bạn.'] },{ vi:'trong (khoảng thời gian)', ex:['I studied for two hours.','Tôi học trong hai tiếng.'] }], note:'for + khoảng thời gian · since + mốc thời gian.' },
+{ w:'with', uk:'wɪð', us:'wɪð', pos:'giới từ', senses:[{ vi:'với, cùng với', ex:['I live with my family.','Tôi sống cùng gia đình.'] },{ vi:'bằng (công cụ)', ex:['Cut it with a knife.','Cắt nó bằng dao.'] }] },
+{ w:'of', uk:'ɒv', us:'ʌv', pos:'giới từ', senses:[{ vi:'của, thuộc về', ex:['the capital of Vietnam','thủ đô của Việt Nam'] }], note:'Với người thì ưu tiên ’s: my brother’s car, không phải «the car of my brother».' },
+{ w:'by', uk:'baɪ', us:'baɪ', pos:'giới từ', senses:[{ vi:'bằng (phương tiện, cách thức)', ex:['I go by bus.','Tôi đi bằng xe buýt.'] },{ vi:'bởi (trong câu bị động)', ex:['The book was written by Quan.','Cuốn sách do Quân viết.'] }] },
+{ w:'about', uk:'əˈbaʊt', us:'əˈbaʊt', pos:'giới từ, trạng từ', senses:[{ vi:'về, liên quan tới', ex:['a book about history','một cuốn sách về lịch sử'] },{ vi:'khoảng chừng', ex:['about twenty people','khoảng hai mươi người'] }], colloc:['talk about','think about','be about to'] },
+
+/* ---------- ĐỘNG TỪ THÔNG DỤNG KHÁC ---------- */
+{ w:'like', uk:'laɪk', us:'laɪk', pos:'động từ, giới từ', senses:[{ vi:'thích', ex:['I like coffee.','Tôi thích cà phê.'] },{ vi:'giống như', ex:['He looks like his father.','Anh ấy trông giống bố.'] }],
+  colloc:['would like (muốn — lịch sự)','feel like (thấy muốn + V-ing)','What is it like? (nó thế nào?)'],
+  note:'like + V-ing (thích nói chung) · would like + to V (muốn ngay lúc này).' },
+{ w:'want', uk:'wɒnt', us:'wɑːnt', pos:'động từ', senses:[{ vi:'muốn', ex:['I want to learn English.','Tôi muốn học tiếng Anh.'] }], note:'want + to + động từ. «I want learn» là lỗi thường gặp.' },
+{ w:'need', uk:'niːd', us:'niːd', pos:'động từ, danh từ', senses:[{ vi:'cần', ex:['You need a visa.','Bạn cần visa.'] },{ vi:'nhu cầu (danh từ)', ex:['the needs of students','nhu cầu của sinh viên'] }] },
+{ w:'think', uk:'θɪŋk', us:'θɪŋk', pos:'động từ', forms:{ v:['think','thinks','thought','thought','thinking'] },
+  senses:[{ vi:'nghĩ, cho rằng', ex:['I think it will rain.','Tôi nghĩ trời sắp mưa.'] },{ vi:'suy nghĩ, cân nhắc', ex:['I am thinking about it.','Tôi đang cân nhắc.'] }],
+  phrasal:[['think over','cân nhắc kỹ'],['think up','nghĩ ra']],
+  note:'Nghĩa «cho rằng» không chia tiếp diễn; nghĩa «đang suy nghĩ» thì chia được.' },
+{ w:'say', uk:'seɪ', us:'seɪ', pos:'động từ', forms:{ v:['say','says /sez/','said /sed/','said','saying'] },
+  senses:[{ vi:'nói (nội dung lời nói)', ex:['She said hello.','Cô ấy nói xin chào.'] }],
+  note:'say something (to someone) · tell someone something. «Say me» là sai.' },
+{ w:'tell', uk:'tel', us:'tel', pos:'động từ', forms:{ v:['tell','tells','told','told','telling'] },
+  senses:[{ vi:'kể, bảo (luôn có người nghe)', ex:['Tell me the truth.','Hãy nói thật với tôi.'] }],
+  colloc:['tell a story','tell a lie','tell the time','tell the difference'] },
+{ w:'live', uk:'lɪv', us:'lɪv', pos:'động từ', senses:[{ vi:'sống, cư trú', ex:['They live in Hue.','Họ sống ở Huế.'] }],
+  family:[['life','danh từ','cuộc sống'],['living','danh từ','sinh kế'],['alive','tính từ','còn sống']],
+  note:'Động từ live đọc /lɪv/, tính từ live (trực tiếp) đọc /laɪv/.' },
+{ w:'start', uk:'stɑːt', us:'stɑːrt', pos:'động từ, danh từ', senses:[{ vi:'bắt đầu', ex:['The class starts at eight.','Lớp bắt đầu lúc tám giờ.'] }],
+  note:'start / begin theo sau được cả to V và V-ing, nghĩa gần như nhau.' },
+{ w:'speak', uk:'spiːk', us:'spiːk', pos:'động từ', forms:{ v:['speak','speaks','spoke','spoken','speaking'] },
+  senses:[{ vi:'nói (một ngôn ngữ); phát biểu', ex:['Do you speak English?','Bạn có nói được tiếng Anh không?'] }],
+  phrasal:[['speak up','nói to lên'],['speak out','lên tiếng phản đối']] },
+{ w:'study', uk:'ˈstʌdi', us:'ˈstʌdi', pos:'động từ, danh từ', forms:{ v:['study','studies','studied','studied','studying'] },
+  senses:[{ vi:'học, nghiên cứu', ex:['She studies medicine.','Cô ấy học ngành y.'] },{ vi:'công trình nghiên cứu (danh từ)', ex:['a recent study','một nghiên cứu gần đây'] }],
+  family:[['student','danh từ','sinh viên'],['studious','tính từ','chăm học']],
+  note:'study = học có chủ đích một môn · learn = tiếp thu được kiến thức, kỹ năng.' },
+{ w:'learn', uk:'lɜːn', us:'lɜːrn', pos:'động từ', forms:{ v:['learn','learns','learned / learnt (Anh)','learned / learnt','learning'] },
+  senses:[{ vi:'học được, nắm được', ex:['I learned a lot from her.','Tôi học được nhiều từ cô ấy.'] }],
+  colloc:['learn by heart (học thuộc lòng)','learn from mistakes'] },
+{ w:'help', uk:'help', us:'help', pos:'động từ, danh từ', senses:[{ vi:'giúp đỡ', ex:['Can you help me?','Bạn giúp tôi được không?'] }],
+  colloc:['help someone with something','help yourself (cứ tự nhiên)'],
+  note:'Sau help dùng được cả to V và V nguyên: help me (to) carry this.' },
+{ w:'use', uk:'juːz', us:'juːz', pos:'động từ', senses:[{ vi:'dùng, sử dụng', ex:['I use my phone to study.','Tôi dùng điện thoại để học.'] }],
+  family:[['useful','tính từ','hữu ích'],['useless','tính từ','vô dụng'],['user','danh từ','người dùng']],
+  note:'Động từ use đọc /juːz/ (âm z), danh từ use đọc /juːs/ (âm s).' },
+
+/* ---------- DANH TỪ, TÍNH TỪ, TRẠNG TỪ BỔ SUNG ---------- */
+{ w:'class', uk:'klɑːs', us:'klæs', pos:'danh từ', senses:[{ vi:'lớp học, tiết học', ex:['We are in the same class.','Chúng tôi học cùng lớp.'] },{ vi:'hạng, tầng lớp', ex:['business class','hạng thương gia'] }] },
+{ w:'here', uk:'hɪə', us:'hɪr', pos:'trạng từ', senses:[{ vi:'ở đây', ex:['I am a student here.','Tôi là sinh viên ở đây.'] }], colloc:['come here','over here','Here you are (đây, mời bạn)'] },
+{ w:'there', uk:'ðeə', us:'ðer', pos:'trạng từ', senses:[{ vi:'ở đó, ở kia', ex:['She lives there.','Cô ấy sống ở đó.'] },{ vi:'trong cấu trúc there is / there are', ex:['There are five people.','Có năm người.'] }], note:'there ≠ their (của họ) ≠ they’re (they are) — ba từ đồng âm.' },
+{ w:'now', uk:'naʊ', us:'naʊ', pos:'trạng từ', senses:[{ vi:'bây giờ', ex:['Where do you live now?','Bây giờ bạn sống ở đâu?'] }], colloc:['right now','from now on','for now'] },
+{ w:'very', uk:'ˈveri', us:'ˈveri', pos:'trạng từ', senses:[{ vi:'rất', ex:['It is very cold.','Trời rất lạnh.'] }], note:'Không dùng very với tính từ tuyệt đối: nói absolutely perfect, không nói «very perfect».' },
+{ w:'really', uk:'ˈrɪəli', us:'ˈriːəli', pos:'trạng từ', senses:[{ vi:'thật sự, thực ra', ex:['I really like it.','Tôi thật sự thích nó.'] },{ vi:'thật à? (đáp lời)', ex:['Really? That is great.','Thật à? Tuyệt quá.'] }] },
+{ w:'well', uk:'wel', us:'wel', pos:'trạng từ, thán từ', forms:{ cmp:'better', sup:'best' },
+  senses:[{ vi:'tốt, giỏi (bổ nghĩa động từ)', ex:['She sings well.','Cô ấy hát hay.'] },{ vi:'à, ừ thì (từ đệm mở lời)', ex:['Well, I am not sure.','À, tôi không chắc lắm.'] },{ vi:'khoẻ (tính từ)', ex:['I do not feel well.','Tôi thấy không khoẻ.'] }] },
+{ w:'new', uk:'njuː', us:'nuː', pos:'tính từ', senses:[{ vi:'mới', ex:['I bought a new phone.','Tôi mua điện thoại mới.'] }], note:'Anh có /j/ (/njuː/), Mỹ không (/nuː/) — dấu hiệu nhận diện giọng rõ nhất.' },
+{ w:'small', uk:'smɔːl', us:'smɔːl', pos:'tính từ', senses:[{ vi:'nhỏ', ex:['I live in a small flat.','Tôi ở một căn hộ nhỏ.'] }], note:'small = nhỏ về kích thước · little có thêm sắc thái tình cảm (bé bỏng, đáng yêu).' },
+{ w:'first', uk:'fɜːst', us:'fɜːrst', pos:'số thứ tự, trạng từ', senses:[{ vi:'thứ nhất, đầu tiên', ex:['My first class starts at eight.','Tiết đầu bắt đầu lúc tám giờ.'] }], colloc:['at first (thoạt đầu)','first of all','for the first time'] },
+{ w:'day', uk:'deɪ', us:'deɪ', pos:'danh từ', senses:[{ vi:'ngày', ex:['I study every day.','Tôi học mỗi ngày.'] }], colloc:['all day','the other day (hôm nọ)','these days','one day (một ngày nào đó)'],
+  note:'every day (hai từ, trạng ngữ) ≠ everyday (một từ, tính từ: everyday life).' },
+{ w:'home', uk:'həʊm', us:'hoʊm', pos:'danh từ, trạng từ', senses:[{ vi:'nhà, tổ ấm', ex:['He gets home at seven.','Cậu ấy về nhà lúc bảy giờ.'] }],
+  colloc:['at home','go home','stay home','make yourself at home'],
+  note:'home nhấn vào cảm giác thuộc về; house chỉ toà nhà.' },
+{ w:'school', uk:'skuːl', us:'skuːl', pos:'danh từ', senses:[{ vi:'trường học', ex:['She is still at school.','Em ấy vẫn đang đi học.'] }],
+  note:'go to school (đi học, với tư cách học sinh) ≠ go to the school (tới toà nhà trường vì việc khác).' },
+{ w:'university', uk:'ˌjuːnɪˈvɜːsəti', us:'ˌjuːnɪˈvɜːrsəti', pos:'danh từ', senses:[{ vi:'trường đại học', ex:['I study at a university in Hanoi.','Tôi học đại học ở Hà Nội.'] }],
+  note:'Bắt đầu bằng âm /j/ nên dùng «a university», không dùng «an».' },
+{ w:'photo', uk:'ˈfəʊtəʊ', us:'ˈfoʊtoʊ', pos:'danh từ', senses:[{ vi:'bức ảnh', ex:['Is this a photo of your family?','Đây là ảnh gia đình bạn à?'] }], colloc:['take a photo','a photo of someone'] },
+{ w:'doctor', uk:'ˈdɒktə', us:'ˈdɑːktər', pos:'danh từ', senses:[{ vi:'bác sĩ; tiến sĩ', ex:['My father is a doctor.','Bố tôi là bác sĩ.'] }], colloc:['see a doctor','go to the doctor’s'] },
+{ w:'left', uk:'left', us:'left', pos:'danh từ, tính từ, trạng từ', senses:[{ vi:'bên trái', ex:['Turn left at the corner.','Rẽ trái ở góc phố.'] },{ vi:'quá khứ của leave — đã rời đi', ex:['He left at seven.','Anh ấy đi lúc bảy giờ.'] }] },
+{ w:'convenient', uk:'kənˈviːniənt', us:'kənˈviːniənt', pos:'tính từ', senses:[{ vi:'tiện lợi, thuận tiện', ex:['The location is very convenient.','Vị trí rất thuận tiện.'] }],
+  family:[['convenience','danh từ','sự tiện lợi'],['conveniently','trạng từ','một cách thuận tiện']],
+  note:'Nói về người thì dùng «It is convenient FOR me», không nói «I am convenient».' },
+{ w:'test', uk:'test', us:'test', pos:'danh từ, động từ', senses:[{ vi:'bài kiểm tra, bài thi', ex:['When is the test?','Bài kiểm tra khi nào?'] }],
+  colloc:['take a test (làm bài thi)','pass a test','fail a test'],
+  note:'take a test = đi thi · pass a test = thi đỗ. «Pass the test» KHÔNG có nghĩa là «làm bài thi».' },
+{ w:'library', uk:'ˈlaɪbrəri', us:'ˈlaɪbreri', pos:'danh từ', senses:[{ vi:'thư viện', ex:['I go to the library every morning.','Sáng nào tôi cũng tới thư viện.'] }],
+  note:'Không nhầm với bookshop (hiệu sách) — lỗi «false friend» quen thuộc.' },
+{ w:'market', uk:'ˈmɑːkɪt', us:'ˈmɑːrkɪt', pos:'danh từ', senses:[{ vi:'chợ', ex:['There is a market in front of the building.','Trước toà nhà có một cái chợ.'] },{ vi:'thị trường', ex:['the job market','thị trường việc làm'] }] },
+{ w:'building', uk:'ˈbɪldɪŋ', us:'ˈbɪldɪŋ', pos:'danh từ', senses:[{ vi:'toà nhà', ex:['She lives in an old building.','Cô ấy sống trong một toà nhà cũ.'] }], family:[['build','động từ','xây dựng'],['builder','danh từ','thợ xây']] },
+{ w:'park', uk:'pɑːk', us:'pɑːrk', pos:'danh từ, động từ', senses:[{ vi:'công viên', ex:['There is a park opposite the building.','Đối diện toà nhà có công viên.'] },{ vi:'đỗ xe (động từ)', ex:['You cannot park here.','Bạn không được đỗ xe ở đây.'] }] },
+{ w:'cheap', uk:'tʃiːp', us:'tʃiːp', pos:'tính từ', senses:[{ vi:'rẻ', ex:['The rent is cheap.','Tiền thuê rẻ.'] }],
+  note:'cheap đôi khi hàm ý rẻ tiền, kém chất lượng; muốn khen giá tốt thì dùng «inexpensive» hoặc «good value».' },
+{ w:'expensive', uk:'ɪkˈspensɪv', us:'ɪkˈspensɪv', pos:'tính từ', senses:[{ vi:'đắt', ex:['This phone is too expensive.','Điện thoại này đắt quá.'] }], family:[['expense','danh từ','chi phí']] },
+{ w:'coffee', uk:'ˈkɒfi', us:'ˈkɔːfi', pos:'danh từ', senses:[{ vi:'cà phê', ex:['I work at a coffee shop.','Tôi làm ở quán cà phê.'] }], colloc:['a cup of coffee','coffee shop','black coffee'] },
+{ w:'bus', uk:'bʌs', us:'bʌs', pos:'danh từ', senses:[{ vi:'xe buýt', ex:['I take the bus to work.','Tôi đi làm bằng xe buýt.'] }], colloc:['take the bus','catch a bus','miss the bus','by bus'] },
+{ w:'train', uk:'treɪn', us:'treɪn', pos:'danh từ, động từ', senses:[{ vi:'tàu hoả', ex:['It takes two hours by train.','Đi tàu mất hai tiếng.'] },{ vi:'huấn luyện, tập luyện', ex:['She trains every day.','Cô ấy tập luyện mỗi ngày.'] }], family:[['training','danh từ','sự đào tạo'],['trainer','danh từ','huấn luyện viên']] },
+{ w:'capital', uk:'ˈkæpɪtl', us:'ˈkæpɪtl', pos:'danh từ', senses:[{ vi:'thủ đô', ex:['Hanoi is the capital of Vietnam.','Hà Nội là thủ đô của Việt Nam.'] },{ vi:'chữ in hoa; vốn', ex:['Write your name in capitals.','Viết tên bằng chữ in hoa.'] }] },
+{ w:'same', uk:'seɪm', us:'seɪm', pos:'tính từ', senses:[{ vi:'giống nhau, cùng một', ex:['We are in the same class.','Chúng tôi học cùng lớp.'] }], note:'Luôn đi với «the»: the same as… Không nói «a same».' },
+{ w:'still', uk:'stɪl', us:'stɪl', pos:'trạng từ, tính từ', senses:[{ vi:'vẫn còn', ex:['She is still at school.','Em ấy vẫn đang đi học.'] },{ vi:'yên lặng, tĩnh (tính từ)', ex:['Sit still!','Ngồi yên nào!'] }], note:'still (vẫn còn) · yet (chưa, trong câu hỏi và phủ định) · already (đã rồi).' },
+{ w:'only', uk:'ˈəʊnli', us:'ˈoʊnli', pos:'trạng từ, tính từ', senses:[{ vi:'chỉ, duy nhất', ex:['The university is only ten minutes away.','Trường chỉ cách mười phút.'] }], note:'Vị trí của only đổi nghĩa cả câu: I only saw her ≠ Only I saw her.' }
+
+];
+
+/* ------------------------------------------------------------
+   Bảng tra: gộp từ vựng trong khoá học với các mục từ chi tiết
+   ------------------------------------------------------------ */
+const EN_LOOKUP = {};
+(function(){
+  if (typeof COURSE_EN !== 'undefined' && COURSE_EN.lessons){
+    COURSE_EN.lessons.forEach(l => (l.vocab || []).forEach(w => {
+      const k = String(w.en).toLowerCase();
+      if (!EN_LOOKUP[k]) EN_LOOKUP[k] = { w:w.en, uk:w.uk, us:w.us, pos:w.pos, senses:[{ vi:w.vi, note:w.note || '' }], src:'course' };
+    }));
+  }
+  EN_DICT.forEach(e => {
+    const k = String(e.w).toLowerCase();
+    EN_LOOKUP[k] = Object.assign({}, EN_LOOKUP[k] || {}, e, { src:'dict' });
+  });
+})();
+
+if (typeof module !== 'undefined'){ module.exports = { EN_DICT, EN_LOOKUP }; }
+
+</script>
+<script>
+/* ============================================================
    LangLab — «BẠN CÓ BIẾT?» : kho fact văn hoá – ngôn ngữ – ẩm thực – lễ hội –
    con người – động vật – thói quen của các nước có tiếng đang học.
    Mỗi mục: { lang, cat, title, body, extra, word:{t (bản ngữ), r (phiên âm), vi}, art (mã hình minh hoạ) }
@@ -25844,6 +27063,7 @@ const state = {
   zh: { level:'hsk1', lesson:null, writeChar:'', srs:null },
   ru: { level:'a1', lesson:null, letter:'А', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, trace:true },
   ja: { level:'n5', lesson:null, kana:'hiragana', kanaSel:'あ', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, kanjiLevel:null, kanjiSel:null, writeChar:'あ', furi:true },
+  en: { level:'a1', lesson:null, dictQ:'', entry:null, phon:'iː', phonTab:'vowel', srs:null, quiz:null, exam:null, pracLevel:null, topic:null },
   jamo: 'ㄱ',
   syll: { cho:'ㅎ', jung:'ㅏ', jong:'ㄴ' },
   speed: 1,
@@ -27075,7 +28295,7 @@ function aboutView(){
 
     <section class="about-sec">
       <h2>LangLab là gì?</h2>
-      <p>LangLab là ứng dụng web giúp người Việt học ngoại ngữ một cách bài bản. Hiện có <b>tiếng Hàn</b> (6 cấp từ Sơ cấp đến Cao cấp, thi thử TOPIK), <b>tiếng Trung</b> (HSK 1–5 — nét cơ bản, bộ thủ, pinyin, tập viết theo thứ tự nét, thi thử HSK) <b>tiếng Nga</b> (A1–C2 theo khung ТРКИ — bảng chữ cái, phát âm, viết tay, luyện nói, thi thử ТРКИ) và <b>tiếng Nhật</b> (N5–N2 theo khung JLPT — kana, kanji có âm Hán–Việt, tập viết theo nét, chia động từ, thi thử JLPT), sẽ mở rộng thêm các ngôn ngữ khác. Mỗi bài giữ nguyên cấu trúc quen thuộc: từ vựng → ngữ pháp → hội thoại → phát âm → văn hoá.</p>
+      <p>LangLab là ứng dụng web giúp người Việt học ngoại ngữ một cách bài bản. Hiện có <b>tiếng Hàn</b> (6 cấp từ Sơ cấp đến Cao cấp, thi thử TOPIK), <b>tiếng Trung</b> (HSK 1–5 — nét cơ bản, bộ thủ, pinyin, tập viết theo thứ tự nét, thi thử HSK) <b>tiếng Nga</b> (A1–C2 theo khung ТРКИ — bảng chữ cái, phát âm, viết tay, luyện nói, thi thử ТРКИ) <b>tiếng Nhật</b> (N5–N2 theo khung JLPT — kana, kanji có âm Hán–Việt, tập viết theo nét, chia động từ, thi thử JLPT) và <b>tiếng Anh</b> (theo khung CEFR — bảng IPA 44 âm vị, trọng âm, nối âm, từ điển nhiều tầng nghĩa với collocation và cụm động từ, hướng tới IELTS/TOEFL), sẽ mở rộng thêm các ngôn ngữ khác. Mỗi bài giữ nguyên cấu trúc quen thuộc: từ vựng → ngữ pháp → hội thoại → phát âm → văn hoá.</p>
       <ul class="about-feats">
         <li>Khoá học chia cấp, bám khung giáo trình chuẩn của từng ngôn ngữ.</li>
         <li>Từ điển tra nhanh — bấm vào từ nào cũng xem được nghĩa và cách dùng.</li>
@@ -27621,8 +28841,8 @@ function render(){
     const on = b.dataset.go === state.view || (state.view === 'lesson' && b.dataset.go === 'home');
     b.setAttribute('aria-current', on ? 'page' : 'false');
   });
-  const isZh = state.view.indexOf('zh_') === 0, isRu = state.view.indexOf('ru_') === 0, isJa = state.view.indexOf('ja_') === 0;
-  document.documentElement.setAttribute('data-lang', isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : 'ko');   // tông màu theo ngôn ngữ
+  const isZh = state.view.indexOf('zh_') === 0, isRu = state.view.indexOf('ru_') === 0, isJa = state.view.indexOf('ja_') === 0, isEn = state.view.indexOf('en_') === 0;
+  document.documentElement.setAttribute('data-lang', isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : isEn ? 'en' : 'ko');   // tông màu theo ngôn ngữ
   if (typeof syncThemeColor === 'function') syncThemeColor();
   const koDrop = $('#koDrop');
   if (koDrop) koDrop.classList.toggle('active', KO_VIEWS.includes(state.view));
@@ -27632,8 +28852,10 @@ function render(){
   if (ruDrop) ruDrop.classList.toggle('active', isRu);
   const jaDrop = $('#jaDrop');
   if (jaDrop) jaDrop.classList.toggle('active', isJa);
+  const enDrop = $('#enDrop');
+  if (enDrop) enDrop.classList.toggle('active', isEn);
   const tq = $('#topq');
-  if (tq) tq.placeholder = isZh ? 'Tra nhanh tiếng Trung (chữ Hán / pinyin / nghĩa)…' : isRu ? 'Tra nhanh tiếng Nga (không cần dấu trọng âm)…' : isJa ? 'Tra nhanh tiếng Nhật (kana / kanji / romaji / nghĩa)…' : state.view === 'about' ? 'Tra nhanh: 한국어 · 中文 · русский · tiếng Việt…' : 'Tra nhanh tiếng Hàn (Hangul / romaja / nghĩa)…';
+  if (tq) tq.placeholder = isZh ? 'Tra nhanh tiếng Trung (chữ Hán / pinyin / nghĩa)…' : isRu ? 'Tra nhanh tiếng Nga (không cần dấu trọng âm)…' : isJa ? 'Tra nhanh tiếng Nhật (kana / kanji / romaji / nghĩa)…' : isEn ? 'Tra nhanh tiếng Anh (từ / phiên âm / nghĩa)…' : state.view === 'about' ? 'Tra nhanh: 한국어 · 中文 · русский · tiếng Việt…' : 'Tra nhanh tiếng Hàn (Hangul / romaja / nghĩa)…';
   $$('.nav-drop.open').forEach(d => {
     d.classList.remove('open');
     const bb = d.querySelector('.nav-drop-btn'); if (bb) bb.setAttribute('aria-expanded', 'false');
@@ -27647,6 +28869,8 @@ function render(){
     ? ruCrumb()
     : isJa
     ? jaCrumb()
+    : isEn
+    ? enCrumb()
     : state.view === 'about'
     ? `<b>Giới thiệu LangLab</b>`
     : state.view === 'lesson' && l
@@ -30717,6 +31941,332 @@ document.addEventListener('scroll', hideTip, true);
    SỰ KIỆN TOÀN CỤC
    ============================================================ */
 /* ============================================================
+   TIẾNG ANH — kiến trúc chung, ngữ âm/IPA, khoá học, từ điển
+   ============================================================ */
+const _EP  = (typeof PHON_EN !== 'undefined') ? PHON_EN : { vowels:[], diphthongs:[], consonants:[], stress:[], connected:[], spelling:[], variants:[] };
+const _EPA = (typeof PHON_EN_ALL !== 'undefined') ? PHON_EN_ALL : [];
+const _EC  = (typeof COURSE_EN !== 'undefined') ? COURSE_EN : { levels:[], lessons:[] };
+
+function enCrumb(){
+  const map = { en_home:'Khoá học', en_phon:'Phát âm & IPA', en_dict:'Từ điển', en_srs:'Ôn tập', en_quiz:'Bài tập', en_idiom:'Idiom & Phrasal verb', en_speak:'Luyện nói', en_exam:'Thi thử IELTS / TOEFL' };
+  const L = enCurLesson();
+  if (state.view === 'en_lesson' && L)
+    return `<button class="crumb-link" data-go="en_home">Tiếng Anh</button> <span>›</span> <button class="crumb-link" data-go="en_home">${esc(enLevelName(state.en.level))}</button> <span>›</span> <b>Unit ${String(L.no).padStart(2,'0')} · ${esc(L.vi)}</b>`;
+  return `<button class="crumb-link" data-go="en_home">Tiếng Anh</button> <span>›</span> <b>${esc(map[state.view] || '')}</b>`;
+}
+function enLevel(){ return _EC.levels.find(x => x.id === state.en.level) || _EC.levels[0] || { id:'a1', vi:'A1', en:'Beginner', lessons:0 }; }
+function enLevelName(id){ const v = _EC.levels.find(x => x.id === id); return v ? v.vi : String(id || '').toUpperCase(); }
+function enLessonList(){ return _EC.lessons.filter(l => l.level === state.en.level); }
+function enCurLesson(){ return _EC.lessons.find(l => l.no === state.en.lesson && l.level === state.en.level); }
+function enAllWords(){ const out = []; _EC.lessons.forEach(l => (l.vocab || []).forEach(w => out.push(Object.assign({ lv:l.level, no:l.no }, w)))); return out; }
+
+/* Phiên âm: hiện IPA theo giọng đang chọn (uk mặc định) */
+function enVoice(){ return store.get('enVoice', 'uk') === 'us' ? 'us' : 'uk'; }
+function enIpa(w){ const v = enVoice(); const s = (v === 'us' && w.us) ? w.us : (w.uk || w.ipa || ''); return s ? `/${s}/` : ''; }
+function enIpaHTML(w, cls){ const s = enIpa(w); return s ? `<span class="ipa ${cls || ''}">${esc(s)}</span>` : ''; }
+
+/* Tách câu tiếng Anh thành token bấm được để tra từ */
+function enTokens(text){
+  return String(text || '').split(/(\s+)/).map(part => {
+    if (/^\s+$/.test(part)) return part;
+    const m = part.match(/^([^A-Za-z']*)([A-Za-z][A-Za-z'-]*)(.*)$/);
+    if (!m) return esc(part);
+    const key = enLemma(m[2]);
+    return esc(m[1]) + (key ? `<span class="zc" data-en-word="${esc(key)}">${esc(m[2])}</span>` : esc(m[2])) + esc(m[3]);
+  }).join('');
+}
+/* Đưa một dạng từ về dạng nguyên thể có trong kho (đơn giản hoá, đủ dùng cho A1–B2) */
+const EN_IRREG = {
+  was:'be', were:'be', is:'be', am:'be', are:'be', been:'be', being:'be',
+  had:'have', has:'have', having:'have', does:'do', did:'do', done:'do', doing:'do',
+  went:'go', gone:'go', goes:'go', said:'say', says:'say', made:'make', took:'take', taken:'take',
+  came:'come', saw:'see', seen:'see', knew:'know', known:'know', got:'get', gotten:'get',
+  gave:'give', given:'give', found:'find', thought:'think', told:'tell', became:'become',
+  left:'leave', felt:'feel', put:'put', brought:'bring', began:'begin', begun:'begin',
+  kept:'keep', held:'hold', wrote:'write', written:'write', stood:'stand', heard:'hear',
+  let:'let', meant:'mean', met:'meet', ran:'run', paid:'pay', sat:'sit', spoke:'speak', spoken:'speak',
+  lay:'lie', led:'lead', read:'read', grew:'grow', grown:'grow', lost:'lose', fell:'fall', fallen:'fall',
+  sent:'send', built:'build', understood:'understand', drew:'draw', broke:'break', broken:'break',
+  spent:'spend', cut:'cut', rose:'rise', risen:'rise', drove:'drive', driven:'drive', bought:'buy',
+  wore:'wear', worn:'wear', chose:'choose', chosen:'choose', ate:'eat', eaten:'eat', slept:'sleep',
+  won:'win', taught:'teach', caught:'catch', sold:'sell', flew:'fly', flown:'fly', threw:'throw',
+  children:'child', men:'man', women:'woman', people:'person', feet:'foot', teeth:'tooth',
+  mice:'mouse', geese:'goose', better:'good', best:'good', worse:'bad', worst:'bad', more:'much', most:'much'
+};
+function enLemma(raw){
+  const w = String(raw || '').toLowerCase().replace(/[’]/g, "'");
+  if (!w) return '';
+  const L = (typeof EN_LOOKUP !== 'undefined') ? EN_LOOKUP : {};
+  if (L[w]) return w;
+  if (EN_IRREG[w] && L[EN_IRREG[w]]) return EN_IRREG[w];
+  const cand = [];
+  if (/'s$/.test(w)) cand.push(w.slice(0, -2));
+  if (/n't$/.test(w)) cand.push(w.slice(0, -3), w.slice(0, -3) + 'o');
+  if (/ies$/.test(w)) cand.push(w.slice(0, -3) + 'y');
+  if (/ied$/.test(w)) cand.push(w.slice(0, -3) + 'y');
+  if (/ier$/.test(w)) cand.push(w.slice(0, -3) + 'y');
+  if (/iest$/.test(w)) cand.push(w.slice(0, -4) + 'y');
+  if (/(ch|sh|ss|x|z|o)es$/.test(w)) cand.push(w.slice(0, -2));
+  if (/s$/.test(w)) cand.push(w.slice(0, -1));
+  if (/ing$/.test(w)) cand.push(w.slice(0, -3), w.slice(0, -3) + 'e', w.slice(0, -4));
+  if (/ed$/.test(w)) cand.push(w.slice(0, -2), w.slice(0, -1), w.slice(0, -3));
+  if (/er$/.test(w)) cand.push(w.slice(0, -2), w.slice(0, -1));
+  if (/est$/.test(w)) cand.push(w.slice(0, -3), w.slice(0, -2));
+  if (/ly$/.test(w)) cand.push(w.slice(0, -2));
+  for (let i = 0; i < cand.length; i++) if (cand[i] && L[cand[i]]) return cand[i];
+  return L[w] ? w : '';
+}
+
+/* ---------- Khoá học ---------- */
+VIEWS.en_home = function(){
+  const lv = enLevel(), L = enLessonList(), total = lv.lessons || 0;
+  const cards = [
+    ['en_phon','Phát âm & IPA','44 âm vị, trọng âm, nối âm, Anh vs Mỹ','/iː/'],
+    ['en_dict','Từ điển','Nghĩa nhiều tầng, từ loại, collocation, họ từ','📖'],
+    ['en_idiom','Idiom & Phrasal verb','Cụm động từ và thành ngữ dùng thật','💬'],
+    ['en_exam','Thi thử','IELTS · TOEFL iBT chuẩn thời gian','⏱']
+  ];
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Khoá tiếng Anh · ${esc(lv.en)}</span>
+    <h1>Tiếng Anh từ A1 tới C2</h1>
+    <p>Học theo khung <em>CEFR</em>: mỗi unit có mục tiêu giao tiếp, ngữ pháp giải thích bằng tiếng Việt, từ vựng kèm phiên âm IPA Anh–Mỹ, collocation, hội thoại và bài đọc. Mọi từ trong bài đều bấm được để tra nghĩa. Hiện có ${L.length}/${total || '—'} unit của ${esc(lv.vi)}.</p>
+  </div>
+  <div class="zh-found">
+    ${cards.map(c => `<button class="zh-found-card" data-go="${c[0]}"><span class="zh-found-ico en">${c[3]}</span><span class="zh-found-tx"><b>${c[1]}</b><i>${c[2]}</i></span></button>`).join('')}
+  </div>
+  <div class="level-strip">
+    ${_EC.levels.map(v => {
+      const active = v.status === 'active';
+      return `<button class="level-chip" data-en-level="${v.id}"${state.en.level === v.id ? ' aria-pressed="true"' : ''}${active ? '' : ' disabled'} title="${active ? '' : 'Đang biên soạn'}">${esc(v.vi)} <span class="lv-ko">${esc(v.en)}</span>${active ? '' : ' <span class="lv-soon">sắp có</span>'}</button>`;
+    }).join('')}
+  </div>
+  ${L.length ? `<div class="lesson-grid">
+    ${L.map(l => `
+      <button class="lesson-card" data-en-lesson="${l.no}">
+        <span class="lesson-no"><i></i> UNIT ${String(l.no).padStart(2,'0')}</span>
+        <h3 class="en">${esc(l.en)}</h3>
+        <p class="vi">${esc(l.vi)}</p>
+        <span class="lesson-meta">${(l.vocab||[]).length} từ · ${(l.grammar||[]).length} ngữ pháp · ${(l.dialogue||[]).length} câu hội thoại</span>
+      </button>`).join('')}
+  </div>` : `<p class="tk-note-small">Cấp này đang được biên soạn.</p>`}`;
+};
+
+/* ---------- Bài học ---------- */
+VIEWS.en_lesson = function(){
+  const L = enCurLesson();
+  if (!L) return VIEWS.en_home();
+  const list = enLessonList(), i = list.findIndex(x => x.no === L.no);
+  const prev = i > 0 ? list[i - 1] : null, next = i < list.length - 1 ? list[i + 1] : null;
+  return `
+  <div class="page-head">
+    <span class="eyebrow">${esc(enLevelName(L.level))} · Unit ${String(L.no).padStart(2,'0')}${L.skill ? ' · ' + esc(L.skill) : ''}</span>
+    <h1 class="en">${esc(L.en)}</h1>
+    <p>${esc(L.vi)}</p>
+  </div>
+
+  <section class="zh-sec">
+    <h2>Ngữ pháp</h2>
+    ${(L.grammar || []).map(g => `
+      <div class="zh-gram">
+        <div class="zh-gram-form en">${esc(g.form)}</div>
+        <div class="zh-gram-vi">${esc(g.vi)}</div>
+        ${g.note ? `<div class="zh-gram-note">${esc(g.note)}</div>` : ''}
+        ${g.ex ? `<div class="zh-gram-ex"><span class="en">${enTokens(g.ex.en)}</span> ${enSpeakBtn(g.ex.en)}<div class="zh-ex-vi">${esc(g.ex.vi)}</div></div>` : ''}
+      </div>`).join('')}
+  </section>
+
+  <section class="zh-sec">
+    <h2>Từ vựng <span class="sec-count">${(L.vocab || []).length}</span></h2>
+    <div class="zh-word-grid">
+      ${(L.vocab || []).map(w => `
+        <div class="zh-word">
+          <div class="zh-word-hz en">${esc(w.en)}</div>
+          <div class="zh-word-py">${esc(enIpa(w))}</div>
+          <div class="zh-word-vi">${esc(w.vi)}${w.pos ? ` <i class="w-pos">${esc(w.pos)}</i>` : ''}</div>
+          ${w.note ? `<div class="zh-word-note">${esc(w.note)}</div>` : ''}
+          <div class="zh-word-act">${enSpeakBtn(w.en)} <button class="zh-ref" data-en-word="${esc(w.en.toLowerCase())}">Tra từ</button></div>
+        </div>`).join('')}
+    </div>
+  </section>
+
+  ${(L.colloc && L.colloc.length) ? `<section class="zh-sec">
+    <h2>Cụm từ đi với nhau (collocation)</h2>
+    <div class="st-list">${L.colloc.map(c => `<div class="st-card"><h4 class="en">${esc(c.p)}</h4><p>${esc(c.vi)}</p>${c.ex ? `<div class="st-ex"><span class="en">${enTokens(c.ex)}</span></div>` : ''}</div>`).join('')}</div>
+  </section>` : ''}
+
+  ${(L.dialogue && L.dialogue.length) ? `<section class="zh-sec">
+    <h2>Hội thoại</h2>
+    <div class="zh-dia">
+      ${L.dialogue.map(d => `
+        <div class="zh-line">
+          <span class="zh-line-sp">${esc(d.sp)}</span>
+          <div>
+            <div class="zh-line-zh en">${enTokens(d.en)} ${enSpeakBtn(d.en)}</div>
+            <div class="zh-line-vi">${esc(d.vi)}</div>
+          </div>
+        </div>`).join('')}
+    </div>
+  </section>` : ''}
+
+  ${L.reading ? `<section class="zh-sec">
+    <h2>Bài đọc</h2>
+    <div class="tk-passage en">${enTokens(L.reading.en)}</div>
+    <p class="zh-line-vi">${esc(L.reading.vi)}</p>
+    ${enSpeakBtn(L.reading.en, 'pbtn')}
+  </section>` : ''}
+
+  <div class="les-nav">
+    ${prev ? `<button class="pbtn" data-en-lesson="${prev.no}">← Unit ${String(prev.no).padStart(2,'0')}</button>` : '<span></span>'}
+    <button class="pbtn" data-go="en_home">Danh sách unit</button>
+    ${next ? `<button class="pbtn primary" data-en-lesson="${next.no}">Unit ${String(next.no).padStart(2,'0')} →</button>` : '<span></span>'}
+  </div>`;
+};
+
+/* ---------- Phát âm & IPA ---------- */
+VIEWS.en_phon = function(){
+  const tab = state.en.phonTab || 'vowel';
+  const cur = _EPA.find(x => x.s === state.en.phon) || _EPA[0];
+  const tabs = [['vowel','Nguyên âm đơn (12)'],['diph','Nguyên âm đôi (8)'],['cons','Phụ âm (24)'],['stress','Trọng âm từ'],['connected','Nối âm & nhịp'],['spelling','Chính tả → âm'],['variants','Anh vs Mỹ']];
+  const chips = `<div class="level-strip compact">${tabs.map(t => `<button class="level-chip" data-en-phontab="${t[0]}"${tab === t[0] ? ' aria-pressed="true"' : ''}>${esc(t[1])}</button>`).join('')}</div>`;
+  const voice = `<div class="level-strip compact" style="margin-top:8px"><button class="level-chip" data-en-voice="uk"${enVoice() === 'uk' ? ' aria-pressed="true"' : ''}>Giọng Anh (RP)</button><button class="level-chip" data-en-voice="us"${enVoice() === 'us' ? ' aria-pressed="true"' : ''}>Giọng Mỹ (GA)</button></div>`;
+
+  let body = '';
+  if (tab === 'vowel' || tab === 'diph' || tab === 'cons'){
+    const pool = tab === 'vowel' ? _EP.vowels : tab === 'diph' ? _EP.diphthongs : _EP.consonants;
+    const sel = pool.find(x => x.s === (cur && cur.s)) || pool[0];
+    body = `
+    <div class="ph-grid">${pool.map(p => `<button class="ph-cell" data-en-phon="${esc(p.s)}"${sel && p.s === sel.s ? ' aria-pressed="true"' : ''}><span class="ph-sym ipa">/${esc(p.s)}/</span><span class="ph-eg">${esc(p.eg[0][0])}</span></button>`).join('')}</div>
+    ${sel ? `<div class="ph-detail">
+      <h3><span class="ipa big">/${esc(sel.s)}/</span> — ${esc(sel.name)} ${enSpeakBtn(sel.eg[0][0], 'pbtn')}</h3>
+      <div class="ph-row"><span class="ph-tag hi">${esc(sel.type)}</span>${sel.us && sel.us !== sel.s ? `<span class="ph-tag">Giọng Mỹ: <span class="ipa">/${esc(sel.us)}/</span></span>` : ''}</div>
+      <p>${esc(sel.vi)}</p>
+      <h4>Viết thế nào thì đọc âm này</h4>
+      <div class="ph-row">${sel.spell.map(x => `<span class="ph-tag">${esc(x)}</span>`).join('')}</div>
+      <h4>Ví dụ</h4>
+      <div class="ph-words">${sel.eg.map(e => `<span class="ph-w"><b class="en">${esc(e[0])}</b> <span class="ipa">/${esc(e[1])}/</span> <i>${esc(e[2])}</i> ${enSpeakBtn(e[0], 'mini')}</span>`).join('')}</div>
+      ${sel.pair && sel.pair.length ? `<h4>Cặp từ tối thiểu — tự kiểm tra</h4>
+      ${sel.pair.map(p => `<div class="ph-pair"><span><b class="en">${esc(p[0])}</b> <span class="ipa">/${esc(p[1])}/</span> ${enSpeakBtn(p[0], 'mini')}</span><span class="vs">≠</span><span><b class="en">${esc(p[2])}</b> <span class="ipa">/${esc(p[3])}/</span> ${enSpeakBtn(p[2], 'mini')}</span></div><p class="ph-eg">${esc(p[4] || '')}</p>`).join('')}` : ''}
+      <div class="zh-gram-note"><b>Mẹo cho người Việt:</b> ${esc(sel.tip)}</div>
+    </div>` : ''}`;
+  } else if (tab === 'stress' || tab === 'connected' || tab === 'spelling'){
+    const pool = tab === 'stress' ? _EP.stress : tab === 'connected' ? _EP.connected : _EP.spelling;
+    body = `<div class="st-list">${pool.map(r => `
+      <div class="st-card">
+        <h4>${esc(r.t)}</h4>
+        <p>${esc(r.d)}</p>
+        <div class="st-ex">${r.ex.map(e => Array.isArray(e) ? `<span class="en">${esc(e[0])}${e[1] ? ' · ' : ''}<span class="ipa">${esc(e[1] || '')}</span></span>` : `<span class="en">${esc(e)}</span>`).join('')}</div>
+      </div>`).join('')}</div>`;
+  } else {
+    body = `<div class="st-list">${_EP.variants.map(r => `
+      <div class="st-card">
+        <h4>${esc(r.t)}</h4>
+        <p><b>Anh:</b> ${esc(r.uk)}</p>
+        <p><b>Mỹ:</b> ${esc(r.us)}</p>
+      </div>`).join('')}</div>`;
+  }
+
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Anh · Nền tảng</span>
+    <h1>Phát âm &amp; bảng IPA</h1>
+    <p>Tiếng Anh có <b>44 âm vị</b> nhưng chỉ 26 chữ cái — nên không thể đoán cách đọc từ mặt chữ. Học IPA một lần rồi tra từ điển là đọc đúng mọi từ mới. Mỗi âm dưới đây có mô tả khẩu hình, quy tắc chính tả, ví dụ và <b>cặp từ tối thiểu</b> để bạn tự kiểm tra xem mình có phân biệt được không.</p>
+  </div>
+  ${chips}
+  ${voice}
+  ${body}
+  <p class="tk-note-small">Ký hiệu theo chuẩn IPA, giọng chuẩn Anh (Received Pronunciation) đối chiếu giọng Mỹ (General American). Nút 🔊 dùng giọng đọc có sẵn trong máy của bạn.</p>`;
+};
+
+/* ---------- Các màn còn lại (đang biên soạn) ---------- */
+function enSoon(title, eyebrow, lines){
+  return `
+  <div class="page-head">
+    <span class="eyebrow">${esc(eyebrow)}</span>
+    <h1>${esc(title)}</h1>
+    <p>Phần này đang được biên soạn. Trong lúc chờ, bạn có thể học <button class="crumb-link" data-go="en_phon">Phát âm &amp; IPA</button> hoặc vào <button class="crumb-link" data-go="en_home">Khoá học</button>.</p>
+  </div>
+  <div class="st-list">${lines.map(l => `<div class="st-card"><h4>${esc(l[0])}</h4><p>${esc(l[1])}</p></div>`).join('')}</div>`;
+}
+/* ---------- Từ điển tiếng Anh ---------- */
+function enEntryEx(w){
+  const out = [];
+  _EC.lessons.forEach(l => {
+    const hit = t => t && new RegExp('\\b' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i').test(t);
+    (l.dialogue || []).forEach(d => { if (hit(d.en)) out.push({ en:d.en, vi:d.vi, lv:l.level, no:l.no }); });
+    (l.grammar || []).forEach(g => { if (g.ex && hit(g.ex.en)) out.push({ en:g.ex.en, vi:g.ex.vi, lv:l.level, no:l.no }); });
+  });
+  return out.slice(0, 6);
+}
+function enEntryHTML(e){
+  if (!e) return '';
+  const ipa = enIpa(e);
+  const other = enVoice() === 'us' ? (e.uk ? `<span class="ph-tag">Anh <span class="ipa">/${esc(e.uk)}/</span></span>` : '') : (e.us && e.us !== e.uk ? `<span class="ph-tag">Mỹ <span class="ipa">/${esc(e.us)}/</span></span>` : '');
+  const senses = e.senses || [];
+  const ex = enEntryEx(e.w);
+  const F = e.forms || {};
+  const formRows = [];
+  if (F.v) formRows.push(['Chia động từ', F.v.join(' · ')]);
+  if (F.pl) formRows.push(['Số nhiều', F.pl]);
+  if (F.cmp) formRows.push(['So sánh hơn / nhất', F.cmp + ' · ' + (F.sup || '')]);
+  return `
+  <div class="ru-entry" id="enEntry">
+    <div class="ru-entry-head">
+      <div class="ru-entry-word en">${esc(e.w)} ${enSpeakBtn(e.w)}</div>
+      <div class="ph-row"><span class="ipa big">${esc(ipa)}</span>${other}${e.pos ? `<span class="ph-tag hi">${esc(e.pos)}</span>` : ''}${e.reg ? `<span class="ph-tag">${esc(e.reg)}</span>` : ''}</div>
+    </div>
+    ${senses.length ? `<section class="ru-entry-sec"><h3>Nghĩa</h3>
+      <ol class="ru-senses">${senses.map(x => `<li>
+        <div class="ru-sense-vi">${esc(x.vi)}</div>
+        ${x.note ? `<div class="ru-sense-note">${esc(x.note)}</div>` : ''}
+        ${x.ex && x.ex[0] ? `<div class="ru-sense-ex"><span class="en">${enTokens(x.ex[0])}</span> ${enSpeakBtn(x.ex[0], 'mini')}${x.ex[1] ? `<span class="ru-sense-exvi">${esc(x.ex[1])}</span>` : ''}</div>` : ''}
+      </li>`).join('')}</ol></section>` : ''}
+    ${formRows.length ? `<section class="ru-entry-sec"><h3>Dạng của từ</h3><div class="st-list">${formRows.map(r => `<div class="st-card"><h4>${esc(r[0])}</h4><p class="en">${esc(r[1])}</p></div>`).join('')}</div></section>` : ''}
+    ${e.colloc && e.colloc.length ? `<section class="ru-entry-sec"><h3>Cụm từ hay đi cùng</h3><div class="st-ex">${e.colloc.map(c => `<span class="en">${esc(c)}</span>`).join('')}</div></section>` : ''}
+    ${e.phrasal && e.phrasal.length ? `<section class="ru-entry-sec"><h3>Cụm động từ</h3><div class="st-list">${e.phrasal.map(x => `<div class="st-card"><h4 class="en">${esc(x[0])}</h4><p>${esc(x[1])}</p></div>`).join('')}</div></section>` : ''}
+    ${e.idiom && e.idiom.length ? `<section class="ru-entry-sec"><h3>Thành ngữ</h3><div class="st-list">${e.idiom.map(x => `<div class="st-card"><h4 class="en">${esc(x[0])}</h4><p>${esc(x[1])}</p></div>`).join('')}</div></section>` : ''}
+    ${e.family && e.family.length ? `<section class="ru-entry-sec"><h3>Họ từ</h3><div class="st-ex">${e.family.map(f => `<span><b class="en">${esc(f[0])}</b> <i>${esc(f[1])}</i> — ${esc(f[2])}</span>`).join('')}</div></section>` : ''}
+    ${e.note ? `<section class="ru-entry-sec"><h3>Ghi chú dùng từ</h3><p>${esc(e.note)}</p></section>` : ''}
+    ${ex.length ? `<section class="ru-entry-sec"><h3>Ví dụ trong khoá học</h3><div class="ru-ex-list">${ex.map(x => `<div class="ru-ex-item"><div class="en">${enTokens(x.en)} ${enSpeakBtn(x.en, 'mini')}</div><div class="ru-ex-vi">${esc(x.vi)} · <button class="zh-ref" data-en-open="${x.lv}:${x.no}">${esc(enLevelName(x.lv))} unit ${x.no}</button></div></div>`).join('')}</div></section>` : ''}
+  </div>`;
+}
+VIEWS.en_dict = function(){
+  const L = (typeof EN_LOOKUP !== 'undefined') ? EN_LOOKUP : {};
+  const keys = Object.keys(L).sort();
+  const q = (state.en.dictQ || '').trim().toLowerCase();
+  const hits = q ? keys.filter(k => k.indexOf(q) >= 0 || ((L[k].senses || []).some(s => (s.vi || '').toLowerCase().indexOf(q) >= 0))).slice(0, 60) : keys.slice(0, 60);
+  const cur = state.en.entry && L[state.en.entry] ? L[state.en.entry] : null;
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Anh · Tra cứu</span>
+    <h1>Từ điển Anh – Việt</h1>
+    <p>Kho hiện có <b>${keys.length}</b> mục từ: phiên âm Anh và Mỹ, từ loại, các nghĩa xếp theo tần suất kèm ví dụ, dạng biến đổi, collocation, cụm động từ, thành ngữ và họ từ. Mọi từ trong bài học đều bấm được để mở thẳng mục từ tương ứng.</p>
+  </div>
+  <div class="dict-bar">
+    <input id="enq" class="dict-q" type="search" placeholder="Nhập từ tiếng Anh hoặc nghĩa tiếng Việt…" value="${esc(state.en.dictQ || '')}" autocomplete="off">
+  </div>
+  <div class="level-strip compact" style="margin-top:8px"><button class="level-chip" data-en-voice="uk"${enVoice() === 'uk' ? ' aria-pressed="true"' : ''}>Phiên âm Anh</button><button class="level-chip" data-en-voice="us"${enVoice() === 'us' ? ' aria-pressed="true"' : ''}>Phiên âm Mỹ</button></div>
+  ${cur ? enEntryHTML(cur) : ''}
+  <section class="zh-sec">
+    <h2>${q ? 'Kết quả' : 'Danh sách từ'} <span class="sec-count">${hits.length}</span></h2>
+    <div class="zh-word-grid">
+      ${hits.map(k => { const e = L[k]; return `
+        <button class="zh-word" data-en-word="${esc(k)}">
+          <div class="zh-word-hz en">${esc(e.w)}</div>
+          <div class="zh-word-py">${esc(enIpa(e))}</div>
+          <div class="zh-word-vi">${esc((e.senses && e.senses[0] ? e.senses[0].vi : '') || '')}${e.pos ? ` <i class="w-pos">${esc(e.pos)}</i>` : ''}</div>
+        </button>`; }).join('')}
+    </div>
+    ${!hits.length ? '<p class="tk-note-small">Không tìm thấy từ nào. Thử gõ dạng nguyên thể, ví dụ «go» thay vì «went».</p>' : ''}
+  </section>`;
+};
+VIEWS.en_srs   = function(){ return enSoon('Ôn tập tiếng Anh', 'Tiếng Anh · Ghi nhớ', [['Thẻ lật hai chiều','Anh → Việt và Việt → Anh, có phát âm.'],['Ưu tiên từ chưa thuộc','Lịch ôn theo mức độ nhớ của từng từ.']]); };
+VIEWS.en_quiz  = function(){ return enSoon('Bài tập tiếng Anh', 'Tiếng Anh · Luyện tập', [['Nhiều dạng bài','Trắc nghiệm, điền dạng đúng của từ, chọn giới từ, sắp xếp câu, chuyển câu, viết lại câu.'],['Chấm điểm và giải thích','Mỗi câu có lời giải thích ngữ pháp bằng tiếng Việt.']]); };
+VIEWS.en_idiom = function(){ return enSoon('Idiom & Phrasal verb', 'Tiếng Anh · Cụm từ', [['Cụm động từ theo động từ gốc','get, take, put, come, go, look, turn, bring, run… kèm nghĩa đen và nghĩa bóng.'],['Thành ngữ theo chủ đề','Thời gian, tiền bạc, cảm xúc, công việc, quan hệ — kèm mức trang trọng và ví dụ.']]); };
+VIEWS.en_speak = function(){ return enSoon('Luyện nói tiếng Anh', 'Tiếng Anh · Nói', [['Chủ đề IELTS Speaking','Part 1, 2, 3 với dàn ý và bài mẫu band 7+.'],['Chủ đề đời sống','Giới thiệu bản thân, phỏng vấn xin việc, thuyết trình ngắn.']]); };
+VIEWS.en_exam  = function(){ return enSoon('Thi thử IELTS / TOEFL', 'Tiếng Anh · Thi thử', [['IELTS','Listening 40 câu/30 phút · Reading 40 câu/60 phút · Writing 2 task/60 phút · Speaking 3 phần. Quy đổi band 0–9.'],['TOEFL iBT','Reading 20 câu/35 phút · Listening 28 câu/36 phút · Speaking 4 task · Writing 2 task. Thang điểm 0–120.']]); };
+
+/* ============================================================
    «BẠN CÓ BIẾT?» — bong bóng fact văn hoá theo ngôn ngữ đang học
    Dữ liệu: facts.js (FACTS + FACT_ART). Bong bóng tự hiện sau một lúc học,
    bấm vào mở bảng chi tiết có hình minh hoạ; xem tất cả ở màn «Bạn có biết?».
@@ -30855,7 +32405,8 @@ function factClose(){
   factSchedule();
 }
 /* ----- màn hình «Bạn có biết?» ----- */
-if (typeof window !== 'undefined') window.__facts = { pick:factPick, lang:factLang, show:factShowBubble, schedule:factSchedule, on:factsOn, open:factOpen, pool:factPool, store };
+if (typeof window !== 'undefined') window.__en = { lemma:enLemma, tokens:enTokens, ipa:enIpa, level:enLevel, lessons:enLessonList, phon:() => _EPA, course:() => _EC };
+window.__facts = { pick:factPick, lang:factLang, show:factShowBubble, schedule:factSchedule, on:factsOn, open:factOpen, pool:factPool, store };
 VIEWS.facts = function(){
   const lang = state.factsLang || factLang() || 'ko';
   const pool = factPool(lang);
@@ -31112,6 +32663,27 @@ document.addEventListener('click', e => {
   if (zqz){ const Q = state.zh.quiz; if (Q && Q.picked[Q.i] == null){ Q.picked[Q.i] = zqz.dataset.zhQz; render(); } return; }
   if (t.closest('[data-zh-qz-next]')){ if (state.zh.quiz){ state.zh.quiz.i++; render(); } return; }
   /* ----- tiếng Nga ----- */
+
+  /* ----- Tiếng Anh ----- */
+  const enLv = t.closest('[data-en-level]');
+  if (enLv && !enLv.disabled){ state.en.level = enLv.dataset.enLevel; state.en.lesson = null; render(); return; }
+  const enLs = t.closest('[data-en-lesson]');
+  if (enLs){ state.en.lesson = +enLs.dataset.enLesson; if (state.view !== 'en_lesson') go('en_lesson'); else render(); return; }
+  const enPh = t.closest('[data-en-phon]');
+  if (enPh){ state.en.phon = enPh.dataset.enPhon; render(); return; }
+  const enPt = t.closest('[data-en-phontab]');
+  if (enPt){
+    state.en.phonTab = enPt.dataset.enPhontab;
+    const pool = state.en.phonTab === 'vowel' ? _EP.vowels : state.en.phonTab === 'diph' ? _EP.diphthongs : state.en.phonTab === 'cons' ? _EP.consonants : null;
+    if (pool && pool.length && !pool.some(x => x.s === state.en.phon)) state.en.phon = pool[0].s;
+    render(); return;
+  }
+  const enVo = t.closest('[data-en-voice]');
+  if (enVo){ store.set('enVoice', enVo.dataset.enVoice); render(); return; }
+  const enOp = t.closest('[data-en-open]');
+  if (enOp){ const a = enOp.dataset.enOpen.split(':'); state.en.level = a[0]; state.en.lesson = +a[1]; go('en_lesson'); return; }
+  const enW = t.closest('[data-en-word]');
+  if (enW && !t.closest('[data-en-speak]')){ state.en.entry = enW.dataset.enWord; state.en.dictQ = enW.dataset.enWord; if (state.view !== 'en_dict') go('en_dict'); else render(); return; }
   const eSpeak = t.closest('[data-en-speak]');
   if (eSpeak){ enSpeak(eSpeak.dataset.enSpeak); return; }
   const rSpeak = t.closest('[data-ru-speak]');
@@ -31484,6 +33056,7 @@ document.addEventListener('change', e => {
 
 /* tìm nhanh trên thanh trên cùng + ô chuyển số */
 document.addEventListener('input', e => {
+  if (e.target && e.target.id === 'enq'){ state.en.dictQ = e.target.value; state.en.entry = enLemma(e.target.value) || null; const el = document.getElementById('view'); if (el){ el.innerHTML = VIEWS.en_dict(); const q = document.getElementById('enq'); if (q){ q.value = state.en.dictQ; q.focus(); q.setSelectionRange(q.value.length, q.value.length); } } return; }
   if (e.target.id === 'numInput'){
     const out = $('#numOut'); if (!out) return;
     const n = parseInt(e.target.value, 10);
@@ -31520,11 +33093,12 @@ function quickLang(v){
   const l = document.documentElement.getAttribute('data-lang');
   if (/[一-鿿]/.test(v)) return l === 'ja' ? 'ja' : 'zh';
   if (/[А-Яа-яЁё]/.test(v)) return 'ru';
-  return (l === 'zh' || l === 'ru' || l === 'ja') ? l : 'ko';
+  return (l === 'zh' || l === 'ru' || l === 'ja' || l === 'en') ? l : 'ko';
 }
 function quickSearch(v, lang){
   lang = lang || quickLang(v);
   if (lang === 'zh'){ state.zh.dictQ = v; if (state.view !== 'zh_dict') go('zh_dict'); else { const q = $('#zhq'); if (q){ q.value = v; q.dispatchEvent(new Event('input', { bubbles:true })); } } return; }
+  if (lang === 'en'){ state.en.dictQ = v; state.en.entry = enLemma(v) || null; if (state.view !== 'en_dict') go('en_dict'); else render(); return; }
   if (lang === 'ja'){ state.ja.dictQ = v; const keys = jaLemmatize(v); state.ja.entry = keys.length ? keys[0] : null; if (state.view !== 'ja_dict') go('ja_dict'); else render(); return; }
   if (lang === 'ru'){ state.ru.dictQ = v; const keys = ruLemmatize(v); state.ru.entry = (keys.length && (ruKey(RU_LOOKUP[keys[0]].ru) === ruKey(v) || /[а-яё]/i.test(v))) ? keys[0] : null; if (state.view !== 'ru_dict') go('ru_dict'); else render(); return; }
   if (state.view !== 'dict') go('dict');
@@ -31571,7 +33145,7 @@ function applyTheme(){
 function syncThemeColor(){
   try {
     const lang = document.documentElement.getAttribute('data-lang');
-    const pal = lang === 'zh' ? { light:'#F8F2F1', dark:'#17100F' } : lang === 'ru' ? { light:'#E6ECF6', dark:'#0B1428' } : lang === 'ja' ? { light:'#FFF4F4', dark:'#170C0F' } : { light:'#EAF1FB', dark:'#0B1220' };
+    const pal = lang === 'zh' ? { light:'#F8F2F1', dark:'#17100F' } : lang === 'ru' ? { light:'#E6ECF6', dark:'#0B1428' } : lang === 'ja' ? { light:'#FFF4F4', dark:'#170C0F' } : lang === 'en' ? { light:'#F6F4EC', dark:'#0C1512' } : { light:'#EAF1FB', dark:'#0B1220' };
     document.querySelectorAll('meta[name="theme-color"]').forEach(m => {
       const media = m.getAttribute('media') || '';
       m.setAttribute('content', /dark/.test(media) ? pal.dark : pal.light);

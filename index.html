@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
-<meta name="description" content="Ứng dụng học ngoại ngữ theo bài cho người Việt: tiếng Hàn (TOPIK), tiếng Trung (HSK), tiếng Nga (ТРКИ) — từ vựng, ngữ pháp, hội thoại, tập viết, từ điển, thi thử.">
+<meta name="description" content="Ứng dụng học ngoại ngữ theo bài cho người Việt: tiếng Hàn (TOPIK), tiếng Nhật (JLPT), tiếng Trung (HSK), tiếng Nga (ТРКИ), tiếng Anh (IELTS/TOEFL) — từ vựng, ngữ pháp, hội thoại, tập viết, từ điển, thi thử.">
 <link rel="icon" type="image/png" href="logo-icon.png?v=260942">
 <link rel="manifest" href="manifest.webmanifest?v=260942">
 <meta name="theme-color" content="#EAF1FB" media="(prefers-color-scheme: light)">
@@ -46,6 +46,24 @@
             <button class="nav-mi" data-go="quiz"    role="menuitem">Bài tập</button>
             <button class="nav-mi" data-go="numbers" role="menuitem">Số đếm</button>
             <button class="nav-mi" data-go="topik"   role="menuitem">Thi thử TOPIK</button>
+            <button class="nav-mi" data-go="facts" role="menuitem">Bạn có biết?</button>
+          </div>
+        </div>
+
+        <div class="nav-drop">
+          <button class="nav-item nav-drop-btn" id="enDrop" aria-haspopup="true" aria-expanded="false">
+            Tiếng Anh
+            <svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="nav-menu" role="menu" aria-label="Tiếng Anh">
+            <button class="nav-mi" data-go="en_home"  role="menuitem">Khoá học <span class="mi-count">A1</span></button>
+            <button class="nav-mi" data-go="en_phon"  role="menuitem">Phát âm &amp; IPA</button>
+            <button class="nav-mi" data-go="en_dict"  role="menuitem">Từ điển</button>
+            <button class="nav-mi" data-go="en_srs"   role="menuitem">Ôn tập</button>
+            <button class="nav-mi" data-go="en_quiz"  role="menuitem">Bài tập</button>
+            <button class="nav-mi" data-go="en_idiom" role="menuitem">Idiom &amp; Phrasal verb</button>
+            <button class="nav-mi" data-go="en_speak" role="menuitem">Luyện nói</button>
+            <button class="nav-mi" data-go="en_exam"  role="menuitem">Thi thử IELTS / TOEFL</button>
             <button class="nav-mi" data-go="facts" role="menuitem">Bạn có biết?</button>
           </div>
         </div>
@@ -161,6 +179,9 @@
 <script src="js/exercises-ja.js?v=260942"></script>
 <script src="js/speak-ja.js?v=260942"></script>
 <script src="js/jlpt-exams.js?v=260942"></script>
+<script src="js/phon-en.js?v=260942"></script>
+<script src="js/course-en.js?v=260942"></script>
+<script src="js/dict-en.js?v=260942"></script>
 <script src="js/facts.js?v=260942"></script>
 <script src="js/app.js?v=260942"></script>
 </body>
