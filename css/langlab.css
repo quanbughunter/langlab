@@ -1449,6 +1449,9 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 .st-ex span{padding:3px 9px;border-radius:10px;background:var(--surface-2);font-size:13.5px}
 .st-ex b{color:var(--accent);font-weight:700}
 
+/* Ôn tập tiếng Anh */
+.en-srs-stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+
 /* Luyện nói tiếng Anh */
 .sp-card{margin-top:16px;padding:16px 18px;background:var(--surface);border:1px solid var(--line-strong);border-radius:20px}
 .sp-card h2{margin:4px 0 6px;font-size:22px}

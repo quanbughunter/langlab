@@ -22,7 +22,7 @@ const state = {
   zh: { level:'hsk1', lesson:null, writeChar:'', srs:null },
   ru: { level:'a1', lesson:null, letter:'А', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, trace:true },
   ja: { level:'n5', lesson:null, kana:'hiragana', kanaSel:'あ', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, kanjiLevel:null, kanjiSel:null, writeChar:'あ', furi:true },
-  en: { level:'a1', lesson:null, dictQ:'', entry:null, phon:'iː', phonTab:'vowel', idiomTab:'phrasal', idiomGroup:'all', idiomQ:'', quizLevel:'all', quizType:'all', exam:null, speakTab:'ielts', speakIdx:0, spLeft:null, srs:null, quiz:null, exam:null, pracLevel:null, topic:null },
+  en: { level:'a1', lesson:null, dictQ:'', entry:null, phon:'iː', phonTab:'vowel', idiomTab:'phrasal', idiomGroup:'all', idiomQ:'', quizLevel:'all', quizType:'all', exam:null, speakTab:'ielts', speakIdx:0, spLeft:null, srsLevel:'all', srs:null, srs:null, quiz:null, exam:null, pracLevel:null, topic:null },
   jamo: 'ㄱ',
   syll: { cho:'ㅎ', jung:'ㅏ', jong:'ㄴ' },
   speed: 1,
@@ -5260,16 +5260,6 @@ VIEWS.en_phon = function(){
   <p class="tk-note-small">Ký hiệu theo chuẩn IPA, giọng chuẩn Anh (Received Pronunciation) đối chiếu giọng Mỹ (General American). Nút 🔊 dùng giọng đọc có sẵn trong máy của bạn.</p>`;
 };
 
-/* ---------- Các màn còn lại (đang biên soạn) ---------- */
-function enSoon(title, eyebrow, lines){
-  return `
-  <div class="page-head">
-    <span class="eyebrow">${esc(eyebrow)}</span>
-    <h1>${esc(title)}</h1>
-    <p>Phần này đang được biên soạn. Trong lúc chờ, bạn có thể học <button class="crumb-link" data-go="en_phon">Phát âm &amp; IPA</button> hoặc vào <button class="crumb-link" data-go="en_home">Khoá học</button>.</p>
-  </div>
-  <div class="st-list">${lines.map(l => `<div class="st-card"><h4>${esc(l[0])}</h4><p>${esc(l[1])}</p></div>`).join('')}</div>`;
-}
 /* ---------- Từ điển tiếng Anh ---------- */
 function enEntryEx(w){
   const out = [];
@@ -5342,7 +5332,84 @@ VIEWS.en_dict = function(){
     ${!hits.length ? '<p class="tk-note-small">Không tìm thấy từ nào. Thử gõ dạng nguyên thể, ví dụ «go» thay vì «went».</p>' : ''}
   </section>`;
 };
-VIEWS.en_srs   = function(){ return enSoon('Ôn tập tiếng Anh', 'Tiếng Anh · Ghi nhớ', [['Thẻ lật hai chiều','Anh → Việt và Việt → Anh, có phát âm.'],['Ưu tiên từ chưa thuộc','Lịch ôn theo mức độ nhớ của từng từ.']]); };
+/* ---------- Ôn tập tiếng Anh (thẻ ghi nhớ có lịch ôn) ---------- */
+function enSrsDeck(){
+  const lv = state.en.srsLevel || 'all';
+  const out = [];
+  _EC.lessons.forEach(l => {
+    if (lv !== 'all' && l.level !== lv) return;
+    (l.vocab || []).forEach(w => out.push(w));
+  });
+  return out;
+}
+function enSrsStore(){ return store.get('enSrs', {}) || {}; }
+function enSrsSave(m){ store.set('enSrs', m); }
+/* Mức nhớ 0–4; càng cao càng lâu mới gặp lại */
+function enSrsWeight(k){
+  const m = enSrsStore(), lvl = m[k] == null ? 0 : m[k];
+  return Math.max(1, 5 - lvl);
+}
+function enSrsPick(deck){
+  if (!deck.length) return 0;
+  const w = deck.map(x => enSrsWeight(x.en.toLowerCase()));
+  const total = w.reduce((a, b) => a + b, 0);
+  let r = Math.random() * total;
+  for (let i = 0; i < deck.length; i++){ r -= w[i]; if (r <= 0) return i; }
+  return 0;
+}
+function enSrsStats(deck){
+  const m = enSrsStore();
+  let known = 0, learning = 0, fresh = 0;
+  deck.forEach(x => { const v = m[x.en.toLowerCase()]; if (v == null) fresh++; else if (v >= 3) known++; else learning++; });
+  return { known, learning, fresh };
+}
+VIEWS.en_srs = function(){
+  const lv = state.en.srsLevel || 'all';
+  const deck = enSrsDeck();
+  const S = state.en.srs || (state.en.srs = { i:0, show:false, dir:'en' });
+  if (S.i >= deck.length) S.i = 0;
+  const w = deck[S.i] || { en:'welcome', uk:'ˈwelkəm', us:'ˈwelkəm', vi:'chào mừng', pos:'' };
+  const st = enSrsStats(deck);
+  const levels = [['all','Tất cả']].concat(_EC.levels.filter(v => v.status === 'active').map(v => [v.id, v.vi.split(' ')[0]]));
+  const front = S.dir === 'en' ? w.en : w.vi;
+  const back = S.dir === 'en' ? w.vi : w.en;
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Anh · Ghi nhớ</span>
+    <h1>Ôn tập từ vựng</h1>
+    <p>Thẻ lật hai chiều trên <b>${deck.length}</b> từ của khoá học. Thẻ nào bạn đánh dấu «chưa thuộc» sẽ quay lại sớm hơn; thẻ đã thuộc thì thưa dần. Tiến độ lưu ngay trên máy bạn.</p>
+  </div>
+  <div class="level-strip compact">${levels.map(l => `<button class="level-chip" data-en-srslevel="${l[0]}"${lv === l[0] ? ' aria-pressed="true"' : ''}>${esc(l[1])}</button>`).join('')}</div>
+  <div class="level-strip compact" style="margin-top:8px">
+    <button class="level-chip" data-en-srsdir="en"${S.dir === 'en' ? ' aria-pressed="true"' : ''}>Anh → Việt</button>
+    <button class="level-chip" data-en-srsdir="vi"${S.dir === 'vi' ? ' aria-pressed="true"' : ''}>Việt → Anh</button>
+  </div>
+  <div class="en-srs-stats">
+    <span class="ph-tag hi">Đã thuộc ${st.known}</span>
+    <span class="ph-tag">Đang học ${st.learning}</span>
+    <span class="ph-tag">Chưa gặp ${st.fresh}</span>
+  </div>
+  <div class="zh-srs">
+    <div class="zh-card ${S.show ? 'open' : ''}" id="zhCard">
+      <div class="zh-card-front en" style="font-size:${S.dir === 'en' ? '38px' : '26px'}">${esc(front)}</div>
+      <div class="zh-card-back">
+        <div class="zh-card-vi">${esc(back)}</div>
+        <div class="zh-card-hv"><span class="ipa">${esc(enIpa(w))}</span>${w.pos ? ' · ' + esc(w.pos) : ''}</div>
+        ${w.note ? `<div class="zh-card-hv">${esc(w.note)}</div>` : ''}
+      </div>
+    </div>
+    <div class="zh-srs-ctrl">
+      ${enSpeakBtn(w.en, 'pbtn')}
+      <button class="pbtn primary" data-en-srsflip="1">${S.show ? 'Ẩn đáp án' : 'Lật thẻ'}</button>
+      <button class="pbtn" data-en-srsmark="0">✗ Chưa thuộc</button>
+      <button class="pbtn" data-en-srsmark="1">✓ Đã thuộc</button>
+      <button class="zh-ref" data-en-word="${esc(w.en.toLowerCase())}">Mở mục từ điển</button>
+    </div>
+    <div class="zh-srs-count">Thẻ ${S.i + 1} / ${deck.length}</div>
+  </div>
+  <p class="tk-note-small">Cách dùng hiệu quả: nhìn mặt trước, tự nhắc lại nghĩa và <b>đọc to</b>, rồi mới lật. Trả lời trung thực — đánh dấu «đã thuộc» khi chưa chắc chỉ làm bạn gặp lại từ đó muộn hơn.</p>
+  <div class="fact-actions"><button class="pbtn ghost" data-en-srsreset="1">Xoá tiến độ ôn tập</button></div>`;
+};
 /* ---------- Bài tập tiếng Anh ---------- */
 const _EEX = (typeof EN_EXERCISES !== 'undefined') ? EN_EXERCISES : [];
 const EN_QZ_TYPE = {
@@ -6009,6 +6076,26 @@ document.addEventListener('click', e => {
     if (pool && pool.length && !pool.some(x => x.s === state.en.phon)) state.en.phon = pool[0].s;
     render(); return;
   }
+  const enSl = t.closest('[data-en-srslevel]');
+  if (enSl){ state.en.srsLevel = enSl.dataset.enSrslevel; state.en.srs = { i:0, show:false, dir:(state.en.srs && state.en.srs.dir) || 'en' }; render(); return; }
+  const enSd = t.closest('[data-en-srsdir]');
+  if (enSd){ if (!state.en.srs) state.en.srs = { i:0, show:false, dir:'en' }; state.en.srs.dir = enSd.dataset.enSrsdir; state.en.srs.show = false; render(); return; }
+  if (t.closest('[data-en-srsflip]')){ if (!state.en.srs) state.en.srs = { i:0, show:false, dir:'en' }; state.en.srs.show = !state.en.srs.show; render(); return; }
+  const enSm = t.closest('[data-en-srsmark]');
+  if (enSm){
+    const deck = enSrsDeck();
+    if (!state.en.srs) state.en.srs = { i:0, show:false, dir:'en' };
+    const cur = deck[state.en.srs.i];
+    if (cur){
+      const m = enSrsStore(), k = cur.en.toLowerCase(), v = m[k] == null ? 0 : m[k];
+      m[k] = enSm.dataset.enSrsmark === '1' ? Math.min(4, v + 1) : 0;
+      enSrsSave(m);
+    }
+    state.en.srs.i = enSrsPick(deck);
+    state.en.srs.show = false;
+    render(); return;
+  }
+  if (t.closest('[data-en-srsreset]')){ enSrsSave({}); toast('Đã xoá tiến độ ôn tập tiếng Anh.'); render(); return; }
   const enSt = t.closest('[data-en-speaktab]');
   if (enSt){ state.en.speakTab = enSt.dataset.enSpeaktab; state.en.speakIdx = 0; enSpStart(0); render(); return; }
   const enSi = t.closest('[data-en-speakidx]');
