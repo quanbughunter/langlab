@@ -30,6 +30,7 @@ html = re.sub(
 for src in ("js/strokes.js", "js/course-ko.js", "js/vocab-common.js", "js/tts.js", "js/config.js", "js/translate.js",
             "js/speech.js", "js/words.js",
             "js/vendor/hanzi-writer.min.js", "js/course-zh.js", "js/hanzi-data-zh.js", "js/hsk-exams.js",
+            "js/course-ru.js", "js/speak-ru.js", "js/trki-exams.js",
             "js/app.js"):
     html = re.sub(
         r'<script src="' + re.escape(src) + r'(?:\?[^"]*)?"></script>',

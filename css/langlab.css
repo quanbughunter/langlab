@@ -1354,3 +1354,88 @@ body:has(.mplayer.open) .view{padding-bottom:110px}
   --logo-bg:#EEF3FB;
 }
 body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-color .25s,border-color .25s}
+
+/* ===== TÔNG MÀU TIẾNG NGA — xanh dương đậm / trắng (data-lang="ru") =====
+   Nhấn chính navy #143A78 (sáng) / #8FB4F5 (tối); nhãn phụ đỏ thẫm gợi ba màu cờ nhưng không chói.
+   Tương phản WCAG (đã đo): sáng — accent/surface 11:1, accent/accent-soft 8.9:1, seal/surface 8:1;
+   tối — accent/surface 8:1, seal/surface 6.9:1; chữ chính ≥14:1 cả hai chế độ. */
+:root[data-lang="ru"]{
+  --ground:#E6ECF6; --surface:#FFFFFF; --surface-2:#DCE5F3;
+  --line:#C6D3E8; --line-strong:#A9BBD9;
+  --accent:#143A78; --accent-2:#2758AE; --accent-soft:#DEE7F7;
+  --seal:#8E2F3C; --seal-soft:#F6E1E4;
+}
+@media (prefers-color-scheme: dark){
+  :root[data-lang="ru"]:not([data-theme="light"]){
+    --ground:#0B1428; --surface:#121D36; --surface-2:#1A2745;
+    --line:#26365A; --line-strong:#37497A;
+    --accent:#8FB4F5; --accent-2:#B0CBFA; --accent-soft:#1E2F55;
+    --seal:#E48F9A; --seal-soft:#3A1E27;
+    --logo-bg:#EEF3FB;
+  }
+}
+:root[data-lang="ru"][data-theme="dark"]{
+  --ground:#0B1428; --surface:#121D36; --surface-2:#1A2745;
+  --line:#26365A; --line-strong:#37497A;
+  --accent:#8FB4F5; --accent-2:#B0CBFA; --accent-soft:#1E2F55;
+  --seal:#E48F9A; --seal-soft:#3A1E27;
+  --logo-bg:#EEF3FB;
+}
+
+/* ===== Tiếng Nga: bảng chữ cái, phát âm, tập viết, luyện nói ===== */
+.ru{font-family:"Lexend","Noto Sans",system-ui,sans-serif}
+.ru-hw{font-family:"Bad Script","Caveat",cursive}
+.ru-alpha{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:8px;max-width:900px}
+.ru-letter{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:10px 6px 8px;text-align:center;cursor:pointer;display:flex;flex-direction:column;gap:2px;color:var(--ink)}
+.ru-letter:hover{border-color:var(--accent)}
+.ru-letter.on{border-color:var(--accent);background:var(--accent-soft)}
+.ru-letter.vowel .ru-l-big{color:var(--seal)}
+.ru-letter.sign .ru-l-big{color:var(--faint)}
+.ru-l-big{font-size:28px;line-height:1.1;font-weight:500}
+.ru-l-name{font-size:11px;color:var(--muted)}
+.ru-l-ipa{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--faint)}
+.ru-alpha-legend{display:flex;gap:14px;font-size:12.5px;color:var(--muted);margin:0 0 12px;flex-wrap:wrap}
+.ru-alpha-legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.ru-detail{max-width:900px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:18px 22px;margin:16px 0 22px;display:grid;grid-template-columns:auto 1fr;gap:18px 26px;align-items:start}
+.ru-detail-glyphs{display:flex;gap:18px;align-items:baseline}
+.ru-detail-glyphs span{display:flex;flex-direction:column;align-items:center;gap:2px}
+.ru-detail-glyphs b{font-size:56px;line-height:1;font-weight:500}
+.ru-detail-glyphs i{font-size:56px;line-height:1;font-style:italic}
+.ru-detail-glyphs .ru-hw{font-size:60px;line-height:1;color:var(--accent)}
+.ru-detail-glyphs small{font-size:10.5px;color:var(--faint)}
+.ru-detail-body h3{font-family:"Fraunces","Lexend",serif;font-size:20px;margin:0 0 6px}
+.ru-detail-body p{margin:0 0 8px;font-size:14px;line-height:1.6}
+.ru-detail-ex{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.ru-ex{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:6px 10px;background:var(--surface-2);font-size:14px}
+.ru-ex b{font-weight:500}.ru-ex span{color:var(--muted);font-size:13px}
+.ru-phon{display:grid;gap:12px;max-width:900px}
+.ru-phon-card{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:16px 18px}
+.ru-phon-card h3{font-family:"Fraunces","Lexend",serif;font-size:17px;margin:0 0 6px}
+.ru-phon-card p{font-size:14px;color:var(--muted);line-height:1.6;margin:0 0 10px}
+.ru-write{display:grid;grid-template-columns:auto 1fr;gap:22px;max-width:900px;align-items:start}
+.ru-trace-wrap{display:flex;flex-direction:column;gap:10px}
+.ru-trace{width:300px;height:300px;border:1px solid var(--line-strong);border-radius:14px;background:var(--surface);touch-action:none;cursor:crosshair;background-image:linear-gradient(var(--line) 1px,transparent 1px);background-size:100% 25%}
+.ru-write-forms{display:flex;gap:14px;flex-wrap:wrap;margin:6px 0 12px}
+.ru-write-forms span{display:flex;flex-direction:column;align-items:center;gap:4px;border:1px solid var(--line);border-radius:12px;padding:10px 14px;min-width:90px;background:var(--surface)}
+.ru-write-forms b{font-size:44px;line-height:1;font-weight:500}.ru-write-forms i{font-size:44px;line-height:1;font-style:italic}.ru-write-forms .ru-hw{font-size:48px;line-height:1;color:var(--accent)}
+.ru-write-forms small{font-size:10.5px;color:var(--faint)}
+.ru-write-word{font-size:15px;color:var(--muted);margin-bottom:8px}
+.ru-write-word .ru-hw{font-size:34px;color:var(--ink);display:block;margin-top:4px}
+.ru-chips{display:flex;flex-wrap:wrap;gap:6px}
+.ru-chip{font:inherit;font-size:17px;width:40px;height:40px;border:1px solid var(--line);border-radius:9px;background:var(--surface);cursor:pointer;color:var(--ink)}
+.ru-chip:hover{border-color:var(--accent);color:var(--accent)}
+.ru-chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:500}
+.ru-stress{font-size:12px;color:var(--faint)}
+.ru-topics{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;max-width:900px}
+.ru-topic{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:14px 16px;text-align:left;cursor:pointer;color:var(--ink);font:inherit;display:flex;flex-direction:column;gap:4px}
+.ru-topic:hover{border-color:var(--accent)}
+.ru-topic b{font-size:15px}.ru-topic span{font-size:12.5px;color:var(--muted)}
+.ru-speak{max-width:760px}
+.ru-para{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px 16px;margin-bottom:10px}
+.ru-para-ru{font-size:16px;line-height:1.7}
+.ru-para-vi{font-size:13.5px;color:var(--muted);line-height:1.6;margin-top:6px;border-top:1px dashed var(--line);padding-top:6px}
+.ru-keys{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 16px}
+.ru-key{border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:13px;background:var(--surface-2)}
+.ru-key span{color:var(--muted)}
+.ru-qs{margin:0 0 16px;padding-left:20px;font-size:14px;line-height:1.7;color:var(--muted)}
+@media (max-width:700px){ .ru-detail,.ru-write{grid-template-columns:1fr} .ru-trace{width:100%;max-width:300px} }

@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
-<meta name="description" content="Ứng dụng học ngoại ngữ theo bài. Bắt đầu với tiếng Hàn: từ vựng, ngữ pháp, hội thoại, tra từ điển và hướng dẫn thứ tự nét viết chữ Hangul.">
-<link rel="icon" type="image/png" href="logo-icon.png?v=260928">
-<link rel="manifest" href="manifest.webmanifest?v=260928">
+<meta name="description" content="Ứng dụng học ngoại ngữ theo bài cho người Việt: tiếng Hàn (TOPIK), tiếng Trung (HSK), tiếng Nga (ТРКИ) — từ vựng, ngữ pháp, hội thoại, tập viết, từ điển, thi thử.">
+<link rel="icon" type="image/png" href="logo-icon.png?v=260929">
+<link rel="manifest" href="manifest.webmanifest?v=260929">
 <meta name="theme-color" content="#EAF1FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260928">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260929">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="LangLab">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Lexend:wght@300;400;500;600&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Lexend:wght@300;400;500;600&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&family=Bad+Script&display=swap">
 <style>
 /* ============================================================
    LangLab — hệ thống giao diện
@@ -1375,6 +1375,91 @@ body:has(.mplayer.open) .view{padding-bottom:110px}
 }
 body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-color .25s,border-color .25s}
 
+/* ===== TÔNG MÀU TIẾNG NGA — xanh dương đậm / trắng (data-lang="ru") =====
+   Nhấn chính navy #143A78 (sáng) / #8FB4F5 (tối); nhãn phụ đỏ thẫm gợi ba màu cờ nhưng không chói.
+   Tương phản WCAG (đã đo): sáng — accent/surface 11:1, accent/accent-soft 8.9:1, seal/surface 8:1;
+   tối — accent/surface 8:1, seal/surface 6.9:1; chữ chính ≥14:1 cả hai chế độ. */
+:root[data-lang="ru"]{
+  --ground:#E6ECF6; --surface:#FFFFFF; --surface-2:#DCE5F3;
+  --line:#C6D3E8; --line-strong:#A9BBD9;
+  --accent:#143A78; --accent-2:#2758AE; --accent-soft:#DEE7F7;
+  --seal:#8E2F3C; --seal-soft:#F6E1E4;
+}
+@media (prefers-color-scheme: dark){
+  :root[data-lang="ru"]:not([data-theme="light"]){
+    --ground:#0B1428; --surface:#121D36; --surface-2:#1A2745;
+    --line:#26365A; --line-strong:#37497A;
+    --accent:#8FB4F5; --accent-2:#B0CBFA; --accent-soft:#1E2F55;
+    --seal:#E48F9A; --seal-soft:#3A1E27;
+    --logo-bg:#EEF3FB;
+  }
+}
+:root[data-lang="ru"][data-theme="dark"]{
+  --ground:#0B1428; --surface:#121D36; --surface-2:#1A2745;
+  --line:#26365A; --line-strong:#37497A;
+  --accent:#8FB4F5; --accent-2:#B0CBFA; --accent-soft:#1E2F55;
+  --seal:#E48F9A; --seal-soft:#3A1E27;
+  --logo-bg:#EEF3FB;
+}
+
+/* ===== Tiếng Nga: bảng chữ cái, phát âm, tập viết, luyện nói ===== */
+.ru{font-family:"Lexend","Noto Sans",system-ui,sans-serif}
+.ru-hw{font-family:"Bad Script","Caveat",cursive}
+.ru-alpha{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:8px;max-width:900px}
+.ru-letter{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:10px 6px 8px;text-align:center;cursor:pointer;display:flex;flex-direction:column;gap:2px;color:var(--ink)}
+.ru-letter:hover{border-color:var(--accent)}
+.ru-letter.on{border-color:var(--accent);background:var(--accent-soft)}
+.ru-letter.vowel .ru-l-big{color:var(--seal)}
+.ru-letter.sign .ru-l-big{color:var(--faint)}
+.ru-l-big{font-size:28px;line-height:1.1;font-weight:500}
+.ru-l-name{font-size:11px;color:var(--muted)}
+.ru-l-ipa{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--faint)}
+.ru-alpha-legend{display:flex;gap:14px;font-size:12.5px;color:var(--muted);margin:0 0 12px;flex-wrap:wrap}
+.ru-alpha-legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.ru-detail{max-width:900px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:18px 22px;margin:16px 0 22px;display:grid;grid-template-columns:auto 1fr;gap:18px 26px;align-items:start}
+.ru-detail-glyphs{display:flex;gap:18px;align-items:baseline}
+.ru-detail-glyphs span{display:flex;flex-direction:column;align-items:center;gap:2px}
+.ru-detail-glyphs b{font-size:56px;line-height:1;font-weight:500}
+.ru-detail-glyphs i{font-size:56px;line-height:1;font-style:italic}
+.ru-detail-glyphs .ru-hw{font-size:60px;line-height:1;color:var(--accent)}
+.ru-detail-glyphs small{font-size:10.5px;color:var(--faint)}
+.ru-detail-body h3{font-family:"Fraunces","Lexend",serif;font-size:20px;margin:0 0 6px}
+.ru-detail-body p{margin:0 0 8px;font-size:14px;line-height:1.6}
+.ru-detail-ex{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.ru-ex{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:6px 10px;background:var(--surface-2);font-size:14px}
+.ru-ex b{font-weight:500}.ru-ex span{color:var(--muted);font-size:13px}
+.ru-phon{display:grid;gap:12px;max-width:900px}
+.ru-phon-card{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:16px 18px}
+.ru-phon-card h3{font-family:"Fraunces","Lexend",serif;font-size:17px;margin:0 0 6px}
+.ru-phon-card p{font-size:14px;color:var(--muted);line-height:1.6;margin:0 0 10px}
+.ru-write{display:grid;grid-template-columns:auto 1fr;gap:22px;max-width:900px;align-items:start}
+.ru-trace-wrap{display:flex;flex-direction:column;gap:10px}
+.ru-trace{width:300px;height:300px;border:1px solid var(--line-strong);border-radius:14px;background:var(--surface);touch-action:none;cursor:crosshair;background-image:linear-gradient(var(--line) 1px,transparent 1px);background-size:100% 25%}
+.ru-write-forms{display:flex;gap:14px;flex-wrap:wrap;margin:6px 0 12px}
+.ru-write-forms span{display:flex;flex-direction:column;align-items:center;gap:4px;border:1px solid var(--line);border-radius:12px;padding:10px 14px;min-width:90px;background:var(--surface)}
+.ru-write-forms b{font-size:44px;line-height:1;font-weight:500}.ru-write-forms i{font-size:44px;line-height:1;font-style:italic}.ru-write-forms .ru-hw{font-size:48px;line-height:1;color:var(--accent)}
+.ru-write-forms small{font-size:10.5px;color:var(--faint)}
+.ru-write-word{font-size:15px;color:var(--muted);margin-bottom:8px}
+.ru-write-word .ru-hw{font-size:34px;color:var(--ink);display:block;margin-top:4px}
+.ru-chips{display:flex;flex-wrap:wrap;gap:6px}
+.ru-chip{font:inherit;font-size:17px;width:40px;height:40px;border:1px solid var(--line);border-radius:9px;background:var(--surface);cursor:pointer;color:var(--ink)}
+.ru-chip:hover{border-color:var(--accent);color:var(--accent)}
+.ru-chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:500}
+.ru-stress{font-size:12px;color:var(--faint)}
+.ru-topics{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;max-width:900px}
+.ru-topic{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:14px 16px;text-align:left;cursor:pointer;color:var(--ink);font:inherit;display:flex;flex-direction:column;gap:4px}
+.ru-topic:hover{border-color:var(--accent)}
+.ru-topic b{font-size:15px}.ru-topic span{font-size:12.5px;color:var(--muted)}
+.ru-speak{max-width:760px}
+.ru-para{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px 16px;margin-bottom:10px}
+.ru-para-ru{font-size:16px;line-height:1.7}
+.ru-para-vi{font-size:13.5px;color:var(--muted);line-height:1.6;margin-top:6px;border-top:1px dashed var(--line);padding-top:6px}
+.ru-keys{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 16px}
+.ru-key{border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:13px;background:var(--surface-2)}
+.ru-key span{color:var(--muted)}
+.ru-qs{margin:0 0 16px;padding-left:20px;font-size:14px;line-height:1.7;color:var(--muted)}
+@media (max-width:700px){ .ru-detail,.ru-write{grid-template-columns:1fr} .ru-trace{width:100%;max-width:300px} }
+
 </style>
 </head>
 <body>
@@ -1383,7 +1468,7 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   <header class="nav">
     <div class="nav-in">
       <div class="brand" data-go="about" role="link" tabindex="0" title="Giới thiệu LangLab">
-        <span class="brand-mark"><img src="logo-icon.png?v=260928" alt="LangLab" width="40" height="40"></span>
+        <span class="brand-mark"><img src="logo-icon.png?v=260929" alt="LangLab" width="40" height="40"></span>
         <span class="brand-name">LangLab</span>
       </div>
 
@@ -1428,7 +1513,23 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
         </div>
 
         <button class="nav-item nav-soon" disabled title="Sắp có">Tiếng Anh <span class="soon">sắp có</span></button>
-        <button class="nav-item nav-soon" disabled title="Sắp có">Tiếng Nga <span class="soon">sắp có</span></button>
+        <div class="nav-drop">
+          <button class="nav-item nav-drop-btn" id="ruDrop" aria-haspopup="true" aria-expanded="false">
+            Tiếng Nga
+            <svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="nav-menu" role="menu" aria-label="Tiếng Nga">
+            <button class="nav-mi" data-go="ru_home"      role="menuitem">Khoá học <span class="mi-count">A1</span></button>
+            <button class="nav-mi" data-go="ru_alphabet"  role="menuitem">Bảng chữ cái</button>
+            <button class="nav-mi" data-go="ru_phonetics" role="menuitem">Phát âm</button>
+            <button class="nav-mi" data-go="ru_write"     role="menuitem">Tập viết</button>
+            <button class="nav-mi" data-go="ru_dict"      role="menuitem">Từ điển</button>
+            <button class="nav-mi" data-go="ru_srs"       role="menuitem">Ôn tập</button>
+            <button class="nav-mi" data-go="ru_quiz"      role="menuitem">Bài tập</button>
+            <button class="nav-mi" data-go="ru_speak"     role="menuitem">Luyện nói</button>
+            <button class="nav-mi" data-go="ru_exam"      role="menuitem">Thi thử ТРКИ</button>
+          </div>
+        </div>
 
         <button class="nav-item nav-labi" id="labiNav" data-labi-toggle="1" aria-current="false">
           <svg class="labi-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -11555,6 +11656,797 @@ if (typeof module !== 'undefined') module.exports = { HSK_EXAMS };
 </script>
 <script>
 /* ============================================================
+   LangLab — TIẾNG NGA: bảng chữ cái, phát âm, khoá học A1–B2
+   Nội dung tự soạn cho người Việt, bám khung ТРКИ (A1 ТЭУ · A2 ТБУ · B1 ТРКИ-1 · B2 ТРКИ-2)
+   và trình tự của giáo trình «Дорога в Россию» (chỉ dùng làm khung, không sao chép).
+   Trọng âm ghi bằng dấu sắc kết hợp (U+0301) sau nguyên âm: молоко́. Chữ ё luôn mang trọng âm.
+   ============================================================ */
+
+/* ---------- 33 chữ cái ---------- */
+const ALPHABET_RU = [
+  { up:'А', low:'а', name:'а',  ipa:'[a]',  type:'vowel', vi:'như “a” tiếng Việt; không trọng âm đọc ngắn hơn', ex:[['ма́ма','mẹ'],['да','vâng']], hw:'Viết như a la-tinh; a hoa thảo viết như A.' },
+  { up:'Б', low:'б', name:'бэ', ipa:'[b]',  type:'cons',  vi:'như “b”', ex:[['брат','anh/em trai'],['хлеб','bánh mì (cuối từ đọc [p])']], hw:'б thường có nét “cờ” hướng lên phải, dễ nhầm với в.' },
+  { up:'В', low:'в', name:'вэ', ipa:'[v]',  type:'cons',  vi:'như “v”; cuối từ hoặc trước phụ âm vô thanh → [f]', ex:[['вода́','nước'],['Москва́','Mát-xcơ-va']], hw:'в thường thảo viết như số 8 hở; không nhầm với B la-tinh.' },
+  { up:'Г', low:'г', name:'гэ', ipa:'[g]',  type:'cons',  vi:'như “g” trong “gà”; cuối từ → [k]', ex:[['го́род','thành phố'],['друг','bạn (đọc [друк])']], hw:'г thảo giống chữ r la-tinh quay ngược; Г hoa như số 7.' },
+  { up:'Д', low:'д', name:'дэ', ipa:'[d]',  type:'cons',  vi:'như “đ”; cuối từ → [t]', ex:[['дом','nhà'],['сад','vườn (đọc [сат])']], hw:'д thảo viết như g la-tinh (đuôi vòng xuống) hoặc như ∂.' },
+  { up:'Е', low:'е', name:'е',  ipa:'[je]/[ʲe]', type:'vowel', vi:'“ie” ở đầu từ/sau nguyên âm; sau phụ âm làm phụ âm mềm + “e”; không trọng âm → gần [i]', ex:[['ест','ăn'],['сестра́','chị/em gái']], hw:'е thảo như e la-tinh.' },
+  { up:'Ё', low:'ё', name:'ё',  ipa:'[jo]/[ʲo]', type:'vowel', vi:'“io”; luôn mang trọng âm; sách báo thường viết е thay ё', ex:[['ёлка','cây thông'],['тётя','cô, dì']], hw:'Như е có hai chấm trên.' },
+  { up:'Ж', low:'ж', name:'жэ', ipa:'[ʐ]',  type:'cons',  vi:'“gi” đọc nặng, cong lưỡi (như “j” tiếng Pháp); luôn cứng; cuối từ → [ш]', ex:[['жена́','vợ'],['журна́л','tạp chí']], hw:'ж thảo là ba nét: một vòng trái, gạch giữa, một vòng phải.' },
+  { up:'З', low:'з', name:'зэ', ipa:'[z]',  type:'cons',  vi:'như “d” giọng Bắc (dạ); cuối từ → [s]', ex:[['зима́','mùa đông'],['газе́та','báo']], hw:'з thảo viết như số 3.' },
+  { up:'И', low:'и', name:'и',  ipa:'[i]',  type:'vowel', vi:'như “i”; sau ж ш ц đọc như ы', ex:[['и','và'],['кни́га','sách']], hw:'и thảo viết như u la-tinh — điểm dễ nhầm nhất khi đọc chữ tay.' },
+  { up:'Й', low:'й', name:'и кра́ткое', ipa:'[j]', type:'cons', vi:'“i ngắn”, như “y” trong “yêu”; chỉ đứng sau nguyên âm hoặc đầu từ nước ngoài', ex:[['чай','trà'],['музе́й','bảo tàng']], hw:'Như и có dấu ngoặc nhỏ trên.' },
+  { up:'К', low:'к', name:'ка', ipa:'[k]',  type:'cons',  vi:'như “c/k”, không bật hơi', ex:[['кот','mèo'],['кто','ai']], hw:'к thảo viết thấp bằng chữ thường, không cao như k la-tinh.' },
+  { up:'Л', low:'л', name:'эль', ipa:'[l]', type:'cons',  vi:'như “l”; л cứng đọc trầm, lưỡi lùi', ex:[['ло́жка','thìa'],['стол','bàn']], hw:'л thảo bắt đầu bằng móc nhỏ ở dưới (giống ʌ có móc); Л hoa cũng vậy.' },
+  { up:'М', low:'м', name:'эм', ipa:'[m]',  type:'cons',  vi:'như “m”', ex:[['ма́ма','mẹ'],['мир','hoà bình, thế giới']], hw:'м thảo bắt đầu bằng móc nhỏ, giống л có thêm một sườn.' },
+  { up:'Н', low:'н', name:'эн', ipa:'[n]',  type:'cons',  vi:'như “n”', ex:[['нет','không'],['но́вый','mới']], hw:'н thảo viết như n la-tinh có gạch ngang giữa (giống H nhỏ).' },
+  { up:'О', low:'о', name:'о',  ipa:'[o]',  type:'vowel', vi:'có trọng âm: “ô” tròn môi; không trọng âm: đọc như [a] (молоко́ → малако́)', ex:[['он','anh ấy'],['молоко́','sữa']], hw:'Như o la-tinh.' },
+  { up:'П', low:'п', name:'пэ', ipa:'[p]',  type:'cons',  vi:'như “p” không bật hơi', ex:[['па́па','bố'],['по́чта','bưu điện']], hw:'п thảo viết như n la-tinh (không gạch ngang) — đừng nhầm với н.' },
+  { up:'Р', low:'р', name:'эр', ipa:'[r]',  type:'cons',  vi:'“r” rung đầu lưỡi (rung rõ, nhiều lần)', ex:[['ры́ба','cá'],['ру́сский','Nga; người Nga']], hw:'р thảo viết như p la-tinh có đuôi dài xuống dưới.' },
+  { up:'С', low:'с', name:'эс', ipa:'[s]',  type:'cons',  vi:'như “x” tiếng Việt (không phải “c”)', ex:[['сын','con trai'],['спаси́бо','cảm ơn']], hw:'Như c la-tinh.' },
+  { up:'Т', low:'т', name:'тэ', ipa:'[t]',  type:'cons',  vi:'như “t” không bật hơi', ex:[['там','ở đó'],['тётя','cô, dì']], hw:'т thảo viết như m la-tinh (ba chân) — điểm dễ nhầm với м; đôi khi có gạch ngang trên để phân biệt.' },
+  { up:'У', low:'у', name:'у',  ipa:'[u]',  type:'vowel', vi:'như “u”, chu môi', ex:[['у́тро','buổi sáng'],['друг','bạn']], hw:'у thảo như y la-tinh.' },
+  { up:'Ф', low:'ф', name:'эф', ipa:'[f]',  type:'cons',  vi:'như “ph”', ex:[['фильм','phim'],['телефо́н','điện thoại']], hw:'ф thảo là vòng tròn có nét dọc xuyên qua, cao trên và dài dưới.' },
+  { up:'Х', low:'х', name:'ха', ipa:'[x]',  type:'cons',  vi:'như “kh” tiếng Việt', ex:[['хлеб','bánh mì'],['хорошо́','tốt']], hw:'Như x la-tinh.' },
+  { up:'Ц', low:'ц', name:'цэ', ipa:'[ts]', type:'cons',  vi:'“ts” — đọc liền t+x; luôn cứng', ex:[['центр','trung tâm'],['у́лица','đường phố']], hw:'ц thảo như u có đuôi móc nhỏ ở góc phải dưới.' },
+  { up:'Ч', low:'ч', name:'че', ipa:'[tɕ]', type:'cons',  vi:'như “ch” nhưng mềm hơn; luôn mềm', ex:[['час','giờ'],['чай','trà']], hw:'ч thảo như số 4 không khép, hoặc như y không đuôi.' },
+  { up:'Ш', low:'ш', name:'ша', ipa:'[ʂ]',  type:'cons',  vi:'“s” nặng, cong lưỡi; luôn cứng', ex:[['шко́ла','trường học'],['хорошо́','tốt']], hw:'ш thảo như w la-tinh có ba chân; thường gạch dưới để khỏi nhầm với и/м.' },
+  { up:'Щ', low:'щ', name:'ща', ipa:'[ɕː]', type:'cons',  vi:'“s” mềm, kéo dài (như “sh” nhẹ); luôn mềm', ex:[['щи','canh bắp cải'],['борщ','súp củ dền']], hw:'Như ш có đuôi móc nhỏ ở góc phải dưới.' },
+  { up:'Ъ', low:'ъ', name:'твёрдый знак', ipa:'—', type:'sign', vi:'dấu cứng: ngăn cách, giữ phụ âm trước cứng, nguyên âm sau đọc [j…]', ex:[['подъе́зд','lối vào'],['объясня́ть','giải thích']], hw:'Hiếm gặp; giống ь có nét “cờ” trên.' },
+  { up:'Ы', low:'ы', name:'ы',  ipa:'[ɨ]',  type:'vowel', vi:'gần “ư” tiếng Việt nhưng lưỡi lùi hơn; không đứng đầu từ', ex:[['мы','chúng tôi'],['сын','con trai']], hw:'Viết như ь + i không chấm (hai phần liền nhau).' },
+  { up:'Ь', low:'ь', name:'мя́гкий знак', ipa:'—', type:'sign', vi:'dấu mềm: làm mềm phụ âm đứng trước (đầu lưỡi nâng lên vòm)', ex:[['мать','mẹ'],['семья́','gia đình']], hw:'Như b nhỏ không có nét cao.' },
+  { up:'Э', low:'э', name:'э',  ipa:'[e]',  type:'vowel', vi:'như “e” tiếng Việt, không mềm hoá phụ âm', ex:[['э́то','đây là'],['экза́мен','kỳ thi']], hw:'Như số 3 lật ngược có gạch giữa.' },
+  { up:'Ю', low:'ю', name:'ю',  ipa:'[ju]/[ʲu]', type:'vowel', vi:'“iu”; sau phụ âm làm mềm phụ âm + “u”', ex:[['юг','phía nam'],['люблю́','tôi yêu']], hw:'Viết như ı nối với o bằng nét ngang ngắn.' },
+  { up:'Я', low:'я', name:'я',  ipa:'[ja]/[ʲa]', type:'vowel', vi:'“ia”; sau phụ âm làm mềm phụ âm + “a”; không trọng âm → gần [i]', ex:[['я','tôi'],['язы́к','ngôn ngữ, lưỡi']], hw:'я thảo giống chữ a có móc bên trái (như ᴙ mềm).' }
+];
+
+/* ---------- Quy tắc phát âm ---------- */
+const PHON_RU = [
+  { title:'Trọng âm (ударе́ние)', desc:'Mỗi từ có một âm tiết đọc mạnh và dài hơn. Trọng âm không cố định, phải học cùng từ; đặt sai trọng âm có thể đổi nghĩa. Chữ ё luôn mang trọng âm.',
+    ex:[['за́мок — замо́к','lâu đài — ổ khoá'],['му́ка — мука́','nỗi khổ — bột mì'],['пи́сать — писа́ть','(thô tục) — viết']] },
+  { title:'Giảm âm nguyên âm không trọng âm', desc:'о không trọng âm đọc như [a] ngắn; е, я không trọng âm đọc gần [i]. Vì thế Москва́ nghe như «Maskva», хорошо́ như «kharasho».',
+    ex:[['молоко́ → [малако́]','sữa'],['сестра́ → [систра́]','chị/em gái'],['язы́к → [йизы́к]','ngôn ngữ']] },
+  { title:'Vô thanh hoá cuối từ', desc:'Phụ âm hữu thanh б в г д ж з đứng cuối từ đọc thành п ф к т ш с.',
+    ex:[['хлеб → [хлеп]','bánh mì'],['друг → [друк]','bạn'],['нож → [нош]','dao'],['зуб → [зуп]','răng']] },
+  { title:'Đồng hoá phụ âm', desc:'Trong cụm phụ âm, âm sau quyết định: hữu thanh + vô thanh → cả cụm vô thanh và ngược lại.',
+    ex:[['вто́рник → [фто́рник]','thứ Ba'],['сде́лать → [зде́лать]','làm xong'],['вокза́л → [вагза́л]','nhà ga']] },
+  { title:'Phụ âm cứng và mềm', desc:'Nguyên âm е ё и ю я và dấu ь làm mềm phụ âm đứng trước (đầu lưỡi nâng lên vòm). ж ш ц luôn cứng; ч щ й luôn mềm.',
+    ex:[['мат — мать','chiếu — mẹ'],['брат — брать','anh — lấy'],['у́гол — у́голь','góc — than']] },
+  { title:'Dấu mềm ь và dấu cứng ъ', desc:'ь mềm hoá phụ âm hoặc ngăn cách (семья́ đọc [сим-йа́]); ъ chỉ ngăn cách sau tiền tố, nguyên âm sau đọc có [й].',
+    ex:[['семья́','gia đình'],['подъе́зд','lối vào chung cư'],['объявле́ние','thông báo']] },
+  { title:'Những cụm đọc khác cách viết', desc:'Đuôi -ого/-его đọc [-ова/-ева]; что đọc [што]; -тся/-ться đọc [ца]; một số phụ âm câm.',
+    ex:[['сего́дня → [сиво́дня]','hôm nay'],['что → [што]','cái gì'],['учи́ться → [учи́ца]','học'],['здра́вствуйте → [здра́ствуйте]','xin chào (в câm)'],['со́лнце → [со́нце]','mặt trời (л câm)']] },
+  { title:'Ngữ điệu cơ bản (ИК)', desc:'ИК-1: câu kể, hạ giọng cuối. ИК-2: câu hỏi có từ để hỏi (кто, где…), nhấn mạnh từ để hỏi. ИК-3: câu hỏi không có từ để hỏi — lên giọng mạnh ở từ muốn hỏi rồi hạ xuống.',
+    ex:[['Э́то Анто́н. ↘','Đây là Anton. (ИК-1)'],['Кто э́то? ↘','Đây là ai? (ИК-2)'],['Э́то Анто́н? ↗↘','Đây là Anton à? (ИК-3)']] }
+];
+
+/* ---------- Khoá học ---------- */
+const COURSE_RU = {
+  levels:[
+    { id:'a1', ru:'A1 · ТЭУ',    vi:'A1 · Sơ cấp (Элементарный)', lessons:15, status:'active' },
+    { id:'a2', ru:'A2 · ТБУ',    vi:'A2 · Cơ bản (Базовый)',      lessons:15, status:'planned' },
+    { id:'b1', ru:'B1 · ТРКИ-1', vi:'B1 · Trung cấp 1',           lessons:15, status:'planned' },
+    { id:'b2', ru:'B2 · ТРКИ-2', vi:'B2 · Trung cấp 2',           lessons:15, status:'planned' }
+  ],
+  lessons:[
+
+    /* ================= A1 ================= */
+    {
+      level:'a1', no:1, ru:'Знако́мство', vi:'Làm quen',
+      skill:'Chào hỏi, giới thiệu tên; hỏi “đây là ai/cái gì?”',
+      grammar:[
+        { form:'Э́то + N. / Кто э́то? / Что э́то?', vi:'“Đây là …” — câu không cần động từ “là”',
+          note:'Tiếng Nga hiện tại không dùng động từ “là”: Э́то Анто́н = Đây là Anton. Кто hỏi người, что hỏi vật. Tên riêng viết hoa.',
+          ex:{ ru:'Э́то Анна, а э́то Ива́н.', vi:'Đây là Anna, còn đây là Ivan.' } },
+        { form:'Меня́ зову́т … / Как вас зову́т?', vi:'“Tôi tên là …” / “Bạn tên gì?”',
+          note:'Nghĩa đen “người ta gọi tôi là …”. Thân mật: Как тебя́ зову́т? Đáp lễ: О́чень прия́тно (rất hân hạnh).',
+          ex:{ ru:'— Как вас зову́т? — Меня́ зову́т Хиен. О́чень прия́тно!', vi:'— Bạn tên gì? — Tôi tên là Hiển. Rất hân hạnh!' } }
+      ],
+      vocab:[
+        { ru:'здра́вствуйте', vi:'xin chào (lịch sự)', pos:'thán từ' },
+        { ru:'приве́т', vi:'chào (thân mật)', pos:'thán từ' },
+        { ru:'до свида́ния', vi:'tạm biệt', pos:'cụm cố định' },
+        { ru:'пока́', vi:'tạm biệt (thân mật)', pos:'thán từ' },
+        { ru:'спаси́бо', vi:'cảm ơn', pos:'thán từ' },
+        { ru:'пожа́луйста', vi:'làm ơn; không có gì', pos:'tiểu từ' },
+        { ru:'да', vi:'vâng, có', pos:'tiểu từ' },
+        { ru:'нет', vi:'không', pos:'tiểu từ' },
+        { ru:'э́то', vi:'đây là, cái này', pos:'đại từ' },
+        { ru:'кто', vi:'ai', pos:'đại từ nghi vấn' },
+        { ru:'что', vi:'cái gì', pos:'đại từ nghi vấn' },
+        { ru:'студе́нт', vi:'sinh viên (nam)', pos:'danh từ giống đực' },
+        { ru:'студе́нтка', vi:'sinh viên (nữ)', pos:'danh từ giống cái' },
+        { ru:'преподава́тель', vi:'giảng viên', pos:'danh từ giống đực' },
+        { ru:'о́чень прия́тно', vi:'rất hân hạnh', pos:'cụm cố định' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Здра́вствуйте! Меня́ зову́т Анна. А как вас зову́т?', vi:'Xin chào! Tôi tên là Anna. Còn bạn tên gì?' },
+        { sp:'B', ru:'Меня́ зову́т Хиен. О́чень прия́тно.', vi:'Tôi tên là Hiển. Rất hân hạnh.' },
+        { sp:'A', ru:'О́чень прия́тно. Хиен, кто э́то?', vi:'Rất hân hạnh. Hiển, đây là ai?' },
+        { sp:'B', ru:'Э́то Ива́н. Он студе́нт. А э́то преподава́тель.', vi:'Đây là Ivan. Anh ấy là sinh viên. Còn đây là giảng viên.' }
+      ]
+    },
+
+    {
+      level:'a1', no:2, ru:'Моя́ семья́', vi:'Gia đình tôi',
+      skill:'Giống của danh từ; đại từ sở hữu; “tôi có …”',
+      grammar:[
+        { form:'Giống danh từ: -∅/-й/-ь (đực) · -а/-я (cái) · -о/-е (trung)', vi:'3 giống quyết định mọi hoà hợp',
+          note:'Nhìn chữ cuối: стол, музе́й (đực); ма́ма, семья́ (cái); окно́, мо́ре (trung). Từ tận cùng -ь phải tra: день (đực), ночь (cái). Ngoại lệ: па́па, де́душка là giống đực dù tận -а.',
+          ex:{ ru:'Э́то мой брат, моя́ сестра́ и моё окно́.', vi:'Đây là anh tôi, chị tôi và cửa sổ của tôi.' } },
+        { form:'мой / моя́ / моё / мои́ · твой · наш · ваш · его́ / её / их', vi:'đại từ sở hữu hoà hợp theo giống, số',
+          note:'его́ (của anh ấy), её (của cô ấy), их (của họ) không đổi dạng. У меня́ есть + N = tôi có ….',
+          ex:{ ru:'У меня́ есть брат. Его́ зову́т Минь.', vi:'Tôi có một em trai. Em ấy tên là Minh.' } }
+      ],
+      vocab:[
+        { ru:'семья́', vi:'gia đình', pos:'danh từ giống cái' },
+        { ru:'ма́ма', vi:'mẹ', pos:'danh từ giống cái' },
+        { ru:'па́па', vi:'bố', pos:'danh từ giống đực' },
+        { ru:'роди́тели', vi:'bố mẹ', pos:'danh từ số nhiều' },
+        { ru:'брат', vi:'anh/em trai', pos:'danh từ giống đực' },
+        { ru:'сестра́', vi:'chị/em gái', pos:'danh từ giống cái' },
+        { ru:'сын', vi:'con trai', pos:'danh từ giống đực' },
+        { ru:'дочь', vi:'con gái', pos:'danh từ giống cái' },
+        { ru:'де́душка', vi:'ông', pos:'danh từ giống đực' },
+        { ru:'ба́бушка', vi:'bà', pos:'danh từ giống cái' },
+        { ru:'муж', vi:'chồng', pos:'danh từ giống đực' },
+        { ru:'жена́', vi:'vợ', pos:'danh từ giống cái' },
+        { ru:'ребёнок', vi:'đứa trẻ, con', pos:'danh từ giống đực' },
+        { ru:'у меня́ есть', vi:'tôi có', pos:'cụm cố định' },
+        { ru:'фотогра́фия', vi:'bức ảnh', pos:'danh từ giống cái' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Хиен, э́то твоя́ семья́?', vi:'Hiển, đây là gia đình cậu à?' },
+        { sp:'B', ru:'Да, э́то моя́ семья́. Э́то мой па́па, а э́то моя́ ма́ма.', vi:'Ừ, đây là gia đình mình. Đây là bố mình, còn đây là mẹ mình.' },
+        { sp:'A', ru:'А кто э́то? Твой брат?', vi:'Còn đây là ai? Em trai cậu à?' },
+        { sp:'B', ru:'Нет, э́то моя́ сестра́. Её зову́т Лан. У меня́ есть ещё мла́дший брат.', vi:'Không, đây là em gái mình. Em ấy tên Lan. Mình còn có một em trai nữa.' }
+      ]
+    },
+
+    {
+      level:'a1', no:3, ru:'Числа и во́зраст', vi:'Số đếm và tuổi',
+      skill:'Đếm 1–100; hỏi tuổi; год / го́да / лет',
+      grammar:[
+        { form:'Số đếm: оди́н, два, три … де́сять; 11–19: -надцать; 20, 30 …; 100 сто', vi:'cấu tạo số',
+          note:'11 оди́ннадцать … 19 девятна́дцать; 20 два́дцать, 30 три́дцать, 40 со́рок, 50 пятьдеся́т, 90 девяно́сто. Ghép: два́дцать пять = 25. оди́н/одна́/одно́ và два/две đổi theo giống.',
+          ex:{ ru:'Оди́н, два, три, четы́ре, пять — два́дцать оди́н, три́дцать две.', vi:'1, 2, 3, 4, 5 — 21, 32.' } },
+        { form:'Ско́лько вам лет? — Мне … год / го́да / лет.', vi:'hỏi và nói tuổi (đại từ ở cách 3)',
+          note:'1, 21, 31… + год; 2–4, 22–24… + го́да; 5–20, 25–30… + лет. Мне (tôi), тебе́, ему́, ей, нам, вам, им.',
+          ex:{ ru:'— Ско́лько тебе́ лет? — Мне два́дцать два го́да. А бра́ту де́сять лет.', vi:'— Cậu bao nhiêu tuổi? — Mình 22 tuổi. Còn em trai 10 tuổi.' } }
+      ],
+      vocab:[
+        { ru:'оди́н', vi:'một', pos:'số từ' },
+        { ru:'два', vi:'hai', pos:'số từ' },
+        { ru:'три', vi:'ba', pos:'số từ' },
+        { ru:'четы́ре', vi:'bốn', pos:'số từ' },
+        { ru:'пять', vi:'năm', pos:'số từ' },
+        { ru:'шесть', vi:'sáu', pos:'số từ' },
+        { ru:'семь', vi:'bảy', pos:'số từ' },
+        { ru:'во́семь', vi:'tám', pos:'số từ' },
+        { ru:'де́вять', vi:'chín', pos:'số từ' },
+        { ru:'де́сять', vi:'mười', pos:'số từ' },
+        { ru:'два́дцать', vi:'hai mươi', pos:'số từ' },
+        { ru:'сто', vi:'một trăm', pos:'số từ' },
+        { ru:'год', vi:'năm (tuổi, thời gian)', pos:'danh từ giống đực' },
+        { ru:'ско́лько', vi:'bao nhiêu', pos:'đại từ nghi vấn' },
+        { ru:'во́зраст', vi:'tuổi tác', pos:'danh từ giống đực' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Ско́лько тебе́ лет, Хиен?', vi:'Hiển, cậu bao nhiêu tuổi?' },
+        { sp:'B', ru:'Мне два́дцать три го́да. А тебе́?', vi:'Mình 23 tuổi. Còn cậu?' },
+        { sp:'A', ru:'Мне девятна́дцать лет. А ско́лько лет твоему́ бра́ту?', vi:'Mình 19 tuổi. Còn em trai cậu bao nhiêu tuổi?' },
+        { sp:'B', ru:'Ему́ оди́ннадцать лет. Он ещё шко́льник.', vi:'Em ấy 11 tuổi. Em ấy vẫn là học sinh.' }
+      ]
+    },
+
+    {
+      level:'a1', no:4, ru:'Мой день', vi:'Một ngày của tôi',
+      skill:'Động từ nhóm I thì hiện tại; trạng từ tần suất',
+      grammar:[
+        { form:'Nhóm I (-ать/-ять): я чита́-ю, ты чита́-ешь, он чита́-ет, мы чита́-ем, вы чита́-ете, они́ чита́-ют', vi:'chia động từ nhóm I',
+          note:'Bỏ -ть, thêm đuôi -ю/-ешь/-ет/-ем/-ете/-ют. Cùng mẫu: рабо́тать, знать, де́лать, гуля́ть, за́втракать, слу́шать, изуча́ть.',
+          ex:{ ru:'Я рабо́таю, а ты отдыха́ешь. Мы изуча́ем ру́сский язы́к.', vi:'Tôi làm việc, còn bạn nghỉ ngơi. Chúng tôi học tiếng Nga.' } },
+        { form:'всегда́ · обы́чно · ча́сто · иногда́ · ре́дко · никогда́ не', vi:'trạng từ tần suất đứng trước động từ',
+          note:'Phủ định: я никогда́ не за́втракаю (không bao giờ ăn sáng) — tiếng Nga dùng hai lần phủ định.',
+          ex:{ ru:'У́тром я обы́чно за́втракаю до́ма, а ве́чером ча́сто гуля́ю.', vi:'Buổi sáng tôi thường ăn sáng ở nhà, còn buổi tối thường đi dạo.' } }
+      ],
+      vocab:[
+        { ru:'чита́ть', vi:'đọc', pos:'động từ NSV' },
+        { ru:'рабо́тать', vi:'làm việc', pos:'động từ NSV' },
+        { ru:'знать', vi:'biết', pos:'động từ NSV' },
+        { ru:'де́лать', vi:'làm', pos:'động từ NSV' },
+        { ru:'гуля́ть', vi:'đi dạo', pos:'động từ NSV' },
+        { ru:'за́втракать', vi:'ăn sáng', pos:'động từ NSV' },
+        { ru:'обе́дать', vi:'ăn trưa', pos:'động từ NSV' },
+        { ru:'у́жинать', vi:'ăn tối', pos:'động từ NSV' },
+        { ru:'слу́шать', vi:'nghe', pos:'động từ NSV' },
+        { ru:'отдыха́ть', vi:'nghỉ ngơi', pos:'động từ NSV' },
+        { ru:'у́тром', vi:'vào buổi sáng', pos:'trạng từ' },
+        { ru:'днём', vi:'vào ban ngày', pos:'trạng từ' },
+        { ru:'ве́чером', vi:'vào buổi tối', pos:'trạng từ' },
+        { ru:'обы́чно', vi:'thường', pos:'trạng từ' },
+        { ru:'иногда́', vi:'đôi khi', pos:'trạng từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Что ты обы́чно де́лаешь у́тром?', vi:'Buổi sáng cậu thường làm gì?' },
+        { sp:'B', ru:'У́тром я за́втракаю и слу́шаю ра́дио. Пото́м я рабо́таю.', vi:'Buổi sáng mình ăn sáng và nghe đài. Sau đó mình làm việc.' },
+        { sp:'A', ru:'А ве́чером?', vi:'Còn buổi tối?' },
+        { sp:'B', ru:'Ве́чером я гуля́ю и чита́ю. Иногда́ я отдыха́ю до́ма.', vi:'Buổi tối mình đi dạo và đọc sách. Đôi khi mình nghỉ ở nhà.' }
+      ]
+    },
+
+    {
+      level:'a1', no:5, ru:'Что вы лю́бите де́лать?', vi:'Bạn thích làm gì?',
+      skill:'Động từ nhóm II; люби́ть + động từ nguyên thể; хоте́ть',
+      grammar:[
+        { form:'Nhóm II (-ить/-еть): говор-ю́, говор-и́шь, говор-и́т, говор-и́м, говор-и́те, говор-я́т', vi:'chia động từ nhóm II',
+          note:'Đuôi -ю/-ишь/-ит/-им/-ите/-ят. Cùng mẫu: смотре́ть, учи́ть, звони́ть. люби́ть có л xen ở ngôi tôi: я люблю́.',
+          ex:{ ru:'Я говорю́ по-ру́сски, а она́ говори́т по-вьетна́мски.', vi:'Tôi nói tiếng Nga, còn cô ấy nói tiếng Việt.' } },
+        { form:'люби́ть / хоте́ть + động từ nguyên thể', vi:'“thích / muốn làm gì”',
+          note:'хоте́ть chia đặc biệt: хочу́, хо́чешь, хо́чет, хоти́м, хоти́те, хотя́т. Sau люби́ть có thể là danh từ cách 4: я люблю́ му́зыку.',
+          ex:{ ru:'Я люблю́ смотре́ть фи́льмы, но сего́дня я хочу́ спать.', vi:'Tôi thích xem phim, nhưng hôm nay tôi muốn ngủ.' } }
+      ],
+      vocab:[
+        { ru:'говори́ть', vi:'nói', pos:'động từ NSV' },
+        { ru:'смотре́ть', vi:'xem, nhìn', pos:'động từ NSV' },
+        { ru:'люби́ть', vi:'yêu, thích', pos:'động từ NSV' },
+        { ru:'хоте́ть', vi:'muốn', pos:'động từ NSV' },
+        { ru:'учи́ть', vi:'học (thuộc), dạy', pos:'động từ NSV' },
+        { ru:'спать', vi:'ngủ', pos:'động từ NSV' },
+        { ru:'звони́ть', vi:'gọi điện', pos:'động từ NSV' },
+        { ru:'фильм', vi:'phim', pos:'danh từ giống đực' },
+        { ru:'му́зыка', vi:'âm nhạc', pos:'danh từ giống cái' },
+        { ru:'спорт', vi:'thể thao', pos:'danh từ giống đực' },
+        { ru:'по-ру́сски', vi:'bằng tiếng Nga', pos:'trạng từ' },
+        { ru:'по-вьетна́мски', vi:'bằng tiếng Việt', pos:'trạng từ' },
+        { ru:'но', vi:'nhưng', pos:'liên từ' },
+        { ru:'то́же', vi:'cũng', pos:'trạng từ' },
+        { ru:'сего́дня', vi:'hôm nay', pos:'trạng từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Хиен, ты лю́бишь спорт?', vi:'Hiển, cậu thích thể thao không?' },
+        { sp:'B', ru:'Да, о́чень. Я люблю́ футбо́л. А ты что лю́бишь де́лать?', vi:'Có, rất thích. Mình thích bóng đá. Còn cậu thích làm gì?' },
+        { sp:'A', ru:'Я люблю́ слу́шать му́зыку и смотре́ть фи́льмы.', vi:'Mình thích nghe nhạc và xem phim.' },
+        { sp:'B', ru:'Я то́же. Ты хо́чешь смотре́ть фильм сего́дня ве́чером?', vi:'Mình cũng vậy. Tối nay cậu muốn xem phim không?' },
+        { sp:'A', ru:'Хочу́! Но я не говорю́ по-ру́сски хорошо́…', vi:'Muốn chứ! Nhưng mình nói tiếng Nga chưa tốt…' }
+      ]
+    },
+
+    {
+      level:'a1', no:6, ru:'Где вы живёте?', vi:'Bạn sống ở đâu?',
+      skill:'Cách 6 (giới cách) chỉ nơi chốn với в/на; động từ жить',
+      grammar:[
+        { form:'Где? → в/на + cách 6: -е (в го́роде, на у́лице, в Москве́); -ии → -ии (в Росси́и); -ь → -и (в тетра́ди)', vi:'nơi chốn tĩnh',
+          note:'в = trong (không gian kín, nước, thành phố); на = trên/tại (sự kiện, đảo, у́лица, по́чта, вокза́л, рабо́та, факульте́т). Số nhiều: -ах/-ях.',
+          ex:{ ru:'Я живу́ в Хано́е, а мой друг живёт на Сахали́не.', vi:'Tôi sống ở Hà Nội, còn bạn tôi sống trên đảo Sakhalin.' } },
+        { form:'жить: живу́, живёшь, живёт, живём, живёте, живу́т', vi:'động từ “sống” (nhóm I, gốc đổi)',
+          note:'Trọng âm ở đuôi nên е viết thành ё. Hỏi: Где вы живёте? Đáp: Я живу́ в … (cách 6).',
+          ex:{ ru:'— Где вы живёте? — Мы живём в общежи́тии на второ́м этаже́.', vi:'— Bạn sống ở đâu? — Chúng tôi sống ở ký túc xá, tầng hai.' } }
+      ],
+      vocab:[
+        { ru:'жить', vi:'sống', pos:'động từ NSV' },
+        { ru:'где', vi:'ở đâu', pos:'trạng từ nghi vấn' },
+        { ru:'го́род', vi:'thành phố', pos:'danh từ giống đực' },
+        { ru:'страна́', vi:'đất nước', pos:'danh từ giống cái' },
+        { ru:'у́лица', vi:'đường phố', pos:'danh từ giống cái' },
+        { ru:'дом', vi:'nhà', pos:'danh từ giống đực' },
+        { ru:'кварти́ра', vi:'căn hộ', pos:'danh từ giống cái' },
+        { ru:'ко́мната', vi:'phòng', pos:'danh từ giống cái' },
+        { ru:'общежи́тие', vi:'ký túc xá', pos:'danh từ giống trung' },
+        { ru:'эта́ж', vi:'tầng', pos:'danh từ giống đực' },
+        { ru:'центр', vi:'trung tâm', pos:'danh từ giống đực' },
+        { ru:'дере́вня', vi:'làng quê', pos:'danh từ giống cái' },
+        { ru:'Росси́я', vi:'nước Nga', pos:'danh từ giống cái' },
+        { ru:'Вьетна́м', vi:'Việt Nam', pos:'danh từ giống đực' },
+        { ru:'далеко́ / бли́зко', vi:'xa / gần', pos:'trạng từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Хиен, где ты живёшь?', vi:'Hiển, cậu sống ở đâu?' },
+        { sp:'B', ru:'Я живу́ в общежи́тии, в це́нтре го́рода. А ты?', vi:'Mình sống ở ký túc xá, ở trung tâm thành phố. Còn cậu?' },
+        { sp:'A', ru:'Я живу́ в кварти́ре на у́лице Ле́нина. Э́то далеко́ от це́нтра.', vi:'Mình sống trong căn hộ trên phố Lenin. Chỗ đó xa trung tâm.' },
+        { sp:'B', ru:'А твои́ роди́тели живу́т в Москве́?', vi:'Còn bố mẹ cậu sống ở Moskva à?' },
+        { sp:'A', ru:'Нет, они́ живу́т в дере́вне.', vi:'Không, họ sống ở quê.' }
+      ]
+    },
+
+    {
+      level:'a1', no:7, ru:'Что вы чита́ете?', vi:'Bạn đọc gì?',
+      skill:'Cách 4 (đối cách) của tân ngữ bất động vật; hỏi что/кого́',
+      grammar:[
+        { form:'Cách 4 bất động vật: giống đực & trung = cách 1; giống cái -а → -у, -я → -ю', vi:'tân ngữ trực tiếp',
+          note:'Я чита́ю журна́л / письмо́ (không đổi); Я чита́ю кни́гу, газе́ту (-у). Từ giống cái -ь không đổi: тетра́дь.',
+          ex:{ ru:'Ка́ждый день я чита́ю газе́ту и слу́шаю му́зыку.', vi:'Mỗi ngày tôi đọc báo và nghe nhạc.' } },
+        { form:'Cách 4 động vật giống đực: -а/-я (бра́та, учи́теля); giống cái như trên (сестру́)', vi:'tân ngữ chỉ người/động vật',
+          note:'Кого́ вы зна́ете? — Я зна́ю Анто́на и Анну. Đại từ: меня́, тебя́, его́, её, нас, вас, их.',
+          ex:{ ru:'Я хорошо́ зна́ю Ива́на и его́ сестру́.', vi:'Tôi biết rõ Ivan và chị của anh ấy.' } }
+      ],
+      vocab:[
+        { ru:'кни́га', vi:'sách', pos:'danh từ giống cái' },
+        { ru:'газе́та', vi:'báo', pos:'danh từ giống cái' },
+        { ru:'журна́л', vi:'tạp chí', pos:'danh từ giống đực' },
+        { ru:'письмо́', vi:'bức thư', pos:'danh từ giống trung' },
+        { ru:'текст', vi:'bài đọc, văn bản', pos:'danh từ giống đực' },
+        { ru:'сло́во', vi:'từ', pos:'danh từ giống trung' },
+        { ru:'уро́к', vi:'bài học, tiết học', pos:'danh từ giống đực' },
+        { ru:'учи́тель', vi:'thầy giáo', pos:'danh từ giống đực' },
+        { ru:'друг', vi:'bạn (nam)', pos:'danh từ giống đực' },
+        { ru:'подру́га', vi:'bạn (nữ)', pos:'danh từ giống cái' },
+        { ru:'писа́ть', vi:'viết', pos:'động từ NSV' },
+        { ru:'понима́ть', vi:'hiểu', pos:'động từ NSV' },
+        { ru:'повторя́ть', vi:'nhắc lại, ôn', pos:'động từ NSV' },
+        { ru:'ка́ждый день', vi:'mỗi ngày', pos:'cụm cố định' },
+        { ru:'по́сле', vi:'sau (khi)', pos:'giới từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Что ты чита́ешь?', vi:'Cậu đang đọc gì thế?' },
+        { sp:'B', ru:'Я чита́ю ру́сскую газе́ту. Но я понима́ю не всё.', vi:'Mình đọc báo Nga. Nhưng mình không hiểu hết.' },
+        { sp:'A', ru:'Ты зна́ешь э́то сло́во?', vi:'Cậu biết từ này không?' },
+        { sp:'B', ru:'Нет. Я спрошу́ учи́теля по́сле уро́ка.', vi:'Không. Mình sẽ hỏi thầy sau giờ học.' },
+        { sp:'A', ru:'Хорошо́. А ве́чером мы повторя́ем слова́ вме́сте.', vi:'Được. Còn buổi tối chúng ta cùng ôn từ.' }
+      ]
+    },
+
+    {
+      level:'a1', no:8, ru:'Вчера́ и за́втра', vi:'Hôm qua và ngày mai',
+      skill:'Thì quá khứ -л; động từ быть; tương lai với бу́ду + nguyên thể',
+      grammar:[
+        { form:'Quá khứ: gốc + -л / -ла / -ло / -ли (theo giống & số chủ ngữ)', vi:'thì quá khứ không chia theo ngôi',
+          note:'Я/он чита́л, я/она́ чита́ла, оно́ чита́ло, мы/вы/они́ чита́ли. быть: был, была́, бы́ло, бы́ли. Hiện tại của быть lược bỏ: Вчера́ я был до́ма.',
+          ex:{ ru:'Вчера́ я был в теа́тре, а моя́ сестра́ была́ до́ма.', vi:'Hôm qua tôi ở nhà hát, còn chị tôi ở nhà.' } },
+        { form:'Tương lai NSV: бу́ду / бу́дешь / бу́дет / бу́дем / бу́дете / бу́дут + động từ nguyên thể', vi:'“sẽ (đang) làm gì”',
+          note:'Dùng với động từ chưa hoàn thành để nói kế hoạch, hành động kéo dài. За́втра я бу́ду рабо́тать.',
+          ex:{ ru:'За́втра мы бу́дем отдыха́ть, а в понеде́льник бу́дем учи́ться.', vi:'Ngày mai chúng tôi sẽ nghỉ, còn thứ Hai sẽ đi học.' } }
+      ],
+      vocab:[
+        { ru:'вчера́', vi:'hôm qua', pos:'trạng từ' },
+        { ru:'за́втра', vi:'ngày mai', pos:'trạng từ' },
+        { ru:'быть', vi:'là, có, ở', pos:'động từ' },
+        { ru:'был / была́ / бы́ли', vi:'đã (ở/là)', pos:'quá khứ của быть' },
+        { ru:'понеде́льник', vi:'thứ Hai', pos:'danh từ giống đực' },
+        { ru:'вто́рник', vi:'thứ Ba', pos:'danh từ giống đực' },
+        { ru:'среда́', vi:'thứ Tư', pos:'danh từ giống cái' },
+        { ru:'четве́рг', vi:'thứ Năm', pos:'danh từ giống đực' },
+        { ru:'пя́тница', vi:'thứ Sáu', pos:'danh từ giống cái' },
+        { ru:'суббо́та', vi:'thứ Bảy', pos:'danh từ giống cái' },
+        { ru:'воскресе́нье', vi:'Chủ nhật', pos:'danh từ giống trung' },
+        { ru:'неде́ля', vi:'tuần', pos:'danh từ giống cái' },
+        { ru:'теа́тр', vi:'nhà hát', pos:'danh từ giống đực' },
+        { ru:'учи́ться', vi:'học (ở trường)', pos:'động từ NSV' },
+        { ru:'ра́ньше', vi:'trước đây', pos:'trạng từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Где ты был вчера́? Я звони́л, но ты не отвеча́л.', vi:'Hôm qua cậu ở đâu? Mình gọi mà cậu không trả lời.' },
+        { sp:'B', ru:'Вчера́ я был в теа́тре. Там бы́ло о́чень интере́сно.', vi:'Hôm qua mình ở nhà hát. Ở đó rất thú vị.' },
+        { sp:'A', ru:'А что ты бу́дешь де́лать за́втра?', vi:'Còn ngày mai cậu sẽ làm gì?' },
+        { sp:'B', ru:'За́втра суббо́та. Я бу́ду отдыха́ть и чита́ть. А в воскресе́нье бу́ду гуля́ть.', vi:'Mai là thứ Bảy. Mình sẽ nghỉ và đọc sách. Còn Chủ nhật sẽ đi dạo.' }
+      ]
+    },
+
+    {
+      level:'a1', no:9, ru:'Профе́ссии и национа́льности', vi:'Nghề nghiệp và quốc tịch',
+      skill:'Hỏi nghề; tính từ hoà hợp với danh từ; какой?',
+      grammar:[
+        { form:'Кто вы по профе́ссии? — Я инжене́р / врач / студе́нт.', vi:'nói nghề nghiệp (cách 1, không mạo từ)',
+          note:'Nhiều nghề có dạng nữ: студе́нт – студе́нтка, учи́тель – учи́тельница; врач, инжене́р dùng chung. Quốc tịch: вьетна́мец / вьетна́мка, ру́сский / ру́сская.',
+          ex:{ ru:'Мой оте́ц инжене́р, а мать — врач. Я курса́нт.', vi:'Bố tôi là kỹ sư, còn mẹ là bác sĩ. Tôi là học viên sĩ quan.' } },
+        { form:'Tính từ: но́вый / но́вая / но́вое / но́вые (-ый/-ий/-ой · -ая/-яя · -ое/-ее · -ые/-ие)', vi:'tính từ hoà hợp giống, số với danh từ',
+          note:'Hỏi: Како́й (đực) / кака́я (cái) / како́е (trung) / каки́е (nhiều) + N? Sau г к х ж ш щ ч viết -ий/-ие: ру́сский, хоро́шие.',
+          ex:{ ru:'Э́то но́вый студе́нт. Он о́чень хоро́ший и у́мный.', vi:'Đây là sinh viên mới. Cậu ấy rất tốt và thông minh.' } }
+      ],
+      vocab:[
+        { ru:'профе́ссия', vi:'nghề nghiệp', pos:'danh từ giống cái' },
+        { ru:'врач', vi:'bác sĩ', pos:'danh từ giống đực' },
+        { ru:'инжене́р', vi:'kỹ sư', pos:'danh từ giống đực' },
+        { ru:'учи́тельница', vi:'cô giáo', pos:'danh từ giống cái' },
+        { ru:'курса́нт', vi:'học viên (quân sự)', pos:'danh từ giống đực' },
+        { ru:'офице́р', vi:'sĩ quan', pos:'danh từ giống đực' },
+        { ru:'води́тель', vi:'tài xế', pos:'danh từ giống đực' },
+        { ru:'вьетна́мец', vi:'người Việt (nam)', pos:'danh từ giống đực' },
+        { ru:'вьетна́мка', vi:'người Việt (nữ)', pos:'danh từ giống cái' },
+        { ru:'ру́сский', vi:'(người) Nga', pos:'tính từ / danh từ' },
+        { ru:'но́вый', vi:'mới', pos:'tính từ' },
+        { ru:'ста́рый', vi:'cũ, già', pos:'tính từ' },
+        { ru:'хоро́ший', vi:'tốt', pos:'tính từ' },
+        { ru:'у́мный', vi:'thông minh', pos:'tính từ' },
+        { ru:'како́й', vi:'nào, như thế nào', pos:'đại từ nghi vấn' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Хиен, кто ты по профе́ссии?', vi:'Hiển, cậu làm nghề gì?' },
+        { sp:'B', ru:'Я курса́нт. Я учу́сь в вое́нной акаде́мии. А ты?', vi:'Mình là học viên. Mình học ở học viện quân sự. Còn cậu?' },
+        { sp:'A', ru:'Я студе́нтка, бу́дущий врач. Э́то тру́дная, но интере́сная профе́ссия.', vi:'Mình là sinh viên, bác sĩ tương lai. Đó là nghề khó nhưng thú vị.' },
+        { sp:'B', ru:'Кака́я у тебя́ хоро́шая профе́ссия!', vi:'Nghề của cậu thật tốt!' }
+      ]
+    },
+
+    {
+      level:'a1', no:10, ru:'В магази́не', vi:'Ở cửa hàng',
+      skill:'Hỏi giá; danh từ sau số đếm (cách 2); нет + cách 2',
+      grammar:[
+        { form:'1 рубль · 2–4 рубля́ · 5–20 рубле́й (cách 2 số ít / số nhiều)', vi:'danh từ sau số đếm',
+          note:'2, 3, 4 (và 22, 23, 24…) + cách 2 số ít; 5–20, 25–30… + cách 2 số nhiều. Ско́лько сто́ит? (số ít) / Ско́лько сто́ят? (số nhiều).',
+          ex:{ ru:'Хлеб сто́ит три́дцать два рубля́, а сыр — две́сти рубле́й.', vi:'Bánh mì giá 32 rúp, còn phô mai 200 rúp.' } },
+        { form:'Нет + cách 2: нет хле́ба, нет молока́, нет вре́мени', vi:'“không có …” đòi cách 2',
+          note:'Cách 2 số ít: đực/trung -а/-я (стол → стола́, окно́ → окна́), cái -ы/-и (кни́га → кни́ги). Đại từ: у меня́ нет де́нег (tôi không có tiền).',
+          ex:{ ru:'Извини́те, у нас сего́дня нет молока́. Есть то́лько сок.', vi:'Xin lỗi, hôm nay chúng tôi không có sữa. Chỉ có nước ép.' } }
+      ],
+      vocab:[
+        { ru:'магази́н', vi:'cửa hàng', pos:'danh từ giống đực' },
+        { ru:'ры́нок', vi:'chợ', pos:'danh từ giống đực' },
+        { ru:'сто́ить', vi:'có giá', pos:'động từ NSV' },
+        { ru:'рубль', vi:'rúp', pos:'danh từ giống đực' },
+        { ru:'де́ньги', vi:'tiền', pos:'danh từ số nhiều' },
+        { ru:'хлеб', vi:'bánh mì', pos:'danh từ giống đực' },
+        { ru:'молоко́', vi:'sữa', pos:'danh từ giống trung' },
+        { ru:'сыр', vi:'phô mai', pos:'danh từ giống đực' },
+        { ru:'мя́со', vi:'thịt', pos:'danh từ giống trung' },
+        { ru:'ры́ба', vi:'cá', pos:'danh từ giống cái' },
+        { ru:'фру́кты', vi:'hoa quả', pos:'danh từ số nhiều' },
+        { ru:'о́вощи', vi:'rau củ', pos:'danh từ số nhiều' },
+        { ru:'вода́', vi:'nước', pos:'danh từ giống cái' },
+        { ru:'дорого́й / дешёвый', vi:'đắt / rẻ', pos:'tính từ' },
+        { ru:'да́йте, пожа́луйста', vi:'cho tôi … với', pos:'cụm cố định' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Скажи́те, пожа́луйста, ско́лько сто́ит э́тот сыр?', vi:'Cho hỏi, phô mai này giá bao nhiêu?' },
+        { sp:'B', ru:'Две́сти со́рок рубле́й.', vi:'240 rúp.' },
+        { sp:'A', ru:'Дорого́. А молоко́ есть?', vi:'Đắt quá. Có sữa không?' },
+        { sp:'B', ru:'Молока́ нет. Есть хлеб и фру́кты.', vi:'Không có sữa. Có bánh mì và hoa quả.' },
+        { sp:'A', ru:'Да́йте, пожа́луйста, хлеб и два я́блока.', vi:'Cho tôi bánh mì và hai quả táo.' }
+      ]
+    },
+
+    {
+      level:'a1', no:11, ru:'Куда́ вы идёте?', vi:'Bạn đi đâu?',
+      skill:'Куда́ + cách 4 (hướng chuyển động); идти́ / е́хать',
+      grammar:[
+        { form:'Куда́? → в/на + cách 4: в го́род, в шко́лу, на по́чту, на рабо́ту', vi:'hướng chuyển động (khác Где? + cách 6)',
+          note:'So sánh: Я в шко́ле (đang ở trường, cách 6) — Я иду́ в шко́лу (đang đi đến trường, cách 4). Đực/trung không đổi, cái -а → -у.',
+          ex:{ ru:'У́тром я иду́ в акаде́мию, а ве́чером — на стадио́н.', vi:'Buổi sáng tôi đi đến học viện, còn buổi tối ra sân vận động.' } },
+        { form:'идти́ (đi bộ): иду́, идёшь, идёт… · е́хать (đi xe): е́ду, е́дешь, е́дет…', vi:'động từ chuyển động một hướng',
+          note:'идти́ dùng khi đi bộ, е́хать khi đi bằng phương tiện. Quá khứ: шёл/шла/шли; е́хал/е́хала.',
+          ex:{ ru:'— Куда́ ты идёшь? — Я иду́ на по́чту. А пото́м е́ду домо́й.', vi:'— Cậu đi đâu đấy? — Mình đi ra bưu điện. Rồi sau đó về nhà (bằng xe).' } }
+      ],
+      vocab:[
+        { ru:'куда́', vi:'đi đâu', pos:'trạng từ nghi vấn' },
+        { ru:'идти́', vi:'đi (bộ, một hướng)', pos:'động từ NSV' },
+        { ru:'е́хать', vi:'đi (bằng xe, một hướng)', pos:'động từ NSV' },
+        { ru:'домо́й', vi:'về nhà', pos:'trạng từ' },
+        { ru:'шко́ла', vi:'trường học', pos:'danh từ giống cái' },
+        { ru:'акаде́мия', vi:'học viện', pos:'danh từ giống cái' },
+        { ru:'по́чта', vi:'bưu điện', pos:'danh từ giống cái' },
+        { ru:'рабо́та', vi:'công việc, chỗ làm', pos:'danh từ giống cái' },
+        { ru:'стадио́н', vi:'sân vận động', pos:'danh từ giống đực' },
+        { ru:'библиоте́ка', vi:'thư viện', pos:'danh từ giống cái' },
+        { ru:'парк', vi:'công viên', pos:'danh từ giống đực' },
+        { ru:'вокза́л', vi:'nhà ga', pos:'danh từ giống đực' },
+        { ru:'музе́й', vi:'bảo tàng', pos:'danh từ giống đực' },
+        { ru:'сейча́с', vi:'bây giờ', pos:'trạng từ' },
+        { ru:'пото́м', vi:'sau đó', pos:'trạng từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Приве́т, Хиен! Куда́ ты идёшь?', vi:'Chào Hiển! Cậu đi đâu đấy?' },
+        { sp:'B', ru:'Я иду́ в библиоте́ку. А ты?', vi:'Mình đi thư viện. Còn cậu?' },
+        { sp:'A', ru:'Я е́ду на вокза́л. Мой брат сего́дня приезжа́ет.', vi:'Mình đi ra ga. Hôm nay anh mình đến.' },
+        { sp:'B', ru:'Здо́рово! А пото́м куда́?', vi:'Tuyệt! Rồi sau đó đi đâu?' },
+        { sp:'A', ru:'Пото́м мы е́дем домо́й.', vi:'Sau đó bọn mình về nhà.' }
+      ]
+    },
+
+    {
+      level:'a1', no:12, ru:'Тра́нспорт', vi:'Phương tiện đi lại',
+      skill:'на чём? — е́хать на авто́бусе; hỏi đường; cách 5 nhập môn',
+      grammar:[
+        { form:'е́хать на + cách 6: на авто́бусе, на метро́, на маши́не, на такси́', vi:'đi bằng phương tiện gì',
+          note:'метро́, такси́ không biến đổi. Đi bộ: идти́ пешко́м. Hỏi: На чём вы е́дете? / Как дое́хать до …? (cách 2).',
+          ex:{ ru:'Я е́ду на рабо́ту на авто́бусе, а домо́й иду́ пешко́м.', vi:'Tôi đi làm bằng xe buýt, còn về nhà thì đi bộ.' } },
+        { form:'Cách 5 (tạo cách) nhập môn: с + N (с дру́гом, с сестро́й) — “với ai”', vi:'“cùng với …”',
+          note:'Đực/trung -ом/-ем, cái -ой/-ей. Đại từ: со мной, с тобо́й, с ним, с ней, с на́ми, с ва́ми, с ни́ми.',
+          ex:{ ru:'Я е́ду в центр с дру́гом. Хо́чешь пое́хать с на́ми?', vi:'Tôi đi vào trung tâm với bạn. Cậu muốn đi cùng bọn mình không?' } }
+      ],
+      vocab:[
+        { ru:'тра́нспорт', vi:'giao thông, phương tiện', pos:'danh từ giống đực' },
+        { ru:'авто́бус', vi:'xe buýt', pos:'danh từ giống đực' },
+        { ru:'метро́', vi:'tàu điện ngầm', pos:'danh từ giống trung (bất biến)' },
+        { ru:'маши́на', vi:'ô tô', pos:'danh từ giống cái' },
+        { ru:'такси́', vi:'taxi', pos:'danh từ giống trung (bất biến)' },
+        { ru:'по́езд', vi:'tàu hoả', pos:'danh từ giống đực' },
+        { ru:'самолёт', vi:'máy bay', pos:'danh từ giống đực' },
+        { ru:'велосипе́д', vi:'xe đạp', pos:'danh từ giống đực' },
+        { ru:'остано́вка', vi:'bến, điểm dừng', pos:'danh từ giống cái' },
+        { ru:'ста́нция', vi:'ga (tàu điện)', pos:'danh từ giống cái' },
+        { ru:'биле́т', vi:'vé', pos:'danh từ giống đực' },
+        { ru:'пешко́м', vi:'đi bộ', pos:'trạng từ' },
+        { ru:'напра́во / нале́во', vi:'sang phải / sang trái', pos:'trạng từ' },
+        { ru:'пря́мо', vi:'thẳng', pos:'trạng từ' },
+        { ru:'скажи́те, пожа́луйста', vi:'xin cho hỏi', pos:'cụm cố định' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Скажи́те, пожа́луйста, как дое́хать до музе́я?', vi:'Xin cho hỏi, đến bảo tàng đi thế nào?' },
+        { sp:'B', ru:'На метро́. Ста́нция «Пу́шкинская», пото́м пря́мо и напра́во.', vi:'Đi tàu điện ngầm. Ga «Pushkinskaya», rồi đi thẳng và rẽ phải.' },
+        { sp:'A', ru:'А на авто́бусе мо́жно?', vi:'Đi xe buýt được không?' },
+        { sp:'B', ru:'Мо́жно, но авто́бус идёт до́лго. Остано́вка вон там, нале́во.', vi:'Được, nhưng xe buýt đi lâu. Bến ở đằng kia, bên trái.' },
+        { sp:'A', ru:'Спаси́бо большо́е!', vi:'Cảm ơn nhiều!' }
+      ]
+    },
+
+    {
+      level:'a1', no:13, ru:'Мне нра́вится', vi:'Tôi thích',
+      skill:'Cách 3 (tặng cách) với нра́виться, ну́жно, мо́жно/нельзя́',
+      grammar:[
+        { form:'Кому́? + нра́вится / нра́вятся + N (cách 1)', vi:'“ai thích cái gì” — chủ thể ở cách 3',
+          note:'Мне нра́вится Москва́ (số ít) / Мне нра́вятся кни́ги (số nhiều). Quá khứ: понра́вился/-лась/-лось/-лись. Cách 3: мне, тебе́, ему́, ей, нам, вам, им; danh từ: -у/-ю (бра́ту), -е (сестре́).',
+          ex:{ ru:'Мне о́чень нра́вится ру́сская му́зыка, а бра́ту нра́вятся фи́льмы.', vi:'Tôi rất thích nhạc Nga, còn em trai thích phim.' } },
+        { form:'Кому́ + ну́жно / мо́жно / нельзя́ + nguyên thể', vi:'“cần / được phép / không được”',
+          note:'Ну́жно cũng đi với danh từ hoà hợp: мне ну́жен слова́рь, нужна́ ру́чка, ну́жно вре́мя, нужны́ де́ньги.',
+          ex:{ ru:'Мне ну́жно учи́ть слова́. Здесь нельзя́ говори́ть гро́мко.', vi:'Tôi cần học từ. Ở đây không được nói to.' } }
+      ],
+      vocab:[
+        { ru:'нра́виться', vi:'thích (ai đó thấy thích)', pos:'động từ NSV' },
+        { ru:'ну́жно', vi:'cần', pos:'trạng từ vị ngữ' },
+        { ru:'мо́жно', vi:'có thể, được phép', pos:'trạng từ vị ngữ' },
+        { ru:'нельзя́', vi:'không được', pos:'trạng từ vị ngữ' },
+        { ru:'слова́рь', vi:'từ điển', pos:'danh từ giống đực' },
+        { ru:'ру́чка', vi:'bút', pos:'danh từ giống cái' },
+        { ru:'вре́мя', vi:'thời gian', pos:'danh từ giống trung' },
+        { ru:'пода́рок', vi:'món quà', pos:'danh từ giống đực' },
+        { ru:'цвето́к / цветы́', vi:'bông hoa / hoa', pos:'danh từ' },
+        { ru:'гро́мко / ти́хо', vi:'to / khẽ', pos:'trạng từ' },
+        { ru:'помога́ть', vi:'giúp (ai — cách 3)', pos:'động từ NSV' },
+        { ru:'дари́ть', vi:'tặng', pos:'động từ NSV' },
+        { ru:'сове́товать', vi:'khuyên', pos:'động từ NSV' },
+        { ru:'коне́чно', vi:'tất nhiên', pos:'trạng từ' },
+        { ru:'жаль', vi:'tiếc', pos:'trạng từ vị ngữ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Хиен, тебе́ нра́вится Москва́?', vi:'Hiển, cậu có thích Moskva không?' },
+        { sp:'B', ru:'О́чень нра́вится! Но мне ну́жно бо́льше говори́ть по-ру́сски.', vi:'Rất thích! Nhưng mình cần nói tiếng Nga nhiều hơn.' },
+        { sp:'A', ru:'Я могу́ помога́ть тебе́. Мо́жно говори́ть ка́ждый день.', vi:'Mình có thể giúp cậu. Có thể nói chuyện mỗi ngày.' },
+        { sp:'B', ru:'Спаси́бо! А что тебе́ подари́ть? За́втра твой день рожде́ния.', vi:'Cảm ơn! Thế tặng cậu gì đây? Mai là sinh nhật cậu.' },
+        { sp:'A', ru:'Мне нра́вятся цветы́. Но нельзя́ дари́ть жёлтые!', vi:'Mình thích hoa. Nhưng không được tặng hoa vàng đâu!' }
+      ]
+    },
+
+    {
+      level:'a1', no:14, ru:'Пого́да и времена́ го́да', vi:'Thời tiết và các mùa',
+      skill:'Câu vô nhân xưng; tháng, ngày tháng; какое сегодня число?',
+      grammar:[
+        { form:'Câu vô nhân xưng: Сего́дня хо́лодно / тепло́ / жа́рко. Идёт дождь / снег.', vi:'nói thời tiết không có chủ ngữ',
+          note:'Trạng từ -о làm vị ngữ. Quá khứ thêm бы́ло: Вчера́ бы́ло хо́лодно. Tương lai: бу́дет тепло́. Mùa: зимо́й, весно́й, ле́том, о́сенью (cách 5 chỉ thời gian).',
+          ex:{ ru:'Ле́том в Хано́е о́чень жа́рко, а зимо́й в Москве́ идёт снег.', vi:'Mùa hè ở Hà Nội rất nóng, còn mùa đông ở Moskva có tuyết.' } },
+        { form:'Како́е сего́дня число́? — Сего́дня пя́тое ма́рта. (số thứ tự giống trung + tháng ở cách 2)', vi:'ngày tháng',
+          note:'Tháng: янва́рь, февра́ль, март, апре́ль, май, ию́нь, ию́ль, а́вгуст, сентя́брь, октя́брь, ноя́брь, дека́брь. “Vào ngày…”: пя́того ма́рта (cách 2).',
+          ex:{ ru:'Сего́дня деся́тое декабря́. За́втра бу́дет хо́лодно.', vi:'Hôm nay là mùng 10 tháng 12. Ngày mai sẽ lạnh.' } }
+      ],
+      vocab:[
+        { ru:'пого́да', vi:'thời tiết', pos:'danh từ giống cái' },
+        { ru:'хо́лодно', vi:'lạnh', pos:'trạng từ' },
+        { ru:'тепло́', vi:'ấm', pos:'trạng từ' },
+        { ru:'жа́рко', vi:'nóng', pos:'trạng từ' },
+        { ru:'дождь', vi:'mưa', pos:'danh từ giống đực' },
+        { ru:'снег', vi:'tuyết', pos:'danh từ giống đực' },
+        { ru:'со́лнце', vi:'mặt trời', pos:'danh từ giống trung' },
+        { ru:'ве́тер', vi:'gió', pos:'danh từ giống đực' },
+        { ru:'зима́ / зимо́й', vi:'mùa đông / vào mùa đông', pos:'danh từ' },
+        { ru:'весна́ / весно́й', vi:'mùa xuân / vào mùa xuân', pos:'danh từ' },
+        { ru:'ле́то / ле́том', vi:'mùa hè / vào mùa hè', pos:'danh từ' },
+        { ru:'о́сень / о́сенью', vi:'mùa thu / vào mùa thu', pos:'danh từ' },
+        { ru:'ме́сяц', vi:'tháng', pos:'danh từ giống đực' },
+        { ru:'число́', vi:'ngày (tháng); con số', pos:'danh từ giống trung' },
+        { ru:'гра́дус', vi:'độ (nhiệt độ)', pos:'danh từ giống đực' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Кака́я сего́дня пого́да в Москве́?', vi:'Hôm nay thời tiết ở Moskva thế nào?' },
+        { sp:'B', ru:'Хо́лодно, ми́нус де́сять гра́дусов, идёт снег.', vi:'Lạnh, âm 10 độ, đang có tuyết.' },
+        { sp:'A', ru:'А в Хано́е сейча́с тепло́, плюс два́дцать пять.', vi:'Còn ở Hà Nội bây giờ ấm, 25 độ.' },
+        { sp:'B', ru:'Како́е сего́дня число́? Я забы́л.', vi:'Hôm nay ngày bao nhiêu nhỉ? Mình quên mất.' },
+        { sp:'A', ru:'Сего́дня пятна́дцатое января́. Ско́ро Тет!', vi:'Hôm nay 15 tháng Một. Sắp Tết rồi!' }
+      ]
+    },
+
+    {
+      level:'a1', no:15, ru:'Письмо́ дру́гу', vi:'Thư gửi bạn',
+      skill:'Mệnh lệnh thức; nói chuyện điện thoại; viết thư ngắn — tổng ôn A1',
+      grammar:[
+        { form:'Mệnh lệnh thức: -й(те) sau nguyên âm (чита́й(те)), -и(те) sau phụ âm (скажи́(те)), -ь(те) (гото́вь(те))', vi:'yêu cầu, đề nghị',
+          note:'Thêm пожа́луйста cho lịch sự. Các mẫu hay dùng: Скажи́те, Да́йте, Покажи́те, Извини́те, Повтори́те, Пиши́те.',
+          ex:{ ru:'Повтори́те, пожа́луйста, я не по́нял. Говори́те ме́дленно.', vi:'Xin nhắc lại, tôi chưa hiểu. Hãy nói chậm thôi.' } },
+        { form:'Bố cục thư ngắn: Дорого́й/Дорога́я …! — nội dung — С уваже́нием / Пока́, + tên', vi:'viết thư/tin nhắn A1',
+          note:'Tổng ôn A1: giống & sở hữu (bài 2) · động từ I/II (4–5) · cách 6 где (6) · cách 4 что/куда́ (7, 11) · quá khứ/tương lai (8) · tính từ (9) · cách 2 sau số/нет (10) · cách 3 (13). Thử viết thư 6–8 câu kể về một ngày của bạn.',
+          ex:{ ru:'Дорого́й Анто́н! Как дела́? Я живу́ в Хано́е и изуча́ю ру́сский язы́к. Приезжа́й ле́том! Пока́, Хиен.', vi:'Anton thân mến! Bạn khoẻ không? Mình sống ở Hà Nội và học tiếng Nga. Hè này đến chơi nhé! Tạm biệt, Hiển.' } }
+      ],
+      vocab:[
+        { ru:'скажи́те', vi:'hãy nói', pos:'mệnh lệnh' },
+        { ru:'покажи́те', vi:'hãy chỉ/cho xem', pos:'mệnh lệnh' },
+        { ru:'извини́те', vi:'xin lỗi', pos:'mệnh lệnh' },
+        { ru:'повтори́те', vi:'hãy nhắc lại', pos:'mệnh lệnh' },
+        { ru:'алло́', vi:'a-lô', pos:'thán từ' },
+        { ru:'слу́шаю', vi:'tôi nghe đây', pos:'cụm cố định' },
+        { ru:'позови́те', vi:'gọi giúp (ai)', pos:'mệnh lệnh' },
+        { ru:'дорого́й / дорога́я', vi:'thân mến (mở đầu thư)', pos:'tính từ' },
+        { ru:'как дела́?', vi:'dạo này thế nào?', pos:'cụm cố định' },
+        { ru:'с уваже́нием', vi:'trân trọng (cuối thư)', pos:'cụm cố định' },
+        { ru:'приезжа́й', vi:'hãy đến (bằng xe)', pos:'mệnh lệnh' },
+        { ru:'ме́дленно / бы́стро', vi:'chậm / nhanh', pos:'trạng từ' },
+        { ru:'по́нял / поняла́', vi:'đã hiểu', pos:'quá khứ' },
+        { ru:'но́мер', vi:'số (điện thoại, phòng)', pos:'danh từ giống đực' },
+        { ru:'встре́ча', vi:'cuộc gặp', pos:'danh từ giống cái' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Алло́! Позови́те, пожа́луйста, Ива́на.', vi:'A-lô! Làm ơn gọi giúp Ivan.' },
+        { sp:'B', ru:'Слу́шаю. Э́то Ива́н. Кто говори́т?', vi:'Tôi nghe đây. Ivan đây. Ai đấy ạ?' },
+        { sp:'A', ru:'Э́то Хиен. Ива́н, скажи́, пожа́луйста, когда́ на́ша встре́ча?', vi:'Hiển đây. Ivan, cho hỏi khi nào chúng ta gặp?' },
+        { sp:'B', ru:'В суббо́ту, в два часа́. Повтори́, пожа́луйста, твой но́мер.', vi:'Thứ Bảy, 2 giờ. Nhắc lại số của cậu với.' },
+        { sp:'A', ru:'Во́семь, де́вять, шесть… Извини́, говори́ ме́дленно, я пишу́.', vi:'8, 9, 6… Xin lỗi, nói chậm thôi, mình đang ghi.' }
+      ]
+    }
+  ]
+};
+
+if (typeof module !== 'undefined') module.exports = { ALPHABET_RU, PHON_RU, COURSE_RU };
+
+</script>
+<script>
+/* ============================================================
+   LangLab — LUYỆN NÓI TIẾNG NGA: chủ đề vấn đáp РКИ / phần Говорение ТРКИ
+   Bài mẫu 1–10 và bài luận 11 do Phạm Đăng Hiển viết khi học tại Học viện Kỹ thuật Quân sự
+   (đã hiệu đính chính tả, ngữ pháp; giữ nguyên nội dung). Bài 0 do LangLab soạn thêm cho A1.
+   Mỗi chủ đề: { id, ru, vi, level, src, keys:[[ru, vi]], qs:[câu hỏi gợi ý], paras:[{ru, vi}] }
+   ============================================================ */
+const SPEAKING_RU = [
+  {
+    id:'about-me', ru:'Расскажите о себе', vi:'Giới thiệu về bản thân', level:'A1 · ТЭУ', src:'LangLab soạn',
+    keys:[['меня зовут','tôi tên là'],['мне … лет','tôi … tuổi'],['я родился в','tôi sinh ra ở'],['учиться','học'],['изучать','học (môn gì)'],['в свободное время','lúc rảnh'],['мечтать','mơ ước'],['стать','trở thành']],
+    qs:['Как вас зовут? Сколько вам лет?','Откуда вы? Где вы живёте сейчас?','Где вы учитесь или работаете?','Что вы любите делать в свободное время?','Почему вы изучаете русский язык?'],
+    paras:[
+      { ru:'Здравствуйте! Меня зовут Хиен. Мне двадцать три года. Я родился в Хайфоне, а сейчас живу в Ханое.', vi:'Xin chào! Tôi tên là Hiển. Tôi 23 tuổi. Tôi sinh ra ở Hải Phòng, còn bây giờ sống ở Hà Nội.' },
+      { ru:'Я курсант. Я учусь в Военно-технической академии на автомобильном факультете. Я изучаю русский язык уже три года, потому что русский язык нужен мне для будущей работы.', vi:'Tôi là học viên. Tôi học ở Học viện Kỹ thuật Quân sự, khoa Ô tô. Tôi học tiếng Nga được ba năm rồi, vì tiếng Nga cần cho công việc tương lai của tôi.' },
+      { ru:'У меня большая семья: папа, мама, младший брат и младшая сестра. В свободное время я играю в футбол, слушаю музыку и читаю книги по-русски.', vi:'Gia đình tôi đông: bố, mẹ, em trai và em gái. Lúc rảnh tôi chơi bóng đá, nghe nhạc và đọc sách bằng tiếng Nga.' },
+      { ru:'Я мечтаю стать хорошим офицером и поехать в Россию, чтобы увидеть Москву и Санкт-Петербург.', vi:'Tôi mơ ước trở thành một sĩ quan giỏi và sang Nga để được nhìn thấy Moskva và Saint-Petersburg.' }
+    ]
+  },
+  {
+    id:'friend', ru:'Расскажите о вашем друге (о вашей подруге)', vi:'Kể về người bạn của bạn', level:'B1 · РКИ', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
+    keys:[['подруга','bạn gái (bạn thân nữ)'],['симпатичное лицо','khuôn mặt dễ mến'],['заниматься спортом','chơi thể thao'],['внешность','ngoại hình'],['воспитанный','có giáo dục, lễ phép'],['окончить с отличием','tốt nghiệp loại giỏi'],['созваниваться','gọi điện cho nhau'],['прийти на помощь','đến giúp'],['дружба','tình bạn']],
+    qs:['Как зовут вашего друга? Сколько ему/ей лет?','Как он/она выглядит?','Какой у него/у неё характер?','Где вы познакомились? Где он/она учится или работает?','Что вы делаете вместе?'],
+    paras:[
+      { ru:'В жизни каждого человека обязательно должны быть прекрасные друзья. Я, как и все, имею много друзей и товарищей. Среди них моя лучшая подруга — это Лан. Ей исполнится 23 года через две недели.', vi:'Trong cuộc đời mỗi người nhất định phải có những người bạn tuyệt vời. Tôi cũng như mọi người, có nhiều bạn bè và đồng đội. Trong số đó, người bạn thân nhất của tôi là Lan. Hai tuần nữa cô ấy tròn 23 tuổi.' },
+      { ru:'Лан — это маленькая красивая девушка. У неё симпатичное лицо, чёрные длинные волосы, чёрные весёлые глаза. С детства Лан занимается спортом, поэтому у неё приятная внешность.', vi:'Lan là một cô gái nhỏ nhắn, xinh xắn. Cô ấy có khuôn mặt dễ mến, mái tóc đen dài, đôi mắt đen vui tươi. Từ nhỏ Lan đã chơi thể thao nên có ngoại hình ưa nhìn.' },
+      { ru:'Лан не только милая девушка, но и очень добрая и умная подруга. Она хорошо воспитана и культурна. Она помогает друзьям в любой ситуации. В свободное время она любит читать книги. Ещё она очень вкусно готовит.', vi:'Lan không chỉ là cô gái dễ thương mà còn là người bạn rất tốt bụng và thông minh. Cô ấy được dạy dỗ tốt và có văn hoá. Cô ấy giúp đỡ bạn bè trong mọi tình huống. Lúc rảnh cô ấy thích đọc sách. Cô ấy còn nấu ăn rất ngon.' },
+      { ru:'В школе мы учились в одном классе. После окончания школы я поступил в Военно-техническую академию, а она поступила в Финансовую академию на факультет маркетинга. В прошлом году она окончила академию с отличием и начала работать в международной компании.', vi:'Ở trường phổ thông chúng tôi học cùng lớp. Sau khi tốt nghiệp, tôi vào Học viện Kỹ thuật Quân sự, còn cô ấy vào Học viện Tài chính, khoa Marketing. Năm ngoái cô ấy tốt nghiệp loại giỏi và bắt đầu làm việc ở một công ty quốc tế.' },
+      { ru:'Мы каждый день созваниваемся по телефону, а в выходные ходим в кино, в кафе или просто гуляем, когда на улице хорошая погода. Я всегда готов прийти на помощь Лан — хоть делом, хоть советом.', vi:'Ngày nào chúng tôi cũng gọi điện cho nhau, còn cuối tuần thì đi xem phim, đi cà phê hoặc đơn giản là đi dạo khi trời đẹp. Tôi luôn sẵn sàng giúp Lan — bằng việc làm hay bằng lời khuyên.' },
+      { ru:'Я очень надеюсь, что мы пронесём нашу дружбу через долгие годы. Я очень люблю свою подругу и рад, что жизнь свела меня с таким замечательным человеком.', vi:'Tôi rất hy vọng chúng tôi sẽ giữ được tình bạn này qua nhiều năm dài. Tôi rất quý người bạn của mình và vui vì cuộc đời đã cho tôi gặp một con người tuyệt vời như vậy.' }
+    ]
+  },
+  {
+    id:'family', ru:'Расскажите о вашей семье', vi:'Kể về gia đình bạn', level:'A2–B1', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
+    keys:[['счастливая семья','gia đình hạnh phúc'],['младший брат / младшая сестра','em trai / em gái'],['глава семьи','trụ cột gia đình'],['работать на заводе','làm việc ở nhà máy'],['домохозяйка','nội trợ'],['поддержать','ủng hộ, nâng đỡ'],['трудолюбивый','chăm chỉ'],['взаимопонимание','sự thấu hiểu lẫn nhau'],['ценить','trân trọng']],
+    qs:['Сколько человек в вашей семье? Кто они?','Где живёт ваша семья?','Кем работают ваши родители? Какие они?','Чем занимаются ваши братья и сёстры?','Что ваша семья делает вместе в свободное время?'],
+    paras:[
+      { ru:'Здравствуйте, меня зовут Хиен. Я приехал из Хайфона. У меня счастливая семья: папа, мама, младший брат и младшая сестра. Мы живём в небольшом красивом доме недалеко от центра города.', vi:'Xin chào, tôi tên là Hiển. Tôi đến từ Hải Phòng. Gia đình tôi hạnh phúc: bố, mẹ, em trai và em gái. Chúng tôi sống trong một ngôi nhà nhỏ xinh không xa trung tâm thành phố.' },
+      { ru:'Мой папа очень добрый, но иногда строгий, и это не мешает мне его любить. Папа — глава нашей семьи, он каждый день работает на заводе, вся тяжёлая работа по дому держится на нём.', vi:'Bố tôi rất hiền, nhưng đôi khi nghiêm khắc, và điều đó không ngăn tôi yêu bố. Bố là trụ cột gia đình, ngày nào bố cũng làm việc ở nhà máy, mọi việc nặng trong nhà đều do bố gánh vác.' },
+      { ru:'Свою дорогую маму я люблю не меньше папы. Моя мама — домохозяйка. Мама умеет очень вкусно готовить, особенно праздничные блюда. Она поддержит меня в любой трудной ситуации, рассудит и поймёт.', vi:'Mẹ yêu quý, tôi cũng yêu không kém gì bố. Mẹ tôi là nội trợ. Mẹ nấu ăn rất ngon, đặc biệt là các món ngày lễ. Mẹ luôn ủng hộ tôi trong mọi hoàn cảnh khó khăn, phân xử và thấu hiểu.' },
+      { ru:'Мой младший брат — студент Национального экономического университета. Он очень умный и трудолюбивый студент. Моя младшая сестра учится в школе. Она красивая и добрая девочка. Она любит петь и рисовать.', vi:'Em trai tôi là sinh viên Đại học Kinh tế Quốc dân. Em ấy là sinh viên rất thông minh và chăm chỉ. Em gái tôi đang học phổ thông. Em ấy là cô bé xinh xắn và tốt bụng, thích hát và vẽ.' },
+      { ru:'В свободное время моя семья часто смотрит дома фильмы или путешествует. Мы всегда любим друг друга. На мой взгляд, у меня очень хорошая, добрая и весёлая семья, в которой есть взаимопонимание, доброта и забота. Я всегда ценю время, проведённое вместе с семьёй.', vi:'Lúc rảnh gia đình tôi thường xem phim ở nhà hoặc đi du lịch. Chúng tôi luôn yêu thương nhau. Theo tôi, tôi có một gia đình rất tốt, nhân hậu và vui vẻ, nơi có sự thấu hiểu, lòng tốt và sự quan tâm. Tôi luôn trân trọng thời gian bên gia đình.' }
+    ]
+  },
+  {
+    id:'city', ru:'Расскажите о вашем городе', vi:'Kể về thành phố của bạn', level:'B1', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
+    keys:[['родной город','thành phố quê hương'],['старинный и современный','cổ kính và hiện đại'],['достопримечательность','danh lam thắng cảnh'],['гордиться','tự hào'],['город центрального подчинения','thành phố trực thuộc trung ương'],['город-порт','thành phố cảng'],['дельта реки','đồng bằng sông'],['население','dân số'],['одержать победу','giành chiến thắng']],
+    qs:['Как называется ваш родной город? Где он находится?','Сколько там жителей?','Какие достопримечательности есть в вашем городе?','Что вы любите делать в городе в выходные?','Почему вы любите свой город?'],
+    paras:[
+      { ru:'У каждого из нас есть любимый родной город. Мой родной город — Хайфон. Это прекрасный город, и старинный, и современный, полный истории и красивых достопримечательностей. Я очень люблю его и горжусь, что родился в таком прекрасном месте.', vi:'Ai trong chúng ta cũng có một thành phố quê hương yêu dấu. Quê tôi là Hải Phòng. Đó là thành phố tuyệt đẹp, vừa cổ kính vừa hiện đại, đầy ắp lịch sử và danh thắng. Tôi rất yêu và tự hào vì được sinh ra ở nơi đẹp như vậy.' },
+      { ru:'Итак, Хайфон — это один из пяти городов центрального подчинения во Вьетнаме. Это город-порт на севере Вьетнама, он находится в 100 километрах к северо-востоку от Ханоя, в дельте реки Хонгха. Население насчитывает более двух миллионов жителей, и в городе много туристов.', vi:'Hải Phòng là một trong năm thành phố trực thuộc trung ương của Việt Nam. Đó là thành phố cảng ở miền Bắc, cách Hà Nội 100 km về phía đông bắc, nằm ở đồng bằng sông Hồng. Dân số hơn hai triệu người, và thành phố có nhiều khách du lịch.' },
+      { ru:'Я люблю свой родной город. В выходные мы с друзьями часто гуляем по городу. У нас в городе много достопримечательностей: островов, пляжей, современных мостов, красивых зданий и зелёных парков. Национальный парк Катба — идеальное место отдыха для тех, кто любит лес и море. Большой театр Хайфона — это место, где организуют все главные праздники города. Ещё недалеко от моего дома находится река Батьданг, на которой наши предки одержали победы над внешними врагами.', vi:'Tôi yêu thành phố quê mình. Cuối tuần tôi và bạn bè thường đi dạo phố. Thành phố có nhiều danh thắng: đảo, bãi biển, cầu hiện đại, những toà nhà đẹp và công viên xanh. Vườn quốc gia Cát Bà là nơi nghỉ lý tưởng cho ai yêu rừng và biển. Nhà hát lớn Hải Phòng là nơi tổ chức mọi lễ hội lớn của thành phố. Không xa nhà tôi còn có sông Bạch Đằng, nơi cha ông ta đã giành những chiến thắng trước giặc ngoại xâm.' },
+      { ru:'Я люблю свой город. Если сможете, приезжайте к нам в гости — я покажу вам, как прекрасен мой родной город.', vi:'Tôi yêu thành phố của mình. Nếu có thể, hãy đến chơi — tôi sẽ cho bạn thấy quê tôi đẹp thế nào.' }
+    ]
+  },
+  {
+    id:'russian', ru:'Расскажите об изучении русского языка', vi:'Kể về việc học tiếng Nga', level:'B1', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
+    keys:[['наука и техника','khoa học và kỹ thuật'],['образцы военной техники','các mẫu khí tài quân sự'],['необходим','cần thiết'],['получать образование','tiếp nhận giáo dục'],['богатый язык','ngôn ngữ phong phú'],['сталкиваться с трудностями','gặp khó khăn'],['падеж','cách (biến cách)'],['владеть языком','sử dụng thành thạo ngôn ngữ']],
+    qs:['Сколько лет вы изучаете русский язык? Где?','Почему вам нужен русский язык?','Что трудно в русском языке? Что легко?','Как вы изучаете русский язык каждый день?','Какие у вас планы?'],
+    paras:[
+      { ru:'Здравствуйте! Меня зовут Хиен. Я учусь в Военно-технической академии на автомобильном факультете. Я изучаю русский язык уже пять лет.', vi:'Xin chào! Tôi tên là Hiển. Tôi học ở Học viện Kỹ thuật Quân sự, khoa Ô tô. Tôi đã học tiếng Nga được năm năm.' },
+      { ru:'Русский язык важен для науки и техники. Как мы знаем, Вьетнамская народная армия использует много образцов военной техники, изготовленных в России и Советском Союзе, например танки, ракеты, автомобили, корабли, истребители и тому подобное. Поэтому русский язык необходим мне, чтобы читать документы, общаться, хорошо учиться и получать достойное образование.', vi:'Tiếng Nga quan trọng đối với khoa học và kỹ thuật. Như chúng ta biết, Quân đội nhân dân Việt Nam sử dụng nhiều khí tài do Nga và Liên Xô chế tạo, ví dụ xe tăng, tên lửa, ô tô, tàu chiến, máy bay tiêm kích, v.v. Vì thế tiếng Nga cần thiết để tôi đọc tài liệu, giao tiếp, học tốt và được đào tạo xứng đáng.' },
+      { ru:'Русский язык — очень богатый язык, при этом очень системный и точный. Это интересный язык, но не простой. При изучении русского языка я сталкиваюсь с рядом трудностей: в русском языке есть непривычные буквы, трудное произношение, шесть падежей, сложные глаголы. Это ужасно!', vi:'Tiếng Nga là ngôn ngữ rất phong phú, đồng thời rất hệ thống và chính xác. Đó là ngôn ngữ thú vị nhưng không đơn giản. Khi học tiếng Nga tôi gặp hàng loạt khó khăn: chữ cái lạ, phát âm khó, sáu cách, động từ phức tạp. Thật khủng khiếp!' },
+      { ru:'Для того чтобы быстро выучить правила русского языка, я много читаю книг и новостей по-русски, слушаю русские песни и общаюсь с русскими друзьями. Я всегда делаю все домашние задания, каждый день учу новые слова, повторяю грамматику. Я знаю: если я буду с любовью и трудолюбием изучать русский язык каждый день, я смогу владеть им.', vi:'Để nhanh nắm các quy tắc tiếng Nga, tôi đọc nhiều sách và tin tức bằng tiếng Nga, nghe nhạc Nga và trò chuyện với bạn Nga. Tôi luôn làm hết bài tập về nhà, mỗi ngày học từ mới, ôn ngữ pháp. Tôi biết: nếu ngày nào cũng học tiếng Nga với tình yêu và sự cần cù, tôi sẽ làm chủ được nó.' }
+    ]
+  },
+  {
+    id:'travel', ru:'Расскажите о вашем путешествии', vi:'Kể về một chuyến du lịch', level:'B1', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
+    keys:[['увлекательно','hấp dẫn'],['отдохнуть телом и душой','nghỉ ngơi cả thể xác lẫn tâm hồn'],['во время отпуска','trong kỳ nghỉ phép'],['незабываемый','khó quên'],['собрать чемоданы','xếp va-li'],['любоваться пейзажами','ngắm phong cảnh'],['поразить красотой','làm sững sờ vì vẻ đẹp'],['морепродукты','hải sản'],['восход солнца','bình minh']],
+    qs:['Куда вы ездили? Когда и с кем?','Как вы туда добирались? Сколько времени ехали?','Что вы там видели и делали?','Что вам понравилось больше всего?','Хотите ли вы поехать туда ещё раз?'],
+    paras:[
+      { ru:'Путешествие — это всегда увлекательно. Это отличный способ отдохнуть и телом, и душой, а также отличный способ получить множество новых эмоций. Я очень люблю путешествовать по Вьетнаму.', vi:'Du lịch bao giờ cũng hấp dẫn. Đó là cách tuyệt vời để nghỉ ngơi cả thể xác lẫn tâm hồn, và cũng là cách tuyệt vời để có thật nhiều cảm xúc mới. Tôi rất thích đi du lịch khắp Việt Nam.' },
+      { ru:'В прошлом году во время отпуска мы с тремя друзьями отдыхали на острове Катба. Это было замечательное, незабываемое путешествие. С вечера мы собрали чемоданы, а утром поехали на автобусе. Ехали мы недолго, только два часа. Всю дорогу я смотрел в окно и любовался красивыми пейзажами.', vi:'Năm ngoái, trong kỳ nghỉ phép, tôi và ba người bạn đi nghỉ ở đảo Cát Bà. Đó là chuyến đi tuyệt vời, khó quên. Tối hôm trước chúng tôi xếp va-li, sáng đi xe khách. Đi không lâu, chỉ hai tiếng. Suốt đường tôi nhìn ra cửa sổ ngắm phong cảnh đẹp.' },
+      { ru:'Этот остров поразил меня своей красотой и чистотой. Природа там просто невероятная! Туда едут отдыхать люди даже из других стран. Мы сидели на пляже и смотрели на волны или плавали. Берег моря прекрасен в любое время, а на море красивые восходы солнца. Вода в море была тёплая и синяя. Мы также попробовали блюда из морепродуктов.', vi:'Hòn đảo làm tôi sững sờ vì vẻ đẹp và sự sạch sẽ. Thiên nhiên ở đó thật không thể tin nổi! Người ta đến nghỉ ở đó cả từ nước khác. Chúng tôi ngồi trên bãi biển ngắm sóng hoặc bơi. Bờ biển đẹp vào mọi thời điểm, còn trên biển có những bình minh rất đẹp. Nước biển ấm và xanh. Chúng tôi còn thử các món hải sản.' },
+      { ru:'После этого путешествия больше всего я помню красоту природы острова и трудолюбивых жителей, которые там живут.', vi:'Sau chuyến đi, điều tôi nhớ nhất là vẻ đẹp thiên nhiên của đảo và những người dân cần cù sống ở đó.' }
+    ]
+  },
+  {
+    id:'holiday', ru:'Расскажите о вашем любимом празднике', vi:'Kể về ngày lễ yêu thích', level:'B1', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
+    keys:[['лунный Новый год','Tết Nguyên đán'],['знаменовать начало','đánh dấu sự bắt đầu'],['семейный праздник','ngày lễ gia đình'],['традиционные блюда','món ăn truyền thống'],['рисовый пирог','bánh chưng'],['персиковые цветы','hoa đào'],['красный конверт','bao lì xì'],['символизировать удачу','tượng trưng cho may mắn'],['зажигать благовония','thắp hương']],
+    qs:['Какой ваш любимый праздник? Когда его отмечают?','Как готовятся к празднику?','Что делают в праздник? Что едят?','Какие традиции есть у вашей семьи?','Что этот праздник значит для вас?'],
+    paras:[
+      { ru:'Я люблю вьетнамский лунный Новый год, который вьетнамцы называют Тет. Он знаменует начало нового года и начало весны во Вьетнаме. Тет продолжается три дня.', vi:'Tôi yêu Tết Nguyên đán, ngày lễ mà người Việt gọi là Tết. Nó đánh dấu năm mới và mùa xuân ở Việt Nam. Tết kéo dài ba ngày.' },
+      { ru:'Тет — прежде всего семейный праздник. Мы воспринимаем его как новый, добрый, желанный. Мы покупаем новую одежду, убираем свои дома, готовим традиционные блюда. Еда и цветы играют важную роль в этом празднике. Во всех семьях обязательно есть квадратные рисовые пироги, персиковые цветы, мандариновые деревья, увешанные плодами.', vi:'Tết trước hết là ngày lễ của gia đình. Chúng tôi đón nó như điều mới mẻ, tốt lành, mong đợi. Chúng tôi mua quần áo mới, dọn nhà, nấu món truyền thống. Đồ ăn và hoa đóng vai trò quan trọng. Nhà nào cũng có bánh chưng vuông, hoa đào, cây quất trĩu quả.' },
+      { ru:'В канун Нового года мы со своими родственниками сидим за семейным столом, поздравляем друг друга и желаем всего хорошего. Пожилые люди раздают молодым красные конверты с деньгами. Эти конверты символизируют удачу и богатство.', vi:'Đêm giao thừa, chúng tôi cùng họ hàng ngồi bên mâm cơm gia đình, chúc nhau những điều tốt đẹp. Người lớn tuổi mừng tuổi người trẻ bằng bao lì xì đỏ. Những phong bao ấy tượng trưng cho may mắn và sung túc.' },
+      { ru:'Во время новогодних праздников во Вьетнаме устраиваются различные концерты и фестивали. Люди посещают пагоды и храмы, зажигают благовония и обращаются к Будде с просьбой даровать им здоровье, удачу, счастье.', vi:'Trong dịp Tết ở Việt Nam có nhiều buổi hoà nhạc và lễ hội. Mọi người đi chùa, đền, thắp hương và cầu Phật ban sức khoẻ, may mắn, hạnh phúc.' },
+      { ru:'Для меня Тет — это не только праздник, но и время для того, чтобы ценить своих родителей, ценить каждую минуту, проведённую с ними.', vi:'Với tôi, Tết không chỉ là ngày lễ mà còn là lúc để trân trọng bố mẹ, trân trọng từng phút giây bên họ.' }
+    ]
+  },
+  {
+    id:'workday', ru:'Расскажите о вашем рабочем дне', vi:'Kể về một ngày làm việc của bạn', level:'A2–B1', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
+    keys:[['подъём','giờ báo thức (quân đội)'],['дежурный по роте','trực ban đại đội'],['утренняя зарядка','thể dục buổi sáng'],['убирать комнату','dọn phòng'],['пара (занятие)','tiết đôi (buổi học)'],['перерыв','giờ nghỉ'],['личное время','thời gian cá nhân'],['вечерняя поверка','điểm danh tối'],['отбой','giờ ngủ (lệnh tắt đèn)']],
+    qs:['Во сколько вы встаёте? Что делаете утром?','Когда начинаются занятия? Сколько у вас пар?','Что вы делаете днём и вечером?','Когда вы ложитесь спать?','Чем ваш день отличается от дня обычного студента?'],
+    paras:[
+      { ru:'Здравствуйте! Меня зовут Хиен. Я курсант и учусь в Военно-технической академии на автомобильном факультете. Я расскажу вам о своём рабочем дне.', vi:'Xin chào! Tôi tên là Hiển. Tôi là học viên, học ở Học viện Kỹ thuật Quân sự, khoa Ô tô. Tôi sẽ kể về một ngày làm việc của mình.' },
+      { ru:'Мой рабочий день начинается в 5 часов 30 минут. После команды дежурного по роте «Подъём!» мы с товарищами быстро встаём и выходим на стадион, там строимся и делаем утреннюю зарядку. После этого мы убираем свою комнату и завтракаем.', vi:'Ngày của tôi bắt đầu lúc 5 giờ 30. Sau khẩu lệnh «Báo thức!» của trực ban đại đội, tôi và đồng đội nhanh chóng dậy, ra sân vận động, xếp hàng và tập thể dục sáng. Sau đó chúng tôi dọn phòng và ăn sáng.' },
+      { ru:'В 7 часов мы собираем сумки и идём на занятия. На уроках мы добросовестно учимся, много думаем, спрашиваем преподавателей, решаем задачи. Обычно каждый день у нас по четыре пары. После каждой пары у нас перерыв. В 11 часов 30 минут занятия заканчиваются, мы обедаем и отдыхаем. Вечером у нас личное время: мы с товарищами занимаемся спортом, играем в футбол или бегаем.', vi:'7 giờ chúng tôi thu dọn túi và đi học. Trong giờ học chúng tôi học nghiêm túc, suy nghĩ nhiều, hỏi giảng viên, giải bài tập. Thường mỗi ngày có bốn tiết đôi. Sau mỗi tiết có giờ nghỉ. 11 giờ 30 kết thúc buổi học, chúng tôi ăn trưa và nghỉ. Buổi tối là thời gian cá nhân: tôi và đồng đội chơi thể thao, đá bóng hoặc chạy.' },
+      { ru:'После вкусного ужина мы смотрим телепередачу «Новости», читаем газеты и делаем домашнее задание. В 21 час 30 минут у нас вечерняя поверка. После поверки мы готовимся ко сну. В 22 часа отбой, мы ложимся спать.', vi:'Sau bữa tối ngon miệng, chúng tôi xem chương trình «Thời sự», đọc báo và làm bài tập. 21 giờ 30 là điểm danh tối. Sau điểm danh chúng tôi chuẩn bị đi ngủ. 22 giờ có lệnh tắt đèn, chúng tôi đi ngủ.' }
+    ]
+  },
+  {
+    id:'army', ru:'Расскажите о вашей жизни в армии', vi:'Kể về cuộc sống trong quân đội', level:'B1', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
+    keys:[['курсантская жизнь','đời sống học viên'],['воинская часть','đơn vị quân đội'],['боевая подготовка','huấn luyện chiến đấu'],['скучать по дому','nhớ nhà'],['привыкнуть','quen'],['самоподготовка','tự học'],['стоять в наряде','đứng gác, trực ban'],['увольнение','ra ngoài doanh trại (phép ngắn)'],['ответственный офицер','sĩ quan có trách nhiệm']],
+    qs:['Где вы служили на первом курсе? Как там было?','Как проходит ваш день в академии?','Как часто вы стоите в наряде?','Что вы делаете в выходные?','Какая у вас главная задача? Кем вы хотите стать?'],
+    paras:[
+      { ru:'Здравствуйте, меня зовут Хиен. Я курсант пятого курса Военно-технической академии. Я расскажу вам о своей курсантской жизни в армии.', vi:'Xin chào, tôi tên là Hiển. Tôi là học viên năm thứ năm Học viện Kỹ thuật Quân sự. Tôi sẽ kể về đời sống học viên của mình trong quân đội.' },
+      { ru:'На первом курсе мы с товарищами служили в военном университете. Это воинская часть, которая находится в лесах Шонтэя. Там у нас целый день была боевая подготовка. Это было тяжёлое, но интересное время. Мы часто скучали по дому, но потом привыкли.', vi:'Năm thứ nhất, tôi và đồng đội học tại trường sĩ quan. Đó là đơn vị quân đội nằm trong rừng Sơn Tây. Ở đó cả ngày chúng tôi huấn luyện chiến đấu. Đó là thời gian vất vả nhưng thú vị. Chúng tôi hay nhớ nhà, nhưng rồi cũng quen.' },
+      { ru:'Со второго курса мы учимся в самой столице, в Военно-технической академии, на автомобильном факультете. Утром, как у всех, подъём и зарядка в 5 часов 30 минут, потом утренний туалет и завтрак, после этого утренний осмотр и — на пары. В 12:00 занятия заканчиваются, обед. После этого либо четвёртая пара, либо самоподготовка до 4 часов вечера. Потом личное время: мы занимаемся спортом и ужинаем. Затем мы смотрим новости, читаем газеты, делаем домашнее задание. В 21:00 вечерняя поверка и в 22:00 отбой. Не более четырёх раз в месяц я стою в наряде и хожу в патруль.', vi:'Từ năm thứ hai chúng tôi học ngay tại thủ đô, ở Học viện Kỹ thuật Quân sự, khoa Ô tô. Sáng, như mọi người, báo thức và thể dục lúc 5 giờ 30, rồi vệ sinh cá nhân và ăn sáng, sau đó kiểm tra buổi sáng và lên lớp. 12 giờ tan học, ăn trưa. Sau đó hoặc tiết thứ tư, hoặc tự học đến 4 giờ chiều. Rồi thời gian cá nhân: chơi thể thao và ăn tối. Sau đó xem thời sự, đọc báo, làm bài tập. 21 giờ điểm danh tối, 22 giờ tắt đèn. Mỗi tháng tôi trực ban và đi tuần không quá bốn lần.' },
+      { ru:'В выходные мы можем уходить в увольнение, гулять по городу или возвращаться домой. Мои друзья тоже часто приезжают ко мне в гости. В академии самая главная задача — это хорошо учиться. Я всегда стараюсь изо всех сил тренироваться и учиться, чтобы стать хорошим, ответственным офицером.', vi:'Cuối tuần chúng tôi có thể ra ngoài doanh trại, đi dạo phố hoặc về nhà. Bạn bè cũng hay đến thăm tôi. Ở học viện, nhiệm vụ quan trọng nhất là học tốt. Tôi luôn cố hết sức rèn luyện và học tập để trở thành sĩ quan giỏi, có trách nhiệm.' }
+    ]
+  },
+  {
+    id:'hobby', ru:'Расскажите о ваших увлечениях', vi:'Kể về sở thích của bạn', level:'B1', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
+    keys:[['увлечение','sở thích, đam mê'],['подвижные игры','trò chơi vận động'],['гонять мяч','đá bóng (khẩu ngữ)'],['вызывать интерес','gây hứng thú'],['болеть за команду','cổ vũ đội'],['требовать внимания и силы','đòi hỏi sự tập trung và sức lực'],['ловкость','sự khéo léo'],['закалять характер','tôi luyện tính cách'],['укреплять здоровье','tăng cường sức khoẻ']],
+    qs:['Чем вы увлекаетесь? Как давно?','Где и с кем вы этим занимаетесь?','Что вам нравится в этом увлечении?','За какую команду вы болеете?','Как увлечение помогает вам в жизни?'],
+    paras:[
+      { ru:'Моё увлечение — это футбол. Я люблю подвижные игры на улице или на стадионе. Особенно мне нравится играть с друзьями, когда тепло. Мы часто гоняем мяч вечером, после занятий.', vi:'Sở thích của tôi là bóng đá. Tôi thích các trò chơi vận động ngoài trời hoặc trên sân vận động. Đặc biệt tôi thích chơi với bạn bè khi trời ấm. Chúng tôi hay đá bóng buổi tối, sau giờ học.' },
+      { ru:'Приятно, когда игра вызывает интерес. В выходные за нашими играми следят девушки или просто прохожие и болеют за нас. Тогда я чувствую себя настоящим спортсменом. Играть в футбол не просто: игра требует внимания, силы и ловкости. Слабым и трусливым она не даётся. Я стараюсь играть хорошо, чтобы меня уважали на поле.', vi:'Thật dễ chịu khi trận đấu thu hút người xem. Cuối tuần các cô gái hay người qua đường theo dõi và cổ vũ chúng tôi. Khi đó tôi thấy mình như vận động viên thực thụ. Đá bóng không đơn giản: nó đòi hỏi tập trung, sức lực và sự khéo léo. Người yếu và nhát thì không chơi được. Tôi cố gắng chơi tốt để được tôn trọng trên sân.' },
+      { ru:'Я также слежу за вьетнамскими и мировыми чемпионатами по футболу. Моя любимая футбольная команда — «Арсенал». Недавно я ходил болеть за нашу местную команду Хайфона на одном стадионе Ханоя.', vi:'Tôi cũng theo dõi các giải bóng đá Việt Nam và thế giới. Đội bóng yêu thích của tôi là Arsenal. Gần đây tôi đi cổ vũ đội Hải Phòng quê mình ở một sân vận động Hà Nội.' },
+      { ru:'Футбол, как считают, закаляет характер и укрепляет здоровье. Футбол также развивает скорость, точность реакции и дружбу. Спорт делает человека лучше и учит его побеждать. Я рад, что у меня есть такое хорошее увлечение.', vi:'Người ta cho rằng bóng đá tôi luyện tính cách và tăng cường sức khoẻ. Bóng đá còn phát triển tốc độ, phản xạ chính xác và tình bạn. Thể thao làm con người tốt hơn và dạy họ chiến thắng. Tôi vui vì có một sở thích hay như vậy.' }
+    ]
+  },
+  {
+    id:'vacation', ru:'Расскажите о вашем отпуске', vi:'Kể về kỳ nghỉ phép của bạn', level:'A2–B1', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
+    keys:[['летний отпуск','kỳ nghỉ hè (phép)'],['долгожданный','mong đợi từ lâu'],['ждать с нетерпением','nóng lòng chờ'],['в деревне у бабушки','ở quê với bà'],['работать в огороде','làm vườn rau'],['заботливо','chu đáo'],['ходить на рыбалку','đi câu cá'],['проводить время','dành thời gian'],['в ближайшее время','trong thời gian tới']],
+    qs:['Когда у вас бывает отпуск? Как долго он длится?','Где вы провели последний отпуск?','Что вы делали каждый день?','С кем вы отдыхали?','Как вы хотите провести следующий отпуск?'],
+    paras:[
+      { ru:'Здравствуйте, меня зовут Хиен. Я курсант Военно-технической академии. Летний отпуск — это самая радостная пора для курсантов, он самый долгожданный, мы всегда ждём его с нетерпением.', vi:'Xin chào, tôi tên là Hiển. Tôi là học viên Học viện Kỹ thuật Quân sự. Kỳ nghỉ hè là quãng thời gian vui nhất của học viên, được mong đợi nhất, chúng tôi luôn nóng lòng chờ nó.' },
+      { ru:'В прошлом году у меня был идеальный отпуск. Я провёл этот отпуск в деревне у бабушки. Каждый день я рано вставал и помогал бабушке: покупал продукты, готовил вкусную еду, убирал наш дом, работал в огороде и в саду. Я люблю смотреть, как бабушка заботливо обходит сад каждый день. В саду мы с детьми собирали и ели яблоки, бананы и другие фрукты. Я также люблю и ценю каждый ужин, когда вся семья сидит за столом, а потом вместе смотрит фильмы по телевизору.', vi:'Năm ngoái tôi có một kỳ nghỉ lý tưởng. Tôi nghỉ ở quê với bà. Ngày nào tôi cũng dậy sớm giúp bà: mua thực phẩm, nấu ăn ngon, dọn nhà, làm vườn rau và vườn cây. Tôi thích ngắm bà chu đáo đi thăm vườn mỗi ngày. Trong vườn, tôi và lũ trẻ hái và ăn táo, chuối và các loại quả khác. Tôi cũng yêu và trân trọng từng bữa tối khi cả nhà ngồi quanh bàn rồi cùng xem phim trên ti vi.' },
+      { ru:'У меня есть хорошие друзья в деревне. Мы часто вместе играем в футбол и отдыхаем на берегу реки. Иногда мы ходим на рыбалку. Иногда мы гуляем по городу, ходим в кино или отдыхаем на море.', vi:'Ở quê tôi có những người bạn tốt. Chúng tôi hay đá bóng cùng nhau và nghỉ ngơi bên bờ sông. Đôi khi đi câu cá. Đôi khi đi dạo phố, xem phim hoặc đi biển.' },
+      { ru:'Это был незабываемый отпуск в моей жизни. Я надеюсь, что в ближайшее время у меня снова будет отпуск, и я смогу провести время в деревне со своей семьёй и друзьями.', vi:'Đó là kỳ nghỉ khó quên trong đời tôi. Tôi hy vọng sắp tới lại được nghỉ phép và có thể dành thời gian ở quê với gia đình và bạn bè.' }
+    ]
+  },
+  {
+    id:'values', ru:'Человеческие ценности в XXI веке (эссе)', vi:'Giá trị con người trong thế kỷ XXI (bài luận)', level:'B2 · эссе', src:'Bài luận của Phạm Đăng Hiển, 2020 (đã hiệu đính)',
+    keys:[['человеческие ценности','giá trị con người'],['распространение','sự lan rộng'],['ядро личности','cốt lõi nhân cách'],['под влиянием','dưới ảnh hưởng'],['потрясать мир','làm rung chuyển thế giới'],['карьерный успех','thành công sự nghiệp'],['соблюдать меры предосторожности','tuân thủ biện pháp phòng ngừa'],['душевная щедрость','sự hào phóng của tâm hồn'],['сострадание, милосердие','lòng trắc ẩn, lòng nhân từ'],['цифровая эпоха','kỷ nguyên số']],
+    qs:['Что такое человеческие ценности? Почему они важны?','Как пандемия изменила взгляды людей?','Какие ценности автор считает главными?','Согласны ли вы с автором? Почему?','Какие ценности важны лично для вас?'],
+    paras:[
+      { ru:'2020 год стал для нас одним из худших в жизни. Появление и распространение коронавируса навсегда изменили наш мир. COVID-19 заставил нас всех о чём-то задуматься. Что сейчас действительно является главным для человечества? Какие человеческие ценности нам нужны в XXI веке?', vi:'Năm 2020 trở thành một trong những năm tồi tệ nhất của chúng ta. Sự xuất hiện và lan rộng của virus corona đã thay đổi thế giới mãi mãi. COVID-19 buộc tất cả chúng ta phải suy ngẫm. Điều gì bây giờ thực sự là quan trọng nhất đối với nhân loại? Chúng ta cần những giá trị nào trong thế kỷ XXI?' },
+      { ru:'Человеческие ценности играют важную роль в жизни человека и общества. Ценности — это ядро личности и организации. Они влияют на социальную активность человека, его поведение, социальные отношения и самовосприятие. Под влиянием технологий, культурных сдвигов и экономических потрясений среда обитания человека меняется. В свою очередь среда меняет и цель жизни каждого человека.', vi:'Giá trị con người đóng vai trò quan trọng trong đời sống cá nhân và xã hội. Giá trị là cốt lõi của nhân cách và tổ chức. Chúng ảnh hưởng đến hoạt động xã hội, hành vi, quan hệ xã hội và cách con người tự nhìn nhận mình. Dưới ảnh hưởng của công nghệ, biến chuyển văn hoá và chấn động kinh tế, môi trường sống của con người thay đổi. Đến lượt mình, môi trường lại thay đổi mục đích sống của mỗi người.' },
+      { ru:'Эта эпидемия потрясает мир, шокируя всех, потому что она меняет очень многое в нашей повседневной жизни и деятельности. Есть много дел, которые раньше мы легко делали, но началась эпидемия — и мы не смогли их выполнить, какими бы богатыми или влиятельными мы ни были. Мы с друзьями не могли по утрам ходить на пары, а в выходные не могли посещать музеи города, не смогли полететь домой в отпуск, как планировали… Всё это из-за того, что у нас не было денег или власти? Нет! Сегодня многие люди ценят карьерный успех. Они говорят, что высокооплачиваемая должность — это одна из самых главных ценностей в их жизни. Но пандемия ярко доказала, что материальные и социальные ценности не являются главными для человечества.', vi:'Dịch bệnh này làm rung chuyển thế giới, khiến tất cả choáng váng, vì nó thay đổi rất nhiều trong đời sống và hoạt động thường ngày. Có nhiều việc trước đây ta làm dễ dàng, nhưng dịch bùng lên là không thể thực hiện, dù ta giàu có hay quyền thế đến đâu. Tôi và bạn bè không thể lên lớp buổi sáng, cuối tuần không thể đi bảo tàng, không thể bay về nhà nghỉ phép như đã định… Tất cả có phải vì chúng tôi không có tiền hay quyền lực? Không! Ngày nay nhiều người coi trọng thành công sự nghiệp. Họ nói vị trí lương cao là một trong những giá trị lớn nhất đời họ. Nhưng đại dịch đã chứng minh rõ rằng giá trị vật chất và địa vị không phải là điều chính yếu của nhân loại.' },
+      { ru:'Именно в такое нелёгкое для всех время мы сами понимаем: самое главное для нас — это здоровье, своё и своих близких. Во Вьетнаме говорят: если у человека есть здоровье, у него есть всё. В России не только молодёжь, но и пожилые люди активно занимаются спортом. И когда мы узнаём, что коронавирус опасен, мы сами соблюдаем меры предосторожности. Ведь мы понимаем, что жизнь у каждого человека только одна, и она должна быть здоровой, активной, полноценной.', vi:'Chính trong thời khắc khó khăn với tất cả, chúng ta tự hiểu: quan trọng nhất là sức khoẻ của mình và người thân. Ở Việt Nam có câu: có sức khoẻ là có tất cả. Ở Nga không chỉ giới trẻ mà cả người cao tuổi đều tích cực chơi thể thao. Và khi biết virus nguy hiểm, chúng ta tự giác tuân thủ biện pháp phòng ngừa. Bởi chúng ta hiểu mỗi người chỉ có một cuộc đời, và nó phải khoẻ mạnh, năng động, trọn vẹn.' },
+      { ru:'XXI век — это век информации, бурно развивающихся информационных технологий, инноваций и технологических новшеств. Наряду с этим многие люди считают, что семья уже не так важна, как раньше. Но, по-моему, семья навсегда останется одной из важнейших человеческих ценностей. Счастье и успех обязательно придут в нашу жизнь, если каждый из нас всегда будет помнить о своих родителях, беречь их, ценить каждый момент, каждую секунду, проведённую с ними; если мы будем больше понимать своих братьев, сестёр, детей, их устремления и мечты, поддерживать тех, кто рядом, кто нуждается в нашем участии и душевной щедрости. Сидя дома на самоизоляции, пора «залатать дыры» в отношениях и создать новые семейные традиции.', vi:'Thế kỷ XXI là thế kỷ của thông tin, của công nghệ thông tin phát triển như vũ bão, của đổi mới và phát minh. Cùng với đó, nhiều người cho rằng gia đình không còn quan trọng như xưa. Nhưng theo tôi, gia đình mãi là một trong những giá trị quan trọng nhất. Hạnh phúc và thành công chắc chắn sẽ đến nếu mỗi người luôn nhớ đến cha mẹ, giữ gìn họ, trân trọng từng khoảnh khắc bên họ; nếu ta hiểu hơn anh chị em, con cái, khát vọng và ước mơ của họ, nâng đỡ những người bên cạnh đang cần sự sẻ chia và tấm lòng rộng mở của ta. Ngồi nhà cách ly, đã đến lúc «vá lại những lỗ hổng» trong quan hệ và tạo nên những truyền thống gia đình mới.' },
+      { ru:'Мы живём в XXI веке — веке космоса. Но мы помним фразу Юрия Гагарина: «Облетев Землю в корабле-спутнике, я увидел, как прекрасна наша планета. Люди, будем хранить и приумножать эту красоту, а не разрушать её». Сегодня ценности гуманизма, сострадания, милосердия, доброты, уважения объединяют всё человечество. Умение помогать, быть чуткими, дарить добро наполняет жизнь истинным, человеческим смыслом. Где бы мы ни жили — в современных городах США, в высоких горах Китая, в живописных деревнях России, на орбите Земли — нас объединяет любовь к нашей Земле. А современные технологии позволяют разделить наши чувства с дорогими людьми, которые могут находиться за сотни, тысячи километров. Чтобы идти вперёд и динамично развиваться, мы должны объединяться, жить в единстве. Передача в дар медицинских средств, поддержка между государствами мира в борьбе с коронавирусом — самые яркие примеры этих ценностей.', vi:'Chúng ta sống ở thế kỷ XXI — thế kỷ vũ trụ. Nhưng ta nhớ câu nói của Yuri Gagarin: «Bay quanh Trái Đất trên con tàu vệ tinh, tôi thấy hành tinh của chúng ta đẹp biết bao. Hỡi mọi người, hãy gìn giữ và nhân lên vẻ đẹp ấy chứ đừng phá huỷ nó». Ngày nay các giá trị nhân văn, trắc ẩn, nhân từ, lòng tốt, sự tôn trọng gắn kết toàn nhân loại. Biết giúp đỡ, biết nhạy cảm, biết trao đi điều tốt làm cuộc sống có ý nghĩa nhân văn đích thực. Dù sống ở đâu — thành phố hiện đại của Mỹ, núi cao Trung Quốc, làng quê đẹp như tranh của Nga, hay trên quỹ đạo Trái Đất — chúng ta đều gắn với nhau bởi tình yêu Trái Đất. Công nghệ hiện đại cho phép chia sẻ cảm xúc với người thân cách xa hàng trăm, hàng nghìn cây số. Để tiến lên và phát triển năng động, chúng ta phải đoàn kết, sống trong sự thống nhất. Việc tặng vật tư y tế, sự hỗ trợ giữa các quốc gia trong cuộc chiến chống virus corona là những ví dụ rõ nhất của các giá trị ấy.' },
+      { ru:'Владимир Путин сказал: «Знания — лучшая валюта XXI века». Образование и творчество — это две ценности, которые можно назвать типичными для цифровой эпохи. За последние пятнадцать лет число пользователей Интернета выросло почти в десять раз, достигнув половины населения мира. Новым мощным фактором, формирующим мировоззрение молодого поколения, стали информация и скорость её передачи. Доступность информации делает нас ближе к знаниям; скорость её передачи позволяет учиться и общаться в любое время и в любом месте. Современный мир очень быстро меняется, поэтому человеку важно научиться учиться самому. Нам так повезло, что сегодня, во время пандемии, мы можем учиться дистанционно.', vi:'Vladimir Putin từng nói: «Tri thức là đồng tiền tốt nhất của thế kỷ XXI». Giáo dục và sáng tạo là hai giá trị có thể gọi là đặc trưng của kỷ nguyên số. Mười lăm năm qua, số người dùng Internet tăng gần mười lần, đạt một nửa dân số thế giới. Thông tin và tốc độ truyền tải nó trở thành nhân tố mạnh mẽ mới định hình thế giới quan thế hệ trẻ. Thông tin dễ tiếp cận đưa ta đến gần tri thức; tốc độ truyền tải cho phép học và giao tiếp mọi lúc mọi nơi. Thế giới hiện đại thay đổi rất nhanh, nên con người cần học cách tự học. Chúng ta may mắn vì hôm nay, giữa đại dịch, vẫn có thể học từ xa.' },
+      { ru:'Цифровая эпоха, в которой мы живём, отличается от других исторических периодов. Я верю, что каждый человек понимает: новая цифровая эпоха даёт нам возможность создать новое доброе, комфортное общество, основанное на традиционных и новых ценностях. Я знаю: в XXI веке вырастают и воспитываются прекрасные дети, которые будут хранить и приумножать красоту нашей любимой Земли!', vi:'Kỷ nguyên số mà chúng ta đang sống khác với những thời kỳ lịch sử khác. Tôi tin mỗi người đều hiểu: kỷ nguyên số mới cho chúng ta cơ hội xây dựng một xã hội mới nhân hậu, thoải mái, dựa trên các giá trị truyền thống và giá trị mới. Tôi biết: trong thế kỷ XXI những đứa trẻ tuyệt vời đang lớn lên và được nuôi dạy, chúng sẽ gìn giữ và nhân lên vẻ đẹp của Trái Đất yêu quý của chúng ta!' }
+    ]
+  }
+];
+if (typeof module !== 'undefined') module.exports = { SPEAKING_RU };
+
+</script>
+<script>
+/* ============================================================
+   LangLab — Đề thi thử ТРКИ (tự soạn theo cấu trúc, không phải đề chính thức)
+   Cùng khuôn với HSK_EXAMS (xem js/hsk-exams.js), thêm lang:'ru'.
+   ============================================================ */
+const TRKI_EXAMS = [];
+if (typeof module !== 'undefined') module.exports = { TRKI_EXAMS };
+
+</script>
+<script>
+/* ============================================================
    LangLab — logic ứng dụng
    ============================================================ */
 (function(){
@@ -11576,6 +12468,7 @@ const state = {
   lesson: null,
   tab: 'vocab',
   zh: { level:'hsk1', lesson:null, writeChar:'', srs:null },
+  ru: { level:'a1', lesson:null, letter:'А', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, trace:true },
   jamo: 'ㄱ',
   syll: { cho:'ㅎ', jung:'ㅏ', jong:'ㄴ' },
   speed: 1,
@@ -13351,13 +14244,15 @@ function render(){
     const on = b.dataset.go === state.view || (state.view === 'lesson' && b.dataset.go === 'home');
     b.setAttribute('aria-current', on ? 'page' : 'false');
   });
-  const isZh = state.view.indexOf('zh_') === 0;
-  document.documentElement.setAttribute('data-lang', isZh ? 'zh' : 'ko');   // tông màu theo ngôn ngữ
+  const isZh = state.view.indexOf('zh_') === 0, isRu = state.view.indexOf('ru_') === 0;
+  document.documentElement.setAttribute('data-lang', isZh ? 'zh' : isRu ? 'ru' : 'ko');   // tông màu theo ngôn ngữ
   if (typeof syncThemeColor === 'function') syncThemeColor();
   const koDrop = $('#koDrop');
   if (koDrop) koDrop.classList.toggle('active', KO_VIEWS.includes(state.view));
   const zhDrop = $('#zhDrop');
   if (zhDrop) zhDrop.classList.toggle('active', isZh);
+  const ruDrop = $('#ruDrop');
+  if (ruDrop) ruDrop.classList.toggle('active', isRu);
   $$('.nav-drop.open').forEach(d => {
     d.classList.remove('open');
     const bb = d.querySelector('.nav-drop-btn'); if (bb) bb.setAttribute('aria-expanded', 'false');
@@ -13367,6 +14262,8 @@ function render(){
   const l = state.lesson && curLesson();
   $('#crumb').innerHTML = isZh
     ? zhCrumb()
+    : isRu
+    ? ruCrumb()
     : state.view === 'about'
     ? `<b>Giới thiệu LangLab</b>`
     : state.view === 'lesson' && l
@@ -13374,7 +14271,8 @@ function render(){
     : `<button class="crumb-link" data-go="home">Tiếng Hàn</button> <span>›</span> <b>${CRUMBS[state.view]}</b>`;
 
   if (isZh) (window.requestAnimationFrame ? requestAnimationFrame : (f => setTimeout(f, 16)))(zhMount);
-  if (state.view === 'zh_exam' && state.zh.exam && state.zh.exam.phase === 'doing') hskMount(); else hskStop();
+  if (state.view === 'ru_write') (window.requestAnimationFrame ? requestAnimationFrame : (f => setTimeout(f, 16)))(ruTraceMount);
+  if ((state.view === 'zh_exam' || state.view === 'ru_exam') && exCtx().st.exam && exCtx().st.exam.phase === 'doing') hskMount(); else hskStop();
   if (state.view === 'write') mountWrite();
   if (state.view === 'dict'){ mountDict(); loadDict(added => { if (added && state.view === 'dict') render(); }); }
   if (state.view === 'shadow'){
@@ -13814,7 +14712,7 @@ VIEWS.zh_quiz = function(){
   }
   const q = Q.qs[Q.i], picked = Q.picked[Q.i];
   return `
-  <div class="page-head"><span class="eyebrow">Tiếng Trung · Bài tập</span><h1>Bài tập <span class="qz-count">${Q.i + 1}/${Q.qs.length}</span></h1><p>${esc(q.prompt)}</p></div>
+  <div class="page-head"><span class="eyebrow">Tiếng Trung · Bài tập</span><h1>Bài tập <span class="qz-count">${Q.i + 1}/${Q.qs.length}</span> <button class="mini" data-zh-qz-start="1" title="Bỏ đề này, sinh đề mới">↻ Đề khác</button></h1><p>${esc(q.prompt)}</p></div>
   <div class="qz-main">${q.main}</div>
   <div class="qz-opts">${q.opts.map(o => {
     let cls = 'qz-opt' + (q.oc ? ' ' + q.oc : '');
@@ -13826,18 +14724,533 @@ VIEWS.zh_quiz = function(){
 };
 
 /* ============================================================
+   TIẾNG NGA (русский язык) — bảng chữ cái · phát âm · tập viết · khoá A1–B2 · luyện nói · ТРКИ
+   ============================================================ */
+const _RC = (typeof COURSE_RU   !== 'undefined') ? COURSE_RU   : { levels:[], lessons:[] };
+const _RA = (typeof ALPHABET_RU !== 'undefined') ? ALPHABET_RU : [];
+const _RP = (typeof PHON_RU     !== 'undefined') ? PHON_RU     : [];
+const _RS = (typeof SPEAKING_RU !== 'undefined') ? SPEAKING_RU : [];
+
+/* Bỏ dấu trọng âm (U+0301) — dùng khi đọc máy, tìm kiếm, so sánh */
+function ruPlain(s){ return String(s || '').replace(/́/g, ''); }
+function ruKey(s){ return ruPlain(s).toLowerCase().replace(/ё/g, 'е'); }
+
+const RU_LOOKUP = (function(){
+  const m = {};
+  _RC.lessons.forEach(l => l.vocab.forEach(w => {
+    const lv = l.level || 'a1', k = ruPlain(w.ru);
+    if (!m[k]) m[k] = Object.assign({ key:k, refs:[], levels:[] }, w);
+    const e = m[k];
+    if (!e.refs.some(r => r.lv === lv && r.no === l.no)) e.refs.push({ lv, no:l.no });
+    if (e.levels.indexOf(lv) < 0) e.levels.push(lv);
+  }));
+  return m;
+})();
+
+function ruSpeak(text){
+  try {
+    const synth = window.speechSynthesis; if (!synth){ toast('Trình duyệt chưa hỗ trợ phát âm'); return; }
+    const plain = ruPlain(text);
+    let done = false;
+    const speak = () => {
+      if (done) return; done = true;
+      synth.cancel();
+      const u = new SpeechSynthesisUtterance(plain);
+      u.lang = 'ru-RU'; u.rate = 0.85;
+      const vs = synth.getVoices() || [];
+      const ru = vs.find(v => /^ru\b|ru[-_]|russian|русск/i.test((v.lang || '') + ' ' + (v.name || '')));
+      if (ru) u.voice = ru;
+      else if (!ruSpeak._warned && !vs.some(v => /^ru/i.test(v.lang || ''))){ ruSpeak._warned = true; toast('Máy chưa có giọng đọc tiếng Nga — cài gói giọng ru-RU (Русский) trong hệ điều hành.'); }
+      synth.speak(u);
+    };
+    const vs = synth.getVoices() || [];
+    if (vs.length) speak();
+    else { try { synth.addEventListener('voiceschanged', speak, { once:true }); } catch(e){} setTimeout(speak, 300); }
+  } catch(e){}
+}
+/* Lời đọc bài nghe ТРКИ: bỏ nhãn người nói, gạch đầu dòng */
+function ruSpeech(a){ return ruPlain(String(a || '')).replace(/(^|\s)[—–-]\s*/g, '$1').replace(/(Он|Она|Диктор|Мужчина|Женщина|Вопрос|Журналист|Гид|Продавец|Покупатель|Врач|Пациент|Студент|Преподаватель|[А-ЯЁ][а-яё]+)\s*:\s*/g, ''); }
+
+function ruLevel(){ return _RC.levels.find(x => x.id === state.ru.level) || _RC.levels[0] || { vi:'A1', ru:'A1' }; }
+function ruLevelName(id){ const v = _RC.levels.find(x => x.id === id); return v ? v.ru.split(' ')[0] : (id || '').toUpperCase(); }
+function ruLessonList(){ return _RC.lessons.filter(l => l.level === state.ru.level); }
+function ruCurLesson(){ return _RC.lessons.find(l => l.no === state.ru.lesson && l.level === state.ru.level); }
+function ruPracLevel(){
+  const ids = _RC.levels.filter(v => v.status === 'active').map(v => v.id);
+  const cur = state.ru.pracLevel || state.ru.level;
+  return cur === 'all' ? 'all' : (ids.indexOf(cur) >= 0 ? cur : (ids[0] || 'a1'));
+}
+function ruPool(level){
+  const all = Object.values(RU_LOOKUP);
+  if (!level || level === 'all') return all;
+  const p = all.filter(w => w.levels.indexOf(level) >= 0);
+  return p.length >= 12 ? p : all;
+}
+function ruLevelChips(attr, cur, withAll){
+  const act = _RC.levels.filter(v => v.status === 'active');
+  return `<div class="level-strip compact">${act.map(v => `<button class="level-chip" ${attr}="${v.id}"${cur === v.id ? ' aria-pressed="true"' : ''}>${esc(ruLevelName(v.id))}</button>`).join('')}${withAll ? `<button class="level-chip" ${attr}="all"${cur === 'all' ? ' aria-pressed="true"' : ''}>Tất cả</button>` : ''}</div>`;
+}
+function ruCrumb(){
+  const map = { ru_home:'Khoá học', ru_alphabet:'Bảng chữ cái', ru_phonetics:'Phát âm', ru_write:'Tập viết', ru_dict:'Từ điển',
+    ru_srs:'Ôn tập', ru_quiz:'Bài tập', ru_speak:'Luyện nói', ru_exam:'Thi thử ТРКИ' };
+  const L = ruCurLesson();
+  if (state.view === 'ru_lesson' && L)
+    return `<button class="crumb-link" data-go="ru_home">Tiếng Nga</button> <span>›</span> <button class="crumb-link" data-go="ru_home">${esc(ruLevelName(state.ru.level))}</button> <span>›</span> <b>Bài ${String(L.no).padStart(2,'0')} · ${esc(L.vi)}</b>`;
+  return `<button class="crumb-link" data-go="ru_home">Tiếng Nga</button> <span>›</span> <b>${esc(map[state.view] || '')}</b>`;
+}
+/* Từ trong câu bấm được → tra từ điển (bỏ dấu câu, giữ dấu trọng âm để hiển thị) */
+function ruTokens(str){
+  return String(str || '').split(/(\s+)/).map(tok => {
+    if (!tok.trim()) return esc(tok);
+    const m = tok.match(/^([^А-Яа-яЁё]*)([А-Яа-яЁё́-]+)([^А-Яа-яЁё]*)$/u);
+    if (!m) return esc(tok);
+    return esc(m[1]) + `<span class="zc" data-ruw="${esc(ruPlain(m[2]))}">${esc(m[2])}</span>` + esc(m[3]);
+  }).join('');
+}
+function ruSpeakBtn(text, cls){ return `<button class="${cls || 'icon-btn'}" data-ru-speak="${esc(ruPlain(text))}" title="Nghe">🔊</button>`; }
+
+/* ---------------- Views tiếng Nga ---------------- */
+VIEWS.ru_home = function(){
+  const lv = ruLevel(), L = ruLessonList(), total = lv.lessons || 15;
+  const cards = [
+    ['ru_alphabet','Bảng chữ cái','33 chữ Cyrillic: tên, âm, ví dụ','Аа'],
+    ['ru_phonetics','Phát âm','Trọng âm, giảm âm, cứng–mềm','ó'],
+    ['ru_write','Tập viết','Chữ in, nghiêng, viết tay + tô theo','✍'],
+    ['ru_speak','Luyện nói','Chủ đề vấn đáp РКИ có bài mẫu','💬']
+  ];
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Khoá tiếng Nga · ${esc(lv.ru)}</span>
+    <h1>Tiếng Nga từ bảng chữ cái tới ТРКИ</h1>
+    <p>Học nền tảng (chữ cái · phát âm · viết tay) rồi vào bài theo khung <em>ТРКИ</em> (A1 → B2), mỗi bài có ngữ pháp, từ vựng đánh trọng âm và hội thoại. Hiện có ${L.length}/${total} bài của ${esc(lv.vi)}.</p>
+  </div>
+  <div class="zh-found">
+    ${cards.map(c => `<button class="zh-found-card" data-go="${c[0]}"><span class="zh-found-ico ru">${c[3]}</span><span class="zh-found-tx"><b>${c[1]}</b><i>${c[2]}</i></span></button>`).join('')}
+  </div>
+  <div class="level-strip">
+    ${_RC.levels.map(v => {
+      const active = v.status === 'active';
+      return `<button class="level-chip" data-ru-level="${v.id}"${state.ru.level === v.id ? ' aria-pressed="true"' : ''}${active ? '' : ' disabled'} title="${active ? '' : 'Đang biên soạn'}">${esc(v.vi)} <span class="lv-ko">${esc(v.ru)}</span>${active ? '' : ' <span class="lv-soon">sắp có</span>'}</button>`;
+    }).join('')}
+  </div>
+  <div class="lesson-grid">
+    ${L.map(l => `
+      <button class="lesson-card" data-ru-lesson="${l.no}">
+        <span class="lesson-no"><i></i> BÀI ${String(l.no).padStart(2,'0')}</span>
+        <h3 class="ru">${esc(l.ru)}</h3>
+        <p class="vi">${esc(l.vi)}</p>
+        <span class="lesson-meta">${l.vocab.length} từ · ${l.grammar.length} điểm ngữ pháp</span>
+      </button>`).join('')}
+    ${Array.from({ length: Math.max(0, total - L.length) }, (_, i) => `<div class="lesson-card soon"><span class="lesson-no"><i></i> BÀI ${String(L.length + i + 1).padStart(2,'0')}</span><h3 class="ru">·····</h3><p class="vi">sắp có</p></div>`).join('')}
+  </div>`;
+};
+
+VIEWS.ru_alphabet = function(){
+  const cur = _RA.find(a => a.up === state.ru.letter) || _RA[0];
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Nga · Nền tảng</span>
+    <h1>Bảng chữ cái Cyrillic — 33 chữ</h1>
+    <p>10 nguyên âm, 21 phụ âm và 2 dấu (ь, ъ). Bấm một chữ để xem tên chữ, cách đọc theo tai người Việt, ví dụ và dạng viết tay. Bấm 🔊 để nghe.</p>
+  </div>
+  <div class="ru-alpha-legend"><span><i style="background:var(--seal)"></i>nguyên âm</span><span><i style="background:var(--ink)"></i>phụ âm</span><span><i style="background:var(--faint)"></i>dấu</span></div>
+  <div class="ru-alpha">
+    ${_RA.map(a => `<button class="ru-letter ${a.type}${a.up === cur.up ? ' on' : ''}" data-ru-letter="${esc(a.up)}"><span class="ru-l-big ru">${esc(a.up)} ${esc(a.low)}</span><span class="ru-l-name">${esc(a.name)}</span><span class="ru-l-ipa">${esc(a.ipa)}</span></button>`).join('')}
+  </div>
+  <div class="ru-detail" id="ruDetail">
+    <div class="ru-detail-glyphs">
+      <span><b class="ru">${esc(cur.up)}${esc(cur.low)}</b><small>chữ in</small></span>
+      <span><i class="ru">${esc(cur.up)}${esc(cur.low)}</i><small>nghiêng</small></span>
+      <span><span class="ru-hw">${esc(cur.up)}${esc(cur.low)}</span><small>viết tay</small></span>
+    </div>
+    <div class="ru-detail-body">
+      <h3>${esc(cur.up)} ${esc(cur.low)} — tên chữ «${esc(cur.name)}» ${cur.type !== 'sign' ? ruSpeakBtn(cur.type === 'vowel' ? cur.low : cur.name) : ''} <span class="ru-l-ipa">${esc(cur.ipa)}</span></h3>
+      <p><b>Cách đọc:</b> ${esc(cur.vi)}.</p>
+      <p><b>Viết tay:</b> ${esc(cur.hw)}</p>
+      <div class="ru-detail-ex">${cur.ex.map(e => `<span class="ru-ex"><b class="ru">${esc(e[0])}</b><span>${esc(e[1])}</span>${ruSpeakBtn(e[0], 'mini')}</span>`).join('')}</div>
+      <div class="stage-ctrl" style="margin-top:12px"><button class="pbtn" data-ru-write-letter="${esc(cur.up)}">✎ Tập viết chữ ${esc(cur.up)}</button></div>
+    </div>
+  </div>`;
+};
+
+VIEWS.ru_phonetics = function(){
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Nga · Nền tảng</span>
+    <h1>Phát âm — 8 quy tắc phải biết</h1>
+    <p>Tiếng Nga viết gần như đọc, nhưng <b>trọng âm</b> quyết định cách đọc nguyên âm, và phụ âm biến đổi theo vị trí. Nắm 8 quy tắc này là đọc được hầu hết từ mới. Bấm 🔊 để nghe ví dụ.</p>
+  </div>
+  <div class="ru-phon">
+    ${_RP.map((r, i) => `
+      <div class="ru-phon-card">
+        <h3>${i + 1}. ${esc(r.title)}</h3>
+        <p>${esc(r.desc)}</p>
+        <div class="ru-detail-ex">${r.ex.map(e => `<span class="ru-ex"><b class="ru">${esc(e[0])}</b><span>${esc(e[1])}</span>${ruSpeakBtn(e[0].split('→')[0].split('—')[0], 'mini')}</span>`).join('')}</div>
+      </div>`).join('')}
+  </div>`;
+};
+
+VIEWS.ru_write = function(){
+  const cur = _RA.find(a => a.up === state.ru.letter) || _RA[0];
+  const word = Object.values(RU_LOOKUP).find(w => ruKey(w.ru).indexOf(cur.low) >= 0) || null;
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Nga · Nền tảng</span>
+    <h1>Tập viết — chữ in, nghiêng và viết tay</h1>
+    <p>Người Nga viết tay bằng <b>chữ thảo</b> (пропись) khác khá nhiều với chữ in: и viết như <i>u</i>, т như <i>m</i>, д như <i>g</i>. Xem ba dạng, rồi <b>tô theo mẫu mờ</b> trong ô bên trái bằng chuột hoặc ngón tay.</p>
+  </div>
+  <div class="ru-write">
+    <div class="ru-trace-wrap">
+      <canvas class="ru-trace" id="ruTrace" width="300" height="300" data-letter="${esc(cur.up + cur.low)}"></canvas>
+      <div class="stage-ctrl">
+        <button class="pbtn" data-ru-trace="clear">↺ Xoá</button>
+        <button class="pbtn" data-ru-trace="toggle">${state.ru.trace ? 'Ẩn mẫu' : 'Hiện mẫu'}</button>
+        ${cur.type !== 'sign' ? ruSpeakBtn(cur.type === 'vowel' ? cur.low : cur.name, 'pbtn') : ''}
+      </div>
+    </div>
+    <div>
+      <div class="ru-write-forms">
+        <span><b class="ru">${esc(cur.up)}${esc(cur.low)}</b><small>chữ in</small></span>
+        <span><i class="ru">${esc(cur.up)}${esc(cur.low)}</i><small>nghiêng</small></span>
+        <span><span class="ru-hw">${esc(cur.up)}${esc(cur.low)}</span><small>viết tay</small></span>
+      </div>
+      <p class="ru-write-word"><b>Mẹo viết:</b> ${esc(cur.hw)}${word ? `<span class="ru-hw">${esc(ruPlain(word.ru))}</span><span class="ru-stress">${esc(word.ru)} · ${esc(word.vi)}</span>` : ''}</p>
+      <div class="eyebrow">Chọn chữ</div>
+      <div class="ru-chips">${_RA.map(a => `<button class="ru-chip ru${a.up === cur.up ? ' on' : ''}" data-ru-write-letter="${esc(a.up)}">${esc(a.up)}</button>`).join('')}</div>
+    </div>
+  </div>`;
+};
+
+/* Canvas tô chữ: vẽ mẫu mờ bằng font viết tay, người học vẽ đè lên */
+let ruTraceState = null;
+function ruTraceMount(){
+  const cv = $('#ruTrace'); if (!cv || cv._mounted) return;
+  cv._mounted = true;
+  const ctx = cv.getContext('2d'); if (!ctx) return;
+  const paths = [];
+  const drawBase = () => {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    if (state.ru.trace){
+      ctx.save(); ctx.font = '190px "Bad Script", "Caveat", cursive'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillStyle = getCssVar('--line-strong') || '#A9BBD9'; ctx.globalAlpha = 0.55;
+      ctx.fillText(cv.dataset.letter || 'Аа', cv.width / 2, cv.height / 2 + 10); ctx.restore();
+    }
+    ctx.lineWidth = 6; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = getCssVar('--accent') || '#143A78';
+    paths.forEach(p => { ctx.beginPath(); p.forEach((pt, i) => i ? ctx.lineTo(pt[0], pt[1]) : ctx.moveTo(pt[0], pt[1])); ctx.stroke(); });
+  };
+  const pos = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * cv.width / r.width, (e.clientY - r.top) * cv.height / r.height]; };
+  let cur = null;
+  cv.addEventListener('pointerdown', e => { cur = [pos(e)]; paths.push(cur); cv.setPointerCapture && cv.setPointerCapture(e.pointerId); e.preventDefault(); });
+  cv.addEventListener('pointermove', e => { if (!cur) return; cur.push(pos(e)); drawBase(); });
+  const up = () => { cur = null; };
+  cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up); cv.addEventListener('pointerleave', up);
+  ruTraceState = { clear(){ paths.length = 0; drawBase(); }, redraw: drawBase };
+  if (document.fonts && document.fonts.load) document.fonts.load('190px "Bad Script"').then(drawBase, drawBase);
+  drawBase();
+}
+
+VIEWS.ru_lesson = function(){
+  const L = ruCurLesson();
+  if (!L) return `<div class="page-head"><h1>Chưa chọn bài</h1><p>Quay lại <button class="crumb-link" data-go="ru_home">danh sách bài</button>.</p></div>`;
+  return `
+  <article class="zh-lesson">
+    <header class="zh-les-head">
+      <div class="zh-les-title ru">${esc(L.ru)} ${ruSpeakBtn(L.ru)}</div>
+      <div class="zh-les-sub">${esc(L.vi)}</div>
+      <p class="zh-les-skill">${esc(L.skill)}</p>
+    </header>
+    <section class="zh-sec">
+      <h2>Ngữ pháp</h2>
+      ${L.grammar.map(g => `
+        <div class="zh-gram">
+          <div class="zh-gram-form ru">${esc(g.form)} <span class="zh-gram-vi">— ${esc(g.vi)}</span></div>
+          <p class="zh-gram-note">${esc(g.note)}</p>
+          <div class="zh-gram-ex"><span class="ru">${ruTokens(g.ex.ru)}</span> ${ruSpeakBtn(g.ex.ru)}<div class="zh-ex-vi">${esc(g.ex.vi)}</div></div>
+        </div>`).join('')}
+    </section>
+    <section class="zh-sec">
+      <h2>Từ vựng <span class="zh-count">${L.vocab.length}</span></h2>
+      <div class="zh-vocab">
+        ${L.vocab.map(w => `
+          <div class="zh-word">
+            <div class="zh-word-hz ru ru-word" data-ruw="${esc(ruPlain(w.ru))}">${esc(w.ru)}</div>
+            <div class="zh-word-mid">
+              <div class="zh-word-vi">${esc(w.vi)}</div>
+              <div class="zh-word-meta">${esc(w.pos)}${w.note ? ' · ' + esc(w.note) : ''}</div>
+            </div>
+            <div class="zh-word-act">${ruSpeakBtn(w.ru)}</div>
+          </div>`).join('')}
+      </div>
+    </section>
+    <section class="zh-sec">
+      <h2>Hội thoại</h2>
+      <div class="zh-dia">
+        ${L.dialogue.map(d => `
+          <div class="zh-line">
+            <span class="zh-sp">${esc(d.sp)}</span>
+            <div class="zh-line-body">
+              <div class="zh-line-zh ru">${ruTokens(d.ru)} ${ruSpeakBtn(d.ru)}</div>
+              <div class="zh-line-vi">${esc(d.vi)}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+      <div class="stage-ctrl"><button class="pbtn" data-ru-speak="${esc(ruPlain(L.dialogue.map(d => d.ru).join(' ')))}">🔊 Nghe cả hội thoại</button></div>
+    </section>
+    <div class="stage-ctrl">
+      <button class="pbtn primary" data-go="ru_quiz">✎ Làm bài tập</button>
+      <button class="pbtn" data-go="ru_home">← Về danh sách bài</button>
+    </div>
+  </article>`;
+};
+
+function ruDictResults(q){
+  q = (q || '').trim();
+  let items = Object.values(RU_LOOKUP);
+  if (q){
+    const qk = ruKey(q), ql = q.toLowerCase();
+    items = items.filter(w => ruKey(w.ru).indexOf(qk) >= 0 || w.vi.toLowerCase().indexOf(ql) >= 0);
+    items.sort((a, b) => (ruKey(a.ru).indexOf(qk) === 0 ? 0 : 1) - (ruKey(b.ru).indexOf(qk) === 0 ? 0 : 1));
+  }
+  const total = items.length;
+  items = items.slice(0, 80);
+  if (!items.length) return `<p class="zh-empty">Không thấy từ nào khớp. Gõ tiếng Nga (không cần dấu trọng âm) hoặc nghĩa tiếng Việt.</p>`;
+  return `<div class="zh-res-count">${total} từ${total > 80 ? ' · hiện 80 đầu, gõ thêm để thu hẹp' : ''}</div>` + items.map(w => `
+    <div class="zh-res">
+      <div class="zh-res-hz ru" style="font-size:20px;min-width:0">${esc(w.ru)}</div>
+      <div class="zh-res-mid">
+        <div class="zh-res-vi">${esc(w.vi)}</div>
+        <div class="zh-res-meta">${esc(w.pos)}${w.note ? ' · ' + esc(w.note) : ''} · ${w.refs.map(r => `<button class="zh-ref" data-ru-open="${r.lv}:${r.no}" title="Mở bài học">${esc(ruLevelName(r.lv))} bài ${r.no}</button>`).join(' ')}</div>
+      </div>
+      <div class="zh-res-act">
+        ${ruSpeakBtn(w.ru)}
+        <a class="icon-btn" href="https://ru.wiktionary.org/wiki/${encodeURIComponent(ruPlain(w.ru).split(/[\s\/,]/)[0])}" target="_blank" rel="noopener noreferrer" title="Tra Wiktionary (biến cách, ví dụ)">↗</a>
+      </div>
+    </div>`).join('');
+}
+VIEWS.ru_dict = function(){
+  const q = state.ru.dictQ || '';
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Nga</span>
+    <h1>Từ điển</h1>
+    <p>Tra trong ${Object.keys(RU_LOOKUP).length} từ của khoá A1–B2 (gõ không cần dấu trọng âm, ё = е). Bấm một từ trong bài học cũng mở tra ở đây; nút ↗ mở Wiktionary tiếng Nga để xem bảng biến cách.</p>
+  </div>
+  <div class="zh-dict-search">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    <input id="ruq" type="search" value="${esc(q)}" placeholder="семья / gia đình…" autocomplete="off">
+  </div>
+  <div id="ruResults" class="zh-results">${ruDictResults(q)}</div>`;
+};
+
+VIEWS.ru_srs = function(){
+  const lv = ruPracLevel(), deck = ruPool(lv);
+  if (!state.ru.srs || state.ru.srs.n !== deck.length || state.ru.srs.lv !== lv) state.ru.srs = { i:0, show:false, n:deck.length, lv };
+  const s = state.ru.srs;
+  const w = deck[s.i % deck.length] || deck[0] || { ru:'да', vi:'vâng', pos:'' };
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Nga</span>
+    <h1>Ôn tập từ vựng</h1>
+    <p>Thẻ ghi nhớ ${deck.length} từ ${lv === 'all' ? 'mọi cấp' : esc(ruLevelName(lv))}. Nhìn từ, đọc to đúng trọng âm, đoán nghĩa rồi lật thẻ.</p>
+  </div>
+  ${ruLevelChips('data-ru-prac', lv, true)}
+  <div class="zh-srs">
+    <div class="zh-card ${s.show ? 'open' : ''}" id="zhCard">
+      <div class="zh-card-front ru" style="font-size:34px">${esc(w.ru)}</div>
+      <div class="zh-card-back"><div class="zh-card-vi">${esc(w.vi)}</div><div class="zh-card-hv">${esc(w.pos)}</div></div>
+    </div>
+    <div class="zh-srs-ctrl">
+      ${ruSpeakBtn(w.ru, 'pbtn')}
+      <button class="pbtn primary" id="zhFlip">${s.show ? 'Ẩn đáp án' : 'Lật thẻ'}</button>
+      <button class="pbtn" data-ru-srs="next">Thẻ sau →</button>
+    </div>
+    <div class="zh-srs-count">${(s.i % deck.length) + 1} / ${deck.length}</div>
+  </div>`;
+};
+
+/* Câu hỏi bài tập: nghĩa / từ / trọng âm */
+function ruStressVariants(word){
+  const plain = ruPlain(word), V = 'аеиоуыэюя';
+  const idx = []; for (let i = 0; i < plain.length; i++) if (V.indexOf(plain[i].toLowerCase()) >= 0) idx.push(i);
+  return idx.map(i => plain.slice(0, i + 1) + '́' + plain.slice(i + 1));
+}
+function ruMakeQuestions(n){
+  const pool = ruPool(ruPracLevel());
+  const qs = [], used = {}; let guard = 0;
+  while (qs.length < n && guard++ < n * 40){
+    const w = zhPick(pool); let type = zhPick(['mean','word','stress']);
+    const single = w.ru.split(/[\s\/,]/)[0];
+    const variants = ruStressVariants(single);
+    if (type === 'stress' && (variants.length < 2 || /ё/.test(single) || /́/.test(single) === false)) type = 'mean';
+    const key = w.ru + '|' + type; if (used[key]) continue; used[key] = 1;
+    let q;
+    if (type === 'mean')
+      q = { prompt:'Từ này nghĩa là gì?', main:`<span class="ru qz-hz" style="font-size:28px">${esc(w.ru)}</span>`, opts: zhShuffle([w.vi].concat(zhDistract(pool,'vi',w.vi,3))), answer:w.vi, oc:'' };
+    else if (type === 'word')
+      q = { prompt:'Chọn từ tiếng Nga đúng với nghĩa:', main:`<b>${esc(w.vi)}</b>`, opts: zhShuffle([w.ru].concat(zhDistract(pool,'ru',w.ru,3))), answer:w.ru, oc:'ru' };
+    else {
+      const right = single, wrong = variants.filter(v => v !== right);
+      q = { prompt:'Chọn cách đánh trọng âm đúng:', main:`<b>${esc(w.vi)}</b>`, opts: zhShuffle([right].concat(zhShuffle(wrong).slice(0, 3))), answer:right, oc:'ru' };
+    }
+    q.explain = `${w.ru} — ${w.vi} (${w.pos})`;
+    qs.push(q);
+  }
+  return qs;
+}
+function ruQuick(level){
+  level = level || ruPracLevel();
+  const prev = state.ru.pracLevel; state.ru.pracLevel = level;
+  const qs = ruMakeQuestions(20).map(q => ({ k:'read', t:'mc', html:q.main, q:q.prompt, o:q.opts, c:q.opts.indexOf(q.answer), oc:q.oc, e:q.explain }));
+  state.ru.pracLevel = prev;
+  return { id:'quick-' + level + '-' + Date.now(), lang:'ru', level, quick:true, badge:ruLevelName(level), title:'Kiểm tra nhanh từ vựng ' + ruLevelName(level),
+    official:'20 câu ngẫu nhiên từ vốn từ của cấp · 8 phút · chấm theo %', minutes:8, maxScore:100, pass:60, plays:0,
+    sections:[{ id:'V', name:'Лексика', vi:'Từ vựng', parts:[{ title:'', ins:'Выберите правильный вариант.', vi:'Chọn đáp án đúng.', qs }] }] };
+}
+VIEWS.ru_quiz = function(){
+  const Q = state.ru.quiz;
+  if (!Q || !Q.qs){
+    return `
+    <div class="page-head"><span class="eyebrow">Tiếng Nga · Bài tập</span><h1>Bài tập trắc nghiệm</h1>
+      <p>10 câu ngẫu nhiên từ vốn từ ${ruPracLevel() === 'all' ? 'mọi cấp' : esc(ruLevelName(ruPracLevel()))} (${ruPool(ruPracLevel()).length} từ): đoán nghĩa, chọn từ, chọn <b>trọng âm</b> đúng — có chấm điểm và giải thích.</p></div>
+    ${ruLevelChips('data-ru-prac', ruPracLevel(), true)}
+    <div class="stage-ctrl"><button class="pbtn primary" data-ru-qz-start="1">▶ Bắt đầu 10 câu</button></div>`;
+  }
+  if (Q.i >= Q.qs.length){
+    const score = Q.picked.filter((p, i) => p === Q.qs[i].answer).length, pct = Math.round(score / Q.qs.length * 100);
+    return `
+    <div class="page-head"><span class="eyebrow">Tiếng Nga · Bài tập</span><h1>Kết quả: ${score}/${Q.qs.length}</h1>
+      <p>Đúng ${pct}%. ${pct >= 80 ? 'Отли́чно!' : pct >= 50 ? 'Хорошо́ — ôn thêm chút nhé.' : 'Cần luyện thêm nhé.'}</p></div>
+    <div class="qz-review">${Q.qs.map((q, i) => `<div class="qz-rev ${Q.picked[i] === q.answer ? 'ok' : 'no'}"><span>${Q.picked[i] === q.answer ? '✓' : '✗'}</span> ${esc(q.explain)}</div>`).join('')}</div>
+    <div class="stage-ctrl"><button class="pbtn primary" data-ru-qz-start="1">↻ Làm lại</button></div>`;
+  }
+  const q = Q.qs[Q.i], picked = Q.picked[Q.i];
+  return `
+  <div class="page-head"><span class="eyebrow">Tiếng Nga · Bài tập</span><h1>Bài tập <span class="qz-count">${Q.i + 1}/${Q.qs.length}</span> <button class="mini" data-ru-qz-start="1" title="Bỏ đề này, sinh đề mới">↻ Đề khác</button></h1><p>${esc(q.prompt)}</p></div>
+  <div class="qz-main">${q.main}</div>
+  <div class="qz-opts">${q.opts.map(o => {
+    let cls = 'qz-opt' + (q.oc ? ' ' + q.oc : '');
+    if (picked != null){ if (o === q.answer) cls += ' correct'; else if (o === picked) cls += ' wrong'; }
+    return `<button class="${cls}" data-ru-qz="${esc(o)}"${picked != null ? ' disabled' : ''}>${esc(o)}</button>`;
+  }).join('')}</div>
+  ${picked != null ? `<div class="qz-explain ${picked === q.answer ? 'ok' : 'no'}">${picked === q.answer ? '✓ Đúng! ' : '✗ Chưa đúng. '}${esc(q.explain)} ${ruSpeakBtn(q.explain.split(' — ')[0], 'mini')}</div>
+    <div class="stage-ctrl"><button class="pbtn primary" data-ru-qz-next="1">${Q.i + 1 < Q.qs.length ? 'Câu sau →' : 'Xem kết quả'}</button></div>` : ''}`;
+};
+
+VIEWS.ru_speak = function(){
+  const T = _RS.find(t => t.id === state.ru.topic);
+  if (!T){
+    return `
+    <div class="page-head">
+      <span class="eyebrow">Tiếng Nga · Luyện nói</span>
+      <h1>Chủ đề vấn đáp РКИ</h1>
+      <p>Các chủ đề thường gặp trong phần <b>Говорение</b> (nói) của ТРКИ và thi vấn đáp РКИ, kèm <b>bài mẫu</b> có dịch, từ khoá và câu hỏi gợi ý. Cách luyện: đọc bài mẫu, nghe máy đọc, che bản dịch rồi tự kể lại theo câu hỏi gợi ý.</p>
+    </div>
+    <div class="ru-topics">
+      ${_RS.map((t, i) => `<button class="ru-topic" data-ru-topic="${esc(t.id)}"><b>${i + 1}. ${esc(t.ru)}</b><span>${esc(t.vi)} · ${t.paras.length} đoạn · ${esc(t.level)}</span></button>`).join('')}
+    </div>`;
+  }
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Nga · Luyện nói · ${esc(T.level)}</span>
+    <h1 class="ru">${esc(T.ru)}</h1>
+    <p>${esc(T.vi)}${T.src ? ` · <i>${esc(T.src)}</i>` : ''}</p>
+    <div class="stage-ctrl" style="padding:4px 0 0"><button class="pbtn" data-ru-speak="${esc(ruPlain(T.paras.map(p => p.ru).join(' ')))}">🔊 Nghe cả bài</button><button class="pbtn" data-ru-topic="">← Chủ đề khác</button></div>
+  </div>
+  <div class="ru-speak">
+    ${T.keys && T.keys.length ? `<div class="eyebrow">Từ khoá</div><div class="ru-keys">${T.keys.map(k => `<span class="ru-key ru"><b>${esc(k[0])}</b> <span>${esc(k[1])}</span></span>`).join('')}</div>` : ''}
+    ${T.qs && T.qs.length ? `<div class="eyebrow">Câu hỏi gợi ý để tự kể</div><ol class="ru-qs">${T.qs.map(q => `<li class="ru">${esc(q)}</li>`).join('')}</ol>` : ''}
+    <div class="eyebrow">Bài mẫu</div>
+    ${T.paras.map(p => `<div class="ru-para"><div class="ru-para-ru ru">${ruTokens(p.ru)} ${ruSpeakBtn(p.ru)}</div><div class="ru-para-vi">${esc(p.vi)}</div></div>`).join('')}
+  </div>`;
+};
+
+/* Giới thiệu ТРКИ (dùng trong Thi thử) */
+function trkiGuide(){
+  return `
+  <div class="tk-guide">
+    <div class="tkg-card">
+      <h4>ТРКИ là gì?</h4>
+      <p><b>ТРКИ</b> (Тест по русскому языку как иностранному · TORFL) là hệ thống thi cấp chứng chỉ tiếng Nga cho người nước ngoài của <b>Bộ Khoa học và Giáo dục đại học Liên bang Nga</b>, do các trung tâm khảo thí được uỷ quyền (ĐHTH Moskva, ĐHTH Saint-Petersburg, Viện Pushkin…) tổ chức. Chứng chỉ có giá trị vô thời hạn.</p>
+      <p>Có 6 cấp tương ứng khung châu Âu: <b>ТЭУ</b> (A1), <b>ТБУ</b> (A2), <b>ТРКИ-1</b> (B1), <b>ТРКИ-2</b> (B2), <b>ТРКИ-3</b> (C1), <b>ТРКИ-4</b> (C2). Ngoài ra có bài thi riêng cho lao động nhập cư và nhập quốc tịch.</p>
+    </div>
+    <div class="tkg-card">
+      <h4>Dùng để làm gì?</h4>
+      <ul>
+        <li><b>Du học Nga:</b> ТРКИ-1 (B1) là điều kiện vào đại học; ТРКИ-2 (B2) cho cao học và nhiều ngành; ТРКИ-3 cho ngành ngữ văn, phiên dịch.</li>
+        <li><b>Xin việc:</b> công ty Nga, doanh nghiệp liên doanh, phiên dịch kỹ thuật – quân sự.</li>
+        <li><b>Chuẩn đầu ra:</b> nhiều khoa tiếng Nga ở Việt Nam lấy B1/B2 làm chuẩn tốt nghiệp.</li>
+      </ul>
+    </div>
+    <div class="tkg-card wide">
+      <h4>Cấu trúc đề thi (5 phần, thi trong 1–2 ngày)</h4>
+      <div class="tkg-table hsk">
+        <div class="tkg-row head"><span>Cấp</span><span>Từ vựng</span><span>Các phần · số câu</span><span>Thời gian · điểm đạt</span></div>
+        <div class="tkg-row"><span><b>ТЭУ · A1</b><br><small>Элементарный</small></span><span>≈ 780 từ</span><span>Từ vựng–Ngữ pháp 100 · Đọc 15 · Nghe 15 · Viết 2 · Nói 5</span><span>≈ 3 giờ · mỗi phần ≥ 66%</span></div>
+        <div class="tkg-row"><span><b>ТБУ · A2</b><br><small>Базовый</small></span><span>≈ 1.300 từ</span><span>Từ vựng–Ngữ pháp 110 · Đọc 20–30 · Nghe 20–30 · Viết 2–3 · Nói 5–10</span><span>≈ 3,5 giờ · ≥ 66%</span></div>
+        <div class="tkg-row"><span><b>ТРКИ-1 · B1</b><br><small>Первый сертификационный</small></span><span>≈ 2.300 từ</span><span>Từ vựng–Ngữ pháp 165 · Đọc 20 · Nghe 30 · Viết 3 · Nói 4 tình huống + hội thoại</span><span>≈ 4,5 giờ · ≥ 66%</span></div>
+        <div class="tkg-row"><span><b>ТРКИ-2 · B2</b><br><small>Второй сертификационный</small></span><span>≈ 6.000 từ</span><span>Từ vựng–Ngữ pháp 150 · Đọc 25 · Nghe 25 · Viết 3 · Nói 15</span><span>≈ 5,5 giờ · ≥ 66%</span></div>
+      </div>
+      <p class="tkg-note">Điểm từng phần tính theo % câu đúng; <b>đạt</b> khi mọi phần ≥ 66% (được phép thi lại một phần dưới 66% nhưng trên 60%). Phần Nói thi trực tiếp với giám khảo — LangLab thay bằng mục <b>Luyện nói</b> có bài mẫu.</p>
+    </div>
+    <div class="tkg-card">
+      <h4>Đăng ký thi</h4>
+      <ul>
+        <li>Đăng ký qua trung tâm khảo thí được uỷ quyền (ở Việt Nam thường tổ chức tại Phân viện Puskin Hà Nội, các trường có khoa tiếng Nga, hoặc thi trực tuyến với ĐHTH Saint-Petersburg / Viện Pushkin).</li>
+        <li>Chuẩn bị hộ chiếu, ảnh; nộp lệ phí theo cấp; kết quả có sau 1–3 tuần, chứng chỉ do trường đại học Nga cấp.</li>
+      </ul>
+    </div>
+    <div class="tkg-card">
+      <h4>Gợi ý chiến lược ôn</h4>
+      <ul>
+        <li>Phần Ngữ pháp chiếm nhiều câu nhất: luyện <b>biến cách</b> theo giới từ, <b>thể động từ</b> và <b>động từ chuyển động</b> — ba nhóm hay ra nhất.</li>
+        <li>Đọc: đọc câu hỏi trước, tìm từ khoá trong bài; A1–A2 thường là thông báo, thư, quảng cáo.</li>
+        <li>Nghe: bài phát 1–2 lần, ghi nhanh số liệu, tên, thời gian.</li>
+        <li>Viết: học sẵn khung thư (Дорого́й…! / С уваже́нием), điền phiếu (анке́та).</li>
+        <li>Nói: luyện 10 chủ đề trong mục Luyện nói, tự nói 1–2 phút mỗi chủ đề.</li>
+      </ul>
+    </div>
+  </div>`;
+}
+
+/* ============================================================
    THI THỬ HSK — đề soạn sẵn đúng cấu trúc (js/hsk-exams.js) + đề nhanh từ vựng.
    Dạng câu: tf (√/×), pic (chọn tranh), mc (trắc nghiệm), bank (chọn A–F từ khung chung),
              order (sắp xếp thành câu), char (viết chữ theo pinyin), sent (viết câu theo từ + tranh),
              essay (viết đoạn ≥80 chữ). Nghe: phát bằng giọng đọc, giới hạn số lần như thi thật.
    ============================================================ */
 const _HX = (typeof HSK_EXAMS !== 'undefined') ? HSK_EXAMS : [];
+const _RX = (typeof TRKI_EXAMS !== 'undefined') ? TRKI_EXAMS : [];
 let hskTimerId = null, hskSaveT = null;
+/* Ngữ cảnh thi thử theo ngôn ngữ đang xem: HSK (tiếng Trung) hoặc ТРКИ (tiếng Nga) — cùng một engine */
+function exCtx(){
+  if (state.view.indexOf('ru_') === 0) return {
+    lang:'ru', st:state.ru, tests:_RX, key:'trkiExam', letters:'АБВГДЕ',
+    speak: t => ruSpeak(t), speech: ruSpeech, levels:_RC.levels, levelName:ruLevelName, quick:ruQuick, guide:trkiGuide,
+    eyebrow:'Tiếng Nga · Thi thử ТРКИ', title:'Thi thử ТРКИ (TORFL)',
+    intro:'Tìm hiểu kỳ thi ТРКИ và luyện với <b>đề đầy đủ đúng cấu trúc đề thật</b> — có <b>bấm giờ</b>, <b>tạm dừng</b>, nộp bài, chấm điểm từng phần và <b>đáp án kèm giải thích</b>. Bài nghe phát bằng giọng đọc của máy (bấm “Nghe”). Đề do LangLab tự soạn theo dạng thức, không phải đề thi chính thức.',
+    quickDesc: lv => `Đoán nghĩa, chọn từ, chọn dạng đúng từ ${ruPool(lv).length} từ của cấp. Không theo cấu trúc đề thật — dùng để ôn từ.`,
+    disclaimer:'Đề do LangLab biên soạn theo cấu trúc ТРКИ (Российская государственная система тестирования) để luyện tập, không phải đề thi chính thức. Điểm số chỉ ước lượng theo tỉ lệ câu đúng; phần Viết chấm tự động theo tiêu chí đơn giản (đủ độ dài, dùng đúng từ cho trước) — hãy tự đối chiếu với bài mẫu.',
+    unit:'từ', count: ruWords
+  };
+  return {
+    lang:'zh', st:state.zh, tests:_HX, key:'hskExam', letters:'ABCDEF',
+    speak: t => zhSpeak(t), speech: hskSpeech, levels:_ZC.levels, levelName:zhLevelName, quick: lv => hskQuick(lv || zhPracLevel()), guide:hskGuide,
+    eyebrow:'Tiếng Trung · Thi thử HSK', title:'Thi thử HSK',
+    intro:'Tìm hiểu kỳ thi HSK và luyện với <b>đề đầy đủ đúng cấu trúc đề thật</b> — có <b>bấm giờ</b>, <b>tạm dừng</b>, nộp bài, chấm điểm từng kỹ năng và <b>đáp án kèm giải thích</b>. Câu Nghe phát bằng giọng đọc của máy (bấm “Nghe”), tranh minh hoạ bằng biểu tượng. Đề do LangLab tự soạn theo dạng thức, không phải đề thi chính thức.',
+    quickDesc: lv => `Đoán nghĩa, chọn chữ, chọn pinyin từ ${zhPool(lv).length} từ của cấp. Không theo cấu trúc đề thật — dùng để ôn từ.`,
+    disclaimer:'Đề do LangLab biên soạn theo cấu trúc HSK (2.0) để luyện tập, không phải đề thi chính thức của Chinese Testing International. Điểm số chỉ ước lượng theo tỉ lệ câu đúng; phần Viết chấm tự động theo tiêu chí đơn giản (đủ độ dài, dùng đúng từ cho trước) — hãy tự đối chiếu với bài mẫu.',
+    unit:'chữ Hán', count: hskHan
+  };
+}
+/* Đếm độ dài bài viết theo ngôn ngữ của đề (chữ Hán / từ) */
+function ruWords(s){ return (String(s || '').trim().match(/[А-Яа-яЁёA-Za-z0-9]+/g) || []).length; }
+function exCount(t, s){ return (t && t.lang === 'ru') ? ruWords(s) : hskHan(s); }
+function exUnit(t){ return (t && t.lang === 'ru') ? 'từ' : 'chữ Hán'; }
 
 function hskFind(id){
-  const E = state.zh.exam;
+  const E = exCtx().st.exam;
   if (E && E.quick && E.quick.id === id) return E.quick;
-  return _HX.find(x => x.id === id) || null;
+  return exCtx().tests.find(x => x.id === id) || null;
 }
 /* Danh sách câu phẳng, đánh số liên tục 1..N như đề thật */
 function hskFlat(t){
@@ -13855,28 +15268,28 @@ function hskQuick(level){                       // đề nhanh từ vựng (20 c
     sections:[{ id:'V', name:'词汇', vi:'Từ vựng', parts:[{ title:'', ins:'选出正确答案。', vi:'Chọn đáp án đúng.', qs }] }] };
 }
 function hskSave(){
-  const E = state.zh.exam;
-  if (!E || E.quick){ store.set('hskExam', null); return; }
-  store.set('hskExam', { testId:E.testId, phase:E.phase, answers:E.answers, remaining:E.remaining, plays:E.plays, free:E.free, t:Date.now() });
+  const E = exCtx().st.exam;
+  if (!E || E.quick){ store.set(exCtx().key, null); return; }
+  store.set(exCtx().key, { testId:E.testId, phase:E.phase, answers:E.answers, remaining:E.remaining, plays:E.plays, free:E.free, t:Date.now() });
 }
-function hskSaved(){ const s = store.get('hskExam', null); return (s && s.phase === 'doing' && _HX.some(x => x.id === s.testId)) ? s : null; }
+function hskSaved(){ const s = store.get(exCtx().key, null); return (s && s.phase === 'doing' && exCtx().tests.some(x => x.id === s.testId)) ? s : null; }
 function hskStart(id, level){
   let quick = null;
-  if (id === 'quick'){ quick = hskQuick(level || zhPracLevel()); id = quick.id; }
-  const t = quick || _HX.find(x => x.id === id); if (!t) return;
-  state.zh.exam = { testId:id, phase:'doing', answers:{}, remaining:t.minutes * 60, paused:false, plays:{}, free:false, quick, filter:'all' };
+  if (id === 'quick'){ quick = exCtx().quick(level); id = quick.id; }
+  const t = quick || exCtx().tests.find(x => x.id === id); if (!t) return;
+  exCtx().st.exam = { testId:id, phase:'doing', answers:{}, remaining:t.minutes * 60, paused:false, plays:{}, free:false, quick, filter:'all' };
   hskSave(); render(); window.scrollTo({ top:0 });
 }
 function hskResume(){
   const s = hskSaved(); if (!s) return;
-  state.zh.exam = { testId:s.testId, phase:'doing', answers:s.answers || {}, remaining:s.remaining, paused:true, plays:s.plays || {}, free:!!s.free, quick:null, filter:'all' };
+  exCtx().st.exam = { testId:s.testId, phase:'doing', answers:s.answers || {}, remaining:s.remaining, paused:true, plays:s.plays || {}, free:!!s.free, quick:null, filter:'all' };
   render(); window.scrollTo({ top:0 });
 }
 function hskStop(){ if (hskTimerId){ clearInterval(hskTimerId); hskTimerId = null; } }
 function hskMount(){
   hskStop();
   hskTimerId = setInterval(() => {
-    const E = state.zh.exam, el = $('#hskTimer');
+    const E = exCtx().st.exam, el = $('#hskTimer');
     if (!E || E.phase !== 'doing' || !el){ hskStop(); return; }
     if (E.paused) return;
     E.remaining--;
@@ -13886,17 +15299,17 @@ function hskMount(){
     if (E.remaining <= 0){ hskStop(); E.phase = 'done'; hskSave(); render(); window.scrollTo({ top:0 }); }
   }, 1000);
 }
-function hskNorm(s){ return String(s || '').replace(/[\s，。！？、,.!?;；:："'“”‘’()（）]/g, ''); }
+function hskNorm(s){ return String(s || '').toLowerCase().replace(/ё/g, 'е').replace(/[\s，。！？、,.!?;；:："'“”‘’()（）—–-]/g, ''); }
 function hskHan(s){ return (String(s || '').match(/[一-鿿]/g) || []).length; }
 /* Chấm một câu → 1 (đúng) / 0.5 (đạt một phần, chỉ với bài viết) / 0 */
-function hskCheck(q, a){
+function hskCheck(q, a, t){
   if (a == null || a === '' || (Array.isArray(a) && !a.length)) return 0;
   const alts = [q.ans].concat(q.alt || []);
   if (q.t === 'order'){ const s = Array.isArray(a) ? a.map(i => q.parts[i]).join('') : String(a); return alts.some(x => hskNorm(x) === hskNorm(s)) ? 1 : 0; }
-  if (q.t === 'char'){ return alts.indexOf(String(a).trim()) >= 0 ? 1 : 0; }
-  if (q.t === 'sent'){ const s = String(a), h = hskHan(s); return (h >= 5 && s.indexOf(q.word) >= 0) ? 1 : (h >= 5 ? 0.5 : 0); }
+  if (q.t === 'char'){ const v = String(a).trim().toLowerCase(); return alts.some(x => String(x).toLowerCase() === v) ? 1 : 0; }
+  if (q.t === 'sent'){ const s = String(a), h = exCount(t, s), lo = String(s).toLowerCase(), minS = q.min || 5; return (h >= minS && lo.indexOf(String(q.word).toLowerCase()) >= 0) ? 1 : (h >= minS ? 0.5 : 0); }
   if (q.t === 'essay'){
-    const s = String(a), h = hskHan(s), need = q.words || [], hit = need.filter(w => s.indexOf(w) >= 0).length, min = q.min || 80;
+    const s = String(a), h = exCount(t, s), lo = s.toLowerCase(), need = q.words || [], hit = need.filter(w => lo.indexOf(String(w).toLowerCase()) >= 0).length, min = q.min || 80;
     if (h >= min && hit === need.length) return 1;
     if (h >= min * 0.6 && (need.length ? hit >= Math.ceil(need.length / 2) : true)) return 0.5;
     return 0;
@@ -13905,10 +15318,10 @@ function hskCheck(q, a){
 }
 function hskAnswered(a){ return !(a == null || a === '' || (Array.isArray(a) && !a.length)); }
 function hskGrade(t){
-  const E = state.zh.exam, flat = hskFlat(t);
+  const E = exCtx().st.exam, flat = hskFlat(t);
   const secs = (t.sections || []).map((s, si) => {
     const items = flat.filter(f => f.si === si);
-    const got = items.reduce((acc, f) => acc + hskCheck(f.q, E.answers[f.no]), 0);
+    const got = items.reduce((acc, f) => acc + hskCheck(f.q, E.answers[f.no], t), 0);
     return { id:s.id, name:s.name, vi:s.vi, got, total:items.length, score: items.length ? Math.round(got / items.length * 100) : 0 };
   });
   const got = secs.reduce((a, s) => a + s.got, 0), total = flat.length;
@@ -13972,19 +15385,20 @@ function hskGuide(){
 }
 function hskList(){
   const saved = hskSaved();
-  const lvls = _ZC.levels.filter(v => v.status === 'active');
+  const lvls = exCtx().levels.filter(v => v.status === 'active');
+  const C = exCtx();
   return `
   <div class="page-head">
-    <span class="eyebrow">Tiếng Trung · Thi thử HSK</span>
-    <h1>Thi thử HSK</h1>
-    <p>Tìm hiểu kỳ thi HSK và luyện với <b>đề đầy đủ đúng cấu trúc đề thật</b> — có <b>bấm giờ</b>, <b>tạm dừng</b>, nộp bài, chấm điểm từng kỹ năng và <b>đáp án kèm giải thích</b>. Câu Nghe phát bằng giọng đọc của máy (bấm “Nghe”), tranh minh hoạ bằng biểu tượng. Đề do LangLab tự soạn theo dạng thức, không phải đề thi chính thức.</p>
+    <span class="eyebrow">${C.eyebrow}</span>
+    <h1>${C.title}</h1>
+    <p>${C.intro}</p>
   </div>
-  ${saved ? `<div class="hsk-resume"><div><b>Bạn có đề đang làm dở:</b> ${esc((_HX.find(x => x.id === saved.testId) || {}).title || saved.testId)} · còn ${topikClock(saved.remaining)} · đã làm ${Object.keys(saved.answers || {}).length} câu</div>
+  ${saved ? `<div class="hsk-resume"><div><b>Bạn có đề đang làm dở:</b> ${esc((exCtx().tests.find(x => x.id === saved.testId) || {}).title || saved.testId)} · còn ${topikClock(saved.remaining)} · đã làm ${Object.keys(saved.answers || {}).length} câu</div>
     <div class="tk-bar-btns"><button class="pbtn primary" data-hsk-resume="1">Tiếp tục làm</button><button class="pbtn" data-hsk-discard="1">Bỏ đề này</button></div></div>` : ''}
-  ${hskGuide()}
+  ${exCtx().guide()}
   <h2 class="tk-list-title">Chọn một đề để bắt đầu</h2>
   ${lvls.map(v => {
-    const tests = _HX.filter(t => t.level === v.id);
+    const tests = exCtx().tests.filter(t => t.level === v.id);
     return `<h3 class="tk-band-title">${esc(v.vi)} · ${tests.length} đề đầy đủ + kiểm tra nhanh</h3>
     <div class="topik-list">
       ${tests.map(t => { const n = hskFlat(t).length; return `
@@ -13999,23 +15413,23 @@ function hskList(){
         <span class="tk-badge">${esc(v.zh)} · nhanh</span>
         <h3>Kiểm tra nhanh từ vựng ${esc(v.zh)}</h3>
         <p class="tk-meta">20 câu · 8 phút · sinh ngẫu nhiên mỗi lần</p>
-        <p class="tk-official">Đoán nghĩa, chọn chữ, chọn pinyin từ ${zhPool(v.id).length} từ của cấp. Không theo cấu trúc đề thật — dùng để ôn từ.</p>
+        <p class="tk-official">${C.quickDesc(v.id)}</p>
         <button class="pbtn" data-hsk-start="quick" data-hsk-level="${v.id}">Làm nhanh</button>
       </div>
     </div>`;
   }).join('')}
-  <p class="tk-disclaimer">Đề do LangLab biên soạn theo cấu trúc HSK (2.0) để luyện tập, không phải đề thi chính thức của Chinese Testing International. Điểm số chỉ ước lượng theo tỉ lệ câu đúng; phần Viết chấm tự động theo tiêu chí đơn giản (đủ độ dài, dùng đúng từ cho trước) — hãy tự đối chiếu với bài mẫu.</p>`;
+  <p class="tk-disclaimer">${C.disclaimer}</p>`;
 }
 function hskOptLabel(t, q, o, oi){
   if (q.t === 'tf') return `<span class="hsk-tf">${oi === 0 ? '√' : '×'}</span><span>${oi === 0 ? '对 · Đúng' : '错 · Sai'}</span>`;
-  if (q.t === 'pic') return `<span class="tk-onum">${HSK_LETTERS[oi]}</span><span class="hsk-pic sm">${esc(o)}</span>`;
+  if (q.t === 'pic') return `<span class="tk-onum">${exCtx().letters[oi]}</span><span class="hsk-pic sm">${esc(o)}</span>`;
   const isPic = /^\p{Extended_Pictographic}/u.test(String(o));
-  return `<span class="tk-onum">${HSK_LETTERS[oi]}</span><span class="${isPic ? 'hsk-pic sm' : (q.oc === 'py' ? 'py' : 'ko')}">${esc(o)}</span>`;
+  return `<span class="tk-onum">${exCtx().letters[oi]}</span><span class="${isPic ? 'hsk-pic sm' : (q.oc === 'py' ? 'py' : 'ko')}">${esc(o)}</span>`;
 }
 function hskQ(t, S, f, review){
   const q = f.q, no = f.no, a = S.answers[no], E = S;
   const sec = f.sec, tag = `${esc(sec.name)} · ${esc(sec.vi)}`;
-  const res = review ? hskCheck(q, a) : null;
+  const res = review ? hskCheck(q, a, t) : null;
   const status = review ? (res === 1 ? '<span class="tk-ok">✓ Đúng</span>' : res === 0.5 ? '<span class="hsk-half">◐ Đạt một phần</span>' : `<span class="tk-no">✗ ${hskAnswered(a) ? 'Sai' : 'Chưa làm'}</span>`) : '';
   if (review && S.filter === 'wrong' && res === 1) return '';
   let head = '';
@@ -14049,11 +15463,11 @@ function hskQ(t, S, f, review){
       ? `<div class="hsk-answer">Bạn viết: <b class="ko">${esc(a || '—')}</b> · Đáp án: <b class="ko">${esc(q.ans)}</b></div>`
       : `<div class="hsk-inline"><span class="py hsk-py">${esc(q.py || '')}</span><input class="hsk-in ko" data-hsk-in="${no}" maxlength="4" value="${esc(a || '')}" placeholder="chữ" autocomplete="off"></div>`;
   } else if (q.t === 'sent' || q.t === 'essay'){
-    const n = hskHan(a);
+    const n = exCount(t, a), unit = exUnit(t);
     const words = q.words ? `<div class="hsk-words">${q.words.map(w => `<span class="ko hsk-chunk${review && String(a || '').indexOf(w) >= 0 ? ' on' : ''}">${esc(w)}</span>`).join('')}</div>` : (q.word ? `<div class="hsk-words"><span class="ko hsk-chunk${review && String(a || '').indexOf(q.word) >= 0 ? ' on' : ''}">${esc(q.word)}</span></div>` : '');
     opts = words + (review
-      ? `<div class="hsk-answer"><div>Bài của bạn (${n} chữ Hán):</div><div class="tk-passage ko">${esc(a || '—')}</div><div>Bài mẫu tham khảo:</div><div class="tk-passage ko">${esc(q.model || '')}</div></div>`
-      : `<textarea class="hsk-in ko hsk-ta" data-hsk-in="${no}" rows="${q.t === 'essay' ? 5 : 2}" placeholder="${q.t === 'essay' ? 'Viết đoạn văn ít nhất ' + (q.min || 80) + ' chữ…' : 'Viết một câu có dùng từ cho trước…'}">${esc(a || '')}</textarea><div class="hsk-cnt" id="hskCnt${no}">${n} chữ Hán${q.min ? ' / tối thiểu ' + q.min : ''}</div>`);
+      ? `<div class="hsk-answer"><div>Bài của bạn (${n} ${unit}):</div><div class="tk-passage ko">${esc(a || '—')}</div><div>Bài mẫu tham khảo:</div><div class="tk-passage ko">${esc(q.model || '')}</div></div>`
+      : `<textarea class="hsk-in ko hsk-ta" data-hsk-in="${no}" rows="${q.t === 'essay' ? 5 : 2}" placeholder="${q.t === 'essay' ? 'Viết đoạn văn ít nhất ' + (q.min || 80) + ' ' + unit + '…' : 'Viết một câu có dùng từ cho trước…'}">${esc(a || '')}</textarea><div class="hsk-cnt" id="hskCnt${no}">${n} ${unit}${q.min ? ' / tối thiểu ' + q.min : ''}</div>`);
   }
   return `<div class="tk-q hsk-q${review ? (res === 1 ? ' ok' : ' bad') : ''}" id="hskQ${no}">
     <div class="tk-q-no">Câu ${no} <span class="tk-tag">${tag}</span> ${status}</div>
@@ -14069,7 +15483,7 @@ function hskPart(t, S, si, pi, part, review){
     <span class="tk-sec-ko ko">${esc(part.ins || '')}</span>
     <span class="tk-sec-vi">${esc(part.vi || '')}</span>
   </div>`;
-  const bank = part.bank ? `<div class="hsk-bank${part.bank.some(o => /^\p{Extended_Pictographic}/u.test(String(o))) ? ' pics' : ''}">${part.bank.map((o, oi) => `<span class="hsk-bank-it"><span class="tk-onum">${HSK_LETTERS[oi]}</span><span class="ko">${esc(o)}</span></span>`).join('')}</div>` : '';
+  const bank = part.bank ? `<div class="hsk-bank${part.bank.some(o => /^\p{Extended_Pictographic}/u.test(String(o))) ? ' pics' : ''}">${part.bank.map((o, oi) => `<span class="hsk-bank-it"><span class="tk-onum">${exCtx().letters[oi]}</span><span class="ko">${esc(o)}</span></span>`).join('')}</div>` : '';
   const ex = (part.example ? `<div class="hsk-example">${esc(part.example)}</div>` : '')
     + (part.p ? `<div class="tk-passage ko hsk-part-p">${esc(part.p)}</div>` : '');
   const qs = flat.map(f => hskQ(t, S, f, review)).join('');
@@ -14094,7 +15508,7 @@ function hskBar(t, S){
   </div>`;
 }
 function hskResult(t){
-  const S = state.zh.exam, g = hskGrade(t);
+  const S = exCtx().st.exam, g = hskGrade(t);
   const used = topikClock(t.minutes * 60 - Math.max(0, S.remaining));
   const passed = g.score >= g.pass;
   return `
@@ -14116,16 +15530,16 @@ function hskResult(t){
 }
 /* Vẽ lại một câu tại chỗ (giữ vị trí cuộn) + cập nhật đếm câu đã làm trên thanh */
 function hskRefreshQ(no){
-  const E = state.zh.exam, T = E && hskFind(E.testId); if (!T) return;
+  const E = exCtx().st.exam, T = E && hskFind(E.testId); if (!T) return;
   const f = hskFlat(T).find(x => x.no === no), el = document.getElementById('hskQ' + no);
   if (f && el){ const tmp = document.createElement('div'); tmp.innerHTML = hskQ(T, E, f, false); el.replaceWith(tmp.firstElementChild); }
   const bar = $('#hskBar'); if (bar){ const tmp = document.createElement('div'); tmp.innerHTML = hskBar(T, E); bar.querySelector('.hsk-tabs').innerHTML = tmp.querySelector('.hsk-tabs').innerHTML; }
 }
-VIEWS.zh_exam = function(){
-  const S = state.zh.exam;
+function examView(){
+  const S = exCtx().st.exam;
   if (!S || !S.testId) return hskList();
   const t = hskFind(S.testId);
-  if (!t){ state.zh.exam = null; return hskList(); }
+  if (!t){ exCtx().st.exam = null; return hskList(); }
   if (S.phase === 'done') return hskResult(t);
   return hskBar(t, S) + `
   ${S.paused ? `<div class="hsk-paused"><b>⏸ Đang tạm dừng</b><span>Đề được che lại. Bấm “Tiếp tục” để làm tiếp — đồng hồ đang dừng.</span><button class="pbtn primary" data-hsk-pause="1">▶ Tiếp tục</button></div>` : ''}
@@ -14133,7 +15547,9 @@ VIEWS.zh_exam = function(){
     ${t.sections.map((s, si) => s.parts.map((p, pi) => hskPart(t, S, si, pi, p, false)).join('')).join('')}
   </div>
   <div class="topik-foot"><button class="pbtn primary" data-hsk-submit="1">Nộp bài · chấm điểm</button></div>`;
-};
+}
+VIEWS.zh_exam = examView;
+VIEWS.ru_exam = examView;
 
 /* ---------------- Hanzi Writer ---------------- */
 let zhWriter = null;
@@ -14184,10 +15600,10 @@ let _histReady = false, _applyingHist = false, _curDesc = null;
 function wordIsOpen(){ return document.body.classList.contains('wp-open'); }
 function histDesc(){
   const tok = (typeof wordState !== 'undefined' && wordState && wordState.token) || null;
-  return { v: state.view, lesson: state.lesson || null, zl: (state.zh && state.zh.lesson) || null, word: wordIsOpen() ? (tok || 1) : null };
+  return { v: state.view, lesson: state.lesson || null, zl: (state.zh && state.zh.lesson) || null, rl: (state.ru && state.ru.lesson) || null, word: wordIsOpen() ? (tok || 1) : null };
 }
 function descEq(a, b){
-  return !!a && !!b && a.v === b.v && (a.lesson || null) === (b.lesson || null) && (a.zl || null) === (b.zl || null) && !!a.word === !!b.word;
+  return !!a && !!b && a.v === b.v && (a.lesson || null) === (b.lesson || null) && (a.zl || null) === (b.zl || null) && (a.rl || null) === (b.rl || null) && !!a.word === !!b.word;
 }
 function syncHist(){
   if (!_histReady || _applyingHist) return;
@@ -14203,11 +15619,12 @@ function applyHist(s){
   _applyingHist = true;
   if (!s.word && wordIsOpen()) closeWord();
   else if (s.word && !wordIsOpen() && typeof s.word === 'string') openWord(s.word);
-  const changed = s.v !== state.view || (s.lesson || null) !== (state.lesson || null) || (s.zl || null) !== ((state.zh && state.zh.lesson) || null);
+  const changed = s.v !== state.view || (s.lesson || null) !== (state.lesson || null) || (s.zl || null) !== ((state.zh && state.zh.lesson) || null) || (s.rl || null) !== ((state.ru && state.ru.lesson) || null);
   if (changed){
     if (s.v !== state.view) stopAudio();
     state.view = s.v; state.lesson = s.lesson || null;
     if (state.zh) state.zh.lesson = s.zl || null;
+    if (state.ru) state.ru.lesson = s.rl || null;
     render();
   }
   _curDesc = histDesc();
@@ -15112,7 +16529,7 @@ document.addEventListener('click', e => {
   const zWl = t.closest('[data-zh-wlevel]');
   if (zWl){ state.zh.writeLevel = zWl.dataset.zhWlevel; state.zh.writeChar = ''; render(); return; }
   const zPr = t.closest('[data-zh-prac]');          // đổi cấp cho Ôn tập / Bài tập / Thi thử
-  if (zPr){ state.zh.pracLevel = zPr.dataset.zhPrac; state.zh.srs = null; state.zh.quiz = null; state.zh.exam = null; render(); return; }
+  if (zPr){ state.zh.pracLevel = zPr.dataset.zhPrac; state.zh.srs = null; state.zh.quiz = null; exCtx().st.exam = null; render(); return; }
   const zOp = t.closest('[data-zh-open]');          // nhãn "HSK 3 bài 5" trong từ điển → mở bài
   if (zOp){ const p = zOp.dataset.zhOpen.split(':'); const lv = _ZC.levels.find(x => x.id === p[0]);
     if (lv && lv.status === 'active'){ state.zh.level = p[0]; state.zh.lesson = +p[1]; go('zh_lesson'); } return; }
@@ -15128,47 +16545,76 @@ document.addEventListener('click', e => {
   }
   const zSrs = t.closest('[data-zh-srs]');
   if (zSrs){ if (state.zh.srs){ state.zh.srs.i++; state.zh.srs.show = false; render(); } return; }
-  if (t.closest('#zhFlip')){ if (state.zh.srs){ state.zh.srs.show = !state.zh.srs.show; render(); } return; }
+  if (t.closest('#zhFlip')){ const S = state.view === 'ru_srs' ? state.ru.srs : state.zh.srs; if (S){ S.show = !S.show; render(); } return; }
   if (t.closest('[data-zh-qz-start]')){ state.zh.quiz = { qs: zhMakeQuestions(10), i:0, picked:[] }; render(); return; }
   const zqz = t.closest('[data-zh-qz]');
   if (zqz){ const Q = state.zh.quiz; if (Q && Q.picked[Q.i] == null){ Q.picked[Q.i] = zqz.dataset.zhQz; render(); } return; }
   if (t.closest('[data-zh-qz-next]')){ if (state.zh.quiz){ state.zh.quiz.i++; render(); } return; }
+  /* ----- tiếng Nga ----- */
+  const rSpeak = t.closest('[data-ru-speak]');
+  if (rSpeak){ ruSpeak(rSpeak.dataset.ruSpeak); return; }
+  const rLv = t.closest('[data-ru-level]');
+  if (rLv){ const id = rLv.dataset.ruLevel, lv = _RC.levels.find(x => x.id === id); if (lv && lv.status === 'active'){ state.ru.level = id; state.ru.lesson = null; render(); } return; }
+  const rLes = t.closest('[data-ru-lesson]');
+  if (rLes){ state.ru.lesson = +rLes.dataset.ruLesson; go('ru_lesson'); return; }
+  const rLet = t.closest('[data-ru-letter]');
+  if (rLet){ state.ru.letter = rLet.dataset.ruLetter; render(); const d = $('#ruDetail'); if (d && window.innerWidth < 700) d.scrollIntoView({ behavior:'smooth', block:'start' }); return; }
+  const rWl = t.closest('[data-ru-write-letter]');
+  if (rWl){ state.ru.letter = rWl.dataset.ruWriteLetter; if (state.view === 'ru_write') render(); else go('ru_write'); return; }
+  const rTr = t.closest('[data-ru-trace]');
+  if (rTr){ if (rTr.dataset.ruTrace === 'toggle'){ state.ru.trace = !state.ru.trace; rTr.textContent = state.ru.trace ? 'Ẩn mẫu' : 'Hiện mẫu'; } if (ruTraceState){ if (rTr.dataset.ruTrace === 'clear') ruTraceState.clear(); else ruTraceState.redraw(); } return; }
+  const rW = t.closest('[data-ruw]');
+  if (rW){ state.ru.dictQ = rW.dataset.ruw; go('ru_dict'); return; }
+  const rOp = t.closest('[data-ru-open]');
+  if (rOp){ const p = rOp.dataset.ruOpen.split(':'); const lv = _RC.levels.find(x => x.id === p[0]);
+    if (lv && lv.status === 'active'){ state.ru.level = p[0]; state.ru.lesson = +p[1]; go('ru_lesson'); } return; }
+  const rPr = t.closest('[data-ru-prac]');
+  if (rPr){ state.ru.pracLevel = rPr.dataset.ruPrac; state.ru.srs = null; state.ru.quiz = null; render(); return; }
+  const rSrs = t.closest('[data-ru-srs]');
+  if (rSrs){ if (state.ru.srs){ state.ru.srs.i++; state.ru.srs.show = false; render(); } return; }
+  if (t.closest('[data-ru-qz-start]')){ state.ru.quiz = { qs: ruMakeQuestions(10), i:0, picked:[] }; render(); return; }
+  const rqz = t.closest('[data-ru-qz]');
+  if (rqz){ const Q = state.ru.quiz; if (Q && Q.picked[Q.i] == null){ Q.picked[Q.i] = rqz.dataset.ruQz; render(); } return; }
+  if (t.closest('[data-ru-qz-next]')){ if (state.ru.quiz){ state.ru.quiz.i++; render(); } return; }
+  const rTp = t.closest('[data-ru-topic]');
+  if (rTp){ state.ru.topic = rTp.dataset.ruTopic || null; render(); return; }
+
   /* ----- thi thử HSK ----- */
   const hs = t.closest('[data-hsk-start]');
   if (hs){ hskStart(hs.dataset.hskStart, hs.dataset.hskLevel); return; }
   if (t.closest('[data-hsk-resume]')){ hskResume(); return; }
-  if (t.closest('[data-hsk-discard]')){ store.set('hskExam', null); render(); return; }
+  if (t.closest('[data-hsk-discard]')){ store.set(exCtx().key, null); render(); return; }
   const ha = t.closest('[data-hsk-ans]');
-  if (ha){ const E = state.zh.exam; if (E && E.phase === 'doing' && !E.paused){ E.answers[+ha.dataset.hskAns] = +ha.dataset.opt; hskSave();
+  if (ha){ const E = exCtx().st.exam; if (E && E.phase === 'doing' && !E.paused){ E.answers[+ha.dataset.hskAns] = +ha.dataset.opt; hskSave();
       // cập nhật tại chỗ, không vẽ lại cả đề (giữ vị trí cuộn)
       const box = ha.parentElement; $$('.tk-opt', box).forEach(b => b.classList.toggle('on', b === ha));
       const bar = $('#hskBar'); if (bar){ const tmp = document.createElement('div'); tmp.innerHTML = hskBar(hskFind(E.testId), E); bar.querySelector('.hsk-tabs').innerHTML = tmp.querySelector('.hsk-tabs').innerHTML; } }
     return; }
   const hp = t.closest('[data-hsk-play]');
-  if (hp){ const E = state.zh.exam, T = E && hskFind(E.testId); if (!T) return;
+  if (hp){ const E = exCtx().st.exam, T = E && hskFind(E.testId); if (!T) return;
     const no = +hp.dataset.hskPlay, f = hskFlat(T).find(x => x.no === no); if (!f) return;
     if (E.phase === 'doing'){ if (E.paused) return; const limit = E.free ? Infinity : (T.plays == null ? 2 : T.plays); const used = E.plays[no] || 0; if (used >= limit) return;
       E.plays[no] = used + 1; hskSave(); const left = limit - E.plays[no];
       if (limit !== Infinity){ const s = hp.querySelector('small'); if (s) s.textContent = `(còn ${left} lần)`; if (left <= 0) hp.disabled = true; } }
-    zhSpeak(hskSpeech(f.q.a)); return; }
+    exCtx().speak(exCtx().speech(f.q.a)); return; }
   const ho = t.closest('[data-hsk-ord]');
-  if (ho){ const E = state.zh.exam; if (E && E.phase === 'doing' && !E.paused){ const no = +ho.dataset.hskOrd; const arr = Array.isArray(E.answers[no]) ? E.answers[no].slice() : []; arr.push(+ho.dataset.ci); E.answers[no] = arr; hskSave(); hskRefreshQ(no); } return; }
+  if (ho){ const E = exCtx().st.exam; if (E && E.phase === 'doing' && !E.paused){ const no = +ho.dataset.hskOrd; const arr = Array.isArray(E.answers[no]) ? E.answers[no].slice() : []; arr.push(+ho.dataset.ci); E.answers[no] = arr; hskSave(); hskRefreshQ(no); } return; }
   const hoc = t.closest('[data-hsk-ord-clear]');
-  if (hoc){ const E = state.zh.exam; if (E){ delete E.answers[+hoc.dataset.hskOrdClear]; hskSave(); hskRefreshQ(+hoc.dataset.hskOrdClear); } return; }
+  if (hoc){ const E = exCtx().st.exam; if (E){ delete E.answers[+hoc.dataset.hskOrdClear]; hskSave(); hskRefreshQ(+hoc.dataset.hskOrdClear); } return; }
   const hj = t.closest('[data-hsk-jump]');
   if (hj){ const el = document.getElementById(hj.dataset.hskJump); if (el) el.scrollIntoView({ behavior:'smooth', block:'start' }); return; }
-  if (t.closest('[data-hsk-pause]')){ const E = state.zh.exam; if (E && E.phase === 'doing'){ E.paused = !E.paused; if (E.paused){ try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch(e){} } hskSave(); render(); } return; }
-  if (t.closest('[data-hsk-reset]')){ const E = state.zh.exam; if (E && confirm('Làm lại từ đầu? Toàn bộ câu trả lời và thời gian sẽ được đặt lại.')){ const T = hskFind(E.testId); hskStop(); hskStart(T && T.quick ? 'quick' : E.testId, T && T.level); } return; }
-  if (t.closest('[data-hsk-submit]')){ const E = state.zh.exam; if (E && E.phase === 'doing'){ const T = hskFind(E.testId); const g = T ? hskGrade(T) : { unanswered:0 };
+  if (t.closest('[data-hsk-pause]')){ const E = exCtx().st.exam; if (E && E.phase === 'doing'){ E.paused = !E.paused; if (E.paused){ try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch(e){} } hskSave(); render(); } return; }
+  if (t.closest('[data-hsk-reset]')){ const E = exCtx().st.exam; if (E && confirm('Làm lại từ đầu? Toàn bộ câu trả lời và thời gian sẽ được đặt lại.')){ const T = hskFind(E.testId); hskStop(); hskStart(T && T.quick ? 'quick' : E.testId, T && T.level); } return; }
+  if (t.closest('[data-hsk-submit]')){ const E = exCtx().st.exam; if (E && E.phase === 'doing'){ const T = hskFind(E.testId); const g = T ? hskGrade(T) : { unanswered:0 };
       if (g.unanswered > 0 && !confirm(`Còn ${g.unanswered} câu chưa làm. Nộp bài luôn?`)) return;
-      hskStop(); E.phase = 'done'; E.paused = false; store.set('hskExam', null); render(); window.scrollTo({ top:0 }); } return; }
+      hskStop(); E.phase = 'done'; E.paused = false; store.set(exCtx().key, null); render(); window.scrollTo({ top:0 }); } return; }
   const hr = t.closest('[data-hsk-retry]');
-  if (hr){ const E = state.zh.exam; const T = E && hskFind(E.testId); hskStart(T && T.quick ? 'quick' : hr.dataset.hskRetry, hr.dataset.hskLevel || (T && T.level)); return; }
-  if (t.closest('[data-hsk-home]') || t.closest('[data-hsk-exit]')){ const E = state.zh.exam;
+  if (hr){ const E = exCtx().st.exam; const T = E && hskFind(E.testId); hskStart(T && T.quick ? 'quick' : hr.dataset.hskRetry, hr.dataset.hskLevel || (T && T.level)); return; }
+  if (t.closest('[data-hsk-home]') || t.closest('[data-hsk-exit]')){ const E = exCtx().st.exam;
     if (E && E.phase === 'doing'){ if (!confirm('Thoát ra danh sách đề? Bài đang làm sẽ được lưu để tiếp tục sau (trừ đề kiểm tra nhanh).')) return; E.paused = true; hskSave(); }
-    hskStop(); state.zh.exam = null; render(); window.scrollTo({ top:0 }); return; }
+    hskStop(); exCtx().st.exam = null; render(); window.scrollTo({ top:0 }); return; }
   const hf = t.closest('[data-hsk-filter]');
-  if (hf){ if (state.zh.exam){ state.zh.exam.filter = hf.dataset.hskFilter; render(); } return; }
+  if (hf){ if (exCtx().st.exam){ exCtx().st.exam.filter = hf.dataset.hskFilter; render(); } return; }
 
   const nav = t.closest('[data-go]');
   if (nav){ go(nav.dataset.go); return; }
@@ -15408,7 +16854,7 @@ document.addEventListener('keydown', e => {
 /* hộp kiểm "Nghe không giới hạn" trong đề HSK */
 document.addEventListener('change', e => {
   if (e.target.dataset && e.target.dataset.hskFree != null){
-    const E = state.zh.exam; if (!E || E.phase !== 'doing') return;
+    const E = exCtx().st.exam; if (!E || E.phase !== 'doing') return;
     E.free = !!e.target.checked; hskSave(); render();
   }
 });
@@ -15427,12 +16873,13 @@ document.addEventListener('input', e => {
     return;
   }
   if (e.target.id === 'zhq'){ const box = $('#zhResults'); if (box) box.innerHTML = zhDictResults(e.target.value); return; }
+  if (e.target.id === 'ruq'){ const box = $('#ruResults'); if (box) box.innerHTML = ruDictResults(e.target.value); return; }
   if (e.target.dataset && e.target.dataset.hskIn != null){            // ô viết chữ / câu / đoạn trong đề HSK
-    const E = state.zh.exam; if (!E || E.phase !== 'doing') return;
+    const E = exCtx().st.exam; if (!E || E.phase !== 'doing') return;
     const no = +e.target.dataset.hskIn, v = e.target.value;
     if (v.trim()) E.answers[no] = v; else delete E.answers[no];
     const T = hskFind(E.testId), f = T && hskFlat(T).find(x => x.no === no);
-    const c = document.getElementById('hskCnt' + no); if (c && f) c.textContent = `${hskHan(v)} chữ Hán${f.q.min ? ' / tối thiểu ' + f.q.min : ''}`;
+    const c = document.getElementById('hskCnt' + no); if (c && f) c.textContent = `${exCount(T, v)} ${exUnit(T)}${f.q.min ? ' / tối thiểu ' + f.q.min : ''}`;
     clearTimeout(hskSaveT); hskSaveT = setTimeout(() => { hskSave(); const bar = $('#hskBar'); if (bar && T){ const tmp = document.createElement('div'); tmp.innerHTML = hskBar(T, E); bar.querySelector('.hsk-tabs').innerHTML = tmp.querySelector('.hsk-tabs').innerHTML; } }, 400);
     return;
   }
@@ -15464,8 +16911,8 @@ function applyTheme(){
 /* Màu thanh trạng thái (PWA/điện thoại) theo ngôn ngữ đang xem + chế độ sáng/tối */
 function syncThemeColor(){
   try {
-    const zh = document.documentElement.getAttribute('data-lang') === 'zh';
-    const pal = zh ? { light:'#F8F2F1', dark:'#17100F' } : { light:'#EAF1FB', dark:'#0B1220' };
+    const lang = document.documentElement.getAttribute('data-lang');
+    const pal = lang === 'zh' ? { light:'#F8F2F1', dark:'#17100F' } : lang === 'ru' ? { light:'#E6ECF6', dark:'#0B1428' } : { light:'#EAF1FB', dark:'#0B1220' };
     document.querySelectorAll('meta[name="theme-color"]').forEach(m => {
       const media = m.getAttribute('media') || '';
       m.setAttribute('content', /dark/.test(media) ? pal.dark : pal.light);
@@ -15505,6 +16952,8 @@ applyTheme();
     const act = _ZC.levels.filter(v => v.status === 'active');
     const b = document.querySelector('[data-go="zh_home"] .mi-count');
     if (b && act.length) b.textContent = act.length > 1 ? `HSK1–${act.length}` : 'HSK1';
+    const ra = _RC.levels.filter(v => v.status === 'active'), rb = document.querySelector('[data-go="ru_home"] .mi-count');
+    if (rb && ra.length) rb.textContent = ra.length > 1 ? `A1–${ruLevelName(ra[ra.length - 1].id)}` : 'A1';
   } catch(e){}
 })();
 render();
