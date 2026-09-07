@@ -11,7 +11,7 @@ const COURSE_EN = {
   levels: [
     { id:'a1', vi:'A1 · Sơ cấp',        en:'Beginner',           lessons:20, status:'active' },
     { id:'a2', vi:'A2 · Sơ trung cấp',  en:'Elementary',         lessons:20, status:'active' },
-    { id:'b1', vi:'B1 · Trung cấp',     en:'Intermediate',       lessons:20, status:'soon' },
+    { id:'b1', vi:'B1 · Trung cấp',     en:'Intermediate',       lessons:20, status:'active' },
     { id:'b2', vi:'B2 · Trung cao cấp', en:'Upper-Intermediate', lessons:20, status:'soon' },
     { id:'c1', vi:'C1 · Cao cấp',       en:'Advanced',           lessons:20, status:'soon' },
     { id:'c2', vi:'C2 · Thành thạo',    en:'Proficiency',        lessons:20, status:'soon' }
@@ -1861,7 +1861,470 @@ const COURSE_EN = {
       { sp:'Quan', en:'Twenty minutes. Luckily the manager was late too, so it turned out fine.', vi:'Hai mươi phút ạ. May là quản lý cũng tới muộn, nên hoá ra lại ổn.' }
     ],
     reading:{ en:'Hi Linh,\n\nI am writing to tell you about my first day at work, because I know you will laugh. I got up at five, although I did not have to be there until nine. I was so nervous that I could not eat breakfast. While I was waiting for the bus, it started to rain and I did not have an umbrella, so I arrived with wet shoes.\n\nUnfortunately, that was not the end. During the morning meeting my computer stopped working and somebody had to help me twice. Luckily everyone was friendly, and my manager said her first day had been worse.\n\nTo cut a long story short, I survived. Looking back on it now, I am glad it happened, because after that day nothing at the office has frightened me.\n\nWrite back and tell me about your week!\n\nBest wishes,\nQuan',
-      vi:'Chào Linh,\n\nMình viết thư kể cho bạn nghe về ngày đầu đi làm, vì mình biết thế nào bạn cũng cười. Mình dậy từ năm giờ, dù chín giờ mới phải có mặt. Mình hồi hộp tới mức không ăn nổi bữa sáng. Trong lúc đợi xe buýt thì trời đổ mưa mà mình lại không mang ô, nên tới nơi với đôi giày ướt sũng.\n\nKhông may là chuyện chưa dừng ở đó. Trong buổi họp sáng, máy tính của mình hỏng và có người phải giúp mình tới hai lần. May là mọi người đều thân thiện, và chị quản lý bảo ngày đầu của chị còn tệ hơn.\n\nNói ngắn gọn thì mình sống sót. Nhìn lại bây giờ, mình mừng vì chuyện đó đã xảy ra, bởi sau ngày hôm ấy chẳng còn gì ở văn phòng làm mình sợ nữa.\n\nViết thư lại kể cho mình nghe tuần của bạn nhé!\n\nThân mến,\nQuân' } }
+      vi:'Chào Linh,\n\nMình viết thư kể cho bạn nghe về ngày đầu đi làm, vì mình biết thế nào bạn cũng cười. Mình dậy từ năm giờ, dù chín giờ mới phải có mặt. Mình hồi hộp tới mức không ăn nổi bữa sáng. Trong lúc đợi xe buýt thì trời đổ mưa mà mình lại không mang ô, nên tới nơi với đôi giày ướt sũng.\n\nKhông may là chuyện chưa dừng ở đó. Trong buổi họp sáng, máy tính của mình hỏng và có người phải giúp mình tới hai lần. May là mọi người đều thân thiện, và chị quản lý bảo ngày đầu của chị còn tệ hơn.\n\nNói ngắn gọn thì mình sống sót. Nhìn lại bây giờ, mình mừng vì chuyện đó đã xảy ra, bởi sau ngày hôm ấy chẳng còn gì ở văn phòng làm mình sợ nữa.\n\nViết thư lại kể cho mình nghe tuần của bạn nhé!\n\nThân mến,\nQuân' } },
+
+  /* ==================== B1 ==================== */
+  { level:'b1', no:1, en:'How long have you been doing that?', vi:'Hiện tại hoàn thành tiếp diễn', skill:'Nói về quá trình',
+    grammar:[
+      { form:'have/has been + V-ing', vi:'Nhấn vào QUÁ TRÌNH kéo dài từ quá khứ tới hiện tại, có thể còn tiếp tục.', note:'So sánh: I have read three books (kết quả) ≠ I have been reading all day (quá trình).', ex:{ en:'She has been working here since March.', vi:'Cô ấy làm ở đây từ tháng Ba.' } },
+      { form:'Động từ không dùng thể tiếp diễn', vi:'know, believe, own, belong, understand, need, want.', note:'Với chúng, dùng hiện tại hoàn thành đơn: I have known him for years.', ex:{ en:'I have known her for ten years.', vi:'Tôi quen cô ấy mười năm rồi.' } },
+      { form:'Kết quả nhìn thấy được', vi:'Hoàn thành tiếp diễn hay dùng để giải thích một dấu hiệu ở hiện tại.', note:'Your eyes are red — have you been crying?', ex:{ en:'He is tired because he has been studying all night.', vi:'Cậu ấy mệt vì thức học cả đêm.' } },
+      { form:'How long vs How many times', vi:'How long + hoàn thành tiếp diễn (khoảng thời gian) · How many times + hoàn thành đơn (số lần).', note:'Câu hỏi số lần luôn dùng thể đơn.', ex:{ en:'How long have you been learning English?', vi:'Bạn học tiếng Anh bao lâu rồi?' } }
+    ],
+    vocab:[
+      { en:'process', uk:'ˈprəʊses', us:'ˈprɑːses', vi:'quá trình', pos:'danh từ' },
+      { en:'gradually', uk:'ˈɡrædʒuəli', us:'ˈɡrædʒuəli', vi:'dần dần', pos:'trạng từ' },
+      { en:'constantly', uk:'ˈkɒnstəntli', us:'ˈkɑːnstəntli', vi:'liên tục', pos:'trạng từ' },
+      { en:'recently', uk:'ˈriːsntli', us:'ˈriːsntli', vi:'gần đây', pos:'trạng từ' },
+      { en:'achievement', uk:'əˈtʃiːvmənt', us:'əˈtʃiːvmənt', vi:'thành tựu', pos:'danh từ' },
+      { en:'commitment', uk:'kəˈmɪtmənt', us:'kəˈmɪtmənt', vi:'sự cam kết, tận tâm', pos:'danh từ' },
+      { en:'discipline', uk:'ˈdɪsəplɪn', us:'ˈdɪsəplɪn', vi:'kỷ luật', pos:'danh từ' },
+      { en:'consistent', uk:'kənˈsɪstənt', us:'kənˈsɪstənt', vi:'đều đặn, nhất quán', pos:'tính từ' },
+      { en:'exhausting', uk:'ɪɡˈzɔːstɪŋ', us:'ɪɡˈzɔːstɪŋ', vi:'làm kiệt sức', pos:'tính từ' },
+      { en:'worthwhile', uk:'ˌwɜːθˈwaɪl', us:'ˌwɜːrθˈwaɪl', vi:'đáng công', pos:'tính từ' },
+      { en:'pursue', uk:'pəˈsjuː', us:'pərˈsuː', vi:'theo đuổi', pos:'động từ' },
+      { en:'maintain', uk:'meɪnˈteɪn', us:'meɪnˈteɪn', vi:'duy trì', pos:'động từ' },
+      { en:'struggle', uk:'ˈstrʌɡl', us:'ˈstrʌɡl', vi:'vật lộn, chật vật', pos:'động từ', note:'struggle WITH / TO do' },
+      { en:'overcome', uk:'ˌəʊvəˈkʌm', us:'ˌoʊvərˈkʌm', vi:'vượt qua', pos:'động từ', note:'overcame — overcome' },
+      { en:'improve', uk:'ɪmˈpruːv', us:'ɪmˈpruːv', vi:'cải thiện', pos:'động từ' },
+      { en:'gain', uk:'ɡeɪn', us:'ɡeɪn', vi:'đạt được, có thêm', pos:'động từ' },
+      { en:'measure', uk:'ˈmeʒə', us:'ˈmeʒər', vi:'đo lường', pos:'động từ' },
+      { en:'track', uk:'træk', us:'træk', vi:'theo dõi tiến độ', pos:'động từ' },
+      { en:'setback', uk:'ˈsetbæk', us:'ˈsetbæk', vi:'trở ngại, bước lùi', pos:'danh từ' },
+      { en:'milestone', uk:'ˈmaɪlstəʊn', us:'ˈmaɪlstoʊn', vi:'cột mốc', pos:'danh từ' }
+    ],
+    colloc:[
+      { p:'make steady progress', vi:'tiến bộ đều đặn', ex:'She has been making steady progress since January.' },
+      { p:'stick at something', vi:'kiên trì với việc gì', ex:'If you stick at it, you will get there.' },
+      { p:'it pays off in the end', vi:'rốt cuộc sẽ được đền đáp', ex:'All that practice pays off in the end.' }
+    ],
+    dialogue:[
+      { sp:'Mentor', en:'How long have you been preparing for the exam?', vi:'Em ôn thi được bao lâu rồi?' },
+      { sp:'Quan', en:'For about five months. I have been studying almost every evening.', vi:'Khoảng năm tháng ạ. Tối nào em cũng học.' },
+      { sp:'Mentor', en:'And how many practice tests have you done?', vi:'Em đã làm bao nhiêu đề thử?' },
+      { sp:'Quan', en:'Twelve so far. My reading has improved a lot.', vi:'Tới giờ là mười hai đề. Kỹ năng đọc của em khá lên nhiều.' },
+      { sp:'Mentor', en:'You look tired though.', vi:'Nhưng trông em mệt đấy.' },
+      { sp:'Quan', en:'I have been sleeping badly. Writing is still a struggle.', vi:'Em ngủ không ngon. Phần viết vẫn còn chật vật.' },
+      { sp:'Mentor', en:'Then track it. Write one paragraph a day, not one essay a week.', vi:'Vậy thì theo dõi tiến độ đi. Viết một đoạn mỗi ngày, thay vì một bài mỗi tuần.' }
+    ],
+    reading:{ en:'Quan has been preparing for an international exam for five months. In that time he has completed twelve practice tests, learned about three thousand words and joined a speaking club that meets twice a week. His reading score has improved from twenty-four to thirty-two, but his writing has remained the same, and this has been frustrating. His mentor pointed out that he has been treating writing as a weekly event rather than a daily habit. Since he changed his routine and started writing one short paragraph every morning, he has been making steady progress again.',
+      vi:'Quân ôn thi chứng chỉ quốc tế được năm tháng. Trong thời gian đó cậu đã làm mười hai đề thử, học khoảng ba nghìn từ và tham gia câu lạc bộ nói sinh hoạt hai buổi một tuần. Điểm đọc của cậu tăng từ hai mươi tư lên ba mươi hai, nhưng phần viết vẫn giậm chân, và điều đó khiến cậu bực bội. Người hướng dẫn chỉ ra rằng cậu đang coi viết là việc làm mỗi tuần một lần thay vì một thói quen hằng ngày. Từ khi đổi nếp học và bắt đầu viết một đoạn ngắn mỗi sáng, cậu lại tiến bộ đều đặn.' } },
+
+  { level:'b1', no:2, en:'The film had already started', vi:'Quá khứ hoàn thành', skill:'Kể chuyện nhiều lớp thời gian',
+    grammar:[
+      { form:'had + V3', vi:'Việc xảy ra TRƯỚC một mốc quá khứ khác.', note:'Chỉ dùng khi thứ tự thời gian không rõ; nếu đã có «before» hay «after» thì quá khứ đơn là đủ.', ex:{ en:'When I arrived, the film had already started.', vi:'Khi tôi tới thì phim đã bắt đầu rồi.' } },
+      { form:'had been + V-ing', vi:'Quá trình kéo dài trước một mốc quá khứ.', note:'She had been waiting for an hour when he finally called.', ex:{ en:'They had been driving for six hours before they stopped.', vi:'Họ lái xe sáu tiếng liền rồi mới dừng.' } },
+      { form:'Ba lớp thời gian trong một câu chuyện', vi:'Nền (quá khứ tiếp diễn) → sự việc (quá khứ đơn) → bối cảnh trước đó (quá khứ hoàn thành).', note:'Đây là bộ khung của mọi bài kể chuyện tiếng Anh.', ex:{ en:'I was walking home when I met Linh, who had just come back from Hue.', vi:'Tôi đang đi bộ về thì gặp Linh, người vừa từ Huế trở về.' } },
+      { form:'By the time…', vi:'Đi kèm quá khứ hoàn thành rất tự nhiên.', note:'By the time we arrived, everyone had left.', ex:{ en:'By the time the ambulance came, he had recovered.', vi:'Tới lúc xe cứu thương đến thì anh ấy đã tỉnh lại.' } }
+    ],
+    vocab:[
+      { en:'incident', uk:'ˈɪnsɪdənt', us:'ˈɪnsɪdənt', vi:'sự việc, vụ việc', pos:'danh từ' },
+      { en:'witness', uk:'ˈwɪtnəs', us:'ˈwɪtnəs', vi:'nhân chứng; chứng kiến', pos:'danh từ, động từ' },
+      { en:'realise', uk:'ˈrɪəlaɪz', us:'ˈriːəlaɪz', vi:'nhận ra', pos:'động từ' },
+      { en:'recall', uk:'rɪˈkɔːl', us:'rɪˈkɔːl', vi:'nhớ lại', pos:'động từ' },
+      { en:'assume', uk:'əˈsjuːm', us:'əˈsuːm', vi:'cho rằng, mặc định', pos:'động từ' },
+      { en:'discover', uk:'dɪˈskʌvə', us:'dɪˈskʌvər', vi:'phát hiện', pos:'động từ' },
+      { en:'admit', uk:'ədˈmɪt', us:'ədˈmɪt', vi:'thừa nhận', pos:'động từ' },
+      { en:'apologise', uk:'əˈpɒlədʒaɪz', us:'əˈpɑːlədʒaɪz', vi:'xin lỗi', pos:'động từ' },
+      { en:'confused', uk:'kənˈfjuːzd', us:'kənˈfjuːzd', vi:'bối rối', pos:'tính từ' },
+      { en:'embarrassed', uk:'ɪmˈbærəst', us:'ɪmˈberəst', vi:'ngượng', pos:'tính từ' },
+      { en:'relieved', uk:'rɪˈliːvd', us:'rɪˈliːvd', vi:'nhẹ nhõm', pos:'tính từ' },
+      { en:'suspicious', uk:'səˈspɪʃəs', us:'səˈspɪʃəs', vi:'nghi ngờ; đáng ngờ', pos:'tính từ' },
+      { en:'coincidence', uk:'kəʊˈɪnsɪdəns', us:'koʊˈɪnsɪdəns', vi:'sự trùng hợp', pos:'danh từ' },
+      { en:'misunderstanding', uk:'ˌmɪsʌndəˈstændɪŋ', us:'ˌmɪsʌndərˈstændɪŋ', vi:'sự hiểu lầm', pos:'danh từ' },
+      { en:'explanation', uk:'ˌekspləˈneɪʃn', us:'ˌekspləˈneɪʃn', vi:'lời giải thích', pos:'danh từ' },
+      { en:'evidence', uk:'ˈevɪdəns', us:'ˈevɪdəns', vi:'bằng chứng', pos:'danh từ', note:'không đếm được' },
+      { en:'previously', uk:'ˈpriːviəsli', us:'ˈpriːviəsli', vi:'trước đó', pos:'trạng từ' },
+      { en:'eventually', uk:'ɪˈventʃuəli', us:'ɪˈventʃuəli', vi:'cuối cùng thì', pos:'trạng từ' },
+      { en:'meanwhile', uk:'ˈmiːnwaɪl', us:'ˈmiːnwaɪl', vi:'trong khi đó', pos:'trạng từ' },
+      { en:'afterwards', uk:'ˈɑːftəwədz', us:'ˈæftərwərdz', vi:'sau đó', pos:'trạng từ' }
+    ],
+    colloc:[
+      { p:'come to a conclusion', vi:'đi tới kết luận', ex:'We came to the conclusion that it had been a mistake.' },
+      { p:'jump to conclusions', vi:'vội vàng kết luận', ex:'Do not jump to conclusions before you hear the facts.' },
+      { p:'clear up a misunderstanding', vi:'làm sáng tỏ hiểu lầm', ex:'One phone call cleared up the misunderstanding.' }
+    ],
+    dialogue:[
+      { sp:'Linh', en:'Why did you look so worried this morning?', vi:'Sáng nay sao trông bạn lo thế?' },
+      { sp:'Quan', en:'I thought I had lost my wallet.', vi:'Tớ tưởng mình mất ví.' },
+      { sp:'Linh', en:'Where had you left it?', vi:'Bạn để quên ở đâu?' },
+      { sp:'Quan', en:'In my jacket. I had put it there the night before and forgotten.', vi:'Trong áo khoác. Tối trước tớ để vào đó rồi quên mất.' },
+      { sp:'Linh', en:'So you had been searching for nothing.', vi:'Vậy là bạn tìm kiếm vô ích.' },
+      { sp:'Quan', en:'Exactly. By the time I found it, I had already cancelled my card.', vi:'Chính xác. Tới lúc tìm thấy thì tớ đã khoá thẻ mất rồi.' },
+      { sp:'Linh', en:'That is a lesson: do not jump to conclusions.', vi:'Bài học đấy: đừng vội kết luận.' }
+    ],
+    reading:{ en:'Last Tuesday Quan was walking to the bus stop when he realised that his wallet was not in his bag. He had used it at a coffee shop the previous evening, so he assumed he had left it there. He went back, but the staff said nobody had handed anything in. Feeling anxious, he called the bank and cancelled his card. Ten minutes later, while he was looking for his keys, he found the wallet in the inside pocket of the jacket he had worn the night before. He had never checked that pocket. Afterwards he admitted that he had panicked far too quickly.',
+      vi:'Thứ Ba tuần trước Quân đang đi bộ ra bến xe buýt thì nhận ra cái ví không có trong cặp. Tối hôm trước cậu đã dùng nó ở quán cà phê, nên cậu đoán mình để quên ở đó. Cậu quay lại, nhưng nhân viên nói không ai nộp lại gì cả. Lo lắng, cậu gọi ngân hàng khoá thẻ. Mười phút sau, trong lúc tìm chìa khoá, cậu thấy cái ví trong túi trong của chiếc áo khoác mặc tối hôm trước. Cậu chưa từng kiểm tra cái túi đó. Sau đó cậu thừa nhận mình đã hoảng quá vội.' } },
+
+  { level:'b1', no:3, en:'Ways of talking about the future', vi:'Các cách nói tương lai', skill:'Dự đoán, hẹn lịch',
+    grammar:[
+      { form:'will vs be going to', vi:'will = quyết định tức thì, dự đoán chung · be going to = dự định đã có, dự đoán có dấu hiệu.', note:'Look at those clouds — it is going to rain (có dấu hiệu). I think it will rain (chỉ đoán).', ex:{ en:'I will help you with that box.', vi:'Để tôi giúp bạn cái hộp đó.' } },
+      { form:'Hiện tại tiếp diễn chỉ lịch hẹn', vi:'Việc đã sắp xếp, có thời gian và địa điểm cụ thể.', note:'I am meeting the client at three — tự nhiên hơn hẳn «I will meet».', ex:{ en:'We are flying to Singapore on Monday.', vi:'Thứ Hai chúng tôi bay đi Singapore.' } },
+      { form:'Hiện tại đơn chỉ lịch cố định', vi:'Thời gian biểu của tàu xe, rạp phim, lớp học.', note:'The train leaves at seven — lịch cố định, không phải ý định cá nhân.', ex:{ en:'The conference starts on 12 October.', vi:'Hội thảo bắt đầu ngày 12 tháng Mười.' } },
+      { form:'Tương lai tiếp diễn và tương lai hoàn thành', vi:'will be + V-ing (đang diễn ra tại một mốc) · will have + V3 (hoàn tất trước một mốc).', note:'This time next week I will be flying. By June I will have finished.', ex:{ en:'By 2030 the city will have doubled in size.', vi:'Tới năm 2030 thành phố sẽ tăng gấp đôi diện tích.' } }
+    ],
+    vocab:[
+      { en:'forecast', uk:'ˈfɔːkɑːst', us:'ˈfɔːrkæst', vi:'dự báo', pos:'danh từ, động từ' },
+      { en:'predict', uk:'prɪˈdɪkt', us:'prɪˈdɪkt', vi:'dự đoán', pos:'động từ' },
+      { en:'estimate', uk:'ˈestɪmeɪt', us:'ˈestɪmeɪt', vi:'ước tính', pos:'động từ' },
+      { en:'expect', uk:'ɪkˈspekt', us:'ɪkˈspekt', vi:'dự kiến, mong đợi', pos:'động từ' },
+      { en:'arrange', uk:'əˈreɪndʒ', us:'əˈreɪndʒ', vi:'sắp xếp', pos:'động từ' },
+      { en:'postpone', uk:'pəˈspəʊn', us:'poʊˈspoʊn', vi:'hoãn lại', pos:'động từ', note:'trang trọng hơn put off' },
+      { en:'confirm', uk:'kənˈfɜːm', us:'kənˈfɜːrm', vi:'xác nhận', pos:'động từ' },
+      { en:'appointment', uk:'əˈpɔɪntmənt', us:'əˈpɔɪntmənt', vi:'cuộc hẹn', pos:'danh từ' },
+      { en:'agenda', uk:'əˈdʒendə', us:'əˈdʒendə', vi:'chương trình nghị sự', pos:'danh từ' },
+      { en:'deadline', uk:'ˈdedlaɪn', us:'ˈdedlaɪn', vi:'hạn chót', pos:'danh từ' },
+      { en:'likely', uk:'ˈlaɪkli', us:'ˈlaɪkli', vi:'có khả năng', pos:'tính từ', note:'be likely TO do' },
+      { en:'unlikely', uk:'ʌnˈlaɪkli', us:'ʌnˈlaɪkli', vi:'khó xảy ra', pos:'tính từ' },
+      { en:'inevitable', uk:'ɪnˈevɪtəbl', us:'ɪnˈevɪtəbl', vi:'không tránh khỏi', pos:'tính từ' },
+      { en:'temporary', uk:'ˈtemprəri', us:'ˈtempəreri', vi:'tạm thời', pos:'tính từ' },
+      { en:'permanent', uk:'ˈpɜːmənənt', us:'ˈpɜːrmənənt', vi:'lâu dài, vĩnh viễn', pos:'tính từ' },
+      { en:'schedule', uk:'ˈʃedjuːl', us:'ˈskedʒuːl', vi:'lịch trình', pos:'danh từ' },
+      { en:'trend', uk:'trend', us:'trend', vi:'xu hướng', pos:'danh từ' },
+      { en:'shortly', uk:'ˈʃɔːtli', us:'ˈʃɔːrtli', vi:'chẳng bao lâu nữa', pos:'trạng từ' },
+      { en:'eventually', uk:'ɪˈventʃuəli', us:'ɪˈventʃuəli', vi:'rốt cuộc', pos:'trạng từ' },
+      { en:'in advance', uk:'ɪn ədˈvɑːns', us:'ɪn ədˈvæns', vi:'trước, sớm', pos:'cụm trạng từ' }
+    ],
+    colloc:[
+      { p:'be likely to happen', vi:'có khả năng xảy ra — thay cho «maybe» trong văn viết', ex:'Prices are likely to rise next year.' },
+      { p:'book in advance', vi:'đặt trước', ex:'You should book the tickets well in advance.' },
+      { p:'bring forward / put back a meeting', vi:'dời cuộc họp lên sớm / lùi lại muộn', ex:'Can we bring the meeting forward to Tuesday?' }
+    ],
+    dialogue:[
+      { sp:'Ms Ha', en:'What are you doing on Thursday morning?', vi:'Sáng thứ Năm em làm gì?' },
+      { sp:'Quan', en:'I am meeting the design team at nine.', vi:'Chín giờ em họp với nhóm thiết kế ạ.' },
+      { sp:'Ms Ha', en:'The client call has been brought forward. Will you be free at eleven?', vi:'Cuộc gọi với khách được dời lên sớm. Mười một giờ em rảnh chứ?' },
+      { sp:'Quan', en:'Yes. By eleven I will have finished the meeting.', vi:'Vâng ạ. Tới mười một giờ em sẽ họp xong.' },
+      { sp:'Ms Ha', en:'Good. The call starts at eleven fifteen and lasts an hour.', vi:'Tốt. Cuộc gọi bắt đầu lúc mười một giờ mười lăm, kéo dài một tiếng.' },
+      { sp:'Quan', en:'I will send the slides in advance so nobody is surprised.', vi:'Em sẽ gửi slide trước để không ai bất ngờ.' },
+      { sp:'Ms Ha', en:'Perfect. It is likely that they will ask about the budget.', vi:'Tuyệt. Nhiều khả năng họ sẽ hỏi về ngân sách đấy.' }
+    ],
+    reading:{ en:'The city is changing quickly. According to the latest forecast, the population will reach twelve million within fifteen years, and the government is building three new metro lines to deal with the traffic. The first line opens next spring; the second is due in 2029. Experts predict that by 2035 more than half of daily journeys will be made by public transport. Not everyone is convinced: some argue that unless ticket prices stay low, people are unlikely to leave their motorbikes at home. What is certain is that this time next decade the city will be looking very different.',
+      vi:'Thành phố đang thay đổi nhanh chóng. Theo dự báo mới nhất, dân số sẽ đạt mười hai triệu trong vòng mười lăm năm, và chính quyền đang xây ba tuyến metro mới để giải quyết giao thông. Tuyến đầu tiên mở vào mùa xuân tới; tuyến thứ hai dự kiến năm 2029. Các chuyên gia dự đoán tới năm 2035, hơn một nửa số chuyến đi hằng ngày sẽ dùng giao thông công cộng. Không phải ai cũng tin: một số người cho rằng nếu giá vé không giữ ở mức thấp, người dân khó mà để xe máy ở nhà. Điều chắc chắn là mười năm nữa thành phố sẽ trông rất khác.' } },
+
+  { level:'b1', no:4, en:'It must be true', vi:'Động từ khuyết thiếu chỉ suy đoán', skill:'Suy luận, phỏng đoán',
+    grammar:[
+      { form:'must / can’t — suy đoán chắc chắn', vi:'must be = chắc hẳn là · can’t be = chắc chắn không phải.', note:'Phủ định của «must be» KHÔNG phải «mustn’t be» mà là «can’t be».', ex:{ en:'He must be tired — he has been driving all day.', vi:'Chắc anh ấy mệt lắm, lái xe cả ngày rồi.' } },
+      { form:'might / may / could — suy đoán yếu', vi:'Có thể, có lẽ; mức độ chắc chắn thấp.', note:'Ba từ gần như thay thế nhau được khi suy đoán.', ex:{ en:'She might be at the library.', vi:'Có lẽ cô ấy đang ở thư viện.' } },
+      { form:'Suy đoán về quá khứ: modal + have + V3', vi:'must have been / can’t have been / might have been.', note:'Trong lời nói, «have» đọc yếu thành /əv/: must’ve been.', ex:{ en:'They must have left early.', vi:'Chắc họ đã đi sớm.' } },
+      { form:'should have + V3 — lẽ ra', vi:'Nói về việc đáng lẽ nên làm nhưng đã không làm.', note:'Mang sắc thái tiếc nuối hoặc trách nhẹ.', ex:{ en:'I should have checked the pocket first.', vi:'Lẽ ra tôi nên kiểm tra cái túi trước.' } }
+    ],
+    vocab:[
+      { en:'assume', uk:'əˈsjuːm', us:'əˈsuːm', vi:'giả định', pos:'động từ' },
+      { en:'conclude', uk:'kənˈkluːd', us:'kənˈkluːd', vi:'kết luận', pos:'động từ' },
+      { en:'suspect', uk:'səˈspekt', us:'səˈspekt', vi:'nghi ngờ', pos:'động từ', note:'danh từ nhấn âm đầu ˈsʌspekt' },
+      { en:'doubt', uk:'daʊt', us:'daʊt', vi:'nghi ngờ; sự nghi ngờ', pos:'động từ, danh từ', note:'b câm' },
+      { en:'obvious', uk:'ˈɒbviəs', us:'ˈɑːbviəs', vi:'hiển nhiên', pos:'tính từ' },
+      { en:'apparent', uk:'əˈpærənt', us:'əˈpærənt', vi:'rõ ràng; có vẻ như', pos:'tính từ' },
+      { en:'certain', uk:'ˈsɜːtn', us:'ˈsɜːrtn', vi:'chắc chắn', pos:'tính từ' },
+      { en:'probable', uk:'ˈprɒbəbl', us:'ˈprɑːbəbl', vi:'nhiều khả năng', pos:'tính từ' },
+      { en:'impossible', uk:'ɪmˈpɒsəbl', us:'ɪmˈpɑːsəbl', vi:'bất khả thi', pos:'tính từ' },
+      { en:'clue', uk:'kluː', us:'kluː', vi:'manh mối', pos:'danh từ' },
+      { en:'proof', uk:'pruːf', us:'pruːf', vi:'bằng chứng', pos:'danh từ' },
+      { en:'guess', uk:'ɡes', us:'ɡes', vi:'đoán', pos:'động từ' },
+      { en:'reasonable', uk:'ˈriːznəbl', us:'ˈriːznəbl', vi:'hợp lý', pos:'tính từ' },
+      { en:'logical', uk:'ˈlɒdʒɪkl', us:'ˈlɑːdʒɪkl', vi:'hợp logic', pos:'tính từ' },
+      { en:'unlikely', uk:'ʌnˈlaɪkli', us:'ʌnˈlaɪkli', vi:'khó xảy ra', pos:'tính từ' },
+      { en:'regret', uk:'rɪˈɡret', us:'rɪˈɡret', vi:'hối tiếc', pos:'động từ' },
+      { en:'blame', uk:'bleɪm', us:'bleɪm', vi:'đổ lỗi', pos:'động từ', note:'blame someone FOR something' },
+      { en:'excuse', uk:'ɪkˈskjuːs', us:'ɪkˈskjuːs', vi:'lý do bào chữa', pos:'danh từ' },
+      { en:'deny', uk:'dɪˈnaɪ', us:'dɪˈnaɪ', vi:'phủ nhận', pos:'động từ', note:'deny + V-ing' },
+      { en:'admit', uk:'ədˈmɪt', us:'ədˈmɪt', vi:'thừa nhận', pos:'động từ', note:'admit + V-ing' }
+    ],
+    colloc:[
+      { p:'give someone the benefit of the doubt', vi:'tin tưởng dù chưa có bằng chứng', ex:'Let us give him the benefit of the doubt this time.' },
+      { p:'it stands to reason that…', vi:'lẽ tự nhiên là…', ex:'It stands to reason that fewer cars mean cleaner air.' },
+      { p:'there is no doubt that…', vi:'không nghi ngờ gì rằng…', ex:'There is no doubt that the plan needs more money.' }
+    ],
+    dialogue:[
+      { sp:'Linh', en:'Nam has not answered his phone all day.', vi:'Cả ngày Nam không nghe máy.' },
+      { sp:'Quan', en:'He might be in a meeting.', vi:'Có thể cậu ấy đang họp.' },
+      { sp:'Linh', en:'For eight hours? That can’t be right.', vi:'Tám tiếng liền á? Không thể nào.' },
+      { sp:'Quan', en:'Then his battery must have died.', vi:'Vậy chắc điện thoại cậu ấy hết pin rồi.' },
+      { sp:'Linh', en:'He should have told someone. We were supposed to meet at two.', vi:'Lẽ ra cậu ấy nên báo ai đó. Hai giờ có hẹn mà.' },
+      { sp:'Quan', en:'He may have forgotten. It is not like him, though.', vi:'Có thể cậu ấy quên. Nhưng không giống cậu ấy chút nào.' },
+      { sp:'Linh', en:'Let us give him the benefit of the doubt.', vi:'Thôi cứ tin cậu ấy lần này vậy.' }
+    ],
+    reading:{ en:'When a package arrived at the office with no name on it, everybody had a theory. It must have come from the printing company, said one colleague, because they had been promised samples. It can’t be from them, said another, because their deliveries always arrive by courier. Somebody suggested that it might belong to the person who had left the company last month. In the end Ms Ha simply opened it: inside were fifty pens with the company logo, which the marketing team had ordered and then forgotten about. Everyone agreed that they should have checked the order list first.',
+      vi:'Khi một kiện hàng không ghi tên tới văn phòng, ai cũng có giả thuyết riêng. Một đồng nghiệp bảo chắc là của công ty in, vì họ đã hứa gửi hàng mẫu. Người khác nói không thể là từ họ, vì hàng của họ luôn gửi qua chuyển phát. Có người đoán có lẽ nó thuộc về người vừa nghỉ việc tháng trước. Cuối cùng chị Hà cứ thế mở ra: bên trong là năm mươi cây bút in logo công ty, do nhóm marketing đặt rồi quên mất. Ai cũng đồng ý rằng lẽ ra nên kiểm tra danh sách đơn hàng trước.' } },
+
+  { level:'b1', no:5, en:'Describing changes and trends', vi:'Mô tả xu hướng và số liệu', skill:'Viết Task 1',
+    grammar:[
+      { form:'Động từ chỉ xu hướng', vi:'rise, increase, grow · fall, drop, decline, decrease · fluctuate, remain stable, level off, peak.', note:'Đây là bộ từ cốt lõi của IELTS Writing Task 1.', ex:{ en:'Sales rose sharply between 2020 and 2023.', vi:'Doanh số tăng mạnh trong giai đoạn 2020–2023.' } },
+      { form:'Trạng từ chỉ mức độ', vi:'sharply, dramatically, significantly · slightly, gradually, steadily.', note:'Động từ + trạng từ (rose sharply) = tính từ + danh từ (a sharp rise). Hai cách diễn đạt cùng một ý.', ex:{ en:'There was a gradual decline in readership.', vi:'Lượng độc giả giảm dần.' } },
+      { form:'Giới từ của số liệu', vi:'rise TO 40% (mốc đạt tới) · rise BY 10% (mức chênh) · rise FROM 30 TO 40.', note:'Nhầm «to» và «by» là lỗi phổ biến nhất khi mô tả biểu đồ.', ex:{ en:'The figure increased by five percent to reach thirty percent.', vi:'Con số tăng năm phần trăm, đạt ba mươi phần trăm.' } },
+      { form:'So sánh trong biểu đồ', vi:'twice as high as · the highest figure · accounted for · compared with.', note:'accounted for = chiếm (bao nhiêu phần trăm).', ex:{ en:'Coffee accounted for nearly half of all exports.', vi:'Cà phê chiếm gần một nửa tổng kim ngạch xuất khẩu.' } }
+    ],
+    vocab:[
+      { en:'figure', uk:'ˈfɪɡə', us:'ˈfɪɡjər', vi:'con số', pos:'danh từ' },
+      { en:'proportion', uk:'prəˈpɔːʃn', us:'prəˈpɔːrʃn', vi:'tỷ lệ', pos:'danh từ' },
+      { en:'percentage', uk:'pəˈsentɪdʒ', us:'pərˈsentɪdʒ', vi:'phần trăm', pos:'danh từ' },
+      { en:'majority', uk:'məˈdʒɒrəti', us:'məˈdʒɔːrəti', vi:'đa số', pos:'danh từ' },
+      { en:'minority', uk:'maɪˈnɒrəti', us:'maɪˈnɔːrəti', vi:'thiểu số', pos:'danh từ' },
+      { en:'peak', uk:'piːk', us:'piːk', vi:'đỉnh; đạt đỉnh', pos:'danh từ, động từ' },
+      { en:'decline', uk:'dɪˈklaɪn', us:'dɪˈklaɪn', vi:'giảm sút', pos:'động từ, danh từ' },
+      { en:'fluctuate', uk:'ˈflʌktʃueɪt', us:'ˈflʌktʃueɪt', vi:'dao động', pos:'động từ' },
+      { en:'stable', uk:'ˈsteɪbl', us:'ˈsteɪbl', vi:'ổn định', pos:'tính từ' },
+      { en:'steady', uk:'ˈstedi', us:'ˈstedi', vi:'đều đặn', pos:'tính từ' },
+      { en:'dramatic', uk:'drəˈmætɪk', us:'drəˈmætɪk', vi:'mạnh mẽ, đột ngột', pos:'tính từ' },
+      { en:'slight', uk:'slaɪt', us:'slaɪt', vi:'nhẹ, không đáng kể', pos:'tính từ' },
+      { en:'significant', uk:'sɪɡˈnɪfɪkənt', us:'sɪɡˈnɪfɪkənt', vi:'đáng kể', pos:'tính từ' },
+      { en:'overall', uk:'ˌəʊvərˈɔːl', us:'ˌoʊvərˈɔːl', vi:'nhìn chung', pos:'trạng từ' },
+      { en:'approximately', uk:'əˈprɒksɪmətli', us:'əˈprɑːksɪmətli', vi:'xấp xỉ', pos:'trạng từ' },
+      { en:'roughly', uk:'ˈrʌfli', us:'ˈrʌfli', vi:'khoảng chừng', pos:'trạng từ' },
+      { en:'compare', uk:'kəmˈpeə', us:'kəmˈper', vi:'so sánh', pos:'động từ' },
+      { en:'chart', uk:'tʃɑːt', us:'tʃɑːrt', vi:'biểu đồ', pos:'danh từ' },
+      { en:'survey', uk:'ˈsɜːveɪ', us:'ˈsɜːrveɪ', vi:'khảo sát', pos:'danh từ' },
+      { en:'data', uk:'ˈdeɪtə', us:'ˈdeɪtə', vi:'dữ liệu', pos:'danh từ' }
+    ],
+    colloc:[
+      { p:'account for + tỷ lệ', vi:'chiếm bao nhiêu phần trăm', ex:'Rice accounted for 40% of exports.' },
+      { p:'reach a peak of / hit a low of', vi:'đạt đỉnh ở mức / chạm đáy ở mức', ex:'Sales reached a peak of 8,000 units in July.' },
+      { p:'the figure for X stood at Y', vi:'con số của X là Y — cách viết trang trọng', ex:'The figure for Vietnam stood at 62%.' }
+    ],
+    dialogue:[
+      { sp:'Teacher', en:'Describe the chart in one sentence.', vi:'Hãy mô tả biểu đồ trong một câu.' },
+      { sp:'Quan', en:'Overall, coffee exports rose steadily between 2015 and 2024.', vi:'Nhìn chung, xuất khẩu cà phê tăng đều từ 2015 đến 2024.' },
+      { sp:'Teacher', en:'Good. Now add a figure.', vi:'Tốt. Giờ thêm số liệu vào.' },
+      { sp:'Quan', en:'They increased from one million tonnes to roughly one point eight million.', vi:'Sản lượng tăng từ một triệu tấn lên khoảng một triệu tám.' },
+      { sp:'Teacher', en:'And the exception?', vi:'Còn ngoại lệ thì sao?' },
+      { sp:'Quan', en:'There was a slight drop in 2020, before the figure recovered.', vi:'Có một mức giảm nhẹ vào năm 2020, sau đó con số phục hồi.' },
+      { sp:'Teacher', en:'Well done. Never write «the chart goes up» — charts do not move.', vi:'Tốt lắm. Đừng bao giờ viết «biểu đồ đi lên» — biểu đồ không tự di chuyển.' }
+    ],
+    reading:{ en:'The chart shows the number of international students in four countries between 2010 and 2024. Overall, all four figures increased, but at very different rates. The most dramatic growth was in Country A, where numbers more than doubled, rising from 200,000 to approximately 450,000. Country B saw a steady increase of around 10,000 students a year, while the figure for Country C remained stable at just under 300,000 for most of the period before declining slightly after 2021. Country D recorded the lowest numbers throughout, although it reached a peak of 120,000 in 2019. By the end of the period, Country A accounted for nearly half of the total.',
+      vi:'Biểu đồ cho thấy số lượng sinh viên quốc tế ở bốn quốc gia trong giai đoạn 2010–2024. Nhìn chung, cả bốn con số đều tăng, nhưng với tốc độ rất khác nhau. Mức tăng mạnh nhất thuộc về Quốc gia A, nơi số lượng tăng hơn gấp đôi, từ 200.000 lên khoảng 450.000. Quốc gia B tăng đều khoảng 10.000 sinh viên mỗi năm, trong khi con số của Quốc gia C giữ ổn định ở mức dưới 300.000 trong phần lớn giai đoạn rồi giảm nhẹ sau năm 2021. Quốc gia D luôn ghi nhận con số thấp nhất, dù có đạt đỉnh 120.000 vào năm 2019. Tới cuối giai đoạn, Quốc gia A chiếm gần một nửa tổng số.' } },
+
+  { level:'b1', no:6, en:'Health and lifestyle', vi:'Sức khoẻ và lối sống', skill:'Nêu quan điểm',
+    grammar:[
+      { form:'Cấu trúc nêu quan điểm', vi:'In my view… · It seems to me that… · I would argue that…', note:'«I think» dùng được nhưng đơn điệu; đổi cách mở đầu làm bài nói phong phú hơn.', ex:{ en:'It seems to me that stress is the real problem.', vi:'Với tôi, căng thẳng mới là vấn đề thật sự.' } },
+      { form:'Mệnh đề nguyên nhân – kết quả', vi:'lead to · result in · be caused by · contribute to.', note:'Sau tất cả các cụm này là DANH TỪ hoặc V-ing, không phải mệnh đề.', ex:{ en:'Lack of sleep can lead to poor concentration.', vi:'Thiếu ngủ có thể dẫn tới mất tập trung.' } },
+      { form:'Cấu trúc nhấn mạnh mức độ', vi:'far more likely · significantly higher · considerably less.', note:'Dùng trạng từ chỉ mức thay vì «very» để câu nghe học thuật hơn.', ex:{ en:'Smokers are far more likely to develop heart disease.', vi:'Người hút thuốc có nguy cơ mắc bệnh tim cao hơn nhiều.' } },
+      { form:'Câu nhượng bộ', vi:'Although… · Even though… · While it is true that…, …', note:'Nêu ý đối lập trước rồi mới nêu quan điểm của mình — cách viết luận thuyết phục.', ex:{ en:'While exercise helps, diet matters more.', vi:'Tập luyện có ích, nhưng chế độ ăn còn quan trọng hơn.' } }
+    ],
+    vocab:[
+      { en:'lifestyle', uk:'ˈlaɪfstaɪl', us:'ˈlaɪfstaɪl', vi:'lối sống', pos:'danh từ' },
+      { en:'diet', uk:'ˈdaɪət', us:'ˈdaɪət', vi:'chế độ ăn', pos:'danh từ' },
+      { en:'nutrition', uk:'njuˈtrɪʃn', us:'nuˈtrɪʃn', vi:'dinh dưỡng', pos:'danh từ' },
+      { en:'obesity', uk:'əʊˈbiːsəti', us:'oʊˈbiːsəti', vi:'béo phì', pos:'danh từ' },
+      { en:'exercise', uk:'ˈeksəsaɪz', us:'ˈeksərsaɪz', vi:'tập luyện', pos:'danh từ, động từ' },
+      { en:'immune', uk:'ɪˈmjuːn', us:'ɪˈmjuːn', vi:'thuộc miễn dịch', pos:'tính từ' },
+      { en:'symptom', uk:'ˈsɪmptəm', us:'ˈsɪmptəm', vi:'triệu chứng', pos:'danh từ' },
+      { en:'treatment', uk:'ˈtriːtmənt', us:'ˈtriːtmənt', vi:'cách điều trị', pos:'danh từ' },
+      { en:'prevent', uk:'prɪˈvent', us:'prɪˈvent', vi:'ngăn ngừa', pos:'động từ', note:'prevent someone FROM doing' },
+      { en:'recover', uk:'rɪˈkʌvə', us:'rɪˈkʌvər', vi:'hồi phục', pos:'động từ', note:'recover FROM an illness' },
+      { en:'mental', uk:'ˈmentl', us:'ˈmentl', vi:'thuộc tinh thần', pos:'tính từ' },
+      { en:'physical', uk:'ˈfɪzɪkl', us:'ˈfɪzɪkl', vi:'thuộc thể chất', pos:'tính từ' },
+      { en:'stressful', uk:'ˈstresfl', us:'ˈstresfl', vi:'gây căng thẳng', pos:'tính từ' },
+      { en:'harmful', uk:'ˈhɑːmfl', us:'ˈhɑːrmfl', vi:'có hại', pos:'tính từ', note:'harmful TO' },
+      { en:'beneficial', uk:'ˌbenɪˈfɪʃl', us:'ˌbenɪˈfɪʃl', vi:'có lợi', pos:'tính từ', note:'beneficial TO / FOR' },
+      { en:'balanced', uk:'ˈbælənst', us:'ˈbælənst', vi:'cân bằng', pos:'tính từ' },
+      { en:'moderate', uk:'ˈmɒdərət', us:'ˈmɑːdərət', vi:'điều độ, vừa phải', pos:'tính từ' },
+      { en:'addiction', uk:'əˈdɪkʃn', us:'əˈdɪkʃn', vi:'sự nghiện', pos:'danh từ' },
+      { en:'awareness', uk:'əˈweənəs', us:'əˈwernəs', vi:'nhận thức', pos:'danh từ' },
+      { en:'wellbeing', uk:'ˌwelˈbiːɪŋ', us:'ˌwelˈbiːɪŋ', vi:'sự khoẻ mạnh toàn diện', pos:'danh từ' }
+    ],
+    colloc:[
+      { p:'lead a healthy lifestyle', vi:'sống lành mạnh — dùng «lead», không dùng «live»', ex:'She has led a healthy lifestyle for years.' },
+      { p:'be at risk of something', vi:'có nguy cơ mắc phải', ex:'Older people are at greater risk of complications.' },
+      { p:'take its toll on someone', vi:'gây tổn hại dần cho ai', ex:'Long working hours take their toll on health.' }
+    ],
+    dialogue:[
+      { sp:'Doctor', en:'How have you been sleeping lately?', vi:'Dạo này em ngủ thế nào?' },
+      { sp:'Quan', en:'Badly. Five or six hours at most.', vi:'Kém ạ. Nhiều nhất là năm sáu tiếng.' },
+      { sp:'Doctor', en:'That is likely to affect your concentration.', vi:'Điều đó có thể ảnh hưởng tới khả năng tập trung.' },
+      { sp:'Quan', en:'I have noticed that. I also skip breakfast often.', vi:'Em cũng thấy vậy. Em còn hay bỏ bữa sáng.' },
+      { sp:'Doctor', en:'While your diet matters, sleep matters more at your age.', vi:'Chế độ ăn quan trọng, nhưng ở tuổi em giấc ngủ còn quan trọng hơn.' },
+      { sp:'Quan', en:'So what should I change first?', vi:'Vậy em nên thay đổi cái gì trước ạ?' },
+      { sp:'Doctor', en:'One thing only: no screens after eleven. Small changes are easier to maintain.', vi:'Chỉ một điều: sau mười một giờ không dùng màn hình. Thay đổi nhỏ thì dễ duy trì hơn.' }
+    ],
+    reading:{ en:'A recent survey of two thousand university students found that fewer than one in five sleeps the recommended seven hours a night. The main reasons given were part-time work, coursework and, above all, mobile phone use late at night. Researchers point out that lack of sleep is far more harmful than most students realise: it contributes to poor concentration, weakens the immune system and, over several years, is associated with anxiety. While it is true that young people can function on little sleep for short periods, the effects build up. The report recommends a simple rule that costs nothing: keep the phone out of the bedroom.',
+      vi:'Một khảo sát gần đây với hai nghìn sinh viên đại học cho thấy chưa tới một phần năm ngủ đủ bảy tiếng mỗi đêm như khuyến nghị. Các lý do chính là làm thêm, bài vở và trên hết là dùng điện thoại khuya. Các nhà nghiên cứu chỉ ra rằng thiếu ngủ có hại hơn nhiều so với phần lớn sinh viên nghĩ: nó góp phần làm giảm khả năng tập trung, làm suy yếu hệ miễn dịch và qua nhiều năm còn liên quan tới chứng lo âu. Đúng là người trẻ có thể chịu được ít ngủ trong thời gian ngắn, nhưng tác động sẽ tích tụ. Báo cáo khuyến nghị một quy tắc đơn giản mà không tốn gì: để điện thoại ra khỏi phòng ngủ.' } },
+
+  { level:'b1', no:7, en:'Work and careers', vi:'Công việc và sự nghiệp', skill:'Phỏng vấn, thương lượng',
+    grammar:[
+      { form:'Câu hỏi phỏng vấn thường gặp', vi:'Tell me about yourself · What are your strengths? · Where do you see yourself in five years?', note:'Trả lời theo mẫu STAR: Situation – Task – Action – Result.', ex:{ en:'Could you tell me about a challenge you have faced?', vi:'Bạn có thể kể về một thử thách mình từng gặp không?' } },
+      { form:'Ngôn ngữ thương lượng lịch sự', vi:'Would it be possible to…? · I was hoping we could… · Would you consider…?', note:'Dùng thì quá khứ để làm mềm yêu cầu: I was wondering / I was hoping.', ex:{ en:'I was wondering if the start date could be flexible.', vi:'Tôi không biết ngày bắt đầu có linh hoạt được không.' } },
+      { form:'Nói về kinh nghiệm', vi:'have experience IN / OF + V-ing · be responsible for · be involved in.', note:'«I have experience about» là lỗi phổ biến — phải là «in» hoặc «of».', ex:{ en:'I have experience in managing small teams.', vi:'Tôi có kinh nghiệm quản lý nhóm nhỏ.' } },
+      { form:'Tránh nói tiêu cực trực diện', vi:'Thay «I am bad at» bằng «I am still developing my…»', note:'Trong phỏng vấn tiếng Anh, cách diễn đạt điểm yếu quan trọng ngang nội dung.', ex:{ en:'Public speaking is an area I am still developing.', vi:'Thuyết trình là mảng tôi vẫn đang hoàn thiện.' } }
+    ],
+    vocab:[
+      { en:'career', uk:'kəˈrɪə', us:'kəˈrɪr', vi:'sự nghiệp', pos:'danh từ' },
+      { en:'application', uk:'ˌæplɪˈkeɪʃn', us:'ˌæplɪˈkeɪʃn', vi:'đơn ứng tuyển', pos:'danh từ' },
+      { en:'candidate', uk:'ˈkændɪdət', us:'ˈkændɪdeɪt', vi:'ứng viên', pos:'danh từ' },
+      { en:'qualification', uk:'ˌkwɒlɪfɪˈkeɪʃn', us:'ˌkwɑːlɪfɪˈkeɪʃn', vi:'bằng cấp', pos:'danh từ' },
+      { en:'strength', uk:'streŋθ', us:'streŋθ', vi:'điểm mạnh', pos:'danh từ' },
+      { en:'weakness', uk:'ˈwiːknəs', us:'ˈwiːknəs', vi:'điểm yếu', pos:'danh từ' },
+      { en:'promotion', uk:'prəˈməʊʃn', us:'prəˈmoʊʃn', vi:'thăng chức', pos:'danh từ' },
+      { en:'resign', uk:'rɪˈzaɪn', us:'rɪˈzaɪn', vi:'từ chức', pos:'động từ', note:'g câm' },
+      { en:'recruit', uk:'rɪˈkruːt', us:'rɪˈkruːt', vi:'tuyển dụng', pos:'động từ' },
+      { en:'negotiate', uk:'nɪˈɡəʊʃieɪt', us:'nɪˈɡoʊʃieɪt', vi:'thương lượng', pos:'động từ' },
+      { en:'colleague', uk:'ˈkɒliːɡ', us:'ˈkɑːliːɡ', vi:'đồng nghiệp', pos:'danh từ' },
+      { en:'workload', uk:'ˈwɜːkləʊd', us:'ˈwɜːrkloʊd', vi:'khối lượng công việc', pos:'danh từ' },
+      { en:'motivated', uk:'ˈməʊtɪveɪtɪd', us:'ˈmoʊtɪveɪtɪd', vi:'có động lực', pos:'tính từ' },
+      { en:'reliable', uk:'rɪˈlaɪəbl', us:'rɪˈlaɪəbl', vi:'đáng tin cậy', pos:'tính từ' },
+      { en:'ambitious', uk:'æmˈbɪʃəs', us:'æmˈbɪʃəs', vi:'tham vọng, có chí tiến thủ', pos:'tính từ' },
+      { en:'flexible', uk:'ˈfleksəbl', us:'ˈfleksəbl', vi:'linh hoạt', pos:'tính từ' },
+      { en:'demanding', uk:'dɪˈmɑːndɪŋ', us:'dɪˈmændɪŋ', vi:'đòi hỏi cao', pos:'tính từ' },
+      { en:'rewarding', uk:'rɪˈwɔːdɪŋ', us:'rɪˈwɔːrdɪŋ', vi:'đáng công, thoả mãn', pos:'tính từ' },
+      { en:'freelance', uk:'ˈfriːlɑːns', us:'ˈfriːlæns', vi:'làm tự do', pos:'tính từ' },
+      { en:'internship', uk:'ˈɪntɜːnʃɪp', us:'ˈɪntɜːrnʃɪp', vi:'kỳ thực tập', pos:'danh từ' }
+    ],
+    colloc:[
+      { p:'apply for a position', vi:'ứng tuyển vào vị trí', ex:'I would like to apply for the position of junior analyst.' },
+      { p:'gain hands-on experience', vi:'tích luỹ kinh nghiệm thực tế', ex:'The internship let me gain hands-on experience.' },
+      { p:'work under pressure', vi:'làm việc dưới áp lực', ex:'I work well under pressure.' }
+    ],
+    dialogue:[
+      { sp:'Interviewer', en:'Why do you want to work here?', vi:'Vì sao bạn muốn làm ở đây?' },
+      { sp:'Quan', en:'Your team works with clients across Asia, and I want that exposure.', vi:'Nhóm của công ty làm việc với khách khắp châu Á, và tôi muốn được tiếp xúc với môi trường đó.' },
+      { sp:'Interviewer', en:'What would you say is your main weakness?', vi:'Điểm yếu chính của bạn là gì?' },
+      { sp:'Quan', en:'Public speaking is an area I am still developing, so I joined a club.', vi:'Thuyết trình là mảng tôi vẫn đang hoàn thiện, nên tôi đã tham gia một câu lạc bộ.' },
+      { sp:'Interviewer', en:'Good answer. Do you have any questions for us?', vi:'Câu trả lời tốt. Bạn có câu hỏi nào cho chúng tôi không?' },
+      { sp:'Quan', en:'Yes. What does success look like in the first six months?', vi:'Có ạ. Sáu tháng đầu tiên, thế nào được coi là làm tốt?' },
+      { sp:'Interviewer', en:'That is exactly the question we hope to hear.', vi:'Đó đúng là câu hỏi chúng tôi mong nghe được.' }
+    ],
+    reading:{ en:'Career advisers say that the questions a candidate asks matter as much as the answers they give. Asking about salary in the first interview is generally seen as too early, while asking nothing at all suggests a lack of interest. The strongest candidates ask about the team, about how performance is measured, and about what the company expects in the first months. Advisers also warn against the classic mistake of describing a weakness that is really a strength in disguise; interviewers hear «I work too hard» several times a week. A specific, honest answer paired with a clear plan for improvement is far more convincing.',
+      vi:'Các chuyên gia hướng nghiệp nói rằng những câu ứng viên hỏi quan trọng ngang những câu họ trả lời. Hỏi về lương ngay buổi phỏng vấn đầu tiên thường bị coi là quá sớm, còn không hỏi gì lại cho thấy thiếu quan tâm. Ứng viên mạnh nhất thường hỏi về đội nhóm, về cách đánh giá hiệu quả công việc, và về kỳ vọng của công ty trong những tháng đầu. Các chuyên gia cũng cảnh báo lỗi kinh điển là nêu một điểm yếu thực chất là điểm mạnh trá hình; người phỏng vấn nghe câu «tôi làm việc quá chăm» vài lần mỗi tuần. Một câu trả lời cụ thể, thành thật kèm kế hoạch cải thiện rõ ràng thuyết phục hơn nhiều.' } },
+
+  { level:'b1', no:8, en:'Money and consumer life', vi:'Tiền bạc và tiêu dùng', skill:'Bàn luận kinh tế',
+    grammar:[
+      { form:'Danh từ hoá để viết trang trọng', vi:'Prices rose → The rise in prices · People consume more → An increase in consumption.', note:'Văn học thuật tiếng Anh nặng danh từ hơn văn nói.', ex:{ en:'The rise in living costs has affected students.', vi:'Việc chi phí sinh hoạt tăng đã ảnh hưởng tới sinh viên.' } },
+      { form:'Câu điều kiện trong lập luận kinh tế', vi:'If prices continue to rise, demand will fall.', note:'Loại 1 cho dự báo có căn cứ; loại 2 cho tình huống giả định.', ex:{ en:'If the tax were reduced, more people would buy.', vi:'Nếu thuế được giảm, nhiều người sẽ mua hơn.' } },
+      { form:'So sánh tỷ lệ', vi:'twice as much as · half as many as · three times the amount of.', note:'as much as cho không đếm được, as many as cho đếm được.', ex:{ en:'They spend twice as much on rent as on food.', vi:'Họ chi cho tiền nhà gấp đôi tiền ăn.' } },
+      { form:'Cụm chỉ mục đích và hệ quả', vi:'in order to · so as to · so that · as a result · consequently.', note:'so as not to + V là cách nói phủ định trang trọng.', ex:{ en:'They cut prices so as to attract new customers.', vi:'Họ giảm giá nhằm thu hút khách hàng mới.' } }
+    ],
+    vocab:[
+      { en:'income', uk:'ˈɪnkʌm', us:'ˈɪnkʌm', vi:'thu nhập', pos:'danh từ' },
+      { en:'expense', uk:'ɪkˈspens', us:'ɪkˈspens', vi:'chi phí', pos:'danh từ' },
+      { en:'budget', uk:'ˈbʌdʒɪt', us:'ˈbʌdʒɪt', vi:'ngân sách', pos:'danh từ' },
+      { en:'afford', uk:'əˈfɔːd', us:'əˈfɔːrd', vi:'đủ khả năng chi trả', pos:'động từ' },
+      { en:'invest', uk:'ɪnˈvest', us:'ɪnˈvest', vi:'đầu tư', pos:'động từ', note:'invest IN' },
+      { en:'loan', uk:'ləʊn', us:'loʊn', vi:'khoản vay', pos:'danh từ' },
+      { en:'interest', uk:'ˈɪntrəst', us:'ˈɪntrəst', vi:'lãi suất; sự quan tâm', pos:'danh từ' },
+      { en:'debt', uk:'det', us:'det', vi:'nợ', pos:'danh từ', note:'b câm' },
+      { en:'inflation', uk:'ɪnˈfleɪʃn', us:'ɪnˈfleɪʃn', vi:'lạm phát', pos:'danh từ' },
+      { en:'consumer', uk:'kənˈsjuːmə', us:'kənˈsuːmər', vi:'người tiêu dùng', pos:'danh từ' },
+      { en:'demand', uk:'dɪˈmɑːnd', us:'dɪˈmænd', vi:'nhu cầu', pos:'danh từ' },
+      { en:'supply', uk:'səˈplaɪ', us:'səˈplaɪ', vi:'nguồn cung', pos:'danh từ' },
+      { en:'advertise', uk:'ˈædvətaɪz', us:'ˈædvərtaɪz', vi:'quảng cáo', pos:'động từ' },
+      { en:'bargain', uk:'ˈbɑːɡən', us:'ˈbɑːrɡən', vi:'món hời; mặc cả', pos:'danh từ, động từ' },
+      { en:'refund', uk:'ˈriːfʌnd', us:'ˈriːfʌnd', vi:'hoàn tiền', pos:'danh từ' },
+      { en:'guarantee', uk:'ˌɡærənˈtiː', us:'ˌɡærənˈtiː', vi:'bảo hành, bảo đảm', pos:'danh từ, động từ' },
+      { en:'affordable', uk:'əˈfɔːdəbl', us:'əˈfɔːrdəbl', vi:'giá phải chăng', pos:'tính từ' },
+      { en:'luxury', uk:'ˈlʌkʃəri', us:'ˈlʌkʃəri', vi:'xa xỉ', pos:'danh từ, tính từ' },
+      { en:'essential', uk:'ɪˈsenʃl', us:'ɪˈsenʃl', vi:'thiết yếu', pos:'tính từ' },
+      { en:'wasteful', uk:'ˈweɪstfl', us:'ˈweɪstfl', vi:'lãng phí', pos:'tính từ' }
+    ],
+    colloc:[
+      { p:'live within your means', vi:'sống trong khả năng tài chính của mình', ex:'He has always lived within his means.' },
+      { p:'cut back on spending', vi:'cắt giảm chi tiêu', ex:'Households have cut back on non-essential spending.' },
+      { p:'value for money', vi:'đáng đồng tiền', ex:'The course offers excellent value for money.' }
+    ],
+    dialogue:[
+      { sp:'Linh', en:'Rent has gone up again in my building.', vi:'Toà nhà tớ lại tăng tiền thuê.' },
+      { sp:'Quan', en:'By how much?', vi:'Tăng bao nhiêu?' },
+      { sp:'Linh', en:'By fifteen percent. That is almost a week of my salary.', vi:'Mười lăm phần trăm. Gần bằng một tuần lương của tớ.' },
+      { sp:'Quan', en:'Have you tried negotiating?', vi:'Bạn thử thương lượng chưa?' },
+      { sp:'Linh', en:'The owner says demand is high, so he does not need to.', vi:'Chủ nhà bảo nhu cầu đang cao nên không cần thương lượng.' },
+      { sp:'Quan', en:'If everyone moved out, he would change his mind.', vi:'Nếu ai cũng dọn đi thì ông ấy sẽ đổi ý ngay.' },
+      { sp:'Linh', en:'True, but moving costs money too. I will cut back on other things.', vi:'Đúng, nhưng chuyển nhà cũng tốn tiền. Tớ sẽ cắt giảm các khoản khác.' }
+    ],
+    reading:{ en:'The rise in living costs has changed the way young people in Vietnamese cities spend. According to a 2024 survey, students now spend nearly forty percent of their monthly budget on accommodation, compared with twenty-eight percent a decade ago. Food accounts for a further third, which leaves very little for study materials, transport and leisure. As a result, more students are taking part-time work, and many report that this affects their results. Economists point out that the problem is not only income but also the supply of affordable housing near universities. Unless more student accommodation is built, the proportion spent on rent is likely to keep rising.',
+      vi:'Việc chi phí sinh hoạt tăng đã thay đổi cách người trẻ ở các đô thị Việt Nam chi tiêu. Theo một khảo sát năm 2024, sinh viên hiện chi gần bốn mươi phần trăm ngân sách hằng tháng cho chỗ ở, so với hai mươi tám phần trăm một thập kỷ trước. Tiền ăn chiếm thêm một phần ba nữa, khiến phần còn lại cho tài liệu học, đi lại và giải trí rất ít. Hệ quả là ngày càng nhiều sinh viên đi làm thêm, và nhiều người cho biết điều đó ảnh hưởng tới kết quả học. Các nhà kinh tế chỉ ra rằng vấn đề không chỉ là thu nhập mà còn là nguồn cung nhà ở giá phải chăng gần các trường đại học. Nếu không xây thêm ký túc xá, tỷ lệ chi cho tiền thuê nhiều khả năng sẽ tiếp tục tăng.' } },
+
+  { level:'b1', no:9, en:'City life or country life?', vi:'Đô thị và nông thôn', skill:'Cân nhắc hai mặt',
+    grammar:[
+      { form:'Bố cục bài luận hai mặt', vi:'Mở bài → mặt thứ nhất → mặt thứ hai → quan điểm cá nhân → kết luận.', note:'Mỗi đoạn thân bài có một câu chủ đề (topic sentence) ở đầu.', ex:{ en:'On the one hand, cities offer more opportunities.', vi:'Một mặt, thành phố mang lại nhiều cơ hội hơn.' } },
+      { form:'Từ nối tương phản', vi:'whereas, while, on the contrary, by contrast, nevertheless.', note:'whereas và while nối HAI MỆNH ĐỀ trong cùng một câu.', ex:{ en:'Cities are convenient, whereas villages are quieter.', vi:'Thành phố tiện lợi, trong khi làng quê yên tĩnh hơn.' } },
+      { form:'Cụm nêu ví dụ', vi:'for instance · such as · take X as an example · in particular.', note:'such as + danh từ; for example có thể đứng đầu câu kèm dấu phẩy.', ex:{ en:'Big cities, such as Hanoi, face serious air pollution.', vi:'Các đô thị lớn, chẳng hạn Hà Nội, đối mặt với ô nhiễm không khí nghiêm trọng.' } },
+      { form:'Kết luận có quan điểm', vi:'On balance… · All things considered… · In conclusion, I believe that…', note:'Không nêu ý mới ở kết luận; chỉ tổng kết và khẳng định lập trường.', ex:{ en:'On balance, I would choose a smaller city.', vi:'Cân nhắc mọi mặt, tôi sẽ chọn một thành phố nhỏ hơn.' } }
+    ],
+    vocab:[
+      { en:'urban', uk:'ˈɜːbən', us:'ˈɜːrbən', vi:'thuộc đô thị', pos:'tính từ' },
+      { en:'rural', uk:'ˈrʊərəl', us:'ˈrʊrəl', vi:'thuộc nông thôn', pos:'tính từ' },
+      { en:'suburb', uk:'ˈsʌbɜːb', us:'ˈsʌbɜːrb', vi:'vùng ngoại ô', pos:'danh từ' },
+      { en:'population', uk:'ˌpɒpjuˈleɪʃn', us:'ˌpɑːpjuˈleɪʃn', vi:'dân số', pos:'danh từ' },
+      { en:'infrastructure', uk:'ˈɪnfrəstrʌktʃə', us:'ˈɪnfrəstrʌktʃər', vi:'hạ tầng', pos:'danh từ' },
+      { en:'facility', uk:'fəˈsɪləti', us:'fəˈsɪləti', vi:'tiện ích, cơ sở vật chất', pos:'danh từ' },
+      { en:'commute', uk:'kəˈmjuːt', us:'kəˈmjuːt', vi:'đi lại đi làm hằng ngày', pos:'động từ, danh từ' },
+      { en:'migrate', uk:'maɪˈɡreɪt', us:'ˈmaɪɡreɪt', vi:'di cư', pos:'động từ' },
+      { en:'overcrowded', uk:'ˌəʊvəˈkraʊdɪd', us:'ˌoʊvərˈkraʊdɪd', vi:'quá tải, chật chội', pos:'tính từ' },
+      { en:'peaceful', uk:'ˈpiːsfl', us:'ˈpiːsfl', vi:'yên bình', pos:'tính từ' },
+      { en:'isolated', uk:'ˈaɪsəleɪtɪd', us:'ˈaɪsəleɪtɪd', vi:'biệt lập', pos:'tính từ' },
+      { en:'convenient', uk:'kənˈviːniənt', us:'kənˈviːniənt', vi:'thuận tiện', pos:'tính từ' },
+      { en:'opportunity', uk:'ˌɒpəˈtjuːnəti', us:'ˌɑːpərˈtuːnəti', vi:'cơ hội', pos:'danh từ' },
+      { en:'community', uk:'kəˈmjuːnəti', us:'kəˈmjuːnəti', vi:'cộng đồng', pos:'danh từ' },
+      { en:'cost of living', uk:'kɒst əv ˈlɪvɪŋ', us:'kɔːst əv ˈlɪvɪŋ', vi:'chi phí sinh hoạt', pos:'danh từ' },
+      { en:'anonymous', uk:'əˈnɒnɪməs', us:'əˈnɑːnɪməs', vi:'ẩn danh, không ai biết ai', pos:'tính từ' },
+      { en:'pace', uk:'peɪs', us:'peɪs', vi:'nhịp độ', pos:'danh từ' },
+      { en:'scenery', uk:'ˈsiːnəri', us:'ˈsiːnəri', vi:'phong cảnh', pos:'danh từ', note:'không đếm được' },
+      { en:'access', uk:'ˈækses', us:'ˈækses', vi:'khả năng tiếp cận', pos:'danh từ', note:'access TO' },
+      { en:'shortage', uk:'ˈʃɔːtɪdʒ', us:'ˈʃɔːrtɪdʒ', vi:'sự thiếu hụt', pos:'danh từ' }
+    ],
+    colloc:[
+      { p:'the pace of life', vi:'nhịp sống', ex:'The pace of life is much slower there.' },
+      { p:'have access to something', vi:'tiếp cận được với cái gì', ex:'Rural areas often have limited access to healthcare.' },
+      { p:'a sense of community', vi:'tinh thần cộng đồng', ex:'Villages usually have a stronger sense of community.' }
+    ],
+    dialogue:[
+      { sp:'Teacher', en:'Would you rather live in a city or in the countryside?', vi:'Em thích sống ở thành phố hay nông thôn hơn?' },
+      { sp:'Quan', en:'In a city, mainly because of job opportunities.', vi:'Thành phố ạ, chủ yếu vì cơ hội việc làm.' },
+      { sp:'Teacher', en:'And the disadvantages?', vi:'Còn nhược điểm?' },
+      { sp:'Quan', en:'The cost of living is high and the air quality is poor.', vi:'Chi phí sinh hoạt cao và không khí ô nhiễm ạ.' },
+      { sp:'Teacher', en:'Some people say village life is boring. Do you agree?', vi:'Có người nói sống ở làng buồn tẻ. Em có đồng ý không?' },
+      { sp:'Quan', en:'Not entirely. It is quieter, but there is a stronger sense of community.', vi:'Không hẳn ạ. Yên tĩnh hơn, nhưng tinh thần cộng đồng mạnh hơn.' },
+      { sp:'Teacher', en:'So where would you live at forty?', vi:'Vậy tới năm bốn mươi tuổi em sẽ sống ở đâu?' },
+      { sp:'Quan', en:'On balance, in a small city — the best of both worlds.', vi:'Cân nhắc mọi mặt thì một thành phố nhỏ — được cả đôi đường ạ.' }
+    ],
+    reading:{ en:'Every year hundreds of thousands of people move from rural areas to Vietnamese cities. The reasons are easy to understand: cities offer higher salaries, better schools and access to healthcare that many villages simply do not have. On the other hand, urban life brings overcrowded housing, long commutes and a cost of living that rises faster than wages. Interestingly, a recent trend has appeared in the opposite direction. A small but growing number of young professionals, especially those who can work remotely, are moving back to smaller towns. They say they lose some opportunities but gain time, space and a slower pace of life. Whether this trend continues will depend on how quickly rural internet and healthcare improve.',
+      vi:'Mỗi năm hàng trăm nghìn người rời nông thôn tới các đô thị Việt Nam. Lý do dễ hiểu: thành phố có lương cao hơn, trường tốt hơn và khả năng tiếp cận y tế mà nhiều làng quê đơn giản là không có. Mặt khác, cuộc sống đô thị mang lại nhà ở chật chội, quãng đường đi làm dài và chi phí sinh hoạt tăng nhanh hơn tiền lương. Thú vị là gần đây xuất hiện một xu hướng ngược lại. Một nhóm nhỏ nhưng đang tăng lên gồm những người trẻ làm chuyên môn, đặc biệt là người làm việc từ xa, đang chuyển về các thị trấn nhỏ. Họ nói mình mất đi một số cơ hội nhưng có được thời gian, không gian và nhịp sống chậm hơn. Xu hướng này có tiếp tục hay không phụ thuộc vào tốc độ cải thiện internet và y tế ở nông thôn.' } },
+
+  { level:'b1', no:10, en:'Science and technology', vi:'Khoa học và công nghệ', skill:'Giải thích quy trình',
+    grammar:[
+      { form:'Bị động để mô tả quy trình', vi:'First the beans are picked. Then they are dried and sorted.', note:'Trong mô tả quy trình, người thực hiện không quan trọng nên bị động là lựa chọn tự nhiên.', ex:{ en:'The data are collected and then analysed.', vi:'Dữ liệu được thu thập rồi phân tích.' } },
+      { form:'Từ nối trình tự', vi:'first, next, after that, subsequently, finally, at this stage.', note:'subsequently trang trọng hơn «after that», hay dùng trong IELTS Task 1 dạng quy trình.', ex:{ en:'Subsequently, the mixture is heated to 90 degrees.', vi:'Tiếp đó, hỗn hợp được đun tới 90 độ.' } },
+      { form:'Mệnh đề quan hệ rút gọn', vi:'The device which is used in hospitals → The device used in hospitals.', note:'Rút gọn khi đại từ quan hệ là chủ ngữ: bỏ «which is», giữ phân từ.', ex:{ en:'A machine designed in Japan controls the process.', vi:'Một cỗ máy do Nhật thiết kế điều khiển quy trình này.' } },
+      { form:'Ngôn ngữ định nghĩa', vi:'X is a device which… · X refers to… · X can be defined as…', note:'Rất hữu ích khi bạn không nhớ từ chính xác và phải diễn giải.', ex:{ en:'A sensor is a device that detects changes.', vi:'Cảm biến là thiết bị phát hiện sự thay đổi.' } }
+    ],
+    vocab:[
+      { en:'research', uk:'rɪˈsɜːtʃ', us:'ˈriːsɜːrtʃ', vi:'nghiên cứu', pos:'danh từ' },
+      { en:'experiment', uk:'ɪkˈsperɪmənt', us:'ɪkˈsperɪmənt', vi:'thí nghiệm', pos:'danh từ' },
+      { en:'evidence', uk:'ˈevɪdəns', us:'ˈevɪdəns', vi:'bằng chứng', pos:'danh từ' },
+      { en:'theory', uk:'ˈθɪəri', us:'ˈθɪri', vi:'lý thuyết', pos:'danh từ' },
+      { en:'hypothesis', uk:'haɪˈpɒθəsɪs', us:'haɪˈpɑːθəsɪs', vi:'giả thuyết', pos:'danh từ', note:'số nhiều: hypotheses' },
+      { en:'device', uk:'dɪˈvaɪs', us:'dɪˈvaɪs', vi:'thiết bị', pos:'danh từ' },
+      { en:'sensor', uk:'ˈsensə', us:'ˈsensər', vi:'cảm biến', pos:'danh từ' },
+      { en:'analyse', uk:'ˈænəlaɪz', us:'ˈænəlaɪz', vi:'phân tích', pos:'động từ', note:'Mỹ viết analyze' },
+      { en:'measure', uk:'ˈmeʒə', us:'ˈmeʒər', vi:'đo', pos:'động từ' },
+      { en:'detect', uk:'dɪˈtekt', us:'dɪˈtekt', vi:'phát hiện', pos:'động từ' },
+      { en:'develop', uk:'dɪˈveləp', us:'dɪˈveləp', vi:'phát triển', pos:'động từ' },
+      { en:'replace', uk:'rɪˈpleɪs', us:'rɪˈpleɪs', vi:'thay thế', pos:'động từ' },
+      { en:'automate', uk:'ˈɔːtəmeɪt', us:'ˈɔːtəmeɪt', vi:'tự động hoá', pos:'động từ' },
+      { en:'artificial', uk:'ˌɑːtɪˈfɪʃl', us:'ˌɑːrtɪˈfɪʃl', vi:'nhân tạo', pos:'tính từ' },
+      { en:'accurate', uk:'ˈækjərət', us:'ˈækjərət', vi:'chính xác', pos:'tính từ' },
+      { en:'efficient', uk:'ɪˈfɪʃnt', us:'ɪˈfɪʃnt', vi:'hiệu quả', pos:'tính từ' },
+      { en:'reliable', uk:'rɪˈlaɪəbl', us:'rɪˈlaɪəbl', vi:'đáng tin cậy', pos:'tính từ' },
+      { en:'complex', uk:'ˈkɒmpleks', us:'kəmˈpleks', vi:'phức tạp', pos:'tính từ' },
+      { en:'breakthrough', uk:'ˈbreɪkθruː', us:'ˈbreɪkθruː', vi:'bước đột phá', pos:'danh từ' },
+      { en:'innovation', uk:'ˌɪnəˈveɪʃn', us:'ˌɪnəˈveɪʃn', vi:'sự đổi mới', pos:'danh từ' }
+    ],
+    colloc:[
+      { p:'carry out research', vi:'tiến hành nghiên cứu — dùng carry out hoặc conduct, không dùng «do»', ex:'The team carried out research on air quality.' },
+      { p:'come to the conclusion that…', vi:'đi đến kết luận rằng…', ex:'Scientists came to the conclusion that the method was safe.' },
+      { p:'in the field of…', vi:'trong lĩnh vực…', ex:'a breakthrough in the field of medicine' }
+    ],
+    dialogue:[
+      { sp:'Linh', en:'Can you explain how the water filter works?', vi:'Bạn giải thích cái máy lọc nước hoạt động thế nào được không?' },
+      { sp:'Quan', en:'Sure. First, water is pumped into the top tank.', vi:'Được. Đầu tiên, nước được bơm vào bể trên.' },
+      { sp:'Linh', en:'And then?', vi:'Rồi sao?' },
+      { sp:'Quan', en:'Next it passes through three layers of sand and carbon.', vi:'Tiếp theo nó chảy qua ba lớp cát và than hoạt tính.' },
+      { sp:'Linh', en:'What are the sensors for?', vi:'Mấy cái cảm biến để làm gì?' },
+      { sp:'Quan', en:'They measure the quality and stop the pump if it is too low.', vi:'Chúng đo chất lượng nước và ngắt bơm nếu chất lượng quá thấp.' },
+      { sp:'Linh', en:'So the whole process is automated.', vi:'Vậy toàn bộ quy trình được tự động hoá.' },
+      { sp:'Quan', en:'Exactly. Only the filters are changed by hand, twice a year.', vi:'Chính xác. Chỉ có bộ lọc là thay bằng tay, hai lần một năm.' }
+    ],
+    reading:{ en:'The diagram shows how rainwater is collected and treated in a small village system. First, water falling on the roofs is directed into gutters and then into a collection tank. At this stage large particles such as leaves are removed by a simple metal filter. Next, the water is pumped into a second tank, where it passes through layers of sand, gravel and carbon. Sensors installed at the outlet measure the quality; if the reading is too low, the pump is stopped automatically and an alarm is sent to a phone in the village office. Finally, the treated water is stored in a covered tank and distributed to about forty households. The filters are replaced twice a year by hand.',
+      vi:'Sơ đồ cho thấy nước mưa được thu gom và xử lý thế nào trong một hệ thống nhỏ ở làng quê. Đầu tiên, nước rơi trên mái được dẫn vào máng rồi chảy xuống bể chứa. Ở giai đoạn này, các hạt lớn như lá cây được loại bỏ bằng một tấm lọc kim loại đơn giản. Tiếp theo, nước được bơm sang bể thứ hai, nơi nó chảy qua các lớp cát, sỏi và than hoạt tính. Cảm biến lắp ở đầu ra đo chất lượng nước; nếu chỉ số quá thấp, máy bơm tự động dừng và một cảnh báo được gửi tới điện thoại ở văn phòng thôn. Cuối cùng, nước đã xử lý được trữ trong bể có nắp và phân phối tới khoảng bốn mươi hộ. Bộ lọc được thay bằng tay hai lần mỗi năm.' } }
 
   ]
 };
