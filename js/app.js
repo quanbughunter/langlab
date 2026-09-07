@@ -28,6 +28,7 @@ const state = {
   quiz: null,
   topik: null,
   labiOpen: false,
+  fact: null, factOpen: false, factsLang: null, factsCat: 'all',
   assistant: { tab:'chat', messages:[], busy:false,
                audio:{ busy:false, result:null, error:null, name:'', lang:'' } },
   deck: store.get('deck', []),
@@ -1259,6 +1260,7 @@ function aboutView(){
         <li>Tập viết chữ theo đúng thứ tự nét (Hangul, Hán tự) và chữ viết tay Cyrillic.</li>
         <li>Luyện nghe và phát âm với giọng đọc chuẩn.</li>
         <li>Bài tập, ôn tập và thi thử có chấm điểm, kèm giải thích.</li>
+        <li><b>Bạn có biết?</b> — mẩu chuyện văn hoá, ẩm thực, lễ hội, thói quen của nước đang học, tự hiện ở góc màn hình trong lúc học; hình minh hoạ vẽ bằng SVG.</li>
         <li><b>Labi</b> — trợ lý AI: hỏi đáp về ngôn ngữ và phân tích tệp âm thanh (tách câu–từ, tra nghĩa, dịch).</li>
       </ul>
     </section>
@@ -1784,7 +1786,7 @@ function quizSummary(){
 const CRUMBS = {
   home:'Khoá học', lesson:'Bài học', write:'Tập viết',
   srs:'Ôn tập', dict:'Từ điển', quiz:'Bài tập', shadow:'Luyện shadowing',
-  numbers:'Số đếm', topik:'Thi thử TOPIK', about:'Giới thiệu'
+  numbers:'Số đếm', topik:'Thi thử TOPIK', about:'Giới thiệu', facts:'Bạn có biết?'
 };
 
 function render(){
@@ -1841,6 +1843,7 @@ function render(){
   if (state.view === 'lesson' && state.tab === 'write') mountTrace();
   if (state.view === 'topik' && state.topik && state.topik.phase === 'doing') mountTopik(); else topikStopTimer();
   window.scrollTo({ top:0, behavior:'instant' in window ? 'instant' : 'auto' });
+  if (typeof factSchedule === 'function') factSchedule();
 }
 
 /* ============================================================
@@ -4865,8 +4868,183 @@ document.addEventListener('scroll', hideTip, true);
 /* ============================================================
    SỰ KIỆN TOÀN CỤC
    ============================================================ */
+/* ============================================================
+   «BẠN CÓ BIẾT?» — bong bóng fact văn hoá theo ngôn ngữ đang học
+   Dữ liệu: facts.js (FACTS + FACT_ART). Bong bóng tự hiện sau một lúc học,
+   bấm vào mở bảng chi tiết có hình minh hoạ; xem tất cả ở màn «Bạn có biết?».
+   ============================================================ */
+const _FA = (typeof FACTS !== 'undefined') ? FACTS : [];
+const _FART = (typeof FACT_ART !== 'undefined') ? FACT_ART : {};
+const FACT_LANG_NAME = { ko:'Hàn Quốc', zh:'Trung Quốc', ru:'Nga', ja:'Nhật Bản', en:'Anh – Mỹ' };
+let _factTimer = null;
+
+function factsOn(){ return store.get('factsOn', true) !== false; }
+function factLang(){
+  const v = state.view;
+  if (v.indexOf('zh_') === 0) return 'zh';
+  if (v.indexOf('ru_') === 0) return 'ru';
+  if (v.indexOf('ja_') === 0) return 'ja';
+  if (v.indexOf('en_') === 0) return 'en';
+  const KO = ['home','lesson','write','shadow','srs','dict','quiz','numbers','topik'];
+  return KO.indexOf(v) >= 0 ? 'ko' : null;
+}
+function factPool(lang){ return _FA.filter(f => f.lang === lang); }
+function factSeen(){ return store.get('factSeen', []) || []; }
+function factKey(f){ return f.lang + '·' + f.title; }
+function factPick(lang, exclude){
+  let pool = factPool(lang);
+  if (!pool.length) return null;
+  if (exclude && pool.length > 1) pool = pool.filter(f => f !== exclude);
+  const seen = factSeen();
+  const fresh = pool.filter(f => seen.indexOf(factKey(f)) < 0);
+  const from = fresh.length ? fresh : pool;
+  return from[Math.floor(Math.random() * from.length)];
+}
+function factMarkSeen(f){
+  if (!f) return;
+  const seen = factSeen(), k = factKey(f);
+  if (seen.indexOf(k) < 0){ seen.push(k); store.set('factSeen', seen.slice(-200)); }
+}
+function factArt(id){
+  const g = _FART[id] || _FART.letter || '';
+  return `<svg class="fact-art" viewBox="0 0 120 84" role="img" aria-hidden="true"><rect x="2" y="2" width="116" height="80" rx="14" fill="var(--accent-soft)"/>${g}</svg>`;
+}
+function factSpeakBtn(f){
+  const t = f.word && f.word.t;
+  if (!t) return '';
+  const attr = f.lang === 'zh' ? `data-zh-speak="${esc(t)}"` : f.lang === 'ru' ? `data-ru-speak="${esc(t)}"` : f.lang === 'ja' ? `data-ja-speak="${esc(t)}"` : `data-speak="${esc(t)}"`;
+  return `<button class="icon-btn" ${attr} title="Nghe">🔊</button>`;
+}
+function factCardHTML(f){
+  return `
+  <div class="fact-card-in">
+    ${factArt(f.art)}
+    <div class="fact-body">
+      <div class="fact-tags"><span class="fact-chip">${esc(f.cat)}</span><span class="fact-chip ghost">${esc(FACT_LANG_NAME[f.lang] || '')}</span></div>
+      <h3>${esc(f.title)}</h3>
+      <p>${esc(f.body)}</p>
+      <p class="fact-extra"><b>Thú vị hơn nữa:</b> ${esc(f.extra)}</p>
+      ${f.word ? `<div class="fact-word"><span class="fact-word-t ${esc(f.lang)}">${esc(f.word.t)}</span> ${factSpeakBtn(f)} <span class="fact-word-r">${esc(f.word.r || '')}</span> <span class="fact-word-vi">${esc(f.word.vi || '')}</span></div>` : ''}
+    </div>
+  </div>`;
+}
+/* ----- bong bóng nổi ----- */
+function factBubbleEl(){
+  let el = $('#factBubble');
+  if (!el){
+    el = document.createElement('div');
+    el.id = 'factBubble'; el.className = 'fact-bubble';
+    document.body.appendChild(el);
+  }
+  return el;
+}
+function factShowBubble(f){
+  if (!f) return;
+  const el = factBubbleEl();
+  el.innerHTML = `
+    <button class="fact-bubble-main" data-fact-open="1" title="Mở xem chi tiết">
+      <span class="fact-bubble-ic">💡</span>
+      <span class="fact-bubble-tx"><b>Bạn có biết?</b><i>${esc(f.title)}</i></span>
+    </button>
+    <button class="fact-bubble-x" data-fact-hide="1" title="Ẩn">✕</button>`;
+  el.classList.add('show');
+  state.fact = f;
+}
+function factHideBubble(){ const el = $('#factBubble'); if (el) el.classList.remove('show'); }
+function factSchedule(){
+  clearTimeout(_factTimer);
+  if (!factsOn()) { factHideBubble(); return; }
+  const lang = factLang();
+  if (!lang || !factPool(lang).length){ factHideBubble(); return; }
+  const last = store.get('factLastAt', 0);
+  const gap = Date.now() - last;
+  const wait = gap > 6 * 60000 ? (18000 + Math.random() * 22000) : (6 * 60000 - gap) + 4000;
+  _factTimer = setTimeout(() => {
+    if (!factsOn() || state.factOpen) return;
+    const lg = factLang(); if (!lg) return;
+    const f = factPick(lg); if (!f) return;
+    store.set('factLastAt', Date.now());
+    factShowBubble(f);
+  }, wait);
+}
+/* ----- bảng chi tiết ----- */
+function factModalEl(){
+  let el = $('#factModal');
+  if (!el){
+    el = document.createElement('div');
+    el.id = 'factModal'; el.className = 'fact-modal';
+    document.body.appendChild(el);
+  }
+  return el;
+}
+function factOpen(f){
+  f = f || state.fact || factPick(factLang() || 'ko');
+  if (!f) return;
+  state.fact = f; state.factOpen = true;
+  factMarkSeen(f);
+  factHideBubble();
+  const el = factModalEl();
+  el.innerHTML = `
+    <div class="fact-sheet" role="dialog" aria-modal="true" aria-label="Bạn có biết?">
+      <div class="fact-head">
+        <span class="fact-head-t">💡 Bạn có biết?</span>
+        <button class="icon-btn" data-fact-close="1" title="Đóng"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      ${factCardHTML(f)}
+      <div class="fact-actions">
+        <button class="pbtn primary" data-fact-next="1">🎲 Fact khác</button>
+        <button class="pbtn" data-go="facts" data-fact-close="1">Xem tất cả</button>
+        <button class="pbtn ghost" data-fact-off="1">🔕 Tắt bong bóng</button>
+      </div>
+    </div>`;
+  el.classList.add('open');
+  document.documentElement.dataset.factModal = '1';
+}
+function factClose(){
+  const el = $('#factModal'); if (el) el.classList.remove('open');
+  state.factOpen = false;
+  delete document.documentElement.dataset.factModal;
+  factSchedule();
+}
+/* ----- màn hình «Bạn có biết?» ----- */
+if (typeof window !== 'undefined') window.__facts = { pick:factPick, lang:factLang, show:factShowBubble, schedule:factSchedule, on:factsOn, open:factOpen, pool:factPool, store };
+VIEWS.facts = function(){
+  const lang = state.factsLang || factLang() || 'ko';
+  const pool = factPool(lang);
+  const cats = [...new Set(pool.map(f => f.cat))];
+  const cat = cats.indexOf(state.factsCat) >= 0 ? state.factsCat : 'all';
+  const list = cat === 'all' ? pool : pool.filter(f => f.cat === cat);
+  const langs = ['ko','zh','ru','ja','en'].filter(l => factPool(l).length);
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Bạn có biết?</span>
+    <h1>Văn hoá ${esc(FACT_LANG_NAME[lang] || '')} qua ${pool.length} mẩu chuyện</h1>
+    <p>Ẩm thực, lễ hội, thói quen, ngôn ngữ, con người và động vật — mỗi mẩu kèm một từ khoá bản ngữ để nhớ luôn. Trong lúc học, bong bóng «Bạn có biết?» sẽ thỉnh thoảng hiện lên ở góc màn hình với một mẩu ngẫu nhiên của ngôn ngữ bạn đang học.</p>
+  </div>
+  <div class="level-strip compact">${langs.map(l => `<button class="level-chip" data-facts-lang="${l}"${l === lang ? ' aria-pressed="true"' : ''}>${esc(FACT_LANG_NAME[l])}</button>`).join('')}</div>
+  <div class="level-strip compact" style="margin-top:8px"><button class="level-chip" data-facts-cat="all"${cat === 'all' ? ' aria-pressed="true"' : ''}>Tất cả</button>${cats.map(c => `<button class="level-chip" data-facts-cat="${esc(c)}"${cat === c ? ' aria-pressed="true"' : ''}>${esc(c)}</button>`).join('')}</div>
+  <div class="fact-grid">${list.map((f, i) => `<button class="fact-card" data-fact-idx="${_FA.indexOf(f)}">${factCardHTML(f)}</button>`).join('')}</div>
+  <div class="wp-actions" style="padding:10px 0 0">${factsOn() ? `<button class="pbtn" data-fact-off="1">🔕 Tắt bong bóng «Bạn có biết?»</button>` : `<button class="pbtn primary" data-fact-on="1">🔔 Bật lại bong bóng «Bạn có biết?»</button>`}<button class="pbtn" data-fact-next="1">🎲 Xem một mẩu ngẫu nhiên</button></div>
+  <p class="tk-note-small">Nội dung do LangLab biên soạn cho người học, có thể lược giản so với tài liệu chuyên khảo. Hình minh hoạ vẽ bằng SVG, không dùng ảnh của bên thứ ba.</p>`;
+};
+
 document.addEventListener('click', e => {
   const t = e.target;
+
+  /* ----- Bạn có biết? ----- */
+  if (t.closest('[data-fact-hide]')){ factHideBubble(); store.set('factLastAt', Date.now()); factSchedule(); return; }
+  if (t.closest('[data-fact-open]')){ factOpen(state.fact); return; }
+  if (t.closest('[data-fact-next]')){ const lg = state.factOpen && state.fact ? state.fact.lang : (state.view === 'facts' ? (state.factsLang || factLang() || 'ko') : (factLang() || 'ko')); const f = factPick(lg, state.factOpen ? state.fact : null); if (f) factOpen(f); return; }
+  if (t.closest('[data-fact-off]')){ store.set('factsOn', false); factClose(); factHideBubble(); toast('Đã tắt bong bóng «Bạn có biết?» — bật lại ở màn Bạn có biết?'); return; }
+  if (t.closest('[data-fact-on]')){ store.set('factsOn', true); toast('Đã bật lại bong bóng «Bạn có biết?»'); render(); return; }
+  const fIdx = t.closest('[data-fact-idx]');
+  if (fIdx){ const f = _FA[+fIdx.dataset.factIdx]; if (f) factOpen(f); return; }
+  const fLang = t.closest('[data-facts-lang]');
+  if (fLang){ state.factsLang = fLang.dataset.factsLang; state.factsCat = 'all'; render(); return; }
+  const fCat = t.closest('[data-facts-cat]');
+  if (fCat){ state.factsCat = fCat.dataset.factsCat; render(); return; }
+  if (t.closest('[data-fact-close]')){ factClose(); if (!t.closest('[data-go]')) return; }
+  if (t.id === 'factModal'){ factClose(); return; }
 
   /* ----- navbar: dropdown Tiếng Hàn ----- */
   if (!t.closest('.nav-drop')){
@@ -5543,7 +5721,7 @@ function applyTheme(){
 function syncThemeColor(){
   try {
     const lang = document.documentElement.getAttribute('data-lang');
-    const pal = lang === 'zh' ? { light:'#F8F2F1', dark:'#17100F' } : lang === 'ru' ? { light:'#E6ECF6', dark:'#0B1428' } : lang === 'ja' ? { light:'#F7ECEC', dark:'#1A0F11' } : { light:'#EAF1FB', dark:'#0B1220' };
+    const pal = lang === 'zh' ? { light:'#F8F2F1', dark:'#17100F' } : lang === 'ru' ? { light:'#E6ECF6', dark:'#0B1428' } : lang === 'ja' ? { light:'#FFF4F4', dark:'#170C0F' } : { light:'#EAF1FB', dark:'#0B1220' };
     document.querySelectorAll('meta[name="theme-color"]').forEach(m => {
       const media = m.getAttribute('media') || '';
       m.setAttribute('content', /dark/.test(media) ? pal.dark : pal.light);
@@ -5589,6 +5767,7 @@ applyTheme();
     if (jb && ja.length) jb.textContent = ja.length > 1 ? `${jaLevelName(ja[0].id)}–${jaLevelName(ja[ja.length - 1].id)}` : jaLevelName(ja[0].id);
   } catch(e){}
 })();
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && state.factOpen) factClose(); });
 render();
 seedHist();
 

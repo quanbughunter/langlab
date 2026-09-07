@@ -33,7 +33,7 @@ for src in ("js/strokes.js", "js/course-ko.js", "js/vocab-common.js", "js/tts.js
             "js/course-ru.js", "js/speak-ru.js", "js/exercises-ru.js", "js/trki-exams.js",
             "js/trki-b1.js", "js/trki-b2.js", "js/trki-c1.js", "js/trki-c2.js",
             "js/morph-ru.js", "js/dict-ru.js",
-            "js/kana-ja.js", "js/kanji-ja.js", "js/hanzi-data-ja.js", "js/course-ja.js", "js/morph-ja.js", "js/dict-ja.js", "js/exercises-ja.js", "js/speak-ja.js", "js/jlpt-exams.js",
+            "js/kana-ja.js", "js/kanji-ja.js", "js/hanzi-data-ja.js", "js/course-ja.js", "js/morph-ja.js", "js/dict-ja.js", "js/exercises-ja.js", "js/speak-ja.js", "js/jlpt-exams.js", "js/facts.js",
             "js/app.js"):
     html = re.sub(
         r'<script src="' + re.escape(src) + r'(?:\?[^"]*)?"></script>',

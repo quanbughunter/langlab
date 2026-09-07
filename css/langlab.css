@@ -1390,30 +1390,30 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   --logo-bg:#EEF3FB;
 }
 
-/* ===== TÔNG MÀU TIẾNG NHẬT — đỏ / trắng (data-lang="ja"), tương phản đo ≥ 5.8:1 =====
-   sáng: accent #A6192E trên trắng 7.5:1 · tối: accent #FF8F9B trên #24161A 8.0:1 */
+/* ===== TÔNG MÀU TIẾNG NHẬT — đỏ tươi (hinomaru) / trắng (data-lang="ja") =====
+   sáng: accent #D01A32 trên trắng 5.4:1, trên nền 5.0:1 · tối: accent #FF6B7C trên #241318 6.5:1 */
 :root[data-lang="ja"]{
-  --ground:#F7ECEC; --surface:#FFFFFF; --surface-2:#F3DFE0;
-  --ink:#1B1416; --muted:#6B5A5D; --faint:#95848A;
-  --line:#E7CCCF; --line-strong:#D4AEB3;
-  --accent:#A6192E; --accent-2:#C2263D; --accent-soft:#F9E1E4;
+  --ground:#FFF4F4; --surface:#FFFFFF; --surface-2:#FFE6E8;
+  --ink:#1B1416; --muted:#6E585C; --faint:#8F777C;
+  --line:#FAD2D6; --line-strong:#F0AEB5;
+  --accent:#D01A32; --accent-2:#E0243B; --accent-soft:#FFE9EC;
   --seal:#1F3A5F; --seal-soft:#E1E9F4;
 }
 @media (prefers-color-scheme: dark){
   :root[data-lang="ja"]:not([data-theme="light"]){
-    --ground:#1A0F11; --surface:#24161A; --surface-2:#2E1C21;
-    --ink:#F5E9EA; --muted:#C2A9AD; --faint:#8E777C;
-    --line:#43282E; --line-strong:#5A353D;
-    --accent:#FF8F9B; --accent-2:#FFB0B8; --accent-soft:#4A2028;
+    --ground:#170C0F; --surface:#241318; --surface-2:#301A20;
+    --ink:#F7E9EB; --muted:#C9AAB0; --faint:#92787E;
+    --line:#4A2830; --line-strong:#63343E;
+    --accent:#FF6B7C; --accent-2:#FF9AA5; --accent-soft:#55212B;
     --seal:#9CC4F0; --seal-soft:#1E2E44;
     --logo-bg:#FBEEEF;
   }
 }
 :root[data-lang="ja"][data-theme="dark"]{
-  --ground:#1A0F11; --surface:#24161A; --surface-2:#2E1C21;
-  --ink:#F5E9EA; --muted:#C2A9AD; --faint:#8E777C;
-  --line:#43282E; --line-strong:#5A353D;
-  --accent:#FF8F9B; --accent-2:#FFB0B8; --accent-soft:#4A2028;
+  --ground:#170C0F; --surface:#241318; --surface-2:#301A20;
+  --ink:#F7E9EB; --muted:#C9AAB0; --faint:#92787E;
+  --line:#4A2830; --line-strong:#63343E;
+  --accent:#FF6B7C; --accent-2:#FF9AA5; --accent-soft:#55212B;
   --seal:#9CC4F0; --seal-soft:#1E2E44;
   --logo-bg:#FBEEEF;
 }
@@ -1588,3 +1588,51 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 .zh-write-char.ja,.zh-card-front.ja{font-family:"Noto Sans JP",sans-serif}
 .qz-opt.ja,.hsk-chunk.ja,.hsk-order-line.ja{font-family:"Noto Sans JP",sans-serif}
 @media (max-width:640px){.ja-kana-detail,.ja-kanji-detail{grid-template-columns:1fr;padding:14px}.ja-kana-big,.ja-kanji-big{font-size:34px}.ja-kana-grid{gap:4px}.ja-kana-g{font-size:22px}}
+
+/* ===== «Bạn có biết?» — bong bóng nổi + bảng chi tiết + lưới thẻ ===== */
+.fact-bubble{position:fixed;left:18px;bottom:18px;z-index:70;display:none;align-items:stretch;gap:0;max-width:min(360px,calc(100vw - 36px));
+  background:var(--surface);border:1px solid var(--line-strong);border-radius:16px;box-shadow:0 12px 34px rgba(0,0,0,.18);overflow:hidden}
+.fact-bubble.show{display:flex;animation:factPop .45s cubic-bezier(.2,1.3,.4,1)}
+@keyframes factPop{0%{opacity:0;transform:translateY(14px) scale(.92)}100%{opacity:1;transform:none}}
+.fact-bubble-main{flex:1;display:flex;align-items:center;gap:10px;padding:11px 8px 11px 13px;background:none;border:0;cursor:pointer;text-align:left;color:var(--ink);font:inherit}
+.fact-bubble-main:hover{background:var(--accent-soft)}
+.fact-bubble-ic{font-size:22px;line-height:1;filter:saturate(1.2);animation:factGlow 2.4s ease-in-out infinite}
+@keyframes factGlow{0%,100%{transform:rotate(-6deg) scale(1)}50%{transform:rotate(6deg) scale(1.12)}}
+.fact-bubble-tx{display:flex;flex-direction:column;gap:2px;min-width:0}
+.fact-bubble-tx b{font-size:13px;color:var(--accent);letter-spacing:.02em}
+.fact-bubble-tx i{font-style:normal;font-size:13.5px;color:var(--muted);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.fact-bubble-x{border:0;background:none;color:var(--faint);cursor:pointer;padding:0 11px;font-size:14px;align-self:stretch}
+.fact-bubble-x:hover{color:var(--accent);background:var(--surface-2)}
+@media (max-width:640px){ .fact-bubble{left:12px;right:12px;bottom:12px;max-width:none} }
+
+.fact-modal{position:fixed;inset:0;z-index:95;display:none;align-items:center;justify-content:center;padding:18px;
+  background:color-mix(in srgb,var(--ink) 46%,transparent);backdrop-filter:blur(3px)}
+.fact-modal.open{display:flex;animation:factFade .18s ease}
+@keyframes factFade{from{opacity:0}to{opacity:1}}
+.fact-sheet{width:min(560px,100%);max-height:88vh;overflow:auto;background:var(--surface);border:1px solid var(--line-strong);
+  border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.28);padding:14px 16px 16px;animation:factRise .28s cubic-bezier(.2,1.1,.4,1)}
+@keyframes factRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.fact-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+.fact-head-t{font-weight:700;color:var(--accent);letter-spacing:.02em}
+.fact-card-in{display:flex;flex-direction:column;gap:10px}
+.fact-art{width:100%;height:auto;max-height:190px;border-radius:14px;display:block}
+.fact-body h3{margin:2px 0 6px;font-size:19px;line-height:1.3}
+.fact-body p{margin:0 0 8px;line-height:1.6;color:var(--ink)}
+.fact-extra{color:var(--muted);font-size:14px}
+.fact-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:2px}
+.fact-chip{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:600}
+.fact-chip.ghost{background:var(--surface-2);color:var(--muted);font-weight:500}
+.fact-word{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;border:1px dashed var(--line-strong);border-radius:12px;background:var(--surface-2)}
+.fact-word-t{font-size:19px;font-weight:600}
+.fact-word-r{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;color:var(--accent-2)}
+.fact-word-vi{color:var(--muted);font-size:14px}
+.fact-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.pbtn.ghost{background:none;color:var(--muted)}
+
+.fact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:14px}
+.fact-card{text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:12px;cursor:pointer;color:var(--ink);font:inherit;transition:border-color .15s,transform .15s,box-shadow .15s}
+.fact-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.09)}
+.fact-card .fact-art{max-height:130px}
+.fact-card .fact-body h3{font-size:16px}
+.fact-card .fact-body p{font-size:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.fact-card .fact-extra,.fact-card .fact-word{display:none}
