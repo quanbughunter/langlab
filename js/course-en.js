@@ -2324,7 +2324,473 @@ const COURSE_EN = {
       { sp:'Quan', en:'Exactly. Only the filters are changed by hand, twice a year.', vi:'Chính xác. Chỉ có bộ lọc là thay bằng tay, hai lần một năm.' }
     ],
     reading:{ en:'The diagram shows how rainwater is collected and treated in a small village system. First, water falling on the roofs is directed into gutters and then into a collection tank. At this stage large particles such as leaves are removed by a simple metal filter. Next, the water is pumped into a second tank, where it passes through layers of sand, gravel and carbon. Sensors installed at the outlet measure the quality; if the reading is too low, the pump is stopped automatically and an alarm is sent to a phone in the village office. Finally, the treated water is stored in a covered tank and distributed to about forty households. The filters are replaced twice a year by hand.',
-      vi:'Sơ đồ cho thấy nước mưa được thu gom và xử lý thế nào trong một hệ thống nhỏ ở làng quê. Đầu tiên, nước rơi trên mái được dẫn vào máng rồi chảy xuống bể chứa. Ở giai đoạn này, các hạt lớn như lá cây được loại bỏ bằng một tấm lọc kim loại đơn giản. Tiếp theo, nước được bơm sang bể thứ hai, nơi nó chảy qua các lớp cát, sỏi và than hoạt tính. Cảm biến lắp ở đầu ra đo chất lượng nước; nếu chỉ số quá thấp, máy bơm tự động dừng và một cảnh báo được gửi tới điện thoại ở văn phòng thôn. Cuối cùng, nước đã xử lý được trữ trong bể có nắp và phân phối tới khoảng bốn mươi hộ. Bộ lọc được thay bằng tay hai lần mỗi năm.' } }
+      vi:'Sơ đồ cho thấy nước mưa được thu gom và xử lý thế nào trong một hệ thống nhỏ ở làng quê. Đầu tiên, nước rơi trên mái được dẫn vào máng rồi chảy xuống bể chứa. Ở giai đoạn này, các hạt lớn như lá cây được loại bỏ bằng một tấm lọc kim loại đơn giản. Tiếp theo, nước được bơm sang bể thứ hai, nơi nó chảy qua các lớp cát, sỏi và than hoạt tính. Cảm biến lắp ở đầu ra đo chất lượng nước; nếu chỉ số quá thấp, máy bơm tự động dừng và một cảnh báo được gửi tới điện thoại ở văn phòng thôn. Cuối cùng, nước đã xử lý được trữ trong bể có nắp và phân phối tới khoảng bốn mươi hộ. Bộ lọc được thay bằng tay hai lần mỗi năm.' } },
+
+  { level:'b1', no:11, en:'Books, films and art', vi:'Sách, phim và nghệ thuật', skill:'Nhận xét, đánh giá',
+    grammar:[
+      { form:'Ngôn ngữ nhận xét', vi:'be set in · be based on · deal with · be worth + V-ing · be aimed at.', note:'be based ON (dựa trên) ≠ be based IN (đặt trụ sở tại).', ex:{ en:'The novel is set in Hanoi in the 1950s.', vi:'Cuốn tiểu thuyết lấy bối cảnh Hà Nội thập niên 1950.' } },
+      { form:'Tính từ mạnh và trạng từ đi kèm', vi:'absolutely stunning · utterly predictable · slightly disappointing.', note:'Tính từ tuyệt đối (stunning, brilliant, awful) đi với absolutely, KHÔNG với very.', ex:{ en:'The ending was absolutely brilliant.', vi:'Đoạn kết hay tuyệt.' } },
+      { form:'Mệnh đề quan hệ rút gọn trong nhận xét', vi:'a film directed by… · a book written in 1975 · scenes shot in Hue.', note:'Bỏ «which was» để câu gọn và tự nhiên hơn.', ex:{ en:'It is a documentary filmed over three years.', vi:'Đó là phim tài liệu quay trong ba năm.' } },
+      { form:'So sánh và giới thiệu ý kiến trái chiều', vi:'Critics praised it, whereas audiences found it slow.', note:'Nêu cả hai phía làm bài nói và bài viết cân bằng hơn.', ex:{ en:'Some found it moving; others thought it was too long.', vi:'Có người thấy cảm động; người khác lại thấy quá dài.' } }
+    ],
+    vocab:[
+      { en:'novel', uk:'ˈnɒvl', us:'ˈnɑːvl', vi:'tiểu thuyết', pos:'danh từ' },
+      { en:'author', uk:'ˈɔːθə', us:'ˈɔːθər', vi:'tác giả', pos:'danh từ' },
+      { en:'plot', uk:'plɒt', us:'plɑːt', vi:'cốt truyện', pos:'danh từ' },
+      { en:'character', uk:'ˈkærəktə', us:'ˈkerəktər', vi:'nhân vật', pos:'danh từ' },
+      { en:'setting', uk:'ˈsetɪŋ', us:'ˈsetɪŋ', vi:'bối cảnh', pos:'danh từ' },
+      { en:'director', uk:'dəˈrektə', us:'dəˈrektər', vi:'đạo diễn', pos:'danh từ' },
+      { en:'scene', uk:'siːn', us:'siːn', vi:'cảnh phim', pos:'danh từ', note:'c câm' },
+      { en:'review', uk:'rɪˈvjuː', us:'rɪˈvjuː', vi:'bài phê bình', pos:'danh từ' },
+      { en:'critic', uk:'ˈkrɪtɪk', us:'ˈkrɪtɪk', vi:'nhà phê bình', pos:'danh từ', note:'critic (người) ≠ critique (bài phê bình)' },
+      { en:'audience', uk:'ˈɔːdiəns', us:'ˈɔːdiəns', vi:'khán giả', pos:'danh từ' },
+      { en:'masterpiece', uk:'ˈmɑːstəpiːs', us:'ˈmæstərpiːs', vi:'kiệt tác', pos:'danh từ' },
+      { en:'exhibition', uk:'ˌeksɪˈbɪʃn', us:'ˌeksɪˈbɪʃn', vi:'triển lãm', pos:'danh từ' },
+      { en:'gallery', uk:'ˈɡæləri', us:'ˈɡæləri', vi:'phòng tranh', pos:'danh từ' },
+      { en:'moving', uk:'ˈmuːvɪŋ', us:'ˈmuːvɪŋ', vi:'cảm động', pos:'tính từ' },
+      { en:'predictable', uk:'prɪˈdɪktəbl', us:'prɪˈdɪktəbl', vi:'dễ đoán', pos:'tính từ' },
+      { en:'stunning', uk:'ˈstʌnɪŋ', us:'ˈstʌnɪŋ', vi:'đẹp choáng ngợp', pos:'tính từ' },
+      { en:'overrated', uk:'ˌəʊvəˈreɪtɪd', us:'ˌoʊvərˈreɪtɪd', vi:'được đánh giá quá cao', pos:'tính từ' },
+      { en:'realistic', uk:'ˌrɪəˈlɪstɪk', us:'ˌriːəˈlɪstɪk', vi:'chân thực', pos:'tính từ' },
+      { en:'adapt', uk:'əˈdæpt', us:'əˈdæpt', vi:'chuyển thể', pos:'động từ' },
+      { en:'recommend', uk:'ˌrekəˈmend', us:'ˌrekəˈmend', vi:'giới thiệu, khuyên dùng', pos:'động từ', note:'recommend + V-ing hoặc that-clause' }
+    ],
+    colloc:[
+      { p:'be based on a true story', vi:'dựa trên chuyện có thật', ex:'The film is based on a true story.' },
+      { p:'it is well worth seeing', vi:'rất đáng xem', ex:'It is slow, but it is well worth seeing.' },
+      { p:'the film lives up to the hype', vi:'phim xứng với kỳ vọng', ex:'Honestly, the film does not live up to the hype.' }
+    ],
+    dialogue:[
+      { sp:'Linh', en:'Have you seen the film everyone is talking about?', vi:'Bạn xem cái phim ai cũng nói tới chưa?' },
+      { sp:'Quan', en:'Last night. It is set in Hue in the 1960s.', vi:'Tối qua. Phim lấy bối cảnh Huế những năm 1960.' },
+      { sp:'Linh', en:'Is it based on the novel?', vi:'Phim dựa trên cuốn tiểu thuyết à?' },
+      { sp:'Quan', en:'Loosely. The plot is simpler and one character was cut.', vi:'Chỉ phần nào thôi. Cốt truyện đơn giản hơn và một nhân vật bị cắt.' },
+      { sp:'Linh', en:'What did you think of it?', vi:'Bạn thấy thế nào?' },
+      { sp:'Quan', en:'The photography is stunning, but the ending is predictable.', vi:'Hình ảnh đẹp choáng ngợp, nhưng đoạn kết dễ đoán.' },
+      { sp:'Linh', en:'So would you recommend it?', vi:'Vậy bạn có giới thiệu không?' },
+      { sp:'Quan', en:'Yes — it is well worth seeing on a big screen.', vi:'Có chứ — rất đáng xem trên màn ảnh lớn.' }
+    ],
+    reading:{ en:'Adapting a novel for the screen is never simple. A book of four hundred pages may take twelve hours to read, while a film has roughly two. Directors therefore have to cut characters, combine scenes and sometimes change the ending entirely. Readers often complain that the result is shallow, whereas viewers who do not know the book may find the same film perfectly satisfying. Critics tend to judge an adaptation on whether it captures the spirit of the original rather than every detail. Perhaps the fairest test is a simple one: does the film work for someone who has never opened the book?',
+      vi:'Chuyển thể một cuốn tiểu thuyết lên màn ảnh chưa bao giờ đơn giản. Một cuốn sách bốn trăm trang có thể mất mười hai tiếng để đọc, trong khi một bộ phim chỉ có khoảng hai tiếng. Vì thế đạo diễn buộc phải cắt nhân vật, gộp cảnh và đôi khi đổi hẳn đoạn kết. Độc giả thường phàn nàn rằng kết quả hời hợt, trong khi khán giả không biết cuốn sách lại thấy chính bộ phim đó rất trọn vẹn. Giới phê bình thường đánh giá một bản chuyển thể ở chỗ nó có nắm được tinh thần bản gốc hay không, chứ không phải từng chi tiết. Có lẽ phép thử công bằng nhất rất đơn giản: bộ phim có thuyết phục được người chưa từng mở cuốn sách ra không?' } },
+
+  { level:'b1', no:12, en:'Crime and the law', vi:'Tội phạm và pháp luật', skill:'Tranh luận chính sách',
+    grammar:[
+      { form:'Bị động khi không nêu tác nhân', vi:'He was arrested. · The case was dropped. · Two people have been charged.', note:'Ngôn ngữ tin tức về pháp luật dùng bị động dày đặc.', ex:{ en:'The suspect was released without charge.', vi:'Nghi phạm được thả mà không bị buộc tội.' } },
+      { form:'Câu điều kiện trong lập luận chính sách', vi:'If sentences were longer, would crime fall?', note:'Loại 2 dùng cho giả định chính sách chưa xảy ra.', ex:{ en:'If more police were on the streets, people would feel safer.', vi:'Nếu có thêm cảnh sát trên phố, người dân sẽ thấy an toàn hơn.' } },
+      { form:'Cụm nêu lập luận', vi:'It is often argued that… · Opponents claim that… · The evidence suggests that…', note:'Dùng «it is argued that» để nêu ý kiến chung mà không quy cho ai cụ thể.', ex:{ en:'It is often argued that prevention works better than punishment.', vi:'Người ta thường lập luận rằng phòng ngừa hiệu quả hơn trừng phạt.' } },
+      { form:'Mức độ chắc chắn trong lập luận', vi:'tend to · may well · is unlikely to · in most cases.', note:'Trong văn học thuật, tránh khẳng định tuyệt đối; dùng ngôn ngữ giảm nhẹ (hedging).', ex:{ en:'Harsher penalties tend to have little effect on petty crime.', vi:'Hình phạt nặng hơn thường ít tác dụng với tội vặt.' } }
+    ],
+    vocab:[
+      { en:'crime', uk:'kraɪm', us:'kraɪm', vi:'tội phạm', pos:'danh từ' },
+      { en:'criminal', uk:'ˈkrɪmɪnl', us:'ˈkrɪmɪnl', vi:'kẻ phạm tội', pos:'danh từ' },
+      { en:'suspect', uk:'ˈsʌspekt', us:'ˈsʌspekt', vi:'nghi phạm', pos:'danh từ', note:'động từ đọc /səˈspekt/' },
+      { en:'witness', uk:'ˈwɪtnəs', us:'ˈwɪtnəs', vi:'nhân chứng', pos:'danh từ' },
+      { en:'evidence', uk:'ˈevɪdəns', us:'ˈevɪdəns', vi:'chứng cứ', pos:'danh từ' },
+      { en:'trial', uk:'ˈtraɪəl', us:'ˈtraɪəl', vi:'phiên toà', pos:'danh từ' },
+      { en:'court', uk:'kɔːt', us:'kɔːrt', vi:'toà án', pos:'danh từ' },
+      { en:'judge', uk:'dʒʌdʒ', us:'dʒʌdʒ', vi:'thẩm phán', pos:'danh từ' },
+      { en:'jury', uk:'ˈdʒʊəri', us:'ˈdʒʊri', vi:'bồi thẩm đoàn', pos:'danh từ' },
+      { en:'sentence', uk:'ˈsentəns', us:'ˈsentəns', vi:'bản án', pos:'danh từ' },
+      { en:'fine', uk:'faɪn', us:'faɪn', vi:'tiền phạt', pos:'danh từ' },
+      { en:'arrest', uk:'əˈrest', us:'əˈrest', vi:'bắt giữ', pos:'động từ' },
+      { en:'charge', uk:'tʃɑːdʒ', us:'tʃɑːrdʒ', vi:'buộc tội', pos:'động từ', note:'charge someone WITH something' },
+      { en:'accuse', uk:'əˈkjuːz', us:'əˈkjuːz', vi:'cáo buộc', pos:'động từ', note:'accuse someone OF something' },
+      { en:'punish', uk:'ˈpʌnɪʃ', us:'ˈpʌnɪʃ', vi:'trừng phạt', pos:'động từ' },
+      { en:'prevent', uk:'prɪˈvent', us:'prɪˈvent', vi:'ngăn chặn', pos:'động từ' },
+      { en:'guilty', uk:'ˈɡɪlti', us:'ˈɡɪlti', vi:'có tội', pos:'tính từ', note:'guilty OF' },
+      { en:'innocent', uk:'ˈɪnəsnt', us:'ˈɪnəsnt', vi:'vô tội', pos:'tính từ' },
+      { en:'fair', uk:'feə', us:'fer', vi:'công bằng', pos:'tính từ' },
+      { en:'strict', uk:'strɪkt', us:'strɪkt', vi:'nghiêm khắc', pos:'tính từ' }
+    ],
+    colloc:[
+      { p:'commit a crime', vi:'phạm tội — dùng commit, không dùng «do» hay «make»', ex:'He was accused of committing a serious crime.' },
+      { p:'serve a sentence', vi:'thi hành án', ex:'She served a two-year sentence.' },
+      { p:'get away with something', vi:'thoát tội, không bị phạt', ex:'Nobody should get away with cheating.' }
+    ],
+    dialogue:[
+      { sp:'Teacher', en:'Should sentences for traffic offences be stricter?', vi:'Có nên phạt nặng hơn với vi phạm giao thông không?' },
+      { sp:'Quan', en:'For drink-driving, yes. The risk to others is too high.', vi:'Với lái xe khi uống rượu thì có ạ. Nguy cơ cho người khác quá lớn.' },
+      { sp:'Teacher', en:'And for smaller offences, such as parking?', vi:'Còn vi phạm nhỏ như đỗ xe thì sao?' },
+      { sp:'Quan', en:'A larger fine would not change much. Enforcement matters more.', vi:'Phạt nặng hơn cũng không thay đổi nhiều. Việc thực thi mới quan trọng.' },
+      { sp:'Teacher', en:'That is a good point. Why?', vi:'Ý hay đấy. Vì sao?' },
+      { sp:'Quan', en:'Because people break rules when they believe nobody is watching.', vi:'Vì người ta vi phạm khi tin rằng không ai nhìn thấy.' },
+      { sp:'Teacher', en:'So prevention rather than punishment?', vi:'Vậy là phòng ngừa thay vì trừng phạt?' },
+      { sp:'Quan', en:'Both, but I would spend the money on cameras first.', vi:'Cả hai ạ, nhưng em sẽ chi tiền cho camera trước.' }
+    ],
+    reading:{ en:'It is often argued that harsher sentences are the best way to reduce crime. The evidence, however, is mixed. Studies in several countries suggest that what deters people is not the severity of the punishment but the likelihood of being caught. In one city, doubling fines for traffic offences had almost no measurable effect, whereas installing cameras at twenty junctions reduced violations by a third within six months. Opponents of this view point out that cameras raise questions about privacy and that they simply move the problem to unmonitored streets. What most experts agree on is that punishment alone rarely changes behaviour if people believe they are unlikely to be caught.',
+      vi:'Người ta thường lập luận rằng hình phạt nặng hơn là cách tốt nhất để giảm tội phạm. Tuy nhiên, bằng chứng lại không thống nhất. Các nghiên cứu ở nhiều nước cho thấy thứ khiến người ta chùn tay không phải là mức độ nặng của hình phạt mà là khả năng bị bắt. Ở một thành phố, việc tăng gấp đôi tiền phạt vi phạm giao thông gần như không có tác động đo được, trong khi lắp camera ở hai mươi nút giao đã giảm một phần ba số vi phạm chỉ trong sáu tháng. Những người phản đối quan điểm này chỉ ra rằng camera đặt ra vấn đề về quyền riêng tư và chỉ đẩy vấn đề sang những con phố không được giám sát. Điều phần lớn chuyên gia đồng ý là hình phạt đơn thuần hiếm khi thay đổi hành vi nếu người ta tin rằng mình khó bị bắt.' } },
+
+  { level:'b1', no:13, en:'Global issues', vi:'Các vấn đề toàn cầu', skill:'Trình bày vấn đề – giải pháp',
+    grammar:[
+      { form:'Bố cục bài viết vấn đề – giải pháp', vi:'Mở bài → vấn đề và nguyên nhân → giải pháp và đánh giá → kết luận.', note:'Mỗi giải pháp nên đi kèm một câu nói về tính khả thi hoặc hạn chế.', ex:{ en:'One possible solution would be to subsidise public transport.', vi:'Một giải pháp khả thi là trợ giá giao thông công cộng.' } },
+      { form:'Ngôn ngữ đề xuất', vi:'should be + V3 · could be introduced · needs to be addressed · it would be advisable to…', note:'Bị động làm câu khách quan hơn: Taxes should be raised.', ex:{ en:'This problem needs to be addressed urgently.', vi:'Vấn đề này cần được giải quyết khẩn trương.' } },
+      { form:'Nêu quy mô và mức độ', vi:'a growing number of · a significant proportion of · on a global scale.', note:'Tránh «many people» lặp đi lặp lại trong bài viết.', ex:{ en:'A growing number of cities have banned single-use plastic.', vi:'Ngày càng nhiều thành phố cấm nhựa dùng một lần.' } },
+      { form:'Nguyên nhân gián tiếp', vi:'be attributed to · stem from · arise from · be driven by.', note:'Các cụm này trang trọng hơn «be caused by», hợp bài viết học thuật.', ex:{ en:'The shortage stems from years of underinvestment.', vi:'Tình trạng thiếu hụt bắt nguồn từ nhiều năm thiếu đầu tư.' } }
+    ],
+    vocab:[
+      { en:'poverty', uk:'ˈpɒvəti', us:'ˈpɑːvərti', vi:'nghèo đói', pos:'danh từ' },
+      { en:'inequality', uk:'ˌɪnɪˈkwɒləti', us:'ˌɪnɪˈkwɑːləti', vi:'bất bình đẳng', pos:'danh từ' },
+      { en:'resource', uk:'rɪˈzɔːs', us:'ˈriːsɔːrs', vi:'tài nguyên', pos:'danh từ' },
+      { en:'sustainable', uk:'səˈsteɪnəbl', us:'səˈsteɪnəbl', vi:'bền vững', pos:'tính từ' },
+      { en:'renewable', uk:'rɪˈnjuːəbl', us:'rɪˈnuːəbl', vi:'tái tạo được', pos:'tính từ' },
+      { en:'emission', uk:'ɪˈmɪʃn', us:'ɪˈmɪʃn', vi:'khí thải', pos:'danh từ' },
+      { en:'deforestation', uk:'ˌdiːˌfɒrɪˈsteɪʃn', us:'ˌdiːˌfɔːrɪˈsteɪʃn', vi:'nạn phá rừng', pos:'danh từ' },
+      { en:'drought', uk:'draʊt', us:'draʊt', vi:'hạn hán', pos:'danh từ', note:'gh câm, đọc /draʊt/' },
+      { en:'famine', uk:'ˈfæmɪn', us:'ˈfæmɪn', vi:'nạn đói', pos:'danh từ' },
+      { en:'refugee', uk:'ˌrefjuˈdʒiː', us:'ˈrefjudʒiː', vi:'người tị nạn', pos:'danh từ' },
+      { en:'aid', uk:'eɪd', us:'eɪd', vi:'viện trợ', pos:'danh từ' },
+      { en:'charity', uk:'ˈtʃærəti', us:'ˈtʃerəti', vi:'tổ chức từ thiện', pos:'danh từ' },
+      { en:'donate', uk:'dəʊˈneɪt', us:'ˈdoʊneɪt', vi:'quyên góp', pos:'động từ' },
+      { en:'tackle', uk:'ˈtækl', us:'ˈtækl', vi:'giải quyết (vấn đề khó)', pos:'động từ' },
+      { en:'address', uk:'əˈdres', us:'əˈdres', vi:'xử lý, giải quyết', pos:'động từ', note:'danh từ (địa chỉ) Anh nhấn âm đầu' },
+      { en:'implement', uk:'ˈɪmplɪment', us:'ˈɪmplɪment', vi:'triển khai', pos:'động từ' },
+      { en:'invest', uk:'ɪnˈvest', us:'ɪnˈvest', vi:'đầu tư', pos:'động từ' },
+      { en:'urgent', uk:'ˈɜːdʒənt', us:'ˈɜːrdʒənt', vi:'cấp bách', pos:'tính từ' },
+      { en:'widespread', uk:'ˈwaɪdspred', us:'ˈwaɪdspred', vi:'lan rộng', pos:'tính từ' },
+      { en:'long-term', uk:'ˌlɒŋˈtɜːm', us:'ˌlɔːŋˈtɜːrm', vi:'dài hạn', pos:'tính từ' }
+    ],
+    colloc:[
+      { p:'tackle a problem at its root', vi:'giải quyết vấn đề tận gốc', ex:'We need to tackle the problem at its root.' },
+      { p:'raise funds for something', vi:'gây quỹ cho việc gì', ex:'The school raised funds for flood victims.' },
+      { p:'have a knock-on effect', vi:'gây hiệu ứng dây chuyền', ex:'Rising fuel prices have a knock-on effect on food costs.' }
+    ],
+    dialogue:[
+      { sp:'Teacher', en:'What do you see as the most urgent global issue?', vi:'Em thấy vấn đề toàn cầu nào cấp bách nhất?' },
+      { sp:'Quan', en:'Access to clean water. It affects health, school and work.', vi:'Nước sạch ạ. Nó ảnh hưởng tới sức khoẻ, việc học và việc làm.' },
+      { sp:'Teacher', en:'Why is it not solved yet?', vi:'Vì sao tới giờ vẫn chưa giải quyết được?' },
+      { sp:'Quan', en:'Partly cost, but mainly because systems are not maintained.', vi:'Một phần là chi phí, nhưng chủ yếu vì hệ thống không được bảo trì.' },
+      { sp:'Teacher', en:'So what would you propose?', vi:'Vậy em sẽ đề xuất gì?' },
+      { sp:'Quan', en:'Train local people to repair the systems, not just build them.', vi:'Đào tạo người dân địa phương biết sửa chữa hệ thống, chứ không chỉ xây xong rồi thôi.' },
+      { sp:'Teacher', en:'That is a long-term view. Would donors accept it?', vi:'Đó là góc nhìn dài hạn. Nhà tài trợ có chấp nhận không?' },
+      { sp:'Quan', en:'Not always — a new well makes a better photograph.', vi:'Không phải lúc nào cũng vậy — một cái giếng mới lên ảnh đẹp hơn.' }
+    ],
+    reading:{ en:'Every year charities install thousands of water pumps in rural communities, yet surveys suggest that within five years a third of them no longer work. The problem is rarely the technology itself. It stems from a lack of spare parts, of trained local technicians and of any budget for repairs once the original project has ended. One organisation has tried a different approach: instead of building new wells, it trains two people in each village to maintain the existing ones and pays them a small annual fee collected from households. Early results are promising, with over ninety percent of pumps still working after four years. Critics note that the model is harder to fund, because donors find repairs less appealing than opening ceremonies.',
+      vi:'Mỗi năm các tổ chức từ thiện lắp hàng nghìn máy bơm nước ở các cộng đồng nông thôn, nhưng khảo sát cho thấy trong vòng năm năm, một phần ba trong số đó ngừng hoạt động. Vấn đề hiếm khi nằm ở bản thân công nghệ. Nó bắt nguồn từ việc thiếu phụ tùng, thiếu thợ kỹ thuật địa phương được đào tạo và thiếu ngân sách sửa chữa sau khi dự án ban đầu kết thúc. Một tổ chức đã thử cách khác: thay vì xây giếng mới, họ đào tạo hai người ở mỗi làng để bảo trì các giếng hiện có và trả cho họ một khoản phí nhỏ hằng năm thu từ các hộ dân. Kết quả ban đầu khả quan, hơn chín mươi phần trăm máy bơm vẫn chạy sau bốn năm. Người phê bình lưu ý rằng mô hình này khó xin tài trợ hơn, vì nhà tài trợ thấy việc sửa chữa kém hấp dẫn hơn lễ khánh thành.' } },
+
+  { level:'b1', no:14, en:'Education systems', vi:'Hệ thống giáo dục', skill:'So sánh, phản biện',
+    grammar:[
+      { form:'So sánh giữa hai hệ thống', vi:'Unlike in Vietnam, students in Finland… · Whereas X focuses on…, Y emphasises…', note:'Unlike + danh từ · Whereas + mệnh đề.', ex:{ en:'Unlike British universities, ours start in September.', vi:'Khác với đại học Anh, trường chúng tôi bắt đầu vào tháng Chín.' } },
+      { form:'Danh từ trừu tượng làm chủ ngữ', vi:'The introduction of the new curriculum has raised concerns.', note:'Cách viết đặc trưng của văn học thuật; giúp câu ngắn và khách quan.', ex:{ en:'The abolition of entrance exams caused debate.', vi:'Việc bỏ kỳ thi tuyển sinh đã gây tranh cãi.' } },
+      { form:'Ngôn ngữ giảm nhẹ (hedging)', vi:'may · tend to · it appears that · to some extent · arguably.', note:'Người viết học thuật hiếm khi nói «always» hay «never».', ex:{ en:'Smaller classes appear to improve results, at least in primary school.', vi:'Lớp ít học sinh dường như cải thiện kết quả, ít nhất ở bậc tiểu học.' } },
+      { form:'Nhượng bộ rồi phản biện', vi:'Admittedly, … However, … · While it is true that…, it does not follow that…', note:'Cấu trúc này làm lập luận nghe chín chắn hơn hẳn.', ex:{ en:'Admittedly, exams are stressful. However, they are also fair.', vi:'Phải thừa nhận thi cử gây căng thẳng. Tuy nhiên, nó cũng công bằng.' } }
+    ],
+    vocab:[
+      { en:'curriculum', uk:'kəˈrɪkjələm', us:'kəˈrɪkjələm', vi:'chương trình học', pos:'danh từ', note:'số nhiều: curricula' },
+      { en:'syllabus', uk:'ˈsɪləbəs', us:'ˈsɪləbəs', vi:'đề cương môn học', pos:'danh từ' },
+      { en:'compulsory', uk:'kəmˈpʌlsəri', us:'kəmˈpʌlsəri', vi:'bắt buộc', pos:'tính từ' },
+      { en:'optional', uk:'ˈɒpʃənl', us:'ˈɑːpʃənl', vi:'tự chọn', pos:'tính từ' },
+      { en:'primary', uk:'ˈpraɪməri', us:'ˈpraɪmeri', vi:'tiểu học', pos:'tính từ' },
+      { en:'secondary', uk:'ˈsekəndri', us:'ˈsekənderi', vi:'trung học', pos:'tính từ' },
+      { en:'tuition', uk:'tjuˈɪʃn', us:'tuˈɪʃn', vi:'học phí; việc dạy', pos:'danh từ' },
+      { en:'assessment', uk:'əˈsesmənt', us:'əˈsesmənt', vi:'đánh giá', pos:'danh từ' },
+      { en:'literacy', uk:'ˈlɪtərəsi', us:'ˈlɪtərəsi', vi:'khả năng đọc viết', pos:'danh từ' },
+      { en:'graduate', uk:'ˈɡrædʒuət', us:'ˈɡrædʒuət', vi:'người tốt nghiệp', pos:'danh từ', note:'động từ đọc /ˈɡrædʒueɪt/' },
+      { en:'vocational', uk:'vəʊˈkeɪʃənl', us:'voʊˈkeɪʃənl', vi:'hướng nghiệp, dạy nghề', pos:'tính từ' },
+      { en:'academic', uk:'ˌækəˈdemɪk', us:'ˌækəˈdemɪk', vi:'thuộc học thuật', pos:'tính từ' },
+      { en:'enrol', uk:'ɪnˈrəʊl', us:'ɪnˈroʊl', vi:'ghi danh', pos:'động từ', note:'Mỹ viết enroll' },
+      { en:'attend', uk:'əˈtend', us:'əˈtend', vi:'theo học, dự', pos:'động từ' },
+      { en:'motivate', uk:'ˈməʊtɪveɪt', us:'ˈmoʊtɪveɪt', vi:'tạo động lực', pos:'động từ' },
+      { en:'assess', uk:'əˈses', us:'əˈses', vi:'đánh giá', pos:'động từ' },
+      { en:'drop out', uk:'drɒp aʊt', us:'drɑːp aʊt', vi:'bỏ học giữa chừng', pos:'cụm động từ' },
+      { en:'competitive', uk:'kəmˈpetətɪv', us:'kəmˈpetətɪv', vi:'cạnh tranh cao', pos:'tính từ' },
+      { en:'demanding', uk:'dɪˈmɑːndɪŋ', us:'dɪˈmændɪŋ', vi:'đòi hỏi cao', pos:'tính từ' },
+      { en:'reform', uk:'rɪˈfɔːm', us:'rɪˈfɔːrm', vi:'cải cách', pos:'danh từ, động từ' }
+    ],
+    colloc:[
+      { p:'sit an exam (Anh) / take an exam (Mỹ)', vi:'dự thi', ex:'Students sit the national exam in June.' },
+      { p:'place a heavy emphasis on…', vi:'đặt nặng vào…', ex:'The system places a heavy emphasis on memorisation.' },
+      { p:'level the playing field', vi:'tạo sân chơi công bằng', ex:'Free tuition would level the playing field.' }
+    ],
+    dialogue:[
+      { sp:'Linh', en:'Do you think entrance exams should be abolished?', vi:'Bạn có nghĩ nên bỏ thi tuyển sinh không?' },
+      { sp:'Quan', en:'Admittedly they cause stress, but they are relatively fair.', vi:'Phải thừa nhận là gây căng thẳng, nhưng khá công bằng.' },
+      { sp:'Linh', en:'Fair? Rich families pay for extra tuition.', vi:'Công bằng á? Nhà giàu trả tiền học thêm.' },
+      { sp:'Quan', en:'True. But an interview-based system would favour them even more.', vi:'Đúng. Nhưng hệ thống xét tuyển phỏng vấn còn có lợi cho họ hơn.' },
+      { sp:'Linh', en:'So you would keep exams but change what they test?', vi:'Vậy bạn giữ kỳ thi nhưng đổi nội dung thi?' },
+      { sp:'Quan', en:'Exactly. Less memorisation, more reasoning.', vi:'Chính xác. Bớt học thuộc, tăng lập luận.' },
+      { sp:'Linh', en:'That is easier to say than to design.', vi:'Nói thì dễ hơn thiết kế đề.' }
+    ],
+    reading:{ en:'Education systems differ enormously in how early they separate students. In some countries children are placed in academic or vocational tracks at eleven, whereas in others the decision is delayed until sixteen or later. Supporters of early selection argue that it allows teaching to be tailored to ability. Critics reply that decisions made at eleven reflect family background at least as much as ability, and that they are extremely difficult to reverse. International comparisons tend to favour later selection, although the picture is complicated by differences in teacher training and funding. What most researchers agree on is that the quality of teaching matters more than the structure of the system.',
+      vi:'Các hệ thống giáo dục khác nhau rất nhiều ở chỗ phân luồng học sinh sớm hay muộn. Ở một số nước, trẻ được xếp vào hướng học thuật hoặc học nghề từ năm mười một tuổi, trong khi ở nơi khác quyết định này lùi tới mười sáu tuổi hoặc muộn hơn. Người ủng hộ phân luồng sớm lập luận rằng nó cho phép dạy học phù hợp với năng lực. Người phản đối đáp lại rằng những quyết định đưa ra ở tuổi mười một phản ánh hoàn cảnh gia đình ít nhất là ngang với năng lực, và rất khó đảo ngược. Các so sánh quốc tế thường nghiêng về phân luồng muộn, dù bức tranh còn phức tạp bởi khác biệt trong đào tạo giáo viên và kinh phí. Điều phần lớn nhà nghiên cứu đồng ý là chất lượng giảng dạy quan trọng hơn cấu trúc của hệ thống.' } },
+
+  { level:'b1', no:15, en:'Advertising and choice', vi:'Quảng cáo và lựa chọn tiêu dùng', skill:'Phân tích thuyết phục',
+    grammar:[
+      { form:'Câu bị động khách quan trong phân tích', vi:'Consumers are encouraged to believe that…', note:'Dùng khi muốn nói về tác động chung mà không quy cho một hãng cụ thể.', ex:{ en:'Viewers are led to associate the product with success.', vi:'Người xem được dẫn dắt để gắn sản phẩm với sự thành công.' } },
+      { form:'Cụm chỉ mục đích ngầm', vi:'be designed to · be intended to · serve to · aim at + V-ing.', note:'Rất hữu ích khi phân tích ý đồ của một thông điệp.', ex:{ en:'The slogan is designed to create a sense of urgency.', vi:'Câu khẩu hiệu được thiết kế để tạo cảm giác gấp gáp.' } },
+      { form:'Lượng hoá cẩn trọng', vi:'a significant minority · the vast majority · roughly one in three.', note:'Cách nói này thay cho «most people» hoặc «some people» mơ hồ.', ex:{ en:'Roughly one in three shoppers admits to impulse buying.', vi:'Khoảng một trong ba người mua thừa nhận mua theo cảm hứng.' } },
+      { form:'Câu hỏi tu từ trong bài viết', vi:'But does more choice really make us happier?', note:'Dùng một lần để mở đoạn thì hiệu quả; dùng nhiều thì phản tác dụng.', ex:{ en:'Is advertising simply information, or is it persuasion?', vi:'Quảng cáo chỉ là thông tin, hay là sự thuyết phục?' } }
+    ],
+    vocab:[
+      { en:'advertisement', uk:'ədˈvɜːtɪsmənt', us:'ˌædvərˈtaɪzmənt', vi:'quảng cáo', pos:'danh từ' },
+      { en:'brand', uk:'brænd', us:'brænd', vi:'thương hiệu', pos:'danh từ' },
+      { en:'slogan', uk:'ˈsləʊɡən', us:'ˈsloʊɡən', vi:'khẩu hiệu', pos:'danh từ' },
+      { en:'campaign', uk:'kæmˈpeɪn', us:'kæmˈpeɪn', vi:'chiến dịch', pos:'danh từ' },
+      { en:'target', uk:'ˈtɑːɡɪt', us:'ˈtɑːrɡɪt', vi:'nhắm tới; mục tiêu', pos:'động từ, danh từ' },
+      { en:'persuade', uk:'pəˈsweɪd', us:'pərˈsweɪd', vi:'thuyết phục', pos:'động từ', note:'persuade someone TO do' },
+      { en:'influence', uk:'ˈɪnfluəns', us:'ˈɪnfluəns', vi:'ảnh hưởng', pos:'động từ, danh từ' },
+      { en:'promote', uk:'prəˈməʊt', us:'prəˈmoʊt', vi:'quảng bá', pos:'động từ' },
+      { en:'launch', uk:'lɔːntʃ', us:'lɔːntʃ', vi:'ra mắt sản phẩm', pos:'động từ' },
+      { en:'consumer', uk:'kənˈsjuːmə', us:'kənˈsuːmər', vi:'người tiêu dùng', pos:'danh từ' },
+      { en:'loyalty', uk:'ˈlɔɪəlti', us:'ˈlɔɪəlti', vi:'lòng trung thành', pos:'danh từ' },
+      { en:'impulse', uk:'ˈɪmpʌls', us:'ˈɪmpʌls', vi:'sự bốc đồng', pos:'danh từ' },
+      { en:'misleading', uk:'ˌmɪsˈliːdɪŋ', us:'ˌmɪsˈliːdɪŋ', vi:'gây hiểu lầm', pos:'tính từ' },
+      { en:'exaggerate', uk:'ɪɡˈzædʒəreɪt', us:'ɪɡˈzædʒəreɪt', vi:'phóng đại', pos:'động từ' },
+      { en:'genuine', uk:'ˈdʒenjuɪn', us:'ˈdʒenjuɪn', vi:'thật, chính hiệu', pos:'tính từ' },
+      { en:'sceptical', uk:'ˈskeptɪkl', us:'ˈskeptɪkl', vi:'hoài nghi', pos:'tính từ', note:'Mỹ viết skeptical' },
+      { en:'appeal', uk:'əˈpiːl', us:'əˈpiːl', vi:'sức hấp dẫn; hấp dẫn ai', pos:'danh từ, động từ', note:'appeal TO someone' },
+      { en:'sponsor', uk:'ˈspɒnsə', us:'ˈspɑːnsər', vi:'tài trợ', pos:'động từ, danh từ' },
+      { en:'discount', uk:'ˈdɪskaʊnt', us:'ˈdɪskaʊnt', vi:'giảm giá', pos:'danh từ' },
+      { en:'regulate', uk:'ˈreɡjuleɪt', us:'ˈreɡjuleɪt', vi:'quản lý bằng quy định', pos:'động từ' }
+    ],
+    colloc:[
+      { p:'appeal to a sense of…', vi:'đánh vào cảm giác…', ex:'The advert appeals to a sense of belonging.' },
+      { p:'create brand loyalty', vi:'tạo lòng trung thành với thương hiệu', ex:'Free samples are used to create brand loyalty.' },
+      { p:'take something with a pinch of salt', vi:'nghe thì nghe nhưng đừng tin hết', ex:'Take those health claims with a pinch of salt.' }
+    ],
+    dialogue:[
+      { sp:'Teacher', en:'Should advertising aimed at children be banned?', vi:'Có nên cấm quảng cáo nhắm vào trẻ em không?' },
+      { sp:'Quan', en:'At least during children’s programmes, yes.', vi:'Ít nhất là trong các chương trình thiếu nhi thì nên ạ.' },
+      { sp:'Teacher', en:'Why children specifically?', vi:'Vì sao lại riêng trẻ em?' },
+      { sp:'Quan', en:'Because they cannot easily tell persuasion from information.', vi:'Vì các em khó phân biệt được thuyết phục với thông tin.' },
+      { sp:'Teacher', en:'Some would say that is the parents’ job.', vi:'Có người sẽ nói đó là việc của phụ huynh.' },
+      { sp:'Quan', en:'Admittedly. However, a five-year-old sees hundreds of adverts a week.', vi:'Phải thừa nhận vậy. Tuy nhiên, một đứa trẻ năm tuổi xem hàng trăm quảng cáo mỗi tuần.' },
+      { sp:'Teacher', en:'So regulation rather than a total ban?', vi:'Vậy là quản lý chứ không cấm hoàn toàn?' },
+      { sp:'Quan', en:'Yes, and clearer labelling of sponsored content online.', vi:'Vâng, và ghi nhãn rõ ràng hơn cho nội dung được tài trợ trên mạng.' }
+    ],
+    reading:{ en:'Supermarkets are designed with remarkable care. Fresh bread is often baked near the entrance so that the smell reaches shoppers as they arrive. Everyday items such as milk are placed at the back, which means customers must walk past dozens of other products to reach them. Expensive brands sit at eye level, while cheaper alternatives are on the lowest shelves. None of this is dishonest, and none of it forces anybody to buy anything. Nevertheless, studies suggest that roughly one in three purchases is unplanned. The obvious defence is a boring one: make a list, eat before you shop, and take it with you.',
+      vi:'Siêu thị được thiết kế cực kỳ tính toán. Bánh mì tươi thường được nướng gần lối vào để mùi thơm bay tới khách ngay khi họ bước vào. Hàng thiết yếu như sữa lại đặt tít phía trong, nghĩa là khách phải đi qua hàng chục sản phẩm khác mới tới nơi. Thương hiệu đắt tiền nằm ngang tầm mắt, còn hàng rẻ hơn ở kệ dưới cùng. Không có điều gì trong đó là gian dối, và cũng không có gì ép ai phải mua. Dù vậy, các nghiên cứu cho thấy khoảng một trong ba lần mua hàng là ngoài dự tính. Cách phòng vệ hiển nhiên nhất lại rất tẻ nhạt: viết danh sách, ăn no trước khi đi, và nhớ mang danh sách theo.' } },
+
+  { level:'b1', no:16, en:'Friends, family and society', vi:'Quan hệ và xã hội', skill:'Nói về thay đổi xã hội',
+    grammar:[
+      { form:'used to / would / be used to — ôn và mở rộng', vi:'used to + V (thói quen cũ) · would + V (hành động lặp lại trong hồi tưởng) · be used to + V-ing (đã quen).', note:'would KHÔNG dùng cho trạng thái: «I would have a car» là sai.', ex:{ en:'Families used to live together; now many are used to living apart.', vi:'Xưa các gia đình sống chung; nay nhiều người đã quen sống riêng.' } },
+      { form:'Xu hướng xã hội bằng hiện tại hoàn thành', vi:'Family size has fallen. · The number of single households has risen.', note:'Hoàn thành nối quá khứ với hiện tại — hợp để mô tả thay đổi xã hội.', ex:{ en:'The average age of marriage has increased by six years.', vi:'Tuổi kết hôn trung bình đã tăng sáu tuổi.' } },
+      { form:'Cụm chỉ tỷ lệ trong xã hội học', vi:'one in four · a quarter of · the majority of · fewer than half.', note:'«one in four» đi với động từ số ít; «a quarter of people» đi với số nhiều.', ex:{ en:'One in four young adults still lives with parents.', vi:'Một trong bốn người trẻ vẫn sống cùng bố mẹ.' } },
+      { form:'Nêu nguyên nhân xã hội', vi:'be linked to · be associated with · reflect · be a consequence of.', note:'Tránh khẳng định nhân quả tuyệt đối khi chỉ có tương quan.', ex:{ en:'The change is closely linked to rising housing costs.', vi:'Thay đổi này gắn chặt với việc giá nhà tăng.' } }
+    ],
+    vocab:[
+      { en:'household', uk:'ˈhaʊshəʊld', us:'ˈhaʊshoʊld', vi:'hộ gia đình', pos:'danh từ' },
+      { en:'generation', uk:'ˌdʒenəˈreɪʃn', us:'ˌdʒenəˈreɪʃn', vi:'thế hệ', pos:'danh từ' },
+      { en:'relative', uk:'ˈrelətɪv', us:'ˈrelətɪv', vi:'họ hàng', pos:'danh từ' },
+      { en:'upbringing', uk:'ˈʌpbrɪŋɪŋ', us:'ˈʌpbrɪŋɪŋ', vi:'sự nuôi dạy', pos:'danh từ' },
+      { en:'independence', uk:'ˌɪndɪˈpendəns', us:'ˌɪndɪˈpendəns', vi:'sự tự lập', pos:'danh từ' },
+      { en:'responsibility', uk:'rɪˌspɒnsəˈbɪləti', us:'rɪˌspɑːnsəˈbɪləti', vi:'trách nhiệm', pos:'danh từ' },
+      { en:'expectation', uk:'ˌekspekˈteɪʃn', us:'ˌekspekˈteɪʃn', vi:'kỳ vọng', pos:'danh từ' },
+      { en:'tradition', uk:'trəˈdɪʃn', us:'trəˈdɪʃn', vi:'truyền thống', pos:'danh từ' },
+      { en:'respect', uk:'rɪˈspekt', us:'rɪˈspekt', vi:'tôn trọng', pos:'động từ, danh từ' },
+      { en:'support', uk:'səˈpɔːt', us:'səˈpɔːrt', vi:'hỗ trợ', pos:'động từ, danh từ' },
+      { en:'conflict', uk:'ˈkɒnflɪkt', us:'ˈkɑːnflɪkt', vi:'xung đột', pos:'danh từ' },
+      { en:'compromise', uk:'ˈkɒmprəmaɪz', us:'ˈkɑːmprəmaɪz', vi:'thoả hiệp', pos:'danh từ, động từ' },
+      { en:'loyalty', uk:'ˈlɔɪəlti', us:'ˈlɔɪəlti', vi:'lòng trung thành', pos:'danh từ' },
+      { en:'isolation', uk:'ˌaɪsəˈleɪʃn', us:'ˌaɪsəˈleɪʃn', vi:'sự cô lập', pos:'danh từ' },
+      { en:'belong', uk:'bɪˈlɒŋ', us:'bɪˈlɔːŋ', vi:'thuộc về', pos:'động từ', note:'belong TO' },
+      { en:'rely', uk:'rɪˈlaɪ', us:'rɪˈlaɪ', vi:'dựa vào', pos:'động từ', note:'rely ON' },
+      { en:'close-knit', uk:'ˌkləʊsˈnɪt', us:'ˌkloʊsˈnɪt', vi:'gắn bó khăng khít', pos:'tính từ' },
+      { en:'distant', uk:'ˈdɪstənt', us:'ˈdɪstənt', vi:'xa cách', pos:'tính từ' },
+      { en:'supportive', uk:'səˈpɔːtɪv', us:'səˈpɔːrtɪv', vi:'hay giúp đỡ, ủng hộ', pos:'tính từ' },
+      { en:'demanding', uk:'dɪˈmɑːndɪŋ', us:'dɪˈmændɪŋ', vi:'đòi hỏi nhiều', pos:'tính từ' }
+    ],
+    colloc:[
+      { p:'a close-knit family', vi:'gia đình gắn bó', ex:'They come from a close-knit family.' },
+      { p:'stand by someone', vi:'sát cánh với ai lúc khó khăn', ex:'Her friends stood by her throughout.' },
+      { p:'drift apart', vi:'dần xa nhau', ex:'We drifted apart after university.' }
+    ],
+    dialogue:[
+      { sp:'Linh', en:'Do you think family life has changed much in ten years?', vi:'Bạn có nghĩ đời sống gia đình đã thay đổi nhiều trong mười năm không?' },
+      { sp:'Quan', en:'Quite a lot. My parents used to live with my grandparents.', vi:'Khá nhiều. Bố mẹ tớ từng sống chung với ông bà.' },
+      { sp:'Linh', en:'And now?', vi:'Còn bây giờ?' },
+      { sp:'Quan', en:'Now most couples I know are used to living on their own.', vi:'Giờ phần lớn các cặp tớ biết đã quen sống riêng.' },
+      { sp:'Linh', en:'Is that a loss?', vi:'Đó có phải là mất mát không?' },
+      { sp:'Quan', en:'Partly. There is more independence but less daily support.', vi:'Một phần. Tự lập hơn nhưng ít được đỡ đần hằng ngày hơn.' },
+      { sp:'Linh', en:'My grandmother says nobody visits any more.', vi:'Bà tớ bảo giờ chẳng ai ghé thăm nữa.' },
+      { sp:'Quan', en:'That is the part I would not want to lose.', vi:'Đó là điều tớ không muốn mất đi.' }
+    ],
+    reading:{ en:'Family structures in Vietnam have changed considerably in a single generation. Thirty years ago it was normal for three generations to share one house; today, in cities, fewer than half of young couples live with their parents. The change is closely linked to housing, work patterns and the fact that many young people move away from their home province for study. There are clear gains: greater independence, more privacy and fewer daily conflicts. There are also losses. Grandparents who once helped with childcare now live hours away, and a growing number of older people report feeling isolated. Some families have found a middle path, living in separate flats in the same neighbourhood.',
+      vi:'Cấu trúc gia đình ở Việt Nam đã thay đổi đáng kể chỉ trong một thế hệ. Ba mươi năm trước, ba thế hệ chung một nhà là chuyện bình thường; ngày nay ở đô thị, chưa tới một nửa các cặp vợ chồng trẻ sống cùng bố mẹ. Thay đổi này gắn chặt với nhà ở, cách làm việc và việc nhiều người trẻ rời quê đi học. Có những cái được rõ ràng: tự lập hơn, riêng tư hơn và ít va chạm hằng ngày hơn. Cũng có những cái mất. Ông bà từng phụ trông cháu nay ở cách vài giờ đi đường, và ngày càng nhiều người lớn tuổi nói mình thấy cô đơn. Một số gia đình tìm ra lối đi giữa: ở căn hộ riêng nhưng trong cùng một khu.' } },
+
+  { level:'b1', no:17, en:'Sport and competition', vi:'Thể thao và thi đấu', skill:'Kể sự kiện, nêu quan điểm',
+    grammar:[
+      { form:'Thì hiện tại trong tường thuật thể thao', vi:'Bình luận trực tiếp dùng hiện tại đơn: He passes, she shoots, it is a goal.', note:'Đây là ngoại lệ hiếm hoi khi hiện tại đơn tả việc đang diễn ra.', ex:{ en:'He takes the ball and passes it to the left.', vi:'Anh ấy nhận bóng và chuyền sang trái.' } },
+      { form:'So sánh thành tích', vi:'the fastest ever · a personal best · by far the strongest.', note:'«by far» đứng trước so sánh nhất để nhấn mạnh khoảng cách.', ex:{ en:'She is by far the strongest swimmer in the team.', vi:'Cô ấy là vận động viên bơi mạnh nhất đội, hơn hẳn.' } },
+      { form:'Nói về khả năng trong quá khứ', vi:'could (khả năng chung) · was able to / managed to (làm được một lần cụ thể).', note:'«I could win the race» là sai nếu ý là đã thắng một lần — phải là «I managed to win».', ex:{ en:'He managed to finish despite the injury.', vi:'Anh ấy đã về đích được dù dính chấn thương.' } },
+      { form:'Thành ngữ thể thao trong đời sống', vi:'a level playing field · move the goalposts · a game changer · out of your league.', note:'Nhiều thành ngữ tiếng Anh gốc thể thao dùng cả trong công việc.', ex:{ en:'The new rule is a real game changer.', vi:'Quy định mới thật sự thay đổi cuộc chơi.' } }
+    ],
+    vocab:[
+      { en:'athlete', uk:'ˈæθliːt', us:'ˈæθliːt', vi:'vận động viên', pos:'danh từ' },
+      { en:'coach', uk:'kəʊtʃ', us:'koʊtʃ', vi:'huấn luyện viên', pos:'danh từ' },
+      { en:'referee', uk:'ˌrefəˈriː', us:'ˌrefəˈriː', vi:'trọng tài', pos:'danh từ' },
+      { en:'opponent', uk:'əˈpəʊnənt', us:'əˈpoʊnənt', vi:'đối thủ', pos:'danh từ' },
+      { en:'tournament', uk:'ˈtʊənəmənt', us:'ˈtɜːrnəmənt', vi:'giải đấu', pos:'danh từ' },
+      { en:'championship', uk:'ˈtʃæmpiənʃɪp', us:'ˈtʃæmpiənʃɪp', vi:'chức vô địch', pos:'danh từ' },
+      { en:'score', uk:'skɔː', us:'skɔːr', vi:'tỷ số; ghi điểm', pos:'danh từ, động từ' },
+      { en:'draw', uk:'drɔː', us:'drɔː', vi:'trận hoà', pos:'danh từ' },
+      { en:'defeat', uk:'dɪˈfiːt', us:'dɪˈfiːt', vi:'đánh bại; thất bại', pos:'động từ, danh từ' },
+      { en:'injury', uk:'ˈɪndʒəri', us:'ˈɪndʒəri', vi:'chấn thương', pos:'danh từ' },
+      { en:'train', uk:'treɪn', us:'treɪn', vi:'tập luyện', pos:'động từ' },
+      { en:'compete', uk:'kəmˈpiːt', us:'kəmˈpiːt', vi:'thi đấu', pos:'động từ', note:'compete AGAINST / IN' },
+      { en:'qualify', uk:'ˈkwɒlɪfaɪ', us:'ˈkwɑːlɪfaɪ', vi:'giành suất, đủ điều kiện', pos:'động từ' },
+      { en:'improve', uk:'ɪmˈpruːv', us:'ɪmˈpruːv', vi:'cải thiện', pos:'động từ' },
+      { en:'endurance', uk:'ɪnˈdjʊərəns', us:'ɪnˈdʊrəns', vi:'sức bền', pos:'danh từ' },
+      { en:'stamina', uk:'ˈstæmɪnə', us:'ˈstæmɪnə', vi:'sức dẻo dai', pos:'danh từ' },
+      { en:'talented', uk:'ˈtæləntɪd', us:'ˈtæləntɪd', vi:'có tài năng', pos:'tính từ' },
+      { en:'determined', uk:'dɪˈtɜːmɪnd', us:'dɪˈtɜːrmɪnd', vi:'quyết tâm', pos:'tính từ' },
+      { en:'amateur', uk:'ˈæmətə', us:'ˈæmətʃʊr', vi:'nghiệp dư', pos:'tính từ' },
+      { en:'professional', uk:'prəˈfeʃənl', us:'prəˈfeʃənl', vi:'chuyên nghiệp', pos:'tính từ' }
+    ],
+    colloc:[
+      { p:'beat a record / break a record', vi:'phá kỷ lục', ex:'She broke the national record last month.' },
+      { p:'be in good shape', vi:'có thể trạng tốt', ex:'He is in good shape for the final.' },
+      { p:'give it your all', vi:'dốc hết sức', ex:'They gave it their all in the last ten minutes.' }
+    ],
+    dialogue:[
+      { sp:'Quan', en:'Did you watch the final last night?', vi:'Tối qua bạn xem trận chung kết chứ?' },
+      { sp:'Linh', en:'Only the second half. What was the score?', vi:'Chỉ hiệp hai thôi. Tỷ số bao nhiêu?' },
+      { sp:'Quan', en:'Two all. It went to penalties.', vi:'Hoà 2–2. Phải đá luân lưu.' },
+      { sp:'Linh', en:'Who won in the end?', vi:'Cuối cùng ai thắng?' },
+      { sp:'Quan', en:'The away team. Their keeper was by far the best player.', vi:'Đội khách. Thủ môn của họ là cầu thủ hay nhất, hơn hẳn.' },
+      { sp:'Linh', en:'I heard their captain was injured.', vi:'Tớ nghe nói đội trưởng của họ dính chấn thương.' },
+      { sp:'Quan', en:'He was, but he managed to play the whole match.', vi:'Đúng vậy, nhưng anh ấy vẫn đá được trọn trận.' }
+    ],
+    reading:{ en:'Amateur running has grown remarkably in Vietnamese cities over the past decade. Ten years ago a marathon in Hanoi attracted a few hundred entrants, most of them foreign residents; the same event now sells out within days and includes thousands of local runners. Organisers say the change is driven by three things: cheap smartphones with tracking apps, social media groups that turn training into a shared activity, and a growing awareness of health. Not everyone welcomes the trend. Some residents complain about road closures, and doctors warn that beginners often increase distance far too quickly. Nevertheless, for most participants the appeal is simple: a personal best is a goal that nobody can take away from you.',
+      vi:'Phong trào chạy bộ nghiệp dư ở các đô thị Việt Nam đã phát triển đáng kể trong mười năm qua. Mười năm trước, một giải marathon ở Hà Nội chỉ thu hút vài trăm người đăng ký, phần lớn là người nước ngoài sống tại đây; nay chính giải đó bán hết suất chỉ trong vài ngày và có hàng nghìn người chạy trong nước. Ban tổ chức nói thay đổi này đến từ ba yếu tố: điện thoại thông minh giá rẻ có ứng dụng theo dõi, các nhóm mạng xã hội biến việc tập luyện thành hoạt động chung, và nhận thức về sức khoẻ ngày càng tăng. Không phải ai cũng hoan nghênh xu hướng này. Một số cư dân phàn nàn về việc cấm đường, còn bác sĩ cảnh báo người mới thường tăng quãng đường quá nhanh. Dù vậy, với phần lớn người tham gia, sức hút rất đơn giản: một kỷ lục cá nhân là mục tiêu không ai lấy đi được của bạn.' } },
+
+  { level:'b1', no:18, en:'Transport and the future city', vi:'Giao thông và đô thị tương lai', skill:'Dự báo, đề xuất',
+    grammar:[
+      { form:'Tương lai hoàn thành và tương lai tiếp diễn', vi:'By 2040 the city will have built four lines. · In ten years we will be using driverless buses.', note:'Rất hợp khi viết về dự báo đô thị trong bài luận.', ex:{ en:'By next year the line will have been completed.', vi:'Tới năm sau tuyến đường sẽ được hoàn thành.' } },
+      { form:'Bị động tương lai', vi:'will be built · is going to be replaced · is due to be opened.', note:'«be due to be + V3» rất thông dụng trong tin tức hạ tầng.', ex:{ en:'The station is due to be opened in June.', vi:'Nhà ga dự kiến khánh thành vào tháng Sáu.' } },
+      { form:'Mệnh đề chỉ điều kiện và hệ quả kép', vi:'The more people cycle, the cleaner the air becomes.', note:'Cấu trúc «The + so sánh…, the + so sánh…» rất mạnh trong bài luận.', ex:{ en:'The cheaper the tickets are, the more people use the metro.', vi:'Vé càng rẻ thì càng nhiều người đi metro.' } },
+      { form:'Ngôn ngữ đề xuất chính sách', vi:'Priority should be given to… · Funds could be redirected towards… · It would make sense to…', note:'Dùng bị động và danh từ hoá để câu trung tính, khách quan.', ex:{ en:'Priority should be given to pedestrian safety.', vi:'Cần ưu tiên an toàn cho người đi bộ.' } }
+    ],
+    vocab:[
+      { en:'congestion', uk:'kənˈdʒestʃən', us:'kənˈdʒestʃən', vi:'ùn tắc', pos:'danh từ' },
+      { en:'commuter', uk:'kəˈmjuːtə', us:'kəˈmjuːtər', vi:'người đi làm xa', pos:'danh từ' },
+      { en:'pedestrian', uk:'pəˈdestriən', us:'pəˈdestriən', vi:'người đi bộ', pos:'danh từ' },
+      { en:'cyclist', uk:'ˈsaɪklɪst', us:'ˈsaɪklɪst', vi:'người đi xe đạp', pos:'danh từ' },
+      { en:'fare', uk:'feə', us:'fer', vi:'giá vé', pos:'danh từ', note:'fare (giá vé) ≠ fair (công bằng) — đồng âm' },
+      { en:'route', uk:'ruːt', us:'ruːt', vi:'tuyến đường', pos:'danh từ' },
+      { en:'junction', uk:'ˈdʒʌŋkʃn', us:'ˈdʒʌŋkʃn', vi:'nút giao', pos:'danh từ' },
+      { en:'lane', uk:'leɪn', us:'leɪn', vi:'làn đường', pos:'danh từ' },
+      { en:'subsidy', uk:'ˈsʌbsədi', us:'ˈsʌbsədi', vi:'khoản trợ giá', pos:'danh từ' },
+      { en:'emission', uk:'ɪˈmɪʃn', us:'ɪˈmɪʃn', vi:'khí thải', pos:'danh từ' },
+      { en:'electric', uk:'ɪˈlektrɪk', us:'ɪˈlektrɪk', vi:'chạy điện', pos:'tính từ' },
+      { en:'driverless', uk:'ˈdraɪvələs', us:'ˈdraɪvərləs', vi:'không người lái', pos:'tính từ' },
+      { en:'efficient', uk:'ɪˈfɪʃnt', us:'ɪˈfɪʃnt', vi:'hiệu quả', pos:'tính từ' },
+      { en:'accessible', uk:'əkˈsesəbl', us:'əkˈsesəbl', vi:'dễ tiếp cận', pos:'tính từ' },
+      { en:'expand', uk:'ɪkˈspænd', us:'ɪkˈspænd', vi:'mở rộng', pos:'động từ' },
+      { en:'upgrade', uk:'ˌʌpˈɡreɪd', us:'ˌʌpˈɡreɪd', vi:'nâng cấp', pos:'động từ' },
+      { en:'ban', uk:'bæn', us:'bæn', vi:'cấm', pos:'động từ, danh từ' },
+      { en:'restrict', uk:'rɪˈstrɪkt', us:'rɪˈstrɪkt', vi:'hạn chế', pos:'động từ' },
+      { en:'encourage', uk:'ɪnˈkʌrɪdʒ', us:'ɪnˈkɜːrɪdʒ', vi:'khuyến khích', pos:'động từ', note:'encourage someone TO do' },
+      { en:'priority', uk:'praɪˈɒrəti', us:'praɪˈɔːrəti', vi:'ưu tiên', pos:'danh từ' }
+    ],
+    colloc:[
+      { p:'ease congestion', vi:'giảm ùn tắc', ex:'The new bridge should ease congestion at peak times.' },
+      { p:'at peak times / off-peak', vi:'giờ cao điểm / ngoài giờ cao điểm', ex:'Fares are lower off-peak.' },
+      { p:'give priority to something', vi:'dành ưu tiên cho', ex:'The plan gives priority to cyclists.' }
+    ],
+    dialogue:[
+      { sp:'Teacher', en:'How should the city reduce congestion?', vi:'Thành phố nên giảm ùn tắc bằng cách nào?' },
+      { sp:'Quan', en:'Cheaper fares first. The more affordable the metro is, the more people use it.', vi:'Trước hết là hạ giá vé. Metro càng rẻ thì càng nhiều người dùng.' },
+      { sp:'Teacher', en:'And banning motorbikes in the centre?', vi:'Còn cấm xe máy trong trung tâm thì sao?' },
+      { sp:'Quan', en:'Not until the alternative works. Otherwise it just punishes people.', vi:'Chưa nên, tới khi phương án thay thế chạy tốt đã. Không thì chỉ là phạt người dân.' },
+      { sp:'Teacher', en:'What will the city look like in twenty years?', vi:'Hai mươi năm nữa thành phố sẽ thế nào?' },
+      { sp:'Quan', en:'By then four lines will have been built, I hope.', vi:'Tới lúc đó, em hy vọng bốn tuyến đã được xây xong.' },
+      { sp:'Teacher', en:'And will people be cycling?', vi:'Người dân có đạp xe không?' },
+      { sp:'Quan', en:'Only if there are protected lanes. Paint on the road is not enough.', vi:'Chỉ khi có làn riêng có rào chắn. Vạch sơn trên đường thì không đủ.' }
+    ],
+    reading:{ en:'Cities across Asia are rethinking how streets are used. For most of the twentieth century, road space was designed almost entirely for private vehicles; pedestrians and cyclists were expected to fit into whatever remained. That assumption is now being questioned. Several cities have widened pavements, added protected cycle lanes and given buses their own lanes at junctions. Early results are encouraging: in one district, journey times for buses fell by eighteen percent while shop revenues rose, contradicting the common fear that removing parking damages local business. The lesson appears to be simple. The more space is given to alternatives, the more people use them; and the more people use them, the less congested the remaining road space becomes.',
+      vi:'Các thành phố khắp châu Á đang nghĩ lại về cách sử dụng đường phố. Suốt phần lớn thế kỷ 20, không gian đường được thiết kế gần như hoàn toàn cho xe cá nhân; người đi bộ và đi xe đạp phải chen vào phần còn lại. Giả định đó nay đang bị chất vấn. Một số thành phố đã mở rộng vỉa hè, thêm làn xe đạp có rào chắn và dành làn riêng cho xe buýt ở các nút giao. Kết quả ban đầu đáng khích lệ: ở một quận, thời gian di chuyển của xe buýt giảm mười tám phần trăm trong khi doanh thu các cửa hàng lại tăng, đi ngược nỗi lo phổ biến rằng bỏ chỗ đỗ xe sẽ làm hại kinh doanh địa phương. Bài học có vẻ đơn giản. Càng dành nhiều không gian cho các phương án thay thế thì càng nhiều người dùng chúng; và càng nhiều người dùng thì phần đường còn lại càng bớt tắc.' } },
+
+  { level:'b1', no:19, en:'Food, culture and globalisation', vi:'Ẩm thực và toàn cầu hoá', skill:'Miêu tả văn hoá',
+    grammar:[
+      { form:'Mệnh đề quan hệ không xác định', vi:'Pho, which originated in northern Vietnam, is now sold worldwide.', note:'Có dấu phẩy, chỉ bổ sung thông tin; không dùng «that».', ex:{ en:'Nuoc mam, which is made from fermented fish, is the base of many dishes.', vi:'Nước mắm, thứ làm từ cá lên men, là nền của nhiều món ăn.' } },
+      { form:'Bị động mô tả cách chế biến', vi:'The fish is salted, then left to ferment for a year.', note:'Đúng khuôn mẫu của bài mô tả quy trình.', ex:{ en:'The rice paper is soaked briefly before being filled.', vi:'Bánh tráng được nhúng nhanh trước khi cuốn nhân.' } },
+      { form:'Cụm chỉ nguồn gốc và lan truyền', vi:'originate in · date back to · be introduced by · spread across.', note:'«originate from» dùng cho người; «originate in» dùng cho nơi chốn.', ex:{ en:'The dish dates back to the early twentieth century.', vi:'Món ăn này có từ đầu thế kỷ hai mươi.' } },
+      { form:'So sánh văn hoá không phán xét', vi:'differ from · vary according to · be typical of · be characteristic of.', note:'Tránh «better/worse» khi so sánh văn hoá trong bài viết học thuật.', ex:{ en:'Seasoning varies according to the region.', vi:'Cách nêm nếm khác nhau tuỳ vùng miền.' } }
+    ],
+    vocab:[
+      { en:'cuisine', uk:'kwɪˈziːn', us:'kwɪˈziːn', vi:'nền ẩm thực', pos:'danh từ' },
+      { en:'ingredient', uk:'ɪnˈɡriːdiənt', us:'ɪnˈɡriːdiənt', vi:'nguyên liệu', pos:'danh từ' },
+      { en:'recipe', uk:'ˈresəpi', us:'ˈresəpi', vi:'công thức nấu', pos:'danh từ', note:'ba âm tiết: RE-si-pi' },
+      { en:'flavour', uk:'ˈfleɪvə', us:'ˈfleɪvər', vi:'hương vị', pos:'danh từ', note:'Mỹ viết flavor' },
+      { en:'seasoning', uk:'ˈsiːzənɪŋ', us:'ˈsiːzənɪŋ', vi:'gia vị nêm', pos:'danh từ' },
+      { en:'texture', uk:'ˈtekstʃə', us:'ˈtekstʃər', vi:'kết cấu, độ dai giòn', pos:'danh từ' },
+      { en:'ferment', uk:'fəˈment', us:'fərˈment', vi:'lên men', pos:'động từ' },
+      { en:'steam', uk:'stiːm', us:'stiːm', vi:'hấp', pos:'động từ' },
+      { en:'grill', uk:'ɡrɪl', us:'ɡrɪl', vi:'nướng vỉ', pos:'động từ' },
+      { en:'roast', uk:'rəʊst', us:'roʊst', vi:'quay, nướng lò', pos:'động từ' },
+      { en:'authentic', uk:'ɔːˈθentɪk', us:'ɔːˈθentɪk', vi:'nguyên bản, đúng chất', pos:'tính từ' },
+      { en:'traditional', uk:'trəˈdɪʃənl', us:'trəˈdɪʃənl', vi:'truyền thống', pos:'tính từ' },
+      { en:'imported', uk:'ɪmˈpɔːtɪd', us:'ɪmˈpɔːrtɪd', vi:'nhập khẩu', pos:'tính từ' },
+      { en:'staple', uk:'ˈsteɪpl', us:'ˈsteɪpl', vi:'lương thực chính', pos:'danh từ' },
+      { en:'variety', uk:'vəˈraɪəti', us:'vəˈraɪəti', vi:'sự đa dạng', pos:'danh từ' },
+      { en:'origin', uk:'ˈɒrɪdʒɪn', us:'ˈɔːrɪdʒɪn', vi:'nguồn gốc', pos:'danh từ' },
+      { en:'adapt', uk:'əˈdæpt', us:'əˈdæpt', vi:'điều chỉnh cho phù hợp', pos:'động từ' },
+      { en:'preserve', uk:'prɪˈzɜːv', us:'prɪˈzɜːrv', vi:'bảo tồn; bảo quản', pos:'động từ' },
+      { en:'globalisation', uk:'ˌɡləʊbəlaɪˈzeɪʃn', us:'ˌɡloʊbələˈzeɪʃn', vi:'toàn cầu hoá', pos:'danh từ' },
+      { en:'identity', uk:'aɪˈdentəti', us:'aɪˈdentəti', vi:'bản sắc', pos:'danh từ' }
+    ],
+    colloc:[
+      { p:'be an acquired taste', vi:'phải ăn quen mới thấy ngon', ex:'Fermented fish sauce is an acquired taste.' },
+      { p:'lose its identity', vi:'đánh mất bản sắc', ex:'Some worry the dish is losing its identity abroad.' },
+      { p:'put your own spin on something', vi:'thêm dấu ấn riêng vào cái gì', ex:'Every cook puts their own spin on the recipe.' }
+    ],
+    dialogue:[
+      { sp:'Linh', en:'A friend in London said the pho there tastes different.', vi:'Một người bạn ở London bảo phở bên đó vị khác.' },
+      { sp:'Quan', en:'It usually is. The broth is often sweeter.', vi:'Thường là vậy. Nước dùng hay ngọt hơn.' },
+      { sp:'Linh', en:'Does that bother you?', vi:'Điều đó có làm bạn khó chịu không?' },
+      { sp:'Quan', en:'Not really. Every dish is adapted when it travels.', vi:'Không hẳn. Món nào khi đi xa cũng được điều chỉnh.' },
+      { sp:'Linh', en:'But then is it still authentic?', vi:'Nhưng như thế còn nguyên bản không?' },
+      { sp:'Quan', en:'Authentic to where? Pho in Hanoi differs from pho in Saigon.', vi:'Nguyên bản so với đâu? Phở Hà Nội đã khác phở Sài Gòn rồi.' },
+      { sp:'Linh', en:'Fair point. Food does not stand still.', vi:'Có lý. Đồ ăn đâu có đứng yên.' }
+    ],
+    reading:{ en:'Pho, which most people associate with Vietnam as a whole, originated in the north in the early twentieth century and only reached the south after 1954. In Hanoi the broth is clear and lightly seasoned, and the dish is served with little more than spring onion; in Ho Chi Minh City it is sweeter and comes with a plate of herbs, bean sprouts and sauces. When Vietnamese communities settled abroad, the recipe adapted again to local tastes and available ingredients. Some people argue that these versions are no longer authentic. Others reply that a dish which has changed twice within one country can hardly be expected to stand still once it crosses an ocean.',
+      vi:'Phở, món mà phần lớn mọi người gắn với Việt Nam nói chung, khởi nguồn ở miền Bắc vào đầu thế kỷ hai mươi và chỉ vào tới miền Nam sau năm 1954. Ở Hà Nội, nước dùng trong và nêm nhạt, món ăn hầu như chỉ kèm hành lá; ở Thành phố Hồ Chí Minh, nước dùng ngọt hơn và có kèm đĩa rau thơm, giá đỗ và các loại nước chấm. Khi các cộng đồng người Việt định cư ở nước ngoài, công thức lại được điều chỉnh theo khẩu vị bản địa và nguyên liệu sẵn có. Một số người cho rằng những phiên bản này không còn nguyên bản. Người khác đáp lại rằng một món đã thay đổi hai lần ngay trong cùng một nước thì khó mà đứng yên khi vượt qua cả một đại dương.' } },
+
+  { level:'b1', no:20, en:'Writing an opinion essay', vi:'Bài luận nêu quan điểm — ôn tập B1', skill:'Tổng hợp viết',
+    grammar:[
+      { form:'Bốn đoạn của bài luận quan điểm', vi:'Mở bài (diễn giải đề + nêu lập trường) → thân bài 1 → thân bài 2 → kết luận.', note:'Mỗi đoạn thân bài: câu chủ đề → giải thích → ví dụ → câu chốt.', ex:{ en:'This essay will argue that the benefits outweigh the drawbacks.', vi:'Bài viết này sẽ lập luận rằng lợi ích lớn hơn hạn chế.' } },
+      { form:'Diễn giải lại đề bài', vi:'Không chép lại đề; đổi từ và đổi cấu trúc.', note:'«Some people think that…» → «It is sometimes claimed that…»', ex:{ en:'It is sometimes claimed that homework serves little purpose.', vi:'Đôi khi người ta cho rằng bài tập về nhà chẳng có mấy tác dụng.' } },
+      { form:'Nêu lập trường rõ ràng', vi:'I firmly believe that… · In my view, the advantages far outweigh…', note:'Giám khảo cần thấy quan điểm của bạn ngay ở mở bài và nhất quán tới kết luận.', ex:{ en:'In my view, the advantages clearly outweigh the disadvantages.', vi:'Theo tôi, lợi ích rõ ràng lớn hơn bất lợi.' } },
+      { form:'Kết luận không nêu ý mới', vi:'To sum up… · In conclusion… — tóm lại và khẳng định lập trường.', note:'Không đưa lập luận mới ở kết luận; đó là lỗi trừ điểm phổ biến.', ex:{ en:'In conclusion, while the risks are real, they can be managed.', vi:'Tóm lại, dù rủi ro là có thật, chúng vẫn quản lý được.' } }
+    ],
+    vocab:[
+      { en:'essay', uk:'ˈeseɪ', us:'ˈeseɪ', vi:'bài luận', pos:'danh từ' },
+      { en:'introduction', uk:'ˌɪntrəˈdʌkʃn', us:'ˌɪntrəˈdʌkʃn', vi:'phần mở bài', pos:'danh từ' },
+      { en:'conclusion', uk:'kənˈkluːʒn', us:'kənˈkluːʒn', vi:'kết luận', pos:'danh từ' },
+      { en:'argument', uk:'ˈɑːɡjumənt', us:'ˈɑːrɡjumənt', vi:'luận điểm', pos:'danh từ' },
+      { en:'evidence', uk:'ˈevɪdəns', us:'ˈevɪdəns', vi:'dẫn chứng', pos:'danh từ' },
+      { en:'viewpoint', uk:'ˈvjuːpɔɪnt', us:'ˈvjuːpɔɪnt', vi:'góc nhìn', pos:'danh từ' },
+      { en:'outweigh', uk:'ˌaʊtˈweɪ', us:'ˌaʊtˈweɪ', vi:'lớn hơn, vượt trội', pos:'động từ' },
+      { en:'justify', uk:'ˈdʒʌstɪfaɪ', us:'ˈdʒʌstɪfaɪ', vi:'biện minh, lý giải', pos:'động từ' },
+      { en:'illustrate', uk:'ˈɪləstreɪt', us:'ˈɪləstreɪt', vi:'minh hoạ', pos:'động từ' },
+      { en:'emphasise', uk:'ˈemfəsaɪz', us:'ˈemfəsaɪz', vi:'nhấn mạnh', pos:'động từ', note:'Mỹ viết emphasize' },
+      { en:'acknowledge', uk:'əkˈnɒlɪdʒ', us:'əkˈnɑːlɪdʒ', vi:'thừa nhận', pos:'động từ' },
+      { en:'counter-argument', uk:'ˈkaʊntərˌɑːɡjumənt', us:'ˈkaʊntərˌɑːrɡjumənt', vi:'luận điểm phản biện', pos:'danh từ' },
+      { en:'coherent', uk:'kəʊˈhɪərənt', us:'koʊˈhɪrənt', vi:'mạch lạc', pos:'tính từ' },
+      { en:'relevant', uk:'ˈreləvənt', us:'ˈreləvənt', vi:'liên quan, sát đề', pos:'tính từ' },
+      { en:'convincing', uk:'kənˈvɪnsɪŋ', us:'kənˈvɪnsɪŋ', vi:'thuyết phục', pos:'tính từ' },
+      { en:'balanced', uk:'ˈbælənst', us:'ˈbælənst', vi:'cân bằng, khách quan', pos:'tính từ' },
+      { en:'concise', uk:'kənˈsaɪs', us:'kənˈsaɪs', vi:'súc tích', pos:'tính từ' },
+      { en:'vague', uk:'veɪɡ', us:'veɪɡ', vi:'mơ hồ', pos:'tính từ' },
+      { en:'furthermore', uk:'ˌfɜːðəˈmɔː', us:'ˌfɜːrðərˈmɔːr', vi:'hơn nữa', pos:'trạng từ' },
+      { en:'nevertheless', uk:'ˌnevəðəˈles', us:'ˌnevərðəˈles', vi:'tuy vậy', pos:'trạng từ' }
+    ],
+    colloc:[
+      { p:'to a certain extent', vi:'ở một mức độ nhất định — cách nhượng bộ rất tự nhiên', ex:'I agree with this to a certain extent.' },
+      { p:'back up an argument with evidence', vi:'củng cố luận điểm bằng dẫn chứng', ex:'Always back up your argument with a concrete example.' },
+      { p:'the benefits outweigh the drawbacks', vi:'lợi ích lớn hơn hạn chế', ex:'On balance, the benefits outweigh the drawbacks.' }
+    ],
+    dialogue:[
+      { sp:'Teacher', en:'Your essay lost marks on task response. Do you know why?', vi:'Bài luận của em bị trừ ở phần trả lời đúng đề. Em biết vì sao không?' },
+      { sp:'Quan', en:'I discussed both sides but never said what I thought.', vi:'Em bàn cả hai mặt nhưng không nêu ý kiến của mình ạ.' },
+      { sp:'Teacher', en:'Exactly. The question asked to what extent you agree.', vi:'Chính xác. Đề hỏi em đồng ý tới mức nào.' },
+      { sp:'Quan', en:'So I should state my position in the introduction?', vi:'Vậy em nên nêu lập trường ngay ở mở bài ạ?' },
+      { sp:'Teacher', en:'Yes, and keep it consistent to the end.', vi:'Đúng, và giữ nhất quán tới cuối bài.' },
+      { sp:'Quan', en:'What about the counter-argument?', vi:'Còn luận điểm phản biện thì sao ạ?' },
+      { sp:'Teacher', en:'Acknowledge it, then explain why your view still holds.', vi:'Hãy thừa nhận nó, rồi giải thích vì sao quan điểm của em vẫn đứng vững.' }
+    ],
+    reading:{ en:'Some people believe that students should be required to study a foreign language throughout secondary school, while others argue that it should be optional after the age of fourteen. In my view, compulsory study should continue, although the way it is taught needs to change.\n\nThose who favour making languages optional point out that many students make little progress despite years of lessons. This is a fair criticism. However, the problem lies in method rather than in the subject itself. Classes of forty students, an examination that rewards memorised grammar, and almost no speaking practice would produce poor results in any subject.\n\nFurthermore, the benefits of language learning go beyond the language. Research suggests that studying another language improves understanding of one’s own, and students who continue to sixteen are far more likely to reach a useful level later. A subject dropped at fourteen is rarely picked up again.\n\nIn conclusion, while the frustration of both students and teachers is understandable, the solution is to reform teaching, not to abandon the subject. Smaller classes, more speaking and assessment that rewards communication would address the real problem.',
+      vi:'Một số người cho rằng học sinh nên bắt buộc học ngoại ngữ suốt bậc trung học, trong khi số khác lập luận rằng nên để tự chọn sau tuổi mười bốn. Theo tôi, việc học bắt buộc nên tiếp tục, dù cách dạy cần thay đổi.\n\nNhững người ủng hộ để ngoại ngữ thành môn tự chọn chỉ ra rằng nhiều học sinh tiến bộ rất ít dù học nhiều năm. Đó là lời phê bình công bằng. Tuy nhiên, vấn đề nằm ở phương pháp chứ không phải ở bản thân môn học. Lớp bốn mươi học sinh, một kỳ thi chỉ thưởng cho ngữ pháp học thuộc, và gần như không có luyện nói thì môn nào cũng cho kết quả kém.\n\nHơn nữa, lợi ích của việc học ngoại ngữ vượt ra ngoài chính ngôn ngữ đó. Nghiên cứu cho thấy học một ngôn ngữ khác giúp hiểu tiếng mẹ đẻ tốt hơn, và học sinh học tiếp tới mười sáu tuổi có khả năng đạt trình độ dùng được cao hơn nhiều về sau. Một môn bị bỏ dở ở tuổi mười bốn hiếm khi được học lại.\n\nTóm lại, dù sự bức bối của cả học sinh lẫn giáo viên là dễ hiểu, giải pháp là cải cách cách dạy chứ không phải bỏ môn học. Lớp ít học sinh hơn, nhiều luyện nói hơn và cách đánh giá coi trọng khả năng giao tiếp sẽ xử lý được vấn đề thật sự.' } }
 
   ]
 };
