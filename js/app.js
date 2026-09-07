@@ -2364,6 +2364,32 @@ function ruOpenWord(tok){
   try { window.scrollTo({ top:0 }); } catch(e){}
 }
 
+/* ---- Phát âm tiếng Anh (dùng giọng en-GB nếu có, không thì en-US) ---- */
+function enSpeak(text, variant){
+  try {
+    const synth = window.speechSynthesis; if (!synth){ toast('Trình duyệt chưa hỗ trợ phát âm'); return; }
+    const plain = String(text || '').replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"').trim();
+    if (!plain) return;
+    const want = variant || store.get('enVoice', 'uk');
+    let done = false;
+    const speak = () => {
+      if (done) return; done = true;
+      synth.cancel();
+      const u = new SpeechSynthesisUtterance(plain);
+      u.lang = want === 'us' ? 'en-US' : 'en-GB'; u.rate = 0.9;
+      const vs = synth.getVoices() || [];
+      const pref = want === 'us' ? /en[-_]us|american/i : /en[-_]gb|british|united kingdom/i;
+      const v = vs.find(x => pref.test((x.lang || '') + ' ' + (x.name || ''))) || vs.find(x => /^en\b|en[-_]/i.test(x.lang || ''));
+      if (v) u.voice = v;
+      else if (!enSpeak._warned){ enSpeak._warned = true; toast('Máy chưa có giọng đọc tiếng Anh — cài gói giọng en-GB hoặc en-US trong hệ điều hành.'); }
+      synth.speak(u);
+    };
+    const vs = synth.getVoices() || [];
+    if (vs.length) speak();
+    else { try { synth.addEventListener('voiceschanged', speak, { once:true }); } catch(e){} setTimeout(speak, 300); }
+  } catch(e){}
+}
+function enSpeakBtn(text, cls){ return `<button class="${cls || 'icon-btn'}" data-en-speak="${esc(text)}" title="Nghe">\ud83d\udd0a</button>`; }
 function ruSpeak(text){
   try {
     const synth = window.speechSynthesis; if (!synth){ toast('Trình duyệt chưa hỗ trợ phát âm'); return; }
@@ -4912,7 +4938,7 @@ function factArt(id){
 function factSpeakBtn(f){
   const t = f.word && f.word.t;
   if (!t) return '';
-  const attr = f.lang === 'zh' ? `data-zh-speak="${esc(t)}"` : f.lang === 'ru' ? `data-ru-speak="${esc(t)}"` : f.lang === 'ja' ? `data-ja-speak="${esc(t)}"` : `data-speak="${esc(t)}"`;
+  const attr = f.lang === 'zh' ? `data-zh-speak="${esc(t)}"` : f.lang === 'ru' ? `data-ru-speak="${esc(t)}"` : f.lang === 'ja' ? `data-ja-speak="${esc(t)}"` : f.lang === 'en' ? `data-en-speak="${esc(t)}"` : `data-speak="${esc(t)}"`;
   return `<button class="icon-btn" ${attr} title="Nghe">🔊</button>`;
 }
 function factCardHTML(f){
@@ -5264,6 +5290,8 @@ document.addEventListener('click', e => {
   if (zqz){ const Q = state.zh.quiz; if (Q && Q.picked[Q.i] == null){ Q.picked[Q.i] = zqz.dataset.zhQz; render(); } return; }
   if (t.closest('[data-zh-qz-next]')){ if (state.zh.quiz){ state.zh.quiz.i++; render(); } return; }
   /* ----- tiếng Nga ----- */
+  const eSpeak = t.closest('[data-en-speak]');
+  if (eSpeak){ enSpeak(eSpeak.dataset.enSpeak); return; }
   const rSpeak = t.closest('[data-ru-speak]');
   if (rSpeak){ ruSpeak(rSpeak.dataset.ruSpeak); return; }
   const rLv = t.closest('[data-ru-level]');
