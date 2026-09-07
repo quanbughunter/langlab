@@ -82,7 +82,7 @@ const COURSE_RU = {
           ex:{ ru:'Э́то Анна, а э́то Ива́н.', vi:'Đây là Anna, còn đây là Ivan.' } },
         { form:'Меня́ зову́т … / Как вас зову́т?', vi:'“Tôi tên là …” / “Bạn tên gì?”',
           note:'Nghĩa đen “người ta gọi tôi là …”. Thân mật: Как тебя́ зову́т? Đáp lễ: О́чень прия́тно (rất hân hạnh).',
-          ex:{ ru:'— Как вас зову́т? — Меня́ зову́т Хиен. О́чень прия́тно!', vi:'— Bạn tên gì? — Tôi tên là Hiển. Rất hân hạnh!' } }
+          ex:{ ru:'— Как вас зову́т? — Меня́ зову́т Куан. О́чень прия́тно!', vi:'— Bạn tên gì? — Tôi tên là Quân. Rất hân hạnh!' } }
       ],
       vocab:[
         { ru:'здра́вствуйте', vi:'xin chào (lịch sự)', pos:'thán từ' },
@@ -103,8 +103,8 @@ const COURSE_RU = {
       ],
       dialogue:[
         { sp:'A', ru:'Здра́вствуйте! Меня́ зову́т Анна. А как вас зову́т?', vi:'Xin chào! Tôi tên là Anna. Còn bạn tên gì?' },
-        { sp:'B', ru:'Меня́ зову́т Хиен. О́чень прия́тно.', vi:'Tôi tên là Hiển. Rất hân hạnh.' },
-        { sp:'A', ru:'О́чень прия́тно. Хиен, кто э́то?', vi:'Rất hân hạnh. Hiển, đây là ai?' },
+        { sp:'B', ru:'Меня́ зову́т Куан. О́чень прия́тно.', vi:'Tôi tên là Quân. Rất hân hạnh.' },
+        { sp:'A', ru:'О́чень прия́тно. Куан, кто э́то?', vi:'Rất hân hạnh. Quân, đây là ai?' },
         { sp:'B', ru:'Э́то Ива́н. Он студе́нт. А э́то преподава́тель.', vi:'Đây là Ivan. Anh ấy là sinh viên. Còn đây là giảng viên.' }
       ]
     },
@@ -138,7 +138,7 @@ const COURSE_RU = {
         { ru:'фотогра́фия', vi:'bức ảnh', pos:'danh từ giống cái' }
       ],
       dialogue:[
-        { sp:'A', ru:'Хиен, э́то твоя́ семья́?', vi:'Hiển, đây là gia đình cậu à?' },
+        { sp:'A', ru:'Куан, э́то твоя́ семья́?', vi:'Quân, đây là gia đình cậu à?' },
         { sp:'B', ru:'Да, э́то моя́ семья́. Э́то мой па́па, а э́то моя́ ма́ма.', vi:'Ừ, đây là gia đình mình. Đây là bố mình, còn đây là mẹ mình.' },
         { sp:'A', ru:'А кто э́то? Твой брат?', vi:'Còn đây là ai? Em trai cậu à?' },
         { sp:'B', ru:'Нет, э́то моя́ сестра́. Её зову́т Лан. У меня́ есть ещё мла́дший брат.', vi:'Không, đây là em gái mình. Em ấy tên Lan. Mình còn có một em trai nữa.' }
@@ -174,7 +174,7 @@ const COURSE_RU = {
         { ru:'во́зраст', vi:'tuổi tác', pos:'danh từ giống đực' }
       ],
       dialogue:[
-        { sp:'A', ru:'Ско́лько тебе́ лет, Хиен?', vi:'Hiển, cậu bao nhiêu tuổi?' },
+        { sp:'A', ru:'Ско́лько тебе́ лет, Куан?', vi:'Quân, cậu bao nhiêu tuổi?' },
         { sp:'B', ru:'Мне два́дцать три го́да. А тебе́?', vi:'Mình 23 tuổi. Còn cậu?' },
         { sp:'A', ru:'Мне девятна́дцать лет. А ско́лько лет твоему́ бра́ту?', vi:'Mình 19 tuổi. Còn em trai cậu bao nhiêu tuổi?' },
         { sp:'B', ru:'Ему́ оди́ннадцать лет. Он ещё шко́льник.', vi:'Em ấy 11 tuổi. Em ấy vẫn là học sinh.' }
@@ -246,7 +246,7 @@ const COURSE_RU = {
         { ru:'сего́дня', vi:'hôm nay', pos:'trạng từ' }
       ],
       dialogue:[
-        { sp:'A', ru:'Хиен, ты лю́бишь спорт?', vi:'Hiển, cậu thích thể thao không?' },
+        { sp:'A', ru:'Куан, ты лю́бишь спорт?', vi:'Quân, cậu thích thể thao không?' },
         { sp:'B', ru:'Да, о́чень. Я люблю́ футбо́л. А ты что лю́бишь де́лать?', vi:'Có, rất thích. Mình thích bóng đá. Còn cậu thích làm gì?' },
         { sp:'A', ru:'Я люблю́ слу́шать му́зыку и смотре́ть фи́льмы.', vi:'Mình thích nghe nhạc và xem phim.' },
         { sp:'B', ru:'Я то́же. Ты хо́чешь смотре́ть фильм сего́дня ве́чером?', vi:'Mình cũng vậy. Tối nay cậu muốn xem phim không?' },
@@ -283,7 +283,7 @@ const COURSE_RU = {
         { ru:'далеко́ / бли́зко', vi:'xa / gần', pos:'trạng từ' }
       ],
       dialogue:[
-        { sp:'A', ru:'Хиен, где ты живёшь?', vi:'Hiển, cậu sống ở đâu?' },
+        { sp:'A', ru:'Куан, где ты живёшь?', vi:'Quân, cậu sống ở đâu?' },
         { sp:'B', ru:'Я живу́ в общежи́тии, в це́нтре го́рода. А ты?', vi:'Mình sống ở ký túc xá, ở trung tâm thành phố. Còn cậu?' },
         { sp:'A', ru:'Я живу́ в кварти́ре на у́лице Ле́нина. Э́то далеко́ от це́нтра.', vi:'Mình sống trong căn hộ trên phố Lenin. Chỗ đó xa trung tâm.' },
         { sp:'B', ru:'А твои́ роди́тели живу́т в Москве́?', vi:'Còn bố mẹ cậu sống ở Moskva à?' },
@@ -393,7 +393,7 @@ const COURSE_RU = {
         { ru:'како́й', vi:'nào, như thế nào', pos:'đại từ nghi vấn' }
       ],
       dialogue:[
-        { sp:'A', ru:'Хиен, кто ты по профе́ссии?', vi:'Hiển, cậu làm nghề gì?' },
+        { sp:'A', ru:'Куан, кто ты по профе́ссии?', vi:'Quân, cậu làm nghề gì?' },
         { sp:'B', ru:'Я курса́нт. Я учу́сь в вое́нной акаде́мии. А ты?', vi:'Mình là học viên. Mình học ở học viện quân sự. Còn cậu?' },
         { sp:'A', ru:'Я студе́нтка, бу́дущий врач. Э́то тру́дная, но интере́сная профе́ссия.', vi:'Mình là sinh viên, bác sĩ tương lai. Đó là nghề khó nhưng thú vị.' },
         { sp:'B', ru:'Кака́я у тебя́ хоро́шая профе́ссия!', vi:'Nghề của cậu thật tốt!' }
@@ -466,7 +466,7 @@ const COURSE_RU = {
         { ru:'пото́м', vi:'sau đó', pos:'trạng từ' }
       ],
       dialogue:[
-        { sp:'A', ru:'Приве́т, Хиен! Куда́ ты идёшь?', vi:'Chào Hiển! Cậu đi đâu đấy?' },
+        { sp:'A', ru:'Приве́т, Куан! Куда́ ты идёшь?', vi:'Chào Quân! Cậu đi đâu đấy?' },
         { sp:'B', ru:'Я иду́ в библиоте́ку. А ты?', vi:'Mình đi thư viện. Còn cậu?' },
         { sp:'A', ru:'Я е́ду на вокза́л. Мой брат сего́дня приезжа́ет.', vi:'Mình đi ra ga. Hôm nay anh mình đến.' },
         { sp:'B', ru:'Здо́рово! А пото́м куда́?', vi:'Tuyệt! Rồi sau đó đi đâu?' },
@@ -540,7 +540,7 @@ const COURSE_RU = {
         { ru:'жаль', vi:'tiếc', pos:'trạng từ vị ngữ' }
       ],
       dialogue:[
-        { sp:'A', ru:'Хиен, тебе́ нра́вится Москва́?', vi:'Hiển, cậu có thích Moskva không?' },
+        { sp:'A', ru:'Куан, тебе́ нра́вится Москва́?', vi:'Quân, cậu có thích Moskva không?' },
         { sp:'B', ru:'О́чень нра́вится! Но мне ну́жно бо́льше говори́ть по-ру́сски.', vi:'Rất thích! Nhưng mình cần nói tiếng Nga nhiều hơn.' },
         { sp:'A', ru:'Я могу́ помога́ть тебе́. Мо́жно говори́ть ка́ждый день.', vi:'Mình có thể giúp cậu. Có thể nói chuyện mỗi ngày.' },
         { sp:'B', ru:'Спаси́бо! А что тебе́ подари́ть? За́втра твой день рожде́ния.', vi:'Cảm ơn! Thế tặng cậu gì đây? Mai là sinh nhật cậu.' },
@@ -594,7 +594,7 @@ const COURSE_RU = {
           ex:{ ru:'Повтори́те, пожа́луйста, я не по́нял. Говори́те ме́дленно.', vi:'Xin nhắc lại, tôi chưa hiểu. Hãy nói chậm thôi.' } },
         { form:'Bố cục thư ngắn: Дорого́й/Дорога́я …! — nội dung — С уваже́нием / Пока́, + tên', vi:'viết thư/tin nhắn A1',
           note:'Tổng ôn A1: giống & sở hữu (bài 2) · động từ I/II (4–5) · cách 6 где (6) · cách 4 что/куда́ (7, 11) · quá khứ/tương lai (8) · tính từ (9) · cách 2 sau số/нет (10) · cách 3 (13). Thử viết thư 6–8 câu kể về một ngày của bạn.',
-          ex:{ ru:'Дорого́й Анто́н! Как дела́? Я живу́ в Хано́е и изуча́ю ру́сский язы́к. Приезжа́й ле́том! Пока́, Хиен.', vi:'Anton thân mến! Bạn khoẻ không? Mình sống ở Hà Nội và học tiếng Nga. Hè này đến chơi nhé! Tạm biệt, Hiển.' } }
+          ex:{ ru:'Дорого́й Анто́н! Как дела́? Я живу́ в Хано́е и изуча́ю ру́сский язы́к. Приезжа́й ле́том! Пока́, Куан.', vi:'Anton thân mến! Bạn khoẻ không? Mình sống ở Hà Nội và học tiếng Nga. Hè này đến chơi nhé! Tạm biệt, Quân.' } }
       ],
       vocab:[
         { ru:'скажи́те', vi:'hãy nói', pos:'mệnh lệnh' },
@@ -616,7 +616,7 @@ const COURSE_RU = {
       dialogue:[
         { sp:'A', ru:'Алло́! Позови́те, пожа́луйста, Ива́на.', vi:'A-lô! Làm ơn gọi giúp Ivan.' },
         { sp:'B', ru:'Слу́шаю. Э́то Ива́н. Кто говори́т?', vi:'Tôi nghe đây. Ivan đây. Ai đấy ạ?' },
-        { sp:'A', ru:'Э́то Хиен. Ива́н, скажи́, пожа́луйста, когда́ на́ша встре́ча?', vi:'Hiển đây. Ivan, cho hỏi khi nào chúng ta gặp?' },
+        { sp:'A', ru:'Э́то Куан. Ива́н, скажи́, пожа́луйста, когда́ на́ша встре́ча?', vi:'Quân đây. Ivan, cho hỏi khi nào chúng ta gặp?' },
         { sp:'B', ru:'В суббо́ту, в два часа́. Повтори́, пожа́луйста, твой но́мер.', vi:'Thứ Bảy, 2 giờ. Nhắc lại số của cậu với.' },
         { sp:'A', ru:'Во́семь, де́вять, шесть… Извини́, говори́ ме́дленно, я пишу́.', vi:'8, 9, 6… Xin lỗi, nói chậm thôi, mình đang ghi.' }
       ]
@@ -652,7 +652,7 @@ const COURSE_RU = {
         { ru:'ре́дко', vi:'hiếm khi', pos:'trạng từ' }
       ],
       dialogue:[
-        { sp:'A', ru:'Хиен, куда́ ты идёшь так ра́но?', vi:'Hiển, cậu đi đâu sớm thế?' },
+        { sp:'A', ru:'Куан, куда́ ты идёшь так ра́но?', vi:'Quân, cậu đi đâu sớm thế?' },
         { sp:'B', ru:'В бассе́йн. Я хожу́ туда́ ка́ждое у́тро.', vi:'Đi bể bơi. Sáng nào mình cũng đến đó.' },
         { sp:'A', ru:'А ле́том ты е́здил на мо́ре?', vi:'Thế hè cậu có đi biển không?' },
         { sp:'B', ru:'Да, мы е́здили в Нячанг. Туда́ лете́ли на самолёте, а обра́тно е́хали на по́езде.', vi:'Có, bọn mình đi Nha Trang. Chiều đi bay, chiều về đi tàu.' }
@@ -704,7 +704,7 @@ const COURSE_RU = {
           ex:{ ru:'Э́то маши́на моего́ отца́. У него́ нет вре́мени для о́тдыха.', vi:'Đây là xe của bố tôi. Ông ấy không có thời gian nghỉ ngơi.' } },
         { form:'Отку́да? из + cách 2 (из Вьетна́ма, из до́ма) / с + cách 2 (с рабо́ты, с ю́га) / от + người', vi:'“từ đâu”',
           note:'Cặp đối xứng: в ↔ из, на ↔ с, к ↔ от. Я из Ханоя. Она́ идёт с рабо́ты. Письмо́ от дру́га.',
-          ex:{ ru:'— Отку́да вы? — Я из Вьетна́ма, из Хайфо́на. А сейча́с иду́ с заня́тий.', vi:'— Bạn từ đâu đến? — Tôi từ Việt Nam, từ Hải Phòng. Còn bây giờ đang đi từ lớp về.' } }
+          ex:{ ru:'— Отку́да вы? — Я из Вьетна́ма, из Хано́я. А сейча́с иду́ с заня́тий.', vi:'— Bạn từ đâu đến? — Tôi từ Việt Nam, từ Hà Nội. Còn bây giờ đang đi từ lớp về.' } }
       ],
       vocab:[
         { ru:'отку́да', vi:'từ đâu', pos:'trạng từ nghi vấn' },
@@ -1136,7 +1136,7 @@ const COURSE_RU = {
           ex:{ ru:'Во-пе́рвых, я люблю́ спорт, во-вторы́х, му́зыку. Кро́ме того́, я мно́го чита́ю.', vi:'Thứ nhất, tôi thích thể thao, thứ hai là âm nhạc. Ngoài ra, tôi đọc nhiều.' } },
         { form:'Tổng ôn A2: 6 cách · thể НСВ/СВ · động từ chuyển động có tiền tố · кото́рый · е́сли/что́бы · so sánh · -ся', vi:'bản đồ ngữ pháp A2',
           note:'Bảng câu hỏi 6 cách: кто/что (1) · кого́/чего́, отку́да, у кого́ (2) · кому́, к кому́ (3) · кого́/что, куда́ (4) · кем/чем, с кем (5) · о ком/о чём, где (6). Tự kể về mình 10 câu, dùng mỗi cách ít nhất một lần.',
-          ex:{ ru:'Меня́ зову́т Хиен, мне 23 го́да. Я живу́ в Хано́е, учу́сь в акаде́мии и мечта́ю стать инжене́ром.', vi:'Tôi tên là Hiển, 23 tuổi. Tôi sống ở Hà Nội, học ở học viện và mơ trở thành kỹ sư.' } }
+          ex:{ ru:'Меня́ зову́т Куан, мне 23 го́да. Я живу́ в Хано́е, учу́сь в акаде́мии и мечта́ю стать инжене́ром.', vi:'Tôi tên là Quân, 23 tuổi. Tôi sống ở Hà Nội, học ở học viện và mơ trở thành kỹ sư.' } }
       ],
       vocab:[
         { ru:'во-пе́рвых', vi:'thứ nhất', pos:'trạng từ' },
@@ -1157,7 +1157,7 @@ const COURSE_RU = {
       ],
       dialogue:[
         { sp:'A', ru:'Расскажи́ немно́го о себе́.', vi:'Kể một chút về cậu đi.' },
-        { sp:'B', ru:'Меня́ зову́т Хиен, мне 23 го́да, я из Хайфо́на. Сейча́с я учу́сь в Хано́е, в вое́нной акаде́мии.', vi:'Mình tên Hiển, 23 tuổi, quê Hải Phòng. Hiện học ở Hà Nội, tại học viện quân sự.' },
+        { sp:'B', ru:'Меня́ зову́т Куан, мне 23 го́да, я из Хано́я. Здесь же я учу́сь — в вое́нной акаде́мии.', vi:'Mình tên Quân, 23 tuổi, quê Hà Nội. Mình cũng học ở đây — tại học viện quân sự.' },
         { sp:'A', ru:'Чем ты увлека́ешься?', vi:'Cậu có sở thích gì?' },
         { sp:'B', ru:'Во-пе́рвых, футбо́лом, во-вторы́х, ру́сским языко́м. Кро́ме того́, я люблю́ путеше́ствовать. К сожале́нию, вре́мени ма́ло.', vi:'Thứ nhất là bóng đá, thứ hai là tiếng Nga. Ngoài ra mình thích du lịch. Tiếc là ít thời gian.' }
       ]
@@ -1600,12 +1600,12 @@ const COURSE_RU = {
       level:'b1', no:13, ru:'Официа́льное письмо́ и заявле́ние', vi:'Thư chính thức và đơn từ',
       skill:'Bố cục заявле́ние; клише công vụ; xưng hô trang trọng',
       grammar:[
-        { form:'Заявле́ние: góc phải trên — Кому́ (Дека́ну факульте́та … И.И. Ивано́ву) / от кого́ (от студе́нта 2 ку́рса Хиена); giữa — ЗАЯВЛЕ́НИЕ; nội dung — Прошу́ + inf …; dưới — ngày, chữ ký', vi:'khuôn mẫu đơn',
+        { form:'Заявле́ние: góc phải trên — Кому́ (Дека́ну факульте́та … И.И. Ивано́ву) / от кого́ (от студе́нта 2 ку́рса Куана); giữa — ЗАЯВЛЕ́НИЕ; nội dung — Прошу́ + inf …; dưới — ngày, chữ ký', vi:'khuôn mẫu đơn',
           note:'Прошу́ разреши́ть мне… / Прошу́ предоста́вить мне о́тпуск с … по … в связи́ с … / Прошу́ перевести́ меня́ на… Lý do đi với в связи́ с + cách 5, по причи́не + cách 2.',
           ex:{ ru:'Прошу́ разреши́ть мне сдать экза́мен досро́чно в связи́ с уча́стием в соревнова́ниях.', vi:'Kính đề nghị cho phép tôi thi sớm do tham gia thi đấu.' } },
         { form:'Thư chính thức: Уважа́емый/-ая + tên đệm! → mục đích (Обраща́юсь к Вам по вопро́су…; Дово́жу до Ва́шего све́дения, что…) → yêu cầu (Прошу́ Вас…) → kết (Зара́нее благода́рен/-рна. С уваже́нием, …)', vi:'khuôn thư công vụ',
           note:'Vы viết hoa khi xưng hô một người trang trọng. Tránh khẩu ngữ, câu cảm thán. Thư mời: Приглаша́ем Вас приня́ть уча́стие в…',
-          ex:{ ru:'Уважа́емая Ольга Петро́вна! Обраща́юсь к Вам по вопро́су прохожде́ния пра́ктики. Прошу́ Вас рассмотре́ть мою́ кандидату́ру. С уваже́нием, Хиен.', vi:'Kính gửi bà Olga Petrovna! Tôi liên hệ về việc thực tập. Kính mong bà xem xét hồ sơ của tôi. Trân trọng, Hiển.' } }
+          ex:{ ru:'Уважа́емая Ольга Петро́вна! Обраща́юсь к Вам по вопро́су прохожде́ния пра́ктики. Прошу́ Вас рассмотре́ть мою́ кандидату́ру. С уваже́нием, Куан.', vi:'Kính gửi bà Olga Petrovna! Tôi liên hệ về việc thực tập. Kính mong bà xem xét hồ sơ của tôi. Trân trọng, Quân.' } }
       ],
       vocab:[
         { ru:'заявле́ние', vi:'đơn', pos:'danh từ giống trung' },
@@ -1661,7 +1661,7 @@ const COURSE_RU = {
         { ru:'неудо́бно', vi:'ngại, bất tiện', pos:'trạng từ' }
       ],
       dialogue:[
-        { sp:'A', ru:'Хиен, дава́й на «ты», мы же ровесники.', vi:'Hiển, xưng «ты» đi, mình cùng tuổi mà.' },
+        { sp:'A', ru:'Куан, дава́й на «ты», мы же ровесники.', vi:'Quân, xưng «ты» đi, mình cùng tuổi mà.' },
         { sp:'B', ru:'Дава́й. Слу́шай, а мо́жно тебя́ попроси́ть? Мне неудо́бно…', vi:'Ừ. Này, nhờ cậu chút được không? Mình ngại quá…' },
         { sp:'A', ru:'Ну говори́-ка, ведь для того́ и друзья́.', vi:'Nói đi chứ, bạn bè là để thế mà.' },
         { sp:'B', ru:'Прове́рь мою́ статью́, ла́дно? — Догово́рились, зайду́ ве́чером.', vi:'Kiểm tra bài viết của mình nhé, được không? — Chốt nhé, tối mình ghé.' }

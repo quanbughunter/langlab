@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
 <meta name="description" content="Ứng dụng học ngoại ngữ theo bài cho người Việt: tiếng Hàn (TOPIK), tiếng Trung (HSK), tiếng Nga (ТРКИ) — từ vựng, ngữ pháp, hội thoại, tập viết, từ điển, thi thử.">
-<link rel="icon" type="image/png" href="logo-icon.png?v=260931">
-<link rel="manifest" href="manifest.webmanifest?v=260931">
+<link rel="icon" type="image/png" href="logo-icon.png?v=260932">
+<link rel="manifest" href="manifest.webmanifest?v=260932">
 <meta name="theme-color" content="#EAF1FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260931">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260932">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="LangLab">
@@ -1403,7 +1403,9 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 }
 
 /* ===== Tiếng Nga: bảng chữ cái, phát âm, tập viết, luyện nói ===== */
-.ru{font-family:"Lexend","Noto Sans",system-ui,sans-serif}
+/* Chữ Nga: dùng font hệ thống có đủ Cyrillic + neo dấu trọng âm (U+0301); letter-spacing âm làm dấu lệch nên tắt hẳn */
+.ru,.lesson-card h3.ru,.zh-les-title.ru,.zh-gram-form.ru,.zh-word-hz.ru,.zh-line-zh.ru,.zh-card-front.ru,.qz-hz.ru,.qz-opt.ru,.zh-res-hz.ru,.ru-l-big,.ru-detail-glyphs b,.ru-detail-glyphs i,.ru-write-forms b,.ru-write-forms i,.ru-chip{font-family:"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",Arial,"Noto Sans KR",sans-serif;letter-spacing:0;font-feature-settings:"mark","mkmk"}
+.lesson-card h3.ru{font-weight:600;font-size:20px;line-height:1.25}
 .ru-hw{font-family:"Bad Script","Caveat",cursive}
 .ru-alpha{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:8px;max-width:900px}
 .ru-letter{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:10px 6px 8px;text-align:center;cursor:pointer;display:flex;flex-direction:column;gap:2px;color:var(--ink)}
@@ -1459,6 +1461,8 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 .ru-key span{color:var(--muted)}
 .ru-qs{margin:0 0 16px;padding-left:20px;font-size:14px;line-height:1.7;color:var(--muted)}
 @media (max-width:700px){ .ru-detail,.ru-write{grid-template-columns:1fr} .ru-trace{width:100%;max-width:300px} }
+.dict-cross{font-size:12.5px;color:var(--muted);margin:2px 0 8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:8px 12px;border:1px dashed var(--line);border-radius:10px;background:var(--surface)}
+.dhits .dict-cross{margin:8px 10px}
 
 </style>
 </head>
@@ -1468,7 +1472,7 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   <header class="nav">
     <div class="nav-in">
       <div class="brand" data-go="about" role="link" tabindex="0" title="Giới thiệu LangLab">
-        <span class="brand-mark"><img src="logo-icon.png?v=260931" alt="LangLab" width="40" height="40"></span>
+        <span class="brand-mark"><img src="logo-icon.png?v=260932" alt="LangLab" width="40" height="40"></span>
         <span class="brand-name">LangLab</span>
       </div>
 
@@ -11739,7 +11743,7 @@ const COURSE_RU = {
           ex:{ ru:'Э́то Анна, а э́то Ива́н.', vi:'Đây là Anna, còn đây là Ivan.' } },
         { form:'Меня́ зову́т … / Как вас зову́т?', vi:'“Tôi tên là …” / “Bạn tên gì?”',
           note:'Nghĩa đen “người ta gọi tôi là …”. Thân mật: Как тебя́ зову́т? Đáp lễ: О́чень прия́тно (rất hân hạnh).',
-          ex:{ ru:'— Как вас зову́т? — Меня́ зову́т Хиен. О́чень прия́тно!', vi:'— Bạn tên gì? — Tôi tên là Hiển. Rất hân hạnh!' } }
+          ex:{ ru:'— Как вас зову́т? — Меня́ зову́т Куан. О́чень прия́тно!', vi:'— Bạn tên gì? — Tôi tên là Quân. Rất hân hạnh!' } }
       ],
       vocab:[
         { ru:'здра́вствуйте', vi:'xin chào (lịch sự)', pos:'thán từ' },
@@ -11760,8 +11764,8 @@ const COURSE_RU = {
       ],
       dialogue:[
         { sp:'A', ru:'Здра́вствуйте! Меня́ зову́т Анна. А как вас зову́т?', vi:'Xin chào! Tôi tên là Anna. Còn bạn tên gì?' },
-        { sp:'B', ru:'Меня́ зову́т Хиен. О́чень прия́тно.', vi:'Tôi tên là Hiển. Rất hân hạnh.' },
-        { sp:'A', ru:'О́чень прия́тно. Хиен, кто э́то?', vi:'Rất hân hạnh. Hiển, đây là ai?' },
+        { sp:'B', ru:'Меня́ зову́т Куан. О́чень прия́тно.', vi:'Tôi tên là Quân. Rất hân hạnh.' },
+        { sp:'A', ru:'О́чень прия́тно. Куан, кто э́то?', vi:'Rất hân hạnh. Quân, đây là ai?' },
         { sp:'B', ru:'Э́то Ива́н. Он студе́нт. А э́то преподава́тель.', vi:'Đây là Ivan. Anh ấy là sinh viên. Còn đây là giảng viên.' }
       ]
     },
@@ -11795,7 +11799,7 @@ const COURSE_RU = {
         { ru:'фотогра́фия', vi:'bức ảnh', pos:'danh từ giống cái' }
       ],
       dialogue:[
-        { sp:'A', ru:'Хиен, э́то твоя́ семья́?', vi:'Hiển, đây là gia đình cậu à?' },
+        { sp:'A', ru:'Куан, э́то твоя́ семья́?', vi:'Quân, đây là gia đình cậu à?' },
         { sp:'B', ru:'Да, э́то моя́ семья́. Э́то мой па́па, а э́то моя́ ма́ма.', vi:'Ừ, đây là gia đình mình. Đây là bố mình, còn đây là mẹ mình.' },
         { sp:'A', ru:'А кто э́то? Твой брат?', vi:'Còn đây là ai? Em trai cậu à?' },
         { sp:'B', ru:'Нет, э́то моя́ сестра́. Её зову́т Лан. У меня́ есть ещё мла́дший брат.', vi:'Không, đây là em gái mình. Em ấy tên Lan. Mình còn có một em trai nữa.' }
@@ -11831,7 +11835,7 @@ const COURSE_RU = {
         { ru:'во́зраст', vi:'tuổi tác', pos:'danh từ giống đực' }
       ],
       dialogue:[
-        { sp:'A', ru:'Ско́лько тебе́ лет, Хиен?', vi:'Hiển, cậu bao nhiêu tuổi?' },
+        { sp:'A', ru:'Ско́лько тебе́ лет, Куан?', vi:'Quân, cậu bao nhiêu tuổi?' },
         { sp:'B', ru:'Мне два́дцать три го́да. А тебе́?', vi:'Mình 23 tuổi. Còn cậu?' },
         { sp:'A', ru:'Мне девятна́дцать лет. А ско́лько лет твоему́ бра́ту?', vi:'Mình 19 tuổi. Còn em trai cậu bao nhiêu tuổi?' },
         { sp:'B', ru:'Ему́ оди́ннадцать лет. Он ещё шко́льник.', vi:'Em ấy 11 tuổi. Em ấy vẫn là học sinh.' }
@@ -11903,7 +11907,7 @@ const COURSE_RU = {
         { ru:'сего́дня', vi:'hôm nay', pos:'trạng từ' }
       ],
       dialogue:[
-        { sp:'A', ru:'Хиен, ты лю́бишь спорт?', vi:'Hiển, cậu thích thể thao không?' },
+        { sp:'A', ru:'Куан, ты лю́бишь спорт?', vi:'Quân, cậu thích thể thao không?' },
         { sp:'B', ru:'Да, о́чень. Я люблю́ футбо́л. А ты что лю́бишь де́лать?', vi:'Có, rất thích. Mình thích bóng đá. Còn cậu thích làm gì?' },
         { sp:'A', ru:'Я люблю́ слу́шать му́зыку и смотре́ть фи́льмы.', vi:'Mình thích nghe nhạc và xem phim.' },
         { sp:'B', ru:'Я то́же. Ты хо́чешь смотре́ть фильм сего́дня ве́чером?', vi:'Mình cũng vậy. Tối nay cậu muốn xem phim không?' },
@@ -11940,7 +11944,7 @@ const COURSE_RU = {
         { ru:'далеко́ / бли́зко', vi:'xa / gần', pos:'trạng từ' }
       ],
       dialogue:[
-        { sp:'A', ru:'Хиен, где ты живёшь?', vi:'Hiển, cậu sống ở đâu?' },
+        { sp:'A', ru:'Куан, где ты живёшь?', vi:'Quân, cậu sống ở đâu?' },
         { sp:'B', ru:'Я живу́ в общежи́тии, в це́нтре го́рода. А ты?', vi:'Mình sống ở ký túc xá, ở trung tâm thành phố. Còn cậu?' },
         { sp:'A', ru:'Я живу́ в кварти́ре на у́лице Ле́нина. Э́то далеко́ от це́нтра.', vi:'Mình sống trong căn hộ trên phố Lenin. Chỗ đó xa trung tâm.' },
         { sp:'B', ru:'А твои́ роди́тели живу́т в Москве́?', vi:'Còn bố mẹ cậu sống ở Moskva à?' },
@@ -12050,7 +12054,7 @@ const COURSE_RU = {
         { ru:'како́й', vi:'nào, như thế nào', pos:'đại từ nghi vấn' }
       ],
       dialogue:[
-        { sp:'A', ru:'Хиен, кто ты по профе́ссии?', vi:'Hiển, cậu làm nghề gì?' },
+        { sp:'A', ru:'Куан, кто ты по профе́ссии?', vi:'Quân, cậu làm nghề gì?' },
         { sp:'B', ru:'Я курса́нт. Я учу́сь в вое́нной акаде́мии. А ты?', vi:'Mình là học viên. Mình học ở học viện quân sự. Còn cậu?' },
         { sp:'A', ru:'Я студе́нтка, бу́дущий врач. Э́то тру́дная, но интере́сная профе́ссия.', vi:'Mình là sinh viên, bác sĩ tương lai. Đó là nghề khó nhưng thú vị.' },
         { sp:'B', ru:'Кака́я у тебя́ хоро́шая профе́ссия!', vi:'Nghề của cậu thật tốt!' }
@@ -12123,7 +12127,7 @@ const COURSE_RU = {
         { ru:'пото́м', vi:'sau đó', pos:'trạng từ' }
       ],
       dialogue:[
-        { sp:'A', ru:'Приве́т, Хиен! Куда́ ты идёшь?', vi:'Chào Hiển! Cậu đi đâu đấy?' },
+        { sp:'A', ru:'Приве́т, Куан! Куда́ ты идёшь?', vi:'Chào Quân! Cậu đi đâu đấy?' },
         { sp:'B', ru:'Я иду́ в библиоте́ку. А ты?', vi:'Mình đi thư viện. Còn cậu?' },
         { sp:'A', ru:'Я е́ду на вокза́л. Мой брат сего́дня приезжа́ет.', vi:'Mình đi ra ga. Hôm nay anh mình đến.' },
         { sp:'B', ru:'Здо́рово! А пото́м куда́?', vi:'Tuyệt! Rồi sau đó đi đâu?' },
@@ -12197,7 +12201,7 @@ const COURSE_RU = {
         { ru:'жаль', vi:'tiếc', pos:'trạng từ vị ngữ' }
       ],
       dialogue:[
-        { sp:'A', ru:'Хиен, тебе́ нра́вится Москва́?', vi:'Hiển, cậu có thích Moskva không?' },
+        { sp:'A', ru:'Куан, тебе́ нра́вится Москва́?', vi:'Quân, cậu có thích Moskva không?' },
         { sp:'B', ru:'О́чень нра́вится! Но мне ну́жно бо́льше говори́ть по-ру́сски.', vi:'Rất thích! Nhưng mình cần nói tiếng Nga nhiều hơn.' },
         { sp:'A', ru:'Я могу́ помога́ть тебе́. Мо́жно говори́ть ка́ждый день.', vi:'Mình có thể giúp cậu. Có thể nói chuyện mỗi ngày.' },
         { sp:'B', ru:'Спаси́бо! А что тебе́ подари́ть? За́втра твой день рожде́ния.', vi:'Cảm ơn! Thế tặng cậu gì đây? Mai là sinh nhật cậu.' },
@@ -12251,7 +12255,7 @@ const COURSE_RU = {
           ex:{ ru:'Повтори́те, пожа́луйста, я не по́нял. Говори́те ме́дленно.', vi:'Xin nhắc lại, tôi chưa hiểu. Hãy nói chậm thôi.' } },
         { form:'Bố cục thư ngắn: Дорого́й/Дорога́я …! — nội dung — С уваже́нием / Пока́, + tên', vi:'viết thư/tin nhắn A1',
           note:'Tổng ôn A1: giống & sở hữu (bài 2) · động từ I/II (4–5) · cách 6 где (6) · cách 4 что/куда́ (7, 11) · quá khứ/tương lai (8) · tính từ (9) · cách 2 sau số/нет (10) · cách 3 (13). Thử viết thư 6–8 câu kể về một ngày của bạn.',
-          ex:{ ru:'Дорого́й Анто́н! Как дела́? Я живу́ в Хано́е и изуча́ю ру́сский язы́к. Приезжа́й ле́том! Пока́, Хиен.', vi:'Anton thân mến! Bạn khoẻ không? Mình sống ở Hà Nội và học tiếng Nga. Hè này đến chơi nhé! Tạm biệt, Hiển.' } }
+          ex:{ ru:'Дорого́й Анто́н! Как дела́? Я живу́ в Хано́е и изуча́ю ру́сский язы́к. Приезжа́й ле́том! Пока́, Куан.', vi:'Anton thân mến! Bạn khoẻ không? Mình sống ở Hà Nội và học tiếng Nga. Hè này đến chơi nhé! Tạm biệt, Quân.' } }
       ],
       vocab:[
         { ru:'скажи́те', vi:'hãy nói', pos:'mệnh lệnh' },
@@ -12273,7 +12277,7 @@ const COURSE_RU = {
       dialogue:[
         { sp:'A', ru:'Алло́! Позови́те, пожа́луйста, Ива́на.', vi:'A-lô! Làm ơn gọi giúp Ivan.' },
         { sp:'B', ru:'Слу́шаю. Э́то Ива́н. Кто говори́т?', vi:'Tôi nghe đây. Ivan đây. Ai đấy ạ?' },
-        { sp:'A', ru:'Э́то Хиен. Ива́н, скажи́, пожа́луйста, когда́ на́ша встре́ча?', vi:'Hiển đây. Ivan, cho hỏi khi nào chúng ta gặp?' },
+        { sp:'A', ru:'Э́то Куан. Ива́н, скажи́, пожа́луйста, когда́ на́ша встре́ча?', vi:'Quân đây. Ivan, cho hỏi khi nào chúng ta gặp?' },
         { sp:'B', ru:'В суббо́ту, в два часа́. Повтори́, пожа́луйста, твой но́мер.', vi:'Thứ Bảy, 2 giờ. Nhắc lại số của cậu với.' },
         { sp:'A', ru:'Во́семь, де́вять, шесть… Извини́, говори́ ме́дленно, я пишу́.', vi:'8, 9, 6… Xin lỗi, nói chậm thôi, mình đang ghi.' }
       ]
@@ -12309,7 +12313,7 @@ const COURSE_RU = {
         { ru:'ре́дко', vi:'hiếm khi', pos:'trạng từ' }
       ],
       dialogue:[
-        { sp:'A', ru:'Хиен, куда́ ты идёшь так ра́но?', vi:'Hiển, cậu đi đâu sớm thế?' },
+        { sp:'A', ru:'Куан, куда́ ты идёшь так ра́но?', vi:'Quân, cậu đi đâu sớm thế?' },
         { sp:'B', ru:'В бассе́йн. Я хожу́ туда́ ка́ждое у́тро.', vi:'Đi bể bơi. Sáng nào mình cũng đến đó.' },
         { sp:'A', ru:'А ле́том ты е́здил на мо́ре?', vi:'Thế hè cậu có đi biển không?' },
         { sp:'B', ru:'Да, мы е́здили в Нячанг. Туда́ лете́ли на самолёте, а обра́тно е́хали на по́езде.', vi:'Có, bọn mình đi Nha Trang. Chiều đi bay, chiều về đi tàu.' }
@@ -12361,7 +12365,7 @@ const COURSE_RU = {
           ex:{ ru:'Э́то маши́на моего́ отца́. У него́ нет вре́мени для о́тдыха.', vi:'Đây là xe của bố tôi. Ông ấy không có thời gian nghỉ ngơi.' } },
         { form:'Отку́да? из + cách 2 (из Вьетна́ма, из до́ма) / с + cách 2 (с рабо́ты, с ю́га) / от + người', vi:'“từ đâu”',
           note:'Cặp đối xứng: в ↔ из, на ↔ с, к ↔ от. Я из Ханоя. Она́ идёт с рабо́ты. Письмо́ от дру́га.',
-          ex:{ ru:'— Отку́да вы? — Я из Вьетна́ма, из Хайфо́на. А сейча́с иду́ с заня́тий.', vi:'— Bạn từ đâu đến? — Tôi từ Việt Nam, từ Hải Phòng. Còn bây giờ đang đi từ lớp về.' } }
+          ex:{ ru:'— Отку́да вы? — Я из Вьетна́ма, из Хано́я. А сейча́с иду́ с заня́тий.', vi:'— Bạn từ đâu đến? — Tôi từ Việt Nam, từ Hà Nội. Còn bây giờ đang đi từ lớp về.' } }
       ],
       vocab:[
         { ru:'отку́да', vi:'từ đâu', pos:'trạng từ nghi vấn' },
@@ -12793,7 +12797,7 @@ const COURSE_RU = {
           ex:{ ru:'Во-пе́рвых, я люблю́ спорт, во-вторы́х, му́зыку. Кро́ме того́, я мно́го чита́ю.', vi:'Thứ nhất, tôi thích thể thao, thứ hai là âm nhạc. Ngoài ra, tôi đọc nhiều.' } },
         { form:'Tổng ôn A2: 6 cách · thể НСВ/СВ · động từ chuyển động có tiền tố · кото́рый · е́сли/что́бы · so sánh · -ся', vi:'bản đồ ngữ pháp A2',
           note:'Bảng câu hỏi 6 cách: кто/что (1) · кого́/чего́, отку́да, у кого́ (2) · кому́, к кому́ (3) · кого́/что, куда́ (4) · кем/чем, с кем (5) · о ком/о чём, где (6). Tự kể về mình 10 câu, dùng mỗi cách ít nhất một lần.',
-          ex:{ ru:'Меня́ зову́т Хиен, мне 23 го́да. Я живу́ в Хано́е, учу́сь в акаде́мии и мечта́ю стать инжене́ром.', vi:'Tôi tên là Hiển, 23 tuổi. Tôi sống ở Hà Nội, học ở học viện và mơ trở thành kỹ sư.' } }
+          ex:{ ru:'Меня́ зову́т Куан, мне 23 го́да. Я живу́ в Хано́е, учу́сь в акаде́мии и мечта́ю стать инжене́ром.', vi:'Tôi tên là Quân, 23 tuổi. Tôi sống ở Hà Nội, học ở học viện và mơ trở thành kỹ sư.' } }
       ],
       vocab:[
         { ru:'во-пе́рвых', vi:'thứ nhất', pos:'trạng từ' },
@@ -12814,7 +12818,7 @@ const COURSE_RU = {
       ],
       dialogue:[
         { sp:'A', ru:'Расскажи́ немно́го о себе́.', vi:'Kể một chút về cậu đi.' },
-        { sp:'B', ru:'Меня́ зову́т Хиен, мне 23 го́да, я из Хайфо́на. Сейча́с я учу́сь в Хано́е, в вое́нной акаде́мии.', vi:'Mình tên Hiển, 23 tuổi, quê Hải Phòng. Hiện học ở Hà Nội, tại học viện quân sự.' },
+        { sp:'B', ru:'Меня́ зову́т Куан, мне 23 го́да, я из Хано́я. Здесь же я учу́сь — в вое́нной акаде́мии.', vi:'Mình tên Quân, 23 tuổi, quê Hà Nội. Mình cũng học ở đây — tại học viện quân sự.' },
         { sp:'A', ru:'Чем ты увлека́ешься?', vi:'Cậu có sở thích gì?' },
         { sp:'B', ru:'Во-пе́рвых, футбо́лом, во-вторы́х, ру́сским языко́м. Кро́ме того́, я люблю́ путеше́ствовать. К сожале́нию, вре́мени ма́ло.', vi:'Thứ nhất là bóng đá, thứ hai là tiếng Nga. Ngoài ra mình thích du lịch. Tiếc là ít thời gian.' }
       ]
@@ -13257,12 +13261,12 @@ const COURSE_RU = {
       level:'b1', no:13, ru:'Официа́льное письмо́ и заявле́ние', vi:'Thư chính thức và đơn từ',
       skill:'Bố cục заявле́ние; клише công vụ; xưng hô trang trọng',
       grammar:[
-        { form:'Заявле́ние: góc phải trên — Кому́ (Дека́ну факульте́та … И.И. Ивано́ву) / от кого́ (от студе́нта 2 ку́рса Хиена); giữa — ЗАЯВЛЕ́НИЕ; nội dung — Прошу́ + inf …; dưới — ngày, chữ ký', vi:'khuôn mẫu đơn',
+        { form:'Заявле́ние: góc phải trên — Кому́ (Дека́ну факульте́та … И.И. Ивано́ву) / от кого́ (от студе́нта 2 ку́рса Куана); giữa — ЗАЯВЛЕ́НИЕ; nội dung — Прошу́ + inf …; dưới — ngày, chữ ký', vi:'khuôn mẫu đơn',
           note:'Прошу́ разреши́ть мне… / Прошу́ предоста́вить мне о́тпуск с … по … в связи́ с … / Прошу́ перевести́ меня́ на… Lý do đi với в связи́ с + cách 5, по причи́не + cách 2.',
           ex:{ ru:'Прошу́ разреши́ть мне сдать экза́мен досро́чно в связи́ с уча́стием в соревнова́ниях.', vi:'Kính đề nghị cho phép tôi thi sớm do tham gia thi đấu.' } },
         { form:'Thư chính thức: Уважа́емый/-ая + tên đệm! → mục đích (Обраща́юсь к Вам по вопро́су…; Дово́жу до Ва́шего све́дения, что…) → yêu cầu (Прошу́ Вас…) → kết (Зара́нее благода́рен/-рна. С уваже́нием, …)', vi:'khuôn thư công vụ',
           note:'Vы viết hoa khi xưng hô một người trang trọng. Tránh khẩu ngữ, câu cảm thán. Thư mời: Приглаша́ем Вас приня́ть уча́стие в…',
-          ex:{ ru:'Уважа́емая Ольга Петро́вна! Обраща́юсь к Вам по вопро́су прохожде́ния пра́ктики. Прошу́ Вас рассмотре́ть мою́ кандидату́ру. С уваже́нием, Хиен.', vi:'Kính gửi bà Olga Petrovna! Tôi liên hệ về việc thực tập. Kính mong bà xem xét hồ sơ của tôi. Trân trọng, Hiển.' } }
+          ex:{ ru:'Уважа́емая Ольга Петро́вна! Обраща́юсь к Вам по вопро́су прохожде́ния пра́ктики. Прошу́ Вас рассмотре́ть мою́ кандидату́ру. С уваже́нием, Куан.', vi:'Kính gửi bà Olga Petrovna! Tôi liên hệ về việc thực tập. Kính mong bà xem xét hồ sơ của tôi. Trân trọng, Quân.' } }
       ],
       vocab:[
         { ru:'заявле́ние', vi:'đơn', pos:'danh từ giống trung' },
@@ -13318,7 +13322,7 @@ const COURSE_RU = {
         { ru:'неудо́бно', vi:'ngại, bất tiện', pos:'trạng từ' }
       ],
       dialogue:[
-        { sp:'A', ru:'Хиен, дава́й на «ты», мы же ровесники.', vi:'Hiển, xưng «ты» đi, mình cùng tuổi mà.' },
+        { sp:'A', ru:'Куан, дава́й на «ты», мы же ровесники.', vi:'Quân, xưng «ты» đi, mình cùng tuổi mà.' },
         { sp:'B', ru:'Дава́й. Слу́шай, а мо́жно тебя́ попроси́ть? Мне неудо́бно…', vi:'Ừ. Này, nhờ cậu chút được không? Mình ngại quá…' },
         { sp:'A', ru:'Ну говори́-ка, ведь для того́ и друзья́.', vi:'Nói đi chứ, bạn bè là để thế mà.' },
         { sp:'B', ru:'Прове́рь мою́ статью́, ла́дно? — Догово́рились, зайду́ ве́чером.', vi:'Kiểm tra bài viết của mình nhé, được không? — Chốt nhé, tối mình ghé.' }
@@ -13910,8 +13914,8 @@ if (typeof module !== 'undefined') module.exports = { ALPHABET_RU, PHON_RU, COUR
 <script>
 /* ============================================================
    LangLab — LUYỆN NÓI TIẾNG NGA: chủ đề vấn đáp РКИ / phần Говорение ТРКИ
-   Bài mẫu 1–10 và bài luận 11 do Phạm Đăng Hiển viết khi học tại Học viện Kỹ thuật Quân sự
-   (đã hiệu đính chính tả, ngữ pháp; giữ nguyên nội dung). Bài 0 do LangLab soạn thêm cho A1.
+   Bài mẫu 1–10 và bài luận 11: bài chuẩn bị thi vấn đáp РКИ tại Học viện Kỹ thuật Quân sự
+   (đã hiệu đính chính tả, ngữ pháp; nhân vật kể chuyện: Куан, Hà Nội). Bài 0 do LangLab soạn thêm cho A1.
    Mỗi chủ đề: { id, ru, vi, level, src, keys:[[ru, vi]], qs:[câu hỏi gợi ý], paras:[{ru, vi}] }
    ============================================================ */
 const SPEAKING_RU = [
@@ -13920,14 +13924,14 @@ const SPEAKING_RU = [
     keys:[['меня зовут','tôi tên là'],['мне … лет','tôi … tuổi'],['я родился в','tôi sinh ra ở'],['учиться','học'],['изучать','học (môn gì)'],['в свободное время','lúc rảnh'],['мечтать','mơ ước'],['стать','trở thành']],
     qs:['Как вас зовут? Сколько вам лет?','Откуда вы? Где вы живёте сейчас?','Где вы учитесь или работаете?','Что вы любите делать в свободное время?','Почему вы изучаете русский язык?'],
     paras:[
-      { ru:'Здравствуйте! Меня зовут Хиен. Мне двадцать три года. Я родился в Хайфоне, а сейчас живу в Ханое.', vi:'Xin chào! Tôi tên là Hiển. Tôi 23 tuổi. Tôi sinh ra ở Hải Phòng, còn bây giờ sống ở Hà Nội.' },
+      { ru:'Здравствуйте! Меня зовут Куан. Мне двадцать три года. Я родился и живу в Ханое.', vi:'Xin chào! Tôi tên là Quân. Tôi 23 tuổi. Tôi sinh ra và sống ở Hà Nội.' },
       { ru:'Я курсант. Я учусь в Военно-технической академии на автомобильном факультете. Я изучаю русский язык уже три года, потому что русский язык нужен мне для будущей работы.', vi:'Tôi là học viên. Tôi học ở Học viện Kỹ thuật Quân sự, khoa Ô tô. Tôi học tiếng Nga được ba năm rồi, vì tiếng Nga cần cho công việc tương lai của tôi.' },
       { ru:'У меня большая семья: папа, мама, младший брат и младшая сестра. В свободное время я играю в футбол, слушаю музыку и читаю книги по-русски.', vi:'Gia đình tôi đông: bố, mẹ, em trai và em gái. Lúc rảnh tôi chơi bóng đá, nghe nhạc và đọc sách bằng tiếng Nga.' },
       { ru:'Я мечтаю стать хорошим офицером и поехать в Россию, чтобы увидеть Москву и Санкт-Петербург.', vi:'Tôi mơ ước trở thành một sĩ quan giỏi và sang Nga để được nhìn thấy Moskva và Saint-Petersburg.' }
     ]
   },
   {
-    id:'friend', ru:'Расскажите о вашем друге (о вашей подруге)', vi:'Kể về người bạn của bạn', level:'B1 · РКИ', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
+    id:'friend', ru:'Расскажите о вашем друге (о вашей подруге)', vi:'Kể về người bạn của bạn', level:'B1 · РКИ', src:'Bài mẫu thi vấn đáp РКИ (đã hiệu đính)',
     keys:[['подруга','bạn gái (bạn thân nữ)'],['симпатичное лицо','khuôn mặt dễ mến'],['заниматься спортом','chơi thể thao'],['внешность','ngoại hình'],['воспитанный','có giáo dục, lễ phép'],['окончить с отличием','tốt nghiệp loại giỏi'],['созваниваться','gọi điện cho nhau'],['прийти на помощь','đến giúp'],['дружба','tình bạn']],
     qs:['Как зовут вашего друга? Сколько ему/ей лет?','Как он/она выглядит?','Какой у него/у неё характер?','Где вы познакомились? Где он/она учится или работает?','Что вы делаете вместе?'],
     paras:[
@@ -13940,11 +13944,11 @@ const SPEAKING_RU = [
     ]
   },
   {
-    id:'family', ru:'Расскажите о вашей семье', vi:'Kể về gia đình bạn', level:'A2–B1', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
+    id:'family', ru:'Расскажите о вашей семье', vi:'Kể về gia đình bạn', level:'A2–B1', src:'Bài mẫu thi vấn đáp РКИ (đã hiệu đính)',
     keys:[['счастливая семья','gia đình hạnh phúc'],['младший брат / младшая сестра','em trai / em gái'],['глава семьи','trụ cột gia đình'],['работать на заводе','làm việc ở nhà máy'],['домохозяйка','nội trợ'],['поддержать','ủng hộ, nâng đỡ'],['трудолюбивый','chăm chỉ'],['взаимопонимание','sự thấu hiểu lẫn nhau'],['ценить','trân trọng']],
     qs:['Сколько человек в вашей семье? Кто они?','Где живёт ваша семья?','Кем работают ваши родители? Какие они?','Чем занимаются ваши братья и сёстры?','Что ваша семья делает вместе в свободное время?'],
     paras:[
-      { ru:'Здравствуйте, меня зовут Хиен. Я приехал из Хайфона. У меня счастливая семья: папа, мама, младший брат и младшая сестра. Мы живём в небольшом красивом доме недалеко от центра города.', vi:'Xin chào, tôi tên là Hiển. Tôi đến từ Hải Phòng. Gia đình tôi hạnh phúc: bố, mẹ, em trai và em gái. Chúng tôi sống trong một ngôi nhà nhỏ xinh không xa trung tâm thành phố.' },
+      { ru:'Здравствуйте, меня зовут Куан. Я из Ханоя. У меня счастливая семья: папа, мама, младший брат и младшая сестра. Мы живём в небольшом красивом доме недалеко от центра города.', vi:'Xin chào, tôi tên là Quân. Tôi ở Hà Nội. Gia đình tôi hạnh phúc: bố, mẹ, em trai và em gái. Chúng tôi sống trong một ngôi nhà nhỏ xinh không xa trung tâm thành phố.' },
       { ru:'Мой папа очень добрый, но иногда строгий, и это не мешает мне его любить. Папа — глава нашей семьи, он каждый день работает на заводе, вся тяжёлая работа по дому держится на нём.', vi:'Bố tôi rất hiền, nhưng đôi khi nghiêm khắc, và điều đó không ngăn tôi yêu bố. Bố là trụ cột gia đình, ngày nào bố cũng làm việc ở nhà máy, mọi việc nặng trong nhà đều do bố gánh vác.' },
       { ru:'Свою дорогую маму я люблю не меньше папы. Моя мама — домохозяйка. Мама умеет очень вкусно готовить, особенно праздничные блюда. Она поддержит меня в любой трудной ситуации, рассудит и поймёт.', vi:'Mẹ yêu quý, tôi cũng yêu không kém gì bố. Mẹ tôi là nội trợ. Mẹ nấu ăn rất ngon, đặc biệt là các món ngày lễ. Mẹ luôn ủng hộ tôi trong mọi hoàn cảnh khó khăn, phân xử và thấu hiểu.' },
       { ru:'Мой младший брат — студент Национального экономического университета. Он очень умный и трудолюбивый студент. Моя младшая сестра учится в школе. Она красивая и добрая девочка. Она любит петь и рисовать.', vi:'Em trai tôi là sinh viên Đại học Kinh tế Quốc dân. Em ấy là sinh viên rất thông minh và chăm chỉ. Em gái tôi đang học phổ thông. Em ấy là cô bé xinh xắn và tốt bụng, thích hát và vẽ.' },
@@ -13952,29 +13956,29 @@ const SPEAKING_RU = [
     ]
   },
   {
-    id:'city', ru:'Расскажите о вашем городе', vi:'Kể về thành phố của bạn', level:'B1', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
-    keys:[['родной город','thành phố quê hương'],['старинный и современный','cổ kính và hiện đại'],['достопримечательность','danh lam thắng cảnh'],['гордиться','tự hào'],['город центрального подчинения','thành phố trực thuộc trung ương'],['город-порт','thành phố cảng'],['дельта реки','đồng bằng sông'],['население','dân số'],['одержать победу','giành chiến thắng']],
+    id:'city', ru:'Расскажите о вашем городе', vi:'Kể về thành phố của bạn', level:'B1', src:'Bài mẫu thi vấn đáp РКИ (đã hiệu đính)',
+    keys:[['родной город','thành phố quê hương'],['столица','thủ đô'],['старинный и современный','cổ kính và hiện đại'],['достопримечательность','danh lam thắng cảnh'],['гордиться','tự hào'],['Старый квартал','Phố cổ'],['озеро Возвращённого меча','hồ Hoàn Kiếm (hồ Gươm)'],['Храм литературы','Văn Miếu'],['население','dân số'],['уличная еда','đồ ăn đường phố']],
     qs:['Как называется ваш родной город? Где он находится?','Сколько там жителей?','Какие достопримечательности есть в вашем городе?','Что вы любите делать в городе в выходные?','Почему вы любите свой город?'],
     paras:[
-      { ru:'У каждого из нас есть любимый родной город. Мой родной город — Хайфон. Это прекрасный город, и старинный, и современный, полный истории и красивых достопримечательностей. Я очень люблю его и горжусь, что родился в таком прекрасном месте.', vi:'Ai trong chúng ta cũng có một thành phố quê hương yêu dấu. Quê tôi là Hải Phòng. Đó là thành phố tuyệt đẹp, vừa cổ kính vừa hiện đại, đầy ắp lịch sử và danh thắng. Tôi rất yêu và tự hào vì được sinh ra ở nơi đẹp như vậy.' },
-      { ru:'Итак, Хайфон — это один из пяти городов центрального подчинения во Вьетнаме. Это город-порт на севере Вьетнама, он находится в 100 километрах к северо-востоку от Ханоя, в дельте реки Хонгха. Население насчитывает более двух миллионов жителей, и в городе много туристов.', vi:'Hải Phòng là một trong năm thành phố trực thuộc trung ương của Việt Nam. Đó là thành phố cảng ở miền Bắc, cách Hà Nội 100 km về phía đông bắc, nằm ở đồng bằng sông Hồng. Dân số hơn hai triệu người, và thành phố có nhiều khách du lịch.' },
-      { ru:'Я люблю свой родной город. В выходные мы с друзьями часто гуляем по городу. У нас в городе много достопримечательностей: островов, пляжей, современных мостов, красивых зданий и зелёных парков. Национальный парк Катба — идеальное место отдыха для тех, кто любит лес и море. Большой театр Хайфона — это место, где организуют все главные праздники города. Ещё недалеко от моего дома находится река Батьданг, на которой наши предки одержали победы над внешними врагами.', vi:'Tôi yêu thành phố quê mình. Cuối tuần tôi và bạn bè thường đi dạo phố. Thành phố có nhiều danh thắng: đảo, bãi biển, cầu hiện đại, những toà nhà đẹp và công viên xanh. Vườn quốc gia Cát Bà là nơi nghỉ lý tưởng cho ai yêu rừng và biển. Nhà hát lớn Hải Phòng là nơi tổ chức mọi lễ hội lớn của thành phố. Không xa nhà tôi còn có sông Bạch Đằng, nơi cha ông ta đã giành những chiến thắng trước giặc ngoại xâm.' },
-      { ru:'Я люблю свой город. Если сможете, приезжайте к нам в гости — я покажу вам, как прекрасен мой родной город.', vi:'Tôi yêu thành phố của mình. Nếu có thể, hãy đến chơi — tôi sẽ cho bạn thấy quê tôi đẹp thế nào.' }
+      { ru:'У каждого из нас есть любимый родной город. Мой родной город — Ханой, столица Вьетнама. Это прекрасный город, и старинный, и современный, полный истории и красивых достопримечательностей. Я очень люблю его и горжусь, что родился в таком прекрасном месте.', vi:'Ai trong chúng ta cũng có một thành phố quê hương yêu dấu. Quê tôi là Hà Nội, thủ đô Việt Nam. Đó là thành phố tuyệt đẹp, vừa cổ kính vừa hiện đại, đầy ắp lịch sử và danh thắng. Tôi rất yêu và tự hào vì được sinh ra ở nơi đẹp như vậy.' },
+      { ru:'Ханою больше тысячи лет. Он находится на севере Вьетнама, на берегу реки Хонгха. Население столицы насчитывает более восьми миллионов жителей, и каждый год сюда приезжают миллионы туристов со всего мира.', vi:'Hà Nội đã hơn một nghìn năm tuổi. Thành phố nằm ở miền Bắc Việt Nam, bên bờ sông Hồng. Dân số thủ đô hơn tám triệu người, và mỗi năm hàng triệu du khách khắp thế giới đến đây.' },
+      { ru:'Я люблю свой родной город. В выходные мы с друзьями часто гуляем по Старому кварталу, пьём кофе и пробуем уличную еду. У нас в городе много достопримечательностей: озеро Возвращённого меча в самом центре, Храм литературы — первый университет Вьетнама, Западное озеро, старинные пагоды и современные мосты. Ещё недалеко от моего дома находится площадь Бадинь, где в 1945 году была провозглашена независимость нашей страны.', vi:'Tôi yêu thành phố quê mình. Cuối tuần tôi và bạn bè thường dạo Phố cổ, uống cà phê và thử đồ ăn đường phố. Thành phố có nhiều danh thắng: hồ Hoàn Kiếm ngay trung tâm, Văn Miếu — trường đại học đầu tiên của Việt Nam, Hồ Tây, những ngôi chùa cổ và các cây cầu hiện đại. Không xa nhà tôi còn có quảng trường Ba Đình, nơi năm 1945 nền độc lập của đất nước được tuyên bố.' },
+      { ru:'Я люблю свой город. Если сможете, приезжайте к нам в гости — я покажу вам, как прекрасен мой родной Ханой.', vi:'Tôi yêu thành phố của mình. Nếu có thể, hãy đến chơi — tôi sẽ cho bạn thấy Hà Nội quê tôi đẹp thế nào.' }
     ]
   },
   {
-    id:'russian', ru:'Расскажите об изучении русского языка', vi:'Kể về việc học tiếng Nga', level:'B1', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
+    id:'russian', ru:'Расскажите об изучении русского языка', vi:'Kể về việc học tiếng Nga', level:'B1', src:'Bài mẫu thi vấn đáp РКИ (đã hiệu đính)',
     keys:[['наука и техника','khoa học và kỹ thuật'],['образцы военной техники','các mẫu khí tài quân sự'],['необходим','cần thiết'],['получать образование','tiếp nhận giáo dục'],['богатый язык','ngôn ngữ phong phú'],['сталкиваться с трудностями','gặp khó khăn'],['падеж','cách (biến cách)'],['владеть языком','sử dụng thành thạo ngôn ngữ']],
     qs:['Сколько лет вы изучаете русский язык? Где?','Почему вам нужен русский язык?','Что трудно в русском языке? Что легко?','Как вы изучаете русский язык каждый день?','Какие у вас планы?'],
     paras:[
-      { ru:'Здравствуйте! Меня зовут Хиен. Я учусь в Военно-технической академии на автомобильном факультете. Я изучаю русский язык уже пять лет.', vi:'Xin chào! Tôi tên là Hiển. Tôi học ở Học viện Kỹ thuật Quân sự, khoa Ô tô. Tôi đã học tiếng Nga được năm năm.' },
+      { ru:'Здравствуйте! Меня зовут Куан. Я учусь в Военно-технической академии на автомобильном факультете. Я изучаю русский язык уже пять лет.', vi:'Xin chào! Tôi tên là Quân. Tôi học ở Học viện Kỹ thuật Quân sự, khoa Ô tô. Tôi đã học tiếng Nga được năm năm.' },
       { ru:'Русский язык важен для науки и техники. Как мы знаем, Вьетнамская народная армия использует много образцов военной техники, изготовленных в России и Советском Союзе, например танки, ракеты, автомобили, корабли, истребители и тому подобное. Поэтому русский язык необходим мне, чтобы читать документы, общаться, хорошо учиться и получать достойное образование.', vi:'Tiếng Nga quan trọng đối với khoa học và kỹ thuật. Như chúng ta biết, Quân đội nhân dân Việt Nam sử dụng nhiều khí tài do Nga và Liên Xô chế tạo, ví dụ xe tăng, tên lửa, ô tô, tàu chiến, máy bay tiêm kích, v.v. Vì thế tiếng Nga cần thiết để tôi đọc tài liệu, giao tiếp, học tốt và được đào tạo xứng đáng.' },
       { ru:'Русский язык — очень богатый язык, при этом очень системный и точный. Это интересный язык, но не простой. При изучении русского языка я сталкиваюсь с рядом трудностей: в русском языке есть непривычные буквы, трудное произношение, шесть падежей, сложные глаголы. Это ужасно!', vi:'Tiếng Nga là ngôn ngữ rất phong phú, đồng thời rất hệ thống và chính xác. Đó là ngôn ngữ thú vị nhưng không đơn giản. Khi học tiếng Nga tôi gặp hàng loạt khó khăn: chữ cái lạ, phát âm khó, sáu cách, động từ phức tạp. Thật khủng khiếp!' },
       { ru:'Для того чтобы быстро выучить правила русского языка, я много читаю книг и новостей по-русски, слушаю русские песни и общаюсь с русскими друзьями. Я всегда делаю все домашние задания, каждый день учу новые слова, повторяю грамматику. Я знаю: если я буду с любовью и трудолюбием изучать русский язык каждый день, я смогу владеть им.', vi:'Để nhanh nắm các quy tắc tiếng Nga, tôi đọc nhiều sách và tin tức bằng tiếng Nga, nghe nhạc Nga và trò chuyện với bạn Nga. Tôi luôn làm hết bài tập về nhà, mỗi ngày học từ mới, ôn ngữ pháp. Tôi biết: nếu ngày nào cũng học tiếng Nga với tình yêu và sự cần cù, tôi sẽ làm chủ được nó.' }
     ]
   },
   {
-    id:'travel', ru:'Расскажите о вашем путешествии', vi:'Kể về một chuyến du lịch', level:'B1', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
+    id:'travel', ru:'Расскажите о вашем путешествии', vi:'Kể về một chuyến du lịch', level:'B1', src:'Bài mẫu thi vấn đáp РКИ (đã hiệu đính)',
     keys:[['увлекательно','hấp dẫn'],['отдохнуть телом и душой','nghỉ ngơi cả thể xác lẫn tâm hồn'],['во время отпуска','trong kỳ nghỉ phép'],['незабываемый','khó quên'],['собрать чемоданы','xếp va-li'],['любоваться пейзажами','ngắm phong cảnh'],['поразить красотой','làm sững sờ vì vẻ đẹp'],['морепродукты','hải sản'],['восход солнца','bình minh']],
     qs:['Куда вы ездили? Когда и с кем?','Как вы туда добирались? Сколько времени ехали?','Что вы там видели и делали?','Что вам понравилось больше всего?','Хотите ли вы поехать туда ещё раз?'],
     paras:[
@@ -13985,7 +13989,7 @@ const SPEAKING_RU = [
     ]
   },
   {
-    id:'holiday', ru:'Расскажите о вашем любимом празднике', vi:'Kể về ngày lễ yêu thích', level:'B1', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
+    id:'holiday', ru:'Расскажите о вашем любимом празднике', vi:'Kể về ngày lễ yêu thích', level:'B1', src:'Bài mẫu thi vấn đáp РКИ (đã hiệu đính)',
     keys:[['лунный Новый год','Tết Nguyên đán'],['знаменовать начало','đánh dấu sự bắt đầu'],['семейный праздник','ngày lễ gia đình'],['традиционные блюда','món ăn truyền thống'],['рисовый пирог','bánh chưng'],['персиковые цветы','hoa đào'],['красный конверт','bao lì xì'],['символизировать удачу','tượng trưng cho may mắn'],['зажигать благовония','thắp hương']],
     qs:['Какой ваш любимый праздник? Когда его отмечают?','Как готовятся к празднику?','Что делают в праздник? Что едят?','Какие традиции есть у вашей семьи?','Что этот праздник значит для вас?'],
     paras:[
@@ -13997,51 +14001,51 @@ const SPEAKING_RU = [
     ]
   },
   {
-    id:'workday', ru:'Расскажите о вашем рабочем дне', vi:'Kể về một ngày làm việc của bạn', level:'A2–B1', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
+    id:'workday', ru:'Расскажите о вашем рабочем дне', vi:'Kể về một ngày làm việc của bạn', level:'A2–B1', src:'Bài mẫu thi vấn đáp РКИ (đã hiệu đính)',
     keys:[['подъём','giờ báo thức (quân đội)'],['дежурный по роте','trực ban đại đội'],['утренняя зарядка','thể dục buổi sáng'],['убирать комнату','dọn phòng'],['пара (занятие)','tiết đôi (buổi học)'],['перерыв','giờ nghỉ'],['личное время','thời gian cá nhân'],['вечерняя поверка','điểm danh tối'],['отбой','giờ ngủ (lệnh tắt đèn)']],
     qs:['Во сколько вы встаёте? Что делаете утром?','Когда начинаются занятия? Сколько у вас пар?','Что вы делаете днём и вечером?','Когда вы ложитесь спать?','Чем ваш день отличается от дня обычного студента?'],
     paras:[
-      { ru:'Здравствуйте! Меня зовут Хиен. Я курсант и учусь в Военно-технической академии на автомобильном факультете. Я расскажу вам о своём рабочем дне.', vi:'Xin chào! Tôi tên là Hiển. Tôi là học viên, học ở Học viện Kỹ thuật Quân sự, khoa Ô tô. Tôi sẽ kể về một ngày làm việc của mình.' },
+      { ru:'Здравствуйте! Меня зовут Куан. Я курсант и учусь в Военно-технической академии на автомобильном факультете. Я расскажу вам о своём рабочем дне.', vi:'Xin chào! Tôi tên là Quân. Tôi là học viên, học ở Học viện Kỹ thuật Quân sự, khoa Ô tô. Tôi sẽ kể về một ngày làm việc của mình.' },
       { ru:'Мой рабочий день начинается в 5 часов 30 минут. После команды дежурного по роте «Подъём!» мы с товарищами быстро встаём и выходим на стадион, там строимся и делаем утреннюю зарядку. После этого мы убираем свою комнату и завтракаем.', vi:'Ngày của tôi bắt đầu lúc 5 giờ 30. Sau khẩu lệnh «Báo thức!» của trực ban đại đội, tôi và đồng đội nhanh chóng dậy, ra sân vận động, xếp hàng và tập thể dục sáng. Sau đó chúng tôi dọn phòng và ăn sáng.' },
       { ru:'В 7 часов мы собираем сумки и идём на занятия. На уроках мы добросовестно учимся, много думаем, спрашиваем преподавателей, решаем задачи. Обычно каждый день у нас по четыре пары. После каждой пары у нас перерыв. В 11 часов 30 минут занятия заканчиваются, мы обедаем и отдыхаем. Вечером у нас личное время: мы с товарищами занимаемся спортом, играем в футбол или бегаем.', vi:'7 giờ chúng tôi thu dọn túi và đi học. Trong giờ học chúng tôi học nghiêm túc, suy nghĩ nhiều, hỏi giảng viên, giải bài tập. Thường mỗi ngày có bốn tiết đôi. Sau mỗi tiết có giờ nghỉ. 11 giờ 30 kết thúc buổi học, chúng tôi ăn trưa và nghỉ. Buổi tối là thời gian cá nhân: tôi và đồng đội chơi thể thao, đá bóng hoặc chạy.' },
       { ru:'После вкусного ужина мы смотрим телепередачу «Новости», читаем газеты и делаем домашнее задание. В 21 час 30 минут у нас вечерняя поверка. После поверки мы готовимся ко сну. В 22 часа отбой, мы ложимся спать.', vi:'Sau bữa tối ngon miệng, chúng tôi xem chương trình «Thời sự», đọc báo và làm bài tập. 21 giờ 30 là điểm danh tối. Sau điểm danh chúng tôi chuẩn bị đi ngủ. 22 giờ có lệnh tắt đèn, chúng tôi đi ngủ.' }
     ]
   },
   {
-    id:'army', ru:'Расскажите о вашей жизни в армии', vi:'Kể về cuộc sống trong quân đội', level:'B1', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
+    id:'army', ru:'Расскажите о вашей жизни в армии', vi:'Kể về cuộc sống trong quân đội', level:'B1', src:'Bài mẫu thi vấn đáp РКИ (đã hiệu đính)',
     keys:[['курсантская жизнь','đời sống học viên'],['воинская часть','đơn vị quân đội'],['боевая подготовка','huấn luyện chiến đấu'],['скучать по дому','nhớ nhà'],['привыкнуть','quen'],['самоподготовка','tự học'],['стоять в наряде','đứng gác, trực ban'],['увольнение','ra ngoài doanh trại (phép ngắn)'],['ответственный офицер','sĩ quan có trách nhiệm']],
     qs:['Где вы служили на первом курсе? Как там было?','Как проходит ваш день в академии?','Как часто вы стоите в наряде?','Что вы делаете в выходные?','Какая у вас главная задача? Кем вы хотите стать?'],
     paras:[
-      { ru:'Здравствуйте, меня зовут Хиен. Я курсант пятого курса Военно-технической академии. Я расскажу вам о своей курсантской жизни в армии.', vi:'Xin chào, tôi tên là Hiển. Tôi là học viên năm thứ năm Học viện Kỹ thuật Quân sự. Tôi sẽ kể về đời sống học viên của mình trong quân đội.' },
+      { ru:'Здравствуйте, меня зовут Куан. Я курсант пятого курса Военно-технической академии. Я расскажу вам о своей курсантской жизни в армии.', vi:'Xin chào, tôi tên là Quân. Tôi là học viên năm thứ năm Học viện Kỹ thuật Quân sự. Tôi sẽ kể về đời sống học viên của mình trong quân đội.' },
       { ru:'На первом курсе мы с товарищами служили в военном университете. Это воинская часть, которая находится в лесах Шонтэя. Там у нас целый день была боевая подготовка. Это было тяжёлое, но интересное время. Мы часто скучали по дому, но потом привыкли.', vi:'Năm thứ nhất, tôi và đồng đội học tại trường sĩ quan. Đó là đơn vị quân đội nằm trong rừng Sơn Tây. Ở đó cả ngày chúng tôi huấn luyện chiến đấu. Đó là thời gian vất vả nhưng thú vị. Chúng tôi hay nhớ nhà, nhưng rồi cũng quen.' },
       { ru:'Со второго курса мы учимся в самой столице, в Военно-технической академии, на автомобильном факультете. Утром, как у всех, подъём и зарядка в 5 часов 30 минут, потом утренний туалет и завтрак, после этого утренний осмотр и — на пары. В 12:00 занятия заканчиваются, обед. После этого либо четвёртая пара, либо самоподготовка до 4 часов вечера. Потом личное время: мы занимаемся спортом и ужинаем. Затем мы смотрим новости, читаем газеты, делаем домашнее задание. В 21:00 вечерняя поверка и в 22:00 отбой. Не более четырёх раз в месяц я стою в наряде и хожу в патруль.', vi:'Từ năm thứ hai chúng tôi học ngay tại thủ đô, ở Học viện Kỹ thuật Quân sự, khoa Ô tô. Sáng, như mọi người, báo thức và thể dục lúc 5 giờ 30, rồi vệ sinh cá nhân và ăn sáng, sau đó kiểm tra buổi sáng và lên lớp. 12 giờ tan học, ăn trưa. Sau đó hoặc tiết thứ tư, hoặc tự học đến 4 giờ chiều. Rồi thời gian cá nhân: chơi thể thao và ăn tối. Sau đó xem thời sự, đọc báo, làm bài tập. 21 giờ điểm danh tối, 22 giờ tắt đèn. Mỗi tháng tôi trực ban và đi tuần không quá bốn lần.' },
       { ru:'В выходные мы можем уходить в увольнение, гулять по городу или возвращаться домой. Мои друзья тоже часто приезжают ко мне в гости. В академии самая главная задача — это хорошо учиться. Я всегда стараюсь изо всех сил тренироваться и учиться, чтобы стать хорошим, ответственным офицером.', vi:'Cuối tuần chúng tôi có thể ra ngoài doanh trại, đi dạo phố hoặc về nhà. Bạn bè cũng hay đến thăm tôi. Ở học viện, nhiệm vụ quan trọng nhất là học tốt. Tôi luôn cố hết sức rèn luyện và học tập để trở thành sĩ quan giỏi, có trách nhiệm.' }
     ]
   },
   {
-    id:'hobby', ru:'Расскажите о ваших увлечениях', vi:'Kể về sở thích của bạn', level:'B1', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
+    id:'hobby', ru:'Расскажите о ваших увлечениях', vi:'Kể về sở thích của bạn', level:'B1', src:'Bài mẫu thi vấn đáp РКИ (đã hiệu đính)',
     keys:[['увлечение','sở thích, đam mê'],['подвижные игры','trò chơi vận động'],['гонять мяч','đá bóng (khẩu ngữ)'],['вызывать интерес','gây hứng thú'],['болеть за команду','cổ vũ đội'],['требовать внимания и силы','đòi hỏi sự tập trung và sức lực'],['ловкость','sự khéo léo'],['закалять характер','tôi luyện tính cách'],['укреплять здоровье','tăng cường sức khoẻ']],
     qs:['Чем вы увлекаетесь? Как давно?','Где и с кем вы этим занимаетесь?','Что вам нравится в этом увлечении?','За какую команду вы болеете?','Как увлечение помогает вам в жизни?'],
     paras:[
       { ru:'Моё увлечение — это футбол. Я люблю подвижные игры на улице или на стадионе. Особенно мне нравится играть с друзьями, когда тепло. Мы часто гоняем мяч вечером, после занятий.', vi:'Sở thích của tôi là bóng đá. Tôi thích các trò chơi vận động ngoài trời hoặc trên sân vận động. Đặc biệt tôi thích chơi với bạn bè khi trời ấm. Chúng tôi hay đá bóng buổi tối, sau giờ học.' },
       { ru:'Приятно, когда игра вызывает интерес. В выходные за нашими играми следят девушки или просто прохожие и болеют за нас. Тогда я чувствую себя настоящим спортсменом. Играть в футбол не просто: игра требует внимания, силы и ловкости. Слабым и трусливым она не даётся. Я стараюсь играть хорошо, чтобы меня уважали на поле.', vi:'Thật dễ chịu khi trận đấu thu hút người xem. Cuối tuần các cô gái hay người qua đường theo dõi và cổ vũ chúng tôi. Khi đó tôi thấy mình như vận động viên thực thụ. Đá bóng không đơn giản: nó đòi hỏi tập trung, sức lực và sự khéo léo. Người yếu và nhát thì không chơi được. Tôi cố gắng chơi tốt để được tôn trọng trên sân.' },
-      { ru:'Я также слежу за вьетнамскими и мировыми чемпионатами по футболу. Моя любимая футбольная команда — «Арсенал». Недавно я ходил болеть за нашу местную команду Хайфона на одном стадионе Ханоя.', vi:'Tôi cũng theo dõi các giải bóng đá Việt Nam và thế giới. Đội bóng yêu thích của tôi là Arsenal. Gần đây tôi đi cổ vũ đội Hải Phòng quê mình ở một sân vận động Hà Nội.' },
+      { ru:'Я также слежу за вьетнамскими и мировыми чемпионатами по футболу. Моя любимая футбольная команда — «Арсенал». Недавно я ходил болеть за нашу ханойскую команду на стадионе Хангдай.', vi:'Tôi cũng theo dõi các giải bóng đá Việt Nam và thế giới. Đội bóng yêu thích của tôi là Arsenal. Gần đây tôi đi cổ vũ đội Hà Nội ở sân vận động Hàng Đẫy.' },
       { ru:'Футбол, как считают, закаляет характер и укрепляет здоровье. Футбол также развивает скорость, точность реакции и дружбу. Спорт делает человека лучше и учит его побеждать. Я рад, что у меня есть такое хорошее увлечение.', vi:'Người ta cho rằng bóng đá tôi luyện tính cách và tăng cường sức khoẻ. Bóng đá còn phát triển tốc độ, phản xạ chính xác và tình bạn. Thể thao làm con người tốt hơn và dạy họ chiến thắng. Tôi vui vì có một sở thích hay như vậy.' }
     ]
   },
   {
-    id:'vacation', ru:'Расскажите о вашем отпуске', vi:'Kể về kỳ nghỉ phép của bạn', level:'A2–B1', src:'Bài mẫu của Phạm Đăng Hiển (đã hiệu đính)',
+    id:'vacation', ru:'Расскажите о вашем отпуске', vi:'Kể về kỳ nghỉ phép của bạn', level:'A2–B1', src:'Bài mẫu thi vấn đáp РКИ (đã hiệu đính)',
     keys:[['летний отпуск','kỳ nghỉ hè (phép)'],['долгожданный','mong đợi từ lâu'],['ждать с нетерпением','nóng lòng chờ'],['в деревне у бабушки','ở quê với bà'],['работать в огороде','làm vườn rau'],['заботливо','chu đáo'],['ходить на рыбалку','đi câu cá'],['проводить время','dành thời gian'],['в ближайшее время','trong thời gian tới']],
     qs:['Когда у вас бывает отпуск? Как долго он длится?','Где вы провели последний отпуск?','Что вы делали каждый день?','С кем вы отдыхали?','Как вы хотите провести следующий отпуск?'],
     paras:[
-      { ru:'Здравствуйте, меня зовут Хиен. Я курсант Военно-технической академии. Летний отпуск — это самая радостная пора для курсантов, он самый долгожданный, мы всегда ждём его с нетерпением.', vi:'Xin chào, tôi tên là Hiển. Tôi là học viên Học viện Kỹ thuật Quân sự. Kỳ nghỉ hè là quãng thời gian vui nhất của học viên, được mong đợi nhất, chúng tôi luôn nóng lòng chờ nó.' },
+      { ru:'Здравствуйте, меня зовут Куан. Я курсант Военно-технической академии. Летний отпуск — это самая радостная пора для курсантов, он самый долгожданный, мы всегда ждём его с нетерпением.', vi:'Xin chào, tôi tên là Quân. Tôi là học viên Học viện Kỹ thuật Quân sự. Kỳ nghỉ hè là quãng thời gian vui nhất của học viên, được mong đợi nhất, chúng tôi luôn nóng lòng chờ nó.' },
       { ru:'В прошлом году у меня был идеальный отпуск. Я провёл этот отпуск в деревне у бабушки. Каждый день я рано вставал и помогал бабушке: покупал продукты, готовил вкусную еду, убирал наш дом, работал в огороде и в саду. Я люблю смотреть, как бабушка заботливо обходит сад каждый день. В саду мы с детьми собирали и ели яблоки, бананы и другие фрукты. Я также люблю и ценю каждый ужин, когда вся семья сидит за столом, а потом вместе смотрит фильмы по телевизору.', vi:'Năm ngoái tôi có một kỳ nghỉ lý tưởng. Tôi nghỉ ở quê với bà. Ngày nào tôi cũng dậy sớm giúp bà: mua thực phẩm, nấu ăn ngon, dọn nhà, làm vườn rau và vườn cây. Tôi thích ngắm bà chu đáo đi thăm vườn mỗi ngày. Trong vườn, tôi và lũ trẻ hái và ăn táo, chuối và các loại quả khác. Tôi cũng yêu và trân trọng từng bữa tối khi cả nhà ngồi quanh bàn rồi cùng xem phim trên ti vi.' },
       { ru:'У меня есть хорошие друзья в деревне. Мы часто вместе играем в футбол и отдыхаем на берегу реки. Иногда мы ходим на рыбалку. Иногда мы гуляем по городу, ходим в кино или отдыхаем на море.', vi:'Ở quê tôi có những người bạn tốt. Chúng tôi hay đá bóng cùng nhau và nghỉ ngơi bên bờ sông. Đôi khi đi câu cá. Đôi khi đi dạo phố, xem phim hoặc đi biển.' },
       { ru:'Это был незабываемый отпуск в моей жизни. Я надеюсь, что в ближайшее время у меня снова будет отпуск, и я смогу провести время в деревне со своей семьёй и друзьями.', vi:'Đó là kỳ nghỉ khó quên trong đời tôi. Tôi hy vọng sắp tới lại được nghỉ phép và có thể dành thời gian ở quê với gia đình và bạn bè.' }
     ]
   },
   {
-    id:'values', ru:'Человеческие ценности в XXI веке (эссе)', vi:'Giá trị con người trong thế kỷ XXI (bài luận)', level:'B2 · эссе', src:'Bài luận của Phạm Đăng Hiển, 2020 (đã hiệu đính)',
+    id:'values', ru:'Человеческие ценности в XXI веке (эссе)', vi:'Giá trị con người trong thế kỷ XXI (bài luận)', level:'B2 · эссе', src:'Bài luận mẫu B2, 2020 (đã hiệu đính)',
     keys:[['человеческие ценности','giá trị con người'],['распространение','sự lan rộng'],['ядро личности','cốt lõi nhân cách'],['под влиянием','dưới ảnh hưởng'],['потрясать мир','làm rung chuyển thế giới'],['карьерный успех','thành công sự nghiệp'],['соблюдать меры предосторожности','tuân thủ biện pháp phòng ngừa'],['душевная щедрость','sự hào phóng của tâm hồn'],['сострадание, милосердие','lòng trắc ẩn, lòng nhân từ'],['цифровая эпоха','kỷ nguyên số']],
     qs:['Что такое человеческие ценности? Почему они важны?','Как пандемия изменила взгляды людей?','Какие ценности автор считает главными?','Согласны ли вы с автором? Почему?','Какие ценности важны лично для вас?'],
     paras:[
@@ -14207,11 +14211,11 @@ const TRKI_EXAMS = [
           { k:'read', t:'mc', q:'Клуб находится … .', o:['на первом этаже','на втором этаже','в общежитии'], c:1, e:'на втором этаже, аудитория 205.' }
         ] },
       { title:'Текст 3', ins:'Прочитайте письмо и выберите правильный вариант.', vi:'Đọc thư (câu 111–115).',
-        p:'Дорогая Анна! Привет из Ханоя! Я здесь уже месяц. Ханой — большой и красивый город, но летом здесь очень жарко. Я живу у своего друга Хиена. Он учится в академии, а его родители работают в Хайфоне. Утром мы ходим на курсы вьетнамского языка, а после обеда гуляем по городу. Вчера мы были в музее, а завтра поедем на озеро. Вьетнамская еда очень вкусная, особенно суп фо. Я вернусь в Москву в сентябре. Пиши мне! Твой Максим.',
+        p:'Дорогая Анна! Привет из Ханоя! Я здесь уже месяц. Ханой — большой и красивый город, но летом здесь очень жарко. Я живу у своего друга Куана. Он учится в академии, а его родители работают в Дананге. Утром мы ходим на курсы вьетнамского языка, а после обеда гуляем по городу. Вчера мы были в музее, а завтра поедем на озеро. Вьетнамская еда очень вкусная, особенно суп фо. Я вернусь в Москву в сентябре. Пиши мне! Твой Максим.',
         qs:[
-          { k:'read', t:'mc', q:'Максим сейчас … .', o:['в Москве','в Ханое','в Хайфоне'], c:1, e:'Привет из Ханоя, я здесь уже месяц.' },
-          { k:'read', t:'mc', q:'Максим живёт … .', o:['в гостинице','у друга','в общежитии'], c:1, e:'у своего друга Хиена.' },
-          { k:'read', t:'mc', q:'Утром Максим и Хиен … .', o:['гуляют по городу','ходят на курсы','едут на озеро'], c:1, e:'ходим на курсы вьетнамского языка.' },
+          { k:'read', t:'mc', q:'Максим сейчас … .', o:['в Москве','в Ханое','в Дананге'], c:1, e:'Привет из Ханоя, я здесь уже месяц.' },
+          { k:'read', t:'mc', q:'Максим живёт … .', o:['в гостинице','у друга','в общежитии'], c:1, e:'у своего друга Куана.' },
+          { k:'read', t:'mc', q:'Утром Максим и Куан … .', o:['гуляют по городу','ходят на курсы','едут на озеро'], c:1, e:'ходим на курсы вьетнамского языка.' },
           { k:'read', t:'mc', q:'Вчера они были … .', o:['в музее','на озере','в академии'], c:0, e:'Вчера мы были в музее.' },
           { k:'read', t:'mc', q:'Максим вернётся в Москву … .', o:['через месяц','в сентябре','летом'], c:1, e:'в сентябре.' }
         ] }
@@ -14242,11 +14246,11 @@ const TRKI_EXAMS = [
     { id:'W', name:'Письмо', vi:'Viết', parts:[
       { title:'Задание 1', ins:'Заполните анкету: напишите о себе (не менее 7 предложений).', vi:'Câu 131: Viết về bản thân ≥ 7 câu (≈ 40 từ): tên, tuổi, quê, nơi học/làm, gia đình, sở thích. Bắt buộc dùng các cụm cho trước.',
         qs:[
-          { k:'write', t:'essay', words:['меня зовут','я живу','я учусь','я люблю'], min:40, model:'Меня зовут Хиен. Мне 23 года. Я из Вьетнама, из города Хайфон. Сейчас я живу в Ханое. Я учусь в академии на третьем курсе. У меня есть родители, младший брат и младшая сестра. Я люблю футбол и музыку. Я изучаю русский язык, потому что хочу работать в России.', e:'Bài mẫu 9 câu, dùng đủ 4 cụm: меня зовут / я живу / я учусь / я люблю.' }
+          { k:'write', t:'essay', words:['меня зовут','я живу','я учусь','я люблю'], min:40, model:'Меня зовут Куан. Мне 23 года. Я из Вьетнама, из города Ханой. Я живу с родителями. Я учусь в академии на третьем курсе. У меня есть родители, младший брат и младшая сестра. Я люблю футбол и музыку. Я изучаю русский язык, потому что хочу работать в России.', e:'Bài mẫu 9 câu, dùng đủ 4 cụm: меня зовут / я живу / я учусь / я люблю.' }
         ] },
       { title:'Задание 2', ins:'Напишите письмо другу: расскажите, что вы делали в выходные (не менее 50 слов).', vi:'Câu 132: Viết thư cho bạn kể cuối tuần đã làm gì, ≥ 50 từ. Có mở đầu (Дорогой/Дорогая…!) và kết thúc (Пока / До свидания + tên).',
         qs:[
-          { k:'write', t:'essay', words:['дорог','пока'], min:50, model:'Дорогой Антон! Привет! Как дела? У меня всё хорошо. В субботу утром я ходил в бассейн, а потом мы с друзьями гуляли в парке и обедали в кафе. Вечером я читал книгу и смотрел фильм. В воскресенье я ездил к бабушке в деревню. Мы вместе готовили обед и разговаривали. Было очень хорошо. А что ты делал в выходные? Пиши мне! Пока, Хиен.', e:'Bài mẫu ≈ 70 từ: mở đầu Дорогой…, kể theo thứ tự thời gian (утром – потом – вечером – в воскресенье), câu hỏi lại, kết Пока + tên.' }
+          { k:'write', t:'essay', words:['дорог','пока'], min:50, model:'Дорогой Антон! Привет! Как дела? У меня всё хорошо. В субботу утром я ходил в бассейн, а потом мы с друзьями гуляли в парке и обедали в кафе. Вечером я читал книгу и смотрел фильм. В воскресенье я ездил к бабушке в деревню. Мы вместе готовили обед и разговаривали. Было очень хорошо. А что ты делал в выходные? Пиши мне! Пока, Куан.', e:'Bài mẫu ≈ 70 từ: mở đầu Дорогой…, kể theo thứ tự thời gian (утром – потом – вечером – в воскресенье), câu hỏi lại, kết Пока + tên.' }
         ] }
     ]}
   ]
@@ -14384,15 +14388,15 @@ const TRKI_EXAMS = [
     ]},
     { id:'R', name:'Чтение', vi:'Đọc', parts:[
       { title:'Текст 1', ins:'Прочитайте текст и выберите правильный вариант.', vi:'Câu 111–117.',
-        p:'Многие иностранные студенты, которые приезжают учиться в Россию, сначала боятся русской зимы. Мой друг Хиен из Вьетнама тоже боялся. В Ханое зимой плюс пятнадцать, а в Москве в январе может быть минус двадцать. Первую зиму Хиен почти не выходил из общежития: он ходил только на занятия и в магазин. Но потом русские друзья пригласили его кататься на лыжах в парк. Хиен купил тёплую куртку, шапку и перчатки. Оказалось, что зимой в Москве очень красиво: снег, солнце, чистый воздух. Теперь Хиен говорит, что зима — его любимое время года. Каждые выходные он катается на лыжах или на коньках, а вечером пьёт горячий чай с друзьями. «Главное — правильно одеваться», — смеётся он.',
+        p:'Многие иностранные студенты, которые приезжают учиться в Россию, сначала боятся русской зимы. Мой друг Куан из Вьетнама тоже боялся. В Ханое зимой плюс пятнадцать, а в Москве в январе может быть минус двадцать. Первую зиму Куан почти не выходил из общежития: он ходил только на занятия и в магазин. Но потом русские друзья пригласили его кататься на лыжах в парк. Куан купил тёплую куртку, шапку и перчатки. Оказалось, что зимой в Москве очень красиво: снег, солнце, чистый воздух. Теперь Куан говорит, что зима — его любимое время года. Каждые выходные он катается на лыжах или на коньках, а вечером пьёт горячий чай с друзьями. «Главное — правильно одеваться», — смеётся он.',
         qs:[
-          { k:'read', t:'mc', q:'Чего боялся Хиен сначала?', o:['экзаменов','русской зимы','русских друзей'], c:1, e:'боялся русской зимы.' },
+          { k:'read', t:'mc', q:'Чего боялся Куан сначала?', o:['экзаменов','русской зимы','русских друзей'], c:1, e:'боялся русской зимы.' },
           { k:'read', t:'mc', q:'Какая температура бывает в Москве в январе?', o:['плюс 15','минус 20','минус 5'], c:1, e:'минус двадцать.' },
-          { k:'read', t:'mc', q:'Первую зиму Хиен … .', o:['много гулял','почти не выходил из общежития','катался на лыжах'], c:1, e:'почти не выходил.' },
-          { k:'read', t:'mc', q:'Кто пригласил Хиена в парк?', o:['преподаватель','русские друзья','родители'], c:1, e:'русские друзья пригласили.' },
-          { k:'read', t:'mc', q:'Что купил Хиен?', o:['лыжи и коньки','тёплую одежду','билеты в парк'], c:1, e:'куртку, шапку и перчатки.' },
-          { k:'read', t:'mc', q:'Теперь Хиен … .', o:['не любит зиму','любит зиму','уехал из Москвы'], c:1, e:'зима — его любимое время года.' },
-          { k:'read', t:'mc', q:'По словам Хиена, главное — … .', o:['сидеть дома','правильно одеваться','пить чай'], c:1, e:'«Главное — правильно одеваться».' }
+          { k:'read', t:'mc', q:'Первую зиму Куан … .', o:['много гулял','почти не выходил из общежития','катался на лыжах'], c:1, e:'почти не выходил.' },
+          { k:'read', t:'mc', q:'Кто пригласил Куана в парк?', o:['преподаватель','русские друзья','родители'], c:1, e:'русские друзья пригласили.' },
+          { k:'read', t:'mc', q:'Что купил Куан?', o:['лыжи и коньки','тёплую одежду','билеты в парк'], c:1, e:'куртку, шапку и перчатки.' },
+          { k:'read', t:'mc', q:'Теперь Куан … .', o:['не любит зиму','любит зиму','уехал из Москвы'], c:1, e:'зима — его любимое время года.' },
+          { k:'read', t:'mc', q:'По словам Куана, главное — … .', o:['сидеть дома','правильно одеваться','пить чай'], c:1, e:'«Главное — правильно одеваться».' }
         ] },
       { title:'Текст 2', ins:'Прочитайте текст и выберите правильный вариант.', vi:'Câu 118–124.',
         p:'В центре Москвы, недалеко от Красной площади, находится небольшой музей чая. Его открыл десять лет назад Иван Смирнов — бывший инженер, который всю жизнь собирал чайные чашки и самовары. Сначала коллекция стояла у него дома, но потом чашек стало так много, что жена сказала: «Или я, или чашки». Иван снял маленькое помещение и открыл музей. Сегодня в музее больше тысячи предметов из России, Китая, Вьетнама и Индии. Вход стоит двести рублей, для студентов и пенсионеров — бесплатно. Каждую субботу в музее проводят чайную церемонию: гости пробуют разные сорта чая и слушают рассказ о его истории. Музей работает со вторника по воскресенье с одиннадцати до семи. В понедельник — выходной.',
@@ -14406,14 +14410,14 @@ const TRKI_EXAMS = [
           { k:'read', t:'mc', q:'Из каких стран есть предметы в музее?', o:['только из России','из России и Европы','из России, Китая, Вьетнама и Индии'], c:2, e:'перечислены четыре страны.' }
         ] },
       { title:'Текст 3', ins:'Прочитайте письмо и выберите правильный вариант.', vi:'Câu 125–130.',
-        p:'Здравствуй, дорогая Лан! Пишу тебе из Москвы. Я здесь уже два месяца и постепенно привыкаю. Занятия в университете трудные, особенно грамматика, но преподаватели очень добрые и всегда помогают. Я живу в общежитии с русским студентом Сашей. Мы вместе готовим ужин: я учу его варить фо, а он меня — борщ. По выходным мы ездим за город или ходим в театр. Билеты для студентов недорогие. Погода уже холодная, вчера выпал первый снег, и я впервые в жизни видел, как он падает! Скучаю по дому и по твоим пирогам. В январе у меня каникулы, и я хочу прилететь домой на две недели. Передавай привет родителям. Обнимаю, Хиен.',
+        p:'Здравствуй, дорогая Лан! Пишу тебе из Москвы. Я здесь уже два месяца и постепенно привыкаю. Занятия в университете трудные, особенно грамматика, но преподаватели очень добрые и всегда помогают. Я живу в общежитии с русским студентом Сашей. Мы вместе готовим ужин: я учу его варить фо, а он меня — борщ. По выходным мы ездим за город или ходим в театр. Билеты для студентов недорогие. Погода уже холодная, вчера выпал первый снег, и я впервые в жизни видел, как он падает! Скучаю по дому и по твоим пирогам. В январе у меня каникулы, и я хочу прилететь домой на две недели. Передавай привет родителям. Обнимаю, Куан.',
         qs:[
-          { k:'read', t:'mc', q:'Сколько времени Хиен в Москве?', o:['две недели','два месяца','два года'], c:1, e:'уже два месяца.' },
-          { k:'read', t:'mc', q:'Что для Хиена самое трудное в учёбе?', o:['преподаватели','грамматика','общежитие'], c:1, e:'особенно грамматика.' },
-          { k:'read', t:'mc', q:'С кем живёт Хиен?', o:['один','с русским студентом','с Лан'], c:1, e:'с русским студентом Сашей.' },
+          { k:'read', t:'mc', q:'Сколько времени Куан в Москве?', o:['две недели','два месяца','два года'], c:1, e:'уже два месяца.' },
+          { k:'read', t:'mc', q:'Что для Куана самое трудное в учёбе?', o:['преподаватели','грамматика','общежитие'], c:1, e:'особенно грамматика.' },
+          { k:'read', t:'mc', q:'С кем живёт Куан?', o:['один','с русским студентом','с Лан'], c:1, e:'с русским студентом Сашей.' },
           { k:'read', t:'mc', q:'Что они делают по выходным?', o:['готовят борщ','ездят за город или ходят в театр','учат грамматику'], c:1, e:'ездим за город или ходим в театр.' },
           { k:'read', t:'mc', q:'Что случилось вчера?', o:['выпал первый снег','был экзамен','приехали родители'], c:0, e:'вчера выпал первый снег.' },
-          { k:'read', t:'mc', q:'Когда Хиен хочет прилететь домой?', o:['в декабре','в январе на две недели','летом'], c:1, e:'В январе… на две недели.' }
+          { k:'read', t:'mc', q:'Когда Куан хочет прилететь домой?', o:['в декабре','в январе на две недели','летом'], c:1, e:'В январе… на две недели.' }
         ] }
     ]},
     { id:'L', name:'Аудирование', vi:'Nghe', parts:[
@@ -14430,7 +14434,7 @@ const TRKI_EXAMS = [
           { k:'listen', t:'mc', a:'— Здравствуйте, я хотел бы заказать столик на двоих на сегодня, на семь часов. — К сожалению, на семь всё занято. Есть на восемь. — Хорошо, на восемь.', q:'На какое время заказан столик?', o:['на семь','на восемь','на девять'], c:1, e:'Есть на восемь. — Хорошо.' },
           { k:'listen', t:'mc', a:'— Ты не знаешь, где Максим? — Он уехал в командировку в Казань на неделю. Вернётся в пятницу. — Тогда позвоню ему в субботу.', q:'Когда вернётся Максим?', o:['через неделю в пятницу','в субботу','сегодня'], c:0, e:'на неделю… Вернётся в пятницу.' },
           { k:'listen', t:'mc', a:'— Какая красивая сумка! Где ты её купила? — В интернете, со скидкой пятьдесят процентов. Обычно она стоит четыре тысячи. — Значит, ты заплатила две тысячи?', q:'Сколько заплатила девушка за сумку?', o:['четыре тысячи','две тысячи','пятьдесят рублей'], c:1, e:'скидка 50% от 4000 = 2000.' },
-          { k:'listen', t:'mc', a:'— Хиен, ты давно изучаешь русский? — Три года. Первый год было очень трудно, особенно падежи. — А сейчас? — Сейчас я могу свободно разговаривать, но пишу ещё с ошибками.', q:'Что Хиен говорит о себе сейчас?', o:['ему трудно говорить','он свободно говорит, но пишет с ошибками','он пишет без ошибок'], c:1, e:'свободно разговаривать, но пишу с ошибками.' }
+          { k:'listen', t:'mc', a:'— Куан, ты давно изучаешь русский? — Три года. Первый год было очень трудно, особенно падежи. — А сейчас? — Сейчас я могу свободно разговаривать, но пишу ещё с ошибками.', q:'Что Куан говорит о себе сейчас?', o:['ему трудно говорить','он свободно говорит, но пишет с ошибками','он пишет без ошибок'], c:1, e:'свободно разговаривать, но пишу с ошибками.' }
         ] },
       { title:'Задания 143–150', ins:'Прослушайте сообщение и выберите правильный вариант.', vi:'Câu 143–150: Nghe hai đoạn độc thoại (mỗi đoạn 2 lần), trả lời câu hỏi.',
         qs:[
@@ -14447,11 +14451,11 @@ const TRKI_EXAMS = [
     { id:'W', name:'Письмо', vi:'Viết', parts:[
       { title:'Задание 1', ins:'Вы прочитали объявление о клубе русского языка. Напишите письмо организатору: представьтесь, объясните, почему хотите заниматься, и задайте два вопроса (не менее 60 слов).', vi:'Câu 151: Thư gửi ban tổ chức CLB tiếng Nga ≥ 60 từ: tự giới thiệu, lý do, hai câu hỏi. Dùng lối xưng hô trang trọng (Уважаемый/Уважаемая…, С уважением).',
         qs:[
-          { k:'write', t:'essay', words:['уважаем','с уважением'], min:60, model:'Уважаемая Ольга Ивановна! Меня зовут Хиен, я студент из Вьетнама, учусь на втором курсе. Я прочитал ваше объявление о клубе русского языка и хотел бы заниматься в нём. Я изучаю русский язык два года, но мне трудно говорить, потому что у меня мало практики. Я думаю, что в клубе я смогу больше разговаривать с русскими студентами. Скажите, пожалуйста, когда проходят занятия и нужно ли платить за них? Заранее спасибо за ответ. С уважением, Хиен.', e:'Bài mẫu ≈ 85 từ: xưng hô trang trọng, giới thiệu, lý do (потому что), hai câu hỏi (когда…? нужно ли…?), kết С уважением.' }
+          { k:'write', t:'essay', words:['уважаем','с уважением'], min:60, model:'Уважаемая Ольга Ивановна! Меня зовут Куан, я студент из Вьетнама, учусь на втором курсе. Я прочитал ваше объявление о клубе русского языка и хотел бы заниматься в нём. Я изучаю русский язык два года, но мне трудно говорить, потому что у меня мало практики. Я думаю, что в клубе я смогу больше разговаривать с русскими студентами. Скажите, пожалуйста, когда проходят занятия и нужно ли платить за них? Заранее спасибо за ответ. С уважением, Куан.', e:'Bài mẫu ≈ 85 từ: xưng hô trang trọng, giới thiệu, lý do (потому что), hai câu hỏi (когда…? нужно ли…?), kết С уважением.' }
         ] },
       { title:'Задание 2', ins:'Напишите записку другу: вы не сможете прийти на встречу. Объясните причину и предложите другое время (не менее 40 слов).', vi:'Câu 152: Viết lời nhắn cho bạn ≥ 40 từ: không đến được, lý do, đề nghị thời gian khác.',
         qs:[
-          { k:'write', t:'essay', words:['не смогу','давай'], min:40, model:'Саша, привет! Извини, но сегодня я не смогу прийти на встречу в пять часов: у меня неожиданно появилась дополнительная лекция, которая закончится только в семь. Давай встретимся завтра в это же время в кафе около метро. Если тебе неудобно, напиши, когда ты свободен. Ещё раз извини! Хиен.', e:'Bài mẫu ≈ 55 từ: xin lỗi, lý do (у меня…), đề nghị (давай встретимся…), câu hỏi lịch sự.' }
+          { k:'write', t:'essay', words:['не смогу','давай'], min:40, model:'Саша, привет! Извини, но сегодня я не смогу прийти на встречу в пять часов: у меня неожиданно появилась дополнительная лекция, которая закончится только в семь. Давай встретимся завтра в это же время в кафе около метро. Если тебе неудобно, напиши, когда ты свободен. Ещё раз извини! Куан.', e:'Bài mẫu ≈ 55 từ: xin lỗi, lý do (у меня…), đề nghị (давай встретимся…), câu hỏi lịch sự.' }
         ] }
     ]}
   ]
@@ -16269,6 +16273,8 @@ function render(){
   if (zhDrop) zhDrop.classList.toggle('active', isZh);
   const ruDrop = $('#ruDrop');
   if (ruDrop) ruDrop.classList.toggle('active', isRu);
+  const tq = $('#topq');
+  if (tq) tq.placeholder = isZh ? 'Tra nhanh tiếng Trung (chữ Hán / pinyin / nghĩa)…' : isRu ? 'Tra nhanh tiếng Nga (không cần dấu trọng âm)…' : state.view === 'about' ? 'Tra nhanh: 한국어 · 中文 · русский · tiếng Việt…' : 'Tra nhanh tiếng Hàn (Hangul / romaja / nghĩa)…';
   $$('.nav-drop.open').forEach(d => {
     d.classList.remove('open');
     const bb = d.querySelector('.nav-drop-btn'); if (bb) bb.setAttribute('aria-expanded', 'false');
@@ -16621,8 +16627,8 @@ function zhDictResults(q){
   }
   const total = items.length;
   items = items.slice(0, 80);
-  if (!items.length) return `<p class="zh-empty">Không thấy từ nào khớp. Thử gõ chữ Hán hoặc pinyin không dấu.</p>`;
-  const head = `<div class="zh-res-count">${total} từ${total > 80 ? ' · hiện 80 đầu, gõ thêm để thu hẹp' : ''}</div>`;
+  if (!items.length) return `<p class="zh-empty">Không thấy từ nào khớp. Thử gõ chữ Hán hoặc pinyin không dấu.</p>` + crossDictHint(q, 'zh');
+  const head = `<div class="zh-res-count">${total} từ${total > 80 ? ' · hiện 80 đầu, gõ thêm để thu hẹp' : ''}</div>` + crossDictHint(q, 'zh');
   return head + items.map(w => `
     <div class="zh-res">
       <div class="zh-res-hz ko" data-zh-write="${esc(w.zh[0])}">${esc(w.zh)}</div>
@@ -17029,8 +17035,8 @@ function ruDictResults(q){
   }
   const total = items.length;
   items = items.slice(0, 80);
-  if (!items.length) return `<p class="zh-empty">Không thấy từ nào khớp. Gõ tiếng Nga (không cần dấu trọng âm) hoặc nghĩa tiếng Việt.</p>`;
-  return `<div class="zh-res-count">${total} từ${total > 80 ? ' · hiện 80 đầu, gõ thêm để thu hẹp' : ''}</div>` + items.map(w => `
+  if (!items.length) return `<p class="zh-empty">Không thấy từ nào khớp. Gõ tiếng Nga (không cần dấu trọng âm) hoặc nghĩa tiếng Việt.</p>` + crossDictHint(q, 'ru');
+  return `<div class="zh-res-count">${total} từ${total > 80 ? ' · hiện 80 đầu, gõ thêm để thu hẹp' : ''}</div>` + crossDictHint(q, 'ru') + items.map(w => `
     <div class="zh-res">
       <div class="zh-res-hz ru" style="font-size:20px;min-width:0">${esc(w.ru)}</div>
       <div class="zh-res-mid">
@@ -17807,6 +17813,7 @@ function mountDict(){
         <span class="l">${w.lesson ? 'BÀI ' + String(w.lesson).padStart(2,'0') : 'THÔNG DỤNG'}</span>
       </button>`).join('')
       : '<div style="padding:14px;color:var(--faint);font-size:13px">Không tìm thấy. Thử «도서관», «thư viện» hoặc «chingu».</div>';
+    hits.insertAdjacentHTML('afterbegin', crossDictHint(t, 'ko'));
     if (list.length) showEntry(list[0]);
     else entry.innerHTML = '<div class="empty">Bản đầy đủ sẽ gỡ đuôi chia động từ rồi tra lại lần nữa trước khi báo không có kết quả.</div>';
   };
@@ -18583,6 +18590,8 @@ document.addEventListener('click', e => {
   if (rTr){ if (rTr.dataset.ruTrace === 'toggle'){ state.ru.trace = !state.ru.trace; rTr.textContent = state.ru.trace ? 'Ẩn mẫu' : 'Hiện mẫu'; } if (ruTraceState){ if (rTr.dataset.ruTrace === 'clear') ruTraceState.clear(); else ruTraceState.redraw(); } return; }
   const rW = t.closest('[data-ruw]');
   if (rW){ state.ru.dictQ = rW.dataset.ruw; go('ru_dict'); return; }
+  const xd = t.closest('[data-cross]');
+  if (xd){ quickSearch(xd.dataset.q, xd.dataset.cross === 'dict' ? 'ko' : xd.dataset.cross === 'zh_dict' ? 'zh' : 'ru'); return; }
   const rOp = t.closest('[data-ru-open]');
   if (rOp){ const p = rOp.dataset.ruOpen.split(':'); const lv = _RC.levels.find(x => x.id === p[0]);
     if (lv && lv.status === 'active'){ state.ru.level = p[0]; state.ru.lesson = +p[1]; go('ru_lesson'); } return; }
@@ -18904,9 +18913,40 @@ document.addEventListener('input', e => {
   if (e.target.id !== 'topq') return;
   const v = e.target.value.trim();
   if (!v) return;
-  if (state.view !== 'dict'){ go('dict'); }
-  const d = $('#dq'); if (d){ d.value = v; d.dispatchEvent(new Event('input')); }
+  quickSearch(v);
 });
+
+/* ---------- Tra nhanh (ô trên cùng): chữ viết quyết định kho từ; chữ Latin/Việt → kho của ngôn ngữ đang xem ---------- */
+function quickLang(v){
+  if (/[가-힣ㄱ-ㅎㅏ-ㅣ]/.test(v)) return 'ko';
+  if (/[一-鿿]/.test(v)) return 'zh';
+  if (/[А-Яа-яЁё]/.test(v)) return 'ru';
+  const l = document.documentElement.getAttribute('data-lang');
+  return (l === 'zh' || l === 'ru') ? l : 'ko';
+}
+function quickSearch(v, lang){
+  lang = lang || quickLang(v);
+  if (lang === 'zh'){ state.zh.dictQ = v; if (state.view !== 'zh_dict') go('zh_dict'); else { const q = $('#zhq'); if (q){ q.value = v; q.dispatchEvent(new Event('input', { bubbles:true })); } } return; }
+  if (lang === 'ru'){ state.ru.dictQ = v; if (state.view !== 'ru_dict') go('ru_dict'); else { const q = $('#ruq'); if (q){ q.value = v; q.dispatchEvent(new Event('input', { bubbles:true })); } } return; }
+  if (state.view !== 'dict') go('dict');
+  const d = $('#dq'); if (d){ d.value = v; d.dispatchEvent(new Event('input')); }
+}
+/* Đếm kết quả của cùng một từ khoá ở các kho từ khác — để gợi ý chuyển ngôn ngữ trong màn Từ điển */
+function crossDictCounts(q){
+  const t = (q || '').trim().toLowerCase(); if (!t) return null;
+  const strip = x => (x || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  let ko = 0, zh = 0, ru = 0;
+  try { ko = allWords().filter(w => w.ko.includes(t) || (w.rom || '').includes(t) || (w.vi || '').toLowerCase().includes(t) || (w.hv || '').toLowerCase().includes(t)).length; } catch(e){}
+  try { zh = Object.values(ZH_LOOKUP).filter(w => w.zh.indexOf(q.trim()) >= 0 || strip(w.pinyin).indexOf(strip(t)) >= 0 || w.vi.toLowerCase().indexOf(t) >= 0 || (w.hv || '').toLowerCase().indexOf(t) >= 0).length; } catch(e){}
+  try { const qk = ruKey(t); ru = Object.values(RU_LOOKUP).filter(w => ruKey(w.ru).indexOf(qk) >= 0 || w.vi.toLowerCase().indexOf(t) >= 0).length; } catch(e){}
+  return { ko, zh, ru };
+}
+function crossDictHint(q, cur){
+  const c = crossDictCounts(q); if (!c) return '';
+  const items = [['ko','🇰🇷 Tiếng Hàn','dict'],['zh','🇨🇳 Tiếng Trung','zh_dict'],['ru','🇷🇺 Tiếng Nga','ru_dict']].filter(x => x[0] !== cur && c[x[0]] > 0);
+  if (!items.length) return '';
+  return `<div class="dict-cross">Từ khoá này còn có trong kho: ${items.map(x => `<button class="zh-ref" data-cross="${x[2]}" data-q="${esc(q)}">${x[1]} · ${c[x[0]]} từ</button>`).join(' ')}</div>`;
+}
 
 /* ---------- giao diện sáng/tối ---------- */
 function applyTheme(){

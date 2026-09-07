@@ -1805,6 +1805,8 @@ function render(){
   if (zhDrop) zhDrop.classList.toggle('active', isZh);
   const ruDrop = $('#ruDrop');
   if (ruDrop) ruDrop.classList.toggle('active', isRu);
+  const tq = $('#topq');
+  if (tq) tq.placeholder = isZh ? 'Tra nhanh tiếng Trung (chữ Hán / pinyin / nghĩa)…' : isRu ? 'Tra nhanh tiếng Nga (không cần dấu trọng âm)…' : state.view === 'about' ? 'Tra nhanh: 한국어 · 中文 · русский · tiếng Việt…' : 'Tra nhanh tiếng Hàn (Hangul / romaja / nghĩa)…';
   $$('.nav-drop.open').forEach(d => {
     d.classList.remove('open');
     const bb = d.querySelector('.nav-drop-btn'); if (bb) bb.setAttribute('aria-expanded', 'false');
@@ -2157,8 +2159,8 @@ function zhDictResults(q){
   }
   const total = items.length;
   items = items.slice(0, 80);
-  if (!items.length) return `<p class="zh-empty">Không thấy từ nào khớp. Thử gõ chữ Hán hoặc pinyin không dấu.</p>`;
-  const head = `<div class="zh-res-count">${total} từ${total > 80 ? ' · hiện 80 đầu, gõ thêm để thu hẹp' : ''}</div>`;
+  if (!items.length) return `<p class="zh-empty">Không thấy từ nào khớp. Thử gõ chữ Hán hoặc pinyin không dấu.</p>` + crossDictHint(q, 'zh');
+  const head = `<div class="zh-res-count">${total} từ${total > 80 ? ' · hiện 80 đầu, gõ thêm để thu hẹp' : ''}</div>` + crossDictHint(q, 'zh');
   return head + items.map(w => `
     <div class="zh-res">
       <div class="zh-res-hz ko" data-zh-write="${esc(w.zh[0])}">${esc(w.zh)}</div>
@@ -2565,8 +2567,8 @@ function ruDictResults(q){
   }
   const total = items.length;
   items = items.slice(0, 80);
-  if (!items.length) return `<p class="zh-empty">Không thấy từ nào khớp. Gõ tiếng Nga (không cần dấu trọng âm) hoặc nghĩa tiếng Việt.</p>`;
-  return `<div class="zh-res-count">${total} từ${total > 80 ? ' · hiện 80 đầu, gõ thêm để thu hẹp' : ''}</div>` + items.map(w => `
+  if (!items.length) return `<p class="zh-empty">Không thấy từ nào khớp. Gõ tiếng Nga (không cần dấu trọng âm) hoặc nghĩa tiếng Việt.</p>` + crossDictHint(q, 'ru');
+  return `<div class="zh-res-count">${total} từ${total > 80 ? ' · hiện 80 đầu, gõ thêm để thu hẹp' : ''}</div>` + crossDictHint(q, 'ru') + items.map(w => `
     <div class="zh-res">
       <div class="zh-res-hz ru" style="font-size:20px;min-width:0">${esc(w.ru)}</div>
       <div class="zh-res-mid">
@@ -3343,6 +3345,7 @@ function mountDict(){
         <span class="l">${w.lesson ? 'BÀI ' + String(w.lesson).padStart(2,'0') : 'THÔNG DỤNG'}</span>
       </button>`).join('')
       : '<div style="padding:14px;color:var(--faint);font-size:13px">Không tìm thấy. Thử «도서관», «thư viện» hoặc «chingu».</div>';
+    hits.insertAdjacentHTML('afterbegin', crossDictHint(t, 'ko'));
     if (list.length) showEntry(list[0]);
     else entry.innerHTML = '<div class="empty">Bản đầy đủ sẽ gỡ đuôi chia động từ rồi tra lại lần nữa trước khi báo không có kết quả.</div>';
   };
@@ -4119,6 +4122,8 @@ document.addEventListener('click', e => {
   if (rTr){ if (rTr.dataset.ruTrace === 'toggle'){ state.ru.trace = !state.ru.trace; rTr.textContent = state.ru.trace ? 'Ẩn mẫu' : 'Hiện mẫu'; } if (ruTraceState){ if (rTr.dataset.ruTrace === 'clear') ruTraceState.clear(); else ruTraceState.redraw(); } return; }
   const rW = t.closest('[data-ruw]');
   if (rW){ state.ru.dictQ = rW.dataset.ruw; go('ru_dict'); return; }
+  const xd = t.closest('[data-cross]');
+  if (xd){ quickSearch(xd.dataset.q, xd.dataset.cross === 'dict' ? 'ko' : xd.dataset.cross === 'zh_dict' ? 'zh' : 'ru'); return; }
   const rOp = t.closest('[data-ru-open]');
   if (rOp){ const p = rOp.dataset.ruOpen.split(':'); const lv = _RC.levels.find(x => x.id === p[0]);
     if (lv && lv.status === 'active'){ state.ru.level = p[0]; state.ru.lesson = +p[1]; go('ru_lesson'); } return; }
@@ -4440,9 +4445,40 @@ document.addEventListener('input', e => {
   if (e.target.id !== 'topq') return;
   const v = e.target.value.trim();
   if (!v) return;
-  if (state.view !== 'dict'){ go('dict'); }
-  const d = $('#dq'); if (d){ d.value = v; d.dispatchEvent(new Event('input')); }
+  quickSearch(v);
 });
+
+/* ---------- Tra nhanh (ô trên cùng): chữ viết quyết định kho từ; chữ Latin/Việt → kho của ngôn ngữ đang xem ---------- */
+function quickLang(v){
+  if (/[가-힣ㄱ-ㅎㅏ-ㅣ]/.test(v)) return 'ko';
+  if (/[一-鿿]/.test(v)) return 'zh';
+  if (/[А-Яа-яЁё]/.test(v)) return 'ru';
+  const l = document.documentElement.getAttribute('data-lang');
+  return (l === 'zh' || l === 'ru') ? l : 'ko';
+}
+function quickSearch(v, lang){
+  lang = lang || quickLang(v);
+  if (lang === 'zh'){ state.zh.dictQ = v; if (state.view !== 'zh_dict') go('zh_dict'); else { const q = $('#zhq'); if (q){ q.value = v; q.dispatchEvent(new Event('input', { bubbles:true })); } } return; }
+  if (lang === 'ru'){ state.ru.dictQ = v; if (state.view !== 'ru_dict') go('ru_dict'); else { const q = $('#ruq'); if (q){ q.value = v; q.dispatchEvent(new Event('input', { bubbles:true })); } } return; }
+  if (state.view !== 'dict') go('dict');
+  const d = $('#dq'); if (d){ d.value = v; d.dispatchEvent(new Event('input')); }
+}
+/* Đếm kết quả của cùng một từ khoá ở các kho từ khác — để gợi ý chuyển ngôn ngữ trong màn Từ điển */
+function crossDictCounts(q){
+  const t = (q || '').trim().toLowerCase(); if (!t) return null;
+  const strip = x => (x || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  let ko = 0, zh = 0, ru = 0;
+  try { ko = allWords().filter(w => w.ko.includes(t) || (w.rom || '').includes(t) || (w.vi || '').toLowerCase().includes(t) || (w.hv || '').toLowerCase().includes(t)).length; } catch(e){}
+  try { zh = Object.values(ZH_LOOKUP).filter(w => w.zh.indexOf(q.trim()) >= 0 || strip(w.pinyin).indexOf(strip(t)) >= 0 || w.vi.toLowerCase().indexOf(t) >= 0 || (w.hv || '').toLowerCase().indexOf(t) >= 0).length; } catch(e){}
+  try { const qk = ruKey(t); ru = Object.values(RU_LOOKUP).filter(w => ruKey(w.ru).indexOf(qk) >= 0 || w.vi.toLowerCase().indexOf(t) >= 0).length; } catch(e){}
+  return { ko, zh, ru };
+}
+function crossDictHint(q, cur){
+  const c = crossDictCounts(q); if (!c) return '';
+  const items = [['ko','🇰🇷 Tiếng Hàn','dict'],['zh','🇨🇳 Tiếng Trung','zh_dict'],['ru','🇷🇺 Tiếng Nga','ru_dict']].filter(x => x[0] !== cur && c[x[0]] > 0);
+  if (!items.length) return '';
+  return `<div class="dict-cross">Từ khoá này còn có trong kho: ${items.map(x => `<button class="zh-ref" data-cross="${x[2]}" data-q="${esc(q)}">${x[1]} · ${c[x[0]]} từ</button>`).join(' ')}</div>`;
+}
 
 /* ---------- giao diện sáng/tối ---------- */
 function applyTheme(){
