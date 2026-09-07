@@ -22,7 +22,7 @@ const state = {
   zh: { level:'hsk1', lesson:null, writeChar:'', srs:null },
   ru: { level:'a1', lesson:null, letter:'А', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, trace:true },
   ja: { level:'n5', lesson:null, kana:'hiragana', kanaSel:'あ', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, kanjiLevel:null, kanjiSel:null, writeChar:'あ', furi:true },
-  en: { level:'a1', lesson:null, dictQ:'', entry:null, phon:'iː', phonTab:'vowel', idiomTab:'phrasal', idiomGroup:'all', idiomQ:'', quizLevel:'all', quizType:'all', srs:null, quiz:null, exam:null, pracLevel:null, topic:null },
+  en: { level:'a1', lesson:null, dictQ:'', entry:null, phon:'iː', phonTab:'vowel', idiomTab:'phrasal', idiomGroup:'all', idiomQ:'', quizLevel:'all', quizType:'all', exam:null, srs:null, quiz:null, exam:null, pracLevel:null, topic:null },
   jamo: 'ㄱ',
   syll: { cho:'ㅎ', jung:'ㅏ', jong:'ㄴ' },
   speed: 1,
@@ -3777,7 +3777,118 @@ const _HX = (typeof HSK_EXAMS !== 'undefined') ? HSK_EXAMS : [];
 const _RX = (typeof TRKI_EXAMS !== 'undefined') ? TRKI_EXAMS : [];
 let hskTimerId = null, hskSaveT = null;
 /* Ngữ cảnh thi thử theo ngôn ngữ đang xem: HSK (tiếng Trung) hoặc ТРКИ (tiếng Nga) — cùng một engine */
+/* ============================================================
+   THI THỬ IELTS / TOEFL — dùng chung engine đề với HSK/ТРКИ/JLPT
+   ============================================================ */
+const _EIX = (typeof IELTS_EXAMS !== 'undefined') ? IELTS_EXAMS : [];
+const _ETX = (typeof TOEFL_EXAMS !== 'undefined') ? TOEFL_EXAMS : [];
+const _EXAMS_EN = _EIX.concat(_ETX);
+const EN_EXAM_LEVELS = [
+  { id:'ielts', vi:'IELTS Academic', en:'IELTS', status:'active' },
+  { id:'toefl', vi:'TOEFL iBT',      en:'TOEFL', status:'active' }
+];
+function enExamLevelName(id){ const v = EN_EXAM_LEVELS.find(x => x.id === id); return v ? v.vi : String(id || '').toUpperCase(); }
+function enWords(s){ return (String(s || '').trim().match(/[A-Za-z0-9'’-]+/g) || []).length; }
+function enSpeech(a){ return String(a || '').replace(/\s*—\s*/g, '. ').replace(/\s+/g, ' ').trim(); }
+
+/* Kiểm tra nhanh từ vựng tiếng Anh — sinh ngẫu nhiên từ kho từ điển */
+function enQuick(){
+  const L = (typeof EN_LOOKUP !== 'undefined') ? EN_LOOKUP : {};
+  const keys = Object.keys(L).filter(k => L[k].senses && L[k].senses[0] && L[k].senses[0].vi && /^[a-z][a-z' -]{2,}$/.test(k));
+  const pick = [];
+  const pool = keys.slice();
+  for (let i = pool.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); const t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
+  const use = pool.slice(0, 20);
+  use.forEach(k => {
+    const e = L[k];
+    const wrong = [];
+    while (wrong.length < 3){
+      const r = pool[Math.floor(Math.random() * pool.length)];
+      if (r !== k && L[r] && L[r].senses[0] && wrong.indexOf(L[r].senses[0].vi) < 0 && L[r].senses[0].vi !== e.senses[0].vi) wrong.push(L[r].senses[0].vi);
+    }
+    const c = Math.floor(Math.random() * 4);
+    const o = wrong.slice(); o.splice(c, 0, e.senses[0].vi);
+    pick.push({ t:'mc', q:`${e.w}${e.uk ? '  /' + e.uk + '/' : ''}`, o, c, e:`${e.w} = ${e.senses[0].vi}${e.note ? ' · ' + e.note : ''}` });
+  });
+  return {
+    id:'quick', quick:true, lang:'en', level:'ielts', badge:'Tiếng Anh · nhanh',
+    title:'Kiểm tra nhanh từ vựng tiếng Anh', official:'20 câu trắc nghiệm nghĩa, sinh ngẫu nhiên từ kho từ điển.',
+    minutes:8, maxScore:100, pass:60, plays:99,
+    sections:[{ id:'Q', name:'Vocabulary', vi:'Từ vựng', parts:[{ title:'Chọn nghĩa đúng', ins:'Choose the correct Vietnamese meaning.', vi:'Chọn nghĩa tiếng Việt đúng của từ.', qs:pick }] }]
+  };
+}
+
+/* Quy đổi điểm: IELTS → band 0–9 · TOEFL → thang 0–120 */
+function enExamScore(t, g){
+  if (!t || t.quick) return null;
+  const sec = id => g.secs.find(x => x.id === id) || { got:0, total:0 };
+  if (t.level === 'ielts'){
+    const L = sec('L'), R = sec('R'), W = sec('W');
+    const bL = ieltsBand(Math.round(L.got), 'listening');
+    const bR = ieltsBand(Math.round(R.got), 'academic');
+    const bW = (W.total && W.got > 0) ? Math.max(4, Math.min(8, 4 + Math.round(W.got / W.total * 4 * 2) / 2)) : 0;
+    const overall = ieltsRound((bL + bR + bW) / 3);
+    return {
+      kind:'ielts', overall, unit:'band',
+      rows:[
+        { name:'Listening', raw:`${Math.round(L.got)}/40`, val:bL },
+        { name:'Reading',   raw:`${Math.round(R.got)}/40`, val:bR },
+        { name:'Writing',   raw:`${Math.round(W.got * 10) / 10}/2 task`, val:bW }
+      ],
+      note:'Band Listening và Reading quy đổi theo bảng điểm thô chính thức của IELTS. Band Writing chỉ là ước lượng máy (đủ độ dài + dùng đủ từ khoá bắt buộc) — hãy tự đối chiếu với bài mẫu trong phần giải thích. Band tổng làm tròn theo quy tắc IELTS (.25 → .5 · .75 → 1).'
+    };
+  }
+  const R = sec('R'), L = sec('L'), W = sec('W');
+  const sR = toeflScale(Math.round(R.got), 'reading');
+  const sL = toeflScale(Math.round(L.got), 'listening');
+  const sW = W.total ? Math.round(W.got / W.total * 30) : 0;
+  return {
+    kind:'toefl', overall: sR + sL + sW, unit:'điểm / 120',
+    rows:[
+      { name:'Reading',   raw:`${Math.round(R.got)}/20`, val:sR },
+      { name:'Listening', raw:`${Math.round(L.got)}/28`, val:sL },
+      { name:'Writing',   raw:`${Math.round(W.got * 10) / 10}/2 task`, val:sW }
+    ],
+    note:'Reading và Listening quy đổi theo bảng ước lượng của ETS; Writing chấm tự động (đủ độ dài + dùng đủ từ khoá) nên chỉ mang tính tham khảo. Phần Speaking 30 điểm không nằm trong đề này — tổng thực tế của bạn sẽ là điểm ở đây cộng điểm Speaking.'
+  };
+}
+function enExamScoreHTML(t, g){
+  const r = enExamScore(t, g);
+  if (!r) return '';
+  return `
+  <div class="en-band">
+    <div class="en-band-main"><b>${r.overall}</b><span>${esc(r.unit)}</span></div>
+    <div class="en-band-rows">${r.rows.map(x => `<div class="en-band-row"><span>${esc(x.name)}</span><i>${esc(x.raw)}</i><b>${x.val}</b></div>`).join('')}</div>
+  </div>
+  <p class="tk-note-small">${esc(r.note)}</p>`;
+}
+
+/* Trang giới thiệu IELTS & TOEFL */
+function ieltsGuide(){
+  return `
+  <section class="tk-guide">
+    <h2>IELTS và TOEFL khác nhau ở đâu?</h2>
+    <div class="st-list">
+      <div class="st-card"><h4>IELTS Academic</h4><p>Do British Council, IDP và Cambridge tổ chức. Thang <b>band 0–9</b>, mỗi kỹ năng một band, band tổng là trung bình bốn kỹ năng làm tròn về 0,5. Kết quả thường có giá trị 2 năm.</p><div class="st-ex"><span>Listening 30′ · 40 câu</span><span>Reading 60′ · 40 câu</span><span>Writing 60′ · 2 task</span><span>Speaking 11–14′ · vấn đáp trực tiếp</span></div></div>
+      <div class="st-card"><h4>TOEFL iBT</h4><p>Do ETS tổ chức, làm hoàn toàn trên máy. Mỗi kỹ năng <b>0–30 điểm</b>, tổng <b>0–120</b>. Phần Speaking nói vào micro và chấm bởi giám khảo cùng máy.</p><div class="st-ex"><span>Reading 35′ · 20 câu</span><span>Listening 36′ · 28 câu</span><span>Speaking 16′ · 4 task</span><span>Writing 29′ · 2 task</span></div></div>
+      <div class="st-card"><h4>Chọn kỳ thi nào?</h4><p>Xem yêu cầu của trường hoặc nơi bạn nộp hồ sơ trước tiên. Nếu cả hai đều được chấp nhận: IELTS hợp với người nói tốt khi đối diện người thật; TOEFL hợp với người quen làm bài trên máy và ngại vấn đáp.</p></div>
+      <div class="st-card"><h4>Quy đổi tương đối</h4><p>Band 6.0 ≈ 60–78 điểm TOEFL · 6.5 ≈ 79–93 · 7.0 ≈ 94–101 · 7.5 ≈ 102–109 · 8.0 ≈ 110–114. Đây là bảng tham chiếu của ETS, các trường có thể quy đổi khác.</p></div>
+      <div class="st-card"><h4>Chiến lược chung</h4><p>Cả hai kỳ thi đo <b>kỹ năng làm bài</b> nhiều không kém trình độ tiếng. Làm ít nhất năm đề đủ thời gian trước khi thi thật, và mỗi lần chỉ sửa MỘT thói quen (ví dụ: luôn viết Overview ở Task 1).</p></div>
+      <div class="st-card"><h4>Trong LangLab</h4><p>Đề dưới đây có <b>bấm giờ</b>, <b>tạm dừng</b>, nộp bài, quy đổi band/điểm từng kỹ năng và <b>đáp án kèm giải thích tiếng Việt</b>. Bài nghe phát bằng giọng máy en-GB hoặc en-US (đổi ở màn Phát âm).</p></div>
+    </div>
+  </section>`;
+}
+
 function exCtx(){
+  if (state.view.indexOf('en_') === 0) return {
+    lang:'en', st:state.en, tests:_EXAMS_EN, key:'enExam', letters:'ABCDEF',
+    speak: t => enSpeak(t), speech: enSpeech, levels:EN_EXAM_LEVELS, levelName:enExamLevelName, quick: enQuick, guide: ieltsGuide,
+    eyebrow:'Tiếng Anh · Thi thử IELTS / TOEFL', title:'Thi thử IELTS &amp; TOEFL',
+    intro:'Tìm hiểu hai kỳ thi rồi luyện với <b>đề đầy đủ đúng cấu trúc và đúng thời gian</b> — có <b>bấm giờ</b>, <b>tạm dừng</b>, nộp bài, <b>quy đổi band IELTS / điểm TOEFL</b> cho từng kỹ năng và <b>đáp án kèm giải thích tiếng Việt</b>. Bài nghe phát bằng giọng máy tiếng Anh (bấm “Nghe”), mỗi câu nghe được đúng một lần như đề thật.',
+    quickDesc: () => `Chọn nghĩa đúng của 20 từ lấy ngẫu nhiên từ kho ${Object.keys(typeof EN_LOOKUP !== 'undefined' ? EN_LOOKUP : {}).length} mục từ. Không theo cấu trúc đề thật — dùng để ôn từ.`,
+    disclaimer:'Đề do LangLab biên soạn theo dạng thức IELTS (ielts.org) và TOEFL iBT (ets.org) để luyện tập, KHÔNG phải đề thi chính thức của British Council / IDP / Cambridge / ETS. Band và điểm quy đổi chỉ mang tính ước lượng; phần Viết chấm tự động theo độ dài và từ khoá bắt buộc — hãy tự đối chiếu với bài mẫu trong phần giải thích.',
+    unit:'từ', count: enWords
+  };
   if (state.view.indexOf('ja_') === 0) return {
     lang:'ja', st:state.ja, tests:_JX, key:'jlptExam', letters:'1234',
     speak: t => jaSpeak(t), speech: jaSpeech, levels:_JC.levels, levelName:jaLevelName, quick:jaQuick, guide:jlptGuide,
@@ -3808,8 +3919,8 @@ function exCtx(){
 }
 /* Đếm độ dài bài viết theo ngôn ngữ của đề (chữ Hán / từ) */
 function ruWords(s){ return (String(s || '').trim().match(/[А-Яа-яЁёA-Za-z0-9]+/g) || []).length; }
-function exCount(t, s){ return (t && t.lang === 'ru') ? ruWords(s) : (t && t.lang === 'ja') ? String(s || '').replace(/\s+/g, '').length : hskHan(s); }
-function exUnit(t){ return (t && t.lang === 'ru') ? 'từ' : (t && t.lang === 'ja') ? 'chữ' : 'chữ Hán'; }
+function exCount(t, s){ return (t && t.lang === 'en') ? enWords(s) : (t && t.lang === 'ru') ? ruWords(s) : (t && t.lang === 'ja') ? String(s || '').replace(/\s+/g, '').length : hskHan(s); }
+function exUnit(t){ return (t && t.lang === 'en' || t && t.lang === 'ru') ? 'từ' : (t && t.lang === 'ja') ? 'chữ' : 'chữ Hán'; }
 
 function hskFind(id){
   const E = exCtx().st.exam;
@@ -3976,8 +4087,8 @@ function hskList(){
           <button class="pbtn primary" data-hsk-start="${t.id}">Bắt đầu làm bài</button>
         </div>`; }).join('')}
       <div class="topik-card quick">
-        <span class="tk-badge">${esc(v.zh || v.ru || v.jp)} · nhanh</span>
-        <h3>Kiểm tra nhanh từ vựng ${esc(v.zh || v.ru || v.jp)}</h3>
+        <span class="tk-badge">${esc(v.zh || v.ru || v.jp || v.en)} · nhanh</span>
+        <h3>Kiểm tra nhanh từ vựng ${esc(v.zh || v.ru || v.jp || v.en)}</h3>
         <p class="tk-meta">20 câu · 8 phút · sinh ngẫu nhiên mỗi lần</p>
         <p class="tk-official">${C.quickDesc(v.id)}</p>
         <button class="pbtn" data-hsk-start="quick" data-hsk-level="${v.id}">Làm nhanh</button>
@@ -4083,6 +4194,7 @@ function hskResult(t){
     <h1>${g.score}/${g.maxScore} điểm · ${passed ? 'ĐẠT' : 'chưa đạt'}</h1>
     <p>${Math.round(g.got)}/${g.total} câu đúng · thời gian đã dùng ${used} / ${t.minutes} phút · mức đạt ${g.passEach ? 'mỗi phần ≥ ' + g.passEach + '%' : g.pass + ' điểm'}. ${passed ? (g.score >= g.maxScore * 0.85 ? 'Xuất sắc! 🎉' : 'Chúc mừng, bạn đã vượt ngưỡng.') : 'Xem lại các câu sai bên dưới rồi thử lại nhé.'}</p>
     <div class="hsk-secs">${g.secs.map(s => `<div class="hsk-sec ${s.score >= thr ? 'ok' : 'bad'}"><b class="ko">${esc(s.name)}</b><span>${esc(s.vi)}</span><i>${s.score}/100</i><small>${Math.round(s.got * 10) / 10}/${s.total} câu</small></div>`).join('')}</div>
+    ${(exCtx().lang === 'en' && typeof enExamScoreHTML === 'function') ? enExamScoreHTML(t, g) : ''}
     <p class="tk-note-small">Điểm ước lượng theo tỉ lệ câu đúng của từng kỹ năng (mỗi kỹ năng 100 điểm), không phải cách chấm chính thức. Bài viết chấm tự động theo tiêu chí đơn giản — hãy đối chiếu với bài mẫu.</p>
     <div class="wp-actions" style="padding:6px 0 0">
       <button class="pbtn primary" data-hsk-retry="${esc(t.id)}"${t.quick ? ` data-hsk-level="${esc(t.level)}"` : ''}>Làm lại đề này</button>
@@ -4117,6 +4229,7 @@ function examView(){
 VIEWS.zh_exam = examView;
 VIEWS.ru_exam = examView;
 VIEWS.ja_exam = examView;
+VIEWS.en_exam = examView;
 
 /* ---------------- Hanzi Writer ---------------- */
 let zhWriter = null;
@@ -5397,7 +5510,7 @@ VIEWS.en_idiom = function(){
   <p class="tk-note-small">Cụm động từ tách được thì tân ngữ đứng giữa được: <i>turn the light off</i>. Nhưng khi tân ngữ là đại từ thì BẮT BUỘC tách: <i>turn it off</i>, không nói «turn off it».</p>`;
 };
 VIEWS.en_speak = function(){ return enSoon('Luyện nói tiếng Anh', 'Tiếng Anh · Nói', [['Chủ đề IELTS Speaking','Part 1, 2, 3 với dàn ý và bài mẫu band 7+.'],['Chủ đề đời sống','Giới thiệu bản thân, phỏng vấn xin việc, thuyết trình ngắn.']]); };
-VIEWS.en_exam  = function(){ return enSoon('Thi thử IELTS / TOEFL', 'Tiếng Anh · Thi thử', [['IELTS','Listening 40 câu/30 phút · Reading 40 câu/60 phút · Writing 2 task/60 phút · Speaking 3 phần. Quy đổi band 0–9.'],['TOEFL iBT','Reading 20 câu/35 phút · Listening 28 câu/36 phút · Speaking 4 task · Writing 2 task. Thang điểm 0–120.']]); };
+
 
 /* ============================================================
    «BẠN CÓ BIẾT?» — bong bóng fact văn hoá theo ngôn ngữ đang học
