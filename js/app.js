@@ -2880,7 +2880,9 @@ function hskGrade(t){
   const maxScore = t.maxScore || secs.length * 100;
   const score = t.quick ? Math.round(got / total * 100) : secs.reduce((a, s) => a + s.score, 0);
   const unanswered = flat.filter(f => !hskAnswered(E.answers[f.no])).length;
-  return { secs, got, total, score, maxScore, pass: t.pass || Math.round(maxScore * 0.6), unanswered };
+  const pass = t.pass || Math.round(maxScore * 0.6);
+  const passed = t.passEach ? secs.every(s => s.score >= t.passEach) : score >= pass;
+  return { secs, got, total, score, maxScore, pass, passed, passEach: t.passEach || 0, unanswered };
 }
 function hskSpeech(a){ return String(a || '').replace(/[男女甲乙]：/g, '').replace(/问：/g, '问，'); }
 const HSK_LETTERS = 'ABCDEF';
@@ -3062,13 +3064,13 @@ function hskBar(t, S){
 function hskResult(t){
   const S = exCtx().st.exam, g = hskGrade(t);
   const used = topikClock(t.minutes * 60 - Math.max(0, S.remaining));
-  const passed = g.score >= g.pass;
+  const passed = g.passed, thr = g.passEach || 60;
   return `
   <div class="page-head">
     <span class="eyebrow">${esc(t.badge)} · Kết quả</span>
     <h1>${g.score}/${g.maxScore} điểm · ${passed ? 'ĐẠT' : 'chưa đạt'}</h1>
-    <p>${Math.round(g.got)}/${g.total} câu đúng · thời gian đã dùng ${used} / ${t.minutes} phút · mức đạt ${g.pass} điểm. ${passed ? (g.score >= g.maxScore * 0.85 ? 'Xuất sắc! 🎉' : 'Chúc mừng, bạn đã vượt ngưỡng.') : 'Xem lại các câu sai bên dưới rồi thử lại nhé.'}</p>
-    <div class="hsk-secs">${g.secs.map(s => `<div class="hsk-sec ${s.score >= 60 ? 'ok' : 'bad'}"><b class="ko">${esc(s.name)}</b><span>${esc(s.vi)}</span><i>${s.score}/100</i><small>${Math.round(s.got * 10) / 10}/${s.total} câu</small></div>`).join('')}</div>
+    <p>${Math.round(g.got)}/${g.total} câu đúng · thời gian đã dùng ${used} / ${t.minutes} phút · mức đạt ${g.passEach ? 'mỗi phần ≥ ' + g.passEach + '%' : g.pass + ' điểm'}. ${passed ? (g.score >= g.maxScore * 0.85 ? 'Xuất sắc! 🎉' : 'Chúc mừng, bạn đã vượt ngưỡng.') : 'Xem lại các câu sai bên dưới rồi thử lại nhé.'}</p>
+    <div class="hsk-secs">${g.secs.map(s => `<div class="hsk-sec ${s.score >= thr ? 'ok' : 'bad'}"><b class="ko">${esc(s.name)}</b><span>${esc(s.vi)}</span><i>${s.score}/100</i><small>${Math.round(s.got * 10) / 10}/${s.total} câu</small></div>`).join('')}</div>
     <p class="tk-note-small">Điểm ước lượng theo tỉ lệ câu đúng của từng kỹ năng (mỗi kỹ năng 100 điểm), không phải cách chấm chính thức. Bài viết chấm tự động theo tiêu chí đơn giản — hãy đối chiếu với bài mẫu.</p>
     <div class="wp-actions" style="padding:6px 0 0">
       <button class="pbtn primary" data-hsk-retry="${esc(t.id)}"${t.quick ? ` data-hsk-level="${esc(t.level)}"` : ''}>Làm lại đề này</button>

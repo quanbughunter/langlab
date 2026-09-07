@@ -66,7 +66,7 @@ const PHON_RU = [
 const COURSE_RU = {
   levels:[
     { id:'a1', ru:'A1 · ТЭУ',    vi:'A1 · Sơ cấp (Элементарный)', lessons:15, status:'active' },
-    { id:'a2', ru:'A2 · ТБУ',    vi:'A2 · Cơ bản (Базовый)',      lessons:15, status:'planned' },
+    { id:'a2', ru:'A2 · ТБУ',    vi:'A2 · Cơ bản (Базовый)',      lessons:15, status:'active' },
     { id:'b1', ru:'B1 · ТРКИ-1', vi:'B1 · Trung cấp 1',           lessons:15, status:'planned' },
     { id:'b2', ru:'B2 · ТРКИ-2', vi:'B2 · Trung cấp 2',           lessons:15, status:'planned' }
   ],
@@ -619,6 +619,547 @@ const COURSE_RU = {
         { sp:'A', ru:'Э́то Хиен. Ива́н, скажи́, пожа́луйста, когда́ на́ша встре́ча?', vi:'Hiển đây. Ivan, cho hỏi khi nào chúng ta gặp?' },
         { sp:'B', ru:'В суббо́ту, в два часа́. Повтори́, пожа́луйста, твой но́мер.', vi:'Thứ Bảy, 2 giờ. Nhắc lại số của cậu với.' },
         { sp:'A', ru:'Во́семь, де́вять, шесть… Извини́, говори́ ме́дленно, я пишу́.', vi:'8, 9, 6… Xin lỗi, nói chậm thôi, mình đang ghi.' }
+      ]
+    },
+
+    /* ================= A2 ================= */
+    {
+      level:'a2', no:1, ru:'Идти́ и́ли ходи́ть?', vi:'Động từ chuyển động: một hướng và nhiều hướng',
+      skill:'Phân biệt идти́/ходи́ть, е́хать/е́здить; kể thói quen đi lại',
+      grammar:[
+        { form:'идти́ (đang đi, một hướng, lúc này) — ходи́ть (đi đi lại lại, thường xuyên, đã đi và về)', vi:'cặp động từ chuyển động đi bộ',
+          note:'Сейча́с я иду́ в шко́лу (đang trên đường). Я ка́ждый день хожу́ в шко́лу (thói quen). Вчера́ я ходи́л в кино́ (đi và đã về = был в кино). ходи́ть: хожу́, хо́дишь, хо́дят.',
+          ex:{ ru:'Ка́ждое у́тро я хожу́ в бассе́йн, а сейча́с иду́ в библиоте́ку.', vi:'Sáng nào tôi cũng đi bơi, còn bây giờ đang đi thư viện.' } },
+        { form:'е́хать (một hướng) — е́здить (nhiều hướng); лете́ть — лета́ть; плыть — пла́вать', vi:'chuyển động bằng phương tiện',
+          note:'е́здить: е́зжу, е́здишь, е́здят. Ле́том мы е́здили на мо́ре (đi và về). Quá khứ е́хал = đang trên đường đi.',
+          ex:{ ru:'В про́шлом году́ мы е́здили в Росси́ю. Туда́ мы лете́ли на самолёте.', vi:'Năm ngoái chúng tôi đi Nga. Chiều đi chúng tôi bay bằng máy bay.' } }
+      ],
+      vocab:[
+        { ru:'ходи́ть', vi:'đi (bộ, nhiều hướng/thường xuyên)', pos:'động từ NSV' },
+        { ru:'е́здить', vi:'đi (xe, nhiều hướng/thường xuyên)', pos:'động từ NSV' },
+        { ru:'лете́ть / лета́ть', vi:'bay', pos:'động từ NSV' },
+        { ru:'плыть / пла́вать', vi:'bơi, đi thuyền', pos:'động từ NSV' },
+        { ru:'бе́гать', vi:'chạy (nhiều hướng)', pos:'động từ NSV' },
+        { ru:'бассе́йн', vi:'bể bơi', pos:'danh từ giống đực' },
+        { ru:'ка́ждое у́тро', vi:'mỗi sáng', pos:'cụm cố định' },
+        { ru:'туда́ / обра́тно', vi:'đến đó / trở lại', pos:'trạng từ' },
+        { ru:'по́езд', vi:'tàu hoả', pos:'danh từ giống đực' },
+        { ru:'команди́ровка', vi:'chuyến công tác', pos:'danh từ giống cái' },
+        { ru:'путеше́ствовать', vi:'du lịch, đi xa', pos:'động từ NSV' },
+        { ru:'о́тпуск', vi:'kỳ nghỉ phép', pos:'danh từ giống đực' },
+        { ru:'мо́ре', vi:'biển', pos:'danh từ giống trung' },
+        { ru:'обы́чно', vi:'thường', pos:'trạng từ' },
+        { ru:'ре́дко', vi:'hiếm khi', pos:'trạng từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Хиен, куда́ ты идёшь так ра́но?', vi:'Hiển, cậu đi đâu sớm thế?' },
+        { sp:'B', ru:'В бассе́йн. Я хожу́ туда́ ка́ждое у́тро.', vi:'Đi bể bơi. Sáng nào mình cũng đến đó.' },
+        { sp:'A', ru:'А ле́том ты е́здил на мо́ре?', vi:'Thế hè cậu có đi biển không?' },
+        { sp:'B', ru:'Да, мы е́здили в Нячанг. Туда́ лете́ли на самолёте, а обра́тно е́хали на по́езде.', vi:'Có, bọn mình đi Nha Trang. Chiều đi bay, chiều về đi tàu.' }
+      ]
+    },
+
+    {
+      level:'a2', no:2, ru:'Де́лать и сде́лать', vi:'Thể động từ: chưa hoàn thành và hoàn thành',
+      skill:'Cặp thể НСВ/СВ; tương lai thể hoàn thành',
+      grammar:[
+        { form:'НСВ (quá trình, lặp lại) — СВ (kết quả, một lần): де́лать → сде́лать, чита́ть → прочита́ть, писа́ть → написа́ть, учи́ть → вы́учить', vi:'thể động từ',
+          note:'Я вчера́ чита́л кни́гу (đọc, quá trình) — Я прочита́л кни́гу (đã đọc xong). СВ thường thêm tiền tố (с-, про-, на-, вы́-, по-) hoặc đổi hậu tố: реша́ть → реши́ть, покупа́ть → купи́ть.',
+          ex:{ ru:'Я до́лго учи́л слова́ и наконе́ц вы́учил их.', vi:'Tôi học từ rất lâu và cuối cùng đã thuộc.' } },
+        { form:'Tương lai СВ = chia như hiện tại: я прочита́ю, ты прочита́ешь…; НСВ: я бу́ду чита́ть', vi:'hai kiểu tương lai',
+          note:'СВ không có hiện tại: сде́лаю = tôi sẽ làm xong. За́втра я напишу́ письмо́ (một lần, xong) — За́втра я бу́ду писа́ть письмо́ (sẽ ngồi viết).',
+          ex:{ ru:'Сего́дня ве́чером я сде́лаю дома́шнее зада́ние, а пото́м бу́ду смотре́ть фильм.', vi:'Tối nay tôi sẽ làm xong bài tập, sau đó sẽ xem phim.' } }
+      ],
+      vocab:[
+        { ru:'сде́лать', vi:'làm (xong)', pos:'động từ СВ' },
+        { ru:'прочита́ть', vi:'đọc (xong)', pos:'động từ СВ' },
+        { ru:'написа́ть', vi:'viết (xong)', pos:'động từ СВ' },
+        { ru:'вы́учить', vi:'học thuộc', pos:'động từ СВ' },
+        { ru:'реша́ть / реши́ть', vi:'giải, quyết định', pos:'động từ НСВ/СВ' },
+        { ru:'покупа́ть / купи́ть', vi:'mua', pos:'động từ НСВ/СВ' },
+        { ru:'получа́ть / получи́ть', vi:'nhận', pos:'động từ НСВ/СВ' },
+        { ru:'отвеча́ть / отве́тить', vi:'trả lời', pos:'động từ НСВ/СВ' },
+        { ru:'зада́ние', vi:'bài tập, nhiệm vụ', pos:'danh từ giống trung' },
+        { ru:'наконе́ц', vi:'cuối cùng', pos:'trạng từ' },
+        { ru:'уже́', vi:'đã, rồi', pos:'trạng từ' },
+        { ru:'ещё не', vi:'vẫn chưa', pos:'cụm' },
+        { ru:'до́лго', vi:'lâu', pos:'trạng từ' },
+        { ru:'снача́ла', vi:'đầu tiên', pos:'trạng từ' },
+        { ru:'результа́т', vi:'kết quả', pos:'danh từ giống đực' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Ты уже́ сде́лал дома́шнее зада́ние?', vi:'Cậu làm xong bài tập chưa?' },
+        { sp:'B', ru:'Ещё нет. Я до́лго реша́л одну́ зада́чу и не реши́л.', vi:'Chưa. Mình giải một bài rất lâu mà không ra.' },
+        { sp:'A', ru:'Дава́й вме́сте. Снача́ла прочита́ем усло́вие ещё раз.', vi:'Cùng làm nhé. Trước hết đọc lại đề lần nữa.' },
+        { sp:'B', ru:'Хорошо́. Е́сли реши́м, ве́чером я напишу́ тебе́ отве́т.', vi:'Được. Nếu giải được, tối mình sẽ viết đáp án cho cậu.' }
+      ]
+    },
+
+    {
+      level:'a2', no:3, ru:'Роди́тельный паде́ж', vi:'Cách 2 (sinh cách)',
+      skill:'Sở hữu, “không có”, “từ đâu đến”, giới từ đi với cách 2',
+      grammar:[
+        { form:'Cách 2: đực -а/-я, cái -ы/-и, trung -а/-я; số nhiều -ов/-ев, -ей, -∅', vi:'đuôi cách 2',
+          note:'Dùng khi: sở hữu (кни́га бра́та), phủ định (нет вре́мени), số lượng (мно́го друзе́й), giới từ у, из, с, от, до, без, о́коло, для, по́сле.',
+          ex:{ ru:'Э́то маши́на моего́ отца́. У него́ нет вре́мени для о́тдыха.', vi:'Đây là xe của bố tôi. Ông ấy không có thời gian nghỉ ngơi.' } },
+        { form:'Отку́да? из + cách 2 (из Вьетна́ма, из до́ма) / с + cách 2 (с рабо́ты, с ю́га) / от + người', vi:'“từ đâu”',
+          note:'Cặp đối xứng: в ↔ из, на ↔ с, к ↔ от. Я из Ханоя. Она́ идёт с рабо́ты. Письмо́ от дру́га.',
+          ex:{ ru:'— Отку́да вы? — Я из Вьетна́ма, из Хайфо́на. А сейча́с иду́ с заня́тий.', vi:'— Bạn từ đâu đến? — Tôi từ Việt Nam, từ Hải Phòng. Còn bây giờ đang đi từ lớp về.' } }
+      ],
+      vocab:[
+        { ru:'отку́да', vi:'từ đâu', pos:'trạng từ nghi vấn' },
+        { ru:'без', vi:'không có, thiếu (+ cách 2)', pos:'giới từ' },
+        { ru:'для', vi:'cho, dành cho (+ cách 2)', pos:'giới từ' },
+        { ru:'о́коло', vi:'gần, khoảng (+ cách 2)', pos:'giới từ' },
+        { ru:'по́сле', vi:'sau (+ cách 2)', pos:'giới từ' },
+        { ru:'до', vi:'trước; đến (+ cách 2)', pos:'giới từ' },
+        { ru:'мно́го / ма́ло', vi:'nhiều / ít', pos:'trạng từ' },
+        { ru:'не́сколько', vi:'vài', pos:'số từ' },
+        { ru:'оте́ц', vi:'cha', pos:'danh từ giống đực' },
+        { ru:'мать', vi:'mẹ', pos:'danh từ giống cái' },
+        { ru:'заня́тие', vi:'buổi học', pos:'danh từ giống trung' },
+        { ru:'о́тдых', vi:'sự nghỉ ngơi', pos:'danh từ giống đực' },
+        { ru:'вопро́с', vi:'câu hỏi', pos:'danh từ giống đực' },
+        { ru:'отве́т', vi:'câu trả lời', pos:'danh từ giống đực' },
+        { ru:'коне́ц / нача́ло', vi:'kết thúc / bắt đầu', pos:'danh từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Отку́да ты идёшь? Ты вы́глядишь уста́лым.', vi:'Cậu từ đâu về thế? Trông mệt quá.' },
+        { sp:'B', ru:'С трениро́вки. По́сле заня́тий у нас был футбо́л.', vi:'Từ buổi tập. Sau giờ học bọn mình đá bóng.' },
+        { sp:'A', ru:'У тебя́ есть вре́мя для ко́фе? Кафе́ о́коло вокза́ла.', vi:'Cậu có thời gian uống cà phê không? Quán gần ga.' },
+        { sp:'B', ru:'К сожале́нию, нет вре́мени. Че́рез час у меня́ встре́ча с дру́гом из Росси́и.', vi:'Tiếc là không có thời gian. Một tiếng nữa mình có hẹn với người bạn từ Nga.' }
+      ]
+    },
+
+    {
+      level:'a2', no:4, ru:'Да́тельный паде́ж', vi:'Cách 3 (tặng cách)',
+      skill:'Cho ai, giúp ai, gọi ai, đến chỗ ai; tuổi; по + cách 3',
+      grammar:[
+        { form:'Cách 3: đực/trung -у/-ю, cái -е (-ии → -ии), số nhiều -ам/-ям; đại từ мне, тебе́, ему́, ей, нам, вам, им', vi:'đuôi cách 3',
+          note:'Động từ đòi cách 3: дать, дари́ть, помога́ть, звони́ть, говори́ть, сове́товать, меша́ть, отвеча́ть (кому́). Я звоню́ ма́ме. Он помога́ет дру́гу.',
+          ex:{ ru:'Я подари́л сестре́ кни́гу и позвони́л роди́телям.', vi:'Tôi tặng em gái cuốn sách và gọi điện cho bố mẹ.' } },
+        { form:'к + cách 3 (đến chỗ ai: к врачу́, к дру́гу) · по + cách 3 (по телефо́ну, по у́лице, по суббо́там)', vi:'giới từ với cách 3',
+          note:'К кому́ ты идёшь? — К ба́бушке. Гуля́ть по па́рку = đi dạo khắp công viên. По вечера́м = vào các buổi tối.',
+          ex:{ ru:'По воскресе́ньям я е́зжу к ба́бушке и звоню́ ей по телефо́ну ка́ждый ве́чер.', vi:'Chủ nhật tôi đến chỗ bà và gọi cho bà mỗi tối.' } }
+      ],
+      vocab:[
+        { ru:'дава́ть / дать', vi:'đưa, cho', pos:'động từ НСВ/СВ' },
+        { ru:'помога́ть / помо́чь', vi:'giúp', pos:'động từ НСВ/СВ' },
+        { ru:'звони́ть / позвони́ть', vi:'gọi điện', pos:'động từ НСВ/СВ' },
+        { ru:'дари́ть / подари́ть', vi:'tặng', pos:'động từ НСВ/СВ' },
+        { ru:'меша́ть', vi:'làm phiền, cản trở', pos:'động từ NSV' },
+        { ru:'объясня́ть / объясни́ть', vi:'giải thích', pos:'động từ НСВ/СВ' },
+        { ru:'к', vi:'đến chỗ (+ cách 3)', pos:'giới từ' },
+        { ru:'по', vi:'theo, dọc, qua (+ cách 3)', pos:'giới từ' },
+        { ru:'врач', vi:'bác sĩ', pos:'danh từ giống đực' },
+        { ru:'сосе́д', vi:'hàng xóm', pos:'danh từ giống đực' },
+        { ru:'по вечера́м', vi:'vào các buổi tối', pos:'cụm cố định' },
+        { ru:'по суббо́там', vi:'vào các thứ Bảy', pos:'cụm cố định' },
+        { ru:'сообще́ние', vi:'tin nhắn', pos:'danh từ giống trung' },
+        { ru:'сове́т', vi:'lời khuyên', pos:'danh từ giống đực' },
+        { ru:'ра́д / ра́да', vi:'vui mừng', pos:'tính từ ngắn' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Кому́ ты звони́шь?', vi:'Cậu gọi cho ai thế?' },
+        { sp:'B', ru:'Ма́ме. Я звоню́ ей по вечера́м. А за́втра пое́ду к ней.', vi:'Cho mẹ. Tối nào mình cũng gọi. Mai mình sẽ đến chỗ mẹ.' },
+        { sp:'A', ru:'Переда́й ей приве́т! Кста́ти, ты мо́жешь помо́чь мне с ру́сским?', vi:'Cho mình gửi lời chào! Nhân tiện, cậu giúp mình môn tiếng Nga được không?' },
+        { sp:'B', ru:'Коне́чно. Я объясню́ тебе́ да́тельный паде́ж по́сле уро́ка.', vi:'Tất nhiên. Sau giờ học mình sẽ giải thích cách 3 cho cậu.' }
+      ]
+    },
+
+    {
+      level:'a2', no:5, ru:'Твори́тельный паде́ж', vi:'Cách 5 (tạo cách)',
+      skill:'Với ai/bằng gì; “là/trở thành/làm nghề gì”; занима́ться чем',
+      grammar:[
+        { form:'Cách 5: đực/trung -ом/-ем, cái -ой/-ей (-ью), số nhiều -ами/-ями', vi:'đuôi cách 5',
+          note:'Dùng với: с (với ai), công cụ (писа́ть ру́чкой), быть/стать/рабо́тать + nghề (стать врачо́м), занима́ться/интересова́ться (спо́ртом, му́зыкой), над/под/пе́ред/за/ме́жду (vị trí).',
+          ex:{ ru:'Мой брат хо́чет стать инжене́ром, а я занима́юсь спо́ртом с дру́гом.', vi:'Em trai tôi muốn trở thành kỹ sư, còn tôi chơi thể thao với bạn.' } },
+        { form:'быть кем (quá khứ/tương lai): он был студе́нтом, она́ бу́дет учи́тельницей; рабо́тать кем', vi:'vị ngữ danh từ ở cách 5',
+          note:'Hiện tại dùng cách 1 (Он студе́нт); quá khứ/tương lai/nguyên thể dùng cách 5. Интересова́ться чем = quan tâm tới.',
+          ex:{ ru:'Ра́ньше оте́ц рабо́тал води́телем, а тепе́рь он стал дире́ктором.', vi:'Trước đây bố làm tài xế, còn giờ đã thành giám đốc.' } }
+      ],
+      vocab:[
+        { ru:'стать', vi:'trở thành (+ cách 5)', pos:'động từ СВ' },
+        { ru:'занима́ться', vi:'làm, tập (môn gì + cách 5)', pos:'động từ NSV' },
+        { ru:'интересова́ться', vi:'quan tâm (+ cách 5)', pos:'động từ NSV' },
+        { ru:'по́льзоваться', vi:'sử dụng (+ cách 5)', pos:'động từ NSV' },
+        { ru:'дире́ктор', vi:'giám đốc', pos:'danh từ giống đực' },
+        { ru:'ме́жду', vi:'giữa (+ cách 5)', pos:'giới từ' },
+        { ru:'пе́ред', vi:'trước (mặt) (+ cách 5)', pos:'giới từ' },
+        { ru:'над / под', vi:'trên / dưới (+ cách 5)', pos:'giới từ' },
+        { ru:'за', vi:'sau, đằng sau (+ cách 5)', pos:'giới từ' },
+        { ru:'ру́чкой / карандашо́м', vi:'bằng bút / bằng bút chì', pos:'cách 5' },
+        { ru:'ша́хматы', vi:'cờ vua', pos:'danh từ số nhiều' },
+        { ru:'исто́рия', vi:'lịch sử', pos:'danh từ giống cái' },
+        { ru:'вме́сте с', vi:'cùng với', pos:'cụm' },
+        { ru:'тепе́рь', vi:'giờ đây', pos:'trạng từ' },
+        { ru:'бу́дущий', vi:'tương lai (tính từ)', pos:'tính từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Чем ты занима́ешься в свобо́дное вре́мя?', vi:'Lúc rảnh cậu làm gì?' },
+        { sp:'B', ru:'Занима́юсь спо́ртом и игра́ю в ша́хматы с сосе́дом.', vi:'Chơi thể thao và đánh cờ với hàng xóm.' },
+        { sp:'A', ru:'А кем ты хо́чешь стать по́сле акаде́мии?', vi:'Sau học viện cậu muốn thành gì?' },
+        { sp:'B', ru:'Вое́нным инжене́ром. Мой оте́ц то́же был инжене́ром.', vi:'Kỹ sư quân sự. Bố mình cũng từng là kỹ sư.' }
+      ]
+    },
+
+    {
+      level:'a2', no:6, ru:'Бо́льше, лу́чше, интере́снее', vi:'So sánh hơn và so sánh nhất',
+      skill:'Cấp so sánh của tính từ/trạng từ; чем; са́мый',
+      grammar:[
+        { form:'So sánh hơn: -ее (интере́снее, краси́вее); bất quy tắc: бо́льше, ме́ньше, лу́чше, ху́же, ста́рше, моло́же, вы́ше, ни́же, доро́же, деше́вле', vi:'cấp so sánh hơn (không đổi dạng)',
+          note:'Cấu trúc: A + so sánh + чем + B (cách 1) hoặc A + so sánh + B (cách 2): Москва́ бо́льше, чем Хано́й = Москва́ бо́льше Хано́я. Thêm mức độ: гора́здо/намно́го бо́льше.',
+          ex:{ ru:'Э́тот фильм интере́снее, чем кни́га, но кни́га гора́здо длинне́е.', vi:'Bộ phim này thú vị hơn cuốn sách, nhưng sách dài hơn nhiều.' } },
+        { form:'So sánh nhất: са́мый + tính từ (са́мый большо́й, са́мая краси́вая); лу́чший, ху́дший', vi:'cấp cao nhất',
+          note:'са́мый hoà hợp giống, số, cách với danh từ. Trạng từ: бо́льше всего́ (nhất), лу́чше всех.',
+          ex:{ ru:'Байка́л — са́мое глубо́кое о́зеро в ми́ре. Бо́льше всего́ я люблю́ зи́му.', vi:'Baikal là hồ sâu nhất thế giới. Tôi thích nhất là mùa đông.' } }
+      ],
+      vocab:[
+        { ru:'бо́льше / ме́ньше', vi:'nhiều hơn / ít hơn', pos:'so sánh' },
+        { ru:'лу́чше / ху́же', vi:'tốt hơn / tệ hơn', pos:'so sánh' },
+        { ru:'ста́рше / моло́же', vi:'già hơn / trẻ hơn', pos:'so sánh' },
+        { ru:'вы́ше / ни́же', vi:'cao hơn / thấp hơn', pos:'so sánh' },
+        { ru:'доро́же / деше́вле', vi:'đắt hơn / rẻ hơn', pos:'so sánh' },
+        { ru:'интере́снее', vi:'thú vị hơn', pos:'so sánh' },
+        { ru:'чем', vi:'hơn (so với)', pos:'liên từ' },
+        { ru:'гора́здо', vi:'hơn nhiều', pos:'trạng từ' },
+        { ru:'са́мый', vi:'nhất', pos:'đại từ' },
+        { ru:'о́зеро', vi:'hồ', pos:'danh từ giống trung' },
+        { ru:'глубо́кий', vi:'sâu', pos:'tính từ' },
+        { ru:'дли́нный / коро́ткий', vi:'dài / ngắn', pos:'tính từ' },
+        { ru:'тру́дный / лёгкий', vi:'khó / dễ', pos:'tính từ' },
+        { ru:'мир', vi:'thế giới', pos:'danh từ giống đực' },
+        { ru:'по-мо́ему', vi:'theo tôi', pos:'trạng từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Что тру́днее: ру́сский язы́к и́ли кита́йский?', vi:'Cái gì khó hơn: tiếng Nga hay tiếng Trung?' },
+        { sp:'B', ru:'По-мо́ему, кита́йский тру́днее чита́ть, а ру́сский тру́днее говори́ть.', vi:'Theo mình, tiếng Trung khó đọc hơn, còn tiếng Nga khó nói hơn.' },
+        { sp:'A', ru:'А како́й язы́к са́мый краси́вый?', vi:'Thế ngôn ngữ nào đẹp nhất?' },
+        { sp:'B', ru:'Вьетна́мский, коне́чно! Но ру́сский мне нра́вится бо́льше всех иностра́нных.', vi:'Tiếng Việt chứ! Nhưng trong các tiếng nước ngoài mình thích tiếng Nga nhất.' }
+      ]
+    },
+
+    {
+      level:'a2', no:7, ru:'Глаго́лы на -ся', vi:'Động từ phản thân -ся',
+      skill:'учи́ться, занима́ться, встреча́ться, начина́ться / конча́ться',
+      grammar:[
+        { form:'Động từ + -ся/-сь: учу́сь, у́чишься, у́чится, у́чимся, у́читесь, у́чатся; quá khứ учи́лся/учи́лась/учи́лись', vi:'chia động từ phản thân',
+          note:'-ся sau phụ âm, -сь sau nguyên âm. Nhóm nghĩa: học/tự thân (учи́ться, занима́ться), qua lại (встреча́ться, знако́миться с), tự động (начина́ться, конча́ться, открыва́ться), cảm xúc (ра́доваться, боя́ться + cách 2).',
+          ex:{ ru:'Уро́к начина́ется в де́вять и конча́ется в де́сять. Мы встреча́емся по́сле уро́ка.', vi:'Buổi học bắt đầu lúc 9 và kết thúc lúc 10. Chúng tôi gặp nhau sau giờ học.' } },
+        { form:'учи́ть (что) — учи́ться (где / + inf) — изуча́ть (что) — занима́ться (чем)', vi:'bốn động từ “học” dễ nhầm',
+          note:'учи́ть слова́ (học thuộc gì), учи́ться в акаде́мии (học ở đâu), изуча́ть ру́сский язы́к (nghiên cứu/học môn), занима́ться ру́сским (luyện tập môn).',
+          ex:{ ru:'Я учу́сь в акаде́мии, изуча́ю ру́сский язы́к, ка́ждый день учу́ но́вые слова́ и занима́юсь грамма́тикой.', vi:'Tôi học ở học viện, học tiếng Nga, mỗi ngày học từ mới và luyện ngữ pháp.' } }
+      ],
+      vocab:[
+        { ru:'встреча́ться / встре́титься', vi:'gặp nhau', pos:'động từ НСВ/СВ' },
+        { ru:'знако́миться / познако́миться', vi:'làm quen (с + cách 5)', pos:'động từ НСВ/СВ' },
+        { ru:'начина́ться / нача́ться', vi:'bắt đầu (tự thân)', pos:'động từ НСВ/СВ' },
+        { ru:'конча́ться / ко́нчиться', vi:'kết thúc (tự thân)', pos:'động từ НСВ/СВ' },
+        { ru:'открыва́ться / закрыва́ться', vi:'mở cửa / đóng cửa', pos:'động từ NSV' },
+        { ru:'находи́ться', vi:'nằm ở, toạ lạc', pos:'động từ NSV' },
+        { ru:'боя́ться', vi:'sợ (+ cách 2)', pos:'động từ NSV' },
+        { ru:'ра́доваться', vi:'vui mừng (+ cách 3)', pos:'động từ NSV' },
+        { ru:'смея́ться', vi:'cười', pos:'động từ NSV' },
+        { ru:'улыба́ться', vi:'mỉm cười', pos:'động từ NSV' },
+        { ru:'гото́виться', vi:'chuẩn bị (к + cách 3)', pos:'động từ NSV' },
+        { ru:'изуча́ть', vi:'học, nghiên cứu (môn)', pos:'động từ NSV' },
+        { ru:'экза́мен', vi:'kỳ thi', pos:'danh từ giống đực' },
+        { ru:'по́здно / ра́но', vi:'muộn / sớm', pos:'trạng từ' },
+        { ru:'ошиба́ться', vi:'nhầm lẫn', pos:'động từ NSV' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Во ско́лько начина́ется экза́мен?', vi:'Mấy giờ kỳ thi bắt đầu?' },
+        { sp:'B', ru:'В де́вять. Я гото́вился всю ночь и боюсь оши́бок.', vi:'9 giờ. Mình ôn cả đêm và sợ mắc lỗi.' },
+        { sp:'A', ru:'Не бо́йся! Ты хорошо́ у́чишься. Дава́й встре́тимся по́сле экза́мена.', vi:'Đừng sợ! Cậu học tốt mà. Sau thi gặp nhau nhé.' },
+        { sp:'B', ru:'Дава́й. Кафе́ открыва́ется в двена́дцать, там и встре́тимся.', vi:'Ừ. Quán mở lúc 12, gặp ở đó.' }
+      ]
+    },
+
+    {
+      level:'a2', no:8, ru:'Челове́к, кото́рый…', vi:'Câu phức với кото́рый; nguyên nhân – kết quả',
+      skill:'Mệnh đề quan hệ; потому́ что / поэ́тому',
+      grammar:[
+        { form:'кото́рый / кото́рая / кото́рое / кото́рые — hoà hợp giống, số với danh từ đứng trước; cách theo vai trò trong mệnh đề', vi:'đại từ quan hệ',
+          note:'Э́то друг, кото́рый живёт в Москве́ (cách 1). Э́то друг, кото́рого я зна́ю (cách 4). Э́то го́род, в кото́ром я роди́лся (cách 6). Luôn có dấu phẩy trước кото́рый.',
+          ex:{ ru:'Я чита́ю кни́гу, кото́рую мне подари́ла сестра́.', vi:'Tôi đang đọc cuốn sách mà em gái tặng.' } },
+        { form:'A, потому́ что B (vì) · A, поэ́тому B (nên)', vi:'nguyên nhân – kết quả',
+          note:'потому́ что đứng trước nguyên nhân; поэ́тому đứng trước kết quả. Hỏi: Почему́? Trang trọng: так как.',
+          ex:{ ru:'Я не пошёл гуля́ть, потому́ что шёл дождь. Шёл дождь, поэ́тому я оста́лся до́ма.', vi:'Tôi không đi dạo vì trời mưa. Trời mưa nên tôi ở nhà.' } }
+      ],
+      vocab:[
+        { ru:'кото́рый', vi:'mà, người mà', pos:'đại từ quan hệ' },
+        { ru:'потому́ что', vi:'bởi vì', pos:'liên từ' },
+        { ru:'поэ́тому', vi:'vì thế', pos:'liên từ' },
+        { ru:'так как', vi:'vì (trang trọng)', pos:'liên từ' },
+        { ru:'почему́', vi:'tại sao', pos:'trạng từ nghi vấn' },
+        { ru:'остава́ться / оста́ться', vi:'ở lại', pos:'động từ НСВ/СВ' },
+        { ru:'опа́здывать / опозда́ть', vi:'đến muộn', pos:'động từ НСВ/СВ' },
+        { ru:'боле́ть', vi:'ốm; đau', pos:'động từ NSV' },
+        { ru:'устава́ть / уста́ть', vi:'mệt', pos:'động từ НСВ/СВ' },
+        { ru:'челове́к / лю́ди', vi:'người / mọi người', pos:'danh từ' },
+        { ru:'вещь', vi:'đồ vật', pos:'danh từ giống cái' },
+        { ru:'ме́сто', vi:'chỗ, nơi', pos:'danh từ giống trung' },
+        { ru:'изве́стный', vi:'nổi tiếng', pos:'tính từ' },
+        { ru:'ва́жный', vi:'quan trọng', pos:'tính từ' },
+        { ru:'осо́бенно', vi:'đặc biệt', pos:'trạng từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Кто э́тот челове́к, кото́рый стои́т у окна́?', vi:'Người đứng cạnh cửa sổ là ai thế?' },
+        { sp:'B', ru:'Э́то преподава́тель, кото́рый ведёт у нас исто́рию. Он о́чень изве́стный.', vi:'Đó là thầy dạy lịch sử của bọn mình. Thầy rất nổi tiếng.' },
+        { sp:'A', ru:'Почему́ ты опозда́л на его́ ле́кцию?', vi:'Sao cậu đến muộn buổi giảng của thầy?' },
+        { sp:'B', ru:'Потому́ что боле́л. Я уста́л, поэ́тому оста́лся до́ма.', vi:'Vì mình ốm. Mình mệt nên ở nhà.' }
+      ]
+    },
+
+    {
+      level:'a2', no:9, ru:'Е́сли и что́бы', vi:'Điều kiện và mục đích',
+      skill:'Câu điều kiện thực; câu mục đích với что́бы',
+      grammar:[
+        { form:'Е́сли A, (то) B — điều kiện có thật (hiện tại/tương lai)', vi:'“nếu… thì…”',
+          note:'Vế е́сли ở tương lai СВ nếu nói về tương lai: Е́сли за́втра бу́дет хоро́шая пого́да, мы пое́дем на да́чу. Không dùng бу́ду + е́сли như tiếng Anh.',
+          ex:{ ru:'Е́сли ты сдашь экза́мен, мы пойдём в рестора́н.', vi:'Nếu cậu thi đỗ, chúng ta sẽ đi nhà hàng.' } },
+        { form:'что́бы + nguyên thể (cùng chủ ngữ) / что́бы + quá khứ (khác chủ ngữ)', vi:'mục đích và mong muốn',
+          note:'Я учу́ ру́сский, что́бы рабо́тать в Росси́и (cùng chủ ngữ). Я хочу́, что́бы ты помо́г мне (khác chủ ngữ → động từ quá khứ). Hỏi: Заче́м? (để làm gì).',
+          ex:{ ru:'Я звоню́, что́бы узна́ть расписа́ние. Мама хо́чет, что́бы я верну́лся ра́но.', vi:'Tôi gọi để biết lịch. Mẹ muốn tôi về sớm.' } }
+      ],
+      vocab:[
+        { ru:'е́сли', vi:'nếu', pos:'liên từ' },
+        { ru:'что́бы', vi:'để; muốn rằng', pos:'liên từ' },
+        { ru:'заче́м', vi:'để làm gì', pos:'trạng từ nghi vấn' },
+        { ru:'сдава́ть / сдать экза́мен', vi:'thi / thi đỗ', pos:'động từ НСВ/СВ' },
+        { ru:'узнава́ть / узна́ть', vi:'tìm hiểu, biết được', pos:'động từ НСВ/СВ' },
+        { ru:'возвраща́ться / верну́ться', vi:'quay về', pos:'động từ НСВ/СВ' },
+        { ru:'расписа́ние', vi:'thời khoá biểu, lịch', pos:'danh từ giống trung' },
+        { ru:'да́ча', vi:'nhà nghỉ ngoại ô', pos:'danh từ giống cái' },
+        { ru:'рестора́н', vi:'nhà hàng', pos:'danh từ giống đực' },
+        { ru:'то', vi:'thì', pos:'liên từ' },
+        { ru:'обяза́тельно', vi:'nhất định', pos:'trạng từ' },
+        { ru:'успева́ть / успе́ть', vi:'kịp', pos:'động từ НСВ/СВ' },
+        { ru:'проси́ть / попроси́ть', vi:'xin, nhờ', pos:'động từ НСВ/СВ' },
+        { ru:'по́мощь', vi:'sự giúp đỡ', pos:'danh từ giống cái' },
+        { ru:'цель', vi:'mục đích', pos:'danh từ giống cái' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Заче́м ты так ра́но встаёшь?', vi:'Cậu dậy sớm thế để làm gì?' },
+        { sp:'B', ru:'Что́бы успе́ть повтори́ть слова́ пе́ред экза́меном.', vi:'Để kịp ôn từ trước khi thi.' },
+        { sp:'A', ru:'Е́сли хо́чешь, я помогу́ тебе́ ве́чером.', vi:'Nếu cậu muốn, tối mình giúp.' },
+        { sp:'B', ru:'Спаси́бо! Е́сли сдам экза́мен, обяза́тельно приглашу́ тебя́ в рестора́н.', vi:'Cảm ơn! Nếu thi đỗ, nhất định mời cậu đi nhà hàng.' }
+      ]
+    },
+
+    {
+      level:'a2', no:10, ru:'Прие́хать, уе́хать, вы́йти', vi:'Tiền tố với động từ chuyển động',
+      skill:'при-/у-, в-/вы-, по-, пере-; kể hành trình',
+      grammar:[
+        { form:'при- (đến) ↔ у- (rời đi); в- (vào) ↔ вы- (ra); под- (lại gần) ↔ от- (rời khỏi); пере- (băng qua); по- (bắt đầu đi)', vi:'tiền tố chuyển động',
+          note:'Ghép với идти́/е́хать: прийти́, прие́хать, уйти́, уе́хать, войти́, вы́йти, вы́ехать, перейти́, пойти́, пое́хать. Ở quá khứ chú ý: пришёл/пришла́, вы́шел/вы́шла.',
+          ex:{ ru:'Он вы́шел из до́ма, перешёл у́лицу и пошёл в парк.', vi:'Anh ấy ra khỏi nhà, băng qua đường và đi vào công viên.' } },
+        { form:'Giới từ đi kèm: прийти́ в/на + cách 4, к + cách 3; уйти́ из/с + cách 2, от + cách 2; вы́йти из + cách 2', vi:'tiền tố + giới từ đối xứng',
+          note:'прие́хать в Москву́ ↔ уе́хать из Москвы́; прийти́ к дру́гу ↔ уйти́ от дру́га. пойти́/пое́хать = khởi hành: Пойдём в кино́! (Đi xem phim thôi!).',
+          ex:{ ru:'Анна прие́хала в Хано́й в сентябре́, а уе́дет в ию́не.', vi:'Anna đến Hà Nội vào tháng Chín và sẽ rời đi vào tháng Sáu.' } }
+      ],
+      vocab:[
+        { ru:'приходи́ть / прийти́', vi:'đến (bộ)', pos:'động từ НСВ/СВ' },
+        { ru:'приезжа́ть / прие́хать', vi:'đến (xe)', pos:'động từ НСВ/СВ' },
+        { ru:'уходи́ть / уйти́', vi:'rời đi (bộ)', pos:'động từ НСВ/СВ' },
+        { ru:'уезжа́ть / уе́хать', vi:'rời đi (xe)', pos:'động từ НСВ/СВ' },
+        { ru:'входи́ть / войти́', vi:'đi vào', pos:'động từ НСВ/СВ' },
+        { ru:'выходи́ть / вы́йти', vi:'đi ra', pos:'động từ НСВ/СВ' },
+        { ru:'переходи́ть / перейти́', vi:'băng qua', pos:'động từ НСВ/СВ' },
+        { ru:'пойти́ / пое́хать', vi:'bắt đầu đi, khởi hành', pos:'động từ СВ' },
+        { ru:'подходи́ть / подойти́', vi:'lại gần', pos:'động từ НСВ/СВ' },
+        { ru:'прие́зд / отъе́зд', vi:'sự đến / sự đi', pos:'danh từ' },
+        { ru:'вход / вы́ход', vi:'lối vào / lối ra', pos:'danh từ' },
+        { ru:'перехо́д', vi:'lối sang đường', pos:'danh từ giống đực' },
+        { ru:'светофо́р', vi:'đèn giao thông', pos:'danh từ giống đực' },
+        { ru:'встреча́ть / встре́тить', vi:'đón, gặp', pos:'động từ НСВ/СВ' },
+        { ru:'провожа́ть / проводи́ть', vi:'tiễn', pos:'động từ НСВ/СВ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Когда́ прие́дет твой друг из Москвы́?', vi:'Khi nào bạn cậu từ Moskva đến?' },
+        { sp:'B', ru:'В суббо́ту у́тром. Я пое́ду в аэропо́рт встреча́ть его́.', vi:'Sáng thứ Bảy. Mình sẽ ra sân bay đón.' },
+        { sp:'A', ru:'А как дойти́ до твоего́ общежи́тия?', vi:'Đến ký túc của cậu đi thế nào?' },
+        { sp:'B', ru:'Вы́йди из метро́, перейди́ у́лицу у светофо́ра и иди́ пря́мо. Че́рез пять мину́т придёшь.', vi:'Ra khỏi ga tàu điện, băng qua đường chỗ đèn giao thông rồi đi thẳng. Năm phút là tới.' }
+      ]
+    },
+
+    {
+      level:'a2', no:11, ru:'Кото́рый час?', vi:'Giờ giấc và ngày tháng năm',
+      skill:'Nói giờ; в кото́ром часу́; năm; số thứ tự',
+      grammar:[
+        { form:'Кото́рый час? — Два часа́. Полови́на тре́тьего (2:30). Без пятна́дцати три (2:45). Де́сять мину́т четвёртого (3:10).', vi:'nói giờ kiểu Nga',
+          note:'Sau giờ chẵn: 1 час, 2–4 часа́, 5–12 часо́в. Cách đơn giản (chính thức): два три́дцать, во́семь со́рок пять. Hỏi lúc mấy giờ: В кото́ром часу́? / Во ско́лько? — В два часа́, в полови́не тре́тьего.',
+          ex:{ ru:'— Во ско́лько начина́ется фильм? — В полови́не седьмо́го, без че́тверти семь мы уже́ в за́ле.', vi:'— Phim bắt đầu lúc mấy giờ? — 6 rưỡi, 7 giờ kém 15 chúng ta đã ở trong rạp.' } },
+        { form:'Năm: в две ты́сячи два́дцать пя́том году́ (cách 6 của số thứ tự cuối cùng); tháng: в ма́рте; ngày: пя́того ма́рта', vi:'diễn đạt mốc thời gian',
+          note:'Số thứ tự: пе́рвый, второ́й, тре́тий, четвёртый, пя́тый… деся́тый, два́дцать пе́рвый. Tuần/năm trước–sau: на про́шлой неде́ле, в бу́дущем году́.',
+          ex:{ ru:'Я роди́лся в две ты́сячи тре́тьем году́, два́дцать второ́го ма́я.', vi:'Tôi sinh năm 2003, ngày 22 tháng Năm.' } }
+      ],
+      vocab:[
+        { ru:'час', vi:'giờ', pos:'danh từ giống đực' },
+        { ru:'мину́та', vi:'phút', pos:'danh từ giống cái' },
+        { ru:'полови́на', vi:'nửa', pos:'danh từ giống cái' },
+        { ru:'че́тверть', vi:'một phần tư (15 phút)', pos:'danh từ giống cái' },
+        { ru:'без', vi:'kém (giờ)', pos:'giới từ' },
+        { ru:'пе́рвый / второ́й / тре́тий', vi:'thứ nhất / thứ hai / thứ ba', pos:'số thứ tự' },
+        { ru:'ты́сяча', vi:'nghìn', pos:'số từ' },
+        { ru:'на про́шлой неде́ле', vi:'tuần trước', pos:'cụm cố định' },
+        { ru:'на сле́дующей неде́ле', vi:'tuần sau', pos:'cụm cố định' },
+        { ru:'в бу́дущем году́', vi:'năm tới', pos:'cụm cố định' },
+        { ru:'по́лдень / по́лночь', vi:'giữa trưa / nửa đêm', pos:'danh từ' },
+        { ru:'ра́ньше / по́зже', vi:'sớm hơn / muộn hơn', pos:'so sánh' },
+        { ru:'да́та', vi:'ngày tháng', pos:'danh từ giống cái' },
+        { ru:'роди́ться', vi:'sinh ra', pos:'động từ СВ' },
+        { ru:'то́чно', vi:'chính xác', pos:'trạng từ' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Кото́рый час? Мои́ часы́ стоя́т.', vi:'Mấy giờ rồi? Đồng hồ mình đứng.' },
+        { sp:'B', ru:'Без пятна́дцати де́вять. Во ско́лько у нас ле́кция?', vi:'9 giờ kém 15. Mấy giờ mình có giảng?' },
+        { sp:'A', ru:'В полови́не деся́того. Кста́ти, когда́ ты роди́лся?', vi:'9 rưỡi. Nhân tiện, cậu sinh khi nào?' },
+        { sp:'B', ru:'Пятна́дцатого а́вгуста две ты́сячи второ́го го́да. А ты?', vi:'Ngày 15 tháng Tám năm 2002. Còn cậu?' }
+      ]
+    },
+
+    {
+      level:'a2', no:12, ru:'У меня́ боли́т голова́', vi:'Sức khoẻ, đi khám',
+      skill:'Nói triệu chứng; чу́вствовать себя́; на́до / до́лжен; lời khuyên',
+      grammar:[
+        { form:'У кого́ боли́т / боля́т + N (cách 1): у меня́ боли́т голова́, боля́т зу́бы', vi:'“ai đau ở đâu”',
+          note:'Cấu trúc sở hữu у + cách 2. Quá khứ: боле́л(а). Чу́вствовать себя́ + trạng từ: хорошо́/пло́хо. Заболе́ть = bị ốm; быть больны́м.',
+          ex:{ ru:'Вчера́ у меня́ боле́ло го́рло, и я пло́хо себя́ чу́вствовал.', vi:'Hôm qua tôi đau họng và thấy khó chịu.' } },
+        { form:'Кому́ + на́до/ну́жно + inf · Кто + до́лжен/должна́/должны́ + inf', vi:'“cần / phải”',
+          note:'на́до (cách 3, khách quan): Мне на́до к врачу́. до́лжен (cách 1, hoà hợp giống-số, nghĩa vụ): Ты до́лжен лежа́ть. Lời khuyên: Вам сле́дует…, Принима́йте лека́рство три ра́за в день.',
+          ex:{ ru:'Вам на́до лежа́ть и пить мно́го воды́. Вы должны́ принима́ть табле́тки два ра́за в день.', vi:'Anh cần nằm nghỉ và uống nhiều nước. Anh phải uống thuốc hai lần mỗi ngày.' } }
+      ],
+      vocab:[
+        { ru:'боле́ть (боли́т)', vi:'đau', pos:'động từ NSV' },
+        { ru:'голова́', vi:'đầu', pos:'danh từ giống cái' },
+        { ru:'го́рло', vi:'họng', pos:'danh từ giống trung' },
+        { ru:'зуб / зу́бы', vi:'răng', pos:'danh từ' },
+        { ru:'живо́т', vi:'bụng', pos:'danh từ giống đực' },
+        { ru:'температу́ра', vi:'nhiệt độ, sốt', pos:'danh từ giống cái' },
+        { ru:'на́сморк', vi:'sổ mũi', pos:'danh từ giống đực' },
+        { ru:'ка́шель', vi:'ho', pos:'danh từ giống đực' },
+        { ru:'чу́вствовать себя́', vi:'cảm thấy (trong người)', pos:'động từ NSV' },
+        { ru:'заболе́ть', vi:'bị ốm', pos:'động từ СВ' },
+        { ru:'лека́рство', vi:'thuốc', pos:'danh từ giống trung' },
+        { ru:'табле́тка', vi:'viên thuốc', pos:'danh từ giống cái' },
+        { ru:'принима́ть / приня́ть', vi:'uống (thuốc), nhận', pos:'động từ НСВ/СВ' },
+        { ru:'до́лжен / должна́', vi:'phải', pos:'tính từ ngắn' },
+        { ru:'поликли́ника', vi:'phòng khám', pos:'danh từ giống cái' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'До́ктор, у меня́ боли́т го́рло и есть температу́ра.', vi:'Bác sĩ, tôi đau họng và bị sốt.' },
+        { sp:'B', ru:'Как вы себя́ чу́вствуете? Ка́шель есть?', vi:'Anh thấy trong người thế nào? Có ho không?' },
+        { sp:'A', ru:'Чу́вствую себя́ пло́хо. Ка́шля нет, но есть на́сморк.', vi:'Tôi thấy mệt. Không ho nhưng sổ mũi.' },
+        { sp:'B', ru:'Э́то просту́да. Вам на́до лежа́ть три дня и принима́ть э́ти табле́тки два ра́за в день.', vi:'Cảm lạnh thôi. Anh cần nằm nghỉ ba ngày và uống thuốc này hai lần mỗi ngày.' }
+      ]
+    },
+
+    {
+      level:'a2', no:13, ru:'В кафе́', vi:'Ở quán cà phê, nhà hàng',
+      skill:'Gọi món lịch sự; хоте́л бы; số lượng với cách 2 số nhiều',
+      grammar:[
+        { form:'Я хоте́л(а) бы + cách 4 / inf · Да́йте / Принеси́те, пожа́луйста · Мо́жно + cách 4?', vi:'yêu cầu lịch sự',
+          note:'хоте́л бы lịch sự hơn хочу́. Мо́жно счёт? = Cho xin hoá đơn. Trả lời: Коне́чно / Сейча́с принесу́.',
+          ex:{ ru:'Я хоте́л бы борщ и чай с лимо́ном. И принеси́те, пожа́луйста, счёт.', vi:'Tôi muốn súp củ dền và trà chanh. Và làm ơn mang hoá đơn.' } },
+        { form:'Cách 2 số nhiều sau мно́го / ма́ло / не́сколько / 5+: мно́го друзе́й, пять я́блок, не́сколько книг, ма́ло де́нег', vi:'số lượng',
+          note:'Đực -ов/-ев (столо́в, музе́ев), -ей (рубле́й, друзе́й); cái/trung -∅ (книг, я́блок, мест); bất quy tắc: люде́й, дете́й, дне́й.',
+          ex:{ ru:'В кафе́ бы́ло мно́го люде́й и ма́ло свобо́дных мест.', vi:'Trong quán có nhiều người và ít chỗ trống.' } }
+      ],
+      vocab:[
+        { ru:'кафе́', vi:'quán cà phê', pos:'danh từ giống trung (bất biến)' },
+        { ru:'официа́нт', vi:'phục vụ bàn', pos:'danh từ giống đực' },
+        { ru:'меню́', vi:'thực đơn', pos:'danh từ giống trung (bất biến)' },
+        { ru:'зака́зывать / заказа́ть', vi:'gọi món, đặt', pos:'động từ НСВ/СВ' },
+        { ru:'счёт', vi:'hoá đơn', pos:'danh từ giống đực' },
+        { ru:'борщ', vi:'súp củ dền', pos:'danh từ giống đực' },
+        { ru:'суп', vi:'súp', pos:'danh từ giống đực' },
+        { ru:'сала́т', vi:'salad', pos:'danh từ giống đực' },
+        { ru:'ку́рица', vi:'thịt gà', pos:'danh từ giống cái' },
+        { ru:'карто́шка', vi:'khoai tây', pos:'danh từ giống cái' },
+        { ru:'блю́до', vi:'món ăn', pos:'danh từ giống trung' },
+        { ru:'вку́сный', vi:'ngon', pos:'tính từ' },
+        { ru:'сла́дкий / о́стрый', vi:'ngọt / cay', pos:'tính từ' },
+        { ru:'приноси́ть / принести́', vi:'mang đến', pos:'động từ НСВ/СВ' },
+        { ru:'счита́ть', vi:'tính; cho rằng', pos:'động từ NSV' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Здра́вствуйте! Что вы бу́дете зака́зывать?', vi:'Xin chào! Quý khách gọi gì ạ?' },
+        { sp:'B', ru:'Я хоте́л бы борщ, сала́т и ку́рицу с карто́шкой.', vi:'Tôi muốn súp củ dền, salad và gà với khoai tây.' },
+        { sp:'A', ru:'Что-нибу́дь пить?', vi:'Uống gì không ạ?' },
+        { sp:'B', ru:'Чай с лимо́ном, пожа́луйста. И мо́жно сра́зу счёт? У меня́ ма́ло вре́мени.', vi:'Trà chanh. Và cho xin hoá đơn luôn được không? Tôi có ít thời gian.' }
+      ]
+    },
+
+    {
+      level:'a2', no:14, ru:'Пла́ны и мечты́', vi:'Kế hoạch và ước mơ',
+      skill:'собира́ться + inf; tương lai СВ; мечта́ть о + cách 6',
+      grammar:[
+        { form:'собира́ться + inf (định); хоте́ть + inf; tương lai СВ (пойду́, ку́плю, пое́ду)', vi:'nói kế hoạch',
+          note:'Ле́том я собира́юсь пое́хать в Росси́ю. Đặc biệt: пойду́, пойдёшь… пое́ду, пое́дешь… ку́плю, ку́пишь… Thời gian tương lai: че́рез год (sau một năm), в сле́дующем году́.',
+          ex:{ ru:'Че́рез два го́да я око́нчу акаде́мию и пое́ду рабо́тать в Россию.', vi:'Hai năm nữa tôi sẽ tốt nghiệp học viện và sang Nga làm việc.' } },
+        { form:'мечта́ть о + cách 6 / мечта́ть + inf; ду́мать о + cách 6; говори́ть о + cách 6', vi:'giới từ о với cách 6 (“về”)',
+          note:'о + phụ âm, об + nguyên âm (об Анне), обо мне. Я мечта́ю о путеше́ствии = Я мечта́ю путеше́ствовать.',
+          ex:{ ru:'Я мечта́ю о со́бственной кварти́ре и ча́сто ду́маю о бу́дущем.', vi:'Tôi mơ về một căn hộ của riêng mình và hay nghĩ về tương lai.' } }
+      ],
+      vocab:[
+        { ru:'собира́ться', vi:'định, chuẩn bị', pos:'động từ NSV' },
+        { ru:'мечта́ть', vi:'mơ ước', pos:'động từ NSV' },
+        { ru:'мечта́', vi:'ước mơ', pos:'danh từ giống cái' },
+        { ru:'план', vi:'kế hoạch', pos:'danh từ giống đực' },
+        { ru:'ока́нчивать / око́нчить', vi:'tốt nghiệp, kết thúc', pos:'động từ НСВ/СВ' },
+        { ru:'че́рез', vi:'sau (khoảng thời gian) (+ cách 4)', pos:'giới từ' },
+        { ru:'наде́яться', vi:'hy vọng', pos:'động từ NSV' },
+        { ru:'ду́мать о', vi:'nghĩ về', pos:'động từ NSV' },
+        { ru:'бу́дущее', vi:'tương lai', pos:'danh từ giống trung' },
+        { ru:'со́бственный', vi:'của riêng', pos:'tính từ' },
+        { ru:'карье́ра', vi:'sự nghiệp', pos:'danh từ giống cái' },
+        { ru:'зараба́тывать', vi:'kiếm tiền', pos:'động từ NSV' },
+        { ru:'же́ниться / вы́йти за́муж', vi:'lấy vợ / lấy chồng', pos:'động từ' },
+        { ru:'возмо́жность', vi:'khả năng, cơ hội', pos:'danh từ giống cái' },
+        { ru:'обо мне́ / о тебе́', vi:'về tôi / về bạn', pos:'cách 6' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Что ты собира́ешься де́лать по́сле акаде́мии?', vi:'Sau học viện cậu định làm gì?' },
+        { sp:'B', ru:'Снача́ла бу́ду служи́ть, а че́рез не́сколько лет пое́ду учи́ться в Росси́ю.', vi:'Đầu tiên đi phục vụ, vài năm nữa sang Nga học tiếp.' },
+        { sp:'A', ru:'А о чём ты мечта́ешь?', vi:'Thế cậu mơ ước điều gì?' },
+        { sp:'B', ru:'Мечта́ю о со́бственном до́ме и о большо́й семье́. Наде́юсь, всё полу́чится.', vi:'Mơ về ngôi nhà riêng và một gia đình đông. Hy vọng mọi thứ sẽ thành.' }
+      ]
+    },
+
+    {
+      level:'a2', no:15, ru:'Расска́з о себе́', vi:'Kể về bản thân — tổng ôn A2',
+      skill:'Bố cục bài kể; liên từ nối đoạn; ôn 6 cách và thể động từ',
+      grammar:[
+        { form:'Liên từ nối ý: снача́ла … пото́м … наконе́ц; кро́ме того́; одна́ко; поэ́тому; наприме́р; во-пе́рвых … во-вторы́х', vi:'liên kết văn bản',
+          note:'Bố cục расска́з о себе́: 1) tên, tuổi, quê; 2) học tập/công việc; 3) gia đình; 4) sở thích; 5) kế hoạch. Mỗi phần 2–3 câu.',
+          ex:{ ru:'Во-пе́рвых, я люблю́ спорт, во-вторы́х, му́зыку. Кро́ме того́, я мно́го чита́ю.', vi:'Thứ nhất, tôi thích thể thao, thứ hai là âm nhạc. Ngoài ra, tôi đọc nhiều.' } },
+        { form:'Tổng ôn A2: 6 cách · thể НСВ/СВ · động từ chuyển động có tiền tố · кото́рый · е́сли/что́бы · so sánh · -ся', vi:'bản đồ ngữ pháp A2',
+          note:'Bảng câu hỏi 6 cách: кто/что (1) · кого́/чего́, отку́да, у кого́ (2) · кому́, к кому́ (3) · кого́/что, куда́ (4) · кем/чем, с кем (5) · о ком/о чём, где (6). Tự kể về mình 10 câu, dùng mỗi cách ít nhất một lần.',
+          ex:{ ru:'Меня́ зову́т Хиен, мне 23 го́да. Я живу́ в Хано́е, учу́сь в акаде́мии и мечта́ю стать инжене́ром.', vi:'Tôi tên là Hiển, 23 tuổi. Tôi sống ở Hà Nội, học ở học viện và mơ trở thành kỹ sư.' } }
+      ],
+      vocab:[
+        { ru:'во-пе́рвых', vi:'thứ nhất', pos:'trạng từ' },
+        { ru:'во-вторы́х', vi:'thứ hai', pos:'trạng từ' },
+        { ru:'кро́ме того́', vi:'ngoài ra', pos:'cụm' },
+        { ru:'одна́ко', vi:'tuy nhiên', pos:'liên từ' },
+        { ru:'наприме́р', vi:'ví dụ', pos:'trạng từ' },
+        { ru:'вообще́', vi:'nói chung', pos:'trạng từ' },
+        { ru:'к сча́стью', vi:'may thay', pos:'cụm' },
+        { ru:'к сожале́нию', vi:'tiếc thay', pos:'cụm' },
+        { ru:'расска́зывать / рассказа́ть', vi:'kể', pos:'động từ НСВ/СВ' },
+        { ru:'опи́сывать / описа́ть', vi:'miêu tả', pos:'động từ НСВ/СВ' },
+        { ru:'хара́ктер', vi:'tính cách', pos:'danh từ giống đực' },
+        { ru:'вне́шность', vi:'ngoại hình', pos:'danh từ giống cái' },
+        { ru:'увлече́ние', vi:'sở thích', pos:'danh từ giống trung' },
+        { ru:'де́тство', vi:'tuổi thơ', pos:'danh từ giống trung' },
+        { ru:'по́мнить', vi:'nhớ', pos:'động từ NSV' }
+      ],
+      dialogue:[
+        { sp:'A', ru:'Расскажи́ немно́го о себе́.', vi:'Kể một chút về cậu đi.' },
+        { sp:'B', ru:'Меня́ зову́т Хиен, мне 23 го́да, я из Хайфо́на. Сейча́с я учу́сь в Хано́е, в вое́нной акаде́мии.', vi:'Mình tên Hiển, 23 tuổi, quê Hải Phòng. Hiện học ở Hà Nội, tại học viện quân sự.' },
+        { sp:'A', ru:'Чем ты увлека́ешься?', vi:'Cậu có sở thích gì?' },
+        { sp:'B', ru:'Во-пе́рвых, футбо́лом, во-вторы́х, ру́сским языко́м. Кро́ме того́, я люблю́ путеше́ствовать. К сожале́нию, вре́мени ма́ло.', vi:'Thứ nhất là bóng đá, thứ hai là tiếng Nga. Ngoài ra mình thích du lịch. Tiếc là ít thời gian.' }
       ]
     }
   ]
