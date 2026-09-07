@@ -1469,6 +1469,35 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 .st-ex span{padding:3px 9px;border-radius:10px;background:var(--surface-2);font-size:13.5px}
 .st-ex b{color:var(--accent);font-weight:700}
 
+/* Bài tập tiếng Anh */
+.qz-start{margin-top:16px;padding:16px;background:var(--surface);border:1px solid var(--line-strong);border-radius:16px}
+.qz-start p{margin:0 0 10px;color:var(--muted)}
+.qz-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px;color:var(--muted);font-size:13.5px}
+.qz-card{margin-top:8px;padding:16px;background:var(--surface);border:1px solid var(--line-strong);border-radius:18px}
+.qz-q{font-size:19px;line-height:1.5;margin-bottom:12px}
+.qz-opts{display:grid;gap:8px}
+.qz-opt{text-align:left;padding:10px 13px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);color:var(--ink);font:inherit;cursor:pointer;transition:border-color .12s,background .12s}
+.qz-opt:hover{border-color:var(--accent)}
+.qz-opt.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+.qz-input .dict-q{width:100%}
+.qz-result{margin-top:16px;padding:16px;background:var(--surface);border:1px solid var(--line-strong);border-radius:18px}
+.qz-result h2{margin:0 0 4px;color:var(--accent)}
+.qz-result p{margin:0;color:var(--muted)}
+.qz-review{margin-top:14px;display:grid;gap:10px}
+.qz-rev{padding:11px 13px;border-radius:14px;border:1px solid var(--line);background:var(--surface)}
+.qz-rev.ok{border-left:4px solid var(--accent)}
+.qz-rev.no{border-left:4px solid var(--seal)}
+.qz-rev > span{font-weight:700;margin-right:6px}
+.qz-mine{margin-top:5px;font-size:13.5px;color:var(--muted)}
+.qz-exp{margin-top:6px;font-size:13.5px;color:var(--muted);line-height:1.55}
+
+/* Thẻ cụm động từ & thành ngữ */
+.idiom-card h4{font-size:17px;margin-bottom:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.idiom-card .idiom-vi{color:var(--ink);font-size:14.5px;margin:0 0 6px}
+.idiom-card .idiom-tr{color:var(--muted);font-size:13.5px;margin:5px 0 0;font-style:italic}
+.idiom-card .idiom-note{margin:8px 0 0;padding:7px 10px;border-left:3px solid var(--accent);background:var(--surface-2);border-radius:0 10px 10px 0;font-size:13.5px;color:var(--muted)}
+.idiom-card .st-ex span{background:var(--accent-soft)}
+
 /* ===== TÔNG MÀU TIẾNG NHẬT — đỏ tươi (hinomaru) / trắng (data-lang="ja") =====
    sáng: accent #D01A32 trên trắng 5.4:1, trên nền 5.0:1 · tối: accent #FF6B7C trên #241318 6.5:1 */
 :root[data-lang="ja"]{
@@ -28124,6 +28153,424 @@ if (typeof module !== 'undefined'){ module.exports = { EN_DICT, EN_LOOKUP }; }
 </script>
 <script>
 /* ============================================================
+   LangLab — Kho cụm động từ và thành ngữ tiếng Anh
+   PHRASAL_EN : cụm động từ xếp theo động từ gốc
+     p    — cụm động từ
+     vi   — nghĩa tiếng Việt
+     sep  — true nếu tách được (turn the light off), false nếu không
+     obj  — 'yes' cần tân ngữ · 'no' không có tân ngữ · 'opt' tuỳ
+     reg  — sắc thái: thân mật / trung tính / trang trọng
+     ex   — [câu ví dụ, bản dịch]
+     note — mẹo dùng, bẫy thường gặp
+   IDIOMS_EN : thành ngữ xếp theo chủ đề
+     p, mean (nghĩa đen nếu có), vi, reg, ex, note
+   Nội dung do LangLab biên soạn cho người học Việt Nam.
+   ============================================================ */
+
+const PHRASAL_EN = [
+{ v:'get', vi:'lấy, trở nên, đến', items:[
+  { p:'get up', vi:'ra khỏi giường, đứng dậy', sep:false, obj:'no', reg:'trung tính', ex:['I get up at six every morning.','Sáng nào tôi cũng dậy lúc sáu giờ.'], note:'wake up = tỉnh giấc; get up = rời khỏi giường. Hai việc khác nhau.' },
+  { p:'get on', vi:'lên (xe buýt, tàu, máy bay)', sep:false, obj:'opt', reg:'trung tính', ex:['We got on the bus at the last stop.','Chúng tôi lên xe ở bến cuối.'], note:'Lên phương tiện lớn dùng get on; lên xe con dùng get in.' },
+  { p:'get off', vi:'xuống (xe buýt, tàu)', sep:false, obj:'opt', reg:'trung tính', ex:['Get off at the next stop.','Xuống ở bến sau nhé.'], note:'Xuống xe con thì dùng get out of.' },
+  { p:'get on with', vi:'hoà hợp với ai; tiếp tục làm việc gì', sep:false, obj:'yes', reg:'thân mật', ex:['I get on well with my colleagues.','Tôi hợp với đồng nghiệp.'], note:'Kiểu Mỹ nói get along with.' },
+  { p:'get over', vi:'vượt qua (nỗi buồn, bệnh, cú sốc)', sep:false, obj:'yes', reg:'trung tính', ex:['It took her months to get over the news.','Cô ấy mất mấy tháng mới nguôi ngoai chuyện đó.'], note:'Cũng dùng cho bệnh: get over a cold.' },
+  { p:'get by', vi:'xoay xở đủ sống, tạm đủ dùng', sep:false, obj:'no', reg:'thân mật', ex:['She gets by on a small salary.','Cô ấy xoay xở sống với đồng lương ít ỏi.'], note:'Hàm ý vừa đủ, không dư dả.' },
+  { p:'get through', vi:'vượt qua giai đoạn khó; liên lạc được', sep:false, obj:'yes', reg:'trung tính', ex:['I could not get through to the office.','Tôi không gọi được vào văn phòng.'], note:'Nghĩa liên lạc thường đi với «to».' },
+  { p:'get away with', vi:'làm sai mà không bị phạt', sep:false, obj:'yes', reg:'thân mật', ex:['He cheated and got away with it.','Cậu ta gian lận mà không bị gì.'], note:'Luôn có tân ngữ, thường là «it».' },
+  { p:'get across', vi:'truyền đạt được ý', sep:true, obj:'opt', reg:'trung tính', ex:['She got her point across clearly.','Cô ấy trình bày ý rất rõ.'], note:'Nhấn vào việc người nghe HIỂU được.' },
+  { p:'get around to', vi:'rốt cuộc cũng làm được việc đã hoãn', sep:false, obj:'yes', reg:'thân mật', ex:['I finally got around to writing the report.','Cuối cùng tôi cũng viết được cái báo cáo.'], note:'Theo sau là V-ing vì «to» là giới từ.' },
+  { p:'get rid of', vi:'vứt bỏ, tống khứ', sep:false, obj:'yes', reg:'thân mật', ex:['We got rid of the old sofa.','Chúng tôi bỏ cái ghế sofa cũ đi rồi.'], note:'Rất thông dụng trong nói, thay cho «throw away».' },
+  { p:'get back to', vi:'liên lạc lại với ai', sep:false, obj:'yes', reg:'trung tính', ex:['I will get back to you tomorrow.','Mai tôi sẽ liên lạc lại với bạn.'], note:'Mẫu email công việc rất chuẩn.' }
+]},
+
+{ v:'take', vi:'lấy, mang', items:[
+  { p:'take off', vi:'cất cánh; cởi ra; ăn nên làm ra', sep:true, obj:'opt', reg:'trung tính', ex:['The plane took off on time.','Máy bay cất cánh đúng giờ.'], note:'Ba nghĩa rất khác nhau, phải nhìn ngữ cảnh.' },
+  { p:'take up', vi:'bắt đầu một sở thích; chiếm chỗ, chiếm thời gian', sep:true, obj:'yes', reg:'trung tính', ex:['He took up photography last year.','Năm ngoái anh ấy bắt đầu chơi ảnh.'], note:'take up space = chiếm chỗ.' },
+  { p:'take after', vi:'giống ai trong nhà (ngoại hình, tính cách)', sep:false, obj:'yes', reg:'trung tính', ex:['She takes after her mother.','Cô ấy giống mẹ.'], note:'Chỉ dùng với người trong họ hàng, không dùng với bạn bè.' },
+  { p:'take over', vi:'tiếp quản, nắm quyền', sep:true, obj:'opt', reg:'trung tính', ex:['A larger company took over the business.','Một công ty lớn hơn đã thâu tóm doanh nghiệp này.'] },
+  { p:'take back', vi:'rút lại lời; trả lại hàng', sep:true, obj:'yes', reg:'trung tính', ex:['I take back what I said.','Tôi rút lại lời đã nói.'] },
+  { p:'take in', vi:'tiếp thu thông tin; lừa ai', sep:true, obj:'yes', reg:'trung tính', ex:['There was too much information to take in.','Nhiều thông tin quá, tôi không tiếp thu hết.'], note:'Bị động «be taken in» nghĩa là bị lừa.' },
+  { p:'take on', vi:'nhận thêm việc; tuyển thêm người', sep:true, obj:'yes', reg:'trung tính', ex:['She took on two new projects.','Cô ấy nhận thêm hai dự án.'] },
+  { p:'take out', vi:'lấy ra; mời ai đi chơi', sep:true, obj:'yes', reg:'trung tính', ex:['He took out his phone.','Cậu ấy lấy điện thoại ra.'] },
+  { p:'take part in', vi:'tham gia vào', sep:false, obj:'yes', reg:'trung tính', ex:['Fifty students took part in the survey.','Năm mươi sinh viên tham gia khảo sát.'], note:'Đồng nghĩa participate in nhưng thân mật hơn.' },
+  { p:'take care of', vi:'chăm sóc; lo liệu việc gì', sep:false, obj:'yes', reg:'trung tính', ex:['Who takes care of the children?','Ai chăm bọn trẻ?'] }
+]},
+
+{ v:'put', vi:'đặt, để', items:[
+  { p:'put off', vi:'hoãn lại; làm mất hứng', sep:true, obj:'yes', reg:'trung tính', ex:['They put off the meeting until Friday.','Họ hoãn cuộc họp tới thứ Sáu.'], note:'Nghĩa «làm mất hứng»: The smell put me off.' },
+  { p:'put up with', vi:'chịu đựng', sep:false, obj:'yes', reg:'thân mật', ex:['I cannot put up with this noise.','Tôi không chịu nổi tiếng ồn này.'], note:'Ba từ, không tách được.' },
+  { p:'put on', vi:'mặc vào; bật lên; tăng cân', sep:true, obj:'yes', reg:'trung tính', ex:['Put on your coat, it is cold.','Mặc áo khoác vào, lạnh đấy.'], note:'put on weight = tăng cân.' },
+  { p:'put out', vi:'dập tắt (lửa); gây phiền', sep:true, obj:'yes', reg:'trung tính', ex:['Firefighters put out the fire in an hour.','Lính cứu hoả dập tắt đám cháy trong một tiếng.'] },
+  { p:'put away', vi:'cất đi đúng chỗ', sep:true, obj:'yes', reg:'trung tính', ex:['Put your books away, please.','Cất sách đi nào.'] },
+  { p:'put down', vi:'đặt xuống; chê bai ai', sep:true, obj:'yes', reg:'trung tính', ex:['He put the box down carefully.','Anh ấy đặt cái hộp xuống cẩn thận.'] },
+  { p:'put forward', vi:'đề xuất (ý tưởng, kế hoạch)', sep:true, obj:'yes', reg:'trang trọng', ex:['She put forward an interesting proposal.','Cô ấy đưa ra một đề xuất thú vị.'] },
+  { p:'put through', vi:'nối máy điện thoại', sep:true, obj:'yes', reg:'trung tính', ex:['I will put you through to reception.','Tôi nối máy cho anh tới lễ tân.'] },
+  { p:'put aside', vi:'để dành; gác lại', sep:true, obj:'yes', reg:'trung tính', ex:['He puts aside some money every month.','Tháng nào cậu ấy cũng để dành một khoản.'] }
+]},
+
+{ v:'look', vi:'nhìn', items:[
+  { p:'look for', vi:'tìm kiếm', sep:false, obj:'yes', reg:'trung tính', ex:['I am looking for my keys.','Tôi đang tìm chìa khoá.'], note:'look for = quá trình tìm · find = kết quả tìm thấy.' },
+  { p:'look after', vi:'chăm sóc, trông nom', sep:false, obj:'yes', reg:'trung tính', ex:['She looks after her grandmother.','Cô ấy chăm bà.'] },
+  { p:'look forward to', vi:'mong chờ', sep:false, obj:'yes', reg:'trung tính', ex:['I look forward to meeting you.','Tôi mong được gặp bạn.'], note:'«to» là giới từ nên theo sau là V-ing, KHÔNG phải V nguyên.' },
+  { p:'look up', vi:'tra (từ điển); khá lên', sep:true, obj:'opt', reg:'trung tính', ex:['Look the word up in a dictionary.','Tra từ đó trong từ điển đi.'], note:'Tách được: look it up (bắt buộc tách khi tân ngữ là đại từ).' },
+  { p:'look up to', vi:'ngưỡng mộ, kính trọng', sep:false, obj:'yes', reg:'trung tính', ex:['He looks up to his older brother.','Cậu ấy ngưỡng mộ anh trai.'] },
+  { p:'look down on', vi:'coi thường', sep:false, obj:'yes', reg:'trung tính', ex:['Do not look down on people who work with their hands.','Đừng coi thường người lao động chân tay.'] },
+  { p:'look into', vi:'điều tra, xem xét kỹ', sep:false, obj:'yes', reg:'trang trọng', ex:['We will look into the problem.','Chúng tôi sẽ xem xét vấn đề này.'] },
+  { p:'look out', vi:'coi chừng, cẩn thận', sep:false, obj:'no', reg:'thân mật', ex:['Look out! There is a car.','Cẩn thận! Có xe kìa.'], note:'Cùng nghĩa với «watch out».' },
+  { p:'look through', vi:'xem lướt qua', sep:false, obj:'yes', reg:'trung tính', ex:['I looked through the report quickly.','Tôi xem lướt bản báo cáo.'] }
+]},
+
+{ v:'come', vi:'đến', items:[
+  { p:'come across', vi:'tình cờ gặp, tình cờ thấy; gây ấn tượng là', sep:false, obj:'yes', reg:'trung tính', ex:['I came across an old photo yesterday.','Hôm qua tôi tình cờ thấy một tấm ảnh cũ.'], note:'Nghĩa hai: He comes across as arrogant = anh ta trông có vẻ kiêu.' },
+  { p:'come up with', vi:'nghĩ ra (ý tưởng, giải pháp)', sep:false, obj:'yes', reg:'trung tính', ex:['She came up with a brilliant idea.','Cô ấy nghĩ ra một ý tưởng tuyệt vời.'] },
+  { p:'come back', vi:'quay lại', sep:false, obj:'no', reg:'trung tính', ex:['He came back at midnight.','Cậu ấy về lúc nửa đêm.'] },
+  { p:'come along', vi:'đi cùng; tiến triển', sep:false, obj:'no', reg:'thân mật', ex:['How is the project coming along?','Dự án tiến triển thế nào?'] },
+  { p:'come down with', vi:'nhiễm bệnh nhẹ', sep:false, obj:'yes', reg:'thân mật', ex:['I think I am coming down with a cold.','Chắc tôi sắp bị cảm.'] },
+  { p:'come round', vi:'ghé chơi; tỉnh lại', sep:false, obj:'no', reg:'thân mật', ex:['Come round for dinner on Sunday.','Chủ nhật ghé nhà ăn tối nhé.'], note:'Kiểu Mỹ là come around.' },
+  { p:'come up', vi:'nảy sinh, xuất hiện (vấn đề, cơ hội)', sep:false, obj:'no', reg:'trung tính', ex:['Something came up, so I cannot join.','Có việc phát sinh nên tôi không tham gia được.'] },
+  { p:'come out', vi:'ra mắt, được công bố', sep:false, obj:'no', reg:'trung tính', ex:['The results come out on the twentieth.','Kết quả công bố ngày hai mươi.'] }
+]},
+
+{ v:'go', vi:'đi', items:[
+  { p:'go on', vi:'tiếp tục; xảy ra', sep:false, obj:'no', reg:'trung tính', ex:['What is going on here?','Ở đây đang có chuyện gì vậy?'] },
+  { p:'go out', vi:'ra ngoài chơi; (đèn, lửa) tắt', sep:false, obj:'no', reg:'trung tính', ex:['The lights went out suddenly.','Đèn phụt tắt.'] },
+  { p:'go through', vi:'trải qua (khó khăn); xem xét kỹ', sep:false, obj:'yes', reg:'trung tính', ex:['She has gone through a lot this year.','Năm nay cô ấy trải qua nhiều chuyện.'] },
+  { p:'go over', vi:'xem lại, ôn lại', sep:false, obj:'yes', reg:'trung tính', ex:['Let us go over the plan once more.','Ta xem lại kế hoạch một lần nữa nhé.'] },
+  { p:'go off', vi:'(chuông) reo; (đồ ăn) hỏng; nổ', sep:false, obj:'no', reg:'trung tính', ex:['My alarm went off at five.','Chuông báo thức reo lúc năm giờ.'] },
+  { p:'go ahead', vi:'cứ tiến hành', sep:false, obj:'no', reg:'thân mật', ex:['Go ahead, I am listening.','Cứ nói đi, tôi đang nghe.'] },
+  { p:'go without', vi:'chịu thiếu, xoay xở không có', sep:false, obj:'yes', reg:'trung tính', ex:['They went without electricity for a week.','Họ sống một tuần không có điện.'] },
+  { p:'go up / go down', vi:'tăng lên / giảm xuống', sep:false, obj:'no', reg:'trung tính', ex:['Prices have gone up again.','Giá lại tăng rồi.'] }
+]},
+
+{ v:'turn', vi:'quay', items:[
+  { p:'turn on / turn off', vi:'bật / tắt', sep:true, obj:'yes', reg:'trung tính', ex:['Turn off the lights when you leave.','Ra khỏi phòng thì tắt đèn.'], note:'Với đại từ phải tách: turn it off.' },
+  { p:'turn up', vi:'xuất hiện, có mặt; vặn to', sep:true, obj:'opt', reg:'thân mật', ex:['He turned up an hour late.','Cậu ta xuất hiện muộn một tiếng.'] },
+  { p:'turn down', vi:'từ chối; vặn nhỏ', sep:true, obj:'yes', reg:'trung tính', ex:['She turned down the offer.','Cô ấy từ chối lời mời làm việc.'] },
+  { p:'turn out', vi:'hoá ra là; kết cục là', sep:false, obj:'no', reg:'trung tính', ex:['It turned out to be a good decision.','Hoá ra đó là quyết định đúng.'] },
+  { p:'turn into', vi:'biến thành', sep:false, obj:'yes', reg:'trung tính', ex:['The rain turned into a storm.','Cơn mưa biến thành bão.'] },
+  { p:'turn back', vi:'quay đầu lại', sep:false, obj:'no', reg:'trung tính', ex:['It was too dark, so we turned back.','Trời tối quá nên chúng tôi quay lại.'] }
+]},
+
+{ v:'break', vi:'vỡ, gãy', items:[
+  { p:'break down', vi:'hỏng máy; suy sụp tinh thần', sep:false, obj:'no', reg:'trung tính', ex:['My motorbike broke down on the way.','Xe tôi hỏng giữa đường.'] },
+  { p:'break up', vi:'chia tay; tan (lớp, buổi họp)', sep:false, obj:'no', reg:'thân mật', ex:['They broke up after three years.','Họ chia tay sau ba năm.'] },
+  { p:'break into', vi:'đột nhập', sep:false, obj:'yes', reg:'trung tính', ex:['Someone broke into the shop last night.','Đêm qua có người đột nhập cửa hàng.'] },
+  { p:'break out', vi:'bùng phát (chiến tranh, dịch, cháy)', sep:false, obj:'no', reg:'trung tính', ex:['A fire broke out in the kitchen.','Đám cháy bùng lên trong bếp.'] },
+  { p:'break off', vi:'ngừng đột ngột; cắt đứt quan hệ', sep:true, obj:'opt', reg:'trang trọng', ex:['The two countries broke off talks.','Hai nước ngừng đàm phán.'] }
+]},
+
+{ v:'bring', vi:'mang tới', items:[
+  { p:'bring up', vi:'nuôi dạy; nêu ra chủ đề', sep:true, obj:'yes', reg:'trung tính', ex:['She was brought up by her grandparents.','Cô ấy do ông bà nuôi lớn.'] },
+  { p:'bring about', vi:'gây ra, dẫn tới', sep:true, obj:'yes', reg:'trang trọng', ex:['The law brought about big changes.','Đạo luật dẫn tới nhiều thay đổi lớn.'] },
+  { p:'bring back', vi:'gợi lại (kỷ niệm); trả lại', sep:true, obj:'yes', reg:'trung tính', ex:['That song brings back memories.','Bài hát đó gợi lại nhiều kỷ niệm.'] },
+  { p:'bring in', vi:'mang lại (doanh thu); đưa ra (quy định)', sep:true, obj:'yes', reg:'trung tính', ex:['The shop brings in a good income.','Cửa hàng mang lại thu nhập tốt.'] }
+]},
+
+{ v:'give', vi:'cho', items:[
+  { p:'give up', vi:'bỏ cuộc; từ bỏ thói quen', sep:true, obj:'opt', reg:'trung tính', ex:['He gave up smoking last year.','Năm ngoái anh ấy bỏ thuốc.'], note:'Theo sau là V-ing chứ không phải to V.' },
+  { p:'give in', vi:'nhượng bộ, chịu thua', sep:false, obj:'no', reg:'trung tính', ex:['After an hour, she gave in.','Sau một tiếng, cô ấy chịu nhượng bộ.'] },
+  { p:'give away', vi:'cho không; để lộ bí mật', sep:true, obj:'yes', reg:'trung tính', ex:['He gave away all his old books.','Anh ấy cho hết sách cũ.'] },
+  { p:'give back', vi:'trả lại', sep:true, obj:'yes', reg:'trung tính', ex:['Give me back my pen, please.','Trả tớ cái bút đi.'] },
+  { p:'give out', vi:'phát ra, phân phát', sep:true, obj:'yes', reg:'trung tính', ex:['They gave out free samples.','Họ phát hàng mẫu miễn phí.'] }
+]},
+
+{ v:'run', vi:'chạy', items:[
+  { p:'run out of', vi:'hết, cạn', sep:false, obj:'yes', reg:'trung tính', ex:['We have run out of milk.','Nhà hết sữa rồi.'] },
+  { p:'run into', vi:'tình cờ gặp; đâm vào', sep:false, obj:'yes', reg:'thân mật', ex:['I ran into an old friend at the market.','Tôi tình cờ gặp một người bạn cũ ở chợ.'] },
+  { p:'run over', vi:'cán qua (xe); đọc lướt lại', sep:false, obj:'yes', reg:'trung tính', ex:['Let us run over the details once more.','Ta lướt lại chi tiết một lần nữa nhé.'] },
+  { p:'run after', vi:'đuổi theo', sep:false, obj:'yes', reg:'trung tính', ex:['The dog ran after the bike.','Con chó đuổi theo xe đạp.'] }
+]},
+
+{ v:'set', vi:'đặt, cài', items:[
+  { p:'set up', vi:'thành lập; lắp đặt', sep:true, obj:'yes', reg:'trung tính', ex:['They set up the company in 2019.','Họ thành lập công ty năm 2019.'] },
+  { p:'set off', vi:'khởi hành; kích hoạt', sep:true, obj:'opt', reg:'trung tính', ex:['We set off at dawn.','Chúng tôi khởi hành lúc rạng sáng.'] },
+  { p:'set out', vi:'lên đường; trình bày rõ ràng', sep:false, obj:'no', reg:'trang trọng', ex:['The report sets out three options.','Bản báo cáo trình bày ba phương án.'] },
+  { p:'set aside', vi:'dành riêng ra', sep:true, obj:'yes', reg:'trung tính', ex:['Set aside an hour for revision.','Dành riêng một tiếng để ôn bài.'] }
+]},
+
+{ v:'carry / call / cut', vi:'nhóm khác', items:[
+  { p:'carry on', vi:'tiếp tục', sep:false, obj:'no', reg:'trung tính', ex:['Carry on, you are doing well.','Cứ tiếp tục đi, bạn làm tốt lắm.'] },
+  { p:'carry out', vi:'thực hiện (nghiên cứu, kế hoạch)', sep:true, obj:'yes', reg:'trang trọng', ex:['They carried out a survey last year.','Họ thực hiện một khảo sát năm ngoái.'] },
+  { p:'call off', vi:'huỷ bỏ', sep:true, obj:'yes', reg:'trung tính', ex:['The match was called off because of rain.','Trận đấu bị huỷ vì mưa.'] },
+  { p:'call back', vi:'gọi lại', sep:true, obj:'opt', reg:'trung tính', ex:['I will call you back in ten minutes.','Mười phút nữa tôi gọi lại cho bạn.'] },
+  { p:'cut down on', vi:'cắt giảm', sep:false, obj:'yes', reg:'trung tính', ex:['You should cut down on sugar.','Bạn nên giảm đường.'] },
+  { p:'cut off', vi:'ngắt, cắt đứt', sep:true, obj:'yes', reg:'trung tính', ex:['The village was cut off by the flood.','Ngôi làng bị cô lập vì lũ.'] }
+]},
+
+{ v:'work / find / keep', vi:'nhóm khác', items:[
+  { p:'work out', vi:'tập thể dục; tính ra; ổn thoả', sep:true, obj:'opt', reg:'trung tính', ex:['Everything worked out in the end.','Cuối cùng mọi chuyện cũng ổn.'] },
+  { p:'work on', vi:'đang làm dở việc gì', sep:false, obj:'yes', reg:'trung tính', ex:['She is working on her thesis.','Cô ấy đang làm luận văn.'] },
+  { p:'find out', vi:'tìm ra, phát hiện thông tin', sep:true, obj:'yes', reg:'trung tính', ex:['I found out the truth later.','Sau đó tôi biết được sự thật.'], note:'find = tìm thấy vật · find out = biết được thông tin.' },
+  { p:'keep up with', vi:'theo kịp', sep:false, obj:'yes', reg:'trung tính', ex:['It is hard to keep up with the news.','Khó mà theo kịp tin tức.'] },
+  { p:'keep on', vi:'cứ tiếp tục làm', sep:false, obj:'yes', reg:'thân mật', ex:['He kept on asking the same question.','Cậu ta cứ hỏi mãi một câu.'] }
+]}
+];
+
+const IDIOMS_EN = [
+{ cat:'Thời gian', items:[
+  { p:'once in a blue moon', vi:'hoạ hoằn lắm mới có một lần', reg:'thân mật', ex:['We only meet once in a blue moon.','Hoạ hoằn lắm chúng tôi mới gặp nhau.'] },
+  { p:'in the nick of time', vi:'vừa kịp lúc, sát nút', reg:'trung tính', ex:['The ambulance arrived in the nick of time.','Xe cứu thương đến vừa kịp lúc.'] },
+  { p:'call it a day', vi:'nghỉ tay, dừng công việc hôm nay', reg:'thân mật', ex:['It is nine o’clock — let us call it a day.','Chín giờ rồi, nghỉ thôi.'] },
+  { p:'better late than never', vi:'muộn còn hơn không', reg:'trung tính', ex:['He apologised after a year, but better late than never.','Một năm sau anh ta mới xin lỗi, nhưng muộn còn hơn không.'] },
+  { p:'time flies', vi:'thời gian trôi nhanh', reg:'trung tính', ex:['Time flies when you are busy.','Bận rộn thì thời gian trôi vèo.'] },
+  { p:'in the long run', vi:'xét về lâu dài', reg:'trung tính', ex:['Learning grammar pays off in the long run.','Học ngữ pháp về lâu dài rất đáng.'] },
+  { p:'around the clock', vi:'suốt ngày đêm', reg:'trung tính', ex:['The hospital works around the clock.','Bệnh viện hoạt động suốt ngày đêm.'] },
+  { p:'kill time', vi:'giết thời gian', reg:'thân mật', ex:['I read a magazine to kill time.','Tôi đọc tạp chí cho qua thời gian.'] },
+  { p:'beat the clock', vi:'hoàn thành trước hạn', reg:'thân mật', ex:['We beat the clock and finished early.','Chúng tôi làm xong trước hạn.'] },
+  { p:'at the eleventh hour', vi:'vào phút chót', reg:'trang trọng', ex:['The deal was saved at the eleventh hour.','Thoả thuận được cứu vào phút chót.'] }
+]},
+{ cat:'Tiền bạc', items:[
+  { p:'cost an arm and a leg', vi:'đắt cắt cổ', reg:'thân mật', ex:['That laptop cost an arm and a leg.','Cái laptop đó đắt cắt cổ.'] },
+  { p:'make ends meet', vi:'kiếm đủ sống, chật vật xoay xở', reg:'trung tính', ex:['They work two jobs to make ends meet.','Họ làm hai việc để đủ sống.'] },
+  { p:'break the bank', vi:'tốn quá nhiều tiền', reg:'thân mật', ex:['A short trip will not break the bank.','Một chuyến đi ngắn thì không tốn kém lắm đâu.'] },
+  { p:'tighten your belt', vi:'thắt lưng buộc bụng', reg:'trung tính', ex:['We had to tighten our belts last year.','Năm ngoái nhà tôi phải thắt lưng buộc bụng.'] },
+  { p:'a rip-off', vi:'giá cắt cổ, bị chặt chém', reg:'thân mật', ex:['Fifty dollars for a coffee? What a rip-off!','Năm mươi đô một ly cà phê? Chặt chém quá!'] },
+  { p:'worth every penny', vi:'đáng đồng tiền bát gạo', reg:'trung tính', ex:['The course was expensive but worth every penny.','Khoá học đắt nhưng đáng từng đồng.'] },
+  { p:'save for a rainy day', vi:'để dành phòng khi khó khăn', reg:'trung tính', ex:['She always saves for a rainy day.','Cô ấy luôn để dành phòng lúc khó khăn.'] },
+  { p:'money does not grow on trees', vi:'tiền không tự nhiên mà có', reg:'thân mật', ex:['Be careful — money does not grow on trees.','Cẩn thận đấy, tiền không tự nhiên mà có đâu.'] },
+  { p:'foot the bill', vi:'chi trả toàn bộ hoá đơn', reg:'trung tính', ex:['The company footed the bill for the trip.','Công ty chi trả toàn bộ chuyến đi.'] }
+]},
+{ cat:'Công việc', items:[
+  { p:'go the extra mile', vi:'làm hơn cả mức được yêu cầu', reg:'trung tính', ex:['She always goes the extra mile for clients.','Cô ấy luôn làm hơn mức yêu cầu vì khách hàng.'] },
+  { p:'think outside the box', vi:'nghĩ khác lối mòn', reg:'trung tính', ex:['We need someone who thinks outside the box.','Chúng tôi cần người biết nghĩ khác lối mòn.'] },
+  { p:'get the ball rolling', vi:'khởi động, bắt đầu triển khai', reg:'thân mật', ex:['Let us get the ball rolling with a short meeting.','Ta khởi động bằng một cuộc họp ngắn nhé.'] },
+  { p:'be snowed under', vi:'ngập trong công việc', reg:'thân mật', ex:['I am snowed under with reports this week.','Tuần này tôi ngập trong báo cáo.'] },
+  { p:'learn the ropes', vi:'học việc, nắm quy trình', reg:'thân mật', ex:['It takes a month to learn the ropes.','Mất một tháng để nắm được việc.'] },
+  { p:'a ballpark figure', vi:'con số ước chừng', reg:'thân mật', ex:['Can you give me a ballpark figure?','Cho tôi một con số ước chừng được không?'] },
+  { p:'touch base', vi:'trao đổi nhanh, cập nhật tình hình', reg:'thân mật', ex:['Let us touch base on Friday.','Thứ Sáu ta trao đổi nhanh nhé.'] },
+  { p:'back to square one', vi:'quay về vạch xuất phát', reg:'trung tính', ex:['The client changed his mind, so we are back to square one.','Khách đổi ý nên chúng tôi phải làm lại từ đầu.'] },
+  { p:'pull your weight', vi:'gánh phần việc của mình', reg:'trung tính', ex:['Everyone has to pull their weight in a team.','Trong nhóm ai cũng phải gánh phần việc của mình.'] },
+  { p:'cut corners', vi:'làm ẩu, cắt bớt công đoạn', reg:'trung tính', ex:['Do not cut corners on safety.','Đừng làm ẩu ở khâu an toàn.'] }
+]},
+{ cat:'Cảm xúc', items:[
+  { p:'over the moon', vi:'vui sướng tột độ', reg:'thân mật', ex:['She was over the moon about the results.','Cô ấy mừng phát điên với kết quả.'] },
+  { p:'down in the dumps', vi:'buồn bã, chán nản', reg:'thân mật', ex:['He has been down in the dumps all week.','Cả tuần nay cậu ấy ỉu xìu.'] },
+  { p:'get cold feet', vi:'chùn bước vào phút chót', reg:'thân mật', ex:['He got cold feet before the presentation.','Cậu ấy chùn bước ngay trước buổi thuyết trình.'] },
+  { p:'on cloud nine', vi:'lâng lâng hạnh phúc', reg:'thân mật', ex:['They were on cloud nine after the wedding.','Sau đám cưới họ lâng lâng hạnh phúc.'] },
+  { p:'have butterflies in your stomach', vi:'hồi hộp bồn chồn', reg:'thân mật', ex:['I had butterflies in my stomach before the interview.','Trước buổi phỏng vấn tôi hồi hộp lắm.'] },
+  { p:'blow off steam', vi:'xả stress', reg:'thân mật', ex:['He runs to blow off steam.','Cậu ấy chạy bộ để xả stress.'] },
+  { p:'lose your temper', vi:'nổi nóng', reg:'trung tính', ex:['I lost my temper and I regret it.','Tôi đã nổi nóng và giờ thấy hối hận.'] },
+  { p:'a weight off your shoulders', vi:'trút được gánh nặng', reg:'trung tính', ex:['Handing in the essay was a weight off my shoulders.','Nộp xong bài luận là trút được gánh nặng.'] }
+]},
+{ cat:'Học tập', items:[
+  { p:'hit the books', vi:'cắm đầu vào học', reg:'thân mật', ex:['I have to hit the books this weekend.','Cuối tuần này tôi phải cắm đầu vào học.'] },
+  { p:'learn something by heart', vi:'học thuộc lòng', reg:'trung tính', ex:['We had to learn the poem by heart.','Chúng tôi phải học thuộc lòng bài thơ.'] },
+  { p:'a steep learning curve', vi:'giai đoạn đầu học rất vất vả', reg:'trung tính', ex:['The new software has a steep learning curve.','Phần mềm mới lúc đầu học khá vất vả.'] },
+  { p:'get the hang of something', vi:'quen tay, nắm được cách làm', reg:'thân mật', ex:['After a week I got the hang of it.','Sau một tuần thì tôi quen tay.'] },
+  { p:'pass with flying colours', vi:'đỗ với điểm rất cao', reg:'trung tính', ex:['She passed the exam with flying colours.','Cô ấy đỗ với điểm rất cao.'] },
+  { p:'brainstorm ideas', vi:'động não tìm ý tưởng', reg:'trung tính', ex:['Let us brainstorm ideas for the essay.','Cùng động não tìm ý cho bài luận nào.'] },
+  { p:'it is not rocket science', vi:'có gì mà khó, đâu phải chuyện cao siêu', reg:'thân mật', ex:['Come on, it is not rocket science.','Thôi nào, có gì mà khó đâu.'] },
+  { p:'burn the midnight oil', vi:'thức khuya làm việc, học bài', reg:'trung tính', ex:['He burned the midnight oil before the test.','Cậu ấy thức khuya ôn trước kỳ thi.'] }
+]},
+{ cat:'Giao tiếp', items:[
+  { p:'break the ice', vi:'phá tan không khí ngượng ngùng', reg:'trung tính', ex:['A simple question can break the ice.','Một câu hỏi đơn giản có thể phá tan bầu không khí ngại ngùng.'] },
+  { p:'get to the point', vi:'vào thẳng vấn đề', reg:'trung tính', ex:['Please get to the point.','Xin hãy vào thẳng vấn đề.'] },
+  { p:'beat about the bush', vi:'nói vòng vo', reg:'thân mật', ex:['Stop beating about the bush.','Đừng vòng vo nữa.'], note:'Kiểu Mỹ: beat around the bush.' },
+  { p:'see eye to eye', vi:'đồng quan điểm', reg:'trung tính', ex:['We do not see eye to eye on this.','Chuyện này chúng tôi không đồng quan điểm.'] },
+  { p:'agree to disagree', vi:'chấp nhận là mỗi người một ý', reg:'trung tính', ex:['Let us agree to disagree.','Thôi thì mỗi người một ý vậy.'] },
+  { p:'put your foot in it', vi:'lỡ miệng nói hớ', reg:'thân mật', ex:['I really put my foot in it at dinner.','Bữa tối tôi lỡ miệng thật sự.'] },
+  { p:'read between the lines', vi:'hiểu ý ngầm', reg:'trung tính', ex:['Read between the lines of her email.','Đọc kỹ ý ngầm trong email của cô ấy.'] },
+  { p:'on the same page', vi:'cùng chung cách hiểu', reg:'thân mật', ex:['Let us make sure we are on the same page.','Ta thống nhất cách hiểu đã nhé.'] }
+]},
+{ cat:'Khó khăn', items:[
+  { p:'bite the bullet', vi:'cắn răng chịu đựng, làm việc khó', reg:'trung tính', ex:['I bit the bullet and told my boss.','Tôi cắn răng nói với sếp.'] },
+  { p:'face the music', vi:'đối mặt với hậu quả', reg:'trung tính', ex:['He has to face the music tomorrow.','Ngày mai cậu ta phải đối mặt với hậu quả.'] },
+  { p:'a blessing in disguise', vi:'trong cái rủi có cái may', reg:'trung tính', ex:['Losing that job was a blessing in disguise.','Mất việc đó hoá ra lại may.'] },
+  { p:'the last straw', vi:'giọt nước tràn ly', reg:'trung tính', ex:['That comment was the last straw.','Câu nói đó là giọt nước tràn ly.'] },
+  { p:'between a rock and a hard place', vi:'tiến thoái lưỡng nan', reg:'trung tính', ex:['I am between a rock and a hard place.','Tôi đang tiến thoái lưỡng nan.'] },
+  { p:'when it rains, it pours', vi:'hoạ vô đơn chí', reg:'thân mật', ex:['My phone broke and then my bike. When it rains, it pours.','Điện thoại hỏng rồi tới xe. Hoạ vô đơn chí.'] },
+  { p:'in hot water', vi:'gặp rắc rối', reg:'thân mật', ex:['He is in hot water with the manager.','Cậu ta đang gặp rắc rối với quản lý.'] },
+  { p:'a storm in a teacup', vi:'chuyện bé xé ra to', reg:'trung tính', ex:['It was just a storm in a teacup.','Chuyện bé xé ra to thôi mà.'], note:'Kiểu Mỹ: a tempest in a teapot.' }
+]},
+{ cat:'Thành công và may mắn', items:[
+  { p:'hit the nail on the head', vi:'nói trúng phóc', reg:'trung tính', ex:['You hit the nail on the head.','Bạn nói trúng phóc.'] },
+  { p:'a piece of cake', vi:'dễ như ăn bánh', reg:'thân mật', ex:['The test was a piece of cake.','Bài kiểm tra dễ ợt.'] },
+  { p:'break a leg', vi:'chúc may mắn (sân khấu, thi cử)', reg:'thân mật', ex:['Break a leg tomorrow!','Chúc may mắn ngày mai nhé!'] },
+  { p:'the best of both worlds', vi:'được cả đôi đường', reg:'trung tính', ex:['Working from home gives me the best of both worlds.','Làm việc ở nhà cho tôi cả đôi đường.'] },
+  { p:'a golden opportunity', vi:'cơ hội vàng', reg:'trung tính', ex:['This is a golden opportunity for you.','Đây là cơ hội vàng cho bạn.'] },
+  { p:'pay off', vi:'mang lại kết quả xứng đáng', reg:'trung tính', ex:['All that practice paid off.','Bao công luyện tập đã được đền đáp.'] },
+  { p:'on the ball', vi:'nhanh nhạy, bắt nhịp tốt', reg:'thân mật', ex:['The new assistant is really on the ball.','Trợ lý mới nhanh nhạy lắm.'] }
+]},
+{ cat:'Con người và tính cách', items:[
+  { p:'a couch potato', vi:'người lười, cả ngày nằm xem tivi', reg:'thân mật', ex:['Do not be a couch potato all weekend.','Đừng nằm ườn xem tivi cả cuối tuần.'] },
+  { p:'a people person', vi:'người khéo giao tiếp', reg:'thân mật', ex:['She is a real people person.','Cô ấy rất khéo giao tiếp.'] },
+  { p:'have a heart of gold', vi:'có tấm lòng vàng', reg:'trung tính', ex:['He has a heart of gold.','Anh ấy có tấm lòng vàng.'] },
+  { p:'as stubborn as a mule', vi:'bướng như con la', reg:'thân mật', ex:['My brother is as stubborn as a mule.','Anh tôi bướng kinh khủng.'] },
+  { p:'the black sheep of the family', vi:'người khác biệt, bị coi là cá biệt trong nhà', reg:'trung tính', ex:['He was the black sheep of the family.','Cậu ấy bị coi là cá biệt trong nhà.'] },
+  { p:'wear your heart on your sleeve', vi:'để lộ hết cảm xúc ra ngoài', reg:'trung tính', ex:['She wears her heart on her sleeve.','Cô ấy để lộ hết cảm xúc.'] },
+  { p:'have a sweet tooth', vi:'hảo ngọt', reg:'thân mật', ex:['I have a sweet tooth.','Tôi hảo ngọt lắm.'] }
+]},
+{ cat:'Thời tiết và thiên nhiên', items:[
+  { p:'under the weather', vi:'không khoẻ trong người', reg:'thân mật', ex:['I am feeling a bit under the weather.','Tôi thấy trong người hơi mệt.'], note:'Không liên quan tới thời tiết thật.' },
+  { p:'it is raining cats and dogs', vi:'mưa như trút nước', reg:'thân mật', ex:['We stayed in — it was raining cats and dogs.','Chúng tôi ở nhà, ngoài kia mưa như trút.'], note:'Hơi cũ; người bản ngữ ngày nay hay nói «it is pouring».' },
+  { p:'a ray of sunshine', vi:'tia nắng, người mang lại niềm vui', reg:'trung tính', ex:['She is a ray of sunshine in the office.','Cô ấy là tia nắng của văn phòng.'] },
+  { p:'take a rain check', vi:'hẹn dịp khác', reg:'thân mật', ex:['Can I take a rain check on dinner?','Bữa tối để hôm khác được không?'] },
+  { p:'the calm before the storm', vi:'sự yên ắng trước cơn bão', reg:'trung tính', ex:['This week is the calm before the storm.','Tuần này là sự yên ắng trước cơn bão.'] },
+  { p:'go with the flow', vi:'thuận theo hoàn cảnh', reg:'thân mật', ex:['Just go with the flow.','Cứ thuận theo tự nhiên đi.'] }
+]},
+{ cat:'Cơ thể', items:[
+  { p:'give someone a hand', vi:'giúp ai một tay', reg:'thân mật', ex:['Could you give me a hand with this box?','Giúp tôi một tay cái hộp này được không?'] },
+  { p:'keep an eye on', vi:'trông chừng', reg:'thân mật', ex:['Keep an eye on my bag, please.','Trông giúp tôi cái túi nhé.'] },
+  { p:'pull someone’s leg', vi:'trêu ai, đùa ai', reg:'thân mật', ex:['Relax, I am just pulling your leg.','Bình tĩnh, tôi đùa thôi mà.'] },
+  { p:'get something off your chest', vi:'nói ra cho nhẹ lòng', reg:'thân mật', ex:['I needed to get it off my chest.','Tôi cần nói ra cho nhẹ lòng.'] },
+  { p:'play it by ear', vi:'tuỳ cơ ứng biến', reg:'thân mật', ex:['We have no plan — let us play it by ear.','Chưa có kế hoạch, cứ tuỳ cơ ứng biến thôi.'] },
+  { p:'cost someone their head', vi:'khiến ai mất chức', reg:'trung tính', ex:['The scandal cost the minister his job.','Vụ bê bối khiến vị bộ trưởng mất chức.'] },
+  { p:'be all ears', vi:'lắng nghe chăm chú', reg:'thân mật', ex:['Tell me what happened — I am all ears.','Kể tôi nghe đi, tôi đang rất muốn nghe.'] }
+]},
+{ cat:'Động vật', items:[
+  { p:'let the cat out of the bag', vi:'lỡ để lộ bí mật', reg:'thân mật', ex:['He let the cat out of the bag about the party.','Cậu ta lỡ miệng làm lộ bữa tiệc bất ngờ.'] },
+  { p:'kill two birds with one stone', vi:'một công đôi việc', reg:'trung tính', ex:['I study on the bus and kill two birds with one stone.','Tôi học trên xe buýt, một công đôi việc.'] },
+  { p:'the elephant in the room', vi:'vấn đề ai cũng thấy nhưng không ai nói', reg:'trung tính', ex:['Nobody mentioned the elephant in the room.','Không ai nhắc tới cái vấn đề rành rành đó.'] },
+  { p:'a dark horse', vi:'ẩn số, người có tài mà giấu kín', reg:'trung tính', ex:['He is a bit of a dark horse.','Cậu ấy là một ẩn số.'] },
+  { p:'straight from the horse’s mouth', vi:'tin từ chính người trong cuộc', reg:'thân mật', ex:['I heard it straight from the horse’s mouth.','Tôi nghe trực tiếp từ người trong cuộc.'] },
+  { p:'a fish out of water', vi:'lạc lõng, không hợp môi trường', reg:'trung tính', ex:['I felt like a fish out of water at the party.','Ở bữa tiệc tôi thấy lạc lõng.'] },
+  { p:'hold your horses', vi:'từ từ đã, khoan đã', reg:'thân mật', ex:['Hold your horses, we have not decided yet.','Khoan đã, mình chưa quyết mà.'] }
+]}
+];
+
+if (typeof module !== 'undefined'){ module.exports = { PHRASAL_EN, IDIOMS_EN }; }
+
+</script>
+<script>
+/* ============================================================
+   LangLab — Bài tập tiếng Anh
+   EN_EXERCISES: mỗi câu có
+     lv    — cấp: a1 · a2 · b1 · b2
+     type  — dạng bài:
+             mc      trắc nghiệm 1/4
+             gap     điền dạng đúng của từ trong ngoặc
+             prep    chọn giới từ
+             order   sắp xếp câu
+             rewrite viết lại câu theo gợi ý
+             match   ghép nghĩa (cụm động từ, thành ngữ)
+             error   tìm lỗi sai
+             word    chọn từ đúng trong cặp dễ nhầm
+     tag   — nhãn chủ đề để lọc
+     q     — đề bài (dấu ___ là chỗ trống)
+     o     — lựa chọn (mc, prep, word, match)
+     c     — chỉ số đáp án đúng, hoặc chuỗi đáp án (gap, order, rewrite)
+     e     — giải thích tiếng Việt
+   Nội dung do LangLab biên soạn.
+   ============================================================ */
+
+const EN_EXERCISES = [
+
+/* ---------- A1 ---------- */
+{ lv:'a1', type:'mc', tag:'to be', q:'She ___ a teacher at a primary school.', o:['am','is','are','be'], c:1, e:'Chủ ngữ «she» đi với «is». Nhớ bảng: I am · he/she/it is · you/we/they are.' },
+{ lv:'a1', type:'mc', tag:'mạo từ', q:'My brother wants to be ___ engineer.', o:['a','an','the','—'], c:1, e:'«engineer» bắt đầu bằng ÂM nguyên âm /e/ nên dùng «an».' },
+{ lv:'a1', type:'mc', tag:'mạo từ', q:'She studies at ___ university in Hanoi.', o:['a','an','the','—'], c:0, e:'«university» đọc là /ˌjuːnɪˈvɜːsəti/, bắt đầu bằng ÂM /j/ nên dùng «a», không dùng «an».' },
+{ lv:'a1', type:'gap', tag:'hiện tại đơn', q:'He ___ (work) in a bank.', c:'works', e:'Ngôi thứ ba số ít ở hiện tại đơn thêm -s: he works.' },
+{ lv:'a1', type:'gap', tag:'hiện tại đơn', q:'My sister ___ (study) English every evening.', c:'studies', e:'Động từ kết thúc bằng phụ âm + y thì đổi y thành i rồi thêm -es: study → studies.' },
+{ lv:'a1', type:'mc', tag:'hiện tại đơn', q:'___ she like coffee?', o:['Do','Does','Is','Has'], c:1, e:'Ngôi thứ ba số ít dùng trợ động từ «does», và động từ chính trở về nguyên thể.' },
+{ lv:'a1', type:'error', tag:'hiện tại đơn', q:'Tìm lỗi: «He doesn’t works on Saturday.»', o:['He','doesn’t','works','on Saturday'], c:2, e:'Sau «does/doesn’t», động từ phải ở dạng nguyên thể: He doesn’t WORK.' },
+{ lv:'a1', type:'prep', tag:'giới từ thời gian', q:'The class starts ___ eight o’clock.', o:['in','on','at','to'], c:2, e:'at + giờ cụ thể · on + ngày, thứ · in + tháng, năm, buổi.' },
+{ lv:'a1', type:'prep', tag:'giới từ thời gian', q:'My birthday is ___ April.', o:['at','on','in','from'], c:2, e:'in + tháng: in April. Nếu có ngày cụ thể thì dùng on: on 3 April.' },
+{ lv:'a1', type:'prep', tag:'giới từ nơi chốn', q:'The keys are ___ the table.', o:['in','on','at','under'], c:1, e:'on = trên bề mặt. «in the table» sẽ là bên trong cái bàn.' },
+{ lv:'a1', type:'mc', tag:'số nhiều', q:'There are three ___ in my family.', o:['child','childs','children','childrens'], c:2, e:'child → children là số nhiều bất quy tắc; không bao giờ có «childrens».' },
+{ lv:'a1', type:'mc', tag:'sở hữu', q:'This is ___ bike.', o:['my brother','my brothers','my brother’s','my brothers’s'], c:2, e:'Sở hữu cách của danh từ số ít: thêm ’s.' },
+{ lv:'a1', type:'mc', tag:'there is/are', q:'___ a market in front of the building.', o:['There is','There are','It is','They are'], c:0, e:'«a market» là số ít nên dùng There is.' },
+{ lv:'a1', type:'gap', tag:'tiếp diễn', q:'Look! It ___ (rain).', c:'is raining', e:'«Look!» báo hiệu việc đang diễn ra ngay lúc nói → hiện tại tiếp diễn.' },
+{ lv:'a1', type:'word', tag:'từ dễ nhầm', q:'I ___ my phone at home this morning.', o:['left','let','lost','loose'], c:0, e:'left = đã để quên (quá khứ của leave). lost = mất hẳn, không tìm thấy.' },
+{ lv:'a1', type:'mc', tag:'can', q:'She ___ swim, but she can’t drive.', o:['can to','cans','can','is can'], c:2, e:'Sau «can» là động từ nguyên thể KHÔNG «to», và «can» không chia theo ngôi.' },
+{ lv:'a1', type:'gap', tag:'quá khứ đơn', q:'We ___ (go) to the cinema last night.', c:'went', e:'go → went (bất quy tắc). Có «last night» nên bắt buộc dùng quá khứ đơn.' },
+{ lv:'a1', type:'gap', tag:'quá khứ đơn', q:'She ___ (not / come) to the party.', c:"did not come", e:'Phủ định quá khứ: did not + động từ nguyên thể. Rút gọn: didn’t come.' },
+{ lv:'a1', type:'order', tag:'trật tự câu', q:'Sắp xếp: usually / I / at / get up / six', c:'I usually get up at six', e:'Trạng từ tần suất đứng TRƯỚC động từ thường: I usually get up.' },
+{ lv:'a1', type:'order', tag:'trật tự câu', q:'Sắp xếp: is / where / from / she / ?', c:'Where is she from', e:'Câu hỏi Wh-: từ hỏi + động từ be + chủ ngữ.' },
+{ lv:'a1', type:'mc', tag:'so sánh', q:'This shop is ___ than that one.', o:['cheap','cheaper','cheapest','more cheap'], c:1, e:'Tính từ ngắn thêm -er + than. Không dùng «more» với tính từ một âm tiết.' },
+{ lv:'a1', type:'mc', tag:'so sánh', q:'It is ___ restaurant in the city.', o:['the good','the better','the best','best'], c:2, e:'So sánh nhất bất quy tắc: good → better → the best, luôn có «the».' },
+{ lv:'a1', type:'rewrite', tag:'viết lại', q:'Viết lại dùng «going to»: I have decided to look for a job. → I ___ look for a job.', c:'am going to', e:'Dự định đã quyết định trước thì dùng «be going to».' },
+{ lv:'a1', type:'match', tag:'cụm động từ', q:'«get up» nghĩa là gì?', o:['ra khỏi giường','bỏ cuộc','gặp gỡ','hồi phục'], c:0, e:'get up = ra khỏi giường, đứng dậy. «bỏ cuộc» là give up.' },
+{ lv:'a1', type:'prep', tag:'giới từ', q:'I go to work ___ bus.', o:['in','by','on','with'], c:1, e:'by + phương tiện không có mạo từ: by bus, by train. Nhưng «on the bus» khi nói vị trí.' },
+{ lv:'a1', type:'error', tag:'lỗi thường gặp', q:'Tìm lỗi: «I have twenty years old.»', o:['I','have','twenty','years old'], c:1, e:'Tuổi dùng động từ «be»: I AM twenty years old. Đây là lỗi dịch từ tiếng Việt.' },
+{ lv:'a1', type:'word', tag:'much/many', q:'How ___ money do you need?', o:['many','much','some','few'], c:1, e:'money là danh từ không đếm được nên dùng «much».' },
+{ lv:'a1', type:'mc', tag:'tính từ sở hữu', q:'That is Linh and this is ___ bag.', o:['she','her','hers','she’s'], c:1, e:'Trước danh từ dùng tính từ sở hữu «her». «hers» đứng một mình, không có danh từ theo sau.' },
+
+/* ---------- A2 ---------- */
+{ lv:'a2', type:'gap', tag:'quá khứ tiếp diễn', q:'While I ___ (cook), the phone rang.', c:'was cooking', e:'while + quá khứ tiếp diễn làm nền, when + quá khứ đơn cắt ngang.' },
+{ lv:'a2', type:'mc', tag:'hiện tại hoàn thành', q:'I ___ never ___ to Japan.', o:['have / been','have / gone','did / go','am / been'], c:0, e:'have been to = đã từng tới (và đã về). have gone to = đã đi và còn đang ở đó.' },
+{ lv:'a2', type:'error', tag:'hoàn thành', q:'Tìm lỗi: «I have seen that film yesterday.»', o:['I','have seen','that film','yesterday'], c:1, e:'Có mốc thời gian cụ thể (yesterday) thì BẮT BUỘC dùng quá khứ đơn: I SAW that film yesterday.' },
+{ lv:'a2', type:'word', tag:'for/since', q:'She has worked here ___ 2021.', o:['for','since','from','during'], c:1, e:'since + mốc thời gian bắt đầu · for + khoảng thời gian (for three years).' },
+{ lv:'a2', type:'word', tag:'yet/already', q:'Have you finished the report ___?', o:['already','yet','still','just'], c:1, e:'yet đứng cuối câu hỏi và câu phủ định; already đứng giữa câu khẳng định.' },
+{ lv:'a2', type:'gap', tag:'điều kiện 1', q:'If it ___ (rain) tomorrow, we will stay at home.', c:'rains', e:'Mệnh đề «if» của câu điều kiện loại 1 dùng HIỆN TẠI ĐƠN, không dùng «will».' },
+{ lv:'a2', type:'gap', tag:'điều kiện 2', q:'If I ___ (be) you, I would take the job.', c:'were', e:'Điều kiện loại 2 dùng «were» cho mọi ngôi: If I were you…' },
+{ lv:'a2', type:'mc', tag:'must/have to', q:'You ___ smoke here — it is a hospital.', o:['do not have to','mustn’t','need not','should not have'], c:1, e:'mustn’t = cấm. «do not have to» chỉ nghĩa là không cần, hoàn toàn khác.' },
+{ lv:'a2', type:'mc', tag:'lượng từ', q:'There is ___ traffic in the city centre.', o:['too many','too much','too','many'], c:1, e:'traffic không đếm được nên dùng «too much».' },
+{ lv:'a2', type:'mc', tag:'lượng từ', q:'He is not old ___ to drive.', o:['enough','too','so','very'], c:0, e:'Vị trí của enough: tính từ + enough (old enough) nhưng enough + danh từ (enough money).' },
+{ lv:'a2', type:'mc', tag:'mệnh đề quan hệ', q:'The woman ___ lives next door is a doctor.', o:['which','who','whom','whose'], c:1, e:'Đại từ quan hệ thay cho chủ ngữ chỉ người: who (hoặc that).' },
+{ lv:'a2', type:'mc', tag:'mệnh đề quan hệ', q:'That is the student ___ father is a teacher.', o:['who','which','whose','that'], c:2, e:'whose chỉ quan hệ sở hữu: người mà bố của người đó…' },
+{ lv:'a2', type:'rewrite', tag:'tường thuật', q:'Tường thuật: «I am busy,» she said. → She said she ___ busy.', c:'was', e:'Tường thuật thì lùi thì: am → was, và đổi đại từ I → she.' },
+{ lv:'a2', type:'error', tag:'say/tell', q:'Tìm lỗi: «He said me that he was late.»', o:['He','said me','that','he was late'], c:1, e:'say something TO someone hoặc tell someone something. Phải là «He TOLD me» hoặc «He said TO me».' },
+{ lv:'a2', type:'gap', tag:'bị động', q:'This bridge ___ (build) in 1902.', c:'was built', e:'Bị động quá khứ: was/were + phân từ ba. build → built.' },
+{ lv:'a2', type:'gap', tag:'bị động', q:'The room ___ (can / book) online.', c:'can be booked', e:'Bị động với động từ khuyết thiếu: modal + be + V3.' },
+{ lv:'a2', type:'gap', tag:'gerund/infinitive', q:'She avoided ___ (answer) the question.', c:'answering', e:'avoid luôn theo sau bởi V-ing. Nhóm này còn có enjoy, finish, mind, suggest, practise.' },
+{ lv:'a2', type:'gap', tag:'gerund/infinitive', q:'They decided ___ (move) to Da Nang.', c:'to move', e:'decide luôn theo sau bởi to + V. Nhóm này còn có want, hope, plan, promise, agree.' },
+{ lv:'a2', type:'mc', tag:'gerund/infinitive', q:'I remember ___ the door — I am sure I did it.', o:['to lock','locking','lock','locked'], c:1, e:'remember + V-ing = nhớ là ĐÃ làm. remember + to V = nhớ mà làm (việc chưa làm).' },
+{ lv:'a2', type:'mc', tag:'used to', q:'I ___ walk to school when I was a child.', o:['use to','used to','am used to','was used to'], c:1, e:'used to + V = thói quen trong quá khứ nay không còn. «be used to + V-ing» nghĩa hoàn toàn khác: đã quen với.' },
+{ lv:'a2', type:'prep', tag:'giới từ', q:'She is very good ___ maths.', o:['in','at','on','with'], c:1, e:'good AT something. Cụm cố định, phải học thuộc.' },
+{ lv:'a2', type:'prep', tag:'giới từ', q:'I am looking forward ___ hearing from you.', o:['to','for','at','on'], c:0, e:'look forward TO + V-ing. «to» ở đây là giới từ nên KHÔNG dùng động từ nguyên thể.' },
+{ lv:'a2', type:'prep', tag:'giới từ', q:'He apologised ___ being late.', o:['of','for','about','with'], c:1, e:'apologise TO someone FOR something.' },
+{ lv:'a2', type:'order', tag:'trật tự câu', q:'Sắp xếp: know / do / you / where / lives / she / ?', c:'Do you know where she lives', e:'Câu hỏi gián tiếp: phần sau giữ trật tự CÂU KỂ, không đảo.' },
+{ lv:'a2', type:'order', tag:'trật tự tính từ', q:'Sắp xếp: a / leather / black / nice / jacket', c:'a nice black leather jacket', e:'Trật tự: ý kiến → màu → chất liệu → danh từ.' },
+{ lv:'a2', type:'match', tag:'cụm động từ', q:'«put up with» nghĩa là gì?', o:['sắp xếp lại','chịu đựng','đề xuất','hoãn lại'], c:1, e:'put up with = chịu đựng. «hoãn lại» là put off.' },
+{ lv:'a2', type:'match', tag:'cụm động từ', q:'«run out of» nghĩa là gì?', o:['chạy ra ngoài','hết, cạn','vượt qua','tình cờ gặp'], c:1, e:'run out of = hết (thứ gì). «tình cờ gặp» là run into.' },
+{ lv:'a2', type:'match', tag:'thành ngữ', q:'«once in a blue moon» nghĩa là gì?', o:['rất thường xuyên','hoạ hoằn lắm','vào ban đêm','một cách buồn bã'], c:1, e:'once in a blue moon = rất hiếm khi, hoạ hoằn lắm mới một lần.' },
+{ lv:'a2', type:'match', tag:'thành ngữ', q:'«under the weather» nghĩa là gì?', o:['trời đang xấu','không khoẻ trong người','bị ướt','đang buồn'], c:1, e:'under the weather = thấy hơi ốm, không khoẻ. Không liên quan tới thời tiết thật.' },
+{ lv:'a2', type:'word', tag:'từ dễ nhầm', q:'The price of rice will ___ next month.', o:['raise','rise','arise','rouse'], c:1, e:'rise = tự tăng lên, không có tân ngữ. raise = nâng cái gì lên, phải có tân ngữ.' },
+{ lv:'a2', type:'word', tag:'từ dễ nhầm', q:'Please ___ me the salt.', o:['borrow','lend','pass','bring up'], c:2, e:'pass = chuyền, đưa qua. borrow = mượn của ai; lend = cho ai mượn.' },
+{ lv:'a2', type:'rewrite', tag:'viết lại', q:'Viết lại dùng «too»: The coffee is so hot that I cannot drink it. → The coffee is ___ hot ___ drink.', c:'too / to', e:'Cấu trúc: too + tính từ + to + V.' },
+{ lv:'a2', type:'rewrite', tag:'viết lại', q:'Viết lại bị động: They built the school in 1990. → The school ___ in 1990.', c:'was built', e:'Bị động quá khứ đơn: was/were + V3, bỏ chủ ngữ «they» vì không quan trọng.' },
+
+/* ---------- B1 ---------- */
+{ lv:'b1', type:'gap', tag:'hoàn thành tiếp diễn', q:'She ___ (work) here since March.', c:'has been working', e:'Nhấn vào quá trình kéo dài từ quá khứ tới hiện tại: have/has been + V-ing.' },
+{ lv:'b1', type:'gap', tag:'quá khứ hoàn thành', q:'When I arrived, the film ___ (already / start).', c:'had already started', e:'Việc xảy ra TRƯỚC một mốc quá khứ khác: had + V3.' },
+{ lv:'b1', type:'gap', tag:'điều kiện 3', q:'If she ___ (study) harder, she would have passed.', c:'had studied', e:'Điều kiện loại 3 (trái với quá khứ): If + had + V3, would have + V3.' },
+{ lv:'b1', type:'mc', tag:'wish', q:'I wish I ___ more free time.', o:['have','had','will have','would have'], c:1, e:'wish + quá khứ đơn để ước điều trái với hiện tại.' },
+{ lv:'b1', type:'mc', tag:'suy đoán', q:'He ___ be at home — his car is outside.', o:['must','can’t','might not','should'], c:0, e:'must = suy đoán chắc chắn có căn cứ. Suy đoán chắc chắn KHÔNG thì dùng «can’t».' },
+{ lv:'b1', type:'mc', tag:'suy đoán quá khứ', q:'She ___ have missed the bus — she is never late.', o:['must','can’t','should','would'], c:1, e:'can’t have + V3 = chắc chắn đã không xảy ra.' },
+{ lv:'b1', type:'gap', tag:'bị động', q:'The report ___ (send) to all staff yesterday.', c:'was sent', e:'send → sent → sent. Bị động quá khứ đơn.' },
+{ lv:'b1', type:'rewrite', tag:'bị động cá nhân', q:'Viết lại: People say that he is a genius. → He ___ to be a genius.', c:'is said', e:'Bị động với động từ tường thuật: S + be + V3 + to V.' },
+{ lv:'b1', type:'mc', tag:'mệnh đề quan hệ', q:'Hanoi, ___ is the capital, has over eight million people.', o:['that','which','who','where'], c:1, e:'Mệnh đề bổ sung thông tin (có dấu phẩy) KHÔNG dùng «that».' },
+{ lv:'b1', type:'order', tag:'đảo ngữ nhẹ', q:'Sắp xếp: had / I / known / if / , / would / I / helped / have', c:'If I had known, I would have helped', e:'Điều kiện loại 3 đầy đủ; mệnh đề if đứng trước thì có dấu phẩy.' },
+{ lv:'b1', type:'prep', tag:'giới từ', q:'The result depends ___ several factors.', o:['of','on','from','to'], c:1, e:'depend ON. Đây là một trong những collocation hay sai nhất.' },
+{ lv:'b1', type:'prep', tag:'giới từ', q:'She is responsible ___ training new staff.', o:['of','to','for','with'], c:2, e:'responsible FOR + V-ing hoặc danh từ.' },
+{ lv:'b1', type:'error', tag:'lỗi thường gặp', q:'Tìm lỗi: «We discussed about the problem for an hour.»', o:['We','discussed about','the problem','for an hour'], c:1, e:'discuss là ngoại động từ, KHÔNG có «about»: discuss the problem.' },
+{ lv:'b1', type:'error', tag:'lỗi thường gặp', q:'Tìm lỗi: «Despite of the rain, we went out.»', o:['Despite of','the rain','we','went out'], c:0, e:'despite KHÔNG có «of». Đúng là «Despite the rain» hoặc «In spite of the rain».' },
+{ lv:'b1', type:'word', tag:'từ dễ nhầm', q:'The company was ___ by two engineers in 2015.', o:['found','founded','finded','founding'], c:1, e:'found (thành lập) là động từ có quy tắc: found – founded – founded. Đừng nhầm với «found» là quá khứ của «find».' },
+{ lv:'b1', type:'word', tag:'từ dễ nhầm', q:'The two brothers ___ the room quietly.', o:['lied','laid','lay','left'], c:3, e:'Trong ngữ cảnh này chỉ «left» hợp nghĩa. lie–lay–lain (nằm) ≠ lay–laid–laid (đặt).' },
+{ lv:'b1', type:'match', tag:'cụm động từ', q:'«come up with» nghĩa là gì?', o:['tình cờ gặp','nghĩ ra','đi cùng','bù đắp'], c:1, e:'come up with = nghĩ ra (ý tưởng, giải pháp).' },
+{ lv:'b1', type:'match', tag:'thành ngữ', q:'«a blessing in disguise» nghĩa là gì?', o:['một lời chúc giả tạo','trong cái rủi có cái may','một bí mật lớn','một món quà bất ngờ'], c:1, e:'a blessing in disguise = tưởng xui mà hoá may.' },
+{ lv:'b1', type:'mc', tag:'liên từ', q:'___ he was tired, he finished the report.', o:['Despite','Although','However','Because'], c:1, e:'although + MỆNH ĐỀ · despite + danh từ · however đứng riêng và có dấu phẩy.' },
+{ lv:'b1', type:'rewrite', tag:'viết lại', q:'Viết lại dùng «although»: In spite of the noise, I slept well. → ___ it was noisy, I slept well.', c:'Although', e:'Chuyển từ giới từ + danh từ sang liên từ + mệnh đề.' },
+{ lv:'b1', type:'gap', tag:'gerund/infinitive', q:'He stopped ___ (smoke) two years ago.', c:'smoking', e:'stop + V-ing = bỏ hẳn việc đó. stop + to V = dừng lại ĐỂ làm việc khác.' },
+{ lv:'b1', type:'mc', tag:'lượng từ', q:'___ students in the class have finished.', o:['Almost','Most of','Most','The most'], c:2, e:'Most + danh từ số nhiều (nói chung). «Most of» phải có «the»: most of the students.' },
+
+/* ---------- B2 ---------- */
+{ lv:'b2', type:'mc', tag:'đảo ngữ', q:'___ had he arrived when the meeting started.', o:['No sooner','Hardly','Scarcely','Not only'], c:1, e:'Hardly … when… là cặp cố định. «No sooner … than…» mới đi với «than».' },
+{ lv:'b2', type:'gap', tag:'đảo ngữ', q:'Not only ___ (she / speak) French, but she also writes it well.', c:'does she speak', e:'Sau «Not only» đầu câu phải đảo trợ động từ lên trước chủ ngữ.' },
+{ lv:'b2', type:'mc', tag:'giả định', q:'The manager insisted that the report ___ submitted by Friday.', o:['is','was','be','will be'], c:2, e:'Thức giả định sau insist, suggest, demand, recommend: dùng động từ NGUYÊN THỂ, không chia.' },
+{ lv:'b2', type:'gap', tag:'phân từ', q:'___ (finish) the report, she went home.', c:'Having finished', e:'Mệnh đề phân từ hoàn thành: Having + V3, dùng khi việc trước xảy ra trước việc sau.' },
+{ lv:'b2', type:'mc', tag:'mệnh đề', q:'It was the noise ___ kept me awake all night.', o:['what','that','which is','who'], c:1, e:'Câu chẻ nhấn mạnh: It was + phần nhấn mạnh + that…' },
+{ lv:'b2', type:'rewrite', tag:'viết lại', q:'Viết lại nhấn mạnh: I need your advice, not your money. → It is your ___ that I need.', c:'advice', e:'Cấu trúc câu chẻ «It is … that …» để nhấn mạnh một thành phần.' },
+{ lv:'b2', type:'error', tag:'lỗi tinh vi', q:'Tìm lỗi: «The amount of students has increased.»', o:['The amount of','students','has','increased'], c:0, e:'amount + không đếm được · number + đếm được. Đúng là «The NUMBER of students».' },
+{ lv:'b2', type:'error', tag:'lỗi tinh vi', q:'Tìm lỗi: «She is one of the students who is always late.»', o:['one of','the students','who','is always late'], c:3, e:'«who» thay cho «the students» (số nhiều) nên động từ phải là ARE always late.' },
+{ lv:'b2', type:'word', tag:'sắc thái', q:'The evidence strongly ___ that the theory is wrong.', o:['tells','says','suggests','speaks'], c:2, e:'suggest là động từ chuẩn học thuật khi nói dữ liệu «cho thấy». «tell/say» không dùng cho evidence.' },
+{ lv:'b2', type:'word', tag:'sắc thái', q:'The government has ___ new measures to reduce pollution.', o:['done','made','introduced','put'], c:2, e:'introduce measures là collocation chuẩn. «do measures» hay «make measures» đều sai.' },
+{ lv:'b2', type:'match', tag:'thành ngữ', q:'«the elephant in the room» nghĩa là gì?', o:['một vật quá to','vấn đề ai cũng thấy mà không ai nói','một người quan trọng','một sai lầm nhỏ'], c:1, e:'Chỉ vấn đề hiển nhiên nhưng mọi người tránh nhắc tới.' },
+{ lv:'b2', type:'match', tag:'cụm động từ', q:'«carry out» nghĩa là gì?', o:['mang ra ngoài','thực hiện (nghiên cứu, kế hoạch)','tiếp tục','chịu đựng'], c:1, e:'carry out research / a survey / an experiment — rất thông dụng trong văn học thuật.' },
+{ lv:'b2', type:'prep', tag:'giới từ', q:'There has been a sharp increase ___ house prices.', o:['of','in','on','for'], c:1, e:'an increase IN + thứ tăng lên. «increase of» dùng cho mức tăng: an increase of 5%.' },
+{ lv:'b2', type:'mc', tag:'liên kết', q:'The plan is cheap; ___, it is risky.', o:['moreover','therefore','however','thus'], c:2, e:'however nối hai ý TRÁI ngược. moreover và thus đều nối ý cùng chiều.' },
+{ lv:'b2', type:'order', tag:'trật tự câu', q:'Sắp xếp: only / after / did / the meeting / he / speak', c:'Only after the meeting did he speak', e:'«Only + trạng ngữ» đầu câu bắt buộc đảo ngữ.' },
+{ lv:'b2', type:'gap', tag:'bị động', q:'The building ___ (renovate) at the moment.', c:'is being renovated', e:'Bị động hiện tại tiếp diễn: is/are being + V3.' },
+{ lv:'b2', type:'mc', tag:'mạo từ', q:'___ poverty remains a serious problem in many regions.', o:['A','An','The','—'], c:3, e:'Danh từ trừu tượng không đếm được nói chung thì KHÔNG dùng mạo từ.' },
+{ lv:'b2', type:'rewrite', tag:'viết lại', q:'Viết lại trang trọng: The results show clearly that the method works. → The results clearly ___ the effectiveness of the method.', c:'demonstrate', e:'demonstrate là động từ học thuật thay cho «show clearly».' }
+
+];
+
+if (typeof module !== 'undefined'){ module.exports = { EN_EXERCISES }; }
+
+</script>
+<script>
+/* ============================================================
    LangLab — «BẠN CÓ BIẾT?» : kho fact văn hoá – ngôn ngữ – ẩm thực – lễ hội –
    con người – động vật – thói quen của các nước có tiếng đang học.
    Mỗi mục: { lang, cat, title, body, extra, word:{t (bản ngữ), r (phiên âm), vi}, art (mã hình minh hoạ) }
@@ -29060,7 +29507,7 @@ const state = {
   zh: { level:'hsk1', lesson:null, writeChar:'', srs:null },
   ru: { level:'a1', lesson:null, letter:'А', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, trace:true },
   ja: { level:'n5', lesson:null, kana:'hiragana', kanaSel:'あ', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, kanjiLevel:null, kanjiSel:null, writeChar:'あ', furi:true },
-  en: { level:'a1', lesson:null, dictQ:'', entry:null, phon:'iː', phonTab:'vowel', srs:null, quiz:null, exam:null, pracLevel:null, topic:null },
+  en: { level:'a1', lesson:null, dictQ:'', entry:null, phon:'iː', phonTab:'vowel', idiomTab:'phrasal', idiomGroup:'all', idiomQ:'', quizLevel:'all', quizType:'all', srs:null, quiz:null, exam:null, pracLevel:null, topic:null },
   jamo: 'ㄱ',
   syll: { cho:'ㅎ', jung:'ㅏ', jong:'ㄴ' },
   speed: 1,
@@ -34268,8 +34715,172 @@ VIEWS.en_dict = function(){
   </section>`;
 };
 VIEWS.en_srs   = function(){ return enSoon('Ôn tập tiếng Anh', 'Tiếng Anh · Ghi nhớ', [['Thẻ lật hai chiều','Anh → Việt và Việt → Anh, có phát âm.'],['Ưu tiên từ chưa thuộc','Lịch ôn theo mức độ nhớ của từng từ.']]); };
-VIEWS.en_quiz  = function(){ return enSoon('Bài tập tiếng Anh', 'Tiếng Anh · Luyện tập', [['Nhiều dạng bài','Trắc nghiệm, điền dạng đúng của từ, chọn giới từ, sắp xếp câu, chuyển câu, viết lại câu.'],['Chấm điểm và giải thích','Mỗi câu có lời giải thích ngữ pháp bằng tiếng Việt.']]); };
-VIEWS.en_idiom = function(){ return enSoon('Idiom & Phrasal verb', 'Tiếng Anh · Cụm từ', [['Cụm động từ theo động từ gốc','get, take, put, come, go, look, turn, bring, run… kèm nghĩa đen và nghĩa bóng.'],['Thành ngữ theo chủ đề','Thời gian, tiền bạc, cảm xúc, công việc, quan hệ — kèm mức trang trọng và ví dụ.']]); };
+/* ---------- Bài tập tiếng Anh ---------- */
+const _EEX = (typeof EN_EXERCISES !== 'undefined') ? EN_EXERCISES : [];
+const EN_QZ_TYPE = {
+  mc:'Trắc nghiệm', gap:'Điền dạng đúng', prep:'Chọn giới từ', order:'Sắp xếp câu',
+  rewrite:'Viết lại câu', match:'Ghép nghĩa', error:'Tìm lỗi sai', word:'Từ dễ nhầm'
+};
+function enQzPool(){
+  const lv = state.en.quizLevel || 'all';
+  const ty = state.en.quizType || 'all';
+  return _EEX.filter(x => (lv === 'all' || x.lv === lv) && (ty === 'all' || x.type === ty));
+}
+function enQzNorm(v){
+  return String(v || '').toLowerCase().trim()
+    .replace(/[’]/g, "'").replace(/[.,!?;]/g, '')
+    .replace(/\bdon't\b/g, 'do not').replace(/\bdidn't\b/g, 'did not')
+    .replace(/\bcan't\b/g, 'cannot').replace(/\bisn't\b/g, 'is not')
+    .replace(/\s*\/\s*/g, ' / ').replace(/\s+/g, ' ');
+}
+function enQzStart(){
+  const pool = enQzPool().slice();
+  for (let i = pool.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); const t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
+  state.en.quiz = { qs:pool.slice(0, Math.min(15, pool.length)), i:0, picked:[], done:false };
+}
+function enQzCorrect(q, v){
+  if (v === undefined || v === null || v === '') return false;
+  if (q.type === 'mc' || q.type === 'prep' || q.type === 'match' || q.type === 'error' || q.type === 'word') return +v === q.c;
+  return enQzNorm(v) === enQzNorm(q.c);
+}
+VIEWS.en_quiz = function(){
+  const Q = state.en.quiz;
+  const levels = [['all','Tất cả'],['a1','A1'],['a2','A2'],['b1','B1'],['b2','B2']];
+  const types = [['all','Tất cả dạng']].concat(Object.keys(EN_QZ_TYPE).map(k => [k, EN_QZ_TYPE[k]]));
+  const head = `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Anh · Luyện tập</span>
+    <h1>Bài tập tiếng Anh</h1>
+    <p>Kho có <b>${_EEX.length}</b> câu thuộc <b>8 dạng</b>: trắc nghiệm, điền dạng đúng của từ, chọn giới từ, sắp xếp câu, viết lại câu, ghép nghĩa cụm từ, tìm lỗi sai và phân biệt từ dễ nhầm. Mỗi câu đều có lời giải thích bằng tiếng Việt.</p>
+  </div>`;
+
+  if (!Q || !Q.qs.length){
+    const pool = enQzPool();
+    return head + `
+    <div class="level-strip compact">${levels.map(l => `<button class="level-chip" data-en-quizlevel="${l[0]}"${(state.en.quizLevel || 'all') === l[0] ? ' aria-pressed="true"' : ''}>${esc(l[1])}</button>`).join('')}</div>
+    <div class="level-strip compact" style="margin-top:8px">${types.map(t => `<button class="level-chip" data-en-quiztype="${t[0]}"${(state.en.quizType || 'all') === t[0] ? ' aria-pressed="true"' : ''}>${esc(t[1])}</button>`).join('')}</div>
+    <div class="qz-start">
+      <p>Bộ lọc hiện tại có <b>${pool.length}</b> câu. Mỗi lượt luyện lấy ngẫu nhiên tối đa 15 câu.</p>
+      <button class="pbtn primary" data-en-quizstart="1"${pool.length ? '' : ' disabled'}>Bắt đầu luyện</button>
+    </div>`;
+  }
+
+  if (Q.done){
+    const right = Q.qs.filter((q, i) => enQzCorrect(q, Q.picked[i])).length;
+    return head + `
+    <div class="qz-result">
+      <h2>${right}/${Q.qs.length} câu đúng</h2>
+      <p>${right === Q.qs.length ? 'Tuyệt đối! Thử tăng cấp hoặc đổi dạng bài xem sao.' : right >= Q.qs.length * 0.7 ? 'Khá tốt. Xem lại các câu sai bên dưới nhé.' : 'Cần ôn thêm. Đọc kỹ phần giải thích của từng câu.'}</p>
+      <div class="fact-actions">
+        <button class="pbtn primary" data-en-quizstart="1">Luyện lượt mới</button>
+        <button class="pbtn" data-en-quizexit="1">Đổi bộ lọc</button>
+      </div>
+    </div>
+    <div class="qz-review">${Q.qs.map((q, i) => {
+      const ok = enQzCorrect(q, Q.picked[i]);
+      const mine = (q.type === 'mc' || q.type === 'prep' || q.type === 'match' || q.type === 'error' || q.type === 'word')
+        ? (Q.picked[i] !== undefined && q.o ? q.o[+Q.picked[i]] : '(bỏ trống)')
+        : (Q.picked[i] || '(bỏ trống)');
+      const ans = (q.type === 'mc' || q.type === 'prep' || q.type === 'match' || q.type === 'error' || q.type === 'word') ? q.o[q.c] : q.c;
+      return `<div class="qz-rev ${ok ? 'ok' : 'no'}">
+        <span>${ok ? '✓' : '✗'}</span>
+        <i class="qz-tag">${esc(EN_QZ_TYPE[q.type] || q.type)} · ${esc(q.tag)}</i>
+        <div><b class="en">${esc(q.q)}</b></div>
+        ${ok ? '' : `<div class="qz-mine">Bạn chọn: <b>${esc(mine)}</b> · Đáp án: <b class="en">${esc(ans)}</b></div>`}
+        <div class="qz-exp">${esc(q.e)}</div>
+      </div>`;
+    }).join('')}</div>`;
+  }
+
+  const q = Q.qs[Q.i], picked = Q.picked[Q.i];
+  const isChoice = ['mc','prep','match','error','word'].indexOf(q.type) >= 0;
+  const body = isChoice
+    ? `<div class="qz-opts">${q.o.map((o, i) => `<button class="qz-opt en${picked === i ? ' on' : ''}" data-en-quizpick="${i}">${esc(o)}</button>`).join('')}</div>`
+    : `<div class="qz-input"><input id="enqzin" class="dict-q" type="text" placeholder="${q.type === 'order' ? 'Viết lại cả câu, không cần dấu chấm…' : 'Nhập đáp án…'}" value="${esc(picked || '')}" autocomplete="off" spellcheck="false"></div>`;
+
+  return head + `
+  <div class="qz-bar"><span>Câu ${Q.i + 1}/${Q.qs.length}</span><span class="qz-tag">${esc(EN_QZ_TYPE[q.type] || q.type)} · ${esc(q.tag)} · ${esc((q.lv || '').toUpperCase())}</span></div>
+  <div class="qz-card">
+    <div class="qz-q en">${esc(q.q)}</div>
+    ${body}
+  </div>
+  <div class="les-nav">
+    ${Q.i > 0 ? '<button class="pbtn" data-en-quiznav="-1">← Câu trước</button>' : '<span></span>'}
+    ${Q.i < Q.qs.length - 1
+      ? '<button class="pbtn primary" data-en-quiznav="1">Câu sau →</button>'
+      : '<button class="pbtn primary" data-en-quizsubmit="1">Nộp bài</button>'}
+  </div>
+  <p class="tk-note-small">Với dạng điền và viết lại, đáp án được chấm không phân biệt hoa thường, dấu câu và dạng rút gọn (don’t = do not).</p>`;
+};
+/* ---------- Idiom & Phrasal verb ---------- */
+const _EPV = (typeof PHRASAL_EN !== 'undefined') ? PHRASAL_EN : [];
+const _EID = (typeof IDIOMS_EN !== 'undefined') ? IDIOMS_EN : [];
+function enPvCount(){ return _EPV.reduce((n, g) => n + g.items.length, 0); }
+function enIdCount(){ return _EID.reduce((n, g) => n + g.items.length, 0); }
+function enPhrasalCard(x){
+  const tags = [];
+  if (x.sep === true) tags.push('tách được');
+  if (x.sep === false) tags.push('không tách');
+  if (x.obj === 'yes') tags.push('cần tân ngữ');
+  if (x.obj === 'no') tags.push('không tân ngữ');
+  if (x.reg) tags.push(x.reg);
+  return `
+  <div class="st-card idiom-card">
+    <h4 class="en">${esc(x.p)} ${enSpeakBtn(x.p, 'mini')}</h4>
+    <p class="idiom-vi">${esc(x.vi)}</p>
+    <div class="ph-row">${tags.map(t => `<span class="ph-tag">${esc(t)}</span>`).join('')}</div>
+    ${x.ex ? `<div class="st-ex"><span class="en">${enTokens(x.ex[0])}</span></div><p class="idiom-tr">${esc(x.ex[1] || '')}</p>` : ''}
+    ${x.note ? `<p class="idiom-note"><b>Lưu ý:</b> ${esc(x.note)}</p>` : ''}
+  </div>`;
+}
+function enIdiomCard(x){
+  return `
+  <div class="st-card idiom-card">
+    <h4 class="en">${esc(x.p)} ${enSpeakBtn(x.p, 'mini')}</h4>
+    <p class="idiom-vi">${esc(x.vi)}</p>
+    ${x.reg ? `<div class="ph-row"><span class="ph-tag">${esc(x.reg)}</span></div>` : ''}
+    ${x.ex ? `<div class="st-ex"><span class="en">${enTokens(x.ex[0])}</span></div><p class="idiom-tr">${esc(x.ex[1] || '')}</p>` : ''}
+    ${x.note ? `<p class="idiom-note"><b>Lưu ý:</b> ${esc(x.note)}</p>` : ''}
+  </div>`;
+}
+VIEWS.en_idiom = function(){
+  const tab = state.en.idiomTab === 'idiom' ? 'idiom' : 'phrasal';
+  const q = (state.en.idiomQ || '').trim().toLowerCase();
+  const groups = tab === 'phrasal' ? _EPV : _EID;
+  const key = tab === 'phrasal' ? 'v' : 'cat';
+  const sel = state.en.idiomGroup && groups.some(g => g[key] === state.en.idiomGroup) ? state.en.idiomGroup : 'all';
+  let shown = [];
+  groups.forEach(g => {
+    if (sel !== 'all' && g[key] !== sel) return;
+    g.items.forEach(it => {
+      if (q && it.p.toLowerCase().indexOf(q) < 0 && it.vi.toLowerCase().indexOf(q) < 0) return;
+      shown.push([g[key], it]);
+    });
+  });
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Anh · Cụm từ</span>
+    <h1>Cụm động từ &amp; Thành ngữ</h1>
+    <p>Đây là hai thứ làm người học nghe hiểu được người bản ngữ. Kho hiện có <b>${enPvCount()}</b> cụm động từ xếp theo động từ gốc (kèm chỉ dẫn tách được hay không, có cần tân ngữ hay không) và <b>${enIdCount()}</b> thành ngữ xếp theo chủ đề, mỗi mục có ví dụ, bản dịch và mức trang trọng.</p>
+  </div>
+  <div class="level-strip compact">
+    <button class="level-chip" data-en-idiomtab="phrasal"${tab === 'phrasal' ? ' aria-pressed="true"' : ''}>Cụm động từ (${enPvCount()})</button>
+    <button class="level-chip" data-en-idiomtab="idiom"${tab === 'idiom' ? ' aria-pressed="true"' : ''}>Thành ngữ (${enIdCount()})</button>
+  </div>
+  <div class="dict-bar" style="margin-top:10px">
+    <input id="enidq" class="dict-q" type="search" placeholder="Tìm cụm từ hoặc nghĩa tiếng Việt…" value="${esc(state.en.idiomQ || '')}" autocomplete="off">
+  </div>
+  <div class="level-strip compact" style="margin-top:8px">
+    <button class="level-chip" data-en-idiomgroup="all"${sel === 'all' ? ' aria-pressed="true"' : ''}>Tất cả</button>
+    ${groups.map(g => `<button class="level-chip" data-en-idiomgroup="${esc(g[key])}"${sel === g[key] ? ' aria-pressed="true"' : ''}>${esc(g[key])}${g.vi && tab === 'phrasal' ? ` <span class="lv-ko">${esc(g.vi)}</span>` : ''}</button>`).join('')}
+  </div>
+  <section class="zh-sec">
+    <h2>${sel === 'all' ? (tab === 'phrasal' ? 'Tất cả cụm động từ' : 'Tất cả thành ngữ') : esc(sel)} <span class="sec-count">${shown.length}</span></h2>
+    <div class="st-list">${shown.map(x => tab === 'phrasal' ? enPhrasalCard(x[1]) : enIdiomCard(x[1])).join('')}</div>
+    ${!shown.length ? '<p class="tk-note-small">Không tìm thấy cụm nào. Thử gõ động từ gốc, ví dụ «get» hoặc «đủ sống».</p>' : ''}
+  </section>
+  <p class="tk-note-small">Cụm động từ tách được thì tân ngữ đứng giữa được: <i>turn the light off</i>. Nhưng khi tân ngữ là đại từ thì BẮT BUỘC tách: <i>turn it off</i>, không nói «turn off it».</p>`;
+};
 VIEWS.en_speak = function(){ return enSoon('Luyện nói tiếng Anh', 'Tiếng Anh · Nói', [['Chủ đề IELTS Speaking','Part 1, 2, 3 với dàn ý và bài mẫu band 7+.'],['Chủ đề đời sống','Giới thiệu bản thân, phỏng vấn xin việc, thuyết trình ngắn.']]); };
 VIEWS.en_exam  = function(){ return enSoon('Thi thử IELTS / TOEFL', 'Tiếng Anh · Thi thử', [['IELTS','Listening 40 câu/30 phút · Reading 40 câu/60 phút · Writing 2 task/60 phút · Speaking 3 phần. Quy đổi band 0–9.'],['TOEFL iBT','Reading 20 câu/35 phút · Listening 28 câu/36 phút · Speaking 4 task · Writing 2 task. Thang điểm 0–120.']]); };
 
@@ -34685,6 +35296,30 @@ document.addEventListener('click', e => {
     if (pool && pool.length && !pool.some(x => x.s === state.en.phon)) state.en.phon = pool[0].s;
     render(); return;
   }
+  const enQl = t.closest('[data-en-quizlevel]');
+  if (enQl){ state.en.quizLevel = enQl.dataset.enQuizlevel; render(); return; }
+  const enQt = t.closest('[data-en-quiztype]');
+  if (enQt){ state.en.quizType = enQt.dataset.enQuiztype; render(); return; }
+  if (t.closest('[data-en-quizstart]')){ enQzStart(); render(); return; }
+  if (t.closest('[data-en-quizexit]')){ state.en.quiz = null; render(); return; }
+  const enQp = t.closest('[data-en-quizpick]');
+  if (enQp && state.en.quiz){ state.en.quiz.picked[state.en.quiz.i] = +enQp.dataset.enQuizpick; render(); return; }
+  const enQn = t.closest('[data-en-quiznav]');
+  if (enQn && state.en.quiz){
+    const inp = document.getElementById('enqzin');
+    if (inp) state.en.quiz.picked[state.en.quiz.i] = inp.value;
+    state.en.quiz.i = Math.max(0, Math.min(state.en.quiz.qs.length - 1, state.en.quiz.i + (+enQn.dataset.enQuiznav)));
+    render(); return;
+  }
+  if (t.closest('[data-en-quizsubmit]') && state.en.quiz){
+    const inp = document.getElementById('enqzin');
+    if (inp) state.en.quiz.picked[state.en.quiz.i] = inp.value;
+    state.en.quiz.done = true; render(); return;
+  }
+  const enIt = t.closest('[data-en-idiomtab]');
+  if (enIt){ state.en.idiomTab = enIt.dataset.enIdiomtab; state.en.idiomGroup = 'all'; state.en.idiomQ = ''; render(); return; }
+  const enIg = t.closest('[data-en-idiomgroup]');
+  if (enIg){ state.en.idiomGroup = enIg.dataset.enIdiomgroup; render(); return; }
   const enVo = t.closest('[data-en-voice]');
   if (enVo){ store.set('enVoice', enVo.dataset.enVoice); render(); return; }
   const enOp = t.closest('[data-en-open]');
@@ -35063,6 +35698,7 @@ document.addEventListener('change', e => {
 
 /* tìm nhanh trên thanh trên cùng + ô chuyển số */
 document.addEventListener('input', e => {
+  if (e.target && e.target.id === 'enidq'){ state.en.idiomQ = e.target.value; const el = document.getElementById('view'); if (el){ el.innerHTML = VIEWS.en_idiom(); const q = document.getElementById('enidq'); if (q){ q.value = state.en.idiomQ; q.focus(); q.setSelectionRange(q.value.length, q.value.length); } } return; }
   if (e.target && e.target.id === 'enq'){ state.en.dictQ = e.target.value; state.en.entry = enLemma(e.target.value) || null; const el = document.getElementById('view'); if (el){ el.innerHTML = VIEWS.en_dict(); const q = document.getElementById('enq'); if (q){ q.value = state.en.dictQ; q.focus(); q.setSelectionRange(q.value.length, q.value.length); } } return; }
   if (e.target.id === 'numInput'){
     const out = $('#numOut'); if (!out) return;

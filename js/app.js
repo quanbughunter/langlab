@@ -22,7 +22,7 @@ const state = {
   zh: { level:'hsk1', lesson:null, writeChar:'', srs:null },
   ru: { level:'a1', lesson:null, letter:'А', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, trace:true },
   ja: { level:'n5', lesson:null, kana:'hiragana', kanaSel:'あ', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, kanjiLevel:null, kanjiSel:null, writeChar:'あ', furi:true },
-  en: { level:'a1', lesson:null, dictQ:'', entry:null, phon:'iː', phonTab:'vowel', srs:null, quiz:null, exam:null, pracLevel:null, topic:null },
+  en: { level:'a1', lesson:null, dictQ:'', entry:null, phon:'iː', phonTab:'vowel', idiomTab:'phrasal', idiomGroup:'all', idiomQ:'', quizLevel:'all', quizType:'all', srs:null, quiz:null, exam:null, pracLevel:null, topic:null },
   jamo: 'ㄱ',
   syll: { cho:'ㅎ', jung:'ㅏ', jong:'ㄴ' },
   speed: 1,
@@ -5230,8 +5230,172 @@ VIEWS.en_dict = function(){
   </section>`;
 };
 VIEWS.en_srs   = function(){ return enSoon('Ôn tập tiếng Anh', 'Tiếng Anh · Ghi nhớ', [['Thẻ lật hai chiều','Anh → Việt và Việt → Anh, có phát âm.'],['Ưu tiên từ chưa thuộc','Lịch ôn theo mức độ nhớ của từng từ.']]); };
-VIEWS.en_quiz  = function(){ return enSoon('Bài tập tiếng Anh', 'Tiếng Anh · Luyện tập', [['Nhiều dạng bài','Trắc nghiệm, điền dạng đúng của từ, chọn giới từ, sắp xếp câu, chuyển câu, viết lại câu.'],['Chấm điểm và giải thích','Mỗi câu có lời giải thích ngữ pháp bằng tiếng Việt.']]); };
-VIEWS.en_idiom = function(){ return enSoon('Idiom & Phrasal verb', 'Tiếng Anh · Cụm từ', [['Cụm động từ theo động từ gốc','get, take, put, come, go, look, turn, bring, run… kèm nghĩa đen và nghĩa bóng.'],['Thành ngữ theo chủ đề','Thời gian, tiền bạc, cảm xúc, công việc, quan hệ — kèm mức trang trọng và ví dụ.']]); };
+/* ---------- Bài tập tiếng Anh ---------- */
+const _EEX = (typeof EN_EXERCISES !== 'undefined') ? EN_EXERCISES : [];
+const EN_QZ_TYPE = {
+  mc:'Trắc nghiệm', gap:'Điền dạng đúng', prep:'Chọn giới từ', order:'Sắp xếp câu',
+  rewrite:'Viết lại câu', match:'Ghép nghĩa', error:'Tìm lỗi sai', word:'Từ dễ nhầm'
+};
+function enQzPool(){
+  const lv = state.en.quizLevel || 'all';
+  const ty = state.en.quizType || 'all';
+  return _EEX.filter(x => (lv === 'all' || x.lv === lv) && (ty === 'all' || x.type === ty));
+}
+function enQzNorm(v){
+  return String(v || '').toLowerCase().trim()
+    .replace(/[’]/g, "'").replace(/[.,!?;]/g, '')
+    .replace(/\bdon't\b/g, 'do not').replace(/\bdidn't\b/g, 'did not')
+    .replace(/\bcan't\b/g, 'cannot').replace(/\bisn't\b/g, 'is not')
+    .replace(/\s*\/\s*/g, ' / ').replace(/\s+/g, ' ');
+}
+function enQzStart(){
+  const pool = enQzPool().slice();
+  for (let i = pool.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); const t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
+  state.en.quiz = { qs:pool.slice(0, Math.min(15, pool.length)), i:0, picked:[], done:false };
+}
+function enQzCorrect(q, v){
+  if (v === undefined || v === null || v === '') return false;
+  if (q.type === 'mc' || q.type === 'prep' || q.type === 'match' || q.type === 'error' || q.type === 'word') return +v === q.c;
+  return enQzNorm(v) === enQzNorm(q.c);
+}
+VIEWS.en_quiz = function(){
+  const Q = state.en.quiz;
+  const levels = [['all','Tất cả'],['a1','A1'],['a2','A2'],['b1','B1'],['b2','B2']];
+  const types = [['all','Tất cả dạng']].concat(Object.keys(EN_QZ_TYPE).map(k => [k, EN_QZ_TYPE[k]]));
+  const head = `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Anh · Luyện tập</span>
+    <h1>Bài tập tiếng Anh</h1>
+    <p>Kho có <b>${_EEX.length}</b> câu thuộc <b>8 dạng</b>: trắc nghiệm, điền dạng đúng của từ, chọn giới từ, sắp xếp câu, viết lại câu, ghép nghĩa cụm từ, tìm lỗi sai và phân biệt từ dễ nhầm. Mỗi câu đều có lời giải thích bằng tiếng Việt.</p>
+  </div>`;
+
+  if (!Q || !Q.qs.length){
+    const pool = enQzPool();
+    return head + `
+    <div class="level-strip compact">${levels.map(l => `<button class="level-chip" data-en-quizlevel="${l[0]}"${(state.en.quizLevel || 'all') === l[0] ? ' aria-pressed="true"' : ''}>${esc(l[1])}</button>`).join('')}</div>
+    <div class="level-strip compact" style="margin-top:8px">${types.map(t => `<button class="level-chip" data-en-quiztype="${t[0]}"${(state.en.quizType || 'all') === t[0] ? ' aria-pressed="true"' : ''}>${esc(t[1])}</button>`).join('')}</div>
+    <div class="qz-start">
+      <p>Bộ lọc hiện tại có <b>${pool.length}</b> câu. Mỗi lượt luyện lấy ngẫu nhiên tối đa 15 câu.</p>
+      <button class="pbtn primary" data-en-quizstart="1"${pool.length ? '' : ' disabled'}>Bắt đầu luyện</button>
+    </div>`;
+  }
+
+  if (Q.done){
+    const right = Q.qs.filter((q, i) => enQzCorrect(q, Q.picked[i])).length;
+    return head + `
+    <div class="qz-result">
+      <h2>${right}/${Q.qs.length} câu đúng</h2>
+      <p>${right === Q.qs.length ? 'Tuyệt đối! Thử tăng cấp hoặc đổi dạng bài xem sao.' : right >= Q.qs.length * 0.7 ? 'Khá tốt. Xem lại các câu sai bên dưới nhé.' : 'Cần ôn thêm. Đọc kỹ phần giải thích của từng câu.'}</p>
+      <div class="fact-actions">
+        <button class="pbtn primary" data-en-quizstart="1">Luyện lượt mới</button>
+        <button class="pbtn" data-en-quizexit="1">Đổi bộ lọc</button>
+      </div>
+    </div>
+    <div class="qz-review">${Q.qs.map((q, i) => {
+      const ok = enQzCorrect(q, Q.picked[i]);
+      const mine = (q.type === 'mc' || q.type === 'prep' || q.type === 'match' || q.type === 'error' || q.type === 'word')
+        ? (Q.picked[i] !== undefined && q.o ? q.o[+Q.picked[i]] : '(bỏ trống)')
+        : (Q.picked[i] || '(bỏ trống)');
+      const ans = (q.type === 'mc' || q.type === 'prep' || q.type === 'match' || q.type === 'error' || q.type === 'word') ? q.o[q.c] : q.c;
+      return `<div class="qz-rev ${ok ? 'ok' : 'no'}">
+        <span>${ok ? '✓' : '✗'}</span>
+        <i class="qz-tag">${esc(EN_QZ_TYPE[q.type] || q.type)} · ${esc(q.tag)}</i>
+        <div><b class="en">${esc(q.q)}</b></div>
+        ${ok ? '' : `<div class="qz-mine">Bạn chọn: <b>${esc(mine)}</b> · Đáp án: <b class="en">${esc(ans)}</b></div>`}
+        <div class="qz-exp">${esc(q.e)}</div>
+      </div>`;
+    }).join('')}</div>`;
+  }
+
+  const q = Q.qs[Q.i], picked = Q.picked[Q.i];
+  const isChoice = ['mc','prep','match','error','word'].indexOf(q.type) >= 0;
+  const body = isChoice
+    ? `<div class="qz-opts">${q.o.map((o, i) => `<button class="qz-opt en${picked === i ? ' on' : ''}" data-en-quizpick="${i}">${esc(o)}</button>`).join('')}</div>`
+    : `<div class="qz-input"><input id="enqzin" class="dict-q" type="text" placeholder="${q.type === 'order' ? 'Viết lại cả câu, không cần dấu chấm…' : 'Nhập đáp án…'}" value="${esc(picked || '')}" autocomplete="off" spellcheck="false"></div>`;
+
+  return head + `
+  <div class="qz-bar"><span>Câu ${Q.i + 1}/${Q.qs.length}</span><span class="qz-tag">${esc(EN_QZ_TYPE[q.type] || q.type)} · ${esc(q.tag)} · ${esc((q.lv || '').toUpperCase())}</span></div>
+  <div class="qz-card">
+    <div class="qz-q en">${esc(q.q)}</div>
+    ${body}
+  </div>
+  <div class="les-nav">
+    ${Q.i > 0 ? '<button class="pbtn" data-en-quiznav="-1">← Câu trước</button>' : '<span></span>'}
+    ${Q.i < Q.qs.length - 1
+      ? '<button class="pbtn primary" data-en-quiznav="1">Câu sau →</button>'
+      : '<button class="pbtn primary" data-en-quizsubmit="1">Nộp bài</button>'}
+  </div>
+  <p class="tk-note-small">Với dạng điền và viết lại, đáp án được chấm không phân biệt hoa thường, dấu câu và dạng rút gọn (don’t = do not).</p>`;
+};
+/* ---------- Idiom & Phrasal verb ---------- */
+const _EPV = (typeof PHRASAL_EN !== 'undefined') ? PHRASAL_EN : [];
+const _EID = (typeof IDIOMS_EN !== 'undefined') ? IDIOMS_EN : [];
+function enPvCount(){ return _EPV.reduce((n, g) => n + g.items.length, 0); }
+function enIdCount(){ return _EID.reduce((n, g) => n + g.items.length, 0); }
+function enPhrasalCard(x){
+  const tags = [];
+  if (x.sep === true) tags.push('tách được');
+  if (x.sep === false) tags.push('không tách');
+  if (x.obj === 'yes') tags.push('cần tân ngữ');
+  if (x.obj === 'no') tags.push('không tân ngữ');
+  if (x.reg) tags.push(x.reg);
+  return `
+  <div class="st-card idiom-card">
+    <h4 class="en">${esc(x.p)} ${enSpeakBtn(x.p, 'mini')}</h4>
+    <p class="idiom-vi">${esc(x.vi)}</p>
+    <div class="ph-row">${tags.map(t => `<span class="ph-tag">${esc(t)}</span>`).join('')}</div>
+    ${x.ex ? `<div class="st-ex"><span class="en">${enTokens(x.ex[0])}</span></div><p class="idiom-tr">${esc(x.ex[1] || '')}</p>` : ''}
+    ${x.note ? `<p class="idiom-note"><b>Lưu ý:</b> ${esc(x.note)}</p>` : ''}
+  </div>`;
+}
+function enIdiomCard(x){
+  return `
+  <div class="st-card idiom-card">
+    <h4 class="en">${esc(x.p)} ${enSpeakBtn(x.p, 'mini')}</h4>
+    <p class="idiom-vi">${esc(x.vi)}</p>
+    ${x.reg ? `<div class="ph-row"><span class="ph-tag">${esc(x.reg)}</span></div>` : ''}
+    ${x.ex ? `<div class="st-ex"><span class="en">${enTokens(x.ex[0])}</span></div><p class="idiom-tr">${esc(x.ex[1] || '')}</p>` : ''}
+    ${x.note ? `<p class="idiom-note"><b>Lưu ý:</b> ${esc(x.note)}</p>` : ''}
+  </div>`;
+}
+VIEWS.en_idiom = function(){
+  const tab = state.en.idiomTab === 'idiom' ? 'idiom' : 'phrasal';
+  const q = (state.en.idiomQ || '').trim().toLowerCase();
+  const groups = tab === 'phrasal' ? _EPV : _EID;
+  const key = tab === 'phrasal' ? 'v' : 'cat';
+  const sel = state.en.idiomGroup && groups.some(g => g[key] === state.en.idiomGroup) ? state.en.idiomGroup : 'all';
+  let shown = [];
+  groups.forEach(g => {
+    if (sel !== 'all' && g[key] !== sel) return;
+    g.items.forEach(it => {
+      if (q && it.p.toLowerCase().indexOf(q) < 0 && it.vi.toLowerCase().indexOf(q) < 0) return;
+      shown.push([g[key], it]);
+    });
+  });
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Anh · Cụm từ</span>
+    <h1>Cụm động từ &amp; Thành ngữ</h1>
+    <p>Đây là hai thứ làm người học nghe hiểu được người bản ngữ. Kho hiện có <b>${enPvCount()}</b> cụm động từ xếp theo động từ gốc (kèm chỉ dẫn tách được hay không, có cần tân ngữ hay không) và <b>${enIdCount()}</b> thành ngữ xếp theo chủ đề, mỗi mục có ví dụ, bản dịch và mức trang trọng.</p>
+  </div>
+  <div class="level-strip compact">
+    <button class="level-chip" data-en-idiomtab="phrasal"${tab === 'phrasal' ? ' aria-pressed="true"' : ''}>Cụm động từ (${enPvCount()})</button>
+    <button class="level-chip" data-en-idiomtab="idiom"${tab === 'idiom' ? ' aria-pressed="true"' : ''}>Thành ngữ (${enIdCount()})</button>
+  </div>
+  <div class="dict-bar" style="margin-top:10px">
+    <input id="enidq" class="dict-q" type="search" placeholder="Tìm cụm từ hoặc nghĩa tiếng Việt…" value="${esc(state.en.idiomQ || '')}" autocomplete="off">
+  </div>
+  <div class="level-strip compact" style="margin-top:8px">
+    <button class="level-chip" data-en-idiomgroup="all"${sel === 'all' ? ' aria-pressed="true"' : ''}>Tất cả</button>
+    ${groups.map(g => `<button class="level-chip" data-en-idiomgroup="${esc(g[key])}"${sel === g[key] ? ' aria-pressed="true"' : ''}>${esc(g[key])}${g.vi && tab === 'phrasal' ? ` <span class="lv-ko">${esc(g.vi)}</span>` : ''}</button>`).join('')}
+  </div>
+  <section class="zh-sec">
+    <h2>${sel === 'all' ? (tab === 'phrasal' ? 'Tất cả cụm động từ' : 'Tất cả thành ngữ') : esc(sel)} <span class="sec-count">${shown.length}</span></h2>
+    <div class="st-list">${shown.map(x => tab === 'phrasal' ? enPhrasalCard(x[1]) : enIdiomCard(x[1])).join('')}</div>
+    ${!shown.length ? '<p class="tk-note-small">Không tìm thấy cụm nào. Thử gõ động từ gốc, ví dụ «get» hoặc «đủ sống».</p>' : ''}
+  </section>
+  <p class="tk-note-small">Cụm động từ tách được thì tân ngữ đứng giữa được: <i>turn the light off</i>. Nhưng khi tân ngữ là đại từ thì BẮT BUỘC tách: <i>turn it off</i>, không nói «turn off it».</p>`;
+};
 VIEWS.en_speak = function(){ return enSoon('Luyện nói tiếng Anh', 'Tiếng Anh · Nói', [['Chủ đề IELTS Speaking','Part 1, 2, 3 với dàn ý và bài mẫu band 7+.'],['Chủ đề đời sống','Giới thiệu bản thân, phỏng vấn xin việc, thuyết trình ngắn.']]); };
 VIEWS.en_exam  = function(){ return enSoon('Thi thử IELTS / TOEFL', 'Tiếng Anh · Thi thử', [['IELTS','Listening 40 câu/30 phút · Reading 40 câu/60 phút · Writing 2 task/60 phút · Speaking 3 phần. Quy đổi band 0–9.'],['TOEFL iBT','Reading 20 câu/35 phút · Listening 28 câu/36 phút · Speaking 4 task · Writing 2 task. Thang điểm 0–120.']]); };
 
@@ -5647,6 +5811,30 @@ document.addEventListener('click', e => {
     if (pool && pool.length && !pool.some(x => x.s === state.en.phon)) state.en.phon = pool[0].s;
     render(); return;
   }
+  const enQl = t.closest('[data-en-quizlevel]');
+  if (enQl){ state.en.quizLevel = enQl.dataset.enQuizlevel; render(); return; }
+  const enQt = t.closest('[data-en-quiztype]');
+  if (enQt){ state.en.quizType = enQt.dataset.enQuiztype; render(); return; }
+  if (t.closest('[data-en-quizstart]')){ enQzStart(); render(); return; }
+  if (t.closest('[data-en-quizexit]')){ state.en.quiz = null; render(); return; }
+  const enQp = t.closest('[data-en-quizpick]');
+  if (enQp && state.en.quiz){ state.en.quiz.picked[state.en.quiz.i] = +enQp.dataset.enQuizpick; render(); return; }
+  const enQn = t.closest('[data-en-quiznav]');
+  if (enQn && state.en.quiz){
+    const inp = document.getElementById('enqzin');
+    if (inp) state.en.quiz.picked[state.en.quiz.i] = inp.value;
+    state.en.quiz.i = Math.max(0, Math.min(state.en.quiz.qs.length - 1, state.en.quiz.i + (+enQn.dataset.enQuiznav)));
+    render(); return;
+  }
+  if (t.closest('[data-en-quizsubmit]') && state.en.quiz){
+    const inp = document.getElementById('enqzin');
+    if (inp) state.en.quiz.picked[state.en.quiz.i] = inp.value;
+    state.en.quiz.done = true; render(); return;
+  }
+  const enIt = t.closest('[data-en-idiomtab]');
+  if (enIt){ state.en.idiomTab = enIt.dataset.enIdiomtab; state.en.idiomGroup = 'all'; state.en.idiomQ = ''; render(); return; }
+  const enIg = t.closest('[data-en-idiomgroup]');
+  if (enIg){ state.en.idiomGroup = enIg.dataset.enIdiomgroup; render(); return; }
   const enVo = t.closest('[data-en-voice]');
   if (enVo){ store.set('enVoice', enVo.dataset.enVoice); render(); return; }
   const enOp = t.closest('[data-en-open]');
@@ -6025,6 +6213,7 @@ document.addEventListener('change', e => {
 
 /* tìm nhanh trên thanh trên cùng + ô chuyển số */
 document.addEventListener('input', e => {
+  if (e.target && e.target.id === 'enidq'){ state.en.idiomQ = e.target.value; const el = document.getElementById('view'); if (el){ el.innerHTML = VIEWS.en_idiom(); const q = document.getElementById('enidq'); if (q){ q.value = state.en.idiomQ; q.focus(); q.setSelectionRange(q.value.length, q.value.length); } } return; }
   if (e.target && e.target.id === 'enq'){ state.en.dictQ = e.target.value; state.en.entry = enLemma(e.target.value) || null; const el = document.getElementById('view'); if (el){ el.innerHTML = VIEWS.en_dict(); const q = document.getElementById('enq'); if (q){ q.value = state.en.dictQ; q.focus(); q.setSelectionRange(q.value.length, q.value.length); } } return; }
   if (e.target.id === 'numInput'){
     const out = $('#numOut'); if (!out) return;

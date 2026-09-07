@@ -1449,6 +1449,35 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 .st-ex span{padding:3px 9px;border-radius:10px;background:var(--surface-2);font-size:13.5px}
 .st-ex b{color:var(--accent);font-weight:700}
 
+/* Bài tập tiếng Anh */
+.qz-start{margin-top:16px;padding:16px;background:var(--surface);border:1px solid var(--line-strong);border-radius:16px}
+.qz-start p{margin:0 0 10px;color:var(--muted)}
+.qz-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px;color:var(--muted);font-size:13.5px}
+.qz-card{margin-top:8px;padding:16px;background:var(--surface);border:1px solid var(--line-strong);border-radius:18px}
+.qz-q{font-size:19px;line-height:1.5;margin-bottom:12px}
+.qz-opts{display:grid;gap:8px}
+.qz-opt{text-align:left;padding:10px 13px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);color:var(--ink);font:inherit;cursor:pointer;transition:border-color .12s,background .12s}
+.qz-opt:hover{border-color:var(--accent)}
+.qz-opt.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+.qz-input .dict-q{width:100%}
+.qz-result{margin-top:16px;padding:16px;background:var(--surface);border:1px solid var(--line-strong);border-radius:18px}
+.qz-result h2{margin:0 0 4px;color:var(--accent)}
+.qz-result p{margin:0;color:var(--muted)}
+.qz-review{margin-top:14px;display:grid;gap:10px}
+.qz-rev{padding:11px 13px;border-radius:14px;border:1px solid var(--line);background:var(--surface)}
+.qz-rev.ok{border-left:4px solid var(--accent)}
+.qz-rev.no{border-left:4px solid var(--seal)}
+.qz-rev > span{font-weight:700;margin-right:6px}
+.qz-mine{margin-top:5px;font-size:13.5px;color:var(--muted)}
+.qz-exp{margin-top:6px;font-size:13.5px;color:var(--muted);line-height:1.55}
+
+/* Thẻ cụm động từ & thành ngữ */
+.idiom-card h4{font-size:17px;margin-bottom:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.idiom-card .idiom-vi{color:var(--ink);font-size:14.5px;margin:0 0 6px}
+.idiom-card .idiom-tr{color:var(--muted);font-size:13.5px;margin:5px 0 0;font-style:italic}
+.idiom-card .idiom-note{margin:8px 0 0;padding:7px 10px;border-left:3px solid var(--accent);background:var(--surface-2);border-radius:0 10px 10px 0;font-size:13.5px;color:var(--muted)}
+.idiom-card .st-ex span{background:var(--accent-soft)}
+
 /* ===== TÔNG MÀU TIẾNG NHẬT — đỏ tươi (hinomaru) / trắng (data-lang="ja") =====
    sáng: accent #D01A32 trên trắng 5.4:1, trên nền 5.0:1 · tối: accent #FF6B7C trên #241318 6.5:1 */
 :root[data-lang="ja"]{
