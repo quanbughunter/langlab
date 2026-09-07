@@ -22,7 +22,7 @@ const state = {
   zh: { level:'hsk1', lesson:null, writeChar:'', srs:null },
   ru: { level:'a1', lesson:null, letter:'А', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, trace:true },
   ja: { level:'n5', lesson:null, kana:'hiragana', kanaSel:'あ', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, kanjiLevel:null, kanjiSel:null, writeChar:'あ', furi:true },
-  en: { level:'a1', lesson:null, dictQ:'', entry:null, phon:'iː', phonTab:'vowel', idiomTab:'phrasal', idiomGroup:'all', idiomQ:'', quizLevel:'all', quizType:'all', exam:null, srs:null, quiz:null, exam:null, pracLevel:null, topic:null },
+  en: { level:'a1', lesson:null, dictQ:'', entry:null, phon:'iː', phonTab:'vowel', idiomTab:'phrasal', idiomGroup:'all', idiomQ:'', quizLevel:'all', quizType:'all', exam:null, speakTab:'ielts', speakIdx:0, spLeft:null, srs:null, quiz:null, exam:null, pracLevel:null, topic:null },
   jamo: 'ㄱ',
   syll: { cho:'ㅎ', jung:'ㅏ', jong:'ㄴ' },
   speed: 1,
@@ -5509,7 +5509,92 @@ VIEWS.en_idiom = function(){
   </section>
   <p class="tk-note-small">Cụm động từ tách được thì tân ngữ đứng giữa được: <i>turn the light off</i>. Nhưng khi tân ngữ là đại từ thì BẮT BUỘC tách: <i>turn it off</i>, không nói «turn off it».</p>`;
 };
-VIEWS.en_speak = function(){ return enSoon('Luyện nói tiếng Anh', 'Tiếng Anh · Nói', [['Chủ đề IELTS Speaking','Part 1, 2, 3 với dàn ý và bài mẫu band 7+.'],['Chủ đề đời sống','Giới thiệu bản thân, phỏng vấn xin việc, thuyết trình ngắn.']]); };
+/* ---------- Luyện nói tiếng Anh ---------- */
+const _ESP = (typeof SPEAK_EN !== 'undefined') ? SPEAK_EN : { ielts:[], toefl:[], bands:[] };
+function enSpTopics(){ return (state.en.speakTab === 'toefl' ? _ESP.toefl : _ESP.ielts) || []; }
+function enSpCur(){
+  const list = enSpTopics();
+  const i = Math.max(0, Math.min(list.length - 1, state.en.speakIdx || 0));
+  return list[i] || null;
+}
+function enSpCard(x, tab){
+  const head = tab === 'toefl'
+    ? `<span class="eyebrow">TOEFL Speaking · Task ${x.task}</span><h2>${esc(x.name)} — ${esc(x.vi)}</h2><div class="ph-row"><span class="ph-tag hi">${esc(x.time)}</span></div>`
+    : `<span class="eyebrow">IELTS Speaking · Part ${x.part}</span><h2 class="en">${esc(x.topic)}</h2><div class="ph-row"><span class="ph-tag hi">${esc(x.vi)}</span></div>`;
+  return `
+  <div class="sp-card">
+    ${head}
+    <section class="sp-sec"><h3>Đề bài</h3>
+      ${x.qs.map(q => `<div class="sp-q"><span class="en">${enTokens(q)}</span> ${enSpeakBtn(q, 'mini')}</div>`).join('')}
+    </section>
+    <section class="sp-sec"><h3>Từ nên dùng</h3>
+      <div class="st-ex">${(x.words || []).map(w => `<span class="en">${esc(w)} ${enSpeakBtn(w, 'mini')}</span>`).join('')}</div>
+    </section>
+    <section class="sp-sec"><h3>Dàn ý và cách phân bổ thời gian</h3><p>${esc(x.outline)}</p></section>
+    <section class="sp-sec"><h3>Bài mẫu ${enSpeakBtn(x.model, 'pbtn')}</h3>
+      <div class="sp-model en">${enTokens(x.model)}</div>
+    </section>
+    <section class="sp-sec"><h3>Vì sao bài này được điểm cao</h3><p class="idiom-note">${esc(x.note)}</p></section>
+    <div class="sp-timer">
+      <b>Bấm giờ luyện nói</b>
+      <div class="fact-actions">
+        ${(tab === 'toefl'
+          ? [['15','Chuẩn bị 15 giây'],['30','Chuẩn bị 30 giây'],['45','Nói 45 giây'],['60','Nói 60 giây']]
+          : [['60','Chuẩn bị 1 phút'],['120','Nói 2 phút'],['240','Part 3 · 4 phút']]
+        ).map(b => `<button class="pbtn" data-en-sptimer="${b[0]}">${esc(b[1])}</button>`).join('')}
+        <button class="pbtn ghost" data-en-sptimer="0">■ Dừng</button>
+      </div>
+      <div class="sp-clock" id="enSpClock">${state.en.spLeft != null ? topikClock(state.en.spLeft) : '—'}</div>
+      <p class="tk-note-small">Cách luyện hiệu quả nhất: bấm giờ, tự nói to (hoặc thu âm bằng điện thoại), rồi mới đọc bài mẫu. Đọc trước sẽ mất phần lớn giá trị của buổi tập.</p>
+    </div>
+  </div>`;
+}
+VIEWS.en_speak = function(){
+  const tab = state.en.speakTab === 'toefl' ? 'toefl' : 'ielts';
+  const list = enSpTopics();
+  const cur = enSpCur();
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Anh · Luyện nói</span>
+    <h1>Luyện nói IELTS &amp; TOEFL</h1>
+    <p>Phần nói là phần duy nhất không nằm trong đề giấy. Ở đây có <b>${_ESP.ielts.length} chủ đề IELTS</b> (Part 1, 2, 3) và <b>${_ESP.toefl.length} task TOEFL</b> đúng thời gian thật, mỗi chủ đề kèm từ nên dùng, dàn ý, bài mẫu và phần phân tích vì sao bài mẫu được điểm cao. Mọi từ trong bài mẫu đều bấm được để tra nghĩa.</p>
+  </div>
+  <div class="level-strip compact">
+    <button class="level-chip" data-en-speaktab="ielts"${tab === 'ielts' ? ' aria-pressed="true"' : ''}>IELTS Speaking (${_ESP.ielts.length})</button>
+    <button class="level-chip" data-en-speaktab="toefl"${tab === 'toefl' ? ' aria-pressed="true"' : ''}>TOEFL Speaking (${_ESP.toefl.length})</button>
+  </div>
+  <div class="level-strip compact" style="margin-top:8px">
+    ${list.map((x, i) => `<button class="level-chip" data-en-speakidx="${i}"${i === (state.en.speakIdx || 0) ? ' aria-pressed="true"' : ''}>${tab === 'toefl' ? 'Task ' + x.task : 'Part ' + x.part + ' · ' + esc(x.topic.split(' ').slice(0, 3).join(' '))}</button>`).join('')}
+  </div>
+  ${cur ? enSpCard(cur, tab) : '<p class="tk-note-small">Chưa có chủ đề nào.</p>'}
+  <section class="zh-sec">
+    <h2>Tiêu chí chấm và lỗi làm mất điểm</h2>
+    <div class="st-list">${(_ESP.bands || []).map(b => `
+      <div class="st-card">
+        <h4>${esc(b.t)}</h4>
+        <p>${esc(b.d)}</p>
+        <ul class="sp-tips">${b.tips.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+      </div>`).join('')}</div>
+  </section>
+  <p class="tk-note-small">Nội dung do LangLab biên soạn theo tiêu chí công bố của IELTS và TOEFL, không phải đề thi chính thức. Bài mẫu để tham khảo cấu trúc — hãy tự nói bằng trải nghiệm của mình, giám khảo đánh giá cách bạn diễn đạt chứ không đánh giá câu chuyện.</p>`;
+};
+/* Đồng hồ luyện nói */
+let _enSpTimer = null;
+function enSpStart(sec){
+  clearInterval(_enSpTimer); _enSpTimer = null;
+  if (!sec){ state.en.spLeft = null; const el = $('#enSpClock'); if (el) el.textContent = '—'; return; }
+  state.en.spLeft = sec;
+  const tick = () => {
+    const el = $('#enSpClock');
+    if (!el){ clearInterval(_enSpTimer); _enSpTimer = null; return; }
+    el.textContent = topikClock(state.en.spLeft);
+    el.classList.toggle('low', state.en.spLeft <= 10);
+    if (state.en.spLeft <= 0){ clearInterval(_enSpTimer); _enSpTimer = null; el.textContent = 'Hết giờ'; try { toast('Hết giờ — dừng nói.'); } catch(e){} return; }
+    state.en.spLeft--;
+  };
+  tick();
+  _enSpTimer = setInterval(tick, 1000);
+}
 
 
 /* ============================================================
@@ -5924,6 +6009,12 @@ document.addEventListener('click', e => {
     if (pool && pool.length && !pool.some(x => x.s === state.en.phon)) state.en.phon = pool[0].s;
     render(); return;
   }
+  const enSt = t.closest('[data-en-speaktab]');
+  if (enSt){ state.en.speakTab = enSt.dataset.enSpeaktab; state.en.speakIdx = 0; enSpStart(0); render(); return; }
+  const enSi = t.closest('[data-en-speakidx]');
+  if (enSi){ state.en.speakIdx = +enSi.dataset.enSpeakidx; enSpStart(0); render(); return; }
+  const enTm = t.closest('[data-en-sptimer]');
+  if (enTm){ enSpStart(+enTm.dataset.enSptimer); return; }
   const enQl = t.closest('[data-en-quizlevel]');
   if (enQl){ state.en.quizLevel = enQl.dataset.enQuizlevel; render(); return; }
   const enQt = t.closest('[data-en-quiztype]');

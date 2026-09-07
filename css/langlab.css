@@ -1449,6 +1449,20 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 .st-ex span{padding:3px 9px;border-radius:10px;background:var(--surface-2);font-size:13.5px}
 .st-ex b{color:var(--accent);font-weight:700}
 
+/* Luyện nói tiếng Anh */
+.sp-card{margin-top:16px;padding:16px 18px;background:var(--surface);border:1px solid var(--line-strong);border-radius:20px}
+.sp-card h2{margin:4px 0 6px;font-size:22px}
+.sp-sec{margin-top:14px}
+.sp-sec h3{margin:0 0 6px;font-size:15px;color:var(--accent);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sp-q{padding:9px 12px;margin-bottom:7px;background:var(--surface-2);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;line-height:1.6}
+.sp-model{padding:12px 14px;background:var(--accent-soft);border-radius:14px;line-height:1.75;font-size:15.5px;white-space:pre-line}
+.sp-tips{margin:6px 0 0;padding-left:18px}
+.sp-tips li{font-size:13.5px;color:var(--muted);line-height:1.55;margin-bottom:4px}
+.sp-timer{margin-top:16px;padding:12px 14px;border:1px dashed var(--line-strong);border-radius:16px}
+.sp-timer > b{display:block;margin-bottom:8px}
+.sp-clock{margin-top:10px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:34px;font-weight:600;color:var(--accent);letter-spacing:.02em}
+.sp-clock.low{color:var(--seal)}
+
 /* Bảng quy đổi band IELTS / điểm TOEFL */
 .en-band{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:12px 0 6px;padding:14px 16px;background:var(--surface);border:1px solid var(--line-strong);border-radius:18px}
 .en-band-main{display:flex;flex-direction:column;align-items:center;min-width:110px;padding:6px 14px;border-radius:14px;background:var(--accent-soft)}
