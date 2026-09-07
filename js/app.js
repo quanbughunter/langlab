@@ -3085,7 +3085,7 @@ const _JSPK = (typeof SPEAKING_JA !== 'undefined') ? SPEAKING_JA : [];
 function jaPlain(s){ return String(s || '').replace(/([^\s\[\]]+)\[[^\]]*\]/g, '$1').replace(/\s+/g, ''); }
 function jaReading(s){ return String(s || '').replace(/([^\s\[\]]+)\[([^\]]*)\]/g, '$2').replace(/\s+/g, ''); }
 function jaHasKanji(s){ return /[一-鿿々]/.test(s || ''); }
-function jaRubyTok(tok){ return esc(tok).replace(/([^\s\[\]]+)\[([^\]]*)\]/g, '<ruby>$1<rt>$2</rt></ruby>'); }
+function jaRubyTok(tok){ return esc(tok).replace(/([^\s\[\]぀-ヿ]+)\[([^\]]*)\]/g, '<ruby>$1<rt>$2</rt></ruby>'); }
 /* Câu có furigana + từng từ bấm được (data-jaw = bề mặt không furigana) */
 function jaTokens(str){
   return String(str || '').split(/\s+/).filter(Boolean).map(tok => {
@@ -3139,10 +3139,12 @@ function jaFormIndex(){
   const idx = {}; const add = (f, key) => { f = String(f || '').trim(); if (!f) return; (idx[f] = idx[f] || []); if (idx[f].indexOf(key) < 0) idx[f].push(key); };
   Object.values(JA_LOOKUP).forEach(w => {
     add(w.jp, w.key); add(w.kana, w.key); add(String(w.jp).replace(/^[〜～]/, ''), w.key); add(String(w.kana).replace(/^[〜～]/, ''), w.key);
+    [w.jp, w.kana].forEach(f => { f = String(f || '').replace(/^[〜～]/, ''); const m = f.match(/^(.+?)(する|します|に|で)$/); if (m && m[1].length >= 2) add(m[1], w.key); if (/を/.test(f)) f.split('を').forEach(x => { if (x && x.length >= 1) add(x, w.key); }); });
     if (!_JM) return;
     const kind = jaKind(w);
     try {
       if (kind === 'verb'){ [w.jp, w.kana].forEach(base => { const v = _JM.verb(base, w.g, w.kana); Object.values(v.forms).forEach(f => add(f, w.key)); }); }
+      else if (/\(する\)|する\)/.test(w.pos || '') && !/する$/.test(String(w.jp))){ [w.jp, w.kana].forEach(base => { base = String(base || '').replace(/^[〜～]/, ''); if (!base) return; const v = _JM.verb(base + 'する', '3', String(w.kana || base).replace(/^[〜～]/, '') + 'する'); Object.values(v.forms).forEach(f => add(f, w.key)); add(base + 'する', w.key); }); }
       else if (kind === 'iadj' || kind === 'naadj'){ [w.jp, w.kana].forEach(base => { const a = _JM.adj(base, kind === 'iadj' ? 'i' : 'na'); Object.values(a.forms).forEach(f => add(f, w.key)); }); }
     } catch(e){}
   });
@@ -3155,6 +3157,8 @@ function jaLemmatize(tok){
   const push = k => { if (out.indexOf(k) < 0) out.push(k); };
   (idx[s] || []).forEach(push);
   if (_JM){ _JM.deinflect(s).forEach(c => (idx[c] || []).forEach(push)); const h = _JM.hira(s); (idx[h] || []).forEach(push); }
+  if (!out.length && _JM) _JM.deinflect(s).forEach(c => { const m = c.match(/^(.{2,})(する|できる)$/); if (m) (idx[m[1]] || []).forEach(push); });
+  if (!out.length){ let t = s.replace(/(さん|様|さま|ちゃん|くん|君|先生|たち)$/, ''); if (t !== s && t) (idx[t] || []).forEach(push); if (/^[おご]./.test(t)){ t = t.slice(1); (idx[t] || []).forEach(push); if (_JM) _JM.deinflect(t).forEach(c => (idx[c] || []).forEach(push)); } }
   if (!out.length) Object.values(JA_LOOKUP).forEach(w => { if (String(w.jp).replace(/^[〜～]/, '') === s || String(w.kana).replace(/^[〜～]/, '') === s) push(w.key); });
   return out;
 }
@@ -3332,7 +3336,8 @@ function jaKanjiLevel(){ const ids = _JC.levels.filter(v => v.status === 'active
 VIEWS.ja_kanji = function(){
   const lv = jaKanjiLevel();
   const list = _JKJ.filter(k => k.lv === lv);
-  const extra = lv === 'n5' ? _JKJ.filter(k => k.lv !== 'n5' && _JC.lessons.some(l => l.level === 'n5' && (l.kanji || []).indexOf(k.k) >= 0)) : [];
+  const order = { n5:0, n4:1, n3:2, n2:3 };
+  const extra = _JKJ.filter(k => k.lv !== lv && (order[k.lv] || 0) > (order[lv] || 0) && _JC.lessons.some(l => l.level === lv && (l.kanji || []).indexOf(k.k) >= 0));
   const sel = state.ja.kanjiSel && jaKanjiOf(state.ja.kanjiSel) ? state.ja.kanjiSel : (list[0] ? list[0].k : '日');
   const K = jaKanjiOf(sel);
   const inWords = Object.values(JA_LOOKUP).filter(w => String(w.jp).indexOf(sel) >= 0).slice(0, 8);
@@ -3340,7 +3345,7 @@ VIEWS.ja_kanji = function(){
   <div class="page-head">
     <span class="eyebrow">Tiếng Nhật · Nền tảng</span>
     <h1>Kanji theo cấp JLPT</h1>
-    <p>Mỗi chữ có <b>âm On</b> (Hán), <b>âm Kun</b> (thuần Nhật), <b>âm Hán–Việt</b> để người Việt nhớ nhanh, số nét, từ ví dụ và hoạt hình thứ tự nét. ${lv === 'n5' ? 'N5 chuẩn ≈ 100 chữ; các chữ xuất hiện sớm trong bài (mức N4) liệt kê riêng bên dưới.' : ''}</p>
+    <p>Mỗi chữ có <b>âm On</b> (Hán), <b>âm Kun</b> (thuần Nhật), <b>âm Hán–Việt</b> để người Việt nhớ nhanh, số nét, từ ví dụ và hoạt hình thứ tự nét. ${lv === 'n5' ? 'N5 chuẩn ≈ 100 chữ; các chữ xuất hiện sớm trong bài (mức N4) liệt kê riêng bên dưới.' : lv === 'n4' ? 'N4 chuẩn ≈ 165 chữ (cộng dồn với N5 ≈ 280); các chữ mức N3 xuất hiện sớm trong bài liệt kê riêng bên dưới.' : ''}</p>
   </div>
   ${jaLevelChips('data-ja-klevel', lv, false)}
   <div class="ja-kanji-detail">
@@ -3356,7 +3361,7 @@ VIEWS.ja_kanji = function(){
   </div>
   <div class="eyebrow" style="margin-top:14px">${esc(jaLevelName(lv))} · ${list.length} chữ</div>
   <div class="ja-kanji-grid">${list.map(k => `<button class="ja-kcard${k.k === sel ? ' on' : ''}" data-ja-kanji="${esc(k.k)}"><span class="ja-kcard-k ja">${esc(k.k)}</span><span class="ja-kcard-hv">${esc(k.hv)}</span><span class="ja-kcard-vi">${esc(k.vi)}</span></button>`).join('')}</div>
-  ${extra.length ? `<div class="eyebrow" style="margin-top:14px">Xuất hiện sớm trong bài (mức N4–N3) · ${extra.length} chữ</div><div class="ja-kanji-grid">${extra.map(k => `<button class="ja-kcard${k.k === sel ? ' on' : ''}" data-ja-kanji="${esc(k.k)}"><span class="ja-kcard-k ja">${esc(k.k)}</span><span class="ja-kcard-hv">${esc(k.hv)}</span><span class="ja-kcard-vi">${esc(k.vi)}</span></button>`).join('')}</div>` : ''}`;
+  ${extra.length ? `<div class="eyebrow" style="margin-top:14px">Xuất hiện sớm trong bài (mức ${lv === 'n5' ? 'N4–N3' : lv === 'n4' ? 'N3' : 'cao hơn'}) · ${extra.length} chữ</div><div class="ja-kanji-grid">${extra.map(k => `<button class="ja-kcard${k.k === sel ? ' on' : ''}" data-ja-kanji="${esc(k.k)}"><span class="ja-kcard-k ja">${esc(k.k)}</span><span class="ja-kcard-hv">${esc(k.hv)}</span><span class="ja-kcard-vi">${esc(k.vi)}</span></button>`).join('')}</div>` : ''}`;
 };
 
 /* ---------- Tập viết ---------- */
