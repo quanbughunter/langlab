@@ -3140,6 +3140,7 @@ function jaFormIndex(){
   Object.values(JA_LOOKUP).forEach(w => {
     add(w.jp, w.key); add(w.kana, w.key); add(String(w.jp).replace(/^[〜～]/, ''), w.key); add(String(w.kana).replace(/^[〜～]/, ''), w.key);
     if (w.jp === 'だ') ['だった','だろう','では','じゃ','なら','である','でした','ではない','じゃない'].forEach(f => add(f, w.key));
+    if (/cụm (trợ từ|ngữ pháp)/.test(w.pos || '')) [w.jp, w.kana].forEach(f => { f = String(f || '').replace(/^[〜～]/, ''); const m = f.match(/^[にをとはがでへも](.+)$/); if (m && m[1].length >= 2) add(m[1], w.key); });
     [w.jp, w.kana].forEach(f => { f = String(f || '').replace(/^[〜～]/, ''); const m = f.match(/^(.+?)(する|します|に|で)$/); if (m && m[1].length >= 2) add(m[1], w.key); if (/を/.test(f)) f.split('を').forEach(x => { if (x && x.length >= 1) add(x, w.key); }); });
     if (!_JM) return;
     const kind = jaKind(w);
