@@ -4951,7 +4951,7 @@ const EN_IRREG = {
   won:'win', taught:'teach', caught:'catch', sold:'sell', flew:'fly', flown:'fly', threw:'throw',
   children:'child', men:'man', women:'woman', people:'person', feet:'foot', teeth:'tooth',
   mice:'mouse', geese:'goose', better:'good', best:'good', worse:'bad', worst:'bad', more:'much', most:'much',
-  further:'far', furthest:'far', farther:'far', farthest:'far', knives:'knife', lives:'life', wives:'wife', leaves:'leaf'
+  further:'far', furthest:'far', farther:'far', farthest:'far', forgot:'forget', forgotten:'forget', woke:'wake', woken:'wake', rang:'ring', rung:'ring', drank:'drink', drunk:'drink', swam:'swim', swum:'swim', sang:'sing', sung:'sing', rode:'ride', ridden:'ride', drew:'draw', drawn:'draw', forbade:'forbid', forgave:'forgive', forgiven:'forgive', knives:'knife', lives:'life', wives:'wife', leaves:'leaf'
 };
 function enLemma(raw){
   const w = String(raw || '').toLowerCase().replace(/[’]/g, "'");
@@ -4967,6 +4967,8 @@ function enLemma(raw){
   if (/ier$/.test(w)) cand.push(w.slice(0, -3) + 'y');
   if (/iest$/.test(w)) cand.push(w.slice(0, -4) + 'y');
   if (/(ch|sh|ss|x|z|o)es$/.test(w)) cand.push(w.slice(0, -2));
+  if (/es$/.test(w)) cand.push(w.slice(0, -2), w.slice(0, -1));
+  if (/ers?$/.test(w)) cand.push(w.replace(/ers?$/, ''), w.replace(/ers?$/, 'e'));
   if (/s$/.test(w)) cand.push(w.slice(0, -1));
   if (/ing$/.test(w)) cand.push(w.slice(0, -3), w.slice(0, -3) + 'e', w.slice(0, -4));
   if (/ed$/.test(w)) cand.push(w.slice(0, -2), w.slice(0, -1), w.slice(0, -3));
