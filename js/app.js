@@ -2298,8 +2298,54 @@ const RU_LOOKUP = (function(){
     if (!e.refs.some(r => r.lv === lv && r.no === l.no)) e.refs.push({ lv, no:l.no });
     if (e.levels.indexOf(lv) < 0) e.levels.push(lv);
   }));
+  /* gộp kho nghĩa soạn tay (js/dict-ru.js): thêm mục từ lõi chưa có trong bài, gắn nghĩa mở rộng cho mục đã có */
+  const D = (typeof RU_DICT !== 'undefined') ? RU_DICT : {};
+  const byKey = {}; Object.keys(m).forEach(k => { byKey[ruKey(k)] = k; });
+  Object.keys(D).forEach(dk => {
+    const d = D[dk], k = byKey[ruKey(dk)];
+    if (k) m[k].dict = d;
+    else m[dk] = { key:dk, ru:d.ru || dk, vi:d.vi || (d.senses && d.senses[0] ? d.senses[0].vi : ''), pos:d.pos || '', note:'', refs:[], levels:[], dict:d };
+  });
   return m;
 })();
+const _RM = (typeof RuMorph !== 'undefined') ? RuMorph : null;
+/* Chỉ mục dạng biến đổi → từ gốc (để bấm «зову́т» ra «звать»); dựng lười lần đầu */
+let _ruFormIdx = null;
+function ruFormIndex(){
+  if (_ruFormIdx) return _ruFormIdx;
+  const idx = {};
+  const add = (form, key) => { const f = ruKey(form); if (!f) return; (idx[f] = idx[f] || []); if (idx[f].indexOf(key) < 0) idx[f].push(key); };
+  Object.values(RU_LOOKUP).forEach(w => {
+    const parts = String(w.ru).split(/\s*\/\s*/);
+    parts.forEach(part => {
+      const plain = ruPlain(part).trim();
+      if (!plain) return;
+      if (/\s/.test(plain)){ add(plain, w.key); plain.split(/\s+/).forEach(t => { if (t.length > 3) add(t.replace(/[^А-Яа-яЁё-]/g, ''), w.key); }); return; }
+      add(plain, w.key);
+      if (_RM){ try { _RM.allForms(part.trim(), w.pos, w.vi).forEach(f => add(f, w.key)); } catch(e){} }
+    });
+  });
+  _ruFormIdx = idx; return idx;
+}
+/* Tìm mục từ cho một từ bấm trong câu: đúng từ gốc → dạng biến đổi → cụm có chứa */
+function ruLemmatize(tok){
+  const k = ruKey(String(tok).replace(/[^А-Яа-яЁё́-]/g, ''));
+  if (!k) return [];
+  const exact = Object.values(RU_LOOKUP).filter(w => ruKey(w.ru) === k || String(w.ru).split(/\s*\/\s*/).some(p => ruKey(p) === k));
+  if (exact.length) return exact.map(w => w.key);
+  const hit = ruFormIndex()[k];
+  if (hit && hit.length) return hit.filter(key => !/\s/.test(ruPlain(key))).concat(hit.filter(key => /\s/.test(ruPlain(key))));
+  return [];
+}
+try { window.__ruDict = { lemmatize: ruLemmatize, lookup: RU_LOOKUP, forms: ruFormIndex }; } catch(e){}
+/* Bấm một từ trong câu: mở mục từ nếu tìm được từ gốc, không thì tìm gần đúng */
+function ruOpenWord(tok){
+  const keys = ruLemmatize(tok);
+  state.ru.dictQ = ruPlain(tok);
+  state.ru.entry = keys.length ? keys[0] : null;
+  if (state.view !== 'ru_dict') go('ru_dict'); else render();
+  try { window.scrollTo({ top:0 }); } catch(e){}
+}
 
 function ruSpeak(text){
   try {
@@ -2358,7 +2404,7 @@ function ruTokens(str){
     if (!tok.trim()) return esc(tok);
     const m = tok.match(/^([^А-Яа-яЁё]*)([А-Яа-яЁё́-]+)([^А-Яа-яЁё]*)$/u);
     if (!m) return esc(tok);
-    return esc(m[1]) + `<span class="zc" data-ruw="${esc(ruPlain(m[2]))}">${esc(m[2])}</span>` + esc(m[3]);
+    return esc(m[1]) + `<span class="zc ru-tok" data-ruw="${esc(ruPlain(m[2]))}" title="Tra từ này">${esc(m[2])}</span>` + esc(m[3]);
   }).join('');
 }
 function ruSpeakBtn(text, cls){ return `<button class="${cls || 'icon-btn'}" data-ru-speak="${esc(ruPlain(text))}" title="Nghe">🔊</button>`; }
@@ -2513,6 +2559,7 @@ VIEWS.ru_lesson = function(){
       <div class="zh-les-sub">${esc(L.vi)}</div>
       <p class="zh-les-skill">${esc(L.skill)}</p>
     </header>
+    <div class="ru-click-hint">💡 Từ có <span class="ru"><span class="zc">gạch chấm</span></span> bấm được: mở nghĩa, cấu tạo từ, bảng biến cách và ví dụ.</div>
     <section class="zh-sec">
       <h2>Ngữ pháp</h2>
       ${L.grammar.map(g => `
@@ -2527,7 +2574,7 @@ VIEWS.ru_lesson = function(){
       <div class="zh-vocab">
         ${L.vocab.map(w => `
           <div class="zh-word">
-            <div class="zh-word-hz ru ru-word" data-ruw="${esc(ruPlain(w.ru))}">${esc(w.ru)}</div>
+            <div class="zh-word-hz ru ru-word" data-ruw="${esc(ruPlain(w.ru))}" title="Mở mục từ điển">${esc(w.ru)}</div>
             <div class="zh-word-mid">
               <div class="zh-word-vi">${esc(w.vi)}</div>
               <div class="zh-word-meta">${esc(w.pos)}${w.note ? ' · ' + esc(w.note) : ''}</div>
@@ -2557,43 +2604,189 @@ VIEWS.ru_lesson = function(){
   </article>`;
 };
 
+/* ===== Từ điển Nga: kết quả tìm + mục từ đầy đủ (nghĩa, cấu tạo, biến cách, ví dụ) ===== */
+const RU_CASES = [['nom','Cách 1','Именительный','кто? что?'],['gen','Cách 2','Родительный','кого? чего?'],['dat','Cách 3','Дательный','кому? чему?'],['acc','Cách 4','Винительный','кого? что?'],['ins','Cách 5','Творительный','кем? чем?'],['pre','Cách 6','Предложный','о ком? о чём?']];
+function ruPosKind(pos, ru){
+  const p = pos || '', w = ruKey(ru).split(/\s*\/\s*/)[0];
+  if (/\s/.test(w) && !/^(потому что|так как)$/.test(w)) return 'phrase';
+  if (_RM && _RM.PRON[w]) return 'pron';
+  if (/danh từ/.test(p)) return 'noun';
+  if (/tính từ|причастие/.test(p) && /(ый|ий|ой)$/.test(w)) return 'adj';
+  if (/động từ/.test(p) || (/(ть|ти|чь)(ся|сь)?$/.test(w) && !/danh|tính|trạng/.test(p))) return 'verb';
+  if (!p && /(ый|ий|ой)$/.test(w)) return 'adj';
+  if (!p && /[а-я]/.test(w)) return 'noun';
+  return 'other';
+}
+function ruVerbAspect(pos, i, n){
+  const p = pos || '';
+  if (/НСВ\/СВ|NSV\/СВ/.test(p)) return i === 0 ? 'НСВ' : 'СВ';
+  if (/СВ/.test(p) && !/НСВ|NSV/.test(p)) return 'СВ';
+  if (/НСВ|NSV/.test(p)) return 'НСВ';
+  return null;
+}
+function ruTblCell(v){ return v == null || v === '-' ? '<td class="ru-na">—</td>' : `<td class="ru">${esc(v)}</td>`; }
+function ruNounTable(word, w){
+  if (!_RM) return '';
+  const n = _RM.noun(word, { pos:w.pos, vi:w.vi });
+  if (!n || (!n.sg && !n.pl)) return '';
+  const g = { m:'giống đực', f:'giống cái', n:'giống trung' }[n.gender] || '';
+  const head = `<div class="ru-morph-head"><b>Biến cách</b> · ${g}${n.animate ? ' · động vật (cách 4 = cách 2)' : ' · bất động vật'}${n.indecl ? ' · bất biến' : ''}${n.irregular ? ' · <span class="ru-irr">bất quy tắc</span>' : ''}</div>`;
+  const rows = RU_CASES.map(c => `<tr><th><span class="ru-case">${c[1]}</span><small class="ru">${c[2]}</small><small>${c[3]}</small></th>${ruTblCell(n.sg ? n.sg[c[0]] : null)}${ruTblCell(n.pl ? n.pl[c[0]] : null)}</tr>`).join('');
+  return `${head}<div class="ru-tbl-wrap"><table class="ru-tbl"><thead><tr><th></th><th>Số ít</th><th>Số nhiều</th></tr></thead><tbody>${rows}</tbody></table></div>${n.notes.length ? `<p class="ru-morph-note">${n.notes.map(esc).join(' ')}</p>` : ''}`;
+}
+function ruAdjTable(word){
+  if (!_RM) return '';
+  const a = _RM.adj(word); if (!a) return '';
+  const acc = (o, anim) => o.accI != null ? `${esc(o.accI)} <small>/ ${esc(o.accA)}</small>` : esc(o.acc);
+  const rows = RU_CASES.map(c => {
+    const k = c[0];
+    const cell = (o) => k === 'acc' ? `<td class="ru">${acc(o)}</td>` : ruTblCell(o[k]);
+    return `<tr><th><span class="ru-case">${c[1]}</span><small class="ru">${c[2]}</small></th>${cell(a.m)}${cell(a.f)}${cell(a.n)}${cell(a.pl)}</tr>`;
+  }).join('');
+  const extra = [];
+  if (a.short) extra.push(`<div><b>Dạng ngắn:</b> <span class="ru">${a.short.map(esc).join(' · ')}</span></div>`);
+  if (a.cmp) extra.push(`<div><b>So sánh hơn:</b> <span class="ru">${esc(a.cmp)}</span> · <b>nhất:</b> <span class="ru">са́мый ${esc(word)}</span></div>`);
+  return `<div class="ru-morph-head"><b>Biến cách tính từ</b> · cách 4: bất động vật / <small>động vật</small></div><div class="ru-tbl-wrap"><table class="ru-tbl"><thead><tr><th></th><th>Giống đực</th><th>Giống cái</th><th>Giống trung</th><th>Số nhiều</th></tr></thead><tbody>${rows}</tbody></table></div>${extra.length ? `<div class="ru-morph-extra">${extra.join('')}</div>` : ''}${a.notes.length ? `<p class="ru-morph-note">${a.notes.map(esc).join(' ')}</p>` : ''}`;
+}
+function ruVerbTable(word, aspect){
+  if (!_RM) return '';
+  const v = _RM.verb(word, { aspect }); if (!v || !v.forms) return v && v.notes.length ? `<p class="ru-morph-note">${esc(v.notes[0])}</p>` : '';
+  const P = ['я','ты','он / она́','мы','вы','они́'];
+  const tense = v.tense === 'future' ? 'Tương lai (thể hoàn thành)' : 'Hiện tại';
+  const rows = v.forms.map((f, i) => `<tr><th class="ru">${P[i]}</th><td class="ru">${esc(f)}</td>${v.fut ? `<td class="ru">${esc(v.fut[i])}</td>` : ''}</tr>`).join('');
+  const past = v.past ? `<div><b>Quá khứ:</b> <span class="ru">${esc(v.past[0])}</span> (он) · <span class="ru">${esc(v.past[1])}</span> (она́) · <span class="ru">${esc(v.past[2])}</span> (оно́) · <span class="ru">${esc(v.past[3])}</span> (они́)</div>` : '';
+  const imp = v.imp ? `<div><b>Mệnh lệnh:</b> <span class="ru">${esc(v.imp[0])}</span> (ты) · <span class="ru">${esc(v.imp[1])}</span> (вы)</div>` : '<div><b>Mệnh lệnh:</b> không dùng</div>';
+  const ger = v.ger ? `<div><b>Trạng động từ:</b> <span class="ru">${esc(v.ger)}</span></div>` : '';
+  return `<div class="ru-morph-head"><b>Chia động từ</b> · thể ${esc(v.aspect || '?')}${v.refl ? ' · phản thân (-ся)' : ''}${v.irregular ? ' · <span class="ru-irr">bất quy tắc</span>' : ''}</div><div class="ru-tbl-wrap"><table class="ru-tbl ru-tbl-verb"><thead><tr><th></th><th>${tense}</th>${v.fut ? '<th>Tương lai</th>' : ''}</tr></thead><tbody>${rows}</tbody></table></div><div class="ru-morph-extra">${past}${imp}${ger}</div>${v.notes.length ? `<p class="ru-morph-note">${v.notes.map(esc).join(' ')}</p>` : ''}`;
+}
+function ruPronTable(word){
+  if (!_RM) return '';
+  const P = _RM.PRON[ruKey(word)]; if (!P) return '';
+  if (P.cases) return `<div class="ru-morph-head"><b>Biến cách</b></div><div class="ru-tbl-wrap"><table class="ru-tbl"><tbody>${RU_CASES.map((c, i) => `<tr><th><span class="ru-case">${c[1]}</span><small class="ru">${c[2]}</small></th><td class="ru">${esc(P.cases[i])}</td></tr>`).join('')}</tbody></table></div>`;
+  return `<div class="ru-morph-head"><b>Biến cách</b></div><div class="ru-tbl-wrap"><table class="ru-tbl"><thead><tr><th></th><th>Giống đực</th><th>Giống cái</th><th>Giống trung</th><th>Số nhiều</th></tr></thead><tbody>${P.table.map((r, i) => `<tr><th><span class="ru-case">${RU_CASES[i][1]}</span></th>${r.map(x => `<td class="ru">${esc(x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+}
+/* Cấu tạo từ + từ cùng gốc */
+let _ruRootIdx = null;
+function ruRootIndex(){
+  if (_ruRootIdx || !_RM) return _ruRootIdx || {};
+  const idx = {};
+  Object.values(RU_LOOKUP).forEach(w => {
+    const first = String(w.ru).split(/\s*\/\s*/)[0].trim();
+    if (/\s/.test(ruPlain(first))) return;
+    const g = _RM.segment(first, w.pos); if (!g || g.root.length < 2) return;
+    const rk = _RM.rootKey(g.root); (idx[rk] = idx[rk] || []); if (idx[rk].indexOf(w.key) < 0) idx[rk].push(w.key);
+  });
+  _ruRootIdx = idx; return idx;
+}
+function ruWordStructure(w){
+  if (!_RM) return '';
+  const first = String(w.ru).split(/\s*\/\s*/)[0].trim();
+  if (/\s/.test(ruPlain(first))) return '';
+  const g = _RM.segment(first, w.pos); if (!g) return '';
+  const chips = [];
+  g.pre.forEach(p => chips.push(`<span class="ru-seg pre" title="tiền tố">${esc(p)}-</span>`));
+  chips.push(`<span class="ru-seg root" title="gốc từ">${esc(g.root)}</span>`);
+  g.suf.forEach(x => chips.push(`<span class="ru-seg suf" title="hậu tố">-${esc(x)}</span>`));
+  if (g.end) chips.push(`<span class="ru-seg end" title="đuôi">-${esc(g.end)}</span>`);
+  if (g.post) chips.push(`<span class="ru-seg suf" title="hậu tố phản thân">-${esc(g.post)}</span>`);
+  const same = (ruRootIndex()[_RM.rootKey(g.root)] || []).filter(k => k !== w.key).slice(0, 14);
+  return `<div class="ru-struct"><div class="ru-seg-row ru">${chips.join('')}</div><div class="ru-seg-legend"><span class="ru-seg pre">tiền tố</span><span class="ru-seg root">gốc</span><span class="ru-seg suf">hậu tố</span><span class="ru-seg end">đuôi</span> <small>— phân tích tự động, mang tính gợi ý</small></div>${same.length ? `<div class="ru-same"><b>Cùng gốc:</b> ${same.map(k => `<button class="zh-ref ru" data-ru-entry="${esc(k)}">${esc(RU_LOOKUP[k].ru)}</button>`).join(' ')}</div>` : ''}</div>`;
+}
+/* Ví dụ trong khoá học chứa từ (mọi dạng) */
+function ruExamplesFor(w, limit){
+  const forms = new Set();
+  String(w.ru).split(/\s*\/\s*/).forEach(part => { const pl = ruKey(part).trim(); if (!pl) return; forms.add(pl); if (!/\s/.test(pl) && _RM){ try { _RM.allForms(part.trim(), w.pos, w.vi).forEach(f => forms.add(ruKey(f))); } catch(e){} } });
+  const hits = [];
+  const test = (txt) => { const toks = ruKey(txt).replace(/[^а-яё\s-]/g, ' ').split(/\s+/); return toks.some(t => forms.has(t)) || [...forms].some(f => /\s/.test(f) && ruKey(txt).indexOf(f) >= 0); };
+  outer: for (const L of _RC.lessons){
+    for (const d of (L.dialogue || [])){ if (test(d.ru)){ hits.push({ ru:d.ru, vi:d.vi, lv:L.level, no:L.no }); if (hits.length >= limit) break outer; } }
+    for (const g of (L.grammar || [])){ if (g.ex && test(g.ex.ru)){ hits.push({ ru:g.ex.ru, vi:g.ex.vi, lv:L.level, no:L.no }); if (hits.length >= limit) break outer; } }
+  }
+  return hits;
+}
+function ruSenses(w){
+  const out = [];
+  const seen = new Set();
+  const push = (vi, ex, note) => { const k = (vi || '').trim().toLowerCase(); if (!k || seen.has(k)) return; seen.add(k); out.push({ vi, ex, note }); };
+  if (w.dict && w.dict.senses) w.dict.senses.forEach(s => push(s.vi, s.ex, s.note));
+  _RC.lessons.forEach(L => L.vocab.forEach(v => { if (ruKey(v.ru) === ruKey(w.ru)) push(v.vi, null, v.note); }));
+  if (!out.length) push(w.vi, null, w.note);
+  return out;
+}
+function ruEntryHTML(key){
+  const w = RU_LOOKUP[key]; if (!w) return '';
+  const kind = ruPosKind(w.pos, w.ru);
+  const parts = String(w.ru).split(/\s*\/\s*/).map(x => x.trim()).filter(Boolean);
+  const senses = ruSenses(w);
+  const d = w.dict || {};
+  let morph = '';
+  if (kind === 'noun') morph = parts.map(p => (parts.length > 1 ? `<div class="ru-morph-sub ru">${esc(p)}</div>` : '') + ruNounTable(p, w)).join('');
+  else if (kind === 'adj') morph = parts.map(p => (parts.length > 1 ? `<div class="ru-morph-sub ru">${esc(p)}</div>` : '') + ruAdjTable(p)).join('');
+  else if (kind === 'verb') morph = parts.map((p, i) => (parts.length > 1 ? `<div class="ru-morph-sub ru">${esc(p)}</div>` : '') + ruVerbTable(p, ruVerbAspect(w.pos, i, parts.length))).join('');
+  else if (kind === 'pron') morph = ruPronTable(parts[0]);
+  const ex = ruExamplesFor(w, 6);
+  const refs = w.refs.map(r => `<button class="zh-ref" data-ru-open="${r.lv}:${r.no}" title="Mở bài học">${esc(ruLevelName(r.lv))} bài ${r.no}</button>`).join(' ');
+  return `
+  <article class="ru-entry">
+    <header class="ru-entry-head">
+      <div class="ru-entry-word ru">${esc(w.ru)} ${ruSpeakBtn(parts[0])}</div>
+      <div class="ru-entry-meta">${esc(w.pos || '')}${d.gov ? ` · <span class="ru-gov" title="chi phối (управление)">${esc(d.gov)}</span>` : ''}${d.pair ? ` · cặp thể: <span class="ru">${esc(d.pair)}</span>` : ''}</div>
+      ${refs ? `<div class="ru-entry-refs">${refs}</div>` : '<div class="ru-entry-refs"><span class="ru-dict-tag">từ lõi · kho nghĩa mở rộng</span></div>'}
+    </header>
+    <section class="ru-entry-sec">
+      <h3>Nghĩa</h3>
+      <ol class="ru-senses">${senses.map(s => `<li><div class="ru-sense-vi">${esc(s.vi)}</div>${s.note ? `<div class="ru-sense-note">${esc(s.note)}</div>` : ''}${s.ex && s.ex[0] ? `<div class="ru-sense-ex"><span class="ru">${ruTokens(s.ex[0])}</span> ${ruSpeakBtn(s.ex[0], 'mini')}${s.ex[1] ? `<span class="ru-sense-exvi">${esc(s.ex[1])}</span>` : ''}</div>` : ''}</li>`).join('')}</ol>
+      ${d.coll && d.coll.length ? `<h3>Cách dùng · kết hợp từ</h3><ul class="ru-coll">${d.coll.map(c => `<li><span class="ru">${ruTokens(c.split(' — ')[0])}</span>${c.indexOf(' — ') > 0 ? ` <span class="ru-coll-vi">— ${esc(c.split(' — ').slice(1).join(' — '))}</span>` : ''}</li>`).join('')}</ul>` : ''}
+      ${d.note ? `<p class="ru-entry-note">📌 ${esc(d.note)}</p>` : ''}
+    </section>
+    ${kind !== 'phrase' && kind !== 'other' ? `<section class="ru-entry-sec"><h3>Cấu tạo từ</h3>${ruWordStructure(w) || '<p class="ru-morph-note">Không phân tích được cấu tạo từ này.</p>'}</section>` : ''}
+    ${morph ? `<section class="ru-entry-sec ru-entry-morph">${morph}<p class="ru-morph-note">Bảng do LangLab tạo theo quy tắc + danh sách bất quy tắc; dấu trọng âm chỉ ghi khi chắc chắn. Đối chiếu: <a href="https://ru.wiktionary.org/wiki/${encodeURIComponent(ruPlain(parts[0]))}" target="_blank" rel="noopener noreferrer">Wiktionary ↗</a></p></section>` : ''}
+    ${ex.length ? `<section class="ru-entry-sec"><h3>Ví dụ trong khoá học</h3><div class="ru-ex-list">${ex.map(e => `<div class="ru-ex-item"><div class="ru">${ruTokens(e.ru)} ${ruSpeakBtn(e.ru, 'mini')}</div><div class="ru-ex-vi">${esc(e.vi)} · <button class="zh-ref" data-ru-open="${e.lv}:${e.no}">${esc(ruLevelName(e.lv))} bài ${e.no}</button></div></div>`).join('')}</div></section>` : ''}
+  </article>`;
+}
 function ruDictResults(q){
   q = (q || '').trim();
   let items = Object.values(RU_LOOKUP);
+  let lemmaHits = [];
   if (q){
     const qk = ruKey(q), ql = q.toLowerCase();
-    items = items.filter(w => ruKey(w.ru).indexOf(qk) >= 0 || w.vi.toLowerCase().indexOf(ql) >= 0);
-    items.sort((a, b) => (ruKey(a.ru).indexOf(qk) === 0 ? 0 : 1) - (ruKey(b.ru).indexOf(qk) === 0 ? 0 : 1));
+    lemmaHits = ruLemmatize(q);
+    items = items.filter(w => ruKey(w.ru).indexOf(qk) >= 0 || (w.vi || '').toLowerCase().indexOf(ql) >= 0 || lemmaHits.indexOf(w.key) >= 0);
+    const rank = w => lemmaHits.indexOf(w.key) >= 0 ? 0 : (ruKey(w.ru) === qk ? 1 : (ruKey(w.ru).indexOf(qk) === 0 ? 2 : 3));
+    items.sort((a, b) => rank(a) - rank(b));
   }
   const total = items.length;
   items = items.slice(0, 80);
-  if (!items.length) return `<p class="zh-empty">Không thấy từ nào khớp. Gõ tiếng Nga (không cần dấu trọng âm) hoặc nghĩa tiếng Việt.</p>` + crossDictHint(q, 'ru');
-  return `<div class="zh-res-count">${total} từ${total > 80 ? ' · hiện 80 đầu, gõ thêm để thu hẹp' : ''}</div>` + crossDictHint(q, 'ru') + items.map(w => `
-    <div class="zh-res">
+  if (!items.length) return `<p class="zh-empty">Không thấy từ nào khớp. Gõ tiếng Nga (không cần dấu trọng âm, có thể gõ dạng đã biến đổi như «зовут», «книги») hoặc nghĩa tiếng Việt.</p>` + crossDictHint(q, 'ru');
+  const lemmaNote = (q && lemmaHits.length && ruKey(RU_LOOKUP[lemmaHits[0]].ru) !== ruKey(q)) ? `<div class="ru-lemma-note">«${esc(q)}» là dạng biến đổi của <b class="ru">${esc(RU_LOOKUP[lemmaHits[0]].ru)}</b></div>` : '';
+  return `<div class="zh-res-count">${total} từ${total > 80 ? ' · hiện 80 đầu, gõ thêm để thu hẹp' : ''}</div>` + lemmaNote + crossDictHint(q, 'ru') + items.map(w => `
+    <div class="zh-res ru-res" data-ru-entry="${esc(w.key)}" role="button" tabindex="0" title="Mở mục từ">
       <div class="zh-res-hz ru" style="font-size:20px;min-width:0">${esc(w.ru)}</div>
       <div class="zh-res-mid">
         <div class="zh-res-vi">${esc(w.vi)}</div>
-        <div class="zh-res-meta">${esc(w.pos)}${w.note ? ' · ' + esc(w.note) : ''} · ${w.refs.map(r => `<button class="zh-ref" data-ru-open="${r.lv}:${r.no}" title="Mở bài học">${esc(ruLevelName(r.lv))} bài ${r.no}</button>`).join(' ')}</div>
+        <div class="zh-res-meta">${esc(w.pos)}${w.note ? ' · ' + esc(w.note) : ''}${w.refs.length ? ' · ' + w.refs.map(r => `<button class="zh-ref" data-ru-open="${r.lv}:${r.no}" title="Mở bài học">${esc(ruLevelName(r.lv))} bài ${r.no}</button>`).join(' ') : ' · <span class="ru-dict-tag">từ lõi</span>'}</div>
       </div>
       <div class="zh-res-act">
         ${ruSpeakBtn(w.ru)}
-        <a class="icon-btn" href="https://ru.wiktionary.org/wiki/${encodeURIComponent(ruPlain(w.ru).split(/[\s\/,]/)[0])}" target="_blank" rel="noopener noreferrer" title="Tra Wiktionary (biến cách, ví dụ)">↗</a>
+        <button class="icon-btn" data-ru-entry="${esc(w.key)}" title="Mở mục từ: nghĩa, biến cách, ví dụ">▸</button>
       </div>
     </div>`).join('');
 }
 VIEWS.ru_dict = function(){
   const q = state.ru.dictQ || '';
+  const entry = state.ru.entry && RU_LOOKUP[state.ru.entry] ? state.ru.entry : null;
   return `
   <div class="page-head">
     <span class="eyebrow">Tiếng Nga</span>
     <h1>Từ điển</h1>
-    <p>Tra trong ${Object.keys(RU_LOOKUP).length} từ của khoá A1–C2 (gõ không cần dấu trọng âm, ё = е). Bấm một từ trong bài học cũng mở tra ở đây; nút ↗ mở Wiktionary tiếng Nga để xem bảng biến cách.</p>
+    <p>Tra trong ${Object.keys(RU_LOOKUP).length} từ (khoá A1–C2 + từ lõi). Gõ tiếng Nga không cần dấu trọng âm — kể cả dạng đã biến đổi — hoặc nghĩa tiếng Việt. Mỗi mục từ có nghĩa, cấu tạo từ, bảng biến cách/chia và ví dụ từ bài học.</p>
   </div>
   <div class="zh-dict-search">
     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-    <input id="ruq" type="search" value="${esc(q)}" placeholder="семья / gia đình…" autocomplete="off">
+    <input id="ruq" type="search" value="${esc(q)}" placeholder="семья / зовут / gia đình…" autocomplete="off">
   </div>
-  <div id="ruResults" class="zh-results">${ruDictResults(q)}</div>`;
+  ${entry ? `<div id="ruEntry">${ruEntryHTML(entry)}<div class="stage-ctrl"><button class="pbtn" data-ru-entry-close="1">← Danh sách kết quả</button></div></div>` : ''}
+  <div id="ruResults" class="zh-results"${entry ? ' hidden' : ''}>${ruDictResults(q)}</div>`;
 };
 
 VIEWS.ru_srs = function(){
@@ -4213,7 +4406,11 @@ document.addEventListener('click', e => {
   const rTr = t.closest('[data-ru-trace]');
   if (rTr){ if (rTr.dataset.ruTrace === 'toggle'){ state.ru.trace = !state.ru.trace; rTr.textContent = state.ru.trace ? 'Ẩn mẫu' : 'Hiện mẫu'; } if (ruTraceState){ if (rTr.dataset.ruTrace === 'clear') ruTraceState.clear(); else ruTraceState.redraw(); } return; }
   const rW = t.closest('[data-ruw]');
-  if (rW){ state.ru.dictQ = rW.dataset.ruw; go('ru_dict'); return; }
+  if (rW){ ruOpenWord(rW.dataset.ruw); return; }
+  const rEc = t.closest('[data-ru-entry-close]');
+  if (rEc){ state.ru.entry = null; render(); const q = $('#ruq'); if (q) q.focus(); return; }
+  const rE = t.closest('[data-ru-entry]');
+  if (rE && !t.closest('[data-ru-open]') && !t.closest('[data-ru-speak]')){ state.ru.entry = rE.dataset.ruEntry; if (state.view !== 'ru_dict') go('ru_dict'); else render(); try { const el = $('#ruEntry'); if (el) el.scrollIntoView({ block:'start' }); } catch(e){} return; }
   const xd = t.closest('[data-cross]');
   if (xd){ quickSearch(xd.dataset.q, xd.dataset.cross === 'dict' ? 'ko' : xd.dataset.cross === 'zh_dict' ? 'zh' : 'ru'); return; }
   const rOp = t.closest('[data-ru-open]');
@@ -4532,7 +4729,7 @@ document.addEventListener('input', e => {
     return;
   }
   if (e.target.id === 'zhq'){ const box = $('#zhResults'); if (box) box.innerHTML = zhDictResults(e.target.value); return; }
-  if (e.target.id === 'ruq'){ const box = $('#ruResults'); if (box) box.innerHTML = ruDictResults(e.target.value); return; }
+  if (e.target.id === 'ruq'){ state.ru.dictQ = e.target.value; if (state.ru.entry){ state.ru.entry = null; const en = $('#ruEntry'); if (en) en.remove(); } const box = $('#ruResults'); if (box){ box.hidden = false; box.innerHTML = ruDictResults(e.target.value); } return; }
   if (e.target.dataset && e.target.dataset.hskIn != null){            // ô viết chữ / câu / đoạn trong đề HSK
     const E = exCtx().st.exam; if (!E || E.phase !== 'doing') return;
     const no = +e.target.dataset.hskIn, v = e.target.value;
@@ -4559,7 +4756,7 @@ function quickLang(v){
 function quickSearch(v, lang){
   lang = lang || quickLang(v);
   if (lang === 'zh'){ state.zh.dictQ = v; if (state.view !== 'zh_dict') go('zh_dict'); else { const q = $('#zhq'); if (q){ q.value = v; q.dispatchEvent(new Event('input', { bubbles:true })); } } return; }
-  if (lang === 'ru'){ state.ru.dictQ = v; if (state.view !== 'ru_dict') go('ru_dict'); else { const q = $('#ruq'); if (q){ q.value = v; q.dispatchEvent(new Event('input', { bubbles:true })); } } return; }
+  if (lang === 'ru'){ state.ru.dictQ = v; const keys = ruLemmatize(v); state.ru.entry = (keys.length && (ruKey(RU_LOOKUP[keys[0]].ru) === ruKey(v) || /[а-яё]/i.test(v))) ? keys[0] : null; if (state.view !== 'ru_dict') go('ru_dict'); else render(); return; }
   if (state.view !== 'dict') go('dict');
   const d = $('#dq'); if (d){ d.value = v; d.dispatchEvent(new Event('input')); }
 }
