@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
 <meta name="description" content="Ứng dụng học ngoại ngữ theo bài cho người Việt: tiếng Hàn (TOPIK), tiếng Trung (HSK), tiếng Nga (ТРКИ) — từ vựng, ngữ pháp, hội thoại, tập viết, từ điển, thi thử.">
-<link rel="icon" type="image/png" href="logo-icon.png?v=260932">
-<link rel="manifest" href="manifest.webmanifest?v=260932">
+<link rel="icon" type="image/png" href="logo-icon.png?v=260933">
+<link rel="manifest" href="manifest.webmanifest?v=260933">
 <meta name="theme-color" content="#EAF1FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260932">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260933">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="LangLab">
@@ -1463,6 +1463,8 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 @media (max-width:700px){ .ru-detail,.ru-write{grid-template-columns:1fr} .ru-trace{width:100%;max-width:300px} }
 .dict-cross{font-size:12.5px;color:var(--muted);margin:2px 0 8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:8px 12px;border:1px dashed var(--line);border-radius:10px;background:var(--surface)}
 .dhits .dict-cross{margin:8px 10px}
+.qz-tag{font-style:normal;font-size:11px;color:var(--faint);border:1px solid var(--line);border-radius:999px;padding:1px 7px;margin-right:4px}
+.qz-opt.ru{font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:16px}
 
 </style>
 </head>
@@ -1472,7 +1474,7 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   <header class="nav">
     <div class="nav-in">
       <div class="brand" data-go="about" role="link" tabindex="0" title="Giới thiệu LangLab">
-        <span class="brand-mark"><img src="logo-icon.png?v=260932" alt="LangLab" width="40" height="40"></span>
+        <span class="brand-mark"><img src="logo-icon.png?v=260933" alt="LangLab" width="40" height="40"></span>
         <span class="brand-name">LangLab</span>
       </div>
 
@@ -14065,6 +14067,191 @@ if (typeof module !== 'undefined') module.exports = { SPEAKING_RU };
 </script>
 <script>
 /* ============================================================
+   LangLab — NGÂN HÀNG BÀI TẬP NGỮ PHÁP TIẾNG NGA (soạn tay theo cấp và chủ đề)
+   Mỗi câu: { level:'a1'|'a2'|'b1'|'b2'|'c1'|'c2', topic, q (câu có … ), o:[phương án], c: chỉ số đúng, e: giải thích }
+   Ngoài ngân hàng này, app còn lấy thêm phần Лексика·Грамматика của các đề ТРКИ (js/trki-exams.js).
+   ============================================================ */
+const RU_EXERCISES = [
+  /* ---------- A1 ---------- */
+  { level:'a1', topic:'giống & sở hữu', q:'Это … мама.', o:['мой','моя','моё'], c:1, e:'мама giống cái → моя.' },
+  { level:'a1', topic:'giống & sở hữu', q:'Где … письмо?', o:['твой','твоя','твоё'], c:2, e:'письмо giống trung → твоё.' },
+  { level:'a1', topic:'giống & sở hữu', q:'Это … друзья.', o:['наш','наши','наша'], c:1, e:'друзья số nhiều → наши.' },
+  { level:'a1', topic:'cách 6', q:'Он работает … .', o:['в банк','в банке','банк'], c:1, e:'Где? → cách 6: в банке.' },
+  { level:'a1', topic:'cách 6', q:'Книги лежат … .', o:['на полке','на полку','полка'], c:0, e:'Где? → на полке.' },
+  { level:'a1', topic:'cách 6', q:'Мы учимся … .', o:['в академия','в академии','в академию'], c:1, e:'-ия → -ии: в академии.' },
+  { level:'a1', topic:'cách 4', q:'Я слушаю … .', o:['музыка','музыку','музыке'], c:1, e:'слушать что → музыку.' },
+  { level:'a1', topic:'cách 4', q:'Она любит … .', o:['брат','брата','брату'], c:1, e:'любить кого (động vật đực) → брата.' },
+  { level:'a1', topic:'cách 4', q:'Мы идём … .', o:['в театре','в театр','театр'], c:1, e:'Куда? → в театр.' },
+  { level:'a1', topic:'cách 2', q:'У нас нет … .', o:['машина','машины','машину'], c:1, e:'нет + cách 2: машины.' },
+  { level:'a1', topic:'cách 2', q:'Это книга … .', o:['учитель','учителя','учителю'], c:1, e:'Sở hữu → cách 2.' },
+  { level:'a1', topic:'cách 2', q:'Четыре … .', o:['студент','студента','студентов'], c:1, e:'2–4 + cách 2 số ít.' },
+  { level:'a1', topic:'cách 3', q:'… нравится этот город.', o:['Он','Его','Ему'], c:2, e:'нравиться + cách 3.' },
+  { level:'a1', topic:'cách 3', q:'Я пишу письмо … .', o:['сестра','сестре','сестру'], c:1, e:'писать кому → cách 3.' },
+  { level:'a1', topic:'động từ', q:'Мы … в общежитии.', o:['живу','живём','живут'], c:1, e:'мы живём.' },
+  { level:'a1', topic:'động từ', q:'Ты … по-русски?', o:['говорю','говоришь','говорит'], c:1, e:'ты говоришь.' },
+  { level:'a1', topic:'động từ', q:'Она … телевизор.', o:['смотрю','смотришь','смотрит'], c:2, e:'она смотрит (nhóm II).' },
+  { level:'a1', topic:'thì', q:'Вчера мы … в кино.', o:['были','будем','есть'], c:0, e:'вчера → quá khứ.' },
+  { level:'a1', topic:'thì', q:'Завтра я … читать.', o:['был','буду','читал'], c:1, e:'буду + inf.' },
+  { level:'a1', topic:'thì', q:'Вчера Анна … дома.', o:['был','была','были'], c:1, e:'Anna → была.' },
+  { level:'a1', topic:'chuyển động', q:'Сейчас я … домой.', o:['иду','хожу','ходил'], c:0, e:'Đang đi một hướng.' },
+  { level:'a1', topic:'chuyển động', q:'Мы … на море на поезде.', o:['идём','едем','ходим'], c:1, e:'Bằng tàu → едем.' },
+  { level:'a1', topic:'liên từ', q:'Я хочу спать, … уже поздно.', o:['потому что','поэтому','чтобы'], c:0, e:'Nguyên nhân.' },
+  { level:'a1', topic:'liên từ', q:'Он болен, … он дома.', o:['потому что','поэтому','если'], c:1, e:'Kết quả.' },
+  { level:'a1', topic:'từ hỏi', q:'… ты работаешь? — В школе.', o:['Куда','Где','Откуда'], c:1, e:'Nơi tĩnh → где.' },
+  { level:'a1', topic:'từ hỏi', q:'… стоит хлеб? — 40 рублей.', o:['Сколько','Какой','Как'], c:0, e:'Giá → сколько.' },
+  { level:'a1', topic:'trạng từ', q:'Она говорит … .', o:['быстрый','быстро','быстрая'], c:1, e:'Trạng từ bổ nghĩa động từ.' },
+  { level:'a1', topic:'thời gian', q:'Урок начинается … .', o:['в восемь часов','восемь часов','о восемь'], c:0, e:'в + giờ.' },
+  { level:'a1', topic:'thời gian', q:'Мы отдыхаем … .', o:['в воскресенье','в воскресенья','воскресенье'], c:0, e:'в + thứ ở cách 4.' },
+  { level:'a1', topic:'tuổi', q:'Мне двадцать два … .', o:['год','года','лет'], c:1, e:'22 → года.' },
+
+  /* ---------- A2 ---------- */
+  { level:'a2', topic:'thể', q:'Я … эту книгу за два дня.', o:['читал','прочитал','буду читать'], c:1, e:'за + thời gian → kết quả СВ.' },
+  { level:'a2', topic:'thể', q:'Каждый вечер он … новости.', o:['смотрит','посмотрит','посмотрел'], c:0, e:'Lặp lại → НСВ.' },
+  { level:'a2', topic:'thể', q:'Когда я … работу, я позвоню тебе.', o:['делаю','сделаю','делал'], c:1, e:'Sau khi làm xong → СВ tương lai.' },
+  { level:'a2', topic:'thể', q:'Не … окно, холодно!', o:['открывай','открой','откроешь'], c:0, e:'Mệnh lệnh phủ định → НСВ.' },
+  { level:'a2', topic:'cách 2', q:'Мы вернулись … .', o:['из театра','с театра','от театра'], c:0, e:'в ↔ из.' },
+  { level:'a2', topic:'cách 2', q:'Он пришёл … .', o:['с работы','из работы','от работы'], c:0, e:'на ↔ с.' },
+  { level:'a2', topic:'cách 2', q:'У меня много … .', o:['дела','дел','делов'], c:1, e:'много + cách 2 số nhiều: дел.' },
+  { level:'a2', topic:'cách 2', q:'Я жду тебя … .', o:['около вход','около входа','около входе'], c:1, e:'около + cách 2.' },
+  { level:'a2', topic:'cách 3', q:'Я иду … .', o:['к врачу','у врача','с врачом'], c:0, e:'к + cách 3.' },
+  { level:'a2', topic:'cách 3', q:'Мы гуляли … .', o:['по парку','в парк','парк'], c:0, e:'по + cách 3.' },
+  { level:'a2', topic:'cách 3', q:'… холодно.', o:['Я','Мне','Меня'], c:1, e:'Câu vô nhân xưng: кому.' },
+  { level:'a2', topic:'cách 5', q:'Она хочет стать … .', o:['учительница','учительницей','учительницу'], c:1, e:'стать кем.' },
+  { level:'a2', topic:'cách 5', q:'Я занимаюсь … .', o:['спорт','спортом','спорта'], c:1, e:'заниматься чем.' },
+  { level:'a2', topic:'cách 5', q:'Мы говорили … .', o:['с директором','к директору','директора'], c:0, e:'с + cách 5.' },
+  { level:'a2', topic:'cách 5', q:'Ключ лежит … .', o:['под книгой','под книгу','под книги'], c:0, e:'Vị trí → cách 5.' },
+  { level:'a2', topic:'cách 6', q:'Он рассказывал … .', o:['о поездке','в поездке','поездку'], c:0, e:'рассказывать о чём.' },
+  { level:'a2', topic:'cách 6', q:'Она играет … .', o:['на скрипке','в скрипку','скрипкой'], c:0, e:'играть на + nhạc cụ.' },
+  { level:'a2', topic:'chuyển động', q:'Каждый день он … на работу пешком.', o:['идёт','ходит','пошёл'], c:1, e:'Thói quen → ходит.' },
+  { level:'a2', topic:'chuyển động', q:'В прошлом году мы … во Францию.', o:['ехали','ездили','едем'], c:1, e:'Đã đi và về.' },
+  { level:'a2', topic:'chuyển động', q:'Гости … в восемь часов.', o:['пришли','ушли','вышли'], c:0, e:'при- = đến.' },
+  { level:'a2', topic:'chuyển động', q:'Он … из комнаты и закрыл дверь.', o:['вышел','вошёл','пришёл'], c:0, e:'вы- + из = ra khỏi.' },
+  { level:'a2', topic:'chuyển động', q:'Давай … в кино!', o:['пойдём','идём','ходим'], c:0, e:'Đề nghị khởi hành → пойдём.' },
+  { level:'a2', topic:'-ся', q:'Фильм … в семь.', o:['начинается','начинает','начнёт'], c:0, e:'начинаться (tự thân).' },
+  { level:'a2', topic:'-ся', q:'Я … с ней в университете.', o:['познакомил','познакомился','знакомил'], c:1, e:'познакомиться с кем.' },
+  { level:'a2', topic:'-ся', q:'Дети … собаки.', o:['боятся','боят','бояться'], c:0, e:'бояться + cách 2.' },
+  { level:'a2', topic:'который', q:'Это студентка, … я помогал.', o:['которая','которую','которой'], c:2, e:'помогать кому → cách 3.' },
+  { level:'a2', topic:'который', q:'Дом, в … мы живём, старый.', o:['который','котором','которого'], c:1, e:'в + cách 6.' },
+  { level:'a2', topic:'который', q:'Друг, … я жду, опаздывает.', o:['который','которого','которому'], c:1, e:'ждать кого → cách 4 = cách 2 (động vật).' },
+  { level:'a2', topic:'so sánh', q:'Сегодня … , чем вчера.', o:['теплее','тёплый','самый тёплый'], c:0, e:'So sánh + чем.' },
+  { level:'a2', topic:'so sánh', q:'Это … город в стране.', o:['больше','самый большой','большее'], c:1, e:'Nhất: самый.' },
+  { level:'a2', topic:'so sánh', q:'Он говорит … меня.', o:['лучше','лучший','хорошо'], c:0, e:'лучше + cách 2 = tốt hơn ai.' },
+  { level:'a2', topic:'если / чтобы', q:'… будет время, я приду.', o:['Если','Чтобы','Что'], c:0, e:'Điều kiện.' },
+  { level:'a2', topic:'если / чтобы', q:'Я хочу, чтобы ты … .', o:['пришёл','придёшь','прийти'], c:0, e:'чтобы + quá khứ (khác chủ ngữ).' },
+  { level:'a2', topic:'если / chỉ', q:'Он купил словарь, чтобы … .', o:['переводил','переводить','перевёл'], c:1, e:'Cùng chủ ngữ → inf.' },
+  { level:'a2', topic:'thời gian', q:'Встретимся … .', o:['в половине шестого','в половину шестого','половина шестого'], c:0, e:'в половине + cách 2 số thứ tự.' },
+  { level:'a2', topic:'thời gian', q:'Он родился … .', o:['в 1995 году','в 1995 год','1995 года'], c:0, e:'в + cách 6.' },
+  { level:'a2', topic:'thời gian', q:'Экзамен … июня.', o:['десятого','десятое','десять'], c:0, e:'Ngày → cách 2 số thứ tự.' },
+  { level:'a2', topic:'sức khoẻ', q:'У меня … зубы.', o:['болит','болят','болеет'], c:1, e:'зубы số nhiều → болят.' },
+  { level:'a2', topic:'sức khoẻ', q:'Вам … больше отдыхать.', o:['надо','должен','должны'], c:0, e:'надо + cách 3 (вам).' },
+  { level:'a2', topic:'số lượng', q:'В группе пять … .', o:['студента','студентов','студенты'], c:1, e:'5+ → cách 2 số nhiều.' },
+  { level:'a2', topic:'số lượng', q:'Дайте, пожалуйста, две … .', o:['бутылки','бутылок','бутылка'], c:0, e:'2 + cách 2 số ít.' },
+
+  /* ---------- B1 ---------- */
+  { level:'b1', topic:'thể', q:'Он долго … письмо и наконец … его.', o:['писал / написал','написал / писал','пишет / написал'], c:0, e:'Quá trình НСВ → kết quả СВ.' },
+  { level:'b1', topic:'thể', q:'Ты когда-нибудь … «Анну Каренину»?', o:['читал','прочитал','читаешь'], c:0, e:'Hỏi kinh nghiệm chung → НСВ.' },
+  { level:'b1', topic:'thể', q:'Вчера я … к врачу, но его не было.', o:['ходил','пошёл','иду'], c:0, e:'Đã đi và về → ходил.' },
+  { level:'b1', topic:'thể', q:'Не … мне, я занят!', o:['звони','позвони','позвонишь'], c:0, e:'Cấm/khuyên không làm → НСВ.' },
+  { level:'b1', topic:'thể', q:'… , пожалуйста, эту форму до пятницы.', o:['Заполняйте','Заполните','Заполняете'], c:1, e:'Yêu cầu một lần → СВ.' },
+  { level:'b1', topic:'причастие', q:'Студенты, … в первом ряду, слушали внимательно.', o:['сидящие','сидевшие','сидящих'], c:0, e:'Hiện tại chủ động, cách 1 số nhiều.' },
+  { level:'b1', topic:'причастие', q:'Я знаю человека, … эту книгу.', o:['написавший','написавшего','написавшим'], c:1, e:'знать кого → cách 4 = cách 2 (động vật).' },
+  { level:'b1', topic:'причастие', q:'Письмо, … вчера, уже пришло.', o:['отправленное','отправившее','отправляющее'], c:0, e:'Bị động quá khứ (thư được gửi).' },
+  { level:'b1', topic:'причастие', q:'Магазин уже … .', o:['закрыт','закрытый','закрывший'], c:0, e:'Vị ngữ → dạng ngắn.' },
+  { level:'b1', topic:'причастие', q:'Задачи … учениками за час.', o:['решены','решённые','решившие'], c:0, e:'Dạng ngắn số nhiều, tác nhân cách 5.' },
+  { level:'b1', topic:'деепричастие', q:'… домой, он позвонил маме.', o:['Вернувшись','Возвращаясь','Вернувший'], c:0, e:'Hành động trước → СВ -вшись.' },
+  { level:'b1', topic:'деепричастие', q:'… музыку, она готовила ужин.', o:['Слушая','Послушав','Слушающая'], c:0, e:'Đồng thời → НСВ -я.' },
+  { level:'b1', topic:'деепричастие', q:'Câu nào ĐÚNG?', o:['Читая книгу, зазвонил телефон.','Читая книгу, я услышал звонок.','Читая книгу, было интересно.'], c:1, e:'Trạng động từ phải cùng chủ ngữ với động từ chính.' },
+  { level:'b1', topic:'chuyển động', q:'По дороге домой я … в аптеку.', o:['зашёл','вышел','ушёл'], c:0, e:'за- = ghé.' },
+  { level:'b1', topic:'chuyển động', q:'Мы … весь город в поисках гостиницы.', o:['обошли','перешли','дошли'], c:0, e:'об- = đi vòng/khắp.' },
+  { level:'b1', topic:'chuyển động', q:'Давайте … к делу.', o:['перейдём','придём','уйдём'], c:0, e:'перейти к делу = vào việc.' },
+  { level:'b1', topic:'chuyển động', q:'Мне … в голову хорошая идея.', o:['пришла','ушла','вошла'], c:0, e:'приходить в голову.' },
+  { level:'b1', topic:'gián tiếp', q:'Он сказал, что … завтра.', o:['придёт','пришёл бы','приходи'], c:0, e:'Giữ thì tương lai.' },
+  { level:'b1', topic:'gián tiếp', q:'Она спросила, … я на собрании.', o:['был ли','что был','если был'], c:0, e:'Câu hỏi có/không → ли.' },
+  { level:'b1', topic:'gián tiếp', q:'Врач посоветовал, чтобы я … .', o:['отдыхал','отдыхаю','отдыхать'], c:0, e:'чтобы + quá khứ.' },
+  { level:'b1', topic:'gián tiếp', q:'«Где ты живёшь?» → Он спросил, где я … .', o:['живу','жил','живёшь'], c:0, e:'Đổi ngôi, giữ thì.' },
+  { level:'b1', topic:'giả định', q:'Если бы я знал, я … тебе.', o:['помог бы','помогу','помогал'], c:0, e:'бы + quá khứ.' },
+  { level:'b1', topic:'giả định', q:'Не … бы вы открыть окно?', o:['могли','можете','мочь'], c:0, e:'Не могли бы вы… (lịch sự).' },
+  { level:'b1', topic:'giả định', q:'… , что он не пришёл.', o:['Жаль','Жалко бы','Жалеет'], c:0, e:'Жаль, что….' },
+  { level:'b1', topic:'liên từ', q:'… шёл дождь, мы пошли гулять.', o:['Хотя','Поэтому','Так что'], c:0, e:'Nhượng bộ.' },
+  { level:'b1', topic:'liên từ', q:'… билетов не было, мы остались дома.', o:['Поскольку','Потому что','Зато'], c:0, e:'Потому что không đứng đầu; поскольку được.' },
+  { level:'b1', topic:'liên từ', q:'Несмотря … , он пришёл.', o:['на болезнь','болезни','на болезни'], c:0, e:'несмотря на + cách 4.' },
+  { level:'b1', topic:'liên từ', q:'Он много работает, … мало зарабатывает.', o:['зато','однако','поэтому'], c:1, e:'Tương phản → однако; зато cần ý “bù lại” tích cực.' },
+  { level:'b1', topic:'đại từ', q:'… звонил, но не назвал имени.', o:['Кто-то','Кто-нибудь','Никто'], c:0, e:'Đã xảy ra, không rõ ai → -то.' },
+  { level:'b1', topic:'đại từ', q:'Дай мне … почитать.', o:['что-нибудь','что-то','ничего'], c:0, e:'Cầu khiến → -нибудь.' },
+  { level:'b1', topic:'đại từ', q:'Мне … посоветоваться.', o:['не с кем','ни с кем','никто'], c:0, e:'не́ с кем + inf.' },
+  { level:'b1', topic:'đại từ', q:'Я … не видел этого фильма.', o:['никогда','когда-нибудь','когда-то'], c:0, e:'Phủ định kép.' },
+  { level:'b1', topic:'so sánh', q:'Это … вопрос, чем казалось.', o:['более сложный','более сложнее','сложнейший'], c:0, e:'Dạng phức làm định ngữ; không ghép более + -ее.' },
+  { level:'b1', topic:'so sánh', q:'Чем больше читаешь, … больше знаешь.', o:['тем','то','чем'], c:0, e:'чем…, тем….' },
+  { level:'b1', topic:'so sánh', q:'… станция находится в двух минутах.', o:['Ближайшая','Ближе','Более близко'], c:0, e:'Cấp cao nhất -айш-.' },
+  { level:'b1', topic:'bị động', q:'Этот мост … в 1930 году.', o:['был построен','строится','построил'], c:0, e:'Bị động СВ quá khứ.' },
+  { level:'b1', topic:'bị động', q:'Русский язык … студентами из 30 стран.', o:['изучается','изучен','изучают'], c:0, e:'Bị động НСВ -ся.' },
+  { level:'b1', topic:'bị động', q:'Дом построили рабочие. → Дом … рабочими.', o:['построен','строился','построил'], c:0, e:'СВ → dạng ngắn.' },
+  { level:'b1', topic:'số từ', q:'Мы встретимся с … друзьями.', o:['двумя','два','двух'], c:0, e:'с + cách 5: двумя.' },
+  { level:'b1', topic:'số từ', q:'Около … часов.', o:['трёх','три','трём'], c:0, e:'около + cách 2.' },
+  { level:'b1', topic:'số từ', q:'У них … детей.', o:['трое','три','тремя'], c:0, e:'Số tập hợp với дети.' },
+  { level:'b1', topic:'số từ', q:'Мы ждали … часа.', o:['полтора','полторы','полтора́х'], c:0, e:'полтора + час (đực).' },
+  { level:'b1', topic:'văn phong', q:'Trong đơn (заявление) viết:', o:['Прошу разрешить мне…','Разреши мне, пожалуйста…','Можно мне…'], c:0, e:'Клише công vụ.' },
+  { level:'b1', topic:'văn phong', q:'Kết thúc thư chính thức:', o:['С уважением,','Пока!','Целую,'], c:0, e:'С уважением.' },
+  { level:'b1', topic:'văn phong', q:'Lý do trong đơn: … семейными обстоятельствами.', o:['в связи с','из-за','потому что'], c:0, e:'в связи с + cách 5.' },
+  { level:'b1', topic:'khẩu ngữ', q:'Ты … обещал прийти!', o:['же','ли','бы'], c:0, e:'же nhấn mạnh.' },
+  { level:'b1', topic:'khẩu ngữ', q:'Từ chối khéo lời mời:', o:['Боюсь, что не смогу.','Нет.','Не хочу.'], c:0, e:'Lịch sự.' },
+  { level:'b1', topic:'khẩu ngữ', q:'— Ни пуха ни пера! — … .', o:['К чёрту!','Спасибо!','Пожалуйста!'], c:0, e:'Lệ đáp cố định.' },
+
+  /* ---------- B2 ---------- */
+  { level:'b2', topic:'thời gian', q:'… всего года он готовился к экзамену.', o:['В течение','Через','Спустя'], c:0, e:'в течение + cách 2 = suốt.' },
+  { level:'b2', topic:'thời gian', q:'… два года он вернулся.', o:['Спустя','В течение','До'], c:0, e:'спустя + cách 4 = sau.' },
+  { level:'b2', topic:'thời gian', q:'… отъезда он позвонил всем друзьям.', o:['Накануне','Спустя','По мере'], c:0, e:'накануне + cách 2.' },
+  { level:'b2', topic:'thời gian', q:'… растёт опыт, растёт уверенность.', o:['По мере того как','С тех пор как','Как только'], c:0, e:'Song song tăng.' },
+  { level:'b2', topic:'thời gian', q:'Мы будем ждать, … он не придёт.', o:['до тех пор пока','пока','после того как'], c:0, e:'до тех пор пока не + СВ.' },
+  { level:'b2', topic:'nguyên nhân', q:'… помощи друзей он сдал экзамен.', o:['Благодаря','Из-за','Вследствие'], c:0, e:'Kết quả tích cực → благодаря + cách 3.' },
+  { level:'b2', topic:'nguyên nhân', q:'… болезни он пропустил занятия.', o:['Из-за','Благодаря','Ради'], c:0, e:'Tiêu cực → из-за.' },
+  { level:'b2', topic:'nguyên nhân', q:'Рейс отменён … тумана.', o:['вследствие','благодаря','по'], c:0, e:'Trang trọng, trung tính.' },
+  { level:'b2', topic:'nguyên nhân', q:'Спрос упал, … цены снизились.', o:['следовательно','зато','хотя'], c:0, e:'Hệ quả logic.' },
+  { level:'b2', topic:'nhượng bộ', q:'… прогнозу, погода была хорошей.', o:['Вопреки','Несмотря','Благодаря'], c:0, e:'вопреки + cách 3.' },
+  { level:'b2', topic:'nhượng bộ', q:'… трудно ни было, не сдавайся.', o:['Как бы','Если бы','Чтобы'], c:0, e:'как бы ни + quá khứ.' },
+  { level:'b2', topic:'nhượng bộ', q:'… он молод, зато опытен.', o:['Пусть','Если','Так как'], c:0, e:'пусть… зато….' },
+  { level:'b2', topic:'nhượng bộ', q:'… бы он ни говорил, я не верю.', o:['Что','Чтобы','Если'], c:0, e:'что бы ни.' },
+  { level:'b2', topic:'điều kiện', q:'Мы подпишем договор … , что качество будет гарантировано.', o:['при условии','в случае','если бы'], c:0, e:'при условии, что.' },
+  { level:'b2', topic:'điều kiện', q:'… пожара звоните 101.', o:['В случае','При условии','Разве что'], c:0, e:'в случае + cách 2.' },
+  { level:'b2', topic:'điều kiện', q:'… не ты, я бы не сдал.', o:['Если бы','Стоит','Разве что'], c:0, e:'если бы не + cách 1.' },
+  { level:'b2', topic:'điều kiện', q:'… ему войти, как все замолкают.', o:['Стоит','Разве','Пусть'], c:0, e:'стоит… как.' },
+  { level:'b2', topic:'mục đích', q:'… безопасности выход закрыт.', o:['В целях','Ради','Во имя'], c:0, e:'в целях (văn bản).' },
+  { level:'b2', topic:'mục đích', q:'… детей он бросил курить.', o:['Ради','С целью','В целях'], c:0, e:'ради + cách 2 (cảm xúc).' },
+  { level:'b2', topic:'mục đích', q:'Я записал адрес, … не забыть.', o:['чтобы','для','с целью'], c:0, e:'чтобы не + inf.' },
+  { level:'b2', topic:'tình thái', q:'Сотрудники … носить пропуска.', o:['обязаны','приходится','следует'], c:0, e:'обязан + inf.' },
+  { level:'b2', topic:'tình thái', q:'Я был … отказаться от поездки.', o:['вынужден','обязан','должен бы'], c:0, e:'вынужден = do hoàn cảnh.' },
+  { level:'b2', topic:'tình thái', q:'Вам … обратиться к врачу.', o:['следует','обязаны','вынуждены'], c:0, e:'следует + cách 3.' },
+  { level:'b2', topic:'tình thái', q:'Нельзя … согласиться с критикой.', o:['не','ни','бы'], c:0, e:'нельзя не = phải.' },
+  { level:'b2', topic:'tình thái', q:'Он … в состоянии работать сегодня.', o:['не','ни','нет'], c:0, e:'не в состоянии.' },
+  { level:'b2', topic:'tiền tố', q:'Я так … , что забыл про ужин.', o:['зачитался','дочитал','перечитал'], c:0, e:'за- + -ся = mải.' },
+  { level:'b2', topic:'tiền tố', q:'Автор … риски проекта.', o:['недооценил','переоценил','оценился'], c:0, e:'недо- = chưa đủ.' },
+  { level:'b2', topic:'tiền tố', q:'Я не мог тебе … .', o:['дозвониться','позвониться','зазвонить'], c:0, e:'до- + -ся = đạt được.' },
+  { level:'b2', topic:'tiền tố', q:'Работу пришлось … .', o:['переделать','доделать','заделать'], c:0, e:'пере- = làm lại.' },
+  { level:'b2', topic:'cấu tạo từ', q:'«Экономи́чный» có nghĩa:', o:['tiết kiệm','thuộc kinh tế','nhà kinh tế'], c:0, e:'-ичный ≠ -ический.' },
+  { level:'b2', topic:'cấu tạo từ', q:'Từ nào là danh từ chỉ người?', o:['руководитель','руководство','руководящий'], c:0, e:'-тель.' },
+  { level:'b2', topic:'cấu tạo từ', q:'«Независимость» = не + … + -ость', o:['зависимый','зависеть','зависимость'], c:0, e:'adj + -ость.' },
+  { level:'b2', topic:'tiểu từ', q:'… он знал об этом.', o:['Лишь','Ведь же','Разве что'], c:0, e:'лишь = chỉ.' },
+  { level:'b2', topic:'tiểu từ', q:'… ты не помнишь?', o:['Неужели','Лишь','Именно'], c:0, e:'Câu hỏi nghi ngờ.' },
+  { level:'b2', topic:'tiểu từ', q:'… поэтому текст проверяет редактор.', o:['Именно','Лишь','Разве'], c:0, e:'именно = chính vì thế.' },
+  { level:'b2', topic:'trật tự từ', q:'Trả lời câu hỏi «Кто сидит в комнате?»:', o:['В комнате сидит мальчик.','Мальчик сидит в комнате.','Сидит мальчик в комнате.'], c:0, e:'Thông tin mới (мальчик) đứng cuối.' },
+  { level:'b2', topic:'thành ngữ', q:'Хватит … — пора работать!', o:['бить баклуши','вешать нос','водить за нос'], c:0, e:'бить баклуши = lười.' },
+  { level:'b2', topic:'thành ngữ', q:'Перед экзаменом у меня … .', o:['душа в пятки ушла','рука об руку','кот наплакал'], c:0, e:'sợ chết khiếp.' },
+  { level:'b2', topic:'thành ngữ', q:'Денег у него … .', o:['кот наплакал','на седьмом небе','как рыба в воде'], c:0, e:'ít ỏi.' },
+  { level:'b2', topic:'thành ngữ', q:'Не делай из мухи … !', o:['слона','кота','медведя'], c:0, e:'chuyện bé xé to.' },
+  { level:'b2', topic:'văn phong', q:'Câu văn phong KHOA HỌC:', o:['В работе рассматривается влияние сна на память.','Я думаю, сон очень важен!','Слушай, сон — это классно.'], c:0, e:'Danh từ hoá, bị động, không cảm xúc.' },
+  { level:'b2', topic:'văn phong', q:'Từ chêm (вводное слово) là:', o:['по мнению экспертов','в течение года','после обеда'], c:0, e:'Từ chêm thể hiện thái độ/nguồn.' },
+  { level:'b2', topic:'văn phong', q:'Mở đầu thư công vụ:', o:['Уважаемый Иван Петрович!','Привет, Ваня!','Дорогой Ванечка!'], c:0, e:'Xưng hô trang trọng.' },
+  { level:'b2', topic:'văn phong', q:'Trong CV mục kinh nghiệm viết:', o:['разработка документации, руководство группой','я разрабатывал документы и руководил','мне нравилось руководить'], c:0, e:'Danh từ hoá, không đại từ.' },
+  { level:'b2', topic:'biểu cảm', q:'«Ветер шептал» — biện pháp:', o:['олицетворение','сравнение','гипербола'], c:0, e:'Nhân hoá.' },
+  { level:'b2', topic:'biểu cảm', q:'«Слёзы текли ручьём» — biện pháp:', o:['сравнение (cách 5)','эпитет','олицетворение'], c:0, e:'So sánh bằng cách 5.' },
+  { level:'b2', topic:'lập luận', q:'Kết luận tiểu luận bắt đầu bằng:', o:['Подводя итог, следует подчеркнуть…','Во-первых,…','Как известно,…'], c:0, e:'Kết luận.' },
+  { level:'b2', topic:'lập luận', q:'Phản bác lịch sự:', o:['Трудно согласиться с тем, что…','Это глупость.','Вы не правы!'], c:0, e:'Лịch sự, trang trọng.' }
+];
+if (typeof module !== 'undefined') module.exports = { RU_EXERCISES };
+
+</script>
+<script>
+/* ============================================================
    LangLab — Đề thi thử ТРКИ (tự soạn theo cấu trúc chính thức, không phải đề thật)
    Cùng khuôn với HSK_EXAMS (js/hsk-exams.js): thêm lang:'ru', passEach:66 (đạt khi MỖI phần ≥ 66%).
    Dạng câu: mc (trắc nghiệm А/Б/В/Г), tf (√/×), listen+mc (bài nghe phát bằng giọng máy), essay (viết).
@@ -17090,31 +17277,106 @@ VIEWS.ru_srs = function(){
   </div>`;
 };
 
-/* Câu hỏi bài tập: nghĩa / từ / trọng âm */
+/* ============ BÀI TẬP TIẾNG NGA — 9 dạng câu sinh từ dữ liệu bài học + ngân hàng ngữ pháp ============ */
+const _RE = (typeof RU_EXERCISES !== 'undefined') ? RU_EXERCISES : [];
+const RU_QZ_MODES = [
+  ['mix','Trộn tất cả'], ['vocab','Từ vựng'], ['stress','Trọng âm'], ['cloze','Điền vào câu'],
+  ['grammar','Ngữ pháp'], ['order','Sắp xếp câu'], ['trans','Dịch'], ['listen','Nghe'], ['dialog','Hội thoại']
+];
+function ruQzMode(){ return RU_QZ_MODES.some(m => m[0] === state.ru.qzMode) ? state.ru.qzMode : 'mix'; }
 function ruStressVariants(word){
   const plain = ruPlain(word), V = 'аеиоуыэюя';
   const idx = []; for (let i = 0; i < plain.length; i++) if (V.indexOf(plain[i].toLowerCase()) >= 0) idx.push(i);
   return idx.map(i => plain.slice(0, i + 1) + '́' + plain.slice(i + 1));
 }
-function ruMakeQuestions(n){
-  const pool = ruPool(ruPracLevel());
+/* Kho câu (ví dụ ngữ pháp + hội thoại) của cấp — dùng cho cloze / dịch / nghe / sắp xếp / hội thoại */
+function ruSentences(level){
+  const out = [];
+  _RC.lessons.forEach(l => {
+    if (level && level !== 'all' && l.level !== level) return;
+    l.grammar.forEach(g => { if (g.ex && g.ex.ru) out.push({ ru:g.ex.ru, vi:g.ex.vi, lv:l.level, no:l.no, kind:'ex' }); });
+    l.dialogue.forEach((d, i) => out.push({ ru:d.ru, vi:d.vi, lv:l.level, no:l.no, kind:'dia', next: l.dialogue[i + 1] ? l.dialogue[i + 1].ru : null, nextVi: l.dialogue[i + 1] ? l.dialogue[i + 1].vi : null }));
+  });
+  return out;
+}
+function ruWordsOf(sent){ return ruPlain(sent).replace(/[«»„“”"()]/g, '').split(/\s+/).filter(Boolean); }
+function ruCore(tok){ return tok.replace(/^[—–\-«"(]+|[.,!?;:…»")]+$/g, ''); }
+/* Ngân hàng ngữ pháp: RU_EXERCISES (soạn tay theo cấp/chủ đề) + phần Лексика·Грамматика của các đề ТРКИ */
+function ruGrammarBank(level){
+  const bank = _RE.slice();
+  _RX.forEach(t => (t.sections || []).forEach(sec => { if (sec.id !== 'G') return;
+    sec.parts.forEach(p => p.qs.forEach(q => { if (q.t === 'mc') bank.push({ level:t.level, topic:'trki', q:q.q, o:q.o, c:q.c, e:q.e }); })); }));
+  return (level && level !== 'all') ? bank.filter(b => b.level === level) : bank;
+}
+function ruMakeQuestions(n, mode){
+  mode = mode || ruQzMode();
+  const level = ruPracLevel(), pool = ruPool(level), sents = ruSentences(level), bank = ruGrammarBank(level);
+  const allSents = ruSentences('all');
   const qs = [], used = {}; let guard = 0;
-  while (qs.length < n && guard++ < n * 40){
-    const w = zhPick(pool); let type = zhPick(['mean','word','stress']);
-    const single = w.ru.split(/[\s\/,]/)[0];
-    const variants = ruStressVariants(single);
-    if (type === 'stress' && (variants.length < 2 || /ё/.test(single) || /́/.test(single) === false)) type = 'mean';
-    const key = w.ru + '|' + type; if (used[key]) continue; used[key] = 1;
-    let q;
-    if (type === 'mean')
-      q = { prompt:'Từ này nghĩa là gì?', main:`<span class="ru qz-hz" style="font-size:28px">${esc(w.ru)}</span>`, opts: zhShuffle([w.vi].concat(zhDistract(pool,'vi',w.vi,3))), answer:w.vi, oc:'' };
-    else if (type === 'word')
-      q = { prompt:'Chọn từ tiếng Nga đúng với nghĩa:', main:`<b>${esc(w.vi)}</b>`, opts: zhShuffle([w.ru].concat(zhDistract(pool,'ru',w.ru,3))), answer:w.ru, oc:'ru' };
-    else {
-      const right = single, wrong = variants.filter(v => v !== right);
-      q = { prompt:'Chọn cách đánh trọng âm đúng:', main:`<b>${esc(w.vi)}</b>`, opts: zhShuffle([right].concat(zhShuffle(wrong).slice(0, 3))), answer:right, oc:'ru' };
+  const weights = mode === 'mix'
+    ? ['vocab','vocab','stress','cloze','cloze','grammar','grammar','order','trans','listen','dialog']
+    : [mode];
+  const canDo = t => t === 'grammar' ? bank.length >= 4 : t === 'stress' ? true : t === 'vocab' ? pool.length >= 4 : sents.length >= 4;
+  while (qs.length < n && guard++ < n * 60){
+    let type = zhPick(weights);
+    if (!canDo(type)) type = 'vocab';
+    let q = null, key = '';
+    if (type === 'vocab' || type === 'stress'){
+      const w = zhPick(pool), single = w.ru.split(/[\s\/,]/)[0], variants = ruStressVariants(single);
+      let t = type === 'stress' ? 'stress' : zhPick(['mean','word']);
+      if (t === 'stress' && (variants.length < 2 || /ё/.test(single) || !/́/.test(single))){ if (mode === 'stress') continue; t = 'mean'; }
+      key = w.ru + '|' + t;
+      if (t === 'mean') q = { type:'mc', tag:'Từ vựng', prompt:'Từ này nghĩa là gì?', main:`<span class="ru qz-hz" style="font-size:28px">${esc(w.ru)}</span>`, opts: zhShuffle([w.vi].concat(zhDistract(pool,'vi',w.vi,3))), answer:w.vi, oc:'', speak:w.ru };
+      else if (t === 'word') q = { type:'mc', tag:'Từ vựng', prompt:'Chọn từ tiếng Nga đúng với nghĩa:', main:`<b>${esc(w.vi)}</b>`, opts: zhShuffle([w.ru].concat(zhDistract(pool,'ru',w.ru,3))), answer:w.ru, oc:'ru', speak:w.ru };
+      else { const wrong = variants.filter(v => v !== single); q = { type:'mc', tag:'Trọng âm', prompt:'Chọn cách đánh trọng âm đúng:', main:`<b>${esc(w.vi)}</b>`, opts: zhShuffle([single].concat(zhShuffle(wrong).slice(0, 3))), answer:single, oc:'ru', speak:single }; }
+      q.explain = `${w.ru} — ${w.vi} (${w.pos})`;
     }
-    q.explain = `${w.ru} — ${w.vi} (${w.pos})`;
+    else if (type === 'cloze'){
+      const sn = zhPick(sents), toks = ruWordsOf(sn.ru);
+      const cands = toks.map((t, i) => ({ t, i, core: ruCore(t) })).filter(x => x.core.length >= 4 && /^[А-Яа-яЁё-]+$/.test(x.core));
+      if (!cands.length) continue;
+      const pick = zhPick(cands); key = 'cloze|' + sn.ru + '|' + pick.i; if (used[key]) continue;
+      const others = allSents.flatMap(x => ruWordsOf(x.ru).map(ruCore)).filter(c => c.length >= 4 && /^[А-Яа-яЁё-]+$/.test(c) && c.toLowerCase() !== pick.core.toLowerCase() && Math.abs(c.length - pick.core.length) <= 3);
+      const distract = []; const seen = { [pick.core.toLowerCase()]:1 };
+      for (const c of zhShuffle(others)){ const k = c.toLowerCase(); if (!seen[k]){ seen[k] = 1; distract.push(c); if (distract.length >= 3) break; } }
+      if (distract.length < 3) continue;
+      const shown = toks.map((t, i) => i === pick.i ? t.replace(pick.core, '______') : t).join(' ');
+      q = { type:'mc', tag:'Điền vào câu', prompt:'Chọn từ đúng (đúng dạng biến cách) để điền vào chỗ trống:', main:`<span class="ru" style="font-size:19px;line-height:1.5">${esc(shown)}</span><div class="zh-ex-vi">${esc(sn.vi)}</div>`, opts: zhShuffle([pick.core].concat(distract)), answer:pick.core, oc:'ru', speak:sn.ru, explain:`${ruPlain(sn.ru)} — ${sn.vi} (${ruLevelName(sn.lv)} bài ${sn.no})` };
+    }
+    else if (type === 'grammar'){
+      const b = zhPick(bank); key = 'g|' + b.q; if (used[key]) continue;
+      q = { type:'mc', tag:'Ngữ pháp' + (b.topic && b.topic !== 'trki' ? ' · ' + b.topic : ''), prompt:'Chọn phương án đúng:', main:`<span class="ru" style="font-size:19px;line-height:1.5">${esc(b.q)}</span>`, opts: b.o.slice(), answer:b.o[b.c], oc:'ru', keepOrder:true, explain:(b.e || '') };
+    }
+    else if (type === 'order'){
+      const cand = sents.filter(x => { const w = ruWordsOf(x.ru); return w.length >= 4 && w.length <= 8; });
+      if (!cand.length) continue;
+      const sn = zhPick(cand); key = 'o|' + sn.ru; if (used[key]) continue;
+      const parts = ruWordsOf(sn.ru);
+      q = { type:'order', tag:'Sắp xếp câu', prompt:'Bấm các từ theo đúng thứ tự để tạo thành câu:', main:`<div class="zh-ex-vi" style="font-size:15px">${esc(sn.vi)}</div>`, parts: zhShuffle(parts), answer: parts.join(' '), speak:sn.ru, explain:`${ruPlain(sn.ru)} — ${sn.vi}` };
+      if (q.parts.join(' ') === q.answer) q.parts = q.parts.slice().reverse();
+    }
+    else if (type === 'trans'){
+      const sn = zhPick(sents); key = 't|' + sn.ru; if (used[key]) continue;
+      const d = zhDistract(allSents.filter(x => x.ru !== sn.ru), 'ru', sn.ru, 3).map(ruPlain);
+      if (d.length < 3) continue;
+      q = { type:'mc', tag:'Dịch', prompt:'Câu tiếng Nga nào đúng với nghĩa sau?', main:`<b style="font-size:17px">${esc(sn.vi)}</b>`, opts: zhShuffle([ruPlain(sn.ru)].concat(d)), answer:ruPlain(sn.ru), oc:'ru', speak:sn.ru, explain:`${ruPlain(sn.ru)} — ${sn.vi}` };
+    }
+    else if (type === 'listen'){
+      const sn = zhPick(sents); key = 'l|' + sn.ru; if (used[key]) continue;
+      const d = zhDistract(allSents.filter(x => x.ru !== sn.ru), 'ru', sn.ru, 3).map(ruPlain);
+      if (d.length < 3) continue;
+      q = { type:'mc', tag:'Nghe', prompt:'Bấm nghe rồi chọn câu vừa nghe:', main:`<button class="pbtn primary" data-ru-speak="${esc(ruPlain(sn.ru))}">🔊 Nghe câu</button>`, opts: zhShuffle([ruPlain(sn.ru)].concat(d)), answer:ruPlain(sn.ru), oc:'ru', speak:sn.ru, explain:`${ruPlain(sn.ru)} — ${sn.vi}` };
+    }
+    else if (type === 'dialog'){
+      const cand = sents.filter(x => x.kind === 'dia' && x.next);
+      if (cand.length < 4) continue;
+      const sn = zhPick(cand); key = 'd|' + sn.ru; if (used[key]) continue;
+      const d = zhDistract(allSents.filter(x => x.kind === 'dia' && x.next && x.next !== sn.next), 'next', sn.next, 3).map(ruPlain);
+      if (d.length < 3) continue;
+      q = { type:'mc', tag:'Hội thoại', prompt:'Chọn câu đáp lại phù hợp:', main:`<span class="ru" style="font-size:19px;line-height:1.5">— ${esc(sn.ru)}</span><div class="zh-ex-vi">${esc(sn.vi)}</div>`, opts: zhShuffle([ruPlain(sn.next)].concat(d)), answer:ruPlain(sn.next), oc:'ru', speak:sn.next, explain:`— ${ruPlain(sn.ru)} — ${ruPlain(sn.next)} (${sn.nextVi})` };
+    }
+    if (!q) continue;
+    if (used[key]) continue; used[key] = 1;
     qs.push(q);
   }
   return qs;
@@ -17122,40 +17384,55 @@ function ruMakeQuestions(n){
 function ruQuick(level){
   level = level || ruPracLevel();
   const prev = state.ru.pracLevel; state.ru.pracLevel = level;
-  const qs = ruMakeQuestions(20).map(q => ({ k:'read', t:'mc', html:q.main, q:q.prompt, o:q.opts, c:q.opts.indexOf(q.answer), oc:q.oc, e:q.explain }));
+  const qs = ruMakeQuestions(20, 'vocab').map(q => ({ k:'read', t:'mc', html:q.main, q:q.prompt, o:q.opts, c:q.opts.indexOf(q.answer), oc:q.oc, e:q.explain }));
   state.ru.pracLevel = prev;
   return { id:'quick-' + level + '-' + Date.now(), lang:'ru', level, quick:true, badge:ruLevelName(level), title:'Kiểm tra nhanh từ vựng ' + ruLevelName(level),
     official:'20 câu ngẫu nhiên từ vốn từ của cấp · 8 phút · chấm theo %', minutes:8, maxScore:100, pass:60, plays:0,
     sections:[{ id:'V', name:'Лексика', vi:'Từ vựng', parts:[{ title:'', ins:'Выберите правильный вариант.', vi:'Chọn đáp án đúng.', qs }] }] };
 }
+function ruQzCorrect(q, p){ return p != null && hskNorm(p) === hskNorm(q.answer); }
 VIEWS.ru_quiz = function(){
-  const Q = state.ru.quiz;
+  const Q = state.ru.quiz, mode = ruQzMode(), lv = ruPracLevel();
+  const modeChips = `<div class="level-strip compact" style="margin:8px 0 4px">${RU_QZ_MODES.map(m => `<button class="level-chip" data-ru-qzmode="${m[0]}"${mode === m[0] ? ' aria-pressed="true"' : ''}>${m[1]}</button>`).join('')}</div>`;
   if (!Q || !Q.qs){
+    const bank = ruGrammarBank(lv).length, sents = ruSentences(lv).length;
     return `
-    <div class="page-head"><span class="eyebrow">Tiếng Nga · Bài tập</span><h1>Bài tập trắc nghiệm</h1>
-      <p>10 câu ngẫu nhiên từ vốn từ ${ruPracLevel() === 'all' ? 'mọi cấp' : esc(ruLevelName(ruPracLevel()))} (${ruPool(ruPracLevel()).length} từ): đoán nghĩa, chọn từ, chọn <b>trọng âm</b> đúng — có chấm điểm và giải thích.</p></div>
-    ${ruLevelChips('data-ru-prac', ruPracLevel(), true)}
-    <div class="stage-ctrl"><button class="pbtn primary" data-ru-qz-start="1">▶ Bắt đầu 10 câu</button></div>`;
+    <div class="page-head"><span class="eyebrow">Tiếng Nga · Bài tập</span><h1>Bài tập</h1>
+      <p>Câu hỏi sinh mới mỗi lần từ ${ruPool(lv).length} từ, ${sents} câu mẫu và ${bank} câu ngữ pháp của ${lv === 'all' ? 'mọi cấp' : esc(ruLevelName(lv))}. Chín dạng: nghĩa/từ, trọng âm, điền từ đúng biến cách vào câu, ngữ pháp (cách, thể, chuyển động…), sắp xếp câu, dịch, nghe, chọn câu đáp lại. Có chấm điểm, giải thích và nghe lại.</p></div>
+    <div class="eyebrow">Cấp</div>${ruLevelChips('data-ru-prac', lv, true)}
+    <div class="eyebrow" style="margin-top:10px">Dạng bài</div>${modeChips}
+    <div class="stage-ctrl"><button class="pbtn primary" data-ru-qz-start="10">▶ 10 câu</button><button class="pbtn" data-ru-qz-start="20">20 câu</button><button class="pbtn" data-ru-qz-start="40">40 câu</button></div>`;
   }
   if (Q.i >= Q.qs.length){
-    const score = Q.picked.filter((p, i) => p === Q.qs[i].answer).length, pct = Math.round(score / Q.qs.length * 100);
+    const score = Q.qs.filter((q, i) => ruQzCorrect(q, Q.picked[i])).length, pct = Math.round(score / Q.qs.length * 100);
     return `
     <div class="page-head"><span class="eyebrow">Tiếng Nga · Bài tập</span><h1>Kết quả: ${score}/${Q.qs.length}</h1>
       <p>Đúng ${pct}%. ${pct >= 80 ? 'Отли́чно!' : pct >= 50 ? 'Хорошо́ — ôn thêm chút nhé.' : 'Cần luyện thêm nhé.'}</p></div>
-    <div class="qz-review">${Q.qs.map((q, i) => `<div class="qz-rev ${Q.picked[i] === q.answer ? 'ok' : 'no'}"><span>${Q.picked[i] === q.answer ? '✓' : '✗'}</span> ${esc(q.explain)}</div>`).join('')}</div>
-    <div class="stage-ctrl"><button class="pbtn primary" data-ru-qz-start="1">↻ Làm lại</button></div>`;
+    <div class="qz-review">${Q.qs.map((q, i) => `<div class="qz-rev ${ruQzCorrect(q, Q.picked[i]) ? 'ok' : 'no'}"><span>${ruQzCorrect(q, Q.picked[i]) ? '✓' : '✗'}</span> <i class="qz-tag">${esc(q.tag)}</i> ${esc(q.explain)}${q.speak ? ' ' + ruSpeakBtn(q.speak, 'mini') : ''}</div>`).join('')}</div>
+    <div class="stage-ctrl"><button class="pbtn primary" data-ru-qz-start="${Q.qs.length}">↻ Đề mới (${Q.qs.length} câu)</button><button class="pbtn" data-ru-qz-home="1">← Chọn dạng khác</button></div>`;
   }
-  const q = Q.qs[Q.i], picked = Q.picked[Q.i];
-  return `
-  <div class="page-head"><span class="eyebrow">Tiếng Nga · Bài tập</span><h1>Bài tập <span class="qz-count">${Q.i + 1}/${Q.qs.length}</span> <button class="mini" data-ru-qz-start="1" title="Bỏ đề này, sinh đề mới">↻ Đề khác</button></h1><p>${esc(q.prompt)}</p></div>
-  <div class="qz-main">${q.main}</div>
-  <div class="qz-opts">${q.opts.map(o => {
-    let cls = 'qz-opt' + (q.oc ? ' ' + q.oc : '');
-    if (picked != null){ if (o === q.answer) cls += ' correct'; else if (o === picked) cls += ' wrong'; }
-    return `<button class="${cls}" data-ru-qz="${esc(o)}"${picked != null ? ' disabled' : ''}>${esc(o)}</button>`;
-  }).join('')}</div>
-  ${picked != null ? `<div class="qz-explain ${picked === q.answer ? 'ok' : 'no'}">${picked === q.answer ? '✓ Đúng! ' : '✗ Chưa đúng. '}${esc(q.explain)} ${ruSpeakBtn(q.explain.split(' — ')[0], 'mini')}</div>
-    <div class="stage-ctrl"><button class="pbtn primary" data-ru-qz-next="1">${Q.i + 1 < Q.qs.length ? 'Câu sau →' : 'Xem kết quả'}</button></div>` : ''}`;
+  const q = Q.qs[Q.i], picked = Q.picked[Q.i], done = picked != null;
+  const head = `<div class="page-head"><span class="eyebrow">Tiếng Nga · Bài tập · ${esc(q.tag)}</span><h1>Câu <span class="qz-count">${Q.i + 1}/${Q.qs.length}</span> <button class="mini" data-ru-qz-start="${Q.qs.length}" title="Bỏ đề này, sinh đề mới">↻ Đề khác</button> <button class="mini" data-ru-qz-home="1" title="Về màn chọn cấp và dạng bài">☰ Dạng khác</button></h1><p>${esc(q.prompt)}</p></div>
+  <div class="qz-main">${q.main}</div>`;
+  let body = '';
+  if (q.type === 'order'){
+    const cur = Q.cur || [];
+    const line = cur.map(i => `<span class="hsk-chunk on">${esc(q.parts[i])}</span>`).join('') || '<span class="hsk-hint">Bấm các từ bên dưới theo thứ tự…</span>';
+    body = `<div class="hsk-order">
+      <div class="hsk-order-line ru">${line}${(!done && cur.length) ? `<button class="mini" data-ru-qz-clear="1">↺ Xoá</button>` : ''}</div>
+      ${done ? '' : `<div class="hsk-order-pool">${q.parts.map((p, i) => `<button class="hsk-chunk ru" data-ru-qz-ord="${i}"${cur.indexOf(i) >= 0 ? ' disabled' : ''}>${esc(p)}</button>`).join('')}</div>
+      <div class="stage-ctrl"><button class="pbtn primary" data-ru-qz-check="1"${cur.length === q.parts.length ? '' : ' disabled'}>Kiểm tra</button></div>`}
+    </div>`;
+  } else {
+    body = `<div class="qz-opts">${q.opts.map(o => {
+      let cls = 'qz-opt' + (q.oc ? ' ' + q.oc : '');
+      if (done){ if (o === q.answer) cls += ' correct'; else if (o === picked) cls += ' wrong'; }
+      return `<button class="${cls}" data-ru-qz="${esc(o)}"${done ? ' disabled' : ''}>${esc(o)}</button>`;
+    }).join('')}</div>`;
+  }
+  const ok = done && ruQzCorrect(q, picked);
+  return head + body + (done ? `<div class="qz-explain ${ok ? 'ok' : 'no'}">${ok ? '✓ Đúng! ' : '✗ Chưa đúng. '}${q.type === 'order' && !ok ? `Đáp án: <b class="ru">${esc(q.answer)}</b> · ` : ''}${esc(q.explain)} ${q.speak ? ruSpeakBtn(q.speak, 'mini') : ''}</div>
+    <div class="stage-ctrl"><button class="pbtn primary" data-ru-qz-next="1">${Q.i + 1 < Q.qs.length ? 'Câu sau →' : 'Xem kết quả'}</button></div>` : '');
 };
 
 VIEWS.ru_speak = function(){
@@ -18599,10 +18876,18 @@ document.addEventListener('click', e => {
   if (rPr){ state.ru.pracLevel = rPr.dataset.ruPrac; state.ru.srs = null; state.ru.quiz = null; render(); return; }
   const rSrs = t.closest('[data-ru-srs]');
   if (rSrs){ if (state.ru.srs){ state.ru.srs.i++; state.ru.srs.show = false; render(); } return; }
-  if (t.closest('[data-ru-qz-start]')){ state.ru.quiz = { qs: ruMakeQuestions(10), i:0, picked:[] }; render(); return; }
+  const rqs = t.closest('[data-ru-qz-start]');
+  if (rqs){ const n = +rqs.dataset.ruQzStart || 10; state.ru.quiz = { qs: ruMakeQuestions(n), i:0, picked:[], cur:[] }; render(); return; }
+  if (t.closest('[data-ru-qz-home]')){ state.ru.quiz = null; render(); return; }
+  const rqm = t.closest('[data-ru-qzmode]');
+  if (rqm){ state.ru.qzMode = rqm.dataset.ruQzmode; state.ru.quiz = null; render(); return; }
   const rqz = t.closest('[data-ru-qz]');
   if (rqz){ const Q = state.ru.quiz; if (Q && Q.picked[Q.i] == null){ Q.picked[Q.i] = rqz.dataset.ruQz; render(); } return; }
-  if (t.closest('[data-ru-qz-next]')){ if (state.ru.quiz){ state.ru.quiz.i++; render(); } return; }
+  const rqo = t.closest('[data-ru-qz-ord]');
+  if (rqo){ const Q = state.ru.quiz; if (Q && Q.picked[Q.i] == null){ Q.cur = (Q.cur || []).concat(+rqo.dataset.ruQzOrd); render(); } return; }
+  if (t.closest('[data-ru-qz-clear]')){ const Q = state.ru.quiz; if (Q){ Q.cur = []; render(); } return; }
+  if (t.closest('[data-ru-qz-check]')){ const Q = state.ru.quiz; if (Q && Q.picked[Q.i] == null){ const q = Q.qs[Q.i]; Q.picked[Q.i] = (Q.cur || []).map(i => q.parts[i]).join(' '); render(); } return; }
+  if (t.closest('[data-ru-qz-next]')){ if (state.ru.quiz){ state.ru.quiz.i++; state.ru.quiz.cur = []; render(); } return; }
   const rTp = t.closest('[data-ru-topic]');
   if (rTp){ state.ru.topic = rTp.dataset.ruTopic || null; render(); return; }
 

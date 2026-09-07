@@ -2622,31 +2622,106 @@ VIEWS.ru_srs = function(){
   </div>`;
 };
 
-/* Câu hỏi bài tập: nghĩa / từ / trọng âm */
+/* ============ BÀI TẬP TIẾNG NGA — 9 dạng câu sinh từ dữ liệu bài học + ngân hàng ngữ pháp ============ */
+const _RE = (typeof RU_EXERCISES !== 'undefined') ? RU_EXERCISES : [];
+const RU_QZ_MODES = [
+  ['mix','Trộn tất cả'], ['vocab','Từ vựng'], ['stress','Trọng âm'], ['cloze','Điền vào câu'],
+  ['grammar','Ngữ pháp'], ['order','Sắp xếp câu'], ['trans','Dịch'], ['listen','Nghe'], ['dialog','Hội thoại']
+];
+function ruQzMode(){ return RU_QZ_MODES.some(m => m[0] === state.ru.qzMode) ? state.ru.qzMode : 'mix'; }
 function ruStressVariants(word){
   const plain = ruPlain(word), V = 'аеиоуыэюя';
   const idx = []; for (let i = 0; i < plain.length; i++) if (V.indexOf(plain[i].toLowerCase()) >= 0) idx.push(i);
   return idx.map(i => plain.slice(0, i + 1) + '́' + plain.slice(i + 1));
 }
-function ruMakeQuestions(n){
-  const pool = ruPool(ruPracLevel());
+/* Kho câu (ví dụ ngữ pháp + hội thoại) của cấp — dùng cho cloze / dịch / nghe / sắp xếp / hội thoại */
+function ruSentences(level){
+  const out = [];
+  _RC.lessons.forEach(l => {
+    if (level && level !== 'all' && l.level !== level) return;
+    l.grammar.forEach(g => { if (g.ex && g.ex.ru) out.push({ ru:g.ex.ru, vi:g.ex.vi, lv:l.level, no:l.no, kind:'ex' }); });
+    l.dialogue.forEach((d, i) => out.push({ ru:d.ru, vi:d.vi, lv:l.level, no:l.no, kind:'dia', next: l.dialogue[i + 1] ? l.dialogue[i + 1].ru : null, nextVi: l.dialogue[i + 1] ? l.dialogue[i + 1].vi : null }));
+  });
+  return out;
+}
+function ruWordsOf(sent){ return ruPlain(sent).replace(/[«»„“”"()]/g, '').split(/\s+/).filter(Boolean); }
+function ruCore(tok){ return tok.replace(/^[—–\-«"(]+|[.,!?;:…»")]+$/g, ''); }
+/* Ngân hàng ngữ pháp: RU_EXERCISES (soạn tay theo cấp/chủ đề) + phần Лексика·Грамматика của các đề ТРКИ */
+function ruGrammarBank(level){
+  const bank = _RE.slice();
+  _RX.forEach(t => (t.sections || []).forEach(sec => { if (sec.id !== 'G') return;
+    sec.parts.forEach(p => p.qs.forEach(q => { if (q.t === 'mc') bank.push({ level:t.level, topic:'trki', q:q.q, o:q.o, c:q.c, e:q.e }); })); }));
+  return (level && level !== 'all') ? bank.filter(b => b.level === level) : bank;
+}
+function ruMakeQuestions(n, mode){
+  mode = mode || ruQzMode();
+  const level = ruPracLevel(), pool = ruPool(level), sents = ruSentences(level), bank = ruGrammarBank(level);
+  const allSents = ruSentences('all');
   const qs = [], used = {}; let guard = 0;
-  while (qs.length < n && guard++ < n * 40){
-    const w = zhPick(pool); let type = zhPick(['mean','word','stress']);
-    const single = w.ru.split(/[\s\/,]/)[0];
-    const variants = ruStressVariants(single);
-    if (type === 'stress' && (variants.length < 2 || /ё/.test(single) || /́/.test(single) === false)) type = 'mean';
-    const key = w.ru + '|' + type; if (used[key]) continue; used[key] = 1;
-    let q;
-    if (type === 'mean')
-      q = { prompt:'Từ này nghĩa là gì?', main:`<span class="ru qz-hz" style="font-size:28px">${esc(w.ru)}</span>`, opts: zhShuffle([w.vi].concat(zhDistract(pool,'vi',w.vi,3))), answer:w.vi, oc:'' };
-    else if (type === 'word')
-      q = { prompt:'Chọn từ tiếng Nga đúng với nghĩa:', main:`<b>${esc(w.vi)}</b>`, opts: zhShuffle([w.ru].concat(zhDistract(pool,'ru',w.ru,3))), answer:w.ru, oc:'ru' };
-    else {
-      const right = single, wrong = variants.filter(v => v !== right);
-      q = { prompt:'Chọn cách đánh trọng âm đúng:', main:`<b>${esc(w.vi)}</b>`, opts: zhShuffle([right].concat(zhShuffle(wrong).slice(0, 3))), answer:right, oc:'ru' };
+  const weights = mode === 'mix'
+    ? ['vocab','vocab','stress','cloze','cloze','grammar','grammar','order','trans','listen','dialog']
+    : [mode];
+  const canDo = t => t === 'grammar' ? bank.length >= 4 : t === 'stress' ? true : t === 'vocab' ? pool.length >= 4 : sents.length >= 4;
+  while (qs.length < n && guard++ < n * 60){
+    let type = zhPick(weights);
+    if (!canDo(type)) type = 'vocab';
+    let q = null, key = '';
+    if (type === 'vocab' || type === 'stress'){
+      const w = zhPick(pool), single = w.ru.split(/[\s\/,]/)[0], variants = ruStressVariants(single);
+      let t = type === 'stress' ? 'stress' : zhPick(['mean','word']);
+      if (t === 'stress' && (variants.length < 2 || /ё/.test(single) || !/́/.test(single))){ if (mode === 'stress') continue; t = 'mean'; }
+      key = w.ru + '|' + t;
+      if (t === 'mean') q = { type:'mc', tag:'Từ vựng', prompt:'Từ này nghĩa là gì?', main:`<span class="ru qz-hz" style="font-size:28px">${esc(w.ru)}</span>`, opts: zhShuffle([w.vi].concat(zhDistract(pool,'vi',w.vi,3))), answer:w.vi, oc:'', speak:w.ru };
+      else if (t === 'word') q = { type:'mc', tag:'Từ vựng', prompt:'Chọn từ tiếng Nga đúng với nghĩa:', main:`<b>${esc(w.vi)}</b>`, opts: zhShuffle([w.ru].concat(zhDistract(pool,'ru',w.ru,3))), answer:w.ru, oc:'ru', speak:w.ru };
+      else { const wrong = variants.filter(v => v !== single); q = { type:'mc', tag:'Trọng âm', prompt:'Chọn cách đánh trọng âm đúng:', main:`<b>${esc(w.vi)}</b>`, opts: zhShuffle([single].concat(zhShuffle(wrong).slice(0, 3))), answer:single, oc:'ru', speak:single }; }
+      q.explain = `${w.ru} — ${w.vi} (${w.pos})`;
     }
-    q.explain = `${w.ru} — ${w.vi} (${w.pos})`;
+    else if (type === 'cloze'){
+      const sn = zhPick(sents), toks = ruWordsOf(sn.ru);
+      const cands = toks.map((t, i) => ({ t, i, core: ruCore(t) })).filter(x => x.core.length >= 4 && /^[А-Яа-яЁё-]+$/.test(x.core));
+      if (!cands.length) continue;
+      const pick = zhPick(cands); key = 'cloze|' + sn.ru + '|' + pick.i; if (used[key]) continue;
+      const others = allSents.flatMap(x => ruWordsOf(x.ru).map(ruCore)).filter(c => c.length >= 4 && /^[А-Яа-яЁё-]+$/.test(c) && c.toLowerCase() !== pick.core.toLowerCase() && Math.abs(c.length - pick.core.length) <= 3);
+      const distract = []; const seen = { [pick.core.toLowerCase()]:1 };
+      for (const c of zhShuffle(others)){ const k = c.toLowerCase(); if (!seen[k]){ seen[k] = 1; distract.push(c); if (distract.length >= 3) break; } }
+      if (distract.length < 3) continue;
+      const shown = toks.map((t, i) => i === pick.i ? t.replace(pick.core, '______') : t).join(' ');
+      q = { type:'mc', tag:'Điền vào câu', prompt:'Chọn từ đúng (đúng dạng biến cách) để điền vào chỗ trống:', main:`<span class="ru" style="font-size:19px;line-height:1.5">${esc(shown)}</span><div class="zh-ex-vi">${esc(sn.vi)}</div>`, opts: zhShuffle([pick.core].concat(distract)), answer:pick.core, oc:'ru', speak:sn.ru, explain:`${ruPlain(sn.ru)} — ${sn.vi} (${ruLevelName(sn.lv)} bài ${sn.no})` };
+    }
+    else if (type === 'grammar'){
+      const b = zhPick(bank); key = 'g|' + b.q; if (used[key]) continue;
+      q = { type:'mc', tag:'Ngữ pháp' + (b.topic && b.topic !== 'trki' ? ' · ' + b.topic : ''), prompt:'Chọn phương án đúng:', main:`<span class="ru" style="font-size:19px;line-height:1.5">${esc(b.q)}</span>`, opts: b.o.slice(), answer:b.o[b.c], oc:'ru', keepOrder:true, explain:(b.e || '') };
+    }
+    else if (type === 'order'){
+      const cand = sents.filter(x => { const w = ruWordsOf(x.ru); return w.length >= 4 && w.length <= 8; });
+      if (!cand.length) continue;
+      const sn = zhPick(cand); key = 'o|' + sn.ru; if (used[key]) continue;
+      const parts = ruWordsOf(sn.ru);
+      q = { type:'order', tag:'Sắp xếp câu', prompt:'Bấm các từ theo đúng thứ tự để tạo thành câu:', main:`<div class="zh-ex-vi" style="font-size:15px">${esc(sn.vi)}</div>`, parts: zhShuffle(parts), answer: parts.join(' '), speak:sn.ru, explain:`${ruPlain(sn.ru)} — ${sn.vi}` };
+      if (q.parts.join(' ') === q.answer) q.parts = q.parts.slice().reverse();
+    }
+    else if (type === 'trans'){
+      const sn = zhPick(sents); key = 't|' + sn.ru; if (used[key]) continue;
+      const d = zhDistract(allSents.filter(x => x.ru !== sn.ru), 'ru', sn.ru, 3).map(ruPlain);
+      if (d.length < 3) continue;
+      q = { type:'mc', tag:'Dịch', prompt:'Câu tiếng Nga nào đúng với nghĩa sau?', main:`<b style="font-size:17px">${esc(sn.vi)}</b>`, opts: zhShuffle([ruPlain(sn.ru)].concat(d)), answer:ruPlain(sn.ru), oc:'ru', speak:sn.ru, explain:`${ruPlain(sn.ru)} — ${sn.vi}` };
+    }
+    else if (type === 'listen'){
+      const sn = zhPick(sents); key = 'l|' + sn.ru; if (used[key]) continue;
+      const d = zhDistract(allSents.filter(x => x.ru !== sn.ru), 'ru', sn.ru, 3).map(ruPlain);
+      if (d.length < 3) continue;
+      q = { type:'mc', tag:'Nghe', prompt:'Bấm nghe rồi chọn câu vừa nghe:', main:`<button class="pbtn primary" data-ru-speak="${esc(ruPlain(sn.ru))}">🔊 Nghe câu</button>`, opts: zhShuffle([ruPlain(sn.ru)].concat(d)), answer:ruPlain(sn.ru), oc:'ru', speak:sn.ru, explain:`${ruPlain(sn.ru)} — ${sn.vi}` };
+    }
+    else if (type === 'dialog'){
+      const cand = sents.filter(x => x.kind === 'dia' && x.next);
+      if (cand.length < 4) continue;
+      const sn = zhPick(cand); key = 'd|' + sn.ru; if (used[key]) continue;
+      const d = zhDistract(allSents.filter(x => x.kind === 'dia' && x.next && x.next !== sn.next), 'next', sn.next, 3).map(ruPlain);
+      if (d.length < 3) continue;
+      q = { type:'mc', tag:'Hội thoại', prompt:'Chọn câu đáp lại phù hợp:', main:`<span class="ru" style="font-size:19px;line-height:1.5">— ${esc(sn.ru)}</span><div class="zh-ex-vi">${esc(sn.vi)}</div>`, opts: zhShuffle([ruPlain(sn.next)].concat(d)), answer:ruPlain(sn.next), oc:'ru', speak:sn.next, explain:`— ${ruPlain(sn.ru)} — ${ruPlain(sn.next)} (${sn.nextVi})` };
+    }
+    if (!q) continue;
+    if (used[key]) continue; used[key] = 1;
     qs.push(q);
   }
   return qs;
@@ -2654,40 +2729,55 @@ function ruMakeQuestions(n){
 function ruQuick(level){
   level = level || ruPracLevel();
   const prev = state.ru.pracLevel; state.ru.pracLevel = level;
-  const qs = ruMakeQuestions(20).map(q => ({ k:'read', t:'mc', html:q.main, q:q.prompt, o:q.opts, c:q.opts.indexOf(q.answer), oc:q.oc, e:q.explain }));
+  const qs = ruMakeQuestions(20, 'vocab').map(q => ({ k:'read', t:'mc', html:q.main, q:q.prompt, o:q.opts, c:q.opts.indexOf(q.answer), oc:q.oc, e:q.explain }));
   state.ru.pracLevel = prev;
   return { id:'quick-' + level + '-' + Date.now(), lang:'ru', level, quick:true, badge:ruLevelName(level), title:'Kiểm tra nhanh từ vựng ' + ruLevelName(level),
     official:'20 câu ngẫu nhiên từ vốn từ của cấp · 8 phút · chấm theo %', minutes:8, maxScore:100, pass:60, plays:0,
     sections:[{ id:'V', name:'Лексика', vi:'Từ vựng', parts:[{ title:'', ins:'Выберите правильный вариант.', vi:'Chọn đáp án đúng.', qs }] }] };
 }
+function ruQzCorrect(q, p){ return p != null && hskNorm(p) === hskNorm(q.answer); }
 VIEWS.ru_quiz = function(){
-  const Q = state.ru.quiz;
+  const Q = state.ru.quiz, mode = ruQzMode(), lv = ruPracLevel();
+  const modeChips = `<div class="level-strip compact" style="margin:8px 0 4px">${RU_QZ_MODES.map(m => `<button class="level-chip" data-ru-qzmode="${m[0]}"${mode === m[0] ? ' aria-pressed="true"' : ''}>${m[1]}</button>`).join('')}</div>`;
   if (!Q || !Q.qs){
+    const bank = ruGrammarBank(lv).length, sents = ruSentences(lv).length;
     return `
-    <div class="page-head"><span class="eyebrow">Tiếng Nga · Bài tập</span><h1>Bài tập trắc nghiệm</h1>
-      <p>10 câu ngẫu nhiên từ vốn từ ${ruPracLevel() === 'all' ? 'mọi cấp' : esc(ruLevelName(ruPracLevel()))} (${ruPool(ruPracLevel()).length} từ): đoán nghĩa, chọn từ, chọn <b>trọng âm</b> đúng — có chấm điểm và giải thích.</p></div>
-    ${ruLevelChips('data-ru-prac', ruPracLevel(), true)}
-    <div class="stage-ctrl"><button class="pbtn primary" data-ru-qz-start="1">▶ Bắt đầu 10 câu</button></div>`;
+    <div class="page-head"><span class="eyebrow">Tiếng Nga · Bài tập</span><h1>Bài tập</h1>
+      <p>Câu hỏi sinh mới mỗi lần từ ${ruPool(lv).length} từ, ${sents} câu mẫu và ${bank} câu ngữ pháp của ${lv === 'all' ? 'mọi cấp' : esc(ruLevelName(lv))}. Chín dạng: nghĩa/từ, trọng âm, điền từ đúng biến cách vào câu, ngữ pháp (cách, thể, chuyển động…), sắp xếp câu, dịch, nghe, chọn câu đáp lại. Có chấm điểm, giải thích và nghe lại.</p></div>
+    <div class="eyebrow">Cấp</div>${ruLevelChips('data-ru-prac', lv, true)}
+    <div class="eyebrow" style="margin-top:10px">Dạng bài</div>${modeChips}
+    <div class="stage-ctrl"><button class="pbtn primary" data-ru-qz-start="10">▶ 10 câu</button><button class="pbtn" data-ru-qz-start="20">20 câu</button><button class="pbtn" data-ru-qz-start="40">40 câu</button></div>`;
   }
   if (Q.i >= Q.qs.length){
-    const score = Q.picked.filter((p, i) => p === Q.qs[i].answer).length, pct = Math.round(score / Q.qs.length * 100);
+    const score = Q.qs.filter((q, i) => ruQzCorrect(q, Q.picked[i])).length, pct = Math.round(score / Q.qs.length * 100);
     return `
     <div class="page-head"><span class="eyebrow">Tiếng Nga · Bài tập</span><h1>Kết quả: ${score}/${Q.qs.length}</h1>
       <p>Đúng ${pct}%. ${pct >= 80 ? 'Отли́чно!' : pct >= 50 ? 'Хорошо́ — ôn thêm chút nhé.' : 'Cần luyện thêm nhé.'}</p></div>
-    <div class="qz-review">${Q.qs.map((q, i) => `<div class="qz-rev ${Q.picked[i] === q.answer ? 'ok' : 'no'}"><span>${Q.picked[i] === q.answer ? '✓' : '✗'}</span> ${esc(q.explain)}</div>`).join('')}</div>
-    <div class="stage-ctrl"><button class="pbtn primary" data-ru-qz-start="1">↻ Làm lại</button></div>`;
+    <div class="qz-review">${Q.qs.map((q, i) => `<div class="qz-rev ${ruQzCorrect(q, Q.picked[i]) ? 'ok' : 'no'}"><span>${ruQzCorrect(q, Q.picked[i]) ? '✓' : '✗'}</span> <i class="qz-tag">${esc(q.tag)}</i> ${esc(q.explain)}${q.speak ? ' ' + ruSpeakBtn(q.speak, 'mini') : ''}</div>`).join('')}</div>
+    <div class="stage-ctrl"><button class="pbtn primary" data-ru-qz-start="${Q.qs.length}">↻ Đề mới (${Q.qs.length} câu)</button><button class="pbtn" data-ru-qz-home="1">← Chọn dạng khác</button></div>`;
   }
-  const q = Q.qs[Q.i], picked = Q.picked[Q.i];
-  return `
-  <div class="page-head"><span class="eyebrow">Tiếng Nga · Bài tập</span><h1>Bài tập <span class="qz-count">${Q.i + 1}/${Q.qs.length}</span> <button class="mini" data-ru-qz-start="1" title="Bỏ đề này, sinh đề mới">↻ Đề khác</button></h1><p>${esc(q.prompt)}</p></div>
-  <div class="qz-main">${q.main}</div>
-  <div class="qz-opts">${q.opts.map(o => {
-    let cls = 'qz-opt' + (q.oc ? ' ' + q.oc : '');
-    if (picked != null){ if (o === q.answer) cls += ' correct'; else if (o === picked) cls += ' wrong'; }
-    return `<button class="${cls}" data-ru-qz="${esc(o)}"${picked != null ? ' disabled' : ''}>${esc(o)}</button>`;
-  }).join('')}</div>
-  ${picked != null ? `<div class="qz-explain ${picked === q.answer ? 'ok' : 'no'}">${picked === q.answer ? '✓ Đúng! ' : '✗ Chưa đúng. '}${esc(q.explain)} ${ruSpeakBtn(q.explain.split(' — ')[0], 'mini')}</div>
-    <div class="stage-ctrl"><button class="pbtn primary" data-ru-qz-next="1">${Q.i + 1 < Q.qs.length ? 'Câu sau →' : 'Xem kết quả'}</button></div>` : ''}`;
+  const q = Q.qs[Q.i], picked = Q.picked[Q.i], done = picked != null;
+  const head = `<div class="page-head"><span class="eyebrow">Tiếng Nga · Bài tập · ${esc(q.tag)}</span><h1>Câu <span class="qz-count">${Q.i + 1}/${Q.qs.length}</span> <button class="mini" data-ru-qz-start="${Q.qs.length}" title="Bỏ đề này, sinh đề mới">↻ Đề khác</button> <button class="mini" data-ru-qz-home="1" title="Về màn chọn cấp và dạng bài">☰ Dạng khác</button></h1><p>${esc(q.prompt)}</p></div>
+  <div class="qz-main">${q.main}</div>`;
+  let body = '';
+  if (q.type === 'order'){
+    const cur = Q.cur || [];
+    const line = cur.map(i => `<span class="hsk-chunk on">${esc(q.parts[i])}</span>`).join('') || '<span class="hsk-hint">Bấm các từ bên dưới theo thứ tự…</span>';
+    body = `<div class="hsk-order">
+      <div class="hsk-order-line ru">${line}${(!done && cur.length) ? `<button class="mini" data-ru-qz-clear="1">↺ Xoá</button>` : ''}</div>
+      ${done ? '' : `<div class="hsk-order-pool">${q.parts.map((p, i) => `<button class="hsk-chunk ru" data-ru-qz-ord="${i}"${cur.indexOf(i) >= 0 ? ' disabled' : ''}>${esc(p)}</button>`).join('')}</div>
+      <div class="stage-ctrl"><button class="pbtn primary" data-ru-qz-check="1"${cur.length === q.parts.length ? '' : ' disabled'}>Kiểm tra</button></div>`}
+    </div>`;
+  } else {
+    body = `<div class="qz-opts">${q.opts.map(o => {
+      let cls = 'qz-opt' + (q.oc ? ' ' + q.oc : '');
+      if (done){ if (o === q.answer) cls += ' correct'; else if (o === picked) cls += ' wrong'; }
+      return `<button class="${cls}" data-ru-qz="${esc(o)}"${done ? ' disabled' : ''}>${esc(o)}</button>`;
+    }).join('')}</div>`;
+  }
+  const ok = done && ruQzCorrect(q, picked);
+  return head + body + (done ? `<div class="qz-explain ${ok ? 'ok' : 'no'}">${ok ? '✓ Đúng! ' : '✗ Chưa đúng. '}${q.type === 'order' && !ok ? `Đáp án: <b class="ru">${esc(q.answer)}</b> · ` : ''}${esc(q.explain)} ${q.speak ? ruSpeakBtn(q.speak, 'mini') : ''}</div>
+    <div class="stage-ctrl"><button class="pbtn primary" data-ru-qz-next="1">${Q.i + 1 < Q.qs.length ? 'Câu sau →' : 'Xem kết quả'}</button></div>` : '');
 };
 
 VIEWS.ru_speak = function(){
@@ -4131,10 +4221,18 @@ document.addEventListener('click', e => {
   if (rPr){ state.ru.pracLevel = rPr.dataset.ruPrac; state.ru.srs = null; state.ru.quiz = null; render(); return; }
   const rSrs = t.closest('[data-ru-srs]');
   if (rSrs){ if (state.ru.srs){ state.ru.srs.i++; state.ru.srs.show = false; render(); } return; }
-  if (t.closest('[data-ru-qz-start]')){ state.ru.quiz = { qs: ruMakeQuestions(10), i:0, picked:[] }; render(); return; }
+  const rqs = t.closest('[data-ru-qz-start]');
+  if (rqs){ const n = +rqs.dataset.ruQzStart || 10; state.ru.quiz = { qs: ruMakeQuestions(n), i:0, picked:[], cur:[] }; render(); return; }
+  if (t.closest('[data-ru-qz-home]')){ state.ru.quiz = null; render(); return; }
+  const rqm = t.closest('[data-ru-qzmode]');
+  if (rqm){ state.ru.qzMode = rqm.dataset.ruQzmode; state.ru.quiz = null; render(); return; }
   const rqz = t.closest('[data-ru-qz]');
   if (rqz){ const Q = state.ru.quiz; if (Q && Q.picked[Q.i] == null){ Q.picked[Q.i] = rqz.dataset.ruQz; render(); } return; }
-  if (t.closest('[data-ru-qz-next]')){ if (state.ru.quiz){ state.ru.quiz.i++; render(); } return; }
+  const rqo = t.closest('[data-ru-qz-ord]');
+  if (rqo){ const Q = state.ru.quiz; if (Q && Q.picked[Q.i] == null){ Q.cur = (Q.cur || []).concat(+rqo.dataset.ruQzOrd); render(); } return; }
+  if (t.closest('[data-ru-qz-clear]')){ const Q = state.ru.quiz; if (Q){ Q.cur = []; render(); } return; }
+  if (t.closest('[data-ru-qz-check]')){ const Q = state.ru.quiz; if (Q && Q.picked[Q.i] == null){ const q = Q.qs[Q.i]; Q.picked[Q.i] = (Q.cur || []).map(i => q.parts[i]).join(' '); render(); } return; }
+  if (t.closest('[data-ru-qz-next]')){ if (state.ru.quiz){ state.ru.quiz.i++; state.ru.quiz.cur = []; render(); } return; }
   const rTp = t.closest('[data-ru-topic]');
   if (rTp){ state.ru.topic = rTp.dataset.ruTopic || null; render(); return; }
 
