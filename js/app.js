@@ -3139,11 +3139,13 @@ function jaFormIndex(){
   const idx = {}; const add = (f, key) => { f = String(f || '').trim(); if (!f) return; (idx[f] = idx[f] || []); if (idx[f].indexOf(key) < 0) idx[f].push(key); };
   Object.values(JA_LOOKUP).forEach(w => {
     add(w.jp, w.key); add(w.kana, w.key); add(String(w.jp).replace(/^[〜～]/, ''), w.key); add(String(w.kana).replace(/^[〜～]/, ''), w.key);
+    if (w.jp === 'だ') ['だった','だろう','では','じゃ','なら','である','でした','ではない','じゃない'].forEach(f => add(f, w.key));
     [w.jp, w.kana].forEach(f => { f = String(f || '').replace(/^[〜～]/, ''); const m = f.match(/^(.+?)(する|します|に|で)$/); if (m && m[1].length >= 2) add(m[1], w.key); if (/を/.test(f)) f.split('を').forEach(x => { if (x && x.length >= 1) add(x, w.key); }); });
     if (!_JM) return;
     const kind = jaKind(w);
     try {
       if (kind === 'verb'){ [w.jp, w.kana].forEach(base => { const v = _JM.verb(base, w.g, w.kana); Object.values(v.forms).forEach(f => add(f, w.key)); }); }
+      if (kind === 'verb' && /(っしゃる|なさる|くださる|ござる)$/.test(String(w.kana || w.jp))){ [w.jp, w.kana].forEach(base => { const b = String(base || '').replace(/る$/, ''); ['います','いました','いません','い','いませんでした'].forEach(t => add(b + t, w.key)); }); }
       else if (/\(する\)|する\)/.test(w.pos || '') && !/する$/.test(String(w.jp))){ [w.jp, w.kana].forEach(base => { base = String(base || '').replace(/^[〜～]/, ''); if (!base) return; const v = _JM.verb(base + 'する', '3', String(w.kana || base).replace(/^[〜～]/, '') + 'する'); Object.values(v.forms).forEach(f => add(f, w.key)); add(base + 'する', w.key); }); }
       else if (kind === 'iadj' || kind === 'naadj'){ [w.jp, w.kana].forEach(base => { const a = _JM.adj(base, kind === 'iadj' ? 'i' : 'na'); Object.values(a.forms).forEach(f => add(f, w.key)); }); }
     } catch(e){}
@@ -3158,6 +3160,7 @@ function jaLemmatize(tok){
   (idx[s] || []).forEach(push);
   if (_JM){ _JM.deinflect(s).forEach(c => (idx[c] || []).forEach(push)); const h = _JM.hira(s); (idx[h] || []).forEach(push); }
   if (!out.length && _JM) _JM.deinflect(s).forEach(c => { const m = c.match(/^(.{2,})(する|できる)$/); if (m) (idx[m[1]] || []).forEach(push); });
+  if (!out.length){ const m = s.match(/^(.{2,}?)(せず|せずに|しないで|せざる|し)$/); if (m){ (idx[m[1]] || []).forEach(push); (idx[m[1] + 'する'] || []).forEach(push); } }
   if (!out.length){ let t = s.replace(/(さん|様|さま|ちゃん|くん|君|先生|たち)$/, ''); if (t !== s && t) (idx[t] || []).forEach(push); if (/^[おご]./.test(t)){ t = t.slice(1); (idx[t] || []).forEach(push); if (_JM) _JM.deinflect(t).forEach(c => (idx[c] || []).forEach(push)); } }
   if (!out.length) Object.values(JA_LOOKUP).forEach(w => { if (String(w.jp).replace(/^[〜～]/, '') === s || String(w.kana).replace(/^[〜～]/, '') === s) push(w.key); });
   return out;
