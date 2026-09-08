@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
 <meta name="description" content="Ứng dụng học ngoại ngữ theo bài cho người Việt: tiếng Hàn (TOPIK), tiếng Nhật (JLPT), tiếng Trung (HSK), tiếng Nga (ТРКИ), tiếng Anh (IELTS/TOEFL) — từ vựng, ngữ pháp, hội thoại, tập viết, từ điển, thi thử.">
-<link rel="icon" type="image/png" href="logo-icon.png?v=260949">
-<link rel="manifest" href="manifest.webmanifest?v=260949">
+<link rel="icon" type="image/png" href="logo-icon.png?v=260950">
+<link rel="manifest" href="manifest.webmanifest?v=260950">
 <meta name="theme-color" content="#EAF1FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260949">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260950">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="LangLab">
@@ -1121,28 +1121,6 @@ body.nav-collapsed .nav-in{gap:10px}
 }
 .en-ex-src{color:var(--faint);font-size:12px}
 
-/* ---- hình nền chìm: biểu tượng của nước đang học, rất nhạt, chỉ để làm nền ----
-   Dùng mask nên hình lấy màu từ --accent, tự đổi theo ngôn ngữ và theo sáng/tối. */
-:root{--bg-art:url("data:image/svg+xml,%3Csvg%20style%3D%22color%3A%23000%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20300%20300%22%20width%3D%22300%22%20height%3D%22300%22%20fill%3D%22none%22%20aria-hidden%3D%22true%22%3E%20%3Cg%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22M14%20128%20q136%20-76%20272%200%22%2F%3E%20%3Cpath%20d%3D%22M14%20128%20q-6%2012%20-8%2022%20M286%20128%20q6%2012%208%2022%22%2F%3E%20%3Cpath%20d%3D%22M36%20128%20h228%22%2F%3E%20%3Cpath%20d%3D%22M36%20128%20v104%20M264%20128%20v104%20M96%20128%20v104%20M204%20128%20v104%20M150%20128%20v104%22%2F%3E%20%3Cpath%20d%3D%22M28%20232%20h244%20M20%20250%20h260%20M28%20266%20h244%22%2F%3E%20%3Cpath%20d%3D%22M96%20232%20v-56%20a54%2054%200%200%201%20108%200%20v56%22%2F%3E%20%3Cpath%20d%3D%22M118%20232%20v-46%20a32%2032%200%200%201%2064%200%20v46%22%2F%3E%20%3Cpath%20d%3D%22M62%2096%20q88%20-46%20176%200%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%223%22%3E%20%3Ccircle%20cx%3D%22150%22%20cy%3D%2260%22%20r%3D%2224%22%2F%3E%20%3Cpath%20d%3D%22M126%2060%20a12%2012%200%200%201%2024%200%20a12%2012%200%200%200%2024%200%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E");--bg-art-op:.05}
-:root[data-lang="zh"]{--bg-art:url("data:image/svg+xml,%3Csvg%20style%3D%22color%3A%23000%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20300%20300%22%20width%3D%22300%22%20height%3D%22300%22%20fill%3D%22none%22%20aria-hidden%3D%22true%22%3E%20%3Cg%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22M150%2040%20v18%22%2F%3E%20%3Cpath%20d%3D%22M20%20116%20q130%20-60%20260%200%22%2F%3E%20%3Cpath%20d%3D%22M20%20116%20q-10%20-14%20-16%20-26%20M280%20116%20q10%20-14%2016%20-26%22%2F%3E%20%3Cpath%20d%3D%22M44%20116%20h212%22%2F%3E%20%3Cpath%20d%3D%22M78%20116%20v112%20M222%20116%20v112%20M150%20132%20v96%22%2F%3E%20%3Cpath%20d%3D%22M40%20228%20h220%20M30%20246%20h240%22%2F%3E%20%3Cpath%20d%3D%22M112%20228%20v-52%20a38%2038%200%200%201%2076%200%20v52%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222.8%22%3E%20%3Cpath%20d%3D%22M58%20116%20v14%22%2F%3E%20%3Cellipse%20cx%3D%2258%22%20cy%3D%22150%22%20rx%3D%2217%22%20ry%3D%2220%22%2F%3E%20%3Cpath%20d%3D%22M44%20138%20h28%20M44%20162%20h28%22%2F%3E%20%3Cpath%20d%3D%22M58%20170%20v10%20M52%20180%20h12%20M58%20180%20v12%22%2F%3E%20%3Cpath%20d%3D%22M242%20116%20v14%22%2F%3E%20%3Cellipse%20cx%3D%22242%22%20cy%3D%22150%22%20rx%3D%2217%22%20ry%3D%2220%22%2F%3E%20%3Cpath%20d%3D%22M228%20138%20h28%20M228%20162%20h28%22%2F%3E%20%3Cpath%20d%3D%22M242%20170%20v10%20M236%20180%20h12%20M242%20180%20v12%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E")}
-:root[data-lang="ru"]{--bg-art:url("data:image/svg+xml,%3Csvg%20style%3D%22color%3A%23000%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20300%20300%22%20width%3D%22300%22%20height%3D%22300%22%20fill%3D%22none%22%20aria-hidden%3D%22true%22%3E%20%3Cg%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22M150%2034%20v12%20M144%2040%20h12%22%2F%3E%20%3Cpath%20d%3D%22M150%2046%20c-32%2018%20-32%2048%200%2064%20c32%20-16%2032%20-46%200%20-64z%22%2F%3E%20%3Cpath%20d%3D%22M124%20114%20h52%20v18%20h-52z%22%2F%3E%20%3Cpath%20d%3D%22M120%20132%20h60%20v96%20h-60z%22%2F%3E%20%3Cpath%20d%3D%22M138%20176%20a12%2015%200%200%201%2024%200%20v52%20h-24z%22%2F%3E%20%3Cpath%20d%3D%22M76%2088%20v10%22%2F%3E%20%3Cpath%20d%3D%22M76%2098%20c-24%2014%20-24%2036%200%2048%20c24%20-12%2024%20-34%200%20-48z%22%2F%3E%20%3Cpath%20d%3D%22M56%20148%20h40%20v14%20h-40z%22%2F%3E%20%3Cpath%20d%3D%22M54%20162%20h44%20v66%20h-44z%22%2F%3E%20%3Cpath%20d%3D%22M70%20186%20h12%20v20%20h-12z%22%2F%3E%20%3Cpath%20d%3D%22M224%2088%20v10%22%2F%3E%20%3Cpath%20d%3D%22M224%2098%20c-24%2014%20-24%2036%200%2048%20c24%20-12%2024%20-34%200%20-48z%22%2F%3E%20%3Cpath%20d%3D%22M204%20148%20h40%20v14%20h-40z%22%2F%3E%20%3Cpath%20d%3D%22M202%20162%20h44%20v66%20h-44z%22%2F%3E%20%3Cpath%20d%3D%22M218%20186%20h12%20v20%20h-12z%22%2F%3E%20%3Cpath%20d%3D%22M36%20228%20h228%20M26%20246%20h248%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E")}
-:root[data-lang="ja"]{--bg-art:url("data:image/svg+xml,%3Csvg%20style%3D%22color%3A%23000%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20300%20300%22%20width%3D%22300%22%20height%3D%22300%22%20fill%3D%22none%22%20aria-hidden%3D%22true%22%3E%20%3Cg%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22M14%20214%20L96%20104%20q12%20-14%2024%200%20L202%20214%22%2F%3E%20%3Cpath%20d%3D%22M84%20118%20q9%2011%2018%200%20q9%20-11%2018%200%22%2F%3E%20%3Cpath%20d%3D%22M72%20134%20q12%2012%2024%200%20q12%20-12%2024%200%20q12%2012%2024%200%22%2F%3E%20%3Cpath%20d%3D%22M14%20214%20h272%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22M188%2092%20q52%20-12%20104%200%22%2F%3E%20%3Cpath%20d%3D%22M192%20104%20h96%22%2F%3E%20%3Cpath%20d%3D%22M204%20104%20v110%20M276%20104%20v110%22%2F%3E%20%3Cpath%20d%3D%22M198%20136%20h84%22%2F%3E%20%3Cpath%20d%3D%22M240%20104%20v32%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222.6%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22M56%2056%20q10%20-14%200%20-22%20q-10%208%200%2022z%22%2F%3E%20%3Cpath%20d%3D%22M56%2056%20q16%20-6%2020%20-18%20q-13%20-3%20-20%2018z%22%2F%3E%20%3Cpath%20d%3D%22M56%2056%20q-16%20-6%20-20%20-18%20q13%20-3%2020%2018z%22%2F%3E%20%3Cpath%20d%3D%22M56%2056%20q14%208%2012%2022%20q-12%20-4%20-12%20-22z%22%2F%3E%20%3Cpath%20d%3D%22M56%2056%20q-14%208%20-12%2022%20q12%20-4%2012%20-22z%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E")}
-:root[data-lang="en"]{--bg-art:url("data:image/svg+xml,%3Csvg%20style%3D%22color%3A%23000%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20300%20300%22%20width%3D%22300%22%20height%3D%22300%22%20fill%3D%22none%22%20aria-hidden%3D%22true%22%3E%20%3Cg%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%20%3Cpath%20d%3D%22M92%2034%20v10%22%2F%3E%20%3Cpath%20d%3D%22M92%2044%20L110%2068%20h-36z%22%2F%3E%20%3Cpath%20d%3D%22M74%2068%20h36%20v22%20h-36z%22%2F%3E%20%3Cpath%20d%3D%22M70%2090%20h44%20v46%20h-44z%22%2F%3E%20%3Ccircle%20cx%3D%2292%22%20cy%3D%22112%22%20r%3D%2215%22%2F%3E%20%3Cpath%20d%3D%22M92%20102%20v10%20h7%22%2F%3E%20%3Cpath%20d%3D%22M74%20136%20h36%20v92%20h-36z%22%2F%3E%20%3Cpath%20d%3D%22M83%20152%20v64%20M101%20152%20v64%20M92%20152%20v64%22%2F%3E%20%3Cpath%20d%3D%22M74%20168%20h36%20M74%20196%20h36%22%2F%3E%20%3Cpath%20d%3D%22M26%20228%20h252%20M18%20246%20h268%22%2F%3E%20%3Cpath%20d%3D%22M160%20146%20q0%20-10%2010%20-10%20h96%20q10%200%2010%2010%20v82%20h-116z%22%2F%3E%20%3Cpath%20d%3D%22M160%20188%20h116%22%2F%3E%20%3Cpath%20d%3D%22M174%20156%20h22%20v22%20h-22z%20M208%20156%20h22%20v22%20h-22z%20M242%20156%20h22%20v22%20h-22z%22%2F%3E%20%3Cpath%20d%3D%22M174%20198%20h22%20v20%20h-22z%20M208%20198%20h22%20v20%20h-22z%20M242%20198%20h22%20v20%20h-22z%22%2F%3E%20%3Ccircle%20cx%3D%22186%22%20cy%3D%22234%22%20r%3D%2211%22%2F%3E%20%3Ccircle%20cx%3D%22252%22%20cy%3D%22234%22%20r%3D%2211%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E")}
-.main{position:relative}
-.main::before{
-  content:"";position:fixed;right:-26px;bottom:-22px;
-  width:min(460px,46vw);height:min(460px,46vw);
-  background-color:var(--accent);
-  -webkit-mask:var(--bg-art) no-repeat right bottom/contain;
-          mask:var(--bg-art) no-repeat right bottom/contain;
-  opacity:var(--bg-art-op);pointer-events:none;z-index:0;
-}
-.topbar,.view{position:relative;z-index:1}
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--bg-art-op:.07} }
-:root[data-theme="dark"]{--bg-art-op:.07}
-@media (max-width:820px){ .main::before{width:min(300px,60vw);height:min(300px,60vw);opacity:calc(var(--bg-art-op) * .8)} }
-@media print{ .main::before{display:none} }
-
 /* ================= responsive ================= */
 @media (max-width:1080px){
   .write-layout,.srs-layout,.dict-layout{grid-template-columns:1fr}
@@ -1916,7 +1894,7 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   <header class="nav">
     <div class="nav-in">
       <div class="brand" data-go="about" role="link" tabindex="0" title="Giới thiệu LangLab">
-        <span class="brand-mark"><img src="logo-icon.png?v=260949" alt="LangLab" width="40" height="40"></span>
+        <span class="brand-mark"><img src="logo-icon.png?v=260950" alt="LangLab" width="40" height="40"></span>
         <span class="brand-name"><b>Lang</b><i>Lab</i></span>
       </div>
 
