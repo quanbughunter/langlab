@@ -84,8 +84,9 @@ function run(sentences, cb){
 }
 
 /** Mở cả đoạn trong Google Dịch — phương án cho người chưa có khoá API. */
-function googleUrl(text){
-  return 'https://translate.google.com/?sl=ko&tl=vi&op=translate&text='
+function googleUrl(text, src){
+  const sl = /^(ko|zh|ja|ru|en)$/.test(src || '') ? (src === 'zh' ? 'zh-CN' : src) : 'ko';
+  return 'https://translate.google.com/?sl=' + sl + '&tl=vi&op=translate&text='
        + encodeURIComponent(String(text).slice(0, 4500));
 }
 

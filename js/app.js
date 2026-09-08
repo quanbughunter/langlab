@@ -36,8 +36,8 @@ const state = {
   done: store.get('done', {}),
   theme: store.get('theme', 'auto'),
   shadow: Object.assign(
-    { raw:'', sents:[], breaks:{}, loop:1, gap:600, mimic:0, slow:false,
-      trans:{}, showVi:true },
+    { lang:'ko', raw:'', sents:[], breaks:{}, loop:1, gap:600, mimic:0, slow:false,
+      trans:{}, showVi:true, docs:{} },
     store.get('shadow', {})
   )
 };
@@ -1013,40 +1013,54 @@ dict(){
   </div>`;
 },
 
-/* ---------------- Luyện shadowing ---------------- */
+/* ---------------- Luyện shadowing (dùng cho cả năm thứ tiếng) ---------------- */
 shadow(){
-  const sh = state.shadow;
+  const sh = state.shadow, meta = shMeta();
+  const chips = `<div class="level-strip compact sh-langs">${SH_LANGS.map(l => {
+      const has = l.id === shLang() ? sh.sents.length : ((sh.docs && sh.docs[l.id] && sh.docs[l.id].sents) || []).length;
+      return `<button class="level-chip" data-sh-lang="${l.id}"${l.id === shLang() ? ' aria-pressed="true"' : ''}>${esc(l.vi)}${has ? ` <span class="sh-chip-n">${has}</span>` : ''}</button>`;
+    }).join('')}</div>`;
+
   if (!sh.sents.length){
     return `
     <div class="page-head">
-      <span class="eyebrow">쉐도잉 · Nghe và nhại theo</span>
+      <span class="eyebrow">Nghe và nhại theo · ${esc(meta.nat)}</span>
       <h1>Luyện shadowing</h1>
-      <p>Dán một đoạn tiếng Hàn vào — tin tức, lời bài hát, hội thoại trong sách, bất cứ thứ gì.
-      LangLab tách thành câu, cho bấm từng từ để tra, và đọc lại theo nhịp bạn chọn.</p>
+      <p>Dán một đoạn ${esc(meta.vi.toLowerCase())} vào — ${esc(meta.hint)} LangLab tách thành câu,
+      cho bấm từng từ để tra, và đọc lại theo nhịp bạn chọn.</p>
     </div>
+    ${chips}
     <div class="sh-editor">
-      <textarea id="shInput" class="free-text ko" rows="9" placeholder="Dán đoạn tiếng Hàn vào đây…"></textarea>
+      <textarea id="shInput" class="free-text ${meta.cls}" rows="9" placeholder="${esc(meta.ph)}"></textarea>
       <div class="stage-ctrl" style="margin-top:12px">
         <button class="pbtn primary" id="shParse">Tách thành câu</button>
         <button class="pbtn" id="shSample">Dùng đoạn mẫu</button>
       </div>
       <p class="wp-hint" style="margin-top:12px">Câu được tách ở dấu chấm, chấm hỏi và chấm than.
-      Sau khi tách, bạn có thể tự ngắt đoạn thành nhiều <b>ý</b> và cho đọc liền mạch từng ý.</p>
+      Sau khi tách, bạn có thể tự ngắt đoạn thành nhiều <b>ý</b> và cho đọc liền mạch từng ý.
+      Mỗi thứ tiếng giữ đoạn văn riêng, đổi qua đổi lại không mất bài đang làm.</p>
     </div>`;
   }
 
   const chunks = shadowChunks();
   return `
   <div class="page-head">
-    <span class="eyebrow">쉐도잉 · ${sh.sents.length} câu · ${chunks.length} ý</span>
+    <span class="eyebrow">${esc(meta.nat)} · ${sh.sents.length} câu · ${chunks.length} ý</span>
     <h1>Luyện shadowing</h1>
   </div>
+  ${chips}
 
   <div class="sh-bar">
+    <button class="pbtn ghost" id="shBack" title="Quay lại ô soạn đoạn">← Đoạn khác</button>
+
     <button class="pbtn primary" data-sh-all="1">
-      <svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg> Đọc cả đoạn
+      <svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+      Đọc cả đoạn
     </button>
-    <button class="pbtn" data-stop="1">Dừng</button>
+    <button class="pbtn" id="shStop">
+      <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+      Dừng
+    </button>
 
     <span class="sh-sep"></span>
 
@@ -1105,7 +1119,7 @@ shadow(){
           <div class="sh-row" data-si="${i}">
             <span class="sh-no mono">${String(i + 1).padStart(2,'0')}</span>
             <span class="sh-main">
-              <span class="sh-text ko" data-sent="${i}">${Words.mark(sh.sents[i])}</span>
+              <span class="sh-text ${meta.cls}" data-sent="${i}">${shTokens(sh.sents[i])}</span>
               ${sh.showVi && sh.trans[Translate.hash(sh.sents[i])]
                 ? `<span class="sh-vi">${esc(sh.trans[Translate.hash(sh.sents[i])])}</span>` : ''}
             </span>
@@ -1116,9 +1130,9 @@ shadow(){
               <button class="icon-btn" data-sh-play="${i}" data-slow="1" title="Nghe chậm">
                 <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
               </button>
-              <button class="icon-btn" data-sent="${i}" title="Tra cả câu">
+              ${meta.id === 'ko' ? `<button class="icon-btn" data-sent="${i}" title="Tra cả câu">
                 <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-              </button>
+              </button>` : ''}
             </span>
           </div>
           ${k < c.indices.length - 1
@@ -1128,7 +1142,7 @@ shadow(){
       </div>`).join('')}
   </div>
 
-  <p class="wp-hint" style="margin-top:16px">Bấm vào <b>một từ</b> để mở bảng tra từ · bấm vào <b>phần trống của câu</b> hoặc nút kính lúp để tra cả câu ·
+  <p class="wp-hint" style="margin-top:16px">Bấm vào <b>một từ</b> để mở bảng tra từ${meta.id === 'ko' ? ' · bấm vào <b>phần trống của câu</b> hoặc nút kính lúp để tra cả câu' : ''} ·
   bấm <b>＋ ngắt ý</b> giữa hai câu để chia đoạn thành các ý riêng.</p>`;
 },
 
@@ -1793,13 +1807,14 @@ function render(){
   view.innerHTML = VIEWS[state.view]();
   view.classList.toggle('wide', state.view === 'write');
 
-  const KO_VIEWS = ['home','lesson','write','shadow','srs','dict','quiz','numbers','topik'];
+  const KO_VIEWS = ['home','lesson','write','srs','dict','quiz','numbers','topik'];
+  const isSh = state.view === 'shadow';
   $$('.nav-main [data-go]').forEach(b => {
     const on = b.dataset.go === state.view || (state.view === 'lesson' && b.dataset.go === 'home');
     b.setAttribute('aria-current', on ? 'page' : 'false');
   });
   const isZh = state.view.indexOf('zh_') === 0, isRu = state.view.indexOf('ru_') === 0, isJa = state.view.indexOf('ja_') === 0, isEn = state.view.indexOf('en_') === 0;
-  document.documentElement.setAttribute('data-lang', isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : isEn ? 'en' : 'ko');   // tông màu theo ngôn ngữ
+  document.documentElement.setAttribute('data-lang', isSh ? shLang() : isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : isEn ? 'en' : 'ko');   // tông màu theo ngôn ngữ
   if (typeof syncThemeColor === 'function') syncThemeColor();
   const koDrop = $('#koDrop');
   if (koDrop) koDrop.classList.toggle('active', KO_VIEWS.includes(state.view));
@@ -1811,8 +1826,11 @@ function render(){
   if (jaDrop) jaDrop.classList.toggle('active', isJa);
   const enDrop = $('#enDrop');
   if (enDrop) enDrop.classList.toggle('active', isEn);
+  const shNav = $('#shNav');
+  if (shNav) shNav.setAttribute('aria-current', isSh ? 'page' : 'false');
   const tq = $('#topq');
-  if (tq) tq.placeholder = isZh ? 'Tra nhanh tiếng Trung (chữ Hán / pinyin / nghĩa)…' : isRu ? 'Tra nhanh tiếng Nga (không cần dấu trọng âm)…' : isJa ? 'Tra nhanh tiếng Nhật (kana / kanji / romaji / nghĩa)…' : isEn ? 'Tra nhanh tiếng Anh (từ / phiên âm / nghĩa)…' : state.view === 'about' ? 'Tra nhanh: 한국어 · 中文 · русский · tiếng Việt…' : 'Tra nhanh tiếng Hàn (Hangul / romaja / nghĩa)…';
+  const tqLang = isSh ? shLang() : isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : isEn ? 'en' : 'ko';
+  if (tq) tq.placeholder = (tqLang === 'zh') ? 'Tra nhanh tiếng Trung (chữ Hán / pinyin / nghĩa)…' : (tqLang === 'ru') ? 'Tra nhanh tiếng Nga (không cần dấu trọng âm)…' : (tqLang === 'ja') ? 'Tra nhanh tiếng Nhật (kana / kanji / romaji / nghĩa)…' : (tqLang === 'en') ? 'Tra nhanh tiếng Anh (từ / phiên âm / nghĩa)…' : state.view === 'about' ? 'Tra nhanh: 한국어 · 中文 · русский · tiếng Việt…' : 'Tra nhanh tiếng Hàn (Hangul / romaja / nghĩa)…';
   $$('.nav-drop.open').forEach(d => {
     d.classList.remove('open');
     const bb = d.querySelector('.nav-drop-btn'); if (bb) bb.setAttribute('aria-expanded', 'false');
@@ -1828,6 +1846,10 @@ function render(){
     ? jaCrumb()
     : isEn
     ? enCrumb()
+    : isSh
+    ? (state.shadow.sents.length
+        ? `<button class="crumb-link" id="shBack">Luyện shadowing</button> <span>›</span> <b>${esc(shMeta().vi)} · ${state.shadow.sents.length} câu</b>`
+        : `<b>Luyện shadowing</b> <span>·</span> ${esc(shMeta().vi)}`)
     : state.view === 'about'
     ? `<b>Giới thiệu LangLab</b>`
     : state.view === 'lesson' && l
@@ -1846,6 +1868,7 @@ function render(){
   if (state.view === 'lesson' && state.tab === 'write') mountTrace();
   if (state.view === 'topik' && state.topik && state.topik.phase === 'doing') mountTopik(); else topikStopTimer();
   window.scrollTo({ top:0, behavior:'instant' in window ? 'instant' : 'auto' });
+  if (typeof tqSyncPh === 'function') tqSyncPh();
   if (typeof factSchedule === 'function') factSchedule();
 }
 
@@ -4272,16 +4295,117 @@ function go(v, lessonNo){
   syncHist();
 }
 
+/* ============================================================
+   THANH MENU: thu gọn / mở rộng
+   ============================================================ */
+function navSetCollapsed(on){
+  document.body.classList.toggle('nav-collapsed', !!on);
+  const b = $('#navToggle');
+  if (b){
+    b.setAttribute('aria-expanded', on ? 'false' : 'true');
+    b.title = on ? 'Mở rộng thanh menu' : 'Thu gọn thanh menu';
+  }
+  store.set('navCollapsed', !!on);
+}
+function navInit(){
+  navSetCollapsed(store.get('navCollapsed', false));
+  const b = $('#navToggle');
+  if (b) b.addEventListener('click', () => navSetCollapsed(!document.body.classList.contains('nav-collapsed')));
+}
+
+/* ============================================================
+   Ô TRA NHANH: kéo chỉnh độ dài + chữ gợi ý tự chạy khi bị cắt
+   ============================================================ */
+const TQ_MIN = 220, TQ_MAX = 720, TQ_DEFAULT = 380;
+function tqClampW(w){
+  const room = Math.max(TQ_MIN, Math.min(TQ_MAX, window.innerWidth - 150));
+  return Math.round(Math.max(TQ_MIN, Math.min(room, w)));
+}
+function tqApplyW(w){
+  const box = $('#topSearch');
+  if (!box) return;
+  if (w == null) box.style.removeProperty('--tq-w');
+  else box.style.setProperty('--tq-w', tqClampW(w) + 'px');
+  tqSyncPh();
+}
+/** Dựng lớp chữ gợi ý; nếu dài hơn ô thì nhân đôi và cho chạy vòng.
+    Placeholder thật bị bỏ trống để không hiện chồng lên lớp phủ; tên đọc
+    cho trình đọc màn hình chuyển sang aria-label. */
+let _tqPhText = 'Tra nhanh một từ…';
+function tqSyncPh(){
+  const box = $('#topSearch'), inp = $('#topq'), ph = $('#tqPh'), inn = ph && ph.querySelector('.tq-ph-in');
+  if (!box || !inp || !ph || !inn) return;
+  if (inp.placeholder){ _tqPhText = inp.placeholder; inp.placeholder = ''; inp.setAttribute('aria-label', _tqPhText); }
+  const text = _tqPhText;
+  box.classList.toggle('has-text', !!inp.value);
+  if (inn.dataset.txt !== text){
+    inn.dataset.txt = text;
+    inn.textContent = text;
+    ph.classList.remove('run');
+  }
+  const fits = inn.scrollWidth <= ph.clientWidth + 1;
+  if (fits){
+    if (ph.classList.contains('run')){ ph.classList.remove('run'); inn.textContent = text; }
+    return;
+  }
+  if (!ph.classList.contains('run')){
+    inn.textContent = '';
+    const a = document.createElement('span'), b = document.createElement('span');
+    a.textContent = text + '  ·  ';
+    b.textContent = text + '  ·  ';
+    inn.appendChild(a); inn.appendChild(b);
+    ph.classList.add('run');
+  }
+  const half = inn.scrollWidth / 2;
+  ph.style.setProperty('--tq-dur', Math.max(6, Math.round(half / 26)) + 's');
+}
+function tqInit(){
+  const box = $('#topSearch'), inp = $('#topq'), grip = $('#tqGrip');
+  if (!box || !inp) return;
+  const saved = store.get('topqWidth', null);
+  if (saved) tqApplyW(saved); else tqSyncPh();
+  inp.addEventListener('focus', () => box.classList.add('focused'));
+  inp.addEventListener('blur',  () => box.classList.remove('focused'));
+  inp.addEventListener('input', tqSyncPh);
+  window.addEventListener('resize', () => { const w = store.get('topqWidth', null); if (w) tqApplyW(w); else tqSyncPh(); });
+  if (!grip) return;
+  let drag = null;
+  grip.addEventListener('pointerdown', e => {
+    drag = { x0: e.clientX, w0: box.getBoundingClientRect().width };
+    box.classList.add('resizing');
+    try { grip.setPointerCapture(e.pointerId); } catch(err){}
+    e.preventDefault();
+  });
+  grip.addEventListener('pointermove', e => {
+    if (!drag) return;
+    tqApplyW(drag.w0 + (drag.x0 - e.clientX));      /* kéo sang trái là dài ra */
+  });
+  const end = () => {
+    if (!drag) return;
+    drag = null;
+    box.classList.remove('resizing');
+    store.set('topqWidth', Math.round(box.getBoundingClientRect().width));
+  };
+  grip.addEventListener('pointerup', end);
+  grip.addEventListener('pointercancel', end);
+  grip.addEventListener('dblclick', () => {
+    store.set('topqWidth', null);
+    box.style.removeProperty('--tq-w');
+    tqSyncPh();
+    toast('Đã trả ô tra nhanh về độ dài mặc định.');
+  });
+}
+
 /* ---------- lịch sử điều hướng: nút Back / vuốt cạnh trên điện thoại ----------
    Router SPA ghi vào History API để nút back lùi trong app thay vì thoát app. */
 let _histReady = false, _applyingHist = false, _curDesc = null;
 function wordIsOpen(){ return document.body.classList.contains('wp-open'); }
 function histDesc(){
   const tok = (typeof wordState !== 'undefined' && wordState && wordState.token) || null;
-  return { v: state.view, lesson: state.lesson || null, zl: (state.zh && state.zh.lesson) || null, rl: (state.ru && state.ru.lesson) || null, jl: (state.ja && state.ja.lesson) || null, word: wordIsOpen() ? (tok || 1) : null };
+  return { v: state.view, lesson: state.lesson || null, zl: (state.zh && state.zh.lesson) || null, rl: (state.ru && state.ru.lesson) || null, jl: (state.ja && state.ja.lesson) || null, shl: (state.shadow && state.shadow.lang) || 'ko', shp: !!(state.shadow && state.shadow.sents && state.shadow.sents.length), word: wordIsOpen() ? (tok || 1) : null };
 }
 function descEq(a, b){
-  return !!a && !!b && a.v === b.v && (a.lesson || null) === (b.lesson || null) && (a.zl || null) === (b.zl || null) && (a.rl || null) === (b.rl || null) && (a.jl || null) === (b.jl || null) && !!a.word === !!b.word;
+  return !!a && !!b && a.v === b.v && (a.lesson || null) === (b.lesson || null) && (a.zl || null) === (b.zl || null) && (a.rl || null) === (b.rl || null) && (a.jl || null) === (b.jl || null) && (a.shl || 'ko') === (b.shl || 'ko') && !!a.shp === !!b.shp && !!a.word === !!b.word;
 }
 function syncHist(){
   if (!_histReady || _applyingHist) return;
@@ -4297,14 +4421,25 @@ function applyHist(s){
   _applyingHist = true;
   if (!s.word && wordIsOpen()) closeWord();
   else if (s.word && !wordIsOpen() && typeof s.word === 'string') openWord(s.word);
-  const changed = s.v !== state.view || (s.lesson || null) !== (state.lesson || null) || (s.zl || null) !== ((state.zh && state.zh.lesson) || null) || (s.rl || null) !== ((state.ru && state.ru.lesson) || null) || (s.jl || null) !== ((state.ja && state.ja.lesson) || null);
+  const sh = state.shadow;
+  const shChanged = !!sh && ((s.shl || 'ko') !== (sh.lang || 'ko') || !!s.shp !== !!(sh.sents && sh.sents.length));
+  const changed = s.v !== state.view || (s.lesson || null) !== (state.lesson || null) || (s.zl || null) !== ((state.zh && state.zh.lesson) || null) || (s.rl || null) !== ((state.ru && state.ru.lesson) || null) || (s.jl || null) !== ((state.ja && state.ja.lesson) || null) || shChanged;
   if (changed){
     if (s.v !== state.view) stopAudio();
     state.view = s.v; state.lesson = s.lesson || null;
     if (state.zh) state.zh.lesson = s.zl || null;
     if (state.ru) state.ru.lesson = s.rl || null;
     if (state.ja) state.ja.lesson = s.jl || null;
+    if (sh && shChanged){                       /* lùi/tiến trong màn Luyện shadowing */
+      shStop();
+      if ((s.shl || 'ko') !== (sh.lang || 'ko')) shSwitchLang(s.shl || 'ko');
+      const d = (sh.docs && sh.docs[sh.lang]) || {};
+      sh.sents = s.shp ? (d.sents && d.sents.length ? d.sents : sh.sents) : [];
+      if (!s.shp) sh.breaks = {};
+      saveShadow();
+    }
     render();
+    if (state.view === 'shadow' && !s.shp){ const b = $('#shInput'); if (b && sh) b.value = sh.raw || ''; }
   }
   _curDesc = histDesc();
   _applyingHist = false;
@@ -4496,11 +4631,124 @@ const SAMPLE_TEXT = '저는 매일 아침 일곱 시에 일어나요. 세수를 
   + '주말에는 아르바이트를 하거나 집에서 쉬어요. '
   + '다음 학기에는 장학금을 받고 싶어서 열심히 공부할 거예요.';
 
+/* ---------- Shadowing dùng được cho cả năm thứ tiếng ---------- */
+const SH_LANGS = [
+  { id:'ko', vi:'Tiếng Hàn',   nat:'한국어',  code:'ko-KR', cls:'ko',
+    ph:'Dán đoạn tiếng Hàn vào đây…',   hint:'tin tức, lời bài hát, hội thoại trong sách…' },
+  { id:'zh', vi:'Tiếng Trung', nat:'中文',    code:'zh-CN', cls:'zh',
+    ph:'Dán đoạn tiếng Trung vào đây…', hint:'bài khoá HSK, phụ đề phim, bản tin…' },
+  { id:'ja', vi:'Tiếng Nhật',  nat:'日本語',  code:'ja-JP', cls:'ja',
+    ph:'Dán đoạn tiếng Nhật vào đây…',  hint:'bài đọc JLPT, hội thoại anime, tin NHK Easy…' },
+  { id:'ru', vi:'Tiếng Nga',   nat:'русский', code:'ru-RU', cls:'ru',
+    ph:'Dán đoạn tiếng Nga vào đây…',   hint:'bài khoá ТРКИ, truyện ngắn, bản tin…' },
+  { id:'en', vi:'Tiếng Anh',   nat:'English', code:'en-GB', cls:'en',
+    ph:'Dán đoạn tiếng Anh vào đây…',   hint:'bài đọc IELTS, podcast, phụ đề phim…' }
+];
+function shLang(){ const l = state.shadow.lang; return SH_LANGS.some(x => x.id === l) ? l : 'ko'; }
+function shMeta(id){ return SH_LANGS.find(x => x.id === (id || shLang())) || SH_LANGS[0]; }
+
+/** Bọc từ bấm được theo đúng bộ tách từ của từng ngôn ngữ. */
+function shTokens(text){
+  const l = shLang();
+  if (l === 'zh') return zhTokens(text);
+  if (l === 'ru') return ruTokens(text);
+  if (l === 'ja') return shJaTokens(text);
+  if (l === 'en') return enTokens(text);
+  return Words.mark(text);
+}
+/* Văn bản Nhật dán vào không có dấu cách — cắt từ bằng Intl.Segmenter,
+   không có thì lùi về cắt theo cụm kanji + kana. */
+function shJaTokens(text){
+  const str = String(text || '');
+  let segs = null;
+  try {
+    if (typeof Intl !== 'undefined' && Intl.Segmenter){
+      segs = Array.from(new Intl.Segmenter('ja', { granularity:'word' }).segment(str)).map(x => x.segment);
+    }
+  } catch(e){}
+  if (!segs || !segs.length) segs = str.match(/[一-鿿々]+[ぁ-ん]*|[ァ-ヴー]+|[ぁ-ん]+|[A-Za-z0-9]+|[\s\S]/g) || [];
+  return segs.map(tok => {
+    if (!/[぀-ヿ一-鿿々]/.test(tok)) return esc(tok);
+    return `<span class="zc ja-tok" data-jaw="${esc(tok)}" title="Tra từ này">${esc(tok)}</span>`;
+  }).join('');
+}
+
+/** Đọc một câu bằng giọng của ngôn ngữ đang chọn; gọi onEnd khi xong. */
+function shSpeakGeneric(text, code, rate, onEnd){
+  const fin = (() => { let done = false; return () => { if (done) return; done = true; try { onEnd && onEnd(); } catch(e){} }; })();
+  try {
+    const synth = window.speechSynthesis;
+    if (!synth){ setTimeout(fin, 400); return; }
+    const go = () => {
+      synth.cancel();
+      const u = new SpeechSynthesisUtterance(String(text));
+      u.lang = code; u.rate = rate || 1;
+      const two = code.slice(0, 2).toLowerCase();
+      const vs = synth.getVoices() || [];
+      const v = vs.find(x => (x.lang || '').toLowerCase().replace('_', '-').indexOf(two) === 0);
+      if (v) u.voice = v;
+      else if (!shSpeakGeneric._warned[two]){
+        shSpeakGeneric._warned[two] = true;
+        toast('Máy chưa có giọng đọc ' + code + ' — cài thêm gói giọng trong hệ điều hành để nghe chuẩn hơn.');
+      }
+      u.onend = fin; u.onerror = fin;
+      setTimeout(fin, 3000 + String(text).length * 420);      /* phòng khi onend không bắn */
+      synth.speak(u);
+    };
+    const vs = synth.getVoices() || [];
+    if (vs.length) go();
+    else { try { synth.addEventListener('voiceschanged', go, { once:true }); } catch(e){} setTimeout(go, 300); }
+  } catch(e){ setTimeout(fin, 400); }
+}
+shSpeakGeneric._warned = {};
+
+/** Đoạn mẫu cho từng ngôn ngữ. */
+function shSample(id){
+  const m = {
+    ko: SAMPLE_TEXT,
+    zh: '我叫阮廷军，今年二十四岁，是河内人。'
+      + '我在一家小公司工作，每天早上七点半骑摩托车去上班。'
+      + '下班以后我常常去咖啡馆学中文，因为那里比家里安静。'
+      + '汉语的声调很难，可是我觉得越学越有意思。'
+      + '明年我打算去北京待一个月，希望到时候能跟当地人聊天。',
+    ja: 'はじめまして。グエン・ディン・クアンと申します。ハノイから来ました。'
+      + '毎朝六時に起きて、七時半にバイクで会社へ行きます。'
+      + '仕事のあとで、よく近くのカフェで日本語を勉強します。'
+      + '漢字はまだ苦手ですが、少しずつ覚えています。'
+      + '来年の春に一か月だけ東京に住んでみたいと思っています。',
+    ru: 'Меня зовут Куан, мне двадцать четыре года, я живу в Ханое. '
+      + 'Каждое утро я встаю в шесть часов и еду на работу на мотоцикле. '
+      + 'После работы я обычно занимаюсь русским языком в маленьком кафе рядом с домом. '
+      + 'Падежи мне даются трудно, но читать становится всё легче. '
+      + 'В следующем году я хочу поехать в Москву хотя бы на месяц.',
+    en: 'My name is Quan and I live in Hanoi. '
+      + 'On weekdays I get up at six, ride to work, and try to read something in English before the office fills up. '
+      + 'The hardest part is not vocabulary but speed: people say ordinary things much faster than a textbook does. '
+      + 'So I shadow one short paragraph every evening, first slowly and then at normal speed. '
+      + 'It is dull for about a week, and then one day the news stops sounding like noise.'
+  };
+  return m[id || shLang()] || m.ko;
+}
+
+/** Ghi đoạn đang soạn vào ngăn riêng của ngôn ngữ đó rồi chuyển sang ngôn ngữ khác. */
+function shSwitchLang(id){
+  const sh = state.shadow;
+  if (id === shLang()) return;
+  shStop();
+  sh.docs = sh.docs || {};
+  sh.docs[shLang()] = { raw: sh.raw, sents: sh.sents, breaks: sh.breaks };
+  const d = sh.docs[id] || { raw:'', sents:[], breaks:{} };
+  sh.lang = id; sh.raw = d.raw || ''; sh.sents = d.sents || []; sh.breaks = d.breaks || {};
+  saveShadow();
+}
+
 function saveShadow(){
   const sh = state.shadow;
-  store.set('shadow', { raw: sh.raw, sents: sh.sents, breaks: sh.breaks,
+  sh.docs = sh.docs || {};
+  sh.docs[shLang()] = { raw: sh.raw, sents: sh.sents, breaks: sh.breaks };
+  store.set('shadow', { lang: sh.lang, raw: sh.raw, sents: sh.sents, breaks: sh.breaks,
                         loop: sh.loop, gap: sh.gap, mimic: sh.mimic, slow: sh.slow,
-                        trans: sh.trans, showVi: sh.showVi });
+                        trans: sh.trans, showVi: sh.showVi, docs: sh.docs });
 }
 
 /** Nhóm các câu thành từng « ý » theo các mốc ngắt người học đặt. */
@@ -4517,6 +4765,11 @@ function shadowChunks(){
 /** Đọc một câu: ưu tiên tệp thu sẵn / máy chủ, cuối cùng mới tới giọng máy. */
 function sayOne(text, opts){
   opts = opts || {};
+  const meta = shMeta();
+  if (meta.id !== 'ko'){                       /* ngoài tiếng Hàn thì dùng giọng trình duyệt */
+    shSpeakGeneric(text, meta.code, opts.slow ? .7 : 1, opts.onEnd);
+    return;
+  }
   Speech.stop();
   const fin = () => { try { opts.onEnd && opts.onEnd(); } catch(e){} };
   TTS.play(text, {
@@ -4595,7 +4848,7 @@ function runTranslate(){
   const sh = state.shadow;
   if (!sh.sents.length) return;
 
-  const gg = `<a class="pbtn" href="${Translate.googleUrl(sh.raw || sh.sents.join(' '))}"
+  const gg = `<a class="pbtn" href="${Translate.googleUrl(sh.raw || sh.sents.join(' '), shLang())}"
                  target="_blank" rel="noopener noreferrer">Mở cả đoạn trong Google Dịch</a>`;
 
   const hasWorker = !!(window.LANGLAB_CONFIG && (window.LANGLAB_CONFIG.translateWorker || '').trim());
@@ -5941,26 +6194,34 @@ document.addEventListener('click', e => {
   if (kw){ hideTip(); openWord(kw.dataset.kw); return; }
 
   /* ----- luyện shadowing ----- */
+  const shL = t.closest('[data-sh-lang]');
+  if (shL){
+    const box = $('#shInput');
+    if (box && !state.shadow.sents.length) state.shadow.raw = box.value;   // giữ đoạn đang gõ dở
+    shSwitchLang(shL.dataset.shLang);
+    render(); syncHist();
+    return;
+  }
   if (t.closest('#shParse') || t.closest('#shSample')){
     const box = $('#shInput');
-    const raw = t.closest('#shSample') ? SAMPLE_TEXT : (box ? box.value : '');
+    const raw = t.closest('#shSample') ? shSample() : (box ? box.value : '');
     const sents = Words.splitSentences(raw);
-    if (!sents.length){ toast('Chưa tách được câu nào — đoạn văn có chữ Hàn chưa?'); return; }
+    if (!sents.length){ toast('Chưa tách được câu nào — đoạn văn đã có chữ ' + shMeta().vi.replace('Tiếng ', '') + ' chưa?'); return; }
     state.shadow.raw = raw.trim();
     state.shadow.sents = sents;
     state.shadow.breaks = {};
     saveShadow();
-    render();
+    render(); syncHist();
     toast('Đã tách ' + sents.length + ' câu');
     return;
   }
-  if (t.closest('#shEdit')){
+  if (t.closest('#shEdit') || t.closest('#shBack')){
     shStop();
     const keep = state.shadow.raw;
     state.shadow.sents = [];
     saveShadow();
-    render();
-    const box = $('#shInput'); if (box){ box.value = keep; box.focus(); }
+    render(); syncHist();
+    const box = $('#shInput'); if (box){ box.value = keep; if (t.closest('#shEdit')) box.focus(); }
     return;
   }
 
@@ -6718,6 +6979,8 @@ applyTheme();
   } catch(e){}
 })();
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && state.factOpen) factClose(); });
+navInit();
+tqInit();
 render();
 seedHist();
 

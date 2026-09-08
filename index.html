@@ -5,19 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
 <meta name="description" content="Ứng dụng học ngoại ngữ theo bài cho người Việt: tiếng Hàn (TOPIK), tiếng Nhật (JLPT), tiếng Trung (HSK), tiếng Nga (ТРКИ), tiếng Anh (IELTS/TOEFL) — từ vựng, ngữ pháp, hội thoại, tập viết, từ điển, thi thử.">
-<link rel="icon" type="image/png" href="logo-icon.png?v=260945">
-<link rel="manifest" href="manifest.webmanifest?v=260945">
+<link rel="icon" type="image/png" href="logo-icon.png?v=260947">
+<link rel="manifest" href="manifest.webmanifest?v=260947">
 <meta name="theme-color" content="#EAF1FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260945">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260947">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="LangLab">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Lexend:wght@300;400;500;600&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&family=Bad+Script&family=Noto+Sans+JP:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="css/langlab.css?v=260945">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Lexend:wght@300;400;500;600&family=Poppins:wght@700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&family=Bad+Script&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="css/langlab.css?v=260947">
 </head>
 <body>
 
@@ -25,12 +25,21 @@
   <header class="nav">
     <div class="nav-in">
       <div class="brand" data-go="about" role="link" tabindex="0" title="Giới thiệu LangLab">
-        <span class="brand-mark"><img src="logo-icon.png?v=260945" alt="LangLab" width="40" height="40"></span>
-        <span class="brand-name">LangLab</span>
+        <span class="brand-mark"><img src="logo-icon.png?v=260947" alt="LangLab" width="40" height="40"></span>
+        <span class="brand-name"><b>Lang</b><i>Lab</i></span>
       </div>
 
-      <nav class="nav-main" aria-label="Điều hướng chính">
+      <button class="nav-toggle" id="navToggle" aria-expanded="true" aria-controls="navMain" title="Thu gọn / mở rộng thanh menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <span class="sr-only">Thu gọn thanh menu</span>
+      </button>
+
+      <nav class="nav-main" id="navMain" aria-label="Điều hướng chính">
         <button class="nav-item" data-go="about">Giới thiệu</button>
+        <button class="nav-item nav-sh" id="shNav" data-go="shadow" aria-current="false" title="Luyện shadowing cho mọi thứ tiếng">
+          <svg class="sh-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M8 7v10M16 7v10M4 10v4M20 10v4"/></svg>
+          Shadowing
+        </button>
 
         <div class="nav-drop">
           <button class="nav-item nav-drop-btn" id="koDrop" aria-haspopup="true" aria-expanded="false">
@@ -40,7 +49,6 @@
           <div class="nav-menu" role="menu" aria-label="Tiếng Hàn">
             <button class="nav-mi" data-go="home"    role="menuitem">Khoá học <span class="mi-count">15</span></button>
             <button class="nav-mi" data-go="write"   role="menuitem">Tập viết <span class="mi-count">40</span></button>
-            <button class="nav-mi" data-go="shadow"  role="menuitem">Shadowing</button>
             <button class="nav-mi" data-go="srs"     role="menuitem">Ôn tập <span class="mi-count">28</span></button>
             <button class="nav-mi" data-go="dict"    role="menuitem">Từ điển</button>
             <button class="nav-mi" data-go="quiz"    role="menuitem">Bài tập</button>
@@ -125,68 +133,73 @@
           </div>
         </div>
 
+      </nav>
+
+      <div class="nav-side">
         <button class="nav-item nav-labi" id="labiNav" data-labi-toggle="1" aria-current="false">
           <svg class="labi-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           Labi <span class="labi-badge">AI</span>
         </button>
 
         <button class="nav-icobtn" id="themeBtn" title="Giao diện" aria-label="Đổi giao diện"></button>
-      </nav>
+      </div>
     </div>
   </header>
 
   <div class="main">
     <header class="topbar">
       <nav class="crumb" id="crumb">Tiếng Hàn <span>›</span> <b>Khoá học</b></nav>
-      <div class="top-search">
+      <div class="top-search" id="topSearch">
+        <button class="tq-grip" id="tqGrip" title="Kéo để chỉnh độ dài · bấm đúp để trả về mặc định" aria-label="Chỉnh độ dài ô tra nhanh"></button>
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        <input id="topq" type="search" placeholder="Tra nhanh một từ…" autocomplete="off">
+        <input id="topq" type="search" placeholder="Tra nhanh một từ…" aria-label="Tra nhanh một từ" autocomplete="off">
+        <span class="tq-ph" id="tqPh" aria-hidden="true"><span class="tq-ph-in"></span></span>
       </div>
     </header>
     <main class="view" id="view"></main>
   </div>
 </div>
 
-<script src="js/strokes.js?v=260945"></script>
-<script src="js/course-ko.js?v=260945"></script>
-<script src="js/vocab-common.js?v=260945"></script>
-<script src="js/tts.js?v=260945"></script>
-<script src="js/config.js?v=260945"></script>
-<script src="js/translate.js?v=260945"></script>
-<script src="js/speech.js?v=260945"></script>
-<script src="js/words.js?v=260945"></script>
-<script src="js/vendor/hanzi-writer.min.js?v=260945"></script>
-<script src="js/course-zh.js?v=260945"></script>
-<script src="js/hanzi-data-zh.js?v=260945"></script>
-<script src="js/hsk-exams.js?v=260945"></script>
-<script src="js/course-ru.js?v=260945"></script>
-<script src="js/speak-ru.js?v=260945"></script>
-<script src="js/exercises-ru.js?v=260945"></script>
-<script src="js/trki-exams.js?v=260945"></script>
-<script src="js/trki-b1.js?v=260945"></script>
-<script src="js/trki-b2.js?v=260945"></script>
-<script src="js/trki-c1.js?v=260945"></script>
-<script src="js/trki-c2.js?v=260945"></script>
-<script src="js/morph-ru.js?v=260945"></script>
-<script src="js/dict-ru.js?v=260945"></script>
-<script src="js/kana-ja.js?v=260945"></script>
-<script src="js/kanji-ja.js?v=260945"></script>
-<script src="js/hanzi-data-ja.js?v=260945"></script>
-<script src="js/course-ja.js?v=260945"></script>
-<script src="js/morph-ja.js?v=260945"></script>
-<script src="js/dict-ja.js?v=260945"></script>
-<script src="js/exercises-ja.js?v=260945"></script>
-<script src="js/speak-ja.js?v=260945"></script>
-<script src="js/jlpt-exams.js?v=260945"></script>
-<script src="js/phon-en.js?v=260945"></script>
-<script src="js/course-en.js?v=260945"></script>
-<script src="js/dict-en.js?v=260945"></script>
-<script src="js/idioms-en.js?v=260945"></script>
-<script src="js/exercises-en.js?v=260945"></script>
-<script src="js/ielts-exams.js?v=260945"></script>
-<script src="js/toefl-exams.js?v=260945"></script>
-<script src="js/speak-en.js?v=260945"></script>
-<script src="js/facts.js?v=260945"></script>
-<script src="js/app.js?v=260945"></script>
+<script src="js/strokes.js?v=260947"></script>
+<script src="js/course-ko.js?v=260947"></script>
+<script src="js/vocab-common.js?v=260947"></script>
+<script src="js/tts.js?v=260947"></script>
+<script src="js/config.js?v=260947"></script>
+<script src="js/translate.js?v=260947"></script>
+<script src="js/speech.js?v=260947"></script>
+<script src="js/words.js?v=260947"></script>
+<script src="js/vendor/hanzi-writer.min.js?v=260947"></script>
+<script src="js/course-zh.js?v=260947"></script>
+<script src="js/hanzi-data-zh.js?v=260947"></script>
+<script src="js/hsk-exams.js?v=260947"></script>
+<script src="js/course-ru.js?v=260947"></script>
+<script src="js/speak-ru.js?v=260947"></script>
+<script src="js/exercises-ru.js?v=260947"></script>
+<script src="js/trki-exams.js?v=260947"></script>
+<script src="js/trki-b1.js?v=260947"></script>
+<script src="js/trki-b2.js?v=260947"></script>
+<script src="js/trki-c1.js?v=260947"></script>
+<script src="js/trki-c2.js?v=260947"></script>
+<script src="js/morph-ru.js?v=260947"></script>
+<script src="js/dict-ru.js?v=260947"></script>
+<script src="js/kana-ja.js?v=260947"></script>
+<script src="js/kanji-ja.js?v=260947"></script>
+<script src="js/hanzi-data-ja.js?v=260947"></script>
+<script src="js/course-ja.js?v=260947"></script>
+<script src="js/morph-ja.js?v=260947"></script>
+<script src="js/dict-ja.js?v=260947"></script>
+<script src="js/exercises-ja.js?v=260947"></script>
+<script src="js/speak-ja.js?v=260947"></script>
+<script src="js/jlpt-exams.js?v=260947"></script>
+<script src="js/phon-en.js?v=260947"></script>
+<script src="js/course-en.js?v=260947"></script>
+<script src="js/dict-en.js?v=260947"></script>
+<script src="js/idioms-en.js?v=260947"></script>
+<script src="js/exercises-en.js?v=260947"></script>
+<script src="js/ielts-exams.js?v=260947"></script>
+<script src="js/toefl-exams.js?v=260947"></script>
+<script src="js/speak-en.js?v=260947"></script>
+<script src="js/facts.js?v=260947"></script>
+<script src="js/app.js?v=260947"></script>
 </body>
 </html>
