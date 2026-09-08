@@ -5581,18 +5581,21 @@ VIEWS.en_dict = function(){
     <p>Kho hiện có <b>${keys.length}</b> mục từ: phiên âm Anh và Mỹ, từ loại, các nghĩa xếp theo tần suất kèm ví dụ, dạng biến đổi, collocation, cụm động từ, thành ngữ và họ từ. Mọi từ trong bài học đều bấm được để mở thẳng mục từ tương ứng.</p>
   </div>
   <div class="dict-bar">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
     <input id="enq" class="dict-q" type="search" placeholder="Nhập từ tiếng Anh hoặc nghĩa tiếng Việt…" value="${esc(state.en.dictQ || '')}" autocomplete="off">
   </div>
   <div class="level-strip compact" style="margin-top:8px"><button class="level-chip" data-en-voice="uk"${enVoice() === 'uk' ? ' aria-pressed="true"' : ''}>Phiên âm Anh</button><button class="level-chip" data-en-voice="us"${enVoice() === 'us' ? ' aria-pressed="true"' : ''}>Phiên âm Mỹ</button></div>
   ${cur ? enEntryHTML(cur) : ''}
   <section class="zh-sec">
     <h2>${q ? 'Kết quả' : 'Danh sách từ'} <span class="sec-count">${hits.length}</span></h2>
-    <div class="zh-word-grid">
-      ${hits.map(k => { const e = L[k]; return `
-        <button class="zh-word" data-en-word="${esc(k)}">
-          <div class="zh-word-hz en">${esc(e.w)}</div>
-          <div class="zh-word-py">${esc(enIpa(e))}</div>
-          <div class="zh-word-vi">${esc((e.senses && e.senses[0] ? e.senses[0].vi : '') || '')}${e.pos ? ` <i class="w-pos">${esc(e.pos)}</i>` : ''}</div>
+    <div class="en-dict-grid">
+      ${hits.map(k => { const e = L[k]; const vi = (e.senses && e.senses[0] ? e.senses[0].vi : '') || ''; return `
+        <button class="en-dict-item${state.en.entry === k ? ' on' : ''}" data-en-word="${esc(k)}">
+          <span class="en-dict-top">
+            <span class="en-dict-w">${esc(e.w)}</span>
+            ${enIpa(e) ? `<span class="en-dict-ipa">${esc(enIpa(e))}</span>` : ''}
+          </span>
+          <span class="en-dict-vi">${esc(vi)}${e.pos ? ` <i class="en-dict-pos">${esc(e.pos)}</i>` : ''}</span>
         </button>`; }).join('')}
     </div>
     ${!hits.length ? '<p class="tk-note-small">Không tìm thấy từ nào. Thử gõ dạng nguyên thể, ví dụ «go» thay vì «went».</p>' : ''}
@@ -5829,6 +5832,7 @@ VIEWS.en_idiom = function(){
     <button class="level-chip" data-en-idiomtab="idiom"${tab === 'idiom' ? ' aria-pressed="true"' : ''}>Thành ngữ (${enIdCount()})</button>
   </div>
   <div class="dict-bar" style="margin-top:10px">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
     <input id="enidq" class="dict-q" type="search" placeholder="Tìm cụm từ hoặc nghĩa tiếng Việt…" value="${esc(state.en.idiomQ || '')}" autocomplete="off">
   </div>
   <div class="level-strip compact" style="margin-top:8px">
