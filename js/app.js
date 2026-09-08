@@ -5527,21 +5527,81 @@ VIEWS.en_phon = function(){
 };
 
 /* ---------- Từ điển tiếng Anh ---------- */
-function enEntryEx(w){
-  const out = [];
+/* ---------- Chỉ mục câu ví dụ của khoá học ----------
+   Gom hội thoại · ví dụ ngữ pháp · ví dụ collocation · từng câu trong bài đọc,
+   đánh chỉ mục theo DẠNG NGUYÊN THỂ nên tra «work» vẫn ra câu chứa «worked».
+   Dựng một lần, lười (chỉ khi mở từ điển lần đầu). */
+let _enExIdx = null;
+function enExIndex(){
+  if (_enExIdx) return _enExIdx;
+  const idx = Object.create(null);
+  const add = (k, item) => { if (!k) return; (idx[k] || (idx[k] = [])).push(item); };
+  const push = (en, vi, l, src) => {
+    en = String(en || '').trim();
+    if (en.length < 8) return;
+    const item = { en, vi: String(vi || '').trim(), lv: l.level, no: l.no, src };
+    const seen = Object.create(null);
+    en.toLowerCase().replace(/[’]/g, "'").split(/[^a-z']+/).forEach(t => {
+      t = t.replace(/^'+|'+$/g, '');
+      if (!t) return;
+      if (!seen[t]){ seen[t] = 1; add(t, item); }
+      const base = enLemma(t);
+      if (base && base !== t && !seen[base]){ seen[base] = 1; add(base, item); }
+    });
+  };
   _EC.lessons.forEach(l => {
-    const hit = t => t && new RegExp('\\b' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i').test(t);
-    (l.dialogue || []).forEach(d => { if (hit(d.en)) out.push({ en:d.en, vi:d.vi, lv:l.level, no:l.no }); });
-    (l.grammar || []).forEach(g => { if (g.ex && hit(g.ex.en)) out.push({ en:g.ex.en, vi:g.ex.vi, lv:l.level, no:l.no }); });
+    (l.dialogue || []).forEach(d => push(d.en, d.vi, l, 'hội thoại'));
+    (l.grammar  || []).forEach(g => { if (g.ex) push(g.ex.en, g.ex.vi, l, 'ngữ pháp'); });
+    (l.colloc   || []).forEach(c => { if (c.ex) push(c.ex, c.vi ? '' : '', l, 'collocation'); });
+    if (l.reading && l.reading.en){
+      const es = Words.splitSentences(String(l.reading.en).replace(/\n+/g, ' '));
+      const vs = Words.splitSentences(String(l.reading.vi || '').replace(/\n+/g, ' '));
+      const paired = es.length === vs.length;
+      es.forEach((sen, i) => push(sen, paired ? vs[i] : '', l, 'bài đọc'));
+    }
   });
-  return out.slice(0, 6);
+  return (_enExIdx = idx);
+}
+/** Tối đa 6 câu ví dụ cho một mục từ: ưu tiên câu có bản dịch và câu vừa phải.
+    Không có câu nào trong khoá học thì lấy ví dụ soạn riêng của mục từ. */
+function enEntryEx(w, entry){
+  const key = String(w || '').toLowerCase();
+  const list = (enExIndex()[key] || []).slice();
+  if (!list.length && entry && entry.senses){
+    entry.senses.forEach(x => { if (x.ex && x.ex[0]) list.push({ en:x.ex[0], vi:x.ex[1] || '', lv:null, no:null, src:'ví dụ mẫu' }); });
+  }
+  const score = x => (x.vi ? 0 : 40) + Math.abs(x.en.length - 90) / 10;
+  list.sort((a, b) => score(a) - score(b));
+  const out = [], seen = Object.create(null);
+  for (const x of list){
+    if (seen[x.en]) continue;
+    seen[x.en] = 1;
+    out.push(x);
+    if (out.length >= 6) break;
+  }
+  return out;
+}
+/** Như enTokens nhưng tô đậm những từ có cùng dạng nguyên thể với từ đang tra. */
+function enTokensHi(text, base){
+  const b = String(base || '').toLowerCase();
+  return String(text || '').split(/(\s+)/).map(part => {
+    if (/^\s+$/.test(part)) return part;
+    const m = part.match(/^([^A-Za-z']*)([A-Za-z][A-Za-z'-]*)(.*)$/);
+    if (!m) return esc(part);
+    const raw = m[2], key = enLemma(raw);
+    const hit = b && (raw.toLowerCase() === b || key === b);
+    const inner = key
+      ? `<span class="zc${hit ? ' en-hi' : ''}" data-en-word="${esc(key)}">${esc(raw)}</span>`
+      : (hit ? `<b class="en-hi">${esc(raw)}</b>` : esc(raw));
+    return esc(m[1]) + inner + esc(m[3]);
+  }).join('');
 }
 function enEntryHTML(e){
   if (!e) return '';
   const ipa = enIpa(e);
   const other = enVoice() === 'us' ? (e.uk ? `<span class="ph-tag">Anh <span class="ipa">/${esc(e.uk)}/</span></span>` : '') : (e.us && e.us !== e.uk ? `<span class="ph-tag">Mỹ <span class="ipa">/${esc(e.us)}/</span></span>` : '');
   const senses = e.senses || [];
-  const ex = enEntryEx(e.w);
+  const ex = enEntryEx(e.w, e);
   const F = e.forms || {};
   const formRows = [];
   if (F.v) formRows.push(['Chia động từ', F.v.join(' · ')]);
@@ -5565,7 +5625,8 @@ function enEntryHTML(e){
     ${e.idiom && e.idiom.length ? `<section class="ru-entry-sec"><h3>Thành ngữ</h3><div class="st-list">${e.idiom.map(x => `<div class="st-card"><h4 class="en">${esc(x[0])}</h4><p>${esc(x[1])}</p></div>`).join('')}</div></section>` : ''}
     ${e.family && e.family.length ? `<section class="ru-entry-sec"><h3>Họ từ</h3><div class="st-ex">${e.family.map(f => `<span><b class="en">${esc(f[0])}</b> <i>${esc(f[1])}</i> — ${esc(f[2])}</span>`).join('')}</div></section>` : ''}
     ${e.note ? `<section class="ru-entry-sec"><h3>Ghi chú dùng từ</h3><p>${esc(e.note)}</p></section>` : ''}
-    ${ex.length ? `<section class="ru-entry-sec"><h3>Ví dụ trong khoá học</h3><div class="ru-ex-list">${ex.map(x => `<div class="ru-ex-item"><div class="en">${enTokens(x.en)} ${enSpeakBtn(x.en, 'mini')}</div><div class="ru-ex-vi">${esc(x.vi)} · <button class="zh-ref" data-en-open="${x.lv}:${x.no}">${esc(enLevelName(x.lv))} unit ${x.no}</button></div></div>`).join('')}</div></section>` : ''}
+    ${ex.length ? `<section class="ru-entry-sec"><h3>Từ này dùng trong câu thế nào</h3><div class="ru-ex-list">${ex.map(x => `<div class="ru-ex-item"><div class="en">${enTokensHi(x.en, e.w)} ${enSpeakBtn(x.en, 'mini')}</div><div class="ru-ex-vi">${x.vi ? esc(x.vi) + ' · ' : ''}${x.lv ? `<button class="zh-ref" data-en-open="${x.lv}:${x.no}">${esc(enLevelName(x.lv))} unit ${x.no}</button> ` : ''}<span class="en-ex-src">${esc(x.src)}</span></div></div>`).join('')}</div></section>`
+      : `<section class="ru-entry-sec"><h3>Từ này dùng trong câu thế nào</h3><p class="tk-note-small">Chưa có câu nào trong khoá học chứa từ này. Bạn có thể dán một câu vào màn <b>Luyện shadowing</b> rồi bấm vào từ để xem nó nằm trong câu ra sao.</p></section>`}
   </div>`;
 }
 VIEWS.en_dict = function(){
@@ -6134,7 +6195,7 @@ function factClose(){
   factSchedule();
 }
 /* ----- màn hình «Bạn có biết?» ----- */
-if (typeof window !== 'undefined') window.__en = { lemma:enLemma, tokens:enTokens, ipa:enIpa, level:enLevel, lessons:enLessonList, phon:() => _EPA, course:() => _EC };
+if (typeof window !== 'undefined') window.__en = { lemma:enLemma, tokens:enTokens, ipa:enIpa, level:enLevel, lessons:enLessonList, phon:() => _EPA, course:() => _EC, entryEx:enEntryEx, exIndex:enExIndex };
 window.__facts = { pick:factPick, lang:factLang, show:factShowBubble, schedule:factSchedule, on:factsOn, open:factOpen, pool:factPool, store, applyPos:factApplyPos, resetPos:factResetPos, clampPos:factClampPos };
 VIEWS.facts = function(){
   const lang = state.factsLang || factLang() || 'ko';

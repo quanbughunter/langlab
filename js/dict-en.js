@@ -1489,6 +1489,16 @@ const EN_LOOKUP = {};
     const k = String(e.w).toLowerCase();
     EN_LOOKUP[k] = Object.assign({}, EN_LOOKUP[k] || {}, e, { src:'dict' });
   });
+  /* Câu ví dụ soạn tay cho những từ khoá học chưa có ví dụ nào */
+  if (typeof EN_EXAMPLES !== 'undefined'){
+    Object.keys(EN_EXAMPLES).forEach(k => {
+      const e = EN_LOOKUP[k];
+      if (!e || !e.senses || !e.senses.length) return;
+      if (e.senses.some(s => s.ex && s.ex[0])) return;
+      e.senses = e.senses.slice();
+      e.senses[0] = Object.assign({}, e.senses[0], { ex: EN_EXAMPLES[k].slice() });
+    });
+  }
 })();
 
 if (typeof module !== 'undefined'){ module.exports = { EN_DICT, EN_LOOKUP }; }

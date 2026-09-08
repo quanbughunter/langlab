@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
 <meta name="description" content="Ứng dụng học ngoại ngữ theo bài cho người Việt: tiếng Hàn (TOPIK), tiếng Nhật (JLPT), tiếng Trung (HSK), tiếng Nga (ТРКИ), tiếng Anh (IELTS/TOEFL) — từ vựng, ngữ pháp, hội thoại, tập viết, từ điển, thi thử.">
-<link rel="icon" type="image/png" href="logo-icon.png?v=260948">
-<link rel="manifest" href="manifest.webmanifest?v=260948">
+<link rel="icon" type="image/png" href="logo-icon.png?v=260949">
+<link rel="manifest" href="manifest.webmanifest?v=260949">
 <meta name="theme-color" content="#EAF1FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260948">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260949">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="LangLab">
@@ -1114,6 +1114,13 @@ body.nav-collapsed .nav-in{gap:10px}
 .zh-word-note{width:100%;font-size:12.5px;color:var(--faint);line-height:1.5}
 .w-pos{font-style:normal;color:var(--faint);font-size:12.5px}
 
+/* ---- từ đang tra được tô đậm trong câu ví dụ ---- */
+.en-hi{
+  background:var(--accent-soft);color:var(--accent);font-weight:600;
+  border-radius:5px;padding:0 3px;box-decoration-break:clone;-webkit-box-decoration-break:clone;
+}
+.en-ex-src{color:var(--faint);font-size:12px}
+
 /* ================= responsive ================= */
 @media (max-width:1080px){
   .write-layout,.srs-layout,.dict-layout{grid-template-columns:1fr}
@@ -1887,7 +1894,7 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   <header class="nav">
     <div class="nav-in">
       <div class="brand" data-go="about" role="link" tabindex="0" title="Giới thiệu LangLab">
-        <span class="brand-mark"><img src="logo-icon.png?v=260948" alt="LangLab" width="40" height="40"></span>
+        <span class="brand-mark"><img src="logo-icon.png?v=260949" alt="LangLab" width="40" height="40"></span>
         <span class="brand-name"><b>Lang</b><i>Lab</i></span>
       </div>
 
@@ -29232,6 +29239,444 @@ if (typeof module !== 'undefined') module.exports = { COURSE_EN };
 </script>
 <script>
 /* ============================================================
+   LangLab — Câu ví dụ cho từ vựng khoá học tiếng Anh
+   Mỗi mục: 'từ': [câu tiếng Anh, bản dịch tiếng Việt]
+   Dùng cho những từ có trong danh sách từ vựng nhưng chưa xuất hiện
+   trong hội thoại hay bài đọc của unit, để mục từ nào cũng có ít nhất
+   một câu cho thấy từ đó dùng thế nào trong ngữ cảnh cụ thể.
+   Nội dung do LangLab tự biên soạn.
+   ============================================================ */
+
+const EN_EXAMPLES = {
+
+/* ---------- A1 ---------- */
+'goodbye': ['She waved and said goodbye at the airport gate.', 'Cô ấy vẫy tay và nói tạm biệt ở cửa sân bay.'],
+'thirteen': ['My little brother is thirteen years old this month.', 'Em trai tôi tháng này mười ba tuổi.'],
+'clock': ['The clock on the kitchen wall is ten minutes fast.', 'Cái đồng hồ treo trên tường bếp chạy nhanh mười phút.'],
+'son': ['Their son studies engineering in Da Nang.', 'Con trai họ học kỹ thuật ở Đà Nẵng.'],
+'daughter': ['My aunt has one daughter and two sons.', 'Cô tôi có một con gái và hai con trai.'],
+'uncle': ['My uncle drives a taxi in Hanoi.', 'Chú tôi lái taxi ở Hà Nội.'],
+'aunt': ['We visit my aunt every Sunday afternoon.', 'Chiều Chủ nhật nào chúng tôi cũng đến thăm cô tôi.'],
+'husband': ['Her husband cooks dinner on weekdays.', 'Chồng cô ấy nấu bữa tối vào các ngày trong tuần.'],
+'shower': ['I take a cold shower before work in summer.', 'Mùa hè tôi tắm nước lạnh trước khi đi làm.'],
+'brush': ['Brush your teeth for two minutes, twice a day.', 'Hãy đánh răng hai phút, ngày hai lần.'],
+'wall': ['There is a map of Vietnam on the wall.', 'Trên tường có một tấm bản đồ Việt Nam.'],
+'sofa': ['The cat sleeps on the sofa all afternoon.', 'Con mèo ngủ trên ghế sofa suốt buổi chiều.'],
+'noisy': ['The street is very noisy in the early morning.', 'Con phố rất ồn ào vào sáng sớm.'],
+'fruit': ['We buy fruit at the market near our house.', 'Chúng tôi mua hoa quả ở chợ gần nhà.'],
+'tea': ['My grandfather drinks green tea after every meal.', 'Ông tôi uống trà xanh sau mỗi bữa ăn.'],
+'juice': ['Would you like orange juice or water?', 'Bạn muốn nước cam hay nước lọc?'],
+'thirsty': ['I am thirsty — could I have a glass of water?', 'Tôi khát — cho tôi xin một cốc nước được không?'],
+'menu': ['Could we see the menu, please?', 'Cho chúng tôi xem thực đơn được không ạ?'],
+'excited': ['The children are excited about the school trip.', 'Bọn trẻ háo hức về chuyến đi của trường.'],
+'skirt': ['She is wearing a blue skirt and a white shirt.', 'Cô ấy mặc chân váy xanh và áo sơ mi trắng.'],
+'yellow': ['The taxi in front of the hotel is yellow.', 'Chiếc taxi trước khách sạn màu vàng.'],
+'airport': ['The airport is forty minutes from the city centre.', 'Sân bay cách trung tâm thành phố bốn mươi phút.'],
+'post office': ['I need to go to the post office to send this letter.', 'Tôi cần ra bưu điện để gửi lá thư này.'],
+'map': ['Look at the map — the museum is on this street.', 'Nhìn bản đồ đi — bảo tàng nằm trên phố này.'],
+'head': ['My head hurts, so I want to lie down.', 'Tôi đau đầu, nên tôi muốn nằm nghỉ.'],
+'ear': ['He has a small scar behind his left ear.', 'Anh ấy có một vết sẹo nhỏ sau tai trái.'],
+'nose': ['My nose is blocked because of a cold.', 'Mũi tôi bị nghẹt vì cảm.'],
+'mouth': ['Cover your mouth when you cough.', 'Hãy che miệng khi ho.'],
+'tooth': ['One tooth hurts when I drink cold water.', 'Một cái răng của tôi đau khi uống nước lạnh.'],
+'stomach': ['My stomach hurts after eating too much.', 'Tôi đau bụng sau khi ăn quá nhiều.'],
+'arm': ['He broke his arm playing football last year.', 'Năm ngoái anh ấy gãy tay khi đá bóng.'],
+'leg': ['My legs are tired after walking all day.', 'Chân tôi mỏi sau cả ngày đi bộ.'],
+'pain': ['The pain in my shoulder is worse in the morning.', 'Cơn đau ở vai tôi nặng hơn vào buổi sáng.'],
+'relax': ['At the weekend I relax with a book and some music.', 'Cuối tuần tôi thư giãn với một cuốn sách và ít nhạc.'],
+'traditional': ['She wore a traditional dress to the wedding.', 'Cô ấy mặc trang phục truyền thống đi đám cưới.'],
+'dangerous': ['Riding without a helmet is dangerous.', 'Đi xe không đội mũ bảo hiểm thì nguy hiểm.'],
+'guest': ['We have two guests staying this weekend.', 'Cuối tuần này nhà tôi có hai vị khách ở lại.'],
+'confident': ['After a month of practice she feels confident in English.', 'Sau một tháng luyện tập, cô ấy thấy tự tin với tiếng Anh.'],
+'proud': ['My parents are proud of my exam results.', 'Bố mẹ tôi tự hào về kết quả thi của tôi.'],
+'dream': ['His dream is to work abroad for a few years.', 'Ước mơ của anh ấy là đi làm ở nước ngoài vài năm.'],
+
+/* ---------- A2 ---------- */
+'ring': ['The phone rang three times while I was in the shower.', 'Điện thoại reo ba lần lúc tôi đang tắm.'],
+'culture': ['Food is the easiest way into a new culture.', 'Ẩm thực là cánh cửa dễ nhất để bước vào một nền văn hoá mới.'],
+'so far': ['So far the course has been easier than I expected.', 'Cho tới giờ khoá học dễ hơn tôi tưởng.'],
+'forbid': ['The library forbids eating and drinking inside.', 'Thư viện cấm ăn uống bên trong.'],
+'helmet': ['Put your helmet on before you start the engine.', 'Đội mũ bảo hiểm vào trước khi nổ máy.'],
+'licence': ['You need a licence to drive a car in Vietnam.', 'Bạn cần giấy phép để lái ô tô ở Việt Nam.'],
+'obey': ['Everyone must obey the traffic lights, even at night.', 'Ai cũng phải tuân theo đèn giao thông, kể cả ban đêm.'],
+'behave': ['The children behaved very well in the museum.', 'Bọn trẻ cư xử rất ngoan trong bảo tàng.'],
+'crowd': ['A crowd gathered outside the stadium before the match.', 'Một đám đông tụ tập bên ngoài sân vận động trước trận đấu.'],
+'rubbish': ['Please put the rubbish in the bin outside.', 'Xin bỏ rác vào thùng bên ngoài.'],
+'inventor': ['The inventor of the machine never became rich.', 'Người phát minh ra cỗ máy ấy chưa bao giờ giàu.'],
+'island': ['We spent three days on a small island near Hai Phong.', 'Chúng tôi ở ba ngày trên một hòn đảo nhỏ gần Hải Phòng.'],
+'discover': ['Scientists discovered the cave only ten years ago.', 'Các nhà khoa học mới khám phá ra hang này mười năm trước.'],
+'typical': ['A typical working day here starts at half past seven.', 'Một ngày làm việc điển hình ở đây bắt đầu lúc bảy giờ rưỡi.'],
+'deliver': ['They deliver the parcel between nine and five.', 'Họ giao kiện hàng trong khoảng chín giờ đến năm giờ.'],
+'steal': ['Someone stole my bicycle from outside the shop.', 'Ai đó đã trộm xe đạp của tôi ở trước cửa hàng.'],
+'translate': ['Could you translate this sentence into Vietnamese?', 'Bạn dịch câu này sang tiếng Việt được không?'],
+'worker': ['The factory employs two hundred workers.', 'Nhà máy thuê hai trăm công nhân.'],
+'prefer': ['I prefer tea to coffee in the evening.', 'Buổi tối tôi thích trà hơn cà phê.'],
+'give up': ['He gave up smoking two years ago.', 'Anh ấy bỏ thuốc lá hai năm trước.'],
+'succeed': ['She succeeded on her third attempt.', 'Cô ấy thành công ở lần thử thứ ba.'],
+'motivation': ['My main motivation for learning English is travel.', 'Động lực chính khiến tôi học tiếng Anh là đi du lịch.'],
+'confidence': ['Speaking every day slowly built my confidence.', 'Việc nói mỗi ngày dần dần xây nên sự tự tin của tôi.'],
+'childhood': ['She spent her childhood in a village near Hue.', 'Cô ấy trải qua thời thơ ấu ở một ngôi làng gần Huế.'],
+'radio': ['My grandmother still listens to the radio every morning.', 'Bà tôi vẫn nghe đài mỗi sáng.'],
+'bicycle': ['I go to class by bicycle when the weather is fine.', 'Tôi đi học bằng xe đạp khi trời đẹp.'],
+'lend': ['Could you lend me your dictionary until Friday?', 'Bạn cho tôi mượn từ điển đến thứ Sáu được không?'],
+'freedom': ['Working from home gives me more freedom.', 'Làm việc ở nhà cho tôi nhiều tự do hơn.'],
+'department': ['She works in the marketing department.', 'Cô ấy làm ở phòng marketing.'],
+'overtime': ['I did three hours of overtime on Tuesday.', 'Thứ Ba tôi làm thêm ba tiếng.'],
+'charger': ['I left my phone charger at the hotel.', 'Tôi để quên củ sạc điện thoại ở khách sạn.'],
+'upload': ['Please upload your photo before the deadline.', 'Vui lòng tải ảnh của bạn lên trước hạn chót.'],
+'tour': ['We booked a two-day tour of the old town.', 'Chúng tôi đặt một tour hai ngày quanh phố cổ.'],
+'suitcase': ['My suitcase was five kilos over the limit.', 'Va li của tôi quá cân năm ki-lô.'],
+'departure': ['The departure time has changed to eleven fifteen.', 'Giờ khởi hành đã đổi sang mười một giờ mười lăm.'],
+'arrival': ['Please wait in the arrival hall.', 'Xin đợi ở sảnh đến.'],
+'environment': ['Small daily habits also affect the environment.', 'Những thói quen nhỏ hằng ngày cũng ảnh hưởng đến môi trường.'],
+'nature': ['After a week in the city I miss nature.', 'Sau một tuần trong thành phố tôi nhớ thiên nhiên.'],
+'forest': ['The forest behind the village is protected.', 'Khu rừng sau làng được bảo vệ.'],
+'wildlife': ['The park is home to rare wildlife.', 'Công viên là nơi sống của nhiều loài hoang dã quý hiếm.'],
+'species': ['This species only lives on two islands.', 'Loài này chỉ sống ở hai hòn đảo.'],
+'seminar': ['There is a seminar on study skills on Friday.', 'Thứ Sáu có một buổi thảo luận về kỹ năng học.'],
+'certificate': ['You get a certificate at the end of the course.', 'Bạn nhận chứng chỉ khi kết thúc khoá học.'],
+'social media': ['I spend less time on social media than last year.', 'Tôi dùng mạng xã hội ít hơn năm ngoái.'],
+'channel': ['That channel shows the news in simple English.', 'Kênh đó phát bản tin bằng tiếng Anh đơn giản.'],
+'audience': ['The audience laughed at the first joke.', 'Khán giả cười ở câu đùa đầu tiên.'],
+'influence': ['Her teacher had a big influence on her choice.', 'Cô giáo có ảnh hưởng lớn tới lựa chọn của cô ấy.'],
+'decrease': ['Sales decreased sharply after the price rise.', 'Doanh số giảm mạnh sau khi tăng giá.'],
+'according to': ['According to the timetable, the bus leaves at six.', 'Theo thời gian biểu, xe buýt chạy lúc sáu giờ.'],
+'mood': ['He is in a good mood because the exam went well.', 'Anh ấy đang vui vì kỳ thi diễn ra suôn sẻ.'],
+'jealous': ['I was a little jealous of her scholarship.', 'Tôi hơi ghen tị với suất học bổng của cô ấy.'],
+'lonely': ['The first month abroad felt lonely.', 'Tháng đầu tiên ở nước ngoài thấy cô đơn.'],
+'disappointed': ['We were disappointed with the service, not the food.', 'Chúng tôi thất vọng vì dịch vụ, chứ không phải đồ ăn.'],
+'eventually': ['We waited an hour and eventually the train came.', 'Chúng tôi đợi một tiếng và cuối cùng tàu cũng đến.'],
+'summarise': ['Can you summarise the article in three sentences?', 'Bạn tóm tắt bài báo trong ba câu được không?'],
+'looking back': ['Looking back, moving to Hanoi was the right choice.', 'Nhìn lại, chuyển ra Hà Nội là lựa chọn đúng.'],
+'turn out': ['The film turned out to be much better than we expected.', 'Bộ phim hoá ra hay hơn nhiều so với chúng tôi tưởng.'],
+
+/* ---------- B1 ---------- */
+'gradually': ['The noise from the street gradually died away after midnight.', 'Tiếng ồn ngoài phố dần lặng đi sau nửa đêm.'],
+'achievement': ['Finishing the course while working full time was a real achievement.', 'Học xong khoá này trong khi vẫn làm toàn thời gian là một thành tựu thật sự.'],
+'commitment': ['Learning a language needs commitment, not talent.', 'Học ngôn ngữ cần sự tận tâm, không phải năng khiếu.'],
+'exhausting': ['Two hours of commuting every day is exhausting.', 'Hai tiếng đi lại mỗi ngày làm người ta kiệt sức.'],
+'worthwhile': ['The extra practice was slow but worthwhile.', 'Việc luyện thêm tuy chậm nhưng đáng công.'],
+'pursue': ['She decided to pursue a career in translation.', 'Cô ấy quyết định theo đuổi nghề biên dịch.'],
+'overcome': ['He overcame his fear of speaking in class.', 'Anh ấy đã vượt qua nỗi sợ nói trong lớp.'],
+'setback': ['Failing the first test was a setback, not the end.', 'Trượt bài kiểm tra đầu là một bước lùi, không phải dấu chấm hết.'],
+'milestone': ['Reading a whole novel was an important milestone for me.', 'Đọc trọn một cuốn tiểu thuyết là cột mốc quan trọng với tôi.'],
+'incident': ['Nobody was hurt in the incident on the stairs.', 'Không ai bị thương trong vụ việc ở cầu thang.'],
+'witness': ['A witness told the police what she had seen.', 'Một nhân chứng kể với cảnh sát điều cô ấy đã thấy.'],
+'confused': ['I was confused by the two similar forms.', 'Tôi bối rối trước hai mẫu đơn giống nhau.'],
+'embarrassed': ['She felt embarrassed after mixing up their names.', 'Cô ấy thấy ngượng sau khi nhầm tên hai người.'],
+'relieved': ['I was relieved when the results finally came out.', 'Tôi nhẹ nhõm khi kết quả cuối cùng cũng có.'],
+'suspicious': ['The email looked suspicious, so I did not click the link.', 'Cái email trông đáng ngờ nên tôi không bấm vào đường dẫn.'],
+'coincidence': ['We took the same flight by pure coincidence.', 'Chúng tôi đi cùng chuyến bay hoàn toàn do trùng hợp.'],
+'previously': ['She previously worked for a company in Da Nang.', 'Trước đó cô ấy làm cho một công ty ở Đà Nẵng.'],
+'agenda': ['The budget is the first item on the agenda.', 'Ngân sách là mục đầu tiên trong chương trình họp.'],
+'inevitable': ['With so few staff, delays were inevitable.', 'Với ít nhân sự như vậy, chậm trễ là không tránh khỏi.'],
+'temporary': ['This is a temporary job until September.', 'Đây là công việc tạm thời cho đến tháng Chín.'],
+'shortly': ['The manager will be with you shortly.', 'Quản lý sẽ gặp bạn ngay bây giờ.'],
+'in advance': ['Please book the room a week in advance.', 'Vui lòng đặt phòng trước một tuần.'],
+'conclude': ['From these numbers we can conclude that demand is falling.', 'Từ những con số này ta có thể kết luận rằng nhu cầu đang giảm.'],
+'probable': ['It is probable that the meeting will be postponed.', 'Nhiều khả năng cuộc họp sẽ bị hoãn.'],
+'clue': ['The receipt was the only clue to where she had been.', 'Cái hoá đơn là manh mối duy nhất về nơi cô ấy đã tới.'],
+'proof': ['Do you have any proof that the parcel was delivered?', 'Bạn có bằng chứng nào cho thấy kiện hàng đã được giao không?'],
+'guess': ['I guess she missed the bus again.', 'Tôi đoán cô ấy lại lỡ xe buýt.'],
+'logical': ['His explanation sounded logical but the dates were wrong.', 'Lời giải thích của anh ấy nghe hợp lý nhưng ngày tháng thì sai.'],
+'blame': ['Do not blame the software for a human mistake.', 'Đừng đổ lỗi cho phần mềm vì một sai sót của con người.'],
+'percentage': ['Only a small percentage of students take the exam twice.', 'Chỉ một tỷ lệ nhỏ sinh viên thi lại lần hai.'],
+'majority': ['The majority of people here cycle to work.', 'Phần lớn mọi người ở đây đạp xe đi làm.'],
+'minority': ['A small minority disagreed with the new rule.', 'Một thiểu số nhỏ không đồng ý với quy định mới.'],
+'fluctuate': ['Vegetable prices fluctuate a lot after the rainy season.', 'Giá rau dao động nhiều sau mùa mưa.'],
+'nutrition': ['Good nutrition matters more than expensive supplements.', 'Dinh dưỡng tốt quan trọng hơn thực phẩm chức năng đắt tiền.'],
+'obesity': ['Childhood obesity has risen in many cities.', 'Béo phì ở trẻ em đã tăng ở nhiều thành phố.'],
+'symptom': ['A cough is the first symptom for most patients.', 'Ho là triệu chứng đầu tiên ở phần lớn bệnh nhân.'],
+'mental': ['Sleep affects mental health as much as physical health.', 'Giấc ngủ ảnh hưởng đến sức khoẻ tinh thần không kém sức khoẻ thể chất.'],
+'physical': ['He does thirty minutes of physical exercise every morning.', 'Anh ấy tập thể chất ba mươi phút mỗi sáng.'],
+'beneficial': ['Walking to work is beneficial for both health and mood.', 'Đi bộ đi làm có lợi cho cả sức khoẻ lẫn tâm trạng.'],
+'balanced': ['A balanced meal costs less than most people think.', 'Một bữa ăn cân bằng rẻ hơn phần lớn mọi người tưởng.'],
+'addiction': ['Phone addiction is hard to notice in yourself.', 'Nghiện điện thoại là thứ khó tự nhận ra ở bản thân.'],
+'wellbeing': ['The company runs a wellbeing programme for staff.', 'Công ty có chương trình chăm sóc sức khoẻ toàn diện cho nhân viên.'],
+'qualification': ['The job needs a teaching qualification and two years of experience.', 'Công việc này cần bằng sư phạm và hai năm kinh nghiệm.'],
+'resign': ['She resigned after eight years at the same desk.', 'Cô ấy từ chức sau tám năm ngồi cùng một chỗ.'],
+'workload': ['My workload doubled when two colleagues left.', 'Khối lượng công việc của tôi tăng gấp đôi khi hai đồng nghiệp nghỉ.'],
+'motivated': ['The team stayed motivated even after the delay.', 'Cả nhóm vẫn giữ được động lực dù bị chậm tiến độ.'],
+'ambitious': ['She is ambitious but never unkind to her team.', 'Cô ấy có chí tiến thủ nhưng chưa bao giờ nghiệt ngã với đồng đội.'],
+'demanding': ['The course is demanding: expect ten hours a week.', 'Khoá học đòi hỏi cao: hãy tính mười tiếng mỗi tuần.'],
+'rewarding': ['Teaching is tiring but rewarding.', 'Dạy học mệt nhưng đáng công.'],
+'expense': ['Rent is our biggest monthly expense.', 'Tiền thuê nhà là khoản chi lớn nhất hằng tháng của chúng tôi.'],
+'debt': ['They paid off the debt in three years.', 'Họ trả hết nợ trong ba năm.'],
+'bargain': ['The second-hand bike was a real bargain.', 'Chiếc xe đạp cũ đúng là một món hời.'],
+'refund': ['If the size is wrong, you can ask for a refund.', 'Nếu sai cỡ, bạn có thể yêu cầu hoàn tiền.'],
+'guarantee': ['The laptop comes with a two-year guarantee.', 'Chiếc laptop đi kèm bảo hành hai năm.'],
+'luxury': ['A quiet hour in the morning feels like a luxury.', 'Một tiếng yên tĩnh buổi sáng nghe như một thứ xa xỉ.'],
+'wasteful': ['Printing every email is wasteful and slow.', 'In mọi email vừa lãng phí vừa chậm.'],
+'infrastructure': ['The city grew faster than its infrastructure.', 'Thành phố phát triển nhanh hơn hạ tầng của nó.'],
+'facility': ['The new building has a childcare facility on the ground floor.', 'Toà nhà mới có khu giữ trẻ ở tầng trệt.'],
+'migrate': ['Many young people migrate to the city for work.', 'Nhiều người trẻ di cư ra thành phố để tìm việc.'],
+'peaceful': ['The lake is peaceful before seven in the morning.', 'Hồ rất yên bình trước bảy giờ sáng.'],
+'cost of living': ['The cost of living has risen faster than wages.', 'Chi phí sinh hoạt tăng nhanh hơn tiền lương.'],
+'anonymous': ['The survey is anonymous, so please answer honestly.', 'Khảo sát này ẩn danh, nên xin trả lời thành thật.'],
+'scenery': ['The scenery on the train to Lao Cai is worth the early start.', 'Phong cảnh trên chuyến tàu đi Lào Cai bõ công dậy sớm.'],
+'hypothesis': ['Their hypothesis was simple and easy to test.', 'Giả thuyết của họ đơn giản và dễ kiểm chứng.'],
+'artificial': ['The drink contains no artificial colouring.', 'Đồ uống này không chứa phẩm màu nhân tạo.'],
+'accurate': ['The first figure was accurate; the second was a guess.', 'Con số đầu chính xác; con số thứ hai là phỏng đoán.'],
+'efficient': ['The new route is more efficient but less comfortable.', 'Tuyến mới hiệu quả hơn nhưng kém thoải mái hơn.'],
+'complex': ['The rule is more complex than it first appears.', 'Quy tắc này phức tạp hơn vẻ ngoài của nó.'],
+'innovation': ['The biggest innovation was not the machine but the schedule.', 'Đổi mới lớn nhất không phải cỗ máy mà là cách xếp lịch.'],
+'setting': ['The novel has a village setting in the 1960s.', 'Cuốn tiểu thuyết lấy bối cảnh một ngôi làng những năm 1960.'],
+'masterpiece': ['Critics call the film a masterpiece; I found it slow.', 'Giới phê bình gọi bộ phim là kiệt tác; tôi thấy nó chậm.'],
+'exhibition': ['The photo exhibition runs until the end of May.', 'Triển lãm ảnh kéo dài đến hết tháng Năm.'],
+'gallery': ['There is a small gallery above the coffee shop.', 'Có một phòng tranh nhỏ ở tầng trên quán cà phê.'],
+'overrated': ['Many people think that restaurant is overrated.', 'Nhiều người cho rằng nhà hàng đó được đánh giá quá cao.'],
+'realistic': ['The dialogue is realistic, which is rare in that genre.', 'Lời thoại rất chân thực, điều hiếm thấy ở thể loại đó.'],
+'criminal': ['The criminal was caught two streets away.', 'Kẻ phạm tội bị bắt cách đó hai dãy phố.'],
+'court': ['The case goes to court next month.', 'Vụ việc sẽ ra toà vào tháng sau.'],
+'jury': ['The jury took four hours to reach a decision.', 'Bồi thẩm đoàn mất bốn tiếng để đi tới quyết định.'],
+'arrest': ['Police arrested two people at the scene.', 'Cảnh sát bắt giữ hai người tại hiện trường.'],
+'guilty': ['He pleaded guilty to the smaller charge.', 'Anh ta nhận tội với cáo buộc nhẹ hơn.'],
+'innocent': ['She was found innocent after a second review.', 'Cô ấy được tuyên vô tội sau lần xem xét thứ hai.'],
+'poverty': ['Poverty fell sharply in the region after 2005.', 'Nghèo đói giảm mạnh trong vùng sau năm 2005.'],
+'inequality': ['Inequality between schools worries many parents.', 'Sự bất bình đẳng giữa các trường khiến nhiều phụ huynh lo lắng.'],
+'sustainable': ['Cheap flights are convenient but not sustainable.', 'Vé máy bay rẻ thì tiện nhưng không bền vững.'],
+'renewable': ['Half of the electricity here comes from renewable sources.', 'Một nửa lượng điện ở đây đến từ nguồn tái tạo.'],
+'deforestation': ['Deforestation makes floods worse downstream.', 'Nạn phá rừng làm lũ ở hạ nguồn nặng hơn.'],
+'famine': ['Aid arrived too late to prevent the famine.', 'Viện trợ đến quá muộn để ngăn nạn đói.'],
+'refugee': ['The school takes refugee children at any time of year.', 'Trường nhận trẻ em tị nạn vào bất cứ thời điểm nào trong năm.'],
+'aid': ['Medical aid reached the village on the third day.', 'Viện trợ y tế đến được làng vào ngày thứ ba.'],
+'donate': ['Local shops donated food for the flood victims.', 'Các cửa hàng địa phương quyên góp thực phẩm cho người bị lũ.'],
+'implement': ['The school will implement the new timetable in September.', 'Trường sẽ triển khai thời khoá biểu mới vào tháng Chín.'],
+'widespread': ['Support for the plan is widespread among parents.', 'Sự ủng hộ dành cho kế hoạch này lan rộng trong phụ huynh.'],
+'long-term': ['We need a long-term plan, not another quick fix.', 'Chúng ta cần một kế hoạch dài hạn, không phải thêm một cách chữa cháy.'],
+'curriculum': ['Coding was added to the curriculum two years ago.', 'Lập trình được đưa vào chương trình học hai năm trước.'],
+'syllabus': ['The syllabus lists every text you have to read.', 'Đề cương môn học liệt kê mọi tài liệu bạn phải đọc.'],
+'literacy': ['Adult literacy classes run on Tuesday evenings.', 'Các lớp xoá mù chữ cho người lớn học tối thứ Ba.'],
+'enrol': ['Two hundred students enrolled in the first week.', 'Hai trăm sinh viên ghi danh trong tuần đầu.'],
+'attend': ['I could not attend the meeting, so I read the notes.', 'Tôi không dự họp được nên đã đọc biên bản.'],
+'motivate': ['Small weekly goals motivate me more than a big one.', 'Những mục tiêu nhỏ hằng tuần tạo động lực cho tôi hơn một mục tiêu lớn.'],
+'assess': ['Teachers assess speaking twice a term.', 'Giáo viên đánh giá kỹ năng nói hai lần mỗi kỳ.'],
+'drop out': ['He dropped out in the second year and started a business.', 'Anh ấy bỏ học năm thứ hai và bắt đầu kinh doanh.'],
+'target': ['We missed the target by three per cent.', 'Chúng tôi hụt mục tiêu ba phần trăm.'],
+'persuade': ['It took a week to persuade my parents.', 'Phải mất một tuần để thuyết phục bố mẹ tôi.'],
+'promote': ['The city promotes cycling with wider lanes and cheaper parking.', 'Thành phố quảng bá việc đi xe đạp bằng làn rộng hơn và phí gửi xe rẻ hơn.'],
+'exaggerate': ['The advert exaggerates how long the battery lasts.', 'Quảng cáo phóng đại thời lượng pin.'],
+'sceptical': ['I am sceptical about any product that promises fluency in a month.', 'Tôi hoài nghi với bất kỳ sản phẩm nào hứa thành thạo trong một tháng.'],
+'upbringing': ['Her upbringing in a large family made her patient.', 'Việc lớn lên trong một gia đình đông người khiến cô ấy kiên nhẫn.'],
+'expectation': ['The course was better than my expectations.', 'Khoá học tốt hơn kỳ vọng của tôi.'],
+'compromise': ['We reached a compromise: an earlier start and a shorter day.', 'Chúng tôi đạt được thoả hiệp: bắt đầu sớm hơn và ngày làm ngắn hơn.'],
+'isolation': ['Working alone at home can lead to isolation.', 'Làm việc một mình ở nhà có thể dẫn tới sự cô lập.'],
+'close-knit': ['They grew up in a close-knit neighbourhood.', 'Họ lớn lên trong một khu phố gắn bó khăng khít.'],
+'distant': ['He has a distant relationship with his cousins.', 'Anh ấy có quan hệ xa cách với các anh chị em họ.'],
+'supportive': ['My manager was supportive when I asked for a lighter week.', 'Quản lý của tôi rất ủng hộ khi tôi xin một tuần nhẹ việc hơn.'],
+'athlete': ['The athlete trains twice a day, six days a week.', 'Vận động viên đó tập hai buổi mỗi ngày, sáu ngày một tuần.'],
+'coach': ['Their new coach changed the training completely.', 'Huấn luyện viên mới của họ thay đổi hoàn toàn cách tập.'],
+'referee': ['The referee stopped the match for ten minutes.', 'Trọng tài dừng trận đấu mười phút.'],
+'tournament': ['The tournament lasts three weeks and ends in July.', 'Giải đấu kéo dài ba tuần và kết thúc vào tháng Bảy.'],
+'championship': ['They won the championship for the first time in twelve years.', 'Họ giành chức vô địch lần đầu sau mười hai năm.'],
+'defeat': ['The team defeated last year is now top of the table.', 'Đội bị đánh bại năm ngoái nay đứng đầu bảng.'],
+'compete': ['Only ten schools competed in the first year.', 'Chỉ mười trường thi đấu trong năm đầu tiên.'],
+'qualify': ['She qualified for the final by two seconds.', 'Cô ấy giành suất vào chung kết nhờ hơn hai giây.'],
+'endurance': ['Long-distance running is a test of endurance, not speed.', 'Chạy đường dài là bài kiểm tra sức bền, không phải tốc độ.'],
+'stamina': ['Cycling to work every day built my stamina.', 'Đạp xe đi làm mỗi ngày giúp tôi có sức dẻo dai.'],
+'talented': ['He is talented, but the others train harder.', 'Cậu ấy có tài, nhưng những người khác tập chăm hơn.'],
+'determined': ['She was determined to finish, even with a bad knee.', 'Cô ấy quyết tâm về đích, dù đầu gối đau.'],
+'commuter': ['The train is full of commuters before eight.', 'Chuyến tàu đầy người đi làm trước tám giờ.'],
+'fare': ['The bus fare went up by two thousand dong.', 'Giá vé xe buýt tăng hai nghìn đồng.'],
+'route': ['There is a quieter route along the river.', 'Có một tuyến đường yên tĩnh hơn dọc bờ sông.'],
+'subsidy': ['A small subsidy keeps the night bus running.', 'Một khoản trợ giá nhỏ giữ cho tuyến xe buýt đêm hoạt động.'],
+'electric': ['Half the taxis in the city are now electric.', 'Một nửa số taxi trong thành phố giờ chạy điện.'],
+'driverless': ['Driverless buses are being tested on one short route.', 'Xe buýt không người lái đang được thử nghiệm trên một tuyến ngắn.'],
+'accessible': ['The station is accessible for wheelchairs at both entrances.', 'Nhà ga tiếp cận được bằng xe lăn ở cả hai lối vào.'],
+'expand': ['The company plans to expand into two more provinces.', 'Công ty dự định mở rộng sang hai tỉnh nữa.'],
+'upgrade': ['They upgraded the lighting before the rainy season.', 'Họ nâng cấp hệ thống chiếu sáng trước mùa mưa.'],
+'restrict': ['The city restricts lorries in the centre before nine.', 'Thành phố hạn chế xe tải vào trung tâm trước chín giờ.'],
+'cuisine': ['Northern cuisine uses less sugar than southern cooking.', 'Ẩm thực miền Bắc dùng ít đường hơn cách nấu miền Nam.'],
+'texture': ['The texture matters as much as the flavour here.', 'Ở món này kết cấu quan trọng ngang hương vị.'],
+'steam': ['Steam the fish for eight minutes with ginger.', 'Hấp cá tám phút với gừng.'],
+'grill': ['We grill the pork over charcoal, never in a pan.', 'Chúng tôi nướng thịt lợn trên than, không bao giờ rán chảo.'],
+'imported': ['Imported fruit costs three times more in winter.', 'Hoa quả nhập khẩu đắt gấp ba vào mùa đông.'],
+'staple': ['Rice is the staple in most of the country.', 'Gạo là lương thực chính ở phần lớn cả nước.'],
+'variety': ['The market sells a wide variety of herbs.', 'Chợ bán rất nhiều loại rau thơm khác nhau.'],
+'origin': ['The dish has an origin in the Mekong Delta.', 'Món ăn này có nguồn gốc từ đồng bằng sông Cửu Long.'],
+'globalisation': ['Globalisation brought new ingredients and new prices.', 'Toàn cầu hoá mang tới nguyên liệu mới và cả mức giá mới.'],
+'viewpoint': ['The article gives only one viewpoint.', 'Bài báo chỉ đưa ra một góc nhìn.'],
+'justify': ['The results do not justify the cost.', 'Kết quả không biện minh được cho chi phí bỏ ra.'],
+'emphasise': ['I want to emphasise that this is only a first draft.', 'Tôi muốn nhấn mạnh rằng đây mới chỉ là bản nháp đầu.'],
+'counter-argument': ['A good essay answers the strongest counter-argument.', 'Một bài luận tốt trả lời được luận điểm phản biện mạnh nhất.'],
+'coherent': ['Her answer was short but coherent.', 'Câu trả lời của cô ấy ngắn nhưng mạch lạc.'],
+'relevant': ['Keep the examples relevant to the question.', 'Hãy giữ cho ví dụ bám sát câu hỏi.'],
+'concise': ['Be concise: two sentences are enough here.', 'Hãy súc tích: ở đây hai câu là đủ.'],
+
+/* ---------- B2 ---------- */
+'warranty': ['The screen is still under warranty, so the repair is free.', 'Màn hình vẫn còn bảo hành nên sửa miễn phí.'],
+'procedure': ['There is a written procedure for every complaint.', 'Mọi khiếu nại đều có quy trình bằng văn bản.'],
+'insist': ['She insisted on paying for the whole table.', 'Cô ấy nằng nặc đòi trả tiền cho cả bàn.'],
+'reconsider': ['They asked the committee to reconsider the decision.', 'Họ đề nghị uỷ ban cân nhắc lại quyết định.'],
+'backup': ['Keep a backup of the file somewhere other than your laptop.', 'Hãy giữ một bản dự phòng của tệp ở đâu đó ngoài laptop.'],
+'precaution': ['As a precaution, take a photo of the meter before you move in.', 'Để phòng ngừa, hãy chụp ảnh công tơ trước khi dọn vào.'],
+'identify': ['The report identifies three causes, not one.', 'Bản báo cáo xác định ba nguyên nhân, không phải một.'],
+'feature': ['The feature nobody uses is the one they advertise most.', 'Tính năng chẳng ai dùng lại là thứ họ quảng cáo nhiều nhất.'],
+'characteristic': ['Patience is a characteristic of every good interpreter.', 'Kiên nhẫn là đặc trưng của mọi phiên dịch viên giỏi.'],
+'distinguish': ['It is hard to distinguish the two words by sound alone.', 'Rất khó phân biệt hai từ đó chỉ bằng âm thanh.'],
+'respective': ['After the meeting they returned to their respective offices.', 'Sau cuộc họp họ trở về văn phòng của mỗi người.'],
+'namely': ['One thing worries me, namely the deadline.', 'Có một điều làm tôi lo, cụ thể là hạn chót.'],
+'concerned': ['The staff concerned were told the same afternoon.', 'Những nhân viên liên quan được thông báo ngay chiều hôm đó.'],
+'various': ['Various explanations were offered, none convincing.', 'Nhiều cách giải thích được đưa ra, không cái nào thuyết phục.'],
+'numerous': ['Numerous studies point in the same direction.', 'Rất nhiều nghiên cứu chỉ về cùng một hướng.'],
+'whereby': ['They agreed a system whereby staff can swap shifts online.', 'Họ thống nhất một cơ chế theo đó nhân viên đổi ca được qua mạng.'],
+'envy': ['I envy people who can sleep on a plane.', 'Tôi ghen tị với những người ngủ được trên máy bay.'],
+'frustrated': ['He was frustrated by the slow reply from the bank.', 'Anh ấy bực bội vì ngân hàng trả lời chậm.'],
+'nostalgic': ['The old song made everyone nostalgic for school.', 'Bài hát cũ làm ai cũng hoài niệm thời đi học.'],
+'bitter': ['She was bitter about how the project ended.', 'Cô ấy cay đắng về cách dự án kết thúc.'],
+'eager': ['The new students were eager to start speaking.', 'Các học viên mới háo hức muốn bắt đầu nói.'],
+'tempted': ['I was tempted to skip the last lesson, but I stayed.', 'Tôi đã thấy muốn bỏ buổi cuối, nhưng tôi ở lại.'],
+'overwhelmed': ['She felt overwhelmed in the first week and fine in the third.', 'Cô ấy thấy ngợp trong tuần đầu và ổn vào tuần thứ ba.'],
+'hesitant': ['He was hesitant about moving so far from his family.', 'Anh ấy ngập ngừng về việc chuyển đi xa gia đình đến thế.'],
+'cope': ['Nobody could cope with that many messages a day.', 'Không ai xoay xở nổi với chừng ấy tin nhắn mỗi ngày.'],
+'involve': ['The job involves travelling twice a month.', 'Công việc này kéo theo việc đi công tác hai lần mỗi tháng.'],
+'quit': ['He quit after the third round of unpaid overtime.', 'Anh ấy nghỉ việc sau đợt tăng ca không lương thứ ba.'],
+'pretend': ['Do not pretend to understand — ask again.', 'Đừng giả vờ hiểu — hãy hỏi lại.'],
+'resist': ['I could not resist buying another notebook.', 'Tôi không cưỡng lại được việc mua thêm một quyển sổ.'],
+'appreciate': ['I would appreciate it if you could reply by Friday.', 'Tôi rất cảm kích nếu bạn trả lời được trước thứ Sáu.'],
+'undertake': ['The university undertook a two-year study of commuting.', 'Trường đại học tiến hành một nghiên cứu hai năm về việc đi lại.'],
+'reluctance': ['Her reluctance to speak came from one bad experience.', 'Sự miễn cưỡng khi nói của cô ấy bắt nguồn từ một trải nghiệm tệ.'],
+'prove': ['The survey cannot prove that the app caused the change.', 'Khảo sát không chứng minh được rằng ứng dụng gây ra thay đổi đó.'],
+'undoubtedly': ['The scheme is undoubtedly popular; whether it works is another question.', 'Chương trình chắc chắn được ưa chuộng; nó có hiệu quả không lại là chuyện khác.'],
+'deduce': ['From the timestamps we can deduce who edited the file last.', 'Từ dấu thời gian ta suy ra được ai sửa tệp sau cùng.'],
+'speculate': ['It is too early to speculate about the cause.', 'Còn quá sớm để phỏng đoán về nguyên nhân.'],
+'entire': ['The entire team stayed until the problem was fixed.', 'Toàn đội ở lại cho đến khi vấn đề được sửa xong.'],
+'scarce': ['Cheap housing near the centre is scarce.', 'Nhà giá rẻ gần trung tâm rất khan hiếm.'],
+'abundant': ['Fresh herbs are abundant and cheap here all year.', 'Rau thơm tươi ở đây dồi dào và rẻ quanh năm.'],
+'sufficient': ['Two examples are sufficient for this paragraph.', 'Hai ví dụ là đủ cho đoạn này.'],
+'barely': ['We barely finished before the office closed.', 'Chúng tôi vừa kịp xong trước khi văn phòng đóng cửa.'],
+'considerable': ['The change saved a considerable amount of paper.', 'Thay đổi đó tiết kiệm được một lượng giấy đáng kể.'],
+'negligible': ['The difference between the two methods was negligible.', 'Khác biệt giữa hai phương pháp là không đáng kể.'],
+'nonetheless': ['The plan is expensive; nonetheless, it is the cheapest option we have.', 'Kế hoạch này tốn kém; dù vậy, nó là phương án rẻ nhất ta có.'],
+'thus': ['The line was rebuilt, thus cutting the journey by half.', 'Tuyến đường được xây lại, vì thế rút ngắn hành trình một nửa.'],
+'hence': ['The samples were contaminated, hence the strange result.', 'Các mẫu bị nhiễm bẩn, nên mới có kết quả lạ lùng đó.'],
+'consequently': ['Rain fell all week; consequently, the match was postponed.', 'Mưa cả tuần; do đó trận đấu bị hoãn.'],
+'likewise': ['Prices rose in the north; likewise in the coastal provinces.', 'Giá tăng ở miền Bắc; tương tự ở các tỉnh ven biển.'],
+'arguably': ['This is arguably the best chapter in the book.', 'Có thể cho rằng đây là chương hay nhất cuốn sách.'],
+'indeed': ['The course is useful — indeed, it changed how I read.', 'Khoá học hữu ích — quả thực nó đã thay đổi cách tôi đọc.'],
+'alternatively': ['Send the form by post, or alternatively bring it in person.', 'Hãy gửi đơn qua bưu điện, hoặc mang đến tận nơi cũng được.'],
+'ultimately': ['Ultimately the decision belongs to the residents.', 'Rốt cuộc quyết định thuộc về cư dân.'],
+'notably': ['Several cities cut emissions, notably the two on the coast.', 'Vài thành phố cắt giảm khí thải, đáng chú ý là hai thành phố ven biển.'],
+'highlight': ['The report highlights a gap between policy and practice.', 'Bản báo cáo làm nổi bật khoảng cách giữa chính sách và thực tế.'],
+'underline': ['These numbers underline how fast the district changed.', 'Những con số này nhấn mạnh quận đó đã thay đổi nhanh thế nào.'],
+'crucial': ['The first ten minutes of the interview are crucial.', 'Mười phút đầu của buổi phỏng vấn là then chốt.'],
+'vital': ['Clean water is vital and, in this plan, forgotten.', 'Nước sạch là thiết yếu và, trong kế hoạch này, đã bị quên.'],
+'notable': ['One notable exception is the school on the hill.', 'Một ngoại lệ đáng ghi nhận là ngôi trường trên đồi.'],
+'precisely': ['That is precisely the problem the report avoids.', 'Đó chính xác là vấn đề mà bản báo cáo né tránh.'],
+'particularly': ['The rule is unclear, particularly for part-time staff.', 'Quy định này không rõ, đặc biệt là với nhân viên bán thời gian.'],
+'utterly': ['The instructions were utterly useless without the diagram.', 'Phần hướng dẫn hoàn toàn vô dụng nếu không có sơ đồ.'],
+'thoroughly': ['Read the contract thoroughly before you sign.', 'Hãy đọc hợp đồng thật kỹ trước khi ký.'],
+'exceptional': ['Her second essay was exceptional, and she knew it.', 'Bài luận thứ hai của cô ấy xuất sắc, và cô ấy biết điều đó.'],
+'undeniably': ['The area is undeniably safer than it was.', 'Không thể phủ nhận khu này an toàn hơn trước.'],
+'fossil': ['The country still gets most of its power from fossil fuels.', 'Đất nước này vẫn lấy phần lớn điện năng từ nhiên liệu hoá thạch.'],
+'conserve': ['Turning the tap off while brushing conserves more water than people expect.', 'Khoá vòi khi đánh răng tiết kiệm nhiều nước hơn người ta tưởng.'],
+'biodiversity': ['The wetland holds more biodiversity than the whole park.', 'Vùng đất ngập nước chứa nhiều đa dạng sinh học hơn cả công viên.'],
+'habitat': ['Building the road cut the habitat into two halves.', 'Việc làm con đường cắt đôi môi trường sống của loài.'],
+'offset': ['Planting trees does not offset a daily flight.', 'Trồng cây không bù nổi cho một chuyến bay mỗi ngày.'],
+'footprint': ['Our footprint fell mainly because we stopped flying.', 'Dấu chân các-bon của chúng tôi giảm chủ yếu vì đã ngừng bay.'],
+'retrofit': ['It is cheaper to retrofit old flats than to build new ones.', 'Cải tạo căn hộ cũ rẻ hơn xây mới.'],
+'incentive': ['A small tax incentive changed what people bought.', 'Một ưu đãi thuế nhỏ đã thay đổi thứ người ta mua.'],
+'bias': ['Every survey has some bias; a good one admits it.', 'Khảo sát nào cũng có thiên kiến; khảo sát tốt thì thừa nhận điều đó.'],
+'editorial': ['The editorial disagreed with the paper own news report.', 'Bài xã luận không đồng tình với chính bản tin của tờ báo.'],
+'censorship': ['Censorship rarely removes a story; it only delays it.', 'Kiểm duyệt hiếm khi xoá được một câu chuyện; nó chỉ làm chậm lại.'],
+'propaganda': ['The posters were propaganda, but they were also good design.', 'Những tấm áp phích là tuyên truyền, nhưng cũng là thiết kế đẹp.'],
+'credibility': ['One unchecked claim can cost a paper its credibility.', 'Một tuyên bố không kiểm chứng có thể làm tờ báo mất uy tín.'],
+'viral': ['The clip went viral before anyone checked the date.', 'Đoạn clip lan truyền chóng mặt trước khi có ai kiểm tra ngày tháng.'],
+'algorithm': ['The algorithm shows you more of whatever you stop to watch.', 'Thuật toán cho bạn xem thêm những gì bạn dừng lại để xem.'],
+'feed': ['My feed is calmer since I unfollowed the news accounts.', 'Dòng tin của tôi yên ả hơn từ khi bỏ theo dõi các trang tin.'],
+'subscription': ['I cancelled the subscription after the free month.', 'Tôi huỷ gói thuê bao sau tháng miễn phí.'],
+'retract': ['The magazine retracted the article a week later.', 'Tạp chí rút lại bài báo một tuần sau đó.'],
+'clickbait': ['The headline was clickbait; the study said something narrower.', 'Tiêu đề là câu view; nghiên cứu nói một điều hẹp hơn nhiều.'],
+'transparency': ['Transparency about funding costs nothing and buys trust.', 'Minh bạch về nguồn tài trợ chẳng tốn gì mà mua được lòng tin.'],
+'workforce': ['Half the workforce here is under thirty.', 'Một nửa lực lượng lao động ở đây dưới ba mươi tuổi.'],
+'redundancy': ['She took the redundancy package and retrained.', 'Cô ấy nhận gói trợ cấp thôi việc và đi học nghề lại.'],
+'outsourcing': ['Outsourcing the support team saved money and lost customers.', 'Thuê ngoài đội hỗ trợ giúp tiết kiệm tiền và làm mất khách.'],
+'union': ['The union negotiated a shorter Friday for everyone.', 'Công đoàn thương lượng được ngày thứ Sáu ngắn hơn cho mọi người.'],
+'apprenticeship': ['He learned more in a one-year apprenticeship than in three years of lectures.', 'Anh ấy học được nhiều trong một năm học nghề hơn ba năm nghe giảng.'],
+'vacancy': ['There is one vacancy in the design team.', 'Nhóm thiết kế còn một vị trí trống.'],
+'recruitment': ['Recruitment takes longer than anyone plans for.', 'Việc tuyển dụng luôn lâu hơn mọi kế hoạch.'],
+'appraisal': ['My appraisal is in June, so I am keeping notes.', 'Buổi đánh giá của tôi vào tháng Sáu nên tôi đang ghi chép lại.'],
+'burnout': ['Burnout is not tiredness; a weekend does not fix it.', 'Kiệt sức vì công việc không phải là mệt; một cuối tuần không chữa được.'],
+'precarious': ['Short contracts make life precarious for young teachers.', 'Hợp đồng ngắn hạn khiến cuộc sống của giáo viên trẻ bấp bênh.'],
+'skillset': ['The role needs a skillset that no single course teaches.', 'Vị trí này cần một bộ kỹ năng mà không khoá học đơn lẻ nào dạy đủ.'],
+'diagnosis': ['An early diagnosis changes almost everything.', 'Chẩn đoán sớm thay đổi gần như mọi thứ.'],
+'immunity': ['Immunity from the vaccine falls slowly over the year.', 'Miễn dịch từ vắc-xin giảm dần trong năm.'],
+'prescription': ['You need a prescription for this medicine.', 'Bạn cần đơn thuốc để mua loại thuốc này.'],
+'surgery': ['The surgery went well and she was home in two days.', 'Ca phẫu thuật thuận lợi và hai ngày sau cô ấy về nhà.'],
+'chronic': ['Chronic pain is harder to measure than a broken bone.', 'Đau mạn tính khó đo lường hơn một cái xương gãy.'],
+'insurance': ['Check whether your insurance covers dental work.', 'Hãy kiểm tra xem bảo hiểm của bạn có chi trả cho răng không.'],
+'hygiene': ['Hand hygiene in hospitals saves more lives than most new machines.', 'Vệ sinh tay trong bệnh viện cứu nhiều mạng hơn phần lớn máy móc mới.'],
+'therapy': ['Speech therapy helped him more than any medicine.', 'Trị liệu ngôn ngữ giúp anh ấy nhiều hơn bất kỳ loại thuốc nào.'],
+'expectancy': ['Life expectancy rose by six years in one generation.', 'Tuổi thọ trung bình tăng sáu năm chỉ trong một thế hệ.'],
+'migration': ['Migration into the city slowed after the factories closed.', 'Dòng di cư vào thành phố chậm lại sau khi các nhà máy đóng cửa.'],
+'asylum': ['She applied for asylum and waited eighteen months.', 'Cô ấy xin tị nạn và chờ mười tám tháng.'],
+'integration': ['Integration works better when housing is mixed.', 'Sự hoà nhập diễn ra tốt hơn khi nhà ở được pha trộn.'],
+'diversity': ['The diversity of the neighbourhood is its main attraction.', 'Sự đa dạng của khu phố chính là sức hút lớn nhất của nó.'],
+'density': ['Population density here is four times the national average.', 'Mật độ dân số ở đây gấp bốn lần mức trung bình cả nước.'],
+'gentrification': ['Gentrification improved the street and emptied it of its old shops.', 'Sự cao cấp hoá làm phố đẹp lên và làm nó vắng bóng các cửa hàng cũ.'],
+'displacement': ['The plan mentions new homes but not displacement.', 'Kế hoạch nhắc tới nhà mới nhưng không nhắc tới việc người dân phải rời đi.'],
+'settlement': ['The settlement grew around a single well.', 'Khu định cư mọc lên quanh một cái giếng duy nhất.'],
+'census': ['The census showed the district had shrunk, not grown.', 'Cuộc tổng điều tra cho thấy quận này đã co lại chứ không lớn lên.'],
+'citizenship': ['He applied for citizenship after ten years.', 'Anh ấy xin nhập quốc tịch sau mười năm.'],
+'urbanisation': ['Urbanisation happened faster here than anyone planned for.', 'Đô thị hoá ở đây diễn ra nhanh hơn mọi tính toán.'],
+'remittance': ['Remittances from abroad pay for most of the new houses.', 'Kiều hối từ nước ngoài trả cho phần lớn những ngôi nhà mới.'],
+'heritage': ['The heritage listing saved the building but froze the street.', 'Việc xếp hạng di sản cứu được toà nhà nhưng làm con phố đóng băng.'],
+'ritual': ['The morning ritual takes ten minutes and sets the whole day.', 'Nghi thức buổi sáng mất mười phút và định hình cả ngày.'],
+'bilingual': ['Bilingual children often mix the two languages at first.', 'Trẻ song ngữ thường trộn hai thứ tiếng trong giai đoạn đầu.'],
+'fluency': ['Fluency is not speed; it is not having to stop.', 'Sự trôi chảy không phải là nói nhanh; đó là không phải dừng lại.'],
+'ancestor': ['Their ancestors moved here four generations ago.', 'Tổ tiên họ chuyển đến đây từ bốn đời trước.'],
+'assimilate': ['The second generation assimilated and lost the dialect.', 'Thế hệ thứ hai hoà tan vào và đánh mất phương ngữ.'],
+'folklore': ['The folklore of the delta survives mainly in songs.', 'Văn hoá dân gian vùng đồng bằng sống sót chủ yếu trong các bài hát.'],
+'craft': ['The craft takes eight years to learn and one generation to lose.', 'Nghề thủ công này mất tám năm để học và một thế hệ để mất.'],
+'stereotype': ['The film relies on a stereotype instead of a character.', 'Bộ phim dựa vào một định kiến rập khuôn thay vì một nhân vật.'],
+'norm': ['Working from home became the norm within a year.', 'Làm việc ở nhà trở thành chuẩn mực chỉ trong một năm.'],
+'endangered': ['Three of the languages spoken here are endangered.', 'Ba trong số các ngôn ngữ được nói ở đây đang có nguy cơ biến mất.'],
+'recession': ['The recession hit small shops before it reached the banks.', 'Suy thoái đánh vào các cửa hàng nhỏ trước khi chạm tới ngân hàng.'],
+'investment': ['The investment paid for itself in four years.', 'Khoản đầu tư tự hoàn vốn trong bốn năm.'],
+'mortgage': ['Their mortgage takes a third of the household income.', 'Khoản vay mua nhà chiếm một phần ba thu nhập gia đình họ.'],
+'expenditure': ['Household expenditure on food fell by six per cent.', 'Chi tiêu hộ gia đình cho thực phẩm giảm sáu phần trăm.'],
+'retail': ['Retail prices rose while wholesale prices stayed flat.', 'Giá bán lẻ tăng trong khi giá bán buôn đứng yên.'],
+'variable': ['The study controlled for one variable and forgot another.', 'Nghiên cứu kiểm soát một biến số và quên mất một biến khác.'],
+'correlation': ['There is a correlation, but the sample is tiny.', 'Có tương quan, nhưng mẫu quá nhỏ.'],
+'causation': ['Showing causation needs an experiment, not a survey.', 'Chứng minh nhân quả cần thí nghiệm, không phải khảo sát.'],
+'replicate': ['Two other teams failed to replicate the result.', 'Hai nhóm khác không lặp lại được kết quả đó.'],
+'peer': ['The paper was rejected by two peer reviewers.', 'Bài báo bị hai người bình duyệt cùng ngành từ chối.'],
+'ethics': ['The ethics committee asked for one change and approved it.', 'Hội đồng đạo đức yêu cầu sửa một điểm rồi phê duyệt.'],
+'methodology': ['The methodology section is where the weaknesses usually hide.', 'Phần phương pháp thường là nơi các điểm yếu ẩn mình.'],
+'laboratory': ['The samples went to an independent laboratory.', 'Các mẫu được gửi tới một phòng thí nghiệm độc lập.'],
+'placebo': ['A third of the placebo group reported feeling better.', 'Một phần ba nhóm dùng giả dược cho biết thấy khá hơn.'],
+'significance': ['The result reached statistical significance but means very little.', 'Kết quả đạt ý nghĩa thống kê nhưng nói lên rất ít.'],
+'anonymity': ['Anonymity made people answer honestly about pay.', 'Sự ẩn danh khiến người ta trả lời thành thật về lương.'],
+'integrity': ['Research integrity is easier to lose than to explain.', 'Sự liêm chính trong nghiên cứu dễ mất hơn là dễ giải thích.'],
+'legislation': ['New legislation on data comes into force in April.', 'Luật mới về dữ liệu có hiệu lực từ tháng Tư.'],
+'verdict': ['The verdict surprised everyone in the room.', 'Phán quyết làm mọi người trong phòng bất ngờ.'],
+'defendant': ['The defendant chose not to give evidence.', 'Bị cáo chọn không đưa ra lời khai.'],
+'prosecution': ['The prosecution called only two witnesses.', 'Bên công tố chỉ gọi hai nhân chứng.'],
+'testimony': ['Her testimony took the whole morning.', 'Lời khai của cô ấy chiếm trọn buổi sáng.'],
+'liability': ['The contract limits the company liability to the repair cost.', 'Hợp đồng giới hạn trách nhiệm của công ty ở mức chi phí sửa chữa.'],
+'surveillance': ['Surveillance of the car park runs day and night.', 'Việc giám sát bãi xe diễn ra suốt ngày đêm.'],
+'discrimination': ['She reported the discrimination and the policy changed.', 'Cô ấy tố cáo sự phân biệt đối xử và chính sách đã thay đổi.'],
+'breach': ['The data breach affected forty thousand accounts.', 'Vụ vi phạm dữ liệu ảnh hưởng tới bốn mươi nghìn tài khoản.'],
+'confidential': ['Salary details are confidential and stay in this room.', 'Chi tiết lương là thông tin mật và chỉ ở trong phòng này.'],
+'constitution': ['The right is written into the constitution itself.', 'Quyền đó được ghi thẳng vào hiến pháp.'],
+'warrant': ['The evidence does not warrant such a strong conclusion.', 'Bằng chứng không đủ để biện minh cho một kết luận mạnh như vậy.'],
+'thesis': ['State your thesis in the first paragraph, not the last.', 'Hãy nêu luận điểm ở đoạn đầu, không phải đoạn cuối.'],
+'premise': ['The argument is neat, but the premise is wrong.', 'Lập luận thì gọn, nhưng tiền đề lại sai.'],
+'counterargument': ['Answer the strongest counterargument, not the easiest one.', 'Hãy trả lời luận điểm phản bác mạnh nhất, không phải cái dễ nhất.'],
+'concession': ['Open the paragraph with a concession, then turn it.', 'Hãy mở đoạn bằng một nhượng bộ, rồi lật lại.'],
+'imply': ['The email implies a deadline without ever naming one.', 'Cái email hàm ý một hạn chót mà không hề nêu ra.'],
+'infer': ['Readers infer far more than writers intend.', 'Người đọc suy ra nhiều hơn hẳn điều người viết định nói.'],
+'ambiguous': ['The clause is ambiguous and both sides read it their own way.', 'Điều khoản này mơ hồ và mỗi bên đọc theo cách của mình.'],
+'objective': ['Try to stay objective when the topic is personal.', 'Hãy cố giữ khách quan khi chủ đề mang tính cá nhân.'],
+'subjective': ['Taste is subjective; the price is not.', 'Khẩu vị thì chủ quan; giá cả thì không.'],
+'nominalisation': ['Too much nominalisation makes a sentence heavy and vague.', 'Danh hoá quá nhiều làm câu văn nặng nề và mơ hồ.']
+};
+
+if (typeof module !== 'undefined'){ module.exports = { EN_EXAMPLES }; }
+
+</script>
+<script>
+/* ============================================================
    LangLab — Từ điển Anh–Việt cho người học
    Mỗi mục từ: phiên âm Anh/Mỹ, từ loại, các nghĩa xếp theo tần suất,
    ví dụ có dịch, dạng biến đổi, họ từ, collocation, cụm động từ,
@@ -30722,6 +31167,16 @@ const EN_LOOKUP = {};
     const k = String(e.w).toLowerCase();
     EN_LOOKUP[k] = Object.assign({}, EN_LOOKUP[k] || {}, e, { src:'dict' });
   });
+  /* Câu ví dụ soạn tay cho những từ khoá học chưa có ví dụ nào */
+  if (typeof EN_EXAMPLES !== 'undefined'){
+    Object.keys(EN_EXAMPLES).forEach(k => {
+      const e = EN_LOOKUP[k];
+      if (!e || !e.senses || !e.senses.length) return;
+      if (e.senses.some(s => s.ex && s.ex[0])) return;
+      e.senses = e.senses.slice();
+      e.senses[0] = Object.assign({}, e.senses[0], { ex: EN_EXAMPLES[k].slice() });
+    });
+  }
 })();
 
 if (typeof module !== 'undefined'){ module.exports = { EN_DICT, EN_LOOKUP }; }
@@ -38132,21 +38587,81 @@ VIEWS.en_phon = function(){
 };
 
 /* ---------- Từ điển tiếng Anh ---------- */
-function enEntryEx(w){
-  const out = [];
+/* ---------- Chỉ mục câu ví dụ của khoá học ----------
+   Gom hội thoại · ví dụ ngữ pháp · ví dụ collocation · từng câu trong bài đọc,
+   đánh chỉ mục theo DẠNG NGUYÊN THỂ nên tra «work» vẫn ra câu chứa «worked».
+   Dựng một lần, lười (chỉ khi mở từ điển lần đầu). */
+let _enExIdx = null;
+function enExIndex(){
+  if (_enExIdx) return _enExIdx;
+  const idx = Object.create(null);
+  const add = (k, item) => { if (!k) return; (idx[k] || (idx[k] = [])).push(item); };
+  const push = (en, vi, l, src) => {
+    en = String(en || '').trim();
+    if (en.length < 8) return;
+    const item = { en, vi: String(vi || '').trim(), lv: l.level, no: l.no, src };
+    const seen = Object.create(null);
+    en.toLowerCase().replace(/[’]/g, "'").split(/[^a-z']+/).forEach(t => {
+      t = t.replace(/^'+|'+$/g, '');
+      if (!t) return;
+      if (!seen[t]){ seen[t] = 1; add(t, item); }
+      const base = enLemma(t);
+      if (base && base !== t && !seen[base]){ seen[base] = 1; add(base, item); }
+    });
+  };
   _EC.lessons.forEach(l => {
-    const hit = t => t && new RegExp('\\b' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i').test(t);
-    (l.dialogue || []).forEach(d => { if (hit(d.en)) out.push({ en:d.en, vi:d.vi, lv:l.level, no:l.no }); });
-    (l.grammar || []).forEach(g => { if (g.ex && hit(g.ex.en)) out.push({ en:g.ex.en, vi:g.ex.vi, lv:l.level, no:l.no }); });
+    (l.dialogue || []).forEach(d => push(d.en, d.vi, l, 'hội thoại'));
+    (l.grammar  || []).forEach(g => { if (g.ex) push(g.ex.en, g.ex.vi, l, 'ngữ pháp'); });
+    (l.colloc   || []).forEach(c => { if (c.ex) push(c.ex, c.vi ? '' : '', l, 'collocation'); });
+    if (l.reading && l.reading.en){
+      const es = Words.splitSentences(String(l.reading.en).replace(/\n+/g, ' '));
+      const vs = Words.splitSentences(String(l.reading.vi || '').replace(/\n+/g, ' '));
+      const paired = es.length === vs.length;
+      es.forEach((sen, i) => push(sen, paired ? vs[i] : '', l, 'bài đọc'));
+    }
   });
-  return out.slice(0, 6);
+  return (_enExIdx = idx);
+}
+/** Tối đa 6 câu ví dụ cho một mục từ: ưu tiên câu có bản dịch và câu vừa phải.
+    Không có câu nào trong khoá học thì lấy ví dụ soạn riêng của mục từ. */
+function enEntryEx(w, entry){
+  const key = String(w || '').toLowerCase();
+  const list = (enExIndex()[key] || []).slice();
+  if (!list.length && entry && entry.senses){
+    entry.senses.forEach(x => { if (x.ex && x.ex[0]) list.push({ en:x.ex[0], vi:x.ex[1] || '', lv:null, no:null, src:'ví dụ mẫu' }); });
+  }
+  const score = x => (x.vi ? 0 : 40) + Math.abs(x.en.length - 90) / 10;
+  list.sort((a, b) => score(a) - score(b));
+  const out = [], seen = Object.create(null);
+  for (const x of list){
+    if (seen[x.en]) continue;
+    seen[x.en] = 1;
+    out.push(x);
+    if (out.length >= 6) break;
+  }
+  return out;
+}
+/** Như enTokens nhưng tô đậm những từ có cùng dạng nguyên thể với từ đang tra. */
+function enTokensHi(text, base){
+  const b = String(base || '').toLowerCase();
+  return String(text || '').split(/(\s+)/).map(part => {
+    if (/^\s+$/.test(part)) return part;
+    const m = part.match(/^([^A-Za-z']*)([A-Za-z][A-Za-z'-]*)(.*)$/);
+    if (!m) return esc(part);
+    const raw = m[2], key = enLemma(raw);
+    const hit = b && (raw.toLowerCase() === b || key === b);
+    const inner = key
+      ? `<span class="zc${hit ? ' en-hi' : ''}" data-en-word="${esc(key)}">${esc(raw)}</span>`
+      : (hit ? `<b class="en-hi">${esc(raw)}</b>` : esc(raw));
+    return esc(m[1]) + inner + esc(m[3]);
+  }).join('');
 }
 function enEntryHTML(e){
   if (!e) return '';
   const ipa = enIpa(e);
   const other = enVoice() === 'us' ? (e.uk ? `<span class="ph-tag">Anh <span class="ipa">/${esc(e.uk)}/</span></span>` : '') : (e.us && e.us !== e.uk ? `<span class="ph-tag">Mỹ <span class="ipa">/${esc(e.us)}/</span></span>` : '');
   const senses = e.senses || [];
-  const ex = enEntryEx(e.w);
+  const ex = enEntryEx(e.w, e);
   const F = e.forms || {};
   const formRows = [];
   if (F.v) formRows.push(['Chia động từ', F.v.join(' · ')]);
@@ -38170,7 +38685,8 @@ function enEntryHTML(e){
     ${e.idiom && e.idiom.length ? `<section class="ru-entry-sec"><h3>Thành ngữ</h3><div class="st-list">${e.idiom.map(x => `<div class="st-card"><h4 class="en">${esc(x[0])}</h4><p>${esc(x[1])}</p></div>`).join('')}</div></section>` : ''}
     ${e.family && e.family.length ? `<section class="ru-entry-sec"><h3>Họ từ</h3><div class="st-ex">${e.family.map(f => `<span><b class="en">${esc(f[0])}</b> <i>${esc(f[1])}</i> — ${esc(f[2])}</span>`).join('')}</div></section>` : ''}
     ${e.note ? `<section class="ru-entry-sec"><h3>Ghi chú dùng từ</h3><p>${esc(e.note)}</p></section>` : ''}
-    ${ex.length ? `<section class="ru-entry-sec"><h3>Ví dụ trong khoá học</h3><div class="ru-ex-list">${ex.map(x => `<div class="ru-ex-item"><div class="en">${enTokens(x.en)} ${enSpeakBtn(x.en, 'mini')}</div><div class="ru-ex-vi">${esc(x.vi)} · <button class="zh-ref" data-en-open="${x.lv}:${x.no}">${esc(enLevelName(x.lv))} unit ${x.no}</button></div></div>`).join('')}</div></section>` : ''}
+    ${ex.length ? `<section class="ru-entry-sec"><h3>Từ này dùng trong câu thế nào</h3><div class="ru-ex-list">${ex.map(x => `<div class="ru-ex-item"><div class="en">${enTokensHi(x.en, e.w)} ${enSpeakBtn(x.en, 'mini')}</div><div class="ru-ex-vi">${x.vi ? esc(x.vi) + ' · ' : ''}${x.lv ? `<button class="zh-ref" data-en-open="${x.lv}:${x.no}">${esc(enLevelName(x.lv))} unit ${x.no}</button> ` : ''}<span class="en-ex-src">${esc(x.src)}</span></div></div>`).join('')}</div></section>`
+      : `<section class="ru-entry-sec"><h3>Từ này dùng trong câu thế nào</h3><p class="tk-note-small">Chưa có câu nào trong khoá học chứa từ này. Bạn có thể dán một câu vào màn <b>Luyện shadowing</b> rồi bấm vào từ để xem nó nằm trong câu ra sao.</p></section>`}
   </div>`;
 }
 VIEWS.en_dict = function(){
@@ -38739,7 +39255,7 @@ function factClose(){
   factSchedule();
 }
 /* ----- màn hình «Bạn có biết?» ----- */
-if (typeof window !== 'undefined') window.__en = { lemma:enLemma, tokens:enTokens, ipa:enIpa, level:enLevel, lessons:enLessonList, phon:() => _EPA, course:() => _EC };
+if (typeof window !== 'undefined') window.__en = { lemma:enLemma, tokens:enTokens, ipa:enIpa, level:enLevel, lessons:enLessonList, phon:() => _EPA, course:() => _EC, entryEx:enEntryEx, exIndex:enExIndex };
 window.__facts = { pick:factPick, lang:factLang, show:factShowBubble, schedule:factSchedule, on:factsOn, open:factOpen, pool:factPool, store, applyPos:factApplyPos, resetPos:factResetPos, clampPos:factClampPos };
 VIEWS.facts = function(){
   const lang = state.factsLang || factLang() || 'ko';
