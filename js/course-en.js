@@ -12,7 +12,7 @@ const COURSE_EN = {
     { id:'a1', vi:'A1 · Sơ cấp',        en:'Beginner',           lessons:20, status:'active' },
     { id:'a2', vi:'A2 · Sơ trung cấp',  en:'Elementary',         lessons:20, status:'active' },
     { id:'b1', vi:'B1 · Trung cấp',     en:'Intermediate',       lessons:20, status:'active' },
-    { id:'b2', vi:'B2 · Trung cao cấp', en:'Upper-Intermediate', lessons:20, status:'soon' },
+    { id:'b2', vi:'B2 · Trung cao cấp', en:'Upper-Intermediate', lessons:20, status:'active' },
     { id:'c1', vi:'C1 · Cao cấp',       en:'Advanced',           lessons:20, status:'soon' },
     { id:'c2', vi:'C2 · Thành thạo',    en:'Proficiency',        lessons:20, status:'soon' }
   ],
@@ -2790,7 +2790,458 @@ const COURSE_EN = {
       { sp:'Teacher', en:'Acknowledge it, then explain why your view still holds.', vi:'Hãy thừa nhận nó, rồi giải thích vì sao quan điểm của em vẫn đứng vững.' }
     ],
     reading:{ en:'Some people believe that students should be required to study a foreign language throughout secondary school, while others argue that it should be optional after the age of fourteen. In my view, compulsory study should continue, although the way it is taught needs to change.\n\nThose who favour making languages optional point out that many students make little progress despite years of lessons. This is a fair criticism. However, the problem lies in method rather than in the subject itself. Classes of forty students, an examination that rewards memorised grammar, and almost no speaking practice would produce poor results in any subject.\n\nFurthermore, the benefits of language learning go beyond the language. Research suggests that studying another language improves understanding of one’s own, and students who continue to sixteen are far more likely to reach a useful level later. A subject dropped at fourteen is rarely picked up again.\n\nIn conclusion, while the frustration of both students and teachers is understandable, the solution is to reform teaching, not to abandon the subject. Smaller classes, more speaking and assessment that rewards communication would address the real problem.',
-      vi:'Một số người cho rằng học sinh nên bắt buộc học ngoại ngữ suốt bậc trung học, trong khi số khác lập luận rằng nên để tự chọn sau tuổi mười bốn. Theo tôi, việc học bắt buộc nên tiếp tục, dù cách dạy cần thay đổi.\n\nNhững người ủng hộ để ngoại ngữ thành môn tự chọn chỉ ra rằng nhiều học sinh tiến bộ rất ít dù học nhiều năm. Đó là lời phê bình công bằng. Tuy nhiên, vấn đề nằm ở phương pháp chứ không phải ở bản thân môn học. Lớp bốn mươi học sinh, một kỳ thi chỉ thưởng cho ngữ pháp học thuộc, và gần như không có luyện nói thì môn nào cũng cho kết quả kém.\n\nHơn nữa, lợi ích của việc học ngoại ngữ vượt ra ngoài chính ngôn ngữ đó. Nghiên cứu cho thấy học một ngôn ngữ khác giúp hiểu tiếng mẹ đẻ tốt hơn, và học sinh học tiếp tới mười sáu tuổi có khả năng đạt trình độ dùng được cao hơn nhiều về sau. Một môn bị bỏ dở ở tuổi mười bốn hiếm khi được học lại.\n\nTóm lại, dù sự bức bối của cả học sinh lẫn giáo viên là dễ hiểu, giải pháp là cải cách cách dạy chứ không phải bỏ môn học. Lớp ít học sinh hơn, nhiều luyện nói hơn và cách đánh giá coi trọng khả năng giao tiếp sẽ xử lý được vấn đề thật sự.' } }
+      vi:'Một số người cho rằng học sinh nên bắt buộc học ngoại ngữ suốt bậc trung học, trong khi số khác lập luận rằng nên để tự chọn sau tuổi mười bốn. Theo tôi, việc học bắt buộc nên tiếp tục, dù cách dạy cần thay đổi.\n\nNhững người ủng hộ để ngoại ngữ thành môn tự chọn chỉ ra rằng nhiều học sinh tiến bộ rất ít dù học nhiều năm. Đó là lời phê bình công bằng. Tuy nhiên, vấn đề nằm ở phương pháp chứ không phải ở bản thân môn học. Lớp bốn mươi học sinh, một kỳ thi chỉ thưởng cho ngữ pháp học thuộc, và gần như không có luyện nói thì môn nào cũng cho kết quả kém.\n\nHơn nữa, lợi ích của việc học ngoại ngữ vượt ra ngoài chính ngôn ngữ đó. Nghiên cứu cho thấy học một ngôn ngữ khác giúp hiểu tiếng mẹ đẻ tốt hơn, và học sinh học tiếp tới mười sáu tuổi có khả năng đạt trình độ dùng được cao hơn nhiều về sau. Một môn bị bỏ dở ở tuổi mười bốn hiếm khi được học lại.\n\nTóm lại, dù sự bức bối của cả học sinh lẫn giáo viên là dễ hiểu, giải pháp là cải cách cách dạy chứ không phải bỏ môn học. Lớp ít học sinh hơn, nhiều luyện nói hơn và cách đánh giá coi trọng khả năng giao tiếp sẽ xử lý được vấn đề thật sự.' } },
+
+  /* ==================== B2 ==================== */
+  { level:'b2', no:1, en:'Things are done differently here', vi:'Câu bị động ở mọi thì và cấu trúc nhờ vả', skill:'Mô tả quy trình',
+    grammar:[
+      { form:'be + V3 — bị động ở mọi thì', vi:'Đưa đối tượng chịu tác động lên đầu câu khi người thực hiện không quan trọng, không rõ, hoặc đã hiểu ngầm.', note:'Chỉ động từ có tân ngữ mới bị động hoá được. «happen, arrive, die, occur» không có dạng bị động — không nói ✗ an accident was happened.', ex:{ en:'Every batch is inspected twice before it is sent to the warehouse.', vi:'Mỗi lô hàng được kiểm tra hai lần trước khi chuyển vào kho.' } },
+      { form:'modal + be + V3 · modal + have been + V3', vi:'Bị động sau động từ khuyết thiếu, ở hiện tại và ở quá khứ.', note:'«should have been sent» = lẽ ra đã phải gửi (nhưng chưa). Đây là cách nói lỗi mà không đổ lỗi cho ai — rất hay dùng trong email công việc.', ex:{ en:'The faulty parts must be replaced, and you should have been told last week.', vi:'Các linh kiện lỗi phải được thay, và lẽ ra tuần trước bạn đã phải được thông báo.' } },
+      { form:'It is said that… · He is said to be…', vi:'Bị động khách quan: nêu thông tin chung mà không nhận trách nhiệm về nguồn.', note:'Hai cách viết cùng một ý: It is believed that he lives abroad = He is believed to live abroad. Nếu việc xảy ra trước, dùng to have + V3: He is believed to have left.', ex:{ en:'The company is thought to have moved its factory to Vietnam.', vi:'Người ta cho rằng công ty đã chuyển nhà máy sang Việt Nam.' } },
+      { form:'have / get something done — nhờ người khác làm', vi:'Chủ ngữ không tự làm mà thuê, nhờ hoặc để người khác làm giúp.', note:'«get» thân mật hơn «have». Cùng cấu trúc còn diễn tả điều không may: I had my laptop stolen — tôi bị mất trộm laptop.', ex:{ en:'We are having the air conditioner serviced tomorrow.', vi:'Ngày mai chúng tôi cho người đến bảo dưỡng điều hoà.' } }
+    ],
+    vocab:[
+      { en:'process', uk:'ˈprəʊses', us:'ˈprɑːses', vi:'quy trình; xử lý', pos:'danh từ / động từ', note:'Anh /ˈprəʊ-/, Mỹ /ˈprɑː-/.' },
+      { en:'manufacture', uk:'ˌmænjuˈfæktʃə', us:'ˌmænjəˈfæktʃər', vi:'sản xuất hàng loạt', pos:'động từ / danh từ' },
+      { en:'assemble', uk:'əˈsembl', us:'əˈsembl', vi:'lắp ráp; tập hợp lại', pos:'động từ' },
+      { en:'inspect', uk:'ɪnˈspekt', us:'ɪnˈspekt', vi:'kiểm tra kỹ lưỡng', pos:'động từ' },
+      { en:'reject', uk:'rɪˈdʒekt', us:'rɪˈdʒekt', vi:'loại bỏ, từ chối', pos:'động từ', note:'Danh từ đổi trọng âm: a reject /ˈriːdʒekt/ — hàng loại.' },
+      { en:'batch', uk:'bætʃ', us:'bætʃ', vi:'lô, mẻ', pos:'danh từ' },
+      { en:'warehouse', uk:'ˈweəhaʊs', us:'ˈwerhaʊs', vi:'kho hàng', pos:'danh từ' },
+      { en:'supplier', uk:'səˈplaɪə', us:'səˈplaɪər', vi:'nhà cung cấp', pos:'danh từ' },
+      { en:'deliver', uk:'dɪˈlɪvə', us:'dɪˈlɪvər', vi:'giao hàng; truyền đạt', pos:'động từ' },
+      { en:'install', uk:'ɪnˈstɔːl', us:'ɪnˈstɔːl', vi:'lắp đặt, cài đặt', pos:'động từ' },
+      { en:'maintain', uk:'meɪnˈteɪn', us:'meɪnˈteɪn', vi:'bảo trì; khẳng định', pos:'động từ', note:'Danh từ maintenance đổi trọng âm: /ˈmeɪntənəns/.' },
+      { en:'replace', uk:'rɪˈpleɪs', us:'rɪˈpleɪs', vi:'thay thế', pos:'động từ', note:'replace A with B — thay A bằng B.' },
+      { en:'standard', uk:'ˈstændəd', us:'ˈstændərd', vi:'tiêu chuẩn', pos:'danh từ / tính từ' },
+      { en:'quality', uk:'ˈkwɒləti', us:'ˈkwɑːləti', vi:'chất lượng; phẩm chất', pos:'danh từ' },
+      { en:'faulty', uk:'ˈfɔːlti', us:'ˈfɔːlti', vi:'bị lỗi, hỏng', pos:'tính từ' },
+      { en:'refund', uk:'ˈriːfʌnd', us:'ˈriːfʌnd', vi:'khoản hoàn tiền', pos:'danh từ', note:'Động từ đổi trọng âm: to refund /rɪˈfʌnd/.' },
+      { en:'warranty', uk:'ˈwɒrənti', us:'ˈwɔːrənti', vi:'bảo hành', pos:'danh từ', note:'under warranty — còn trong thời hạn bảo hành.' },
+      { en:'complaint', uk:'kəmˈpleɪnt', us:'kəmˈpleɪnt', vi:'lời khiếu nại', pos:'danh từ' },
+      { en:'procedure', uk:'prəˈsiːdʒə', us:'prəˈsiːdʒər', vi:'quy trình, thủ tục', pos:'danh từ' },
+      { en:'efficient', uk:'ɪˈfɪʃnt', us:'ɪˈfɪʃnt', vi:'hiệu quả, ít lãng phí', pos:'tính từ', note:'efficient = ít tốn nguồn lực; effective = đạt mục tiêu. Hai từ khác nhau.' }
+    ],
+    colloc:[
+      { p:'carry out a procedure', vi:'thực hiện một quy trình', ex:'All checks are carried out by an independent inspector.' },
+      { p:'meet the standard', vi:'đạt tiêu chuẩn', ex:'Two batches failed to meet the standard and were rejected.' },
+      { p:'file a complaint', vi:'nộp đơn khiếu nại', ex:'If the goods arrive damaged, a complaint can be filed online.' }
+    ],
+    dialogue:[
+      { sp:'Ms Hale', en:'Welcome to the plant, Quan. Everything you see here is monitored from that control room.', vi:'Chào mừng đến nhà máy, Quân. Mọi thứ anh thấy ở đây đều được theo dõi từ phòng điều khiển kia.' },
+      { sp:'Quan', en:'How often are the machines serviced?', vi:'Máy móc được bảo dưỡng bao lâu một lần ạ?' },
+      { sp:'Ms Hale', en:'Once a month. We have the sensors calibrated by the supplier twice a year as well.', vi:'Mỗi tháng một lần. Chúng tôi còn cho nhà cung cấp hiệu chuẩn cảm biến hai lần mỗi năm.' },
+      { sp:'Quan', en:'And what happens if a batch is rejected?', vi:'Thế nếu một lô hàng bị loại thì sao ạ?' },
+      { sp:'Ms Hale', en:'It is sent back to be assembled again. Nothing faulty is allowed to leave the warehouse.', vi:'Nó được gửi lại để lắp ráp lại. Không có hàng lỗi nào được phép rời kho.' },
+      { sp:'Quan', en:'I was told the whole line had been redesigned last year. Is that right?', vi:'Em nghe nói cả dây chuyền đã được thiết kế lại năm ngoái. Đúng vậy không ạ?' },
+      { sp:'Ms Hale', en:'It was. The old one is said to have used twice as much electricity.', vi:'Đúng vậy. Người ta nói dây chuyền cũ tốn gấp đôi điện năng.' }
+    ],
+    reading:{ en:'Where does a cup of coffee come from?\n\nThe beans in a supermarket packet have usually travelled further than most of the people who drink them. They are picked by hand, often on small farms of less than two hectares, then washed, dried in the sun and sorted by size. Anything damaged is removed at this stage. The green beans are then packed into sacks and shipped, a journey that can take six weeks.\n\nRoasting is done close to the market rather than close to the farm, because roasted coffee loses its flavour within weeks while green coffee keeps for a year. Once the beans have been roasted, they must be packed quickly in bags with a one-way valve, otherwise the aroma is lost.\n\nIt is often said that consumers do not care where their food comes from, but the growth of traceable coffee suggests otherwise. On many packets a code is printed which can be entered on a website; the farm, the harvest date and even the altitude are then displayed. Whether this information changes what people buy is still debated, but it has certainly changed what producers are willing to reveal.', vi:'Một tách cà phê đến từ đâu?\n\nHạt cà phê trong gói ở siêu thị thường đã đi xa hơn phần lớn những người uống chúng. Chúng được hái bằng tay, thường ở các nông trại nhỏ dưới hai hecta, rồi được rửa, phơi nắng và phân loại theo kích cỡ. Hạt hư hỏng bị loại ở khâu này. Hạt xanh sau đó được đóng bao và vận chuyển bằng tàu biển, hành trình có thể kéo dài sáu tuần.\n\nViệc rang được làm gần thị trường tiêu thụ chứ không gần nông trại, vì cà phê đã rang mất hương chỉ sau vài tuần trong khi cà phê nhân giữ được cả năm. Khi đã rang xong, hạt phải được đóng gói nhanh vào túi có van một chiều, nếu không hương thơm sẽ bay mất.\n\nNgười ta hay nói người tiêu dùng không quan tâm thực phẩm của mình đến từ đâu, nhưng sự phát triển của cà phê truy xuất nguồn gốc cho thấy điều ngược lại. Trên nhiều gói có in một mã có thể nhập vào website; nông trại, ngày thu hoạch và cả độ cao sẽ hiện ra. Thông tin đó có làm thay đổi lựa chọn mua hàng hay không vẫn còn tranh cãi, nhưng chắc chắn nó đã thay đổi mức độ minh bạch mà nhà sản xuất sẵn sàng công bố.' } },
+
+  { level:'b2', no:2, en:'She said she would think about it', vi:'Câu tường thuật và động từ tường thuật', skill:'Thuật lại lời người khác',
+    grammar:[
+      { form:'Lùi thì và đổi từ chỉ thời gian, nơi chốn', vi:'Khi thuật lại, thì lùi một bậc và các từ chỉ mốc quy chiếu đổi theo người kể.', note:'now → then · today → that day · tomorrow → the next day · here → there · this → that. «say» không có tân ngữ người, «tell» thì có: he said to me = he told me.', ex:{ en:'“I am busy today.” → She said she was busy that day.', vi:'“Hôm nay tôi bận.” → Cô ấy nói hôm đó cô ấy bận.' } },
+      { form:'Khi KHÔNG cần lùi thì', vi:'Giữ nguyên thì khi điều đó vẫn đúng, khi vừa nói xong, hoặc khi động từ đã ở dạng không lùi được.', note:'would, could, should, might, ought to, và câu điều kiện loại 2/3 giữ nguyên. «He said the earth goes round the sun» — sự thật vẫn đúng nên không lùi.', ex:{ en:'She just called — she says the train is delayed.', vi:'Cô ấy vừa gọi — cô ấy nói tàu bị hoãn.' } },
+      { form:'Câu hỏi tường thuật: ask + if/whether + trật tự khẳng định', vi:'Bỏ trợ động từ do/does/did, đưa về trật tự chủ ngữ trước động từ, không dùng dấu hỏi.', note:'Lỗi phổ biến nhất của người Việt: ✗ He asked me where did I live. ✓ He asked me where I lived.', ex:{ en:'“Do you work here?” → He asked whether I worked there.', vi:'“Bạn làm việc ở đây à?” → Anh ấy hỏi tôi có làm việc ở đó không.' } },
+      { form:'Động từ tường thuật đi với cấu trúc riêng', vi:'Mỗi động từ tường thuật đòi một dạng khác nhau — học theo cụm, không suy đoán.', note:'admit/deny + V-ing · refuse/promise/threaten + to V · advise/warn/persuade + sb + to V · insist on + V-ing · suggest + V-ing hoặc that + should · accuse sb of + V-ing · blame sb for + V-ing.', ex:{ en:'He admitted making a mistake and promised to fix it.', vi:'Anh ấy thừa nhận đã mắc lỗi và hứa sẽ sửa.' } }
+    ],
+    vocab:[
+      { en:'admit', uk:'ədˈmɪt', us:'ədˈmɪt', vi:'thừa nhận', pos:'động từ', note:'admit doing / admit that. Gấp đôi «t»: admitted.' },
+      { en:'deny', uk:'dɪˈnaɪ', us:'dɪˈnaɪ', vi:'phủ nhận', pos:'động từ', note:'deny doing — không bao giờ deny to do.' },
+      { en:'claim', uk:'kleɪm', us:'kleɪm', vi:'tuyên bố (chưa chắc đúng); đòi', pos:'động từ / danh từ' },
+      { en:'insist', uk:'ɪnˈsɪst', us:'ɪnˈsɪst', vi:'khăng khăng, nằng nặc', pos:'động từ', note:'insist on doing something.' },
+      { en:'refuse', uk:'rɪˈfjuːz', us:'rɪˈfjuːz', vi:'từ chối', pos:'động từ', note:'Danh từ refuse /ˈrefjuːs/ nghĩa là «rác» — khác hẳn.' },
+      { en:'warn', uk:'wɔːn', us:'wɔːrn', vi:'cảnh báo', pos:'động từ', note:'warn somebody about / against doing.' },
+      { en:'remind', uk:'rɪˈmaɪnd', us:'rɪˈmaɪnd', vi:'nhắc nhở', pos:'động từ', note:'remind sb of sth (gợi nhớ) khác remind sb to do (nhắc làm).' },
+      { en:'persuade', uk:'pəˈsweɪd', us:'pərˈsweɪd', vi:'thuyết phục (thành công)', pos:'động từ' },
+      { en:'apologise', uk:'əˈpɒlədʒaɪz', us:'əˈpɑːlədʒaɪz', vi:'xin lỗi', pos:'động từ', note:'Mỹ viết apologize. apologise to sb for sth.' },
+      { en:'complain', uk:'kəmˈpleɪn', us:'kəmˈpleɪn', vi:'phàn nàn', pos:'động từ', note:'complain to sb about sth.' },
+      { en:'mention', uk:'ˈmenʃn', us:'ˈmenʃn', vi:'nhắc đến, đề cập', pos:'động từ', note:'Không có giới từ: ✗ mention about.' },
+      { en:'announce', uk:'əˈnaʊns', us:'əˈnaʊns', vi:'thông báo chính thức', pos:'động từ' },
+      { en:'confirm', uk:'kənˈfɜːm', us:'kənˈfɜːrm', vi:'xác nhận', pos:'động từ' },
+      { en:'promise', uk:'ˈprɒmɪs', us:'ˈprɑːmɪs', vi:'hứa', pos:'động từ / danh từ' },
+      { en:'threaten', uk:'ˈθretn', us:'ˈθretn', vi:'đe doạ', pos:'động từ' },
+      { en:'suggest', uk:'səˈdʒest', us:'səˈdʒest', vi:'gợi ý, đề xuất', pos:'động từ', note:'✗ suggest me to go. ✓ suggest going / suggest that I go.' },
+      { en:'recommend', uk:'ˌrekəˈmend', us:'ˌrekəˈmend', vi:'khuyên dùng, tiến cử', pos:'động từ' },
+      { en:'accuse', uk:'əˈkjuːz', us:'əˈkjuːz', vi:'buộc tội, cáo buộc', pos:'động từ', note:'accuse sb of doing sth.' },
+      { en:'blame', uk:'bleɪm', us:'bleɪm', vi:'đổ lỗi', pos:'động từ / danh từ', note:'blame sb for sth = put the blame on sb.' },
+      { en:'whether', uk:'ˈweðə', us:'ˈweðər', vi:'liệu có… hay không', pos:'liên từ', note:'Sau giới từ và trước «or not» chỉ dùng whether, không dùng if.' }
+    ],
+    colloc:[
+      { p:'break the news', vi:'báo tin (thường là tin không vui)', ex:'Nobody wanted to break the news to her.' },
+      { p:'go back on your word', vi:'nuốt lời', ex:'He promised a pay rise, then went back on his word.' },
+      { p:'raise a concern', vi:'nêu một lo ngại', ex:'Several staff raised concerns about the new schedule.' }
+    ],
+    dialogue:[
+      { sp:'Linh', en:'How did the meeting go? You look worried.', vi:'Cuộc họp thế nào? Trông cậu lo lắng ghê.' },
+      { sp:'Quan', en:'The manager announced that the project would be delayed by three months.', vi:'Quản lý thông báo dự án sẽ bị hoãn ba tháng.' },
+      { sp:'Linh', en:'Did anyone ask why?', vi:'Có ai hỏi vì sao không?' },
+      { sp:'Quan', en:'I did. He said the supplier had gone back on an agreement, but he refused to give details.', vi:'Tớ hỏi. Anh ấy nói nhà cung cấp đã nuốt lời, nhưng anh ấy từ chối nói chi tiết.' },
+      { sp:'Linh', en:'That is strange. Did he mention the budget?', vi:'Lạ nhỉ. Anh ấy có nhắc đến ngân sách không?' },
+      { sp:'Quan', en:'Only briefly. He denied cutting it, then suggested reviewing it next week.', vi:'Chỉ qua loa thôi. Anh ấy phủ nhận việc cắt giảm, rồi đề xuất rà soát lại vào tuần sau.' },
+      { sp:'Linh', en:'In other words, he told you nothing and asked you to wait.', vi:'Nói cách khác, anh ấy chẳng nói gì và bảo cậu chờ.' }
+    ],
+    reading:{ en:'How a rumour travels\n\nIn 1947 two American psychologists asked volunteers to look at a picture for a few seconds, then describe it to someone who had not seen it. That person described it to a third, and so on down a chain of six or seven people. By the end, the description that came out bore very little resemblance to the picture that had gone in.\n\nThree things happened every time. Details were dropped, so the story became shorter. Whatever remained was made sharper and more dramatic. And the whole account was quietly reshaped to fit what the listeners already expected to be true.\n\nThe experiment is often mentioned in discussions of social media, and the comparison is fair up to a point. What has changed is speed and reach, not psychology. A claim that would once have been repeated to a dozen neighbours can now be forwarded to a hundred thousand strangers before anyone has confirmed it.\n\nThe practical lesson is not that people lie. Most of the volunteers were doing their honest best. It is that a message which has passed through several hands should be treated as a summary of a summary — useful, perhaps, but not evidence.', vi:'Một tin đồn lan đi thế nào\n\nNăm 1947, hai nhà tâm lý học Mỹ đề nghị các tình nguyện viên nhìn một bức tranh vài giây, rồi mô tả lại cho người chưa từng thấy nó. Người đó mô tả cho người thứ ba, cứ thế qua chuỗi sáu bảy người. Đến cuối, phần mô tả thu được gần như không còn giống bức tranh ban đầu.\n\nLần nào cũng xảy ra ba điều. Các chi tiết bị lược bỏ, nên câu chuyện ngắn lại. Phần còn lại được làm sắc nét và kịch tính hơn. Và toàn bộ câu chuyện bị âm thầm nắn lại cho khớp với điều người nghe vốn đã tin là đúng.\n\nThí nghiệm này hay được nhắc đến khi bàn về mạng xã hội, và phép so sánh đó có lý ở một mức độ nhất định. Thứ đã thay đổi là tốc độ và tầm với, chứ không phải tâm lý con người. Một tuyên bố ngày trước chỉ được kể lại cho chục người hàng xóm thì nay có thể được chuyển tiếp tới hàng trăm nghìn người lạ trước khi có ai kịp kiểm chứng.\n\nBài học thực tế không phải là con người hay nói dối. Phần lớn tình nguyện viên đều thành thật cố gắng. Bài học là: một thông điệp đã qua nhiều tay nên được coi là bản tóm tắt của một bản tóm tắt — có thể hữu ích, nhưng không phải bằng chứng.' } },
+
+  { level:'b2', no:3, en:'If I had known…', vi:'Điều kiện hỗn hợp và đảo ngữ', skill:'Giả định và hối tiếc',
+    grammar:[
+      { form:'Điều kiện hỗn hợp 3 → 2: If + had V3, would + V nguyên thể', vi:'Điều kiện trong quá khứ nhưng kết quả ở hiện tại.', note:'Dấu hiệu thường là «now» hoặc «today» ở mệnh đề chính.', ex:{ en:'If I had taken that job, I would be living in Singapore now.', vi:'Nếu hồi đó tôi nhận công việc kia thì bây giờ tôi đã sống ở Singapore.' } },
+      { form:'Điều kiện hỗn hợp 2 → 3: If + quá khứ đơn, would have + V3', vi:'Điều kiện là đặc điểm luôn đúng, kết quả nằm ở quá khứ.', note:'Dạng này nói về tính cách, thói quen: «If I were more organised…» — tôi vốn không ngăn nắp, nên chuyện đó đã xảy ra.', ex:{ en:'If she were more careful, she would not have lost the file.', vi:'Nếu cô ấy vốn cẩn thận hơn thì đã không làm mất tệp đó.' } },
+      { form:'Đảo ngữ thay cho «if»: Had I… · Were I… · Should you…', vi:'Bỏ «if», đưa had/were/should lên trước chủ ngữ. Trang trọng hơn, hay gặp trong văn viết.', note:'Dạng phủ định KHÔNG rút gọn: ✓ Had I not known · ✗ Hadn’t I known.', ex:{ en:'Should you need any help, please contact the office.', vi:'Nếu anh cần giúp gì, xin liên hệ văn phòng.' } },
+      { form:'unless · provided that · as long as · in case · otherwise', vi:'Các liên từ điều kiện ngoài «if», mỗi từ một sắc thái riêng.', note:'unless = if not (chỉ dùng cho điều kiện dương duy nhất). in case = đề phòng trước, KHÔNG phải «nếu»: Take an umbrella in case it rains — mang ô phòng khi trời mưa (chưa mưa).', ex:{ en:'You can borrow the car provided that you fill the tank.', vi:'Cậu mượn xe được, miễn là đổ đầy bình.' } }
+    ],
+    vocab:[
+      { en:'assume', uk:'əˈsjuːm', us:'əˈsuːm', vi:'cho rằng, mặc định', pos:'động từ', note:'Danh từ: assumption /əˈsʌmpʃn/.' },
+      { en:'outcome', uk:'ˈaʊtkʌm', us:'ˈaʊtkʌm', vi:'kết quả cuối cùng', pos:'danh từ' },
+      { en:'consequence', uk:'ˈkɒnsɪkwəns', us:'ˈkɑːnsəkwens', vi:'hệ quả', pos:'danh từ', note:'as a consequence of = do hậu quả của.' },
+      { en:'alternative', uk:'ɔːlˈtɜːnətɪv', us:'ɔːlˈtɜːrnətɪv', vi:'phương án thay thế', pos:'danh từ / tính từ' },
+      { en:'reconsider', uk:'ˌriːkənˈsɪdə', us:'ˌriːkənˈsɪdər', vi:'cân nhắc lại', pos:'động từ' },
+      { en:'hesitate', uk:'ˈhezɪteɪt', us:'ˈhezɪteɪt', vi:'do dự', pos:'động từ', note:'hesitate to do something.' },
+      { en:'opportunity', uk:'ˌɒpəˈtjuːnəti', us:'ˌɑːpərˈtuːnəti', vi:'cơ hội', pos:'danh từ', note:'an opportunity to do — không dùng «for do».' },
+      { en:'risk', uk:'rɪsk', us:'rɪsk', vi:'rủi ro; liều', pos:'danh từ / động từ', note:'risk doing something (không phải to do).' },
+      { en:'guarantee', uk:'ˌɡærənˈtiː', us:'ˌɡerənˈtiː', vi:'bảo đảm', pos:'động từ / danh từ', note:'Trọng âm cuối từ.' },
+      { en:'cautious', uk:'ˈkɔːʃəs', us:'ˈkɔːʃəs', vi:'thận trọng', pos:'tính từ' },
+      { en:'inevitable', uk:'ɪnˈevɪtəbl', us:'ɪnˈevɪtəbl', vi:'không thể tránh khỏi', pos:'tính từ' },
+      { en:'unlikely', uk:'ʌnˈlaɪkli', us:'ʌnˈlaɪkli', vi:'khó xảy ra', pos:'tính từ', note:'It is unlikely that… / She is unlikely to come.' },
+      { en:'likelihood', uk:'ˈlaɪklihʊd', us:'ˈlaɪklihʊd', vi:'khả năng xảy ra', pos:'danh từ', note:'in all likelihood = nhiều khả năng là.' },
+      { en:'circumstance', uk:'ˈsɜːkəmstəns', us:'ˈsɜːrkəmstæns', vi:'hoàn cảnh', pos:'danh từ', note:'Hay dùng số nhiều: under no circumstances — tuyệt đối không.' },
+      { en:'option', uk:'ˈɒpʃn', us:'ˈɑːpʃn', vi:'lựa chọn', pos:'danh từ' },
+      { en:'backup', uk:'ˈbækʌp', us:'ˈbækʌp', vi:'bản dự phòng; sự hỗ trợ', pos:'danh từ', note:'Động từ tách rời: back up your files.' },
+      { en:'precaution', uk:'prɪˈkɔːʃn', us:'prɪˈkɔːʃn', vi:'biện pháp phòng ngừa', pos:'danh từ', note:'take precautions against something.' },
+      { en:'deadline', uk:'ˈdedlaɪn', us:'ˈdedlaɪn', vi:'hạn chót', pos:'danh từ', note:'meet / miss a deadline.' },
+      { en:'priority', uk:'praɪˈɒrəti', us:'praɪˈɔːrəti', vi:'ưu tiên', pos:'danh từ', note:'give priority to something.' },
+      { en:'otherwise', uk:'ˈʌðəwaɪz', us:'ˈʌðərwaɪz', vi:'nếu không thì; ngoài ra', pos:'trạng từ' }
+    ],
+    colloc:[
+      { p:'weigh up the options', vi:'cân nhắc các phương án', ex:'Take a day to weigh up the options before you reply.' },
+      { p:'take a calculated risk', vi:'chấp nhận rủi ro có tính toán', ex:'Leaving a stable job was a calculated risk, not a whim.' },
+      { p:'have second thoughts', vi:'đâm ra do dự, nghĩ lại', ex:'She had second thoughts about moving abroad.' }
+    ],
+    dialogue:[
+      { sp:'Quan', en:'If I had applied for that scholarship, I would be in Melbourne now.', vi:'Nếu hồi đó tớ nộp học bổng kia thì bây giờ tớ đã ở Melbourne.' },
+      { sp:'Mark', en:'Why didn’t you? You had the grades.', vi:'Sao cậu không nộp? Cậu đủ điểm mà.' },
+      { sp:'Quan', en:'I assumed the deadline was in June. Had I checked the website, I would have seen it was April.', vi:'Tớ cứ nghĩ hạn là tháng Sáu. Nếu tớ kiểm tra website thì đã thấy hạn là tháng Tư.' },
+      { sp:'Mark', en:'Well, unless they only run it once, there will be another round.', vi:'Ừ thì, trừ khi họ chỉ mở một lần, sẽ còn đợt sau mà.' },
+      { sp:'Quan', en:'There is, but it is far more competitive. If I were less cautious, I would have applied to three places at once.', vi:'Có, nhưng cạnh tranh hơn nhiều. Nếu tớ vốn bớt thận trọng thì đã nộp ba nơi cùng lúc rồi.' },
+      { sp:'Mark', en:'Then do that this time. Should you need someone to read your essay, I am happy to.', vi:'Vậy lần này làm thế đi. Nếu cậu cần người đọc bài luận thì tớ sẵn lòng.' },
+      { sp:'Quan', en:'Thanks. I will set three reminders, in case I forget again.', vi:'Cảm ơn. Tớ sẽ đặt ba lời nhắc, phòng khi lại quên.' }
+    ],
+    reading:{ en:'The cost of a missed deadline\n\nEconomists have a term for the value of the option you did not take: opportunity cost. It is easy to state and surprisingly hard to feel. If you spend a Saturday on a badly paid piece of freelance work, the true cost is not the effort — it is the course you could have studied instead.\n\nThe difficulty is that the alternative never becomes visible. Had you chosen it, you would have seen its problems too, and they might have been worse. This is why regret is such an unreliable guide. People who did not emigrate imagine a smooth life abroad; people who did emigrate imagine the promotion they would have had at home. Both are comparing a real life, with all its friction, against an imagined one that was never tested.\n\nA more useful habit is to judge the decision rather than the outcome. Given what you knew at the time, and the time you had, was the reasoning sound? Some good decisions end badly and some careless ones end well. If you only learn from results, you will draw the wrong lesson roughly half the time.', vi:'Cái giá của một hạn chót bị bỏ lỡ\n\nCác nhà kinh tế có một thuật ngữ cho giá trị của lựa chọn mà bạn đã không chọn: chi phí cơ hội. Nói ra thì dễ, cảm nhận được lại khó đến bất ngờ. Nếu bạn dành cả thứ Bảy cho một việc làm thêm trả công bèo bọt, cái giá thật sự không phải là công sức — mà là khoá học lẽ ra bạn đã có thể học.\n\nKhó ở chỗ phương án kia không bao giờ hiện ra rõ ràng. Nếu bạn đã chọn nó, bạn cũng sẽ thấy những rắc rối của nó, và có khi còn tệ hơn. Đó là lý do sự hối tiếc là một người dẫn đường rất không đáng tin. Người không ra nước ngoài thì tưởng tượng một cuộc sống suôn sẻ ở xứ người; người đã đi thì tưởng tượng chức vụ lẽ ra mình có ở quê nhà. Cả hai đều đang so một cuộc đời thật, với mọi trắc trở của nó, với một cuộc đời tưởng tượng chưa từng được kiểm chứng.\n\nMột thói quen hữu ích hơn là đánh giá quyết định thay vì đánh giá kết quả. Với những gì bạn biết lúc đó và thời gian bạn có, lập luận có vững không? Có những quyết định đúng lại kết thúc tệ, và những quyết định cẩu thả lại may mắn. Nếu chỉ học từ kết quả, khoảng một nửa số lần bạn sẽ rút ra bài học sai.' } },
+
+  { level:'b2', no:4, en:'The report which changed everything', vi:'Mệnh đề quan hệ đầy đủ và rút gọn', skill:'Định nghĩa và miêu tả chính xác',
+    grammar:[
+      { form:'Mệnh đề xác định và không xác định', vi:'Mệnh đề xác định cho biết đang nói về ai/cái nào; mệnh đề không xác định chỉ thêm thông tin phụ và luôn có dấu phẩy.', note:'Dấu phẩy đổi nghĩa cả câu: «My brother who lives in Hue» (tôi có nhiều anh em) ≠ «My brother, who lives in Hue,» (tôi chỉ có một). «that» chỉ dùng cho mệnh đề xác định.', ex:{ en:'The email that arrived this morning was from HR. · The email, which arrived this morning, was from HR.', vi:'Email đến sáng nay là của phòng nhân sự. · Email đó, vốn đến sáng nay, là của phòng nhân sự.' } },
+      { form:'Giới từ + which / whom', vi:'Trong văn trang trọng, giới từ đứng trước which/whom thay vì bị đẩy ra cuối.', note:'✓ the company for which he works (trang trọng) = the company he works for (thông dụng). Sau giới từ KHÔNG dùng that: ✗ for that he works.', ex:{ en:'This is the colleague with whom I share an office.', vi:'Đây là đồng nghiệp mà tôi dùng chung phòng làm việc.' } },
+      { form:'Mệnh đề quan hệ rút gọn: V-ing và V3', vi:'Bỏ đại từ quan hệ và động từ «be» khi chủ ngữ của hai mệnh đề trùng nhau.', note:'Chủ động → V-ing: the man who is standing → the man standing. Bị động → V3: the report which was written → the report written. Đây là cách viết ngắn gọn đặc trưng của văn học thuật.', ex:{ en:'The measures introduced last year have already had an effect.', vi:'Các biện pháp được đưa ra năm ngoái đã có tác dụng.' } },
+      { form:'whose · which nhắc lại cả mệnh đề trước', vi:'«whose» chỉ sở hữu cho cả người lẫn vật; «, which» có thể thay cho toàn bộ ý vừa nói.', note:'Không dùng «what» để làm việc này: ✗ He arrived late, what annoyed everyone. ✓ …, which annoyed everyone.', ex:{ en:'She missed the deadline, which surprised us all.', vi:'Cô ấy trễ hạn, điều đó làm tất cả chúng tôi ngạc nhiên.' } }
+    ],
+    vocab:[
+      { en:'identify', uk:'aɪˈdentɪfaɪ', us:'aɪˈdentɪfaɪ', vi:'xác định, nhận diện', pos:'động từ' },
+      { en:'define', uk:'dɪˈfaɪn', us:'dɪˈfaɪn', vi:'định nghĩa', pos:'động từ', note:'Danh từ: definition /ˌdefɪˈnɪʃn/.' },
+      { en:'feature', uk:'ˈfiːtʃə', us:'ˈfiːtʃər', vi:'đặc điểm nổi bật', pos:'danh từ / động từ' },
+      { en:'characteristic', uk:'ˌkærəktəˈrɪstɪk', us:'ˌkerəktəˈrɪstɪk', vi:'đặc trưng', pos:'danh từ / tính từ' },
+      { en:'distinguish', uk:'dɪˈstɪŋɡwɪʃ', us:'dɪˈstɪŋɡwɪʃ', vi:'phân biệt', pos:'động từ', note:'distinguish A from B / between A and B.' },
+      { en:'refer', uk:'rɪˈfɜː', us:'rɪˈfɜːr', vi:'nhắc đến; tra cứu', pos:'động từ', note:'refer to. Gấp đôi «r»: referred, referring.' },
+      { en:'associate', uk:'əˈsəʊʃieɪt', us:'əˈsoʊʃieɪt', vi:'liên hệ, gắn với', pos:'động từ', note:'Tính từ/danh từ đọc /əˈsəʊʃiət/ — đuôi yếu.' },
+      { en:'previous', uk:'ˈpriːviəs', us:'ˈpriːviəs', vi:'trước đó', pos:'tính từ' },
+      { en:'subsequent', uk:'ˈsʌbsɪkwənt', us:'ˈsʌbsɪkwənt', vi:'kế tiếp, sau đó', pos:'tính từ', note:'Trạng từ subsequently rất hay gặp trong văn học thuật.' },
+      { en:'respective', uk:'rɪˈspektɪv', us:'rɪˈspektɪv', vi:'tương ứng của mỗi bên', pos:'tính từ', note:'They returned to their respective offices.' },
+      { en:'namely', uk:'ˈneɪmli', us:'ˈneɪmli', vi:'cụ thể là', pos:'trạng từ' },
+      { en:'concerned', uk:'kənˈsɜːnd', us:'kənˈsɜːrnd', vi:'liên quan; lo lắng', pos:'tính từ', note:'Vị trí đổi nghĩa: the people concerned (những người liên quan) ≠ concerned people (những người đang lo).' },
+      { en:'relevant', uk:'ˈreləvənt', us:'ˈreləvənt', vi:'liên quan, thích đáng', pos:'tính từ', note:'relevant to something.' },
+      { en:'particular', uk:'pəˈtɪkjələ', us:'pərˈtɪkjələr', vi:'cụ thể, riêng biệt', pos:'tính từ', note:'in particular = đặc biệt là.' },
+      { en:'specific', uk:'spəˈsɪfɪk', us:'spəˈsɪfɪk', vi:'cụ thể, rõ ràng', pos:'tính từ' },
+      { en:'existing', uk:'ɪɡˈzɪstɪŋ', us:'ɪɡˈzɪstɪŋ', vi:'hiện có', pos:'tính từ' },
+      { en:'remaining', uk:'rɪˈmeɪnɪŋ', us:'rɪˈmeɪnɪŋ', vi:'còn lại', pos:'tính từ' },
+      { en:'various', uk:'ˈveəriəs', us:'ˈveriəs', vi:'khác nhau, đa dạng', pos:'tính từ' },
+      { en:'numerous', uk:'ˈnjuːmərəs', us:'ˈnuːmərəs', vi:'rất nhiều', pos:'tính từ', note:'Trang trọng hơn «many»; đi với danh từ đếm được số nhiều.' },
+      { en:'whereby', uk:'weəˈbaɪ', us:'werˈbaɪ', vi:'theo đó, nhờ đó', pos:'trạng từ', note:'Rất trang trọng: a system whereby staff can work remotely.' }
+    ],
+    colloc:[
+      { p:'draw a distinction between', vi:'phân biệt rõ giữa', ex:'The report draws a distinction between cost and value.' },
+      { p:'in this respect', vi:'về mặt này', ex:'In this respect, the two cities are very similar.' },
+      { p:'bear in mind', vi:'ghi nhớ, lưu ý', ex:'Bear in mind that the figures refer to the previous year.' }
+    ],
+    dialogue:[
+      { sp:'Dr Owen', en:'Quan, the section you submitted is clear, but the definitions need work.', vi:'Quân, phần em nộp rõ ràng, nhưng phần định nghĩa cần chỉnh.' },
+      { sp:'Quan', en:'Which part in particular?', vi:'Cụ thể là phần nào ạ?' },
+      { sp:'Dr Owen', en:'You write “students who are living in dormitories”. The reduced form — “students living in dormitories” — is shorter and just as precise.', vi:'Em viết “những sinh viên đang sống trong ký túc xá”. Dạng rút gọn ngắn hơn mà vẫn chính xác như vậy.' },
+      { sp:'Quan', en:'I see. And the comma before “which” on page two?', vi:'Em hiểu rồi. Còn dấu phẩy trước “which” ở trang hai ạ?' },
+      { sp:'Dr Owen', en:'That one changes your meaning. With the comma, you are saying all surveys were online, which is not what your data shows.', vi:'Chỗ đó làm đổi nghĩa. Có dấu phẩy nghĩa là mọi khảo sát đều trực tuyến, mà dữ liệu của em không nói vậy.' },
+      { sp:'Quan', en:'So I should remove it and use “that”.', vi:'Vậy em nên bỏ nó đi và dùng “that”.' },
+      { sp:'Dr Owen', en:'Exactly. Small marks, large consequences — which is why examiners look at them.', vi:'Chính xác. Dấu nhỏ nhưng hệ quả lớn, và đó là lý do giám khảo để ý đến chúng.' }
+    ],
+    reading:{ en:'The sentence that cost a company millions\n\nIn 2006 a Canadian telecommunications dispute turned on a single comma. A contract stated that an agreement would run for five years, “and thereafter for successive five year terms, unless and until terminated by one year prior notice in writing by either party”. One company argued that the right to cancel applied only after the first five years. The regulator, reading the punctuation strictly, decided that it applied at any time. The disagreement was reportedly worth about a million dollars.\n\nCases like this are quoted in every drafting course, and not only for entertainment. They show that a relative clause is not decoration. Whether a clause defines or merely describes determines who is covered by a rule, which products are recalled, and which employees are affected by a change.\n\nThe safest habit is simple. Read the sentence twice: once with the clause included and once with it removed. If removing it leaves the sentence still pointing at the same thing, the clause is extra information and needs commas. If removing it makes the sentence vague, the clause is doing essential work — and the commas must go.', vi:'Câu văn khiến một công ty mất hàng triệu đô\n\nNăm 2006, một tranh chấp viễn thông ở Canada xoay quanh đúng một dấu phẩy. Hợp đồng ghi rằng thoả thuận có hiệu lực năm năm, “và sau đó tiếp tục theo các kỳ hạn năm năm liên tiếp, trừ khi và cho đến khi bị chấm dứt bằng thông báo trước một năm bằng văn bản của một trong hai bên”. Một công ty lập luận rằng quyền huỷ chỉ áp dụng sau năm năm đầu. Cơ quan quản lý, đọc dấu câu theo đúng nghĩa đen, kết luận rằng quyền đó áp dụng bất cứ lúc nào. Bất đồng ấy được cho là trị giá khoảng một triệu đô la.\n\nNhững vụ như thế được nhắc trong mọi khoá soạn thảo văn bản, và không chỉ để mua vui. Chúng cho thấy mệnh đề quan hệ không phải đồ trang trí. Việc một mệnh đề xác định hay chỉ miêu tả sẽ quyết định ai chịu ràng buộc bởi một quy định, sản phẩm nào bị thu hồi, và nhân viên nào chịu ảnh hưởng bởi một thay đổi.\n\nThói quen an toàn nhất rất đơn giản. Hãy đọc câu hai lần: một lần có mệnh đề, một lần bỏ nó đi. Nếu bỏ đi mà câu vẫn chỉ đúng đối tượng đó, mệnh đề là thông tin thêm và cần dấu phẩy. Nếu bỏ đi mà câu trở nên mơ hồ, mệnh đề đang làm việc thiết yếu — và phải bỏ dấu phẩy.' } },
+
+  { level:'b2', no:5, en:'I wish I had known', vi:'Wish, if only, it’s time, would rather', skill:'Tiếc nuối và mong muốn',
+    grammar:[
+      { form:'wish + quá khứ đơn — tiếc về hiện tại', vi:'Mong hiện tại khác đi. Động từ lùi một bậc dù đang nói về bây giờ.', note:'Trong văn trang trọng dùng «were» cho mọi ngôi: I wish I were taller. Văn nói vẫn chấp nhận «was».', ex:{ en:'I wish I lived closer to the office.', vi:'Ước gì tôi ở gần cơ quan hơn.' } },
+      { form:'wish + quá khứ hoàn thành — tiếc về quá khứ', vi:'Điều đã xảy ra rồi và không sửa được nữa.', note:'Đây là dạng người Việt hay nhầm nhất: ✗ I wish I didn’t say that yesterday. ✓ I wish I hadn’t said that.', ex:{ en:'I wish I had asked more questions in the interview.', vi:'Ước gì trong buổi phỏng vấn tôi đã hỏi nhiều hơn.' } },
+      { form:'wish + would — phàn nàn về thói quen của người khác', vi:'Muốn ai đó hoặc điều gì đó thay đổi hành vi. Có sắc thái khó chịu.', note:'Không dùng cho chính mình: ✗ I wish I would stop… ✓ I wish I could stop… «If only» dùng y hệt wish nhưng mạnh hơn về cảm xúc.', ex:{ en:'I wish they would answer their emails.', vi:'Ước gì họ chịu trả lời email.' } },
+      { form:'It’s (high) time + quá khứ đơn · would rather · had better', vi:'Ba cấu trúc dùng dạng quá khứ hoặc nguyên thể trần để nói về hiện tại và tương lai.', note:'It’s time we left (đáng lẽ đã phải đi). would rather + V trần cho cùng chủ ngữ (I’d rather stay), + quá khứ đơn cho chủ ngữ khác (I’d rather you stayed). had better + V trần, phủ định là had better not.', ex:{ en:'It’s high time we talked about the budget — I’d rather you didn’t postpone it again.', vi:'Đã đến lúc chúng ta phải bàn về ngân sách — tôi không muốn anh hoãn nó thêm lần nữa.' } }
+    ],
+    vocab:[
+      { en:'regret', uk:'rɪˈɡret', us:'rɪˈɡret', vi:'hối tiếc', pos:'động từ / danh từ', note:'regret doing (tiếc việc đã làm) ≠ regret to say (tiếc phải báo tin).' },
+      { en:'resent', uk:'rɪˈzent', us:'rɪˈzent', vi:'bực bội, cay cú (vì thấy bất công)', pos:'động từ', note:'resent doing something. Đừng nhầm với «resend» (gửi lại).' },
+      { en:'envy', uk:'ˈenvi', us:'ˈenvi', vi:'ghen tị', pos:'động từ / danh từ' },
+      { en:'embarrassed', uk:'ɪmˈbærəst', us:'ɪmˈberəst', vi:'ngượng, xấu hổ (vì tình huống)', pos:'tính từ', note:'Hai «r», hai «s».' },
+      { en:'ashamed', uk:'əˈʃeɪmd', us:'əˈʃeɪmd', vi:'xấu hổ (vì việc mình làm sai)', pos:'tính từ', note:'ashamed of something / to do something.' },
+      { en:'frustrated', uk:'frʌˈstreɪtɪd', us:'ˈfrʌstreɪtɪd', vi:'bực bội vì bế tắc', pos:'tính từ' },
+      { en:'disappointed', uk:'ˌdɪsəˈpɔɪntɪd', us:'ˌdɪsəˈpɔɪntɪd', vi:'thất vọng', pos:'tính từ', note:'disappointed with sb/sth · disappointed by · disappointed in.' },
+      { en:'relieved', uk:'rɪˈliːvd', us:'rɪˈliːvd', vi:'nhẹ nhõm', pos:'tính từ' },
+      { en:'grateful', uk:'ˈɡreɪtfl', us:'ˈɡreɪtfl', vi:'biết ơn', pos:'tính từ', note:'grateful to sb for sth.' },
+      { en:'guilty', uk:'ˈɡɪlti', us:'ˈɡɪlti', vi:'có lỗi; có tội', pos:'tính từ', note:'feel guilty about something.' },
+      { en:'nostalgic', uk:'nɒˈstældʒɪk', us:'nɑːˈstældʒɪk', vi:'hoài niệm', pos:'tính từ' },
+      { en:'bitter', uk:'ˈbɪtə', us:'ˈbɪtər', vi:'cay đắng; đắng', pos:'tính từ' },
+      { en:'content', uk:'kənˈtent', us:'kənˈtent', vi:'hài lòng, mãn nguyện', pos:'tính từ', note:'Trọng âm đổi nghĩa: /ˈkɒntent/ là «nội dung».' },
+      { en:'reluctant', uk:'rɪˈlʌktənt', us:'rɪˈlʌktənt', vi:'miễn cưỡng, không muốn', pos:'tính từ', note:'reluctant to do something.' },
+      { en:'eager', uk:'ˈiːɡə', us:'ˈiːɡər', vi:'háo hức', pos:'tính từ', note:'eager to do something.' },
+      { en:'tempted', uk:'ˈtemptɪd', us:'ˈtemptɪd', vi:'bị cám dỗ, thấy muốn', pos:'tính từ' },
+      { en:'overwhelmed', uk:'ˌəʊvəˈwelmd', us:'ˌoʊvərˈwelmd', vi:'quá tải, ngợp', pos:'tính từ' },
+      { en:'hesitant', uk:'ˈhezɪtənt', us:'ˈhezɪtənt', vi:'ngập ngừng', pos:'tính từ' },
+      { en:'mood', uk:'muːd', us:'muːd', vi:'tâm trạng', pos:'danh từ', note:'in a good / bad mood; in the mood for something.' },
+      { en:'cope', uk:'kəʊp', us:'koʊp', vi:'xoay xở, đối phó được', pos:'động từ', note:'cope with something.' }
+    ],
+    colloc:[
+      { p:'have mixed feelings about', vi:'có cảm xúc lẫn lộn về', ex:'I have mixed feelings about leaving Hanoi.' },
+      { p:'come to terms with', vi:'chấp nhận được, nguôi ngoai', ex:'It took a year to come to terms with the decision.' },
+      { p:'get something off your chest', vi:'trút được nỗi lòng', ex:'Say it and get it off your chest.' }
+    ],
+    dialogue:[
+      { sp:'Linh', en:'You have been quiet all evening. What is on your mind?', vi:'Cậu im cả tối. Cậu đang nghĩ gì thế?' },
+      { sp:'Quan', en:'I wish I had spoken up in the meeting. Everyone agreed to a plan I don’t believe in.', vi:'Ước gì trong cuộc họp tớ đã lên tiếng. Ai cũng đồng ý một kế hoạch mà tớ không tin.' },
+      { sp:'Linh', en:'Why didn’t you?', vi:'Sao cậu không nói?' },
+      { sp:'Quan', en:'I was reluctant to disagree with the director in front of the team. Now I feel a bit ashamed.', vi:'Tớ ngại phản đối giám đốc trước mặt cả nhóm. Giờ tớ thấy hơi xấu hổ.' },
+      { sp:'Linh', en:'It’s high time you said something, then. I’d rather you wrote to him tonight than resented it for a month.', vi:'Vậy thì đã đến lúc cậu phải nói rồi. Tớ thà cậu viết thư cho anh ấy tối nay còn hơn ấm ức cả tháng.' },
+      { sp:'Quan', en:'If only I could put it politely without sounding critical.', vi:'Ước gì tớ diễn đạt lịch sự được mà không nghe như đang chê bai.' },
+      { sp:'Linh', en:'Start with what you agree with. You had better keep it short, though — one paragraph.', vi:'Bắt đầu bằng điều cậu đồng tình. Mà tốt hơn hết là viết ngắn thôi — một đoạn.' }
+    ],
+    reading:{ en:'What people actually regret\n\nWhen researchers ask people what they regret most, the answers are strikingly consistent. In the short term, regret is about things done: a rude reply, an expensive purchase, an evening wasted. But over a lifetime, the balance reverses. Older respondents overwhelmingly regret things they did not do — the letter never sent, the subject never studied, the friendship allowed to fade.\n\nOne explanation is that actions can be repaired. If you say something foolish, you can apologise; the mistake has an ending. Inaction has no ending, so the imagination is free to keep improving the version that never happened. The unlived life gets better every year, while the real one has to be lived.\n\nThis is not an argument for acting on every impulse. It is an argument for noticing which kind of decision you are facing. If the worst outcome of trying is embarrassment, and the worst outcome of not trying is a permanent question, the arithmetic is usually clear. Most of what we are reluctant to do turns out, afterwards, to have been smaller than it looked.', vi:'Người ta thật sự hối tiếc điều gì\n\nKhi các nhà nghiên cứu hỏi người ta hối tiếc điều gì nhất, câu trả lời nhất quán đến kinh ngạc. Trong ngắn hạn, hối tiếc gắn với những việc đã làm: một câu đáp lời thô lỗ, một món đồ mua đắt, một buổi tối bỏ phí. Nhưng xét cả đời người, cán cân đảo ngược. Những người lớn tuổi hối tiếc áp đảo về những việc mình đã không làm — lá thư chưa bao giờ gửi, ngành học chưa bao giờ theo, tình bạn để phai nhạt.\n\nMột cách lý giải là hành động thì sửa được. Nếu bạn lỡ nói câu dại dột, bạn có thể xin lỗi; sai lầm ấy có điểm kết. Sự không hành động thì không có điểm kết, nên trí tưởng tượng tha hồ tô đẹp thêm cho phiên bản chưa từng xảy ra. Cuộc đời chưa sống mỗi năm một đẹp hơn, còn cuộc đời thật thì phải sống.\n\nĐây không phải lời cổ vũ hành động theo mọi bốc đồng. Đây là lời khuyên hãy nhận ra mình đang đứng trước loại quyết định nào. Nếu điều tệ nhất khi thử là ngượng, còn điều tệ nhất khi không thử là một câu hỏi day dứt mãi, thì phép tính thường đã rõ. Phần lớn những việc ta ngần ngại, về sau nhìn lại, đều nhỏ hơn vẻ ngoài của nó.' } },
+
+  { level:'b2', no:6, en:'I stopped to think — and stopped thinking', vi:'Danh động từ và động từ nguyên thể', skill:'Chọn đúng dạng động từ',
+    grammar:[
+      { form:'Động từ + V-ing', vi:'Một nhóm động từ luôn đi với dạng V-ing, không bao giờ với «to».', note:'Nhóm hay gặp: avoid, consider, mind, involve, postpone/delay, quit, imagine, appreciate, resist, deny, admit, suggest, practise, risk, keep (on), miss, finish, enjoy.', ex:{ en:'She avoided answering the question and suggested meeting later.', vi:'Cô ấy né trả lời câu hỏi và đề nghị gặp sau.' } },
+      { form:'Động từ + to V', vi:'Nhóm còn lại đòi dạng nguyên thể có «to».', note:'Nhóm hay gặp: afford, agree, arrange, decide, deserve, expect, hope, manage, offer, plan, pretend, promise, refuse, tend, threaten, fail, seem, appear.', ex:{ en:'We cannot afford to postpone the launch, so we arranged to meet on Sunday.', vi:'Chúng ta không đủ khả năng hoãn buổi ra mắt, nên đã hẹn gặp vào Chủ nhật.' } },
+      { form:'Động từ đi được cả hai nhưng ĐỔI NGHĨA', vi:'Cùng một động từ, hai dạng cho hai nghĩa khác hẳn nhau.', note:'stop doing = ngừng hẳn việc đó · stop to do = dừng lại để làm việc khác. remember doing = nhớ việc đã làm · remember to do = nhớ mà làm. try doing = thử xem sao · try to do = cố gắng. regret doing = tiếc đã làm · regret to say = tiếc phải báo. go on doing = tiếp tục · go on to do = chuyển sang việc khác.', ex:{ en:'He stopped smoking last year, then stopped to buy a coffee.', vi:'Anh ấy bỏ thuốc năm ngoái, rồi dừng lại để mua cà phê.' } },
+      { form:'V-ing làm chủ ngữ · giới từ + V-ing · used to / be used to', vi:'Sau giới từ luôn là V-ing, và V-ing đứng đầu câu làm chủ ngữ.', note:'Cạm bẫy kinh điển: used to do = ngày xưa thường làm (nay không còn) · be/get used to doing = đã quen với việc làm gì. «to» ở vế thứ hai là giới từ nên theo sau là V-ing.', ex:{ en:'I used to hate public speaking, but now I am used to giving presentations.', vi:'Trước kia tôi ghét nói trước đám đông, nhưng giờ tôi đã quen thuyết trình.' } }
+    ],
+    vocab:[
+      { en:'avoid', uk:'əˈvɔɪd', us:'əˈvɔɪd', vi:'tránh', pos:'động từ', note:'avoid doing — không bao giờ avoid to do.' },
+      { en:'consider', uk:'kənˈsɪdə', us:'kənˈsɪdər', vi:'cân nhắc; coi là', pos:'động từ' },
+      { en:'mind', uk:'maɪnd', us:'maɪnd', vi:'phiền, ngại', pos:'động từ', note:'Would you mind opening the window? — trả lời «Not at all» nghĩa là đồng ý.' },
+      { en:'involve', uk:'ɪnˈvɒlv', us:'ɪnˈvɑːlv', vi:'bao gồm, kéo theo', pos:'động từ' },
+      { en:'postpone', uk:'pəˈspəʊn', us:'poʊˈspoʊn', vi:'hoãn lại', pos:'động từ', note:'Trang trọng hơn «put off».' },
+      { en:'quit', uk:'kwɪt', us:'kwɪt', vi:'bỏ, nghỉ việc', pos:'động từ', note:'quit — quit — quit (Anh cũng dùng quitted).' },
+      { en:'manage', uk:'ˈmænɪdʒ', us:'ˈmænɪdʒ', vi:'xoay xở làm được; quản lý', pos:'động từ', note:'manage to do = làm được dù khó.' },
+      { en:'afford', uk:'əˈfɔːd', us:'əˈfɔːrd', vi:'đủ khả năng chi trả', pos:'động từ', note:'Hầu như luôn đi với can/could/be able to.' },
+      { en:'pretend', uk:'prɪˈtend', us:'prɪˈtend', vi:'giả vờ', pos:'động từ' },
+      { en:'arrange', uk:'əˈreɪndʒ', us:'əˈreɪndʒ', vi:'sắp xếp, thu xếp', pos:'động từ' },
+      { en:'deserve', uk:'dɪˈzɜːv', us:'dɪˈzɜːrv', vi:'xứng đáng', pos:'động từ' },
+      { en:'tend', uk:'tend', us:'tend', vi:'có xu hướng', pos:'động từ', note:'tend to do. Danh từ: tendency.' },
+      { en:'bother', uk:'ˈbɒðə', us:'ˈbɑːðər', vi:'bận tâm; làm phiền', pos:'động từ' },
+      { en:'resist', uk:'rɪˈzɪst', us:'rɪˈzɪst', vi:'cưỡng lại, kháng cự', pos:'động từ', note:'resist doing something.' },
+      { en:'delay', uk:'dɪˈleɪ', us:'dɪˈleɪ', vi:'trì hoãn; sự chậm trễ', pos:'động từ / danh từ' },
+      { en:'imagine', uk:'ɪˈmædʒɪn', us:'ɪˈmædʒɪn', vi:'hình dung', pos:'động từ' },
+      { en:'appreciate', uk:'əˈpriːʃieɪt', us:'əˈpriːʃieɪt', vi:'cảm kích; hiểu rõ giá trị', pos:'động từ', note:'I would appreciate it if you could… — mẫu câu email lịch sự.' },
+      { en:'undertake', uk:'ˌʌndəˈteɪk', us:'ˌʌndərˈteɪk', vi:'đảm nhận, tiến hành', pos:'động từ', note:'undertook — undertaken. undertake research là cụm học thuật.' },
+      { en:'worthwhile', uk:'ˌwɜːθˈwaɪl', us:'ˌwɜːrθˈwaɪl', vi:'đáng công', pos:'tính từ', note:'It is worth doing (worth + V-ing) ≠ It is worthwhile to do.' },
+      { en:'reluctance', uk:'rɪˈlʌktəns', us:'rɪˈlʌktəns', vi:'sự miễn cưỡng', pos:'danh từ' }
+    ],
+    colloc:[
+      { p:'get round to doing something', vi:'rồi cũng bắt tay vào làm', ex:'I finally got round to renewing my passport.' },
+      { p:'be on the point of doing', vi:'suýt nữa thì làm', ex:'I was on the point of leaving when she called.' },
+      { p:'it is no use doing', vi:'làm gì đó cũng vô ích', ex:'It is no use complaining after the deadline.' }
+    ],
+    dialogue:[
+      { sp:'Mark', en:'Have you decided to take the course?', vi:'Cậu quyết định học khoá đó chưa?' },
+      { sp:'Quan', en:'Almost. I keep postponing the decision because I cannot afford to get it wrong.', vi:'Gần rồi. Tớ cứ hoãn quyết định vì không đủ sức chọn sai.' },
+      { sp:'Mark', en:'It is no use waiting for certainty. Have you tried talking to a former student?', vi:'Chờ chắc chắn thì cũng vô ích. Cậu thử nói chuyện với cựu học viên chưa?' },
+      { sp:'Quan', en:'I did. She said she regretted not starting a year earlier.', vi:'Rồi. Cô ấy nói cô ấy tiếc vì không bắt đầu sớm hơn một năm.' },
+      { sp:'Mark', en:'There you are. I remember feeling exactly the same before my master’s.', vi:'Đó. Tớ nhớ mình cũng thấy y hệt trước khi học thạc sĩ.' },
+      { sp:'Quan', en:'I suppose I am just not used to spending that much on myself.', vi:'Chắc tại tớ chưa quen chi nhiều tiền cho bản thân.' },
+      { sp:'Mark', en:'Then stop calling it spending. Start calling it investing, and remember to apply before Friday.', vi:'Vậy đừng gọi là chi tiêu nữa. Gọi là đầu tư, và nhớ nộp đơn trước thứ Sáu.' }
+    ],
+    reading:{ en:'Why we put things off\n\nProcrastination is usually described as a problem of time management, but psychologists who study it disagree. People who delay a task rarely misjudge how long it will take; they simply do not want to feel what starting it makes them feel. Avoiding the task removes the discomfort immediately, which teaches the brain to avoid it again tomorrow.\n\nThis explains a pattern that puzzles many students. The tasks most often postponed are not the longest ones but the ones tied to self-worth — the personal statement, the first email to a supervisor, the assignment that will be marked by someone whose opinion matters. A dull task with no emotional weight gets done.\n\nThe advice that follows is unromantic. Make the first step so small that it carries no threat: open the document and write one bad sentence. Agree to work for five minutes with permission to stop. Almost everyone who manages to start keeps going, not because willpower arrives, but because the feared feeling turns out to be milder than the imagining of it. Waiting to feel ready is the one strategy that reliably fails.', vi:'Vì sao ta hay trì hoãn\n\nSự trì hoãn thường được mô tả như vấn đề quản lý thời gian, nhưng các nhà tâm lý học nghiên cứu nó lại không đồng tình. Người trì hoãn hiếm khi ước lượng sai thời gian cần làm; họ chỉ đơn giản không muốn nếm trải cảm giác mà việc bắt đầu gây ra. Né việc đó xoá bỏ khó chịu ngay lập tức, và điều đó dạy bộ não né tiếp vào ngày mai.\n\nĐiều này giải thích một hiện tượng khiến nhiều sinh viên khó hiểu. Việc bị hoãn nhiều nhất không phải việc dài nhất, mà là việc gắn với giá trị bản thân — bài luận cá nhân, email đầu tiên gửi giáo sư hướng dẫn, bài tập sẽ được chấm bởi người mà ý kiến của họ quan trọng với ta. Việc tẻ nhạt mà không mang gánh nặng cảm xúc thì lại làm xong.\n\nLời khuyên rút ra không mấy lãng mạn. Hãy làm bước đầu tiên nhỏ đến mức không còn đáng sợ: mở tài liệu ra và viết một câu dở. Hãy cam kết làm năm phút, và cho phép mình dừng. Gần như ai bắt đầu được cũng làm tiếp, không phải vì ý chí bỗng xuất hiện, mà vì cảm giác ta sợ hoá ra nhẹ hơn nhiều so với lúc tưởng tượng. Chờ đến khi thấy sẵn sàng là chiến lược chắc chắn thất bại nhất.' } },
+
+  { level:'b2', no:7, en:'She can’t have forgotten', vi:'Suy đoán về quá khứ với động từ khuyết thiếu', skill:'Lập luận và suy diễn',
+    grammar:[
+      { form:'must have / can’t have / couldn’t have + V3', vi:'Suy đoán chắc chắn về quá khứ: must have = chắc chắn đã; can’t have = chắc chắn không thể đã.', note:'Đối lập của «must have» KHÔNG phải «mustn’t have» mà là «can’t have». Người Việt hay nhầm chỗ này.', ex:{ en:'The lights are off — they must have gone home. They can’t have forgotten the meeting.', vi:'Đèn tắt rồi — chắc họ về nhà rồi. Họ không thể quên buổi họp được.' } },
+      { form:'might / may / could have + V3', vi:'Suy đoán không chắc chắn: có thể đã xảy ra.', note:'«could have» còn nghĩa thứ hai: đã có thể làm nhưng không làm — You could have told me! Ngữ cảnh quyết định nghĩa nào.', ex:{ en:'She may have missed the train, or she could have gone straight to the office.', vi:'Có thể cô ấy lỡ tàu, hoặc cũng có thể đã đi thẳng đến cơ quan.' } },
+      { form:'should have / ought to have + V3', vi:'Việc đáng lẽ phải xảy ra nhưng đã không xảy ra — trách móc hoặc tiếc nuối.', note:'Dạng phủ định shouldn’t have = đáng lẽ đã không nên. Trong nói, «have» đọc yếu thành /əv/, nên nhiều người viết sai thành «should of» — đó là lỗi chính tả, không phải cách viết chấp nhận được.', ex:{ en:'They should have warned us, and we shouldn’t have relied on one supplier.', vi:'Lẽ ra họ phải báo trước, và lẽ ra chúng ta không nên phụ thuộc vào một nhà cung cấp.' } },
+      { form:'Thang độ chắc chắn: will · must · should · may · might · could', vi:'Xếp các động từ khuyết thiếu theo mức độ tin chắc để chọn đúng sắc thái.', note:'That will be the postman (gần như chắc, việc quen thuộc) > must be (suy ra từ bằng chứng) > should be (dự kiến theo lẽ thường) > may/might/could be (có thể). Thêm «well» để tăng: it may well be true.', ex:{ en:'The parcel should have arrived by now; it might well be at the neighbour’s.', vi:'Kiện hàng lẽ ra đến rồi; rất có thể nó đang ở nhà hàng xóm.' } }
+    ],
+    vocab:[
+      { en:'evidence', uk:'ˈevɪdəns', us:'ˈevɪdəns', vi:'bằng chứng', pos:'danh từ', note:'Không đếm được: ✗ an evidence, ✗ evidences. Dùng a piece of evidence.' },
+      { en:'witness', uk:'ˈwɪtnəs', us:'ˈwɪtnəs', vi:'nhân chứng; chứng kiến', pos:'danh từ / động từ' },
+      { en:'suspect', uk:'səˈspekt', us:'səˈspekt', vi:'nghi ngờ', pos:'động từ', note:'Danh từ «a suspect» đổi trọng âm: /ˈsʌspekt/.' },
+      { en:'clue', uk:'kluː', us:'kluː', vi:'manh mối', pos:'danh từ', note:'I have no clue = tôi chịu.' },
+      { en:'theory', uk:'ˈθɪəri', us:'ˈθɪri', vi:'giả thuyết; lý thuyết', pos:'danh từ', note:'in theory ≠ in practice.' },
+      { en:'prove', uk:'pruːv', us:'pruːv', vi:'chứng minh; hoá ra là', pos:'động từ', note:'Anh dùng proved hoặc proven cho phân từ; Mỹ thiên về proven.' },
+      { en:'assumption', uk:'əˈsʌmpʃn', us:'əˈsʌmpʃn', vi:'giả định', pos:'danh từ', note:'make an assumption; on the assumption that…' },
+      { en:'conclude', uk:'kənˈkluːd', us:'kənˈkluːd', vi:'kết luận', pos:'động từ' },
+      { en:'doubt', uk:'daʊt', us:'daʊt', vi:'nghi ngờ', pos:'động từ / danh từ', note:'«b» câm. no doubt = chắc hẳn; without doubt = chắc chắn.' },
+      { en:'certainty', uk:'ˈsɜːtnti', us:'ˈsɜːrtnti', vi:'sự chắc chắn', pos:'danh từ' },
+      { en:'obvious', uk:'ˈɒbviəs', us:'ˈɑːbviəs', vi:'hiển nhiên', pos:'tính từ' },
+      { en:'apparent', uk:'əˈpærənt', us:'əˈperənt', vi:'rõ ràng; có vẻ như', pos:'tính từ', note:'Hai nghĩa gần trái nhau — apparently thường nghĩa «nghe nói là».' },
+      { en:'presumably', uk:'prɪˈzjuːməbli', us:'prɪˈzuːməbli', vi:'chắc là, có lẽ', pos:'trạng từ' },
+      { en:'undoubtedly', uk:'ʌnˈdaʊtɪdli', us:'ʌnˈdaʊtɪdli', vi:'không nghi ngờ gì', pos:'trạng từ' },
+      { en:'allegedly', uk:'əˈledʒɪdli', us:'əˈledʒɪdli', vi:'theo cáo buộc', pos:'trạng từ', note:'Bốn âm tiết: a-LE-ged-ly. Từ chủ chốt của báo chí.' },
+      { en:'plausible', uk:'ˈplɔːzəbl', us:'ˈplɔːzəbl', vi:'nghe hợp lý', pos:'tính từ' },
+      { en:'deduce', uk:'dɪˈdjuːs', us:'dɪˈduːs', vi:'suy ra', pos:'động từ', note:'Danh từ: deduction.' },
+      { en:'speculate', uk:'ˈspekjuleɪt', us:'ˈspekjəleɪt', vi:'phỏng đoán; đầu cơ', pos:'động từ' },
+      { en:'verify', uk:'ˈverɪfaɪ', us:'ˈverɪfaɪ', vi:'kiểm chứng', pos:'động từ' },
+      { en:'coincidence', uk:'kəʊˈɪnsɪdəns', us:'koʊˈɪnsɪdəns', vi:'sự trùng hợp', pos:'danh từ', note:'by coincidence = tình cờ.' }
+    ],
+    colloc:[
+      { p:'jump to conclusions', vi:'vội kết luận', ex:'Let us check the log before we jump to conclusions.' },
+      { p:'give somebody the benefit of the doubt', vi:'tin tưởng khi chưa đủ chứng cứ buộc tội', ex:'She was late once, so I gave her the benefit of the doubt.' },
+      { p:'stand up to scrutiny', vi:'chịu được sự soi xét', ex:'The explanation does not stand up to scrutiny.' }
+    ],
+    dialogue:[
+      { sp:'Linh', en:'The server went down at three in the morning. Any idea why?', vi:'Máy chủ sập lúc ba giờ sáng. Cậu biết vì sao không?' },
+      { sp:'Quan', en:'It can’t have been the traffic — almost nobody was online.', vi:'Không thể do lưu lượng truy cập được — gần như chẳng ai online.' },
+      { sp:'Linh', en:'So it must have been the update that was scheduled for two.', vi:'Vậy chắc chắn là do bản cập nhật hẹn chạy lúc hai giờ.' },
+      { sp:'Quan', en:'That is my theory too, but I can’t verify it yet. The logs may have been overwritten.', vi:'Tớ cũng nghĩ vậy, nhưng chưa kiểm chứng được. Có thể nhật ký đã bị ghi đè.' },
+      { sp:'Linh', en:'Someone should have exported them before the restart.', vi:'Lẽ ra ai đó phải xuất chúng ra trước khi khởi động lại.' },
+      { sp:'Quan', en:'Agreed. Presumably the night team assumed the system would do it automatically.', vi:'Đồng ý. Chắc là ca đêm tưởng hệ thống tự làm việc đó.' },
+      { sp:'Linh', en:'Well, let us not jump to conclusions. It could have been a power fault as well.', vi:'Thôi đừng vội kết luận. Cũng có thể là sự cố điện.' }
+    ],
+    reading:{ en:'The problem with a good story\n\nInvestigators are trained to distrust explanations that feel satisfying. A neat account of an accident — one careless person, one clear moment — is memorable, teachable and usually wrong. Serious failures almost always require several small things to go wrong together, none of which would have mattered alone.\n\nThis is why aviation safety boards refuse to close an inquiry once they have found someone who made a mistake. They keep asking why the mistake was possible: why the warning could be silenced, why the checklist had been shortened, why the crew had been on duty for eleven hours. Each answer moves the question further from the individual and closer to the system.\n\nThe habit is worth borrowing outside aviation. When something goes wrong at work, the first plausible story will arrive within an hour, and it will name a person. It might be right. But before you accept it, ask what else must have been true for that person’s error to reach the customer. If the honest answer is “nothing — one slip was enough”, then the real finding is not about the person at all.', vi:'Rắc rối của một câu chuyện hay\n\nĐiều tra viên được huấn luyện để nghi ngờ những lời giải thích nghe êm tai. Một tường thuật gọn ghẽ về tai nạn — một người bất cẩn, một khoảnh khắc rõ ràng — thì dễ nhớ, dễ dạy, và thường là sai. Những thất bại nghiêm trọng hầu như luôn cần vài chuyện nhỏ cùng lúc trục trặc, mà nếu đứng riêng thì chẳng chuyện nào đáng kể.\n\nĐó là lý do các uỷ ban an toàn hàng không không chịu khép hồ sơ chỉ vì đã tìm ra người mắc lỗi. Họ tiếp tục hỏi vì sao lỗi đó có thể xảy ra: vì sao cảnh báo có thể bị tắt tiếng, vì sao bảng kiểm đã bị rút ngắn, vì sao tổ bay đã trực mười một tiếng. Mỗi câu trả lời lại kéo câu hỏi ra xa cá nhân và lại gần hệ thống.\n\nThói quen ấy đáng học hỏi cả ngoài ngành hàng không. Khi có sự cố ở công ty, câu chuyện nghe có lý đầu tiên sẽ xuất hiện trong vòng một giờ, và nó sẽ nêu tên một người. Có thể nó đúng. Nhưng trước khi chấp nhận, hãy hỏi còn những điều gì nữa phải đúng thì sai sót của người đó mới lọt đến tay khách hàng. Nếu câu trả lời thành thật là “không gì cả — một sơ suất là đủ”, thì phát hiện thật sự chẳng liên quan gì đến cá nhân người đó.' } },
+
+  { level:'b2', no:8, en:'Most people, most of the people', vi:'Mạo từ, lượng từ và từ hạn định', skill:'Nói về số liệu và khái quát',
+    grammar:[
+      { form:'a / an · the · zero article', vi:'Ba lựa chọn, mỗi lựa chọn một chức năng: nhắc lần đầu, đã xác định, hoặc nói chung chung.', note:'Khái quát bằng số nhiều không mạo từ: Cars are expensive (nói chung) ≠ The cars are expensive (những chiếc xe cụ thể). Danh từ không đếm được cũng không mạo từ khi nói chung: Information is power.', ex:{ en:'She is a researcher. The research she published last year changed the field.', vi:'Cô ấy là một nhà nghiên cứu. Công trình cô công bố năm ngoái đã thay đổi cả lĩnh vực.' } },
+      { form:'most · most of · the majority of', vi:'«most» + danh từ chung; «most of» + từ hạn định (the/my/these) + danh từ.', note:'✓ Most students work part-time (sinh viên nói chung). ✓ Most of the students in my class… (nhóm cụ thể). ✗ Most of students. Cùng quy tắc cho all, some, many, none, both.', ex:{ en:'Most people cycle, but most of the people I interviewed drive.', vi:'Phần lớn người ta đi xe đạp, nhưng phần lớn những người tôi phỏng vấn thì lái ô tô.' } },
+      { form:'Đếm được và không đếm được: many/much · few/little · number/amount', vi:'Chọn lượng từ theo loại danh từ, nếu không câu sẽ sai ngay lập tức.', note:'Đếm được: many, few, a few, fewer, a number of. Không đếm được: much, little, a little, less, an amount of. «a few» (một vài — đủ) khác «few» (rất ít — không đủ); tương tự a little / little.', ex:{ en:'A few colleagues stayed; few of them were happy about it.', vi:'Vài đồng nghiệp ở lại; rất ít người trong số họ vui vẻ với chuyện đó.' } },
+      { form:'each · every · both · either · neither · none', vi:'Nhóm từ hạn định chỉ số lượng nhỏ và cách chia động từ theo chúng.', note:'each/every + danh từ số ít + động từ số ít. both + số nhiều. either/neither + số ít (văn nói cho phép số nhiều). «none of» đi được cả hai, nhưng trong văn trang trọng chọn số ít.', ex:{ en:'Neither option is perfect, but both proposals deserve a hearing.', vi:'Không phương án nào hoàn hảo, nhưng cả hai đề xuất đều đáng được xem xét.' } }
+    ],
+    vocab:[
+      { en:'majority', uk:'məˈdʒɒrəti', us:'məˈdʒɔːrəti', vi:'đa số', pos:'danh từ', note:'the vast majority of — cụm rất hay dùng trong IELTS Writing.' },
+      { en:'minority', uk:'maɪˈnɒrəti', us:'maɪˈnɔːrəti', vi:'thiểu số', pos:'danh từ' },
+      { en:'proportion', uk:'prəˈpɔːʃn', us:'prəˈpɔːrʃn', vi:'tỷ lệ, phần', pos:'danh từ', note:'a large proportion of; in proportion to.' },
+      { en:'percentage', uk:'pəˈsentɪdʒ', us:'pərˈsentɪdʒ', vi:'phần trăm', pos:'danh từ', note:'Dùng «percentage» khi không có con số; «per cent» khi có: 40 per cent.' },
+      { en:'average', uk:'ˈævərɪdʒ', us:'ˈævərɪdʒ', vi:'trung bình', pos:'danh từ / tính từ', note:'on average — trung bình thì.' },
+      { en:'figure', uk:'ˈfɪɡə', us:'ˈfɪɡjər', vi:'con số; hình dáng', pos:'danh từ', note:'Phát âm Anh–Mỹ khác rõ rệt.' },
+      { en:'amount', uk:'əˈmaʊnt', us:'əˈmaʊnt', vi:'lượng (không đếm được)', pos:'danh từ' },
+      { en:'quantity', uk:'ˈkwɒntəti', us:'ˈkwɑːntəti', vi:'số lượng', pos:'danh từ' },
+      { en:'entire', uk:'ɪnˈtaɪə', us:'ɪnˈtaɪər', vi:'toàn bộ', pos:'tính từ' },
+      { en:'several', uk:'ˈsevrəl', us:'ˈsevrəl', vi:'vài, một số', pos:'từ hạn định', note:'Nhiều hơn «a few», ít hơn «many».' },
+      { en:'plenty', uk:'ˈplenti', us:'ˈplenti', vi:'nhiều, dư dả', pos:'đại từ', note:'plenty of + đếm được lẫn không đếm được.' },
+      { en:'scarce', uk:'skeəs', us:'skers', vi:'khan hiếm', pos:'tính từ', note:'Trạng từ scarcely = hầu như không.' },
+      { en:'abundant', uk:'əˈbʌndənt', us:'əˈbʌndənt', vi:'dồi dào', pos:'tính từ' },
+      { en:'sufficient', uk:'səˈfɪʃnt', us:'səˈfɪʃnt', vi:'đủ', pos:'tính từ', note:'Trang trọng hơn «enough»; đứng trước danh từ.' },
+      { en:'barely', uk:'ˈbeəli', us:'ˈberli', vi:'vừa đủ, suýt không', pos:'trạng từ', note:'Mang nghĩa phủ định nên không dùng thêm «not».' },
+      { en:'roughly', uk:'ˈrʌfli', us:'ˈrʌfli', vi:'khoảng chừng', pos:'trạng từ' },
+      { en:'approximately', uk:'əˈprɒksɪmətli', us:'əˈprɑːksɪmətli', vi:'xấp xỉ', pos:'trạng từ' },
+      { en:'considerable', uk:'kənˈsɪdərəbl', us:'kənˈsɪdərəbl', vi:'đáng kể', pos:'tính từ', note:'Đừng nhầm với «considerate» = biết nghĩ cho người khác.' },
+      { en:'negligible', uk:'ˈneɡlɪdʒəbl', us:'ˈneɡlɪdʒəbl', vi:'không đáng kể', pos:'tính từ' },
+      { en:'overall', uk:'ˌəʊvərˈɔːl', us:'ˌoʊvərˈɔːl', vi:'nhìn chung; tổng thể', pos:'trạng từ / tính từ' }
+    ],
+    colloc:[
+      { p:'a significant proportion of', vi:'một tỷ lệ đáng kể', ex:'A significant proportion of graduates work outside their field.' },
+      { p:'account for', vi:'chiếm (tỷ lệ); giải thích', ex:'Housing accounts for roughly a third of household spending.' },
+      { p:'on average', vi:'tính trung bình', ex:'On average, students spend two hours a day commuting.' }
+    ],
+    dialogue:[
+      { sp:'Dr Owen', en:'Your figures are fine, Quan, but the wording around them is loose.', vi:'Số liệu của em ổn, Quân, nhưng cách diễn đạt quanh chúng còn lỏng lẻo.' },
+      { sp:'Quan', en:'Could you show me an example?', vi:'Thầy chỉ giúp em một ví dụ được không ạ?' },
+      { sp:'Dr Owen', en:'You wrote “most of students”. It should be “most students” or “most of the students surveyed”.', vi:'Em viết “most of students”. Phải là “most students” hoặc “most of the students surveyed”.' },
+      { sp:'Quan', en:'I see. And here I wrote “a large amount of participants”.', vi:'Em hiểu rồi. Còn chỗ này em viết “a large amount of participants”.' },
+      { sp:'Dr Owen', en:'Participants are countable, so it is “a large number of participants”. Amount goes with things you cannot count.', vi:'Người tham gia đếm được, nên phải là “a large number of participants”. «Amount» đi với thứ không đếm được.' },
+      { sp:'Quan', en:'What about the sentence beginning “The evidences show”?', vi:'Còn câu bắt đầu bằng “The evidences show” ạ?' },
+      { sp:'Dr Owen', en:'Evidence has no plural. Write “The evidence shows” — and each of these small fixes gains you marks.', vi:'“Evidence” không có số nhiều. Viết “The evidence shows” — và mỗi chỗ sửa nhỏ như thế đều giúp em thêm điểm.' }
+    ],
+    reading:{ en:'How an average hides a story\n\nIf ten people are in a room and nine earn twenty thousand a year while one earns two million, the average income in the room is roughly two hundred and eighteen thousand. The figure is arithmetically correct and completely useless. Nobody in the room earns anything close to it.\n\nThis is why serious reports give the median as well: the value in the middle, which in our room is twenty thousand. Averages are pulled about by extreme values; medians are not. Whenever a headline quotes an average house price, an average salary or an average waiting time, the useful question is what the distribution looks like.\n\nA second trap is the missing denominator. “Cases doubled last month” tells you almost nothing unless you know the base. Two becoming four is a doubling; so is two hundred thousand becoming four hundred thousand. Newspapers rarely lie about numbers, but a large proportion of misleading claims are built out of true figures presented without the comparison that would make sense of them. Reading statistics well is mostly the habit of asking, quietly, “out of how many?”', vi:'Một con số trung bình che giấu điều gì\n\nNếu trong phòng có mười người, chín người kiếm hai mươi nghìn một năm còn một người kiếm hai triệu, thì thu nhập trung bình trong phòng là khoảng hai trăm mười tám nghìn. Con số ấy đúng về mặt số học và hoàn toàn vô dụng. Chẳng ai trong phòng kiếm được mức gần như vậy.\n\nĐó là lý do các báo cáo nghiêm túc còn đưa cả trung vị: giá trị nằm giữa, trong phòng của ta là hai mươi nghìn. Số trung bình bị các giá trị cực đoan kéo đi; trung vị thì không. Mỗi khi một tiêu đề báo trích dẫn giá nhà trung bình, lương trung bình hay thời gian chờ trung bình, câu hỏi hữu ích là phân bố trông ra sao.\n\nCái bẫy thứ hai là thiếu mẫu số. “Số ca tăng gấp đôi trong tháng qua” gần như chẳng nói lên điều gì nếu ta không biết con số nền. Từ hai lên bốn là gấp đôi; từ hai trăm nghìn lên bốn trăm nghìn cũng là gấp đôi. Báo chí hiếm khi nói dối về con số, nhưng phần lớn những tuyên bố gây hiểu lầm lại được dựng lên từ số liệu thật trình bày thiếu phép so sánh cần thiết. Đọc thống kê giỏi phần lớn chỉ là thói quen lặng lẽ hỏi: “trên tổng số bao nhiêu?”' } },
+
+  { level:'b2', no:9, en:'However, therefore, whereas', vi:'Liên từ và dấu hiệu diễn ngôn', skill:'Viết mạch lạc',
+    grammar:[
+      { form:'although / though / even though + mệnh đề · despite / in spite of + danh từ hoặc V-ing', vi:'Cùng diễn tả sự tương phản nhưng theo sau là hai loại thành phần khác nhau.', note:'✗ Despite it was raining. ✓ Despite the rain / Despite the fact that it was raining / Although it was raining. Không viết «in spite» thiếu «of».', ex:{ en:'Despite starting late, the team met the deadline.', vi:'Dù bắt đầu muộn, cả nhóm vẫn kịp hạn.' } },
+      { form:'however · nevertheless · therefore · consequently — trạng từ nối', vi:'Nối hai CÂU, không nối hai mệnh đề trong một câu. Dấu câu phải đúng.', note:'✓ It was expensive. However, we bought it. ✓ It was expensive; however, we bought it. ✗ It was expensive, however we bought it. So sánh: «but» và «so» là liên từ, nối được trong cùng một câu.', ex:{ en:'The results were promising; nevertheless, the trial was stopped.', vi:'Kết quả có triển vọng; tuy vậy, thử nghiệm vẫn bị dừng.' } },
+      { form:'whereas · while — đối chiếu hai vế', vi:'Dùng để so sánh trực tiếp hai sự việc khác nhau trong cùng một câu.', note:'«whereas» chỉ mang nghĩa đối chiếu. «while» có cả nghĩa thời gian nên đôi khi gây mơ hồ — trong bài viết học thuật, chọn whereas cho an toàn.', ex:{ en:'Northern cities grew quickly, whereas coastal towns lost population.', vi:'Các thành phố phía bắc tăng trưởng nhanh, trong khi các thị trấn ven biển mất dân.' } },
+      { form:'Dấu hiệu diễn ngôn trong văn nói: actually · mind you · to be fair · anyway', vi:'Những cụm ngắn báo hiệu bạn sắp chuyển hướng, chỉnh lại hay quay về ý chính.', note:'Đây là thứ giám khảo IELTS Speaking gọi là «discourse markers» và tính vào tiêu chí Fluency. actually = thật ra thì; mind you = tuy nhiên phải nói là; to be fair = nói cho công bằng; anyway = dù sao thì, quay lại chuyện chính.', ex:{ en:'It was a long trip. Mind you, the views were worth it. Anyway, we arrived on time.', vi:'Chuyến đi dài. Nhưng phải nói là cảnh đẹp bõ công. Dù sao thì chúng tôi cũng đến đúng giờ.' } }
+    ],
+    vocab:[
+      { en:'however', uk:'haʊˈevə', us:'haʊˈevər', vi:'tuy nhiên', pos:'trạng từ' },
+      { en:'nevertheless', uk:'ˌnevəðəˈles', us:'ˌnevərðəˈles', vi:'tuy vậy, dù thế', pos:'trạng từ', note:'Trọng âm rơi vào âm cuối.' },
+      { en:'nonetheless', uk:'ˌnʌnðəˈles', us:'ˌnʌnðəˈles', vi:'dù vậy', pos:'trạng từ' },
+      { en:'moreover', uk:'mɔːrˈəʊvə', us:'mɔːrˈoʊvər', vi:'hơn nữa', pos:'trạng từ' },
+      { en:'furthermore', uk:'ˌfɜːðəˈmɔː', us:'ˌfɜːrðərˈmɔːr', vi:'thêm vào đó', pos:'trạng từ' },
+      { en:'therefore', uk:'ˈðeəfɔː', us:'ˈðerfɔːr', vi:'do đó', pos:'trạng từ' },
+      { en:'thus', uk:'ðʌs', us:'ðʌs', vi:'vì thế', pos:'trạng từ', note:'Trang trọng; hay đi với V-ing: thus reducing costs.' },
+      { en:'hence', uk:'hens', us:'hens', vi:'từ đó mà, nên', pos:'trạng từ', note:'Thường theo sau là danh từ, không cần động từ: hence the delay.' },
+      { en:'whereas', uk:'weərˈæz', us:'werˈæz', vi:'trong khi (đối chiếu)', pos:'liên từ' },
+      { en:'although', uk:'ɔːlˈðəʊ', us:'ɔːlˈðoʊ', vi:'mặc dù', pos:'liên từ' },
+      { en:'despite', uk:'dɪˈspaɪt', us:'dɪˈspaɪt', vi:'bất chấp', pos:'giới từ', note:'✗ despite of.' },
+      { en:'consequently', uk:'ˈkɒnsɪkwəntli', us:'ˈkɑːnsəkwentli', vi:'do đó, kết quả là', pos:'trạng từ' },
+      { en:'meanwhile', uk:'ˈmiːnwaɪl', us:'ˈmiːnwaɪl', vi:'trong khi đó', pos:'trạng từ' },
+      { en:'likewise', uk:'ˈlaɪkwaɪz', us:'ˈlaɪkwaɪz', vi:'tương tự như vậy', pos:'trạng từ' },
+      { en:'admittedly', uk:'ədˈmɪtɪdli', us:'ədˈmɪtɪdli', vi:'phải thừa nhận là', pos:'trạng từ', note:'Dùng để nhượng bộ trước khi phản biện — rất hợp bài luận band cao.' },
+      { en:'arguably', uk:'ˈɑːɡjuəbli', us:'ˈɑːrɡjuəbli', vi:'có thể cho rằng', pos:'trạng từ' },
+      { en:'indeed', uk:'ɪnˈdiːd', us:'ɪnˈdiːd', vi:'quả thực, thậm chí', pos:'trạng từ' },
+      { en:'alternatively', uk:'ɔːlˈtɜːnətɪvli', us:'ɔːlˈtɜːrnətɪvli', vi:'hoặc là, một cách khác', pos:'trạng từ' },
+      { en:'ultimately', uk:'ˈʌltɪmətli', us:'ˈʌltɪmətli', vi:'rốt cuộc', pos:'trạng từ' },
+      { en:'notably', uk:'ˈnəʊtəbli', us:'ˈnoʊtəbli', vi:'đáng chú ý là', pos:'trạng từ' }
+    ],
+    colloc:[
+      { p:'on the one hand … on the other hand', vi:'một mặt… mặt khác', ex:'On the one hand it saves money; on the other hand it costs time.' },
+      { p:'to put it another way', vi:'nói cách khác', ex:'To put it another way, the policy shifts the cost onto tenants.' },
+      { p:'that said', vi:'dẫu vậy', ex:'The plan is expensive. That said, doing nothing costs more.' }
+    ],
+    dialogue:[
+      { sp:'Quan', en:'My teacher says my essays are repetitive. I use “and” and “but” all the time.', vi:'Cô giáo nói bài luận của tớ lặp đi lặp lại. Tớ dùng “and” với “but” suốt.' },
+      { sp:'Mark', en:'Then vary the joints, not the vocabulary. Try “whereas” when you compare two things.', vi:'Vậy thì thay đổi chỗ nối, đừng thay từ vựng. Thử dùng “whereas” khi so sánh hai thứ xem.' },
+      { sp:'Quan', en:'I tried “however” but she circled it in red.', vi:'Tớ có dùng “however” mà cô ấy khoanh đỏ.' },
+      { sp:'Mark', en:'Probably the punctuation. You cannot join two clauses with a comma and “however”.', vi:'Chắc là do dấu câu. Cậu không thể nối hai mệnh đề bằng dấu phẩy với “however”.' },
+      { sp:'Quan', en:'So a full stop or a semicolon before it.', vi:'Vậy là dấu chấm hoặc chấm phẩy trước nó.' },
+      { sp:'Mark', en:'Exactly. And do not open every paragraph with a linker. Admittedly they help, but overusing them sounds mechanical.', vi:'Chính xác. Và đừng mở đầu đoạn nào cũng bằng từ nối. Phải thừa nhận là chúng có ích, nhưng lạm dụng thì nghe rất máy móc.' },
+      { sp:'Quan', en:'That said, my last essay had none at all, and she wrote “disconnected”.', vi:'Dẫu vậy, bài luận trước của tớ chẳng có từ nối nào, và cô ấy phê là “rời rạc”.' }
+    ],
+    reading:{ en:'What makes writing feel clear\n\nMost people assume that clear writing is a matter of simple words. Simplicity helps, but readers judge clarity mainly by whether each sentence connects to the one before it. A paragraph of short, plain sentences with no visible relationship between them feels harder to read than a paragraph of longer ones that are properly hinged together.\n\nThe strongest hinge is not a linking word at all. It is information order: end a sentence with the idea the next sentence will pick up. Once that chain is in place, connectors such as “however” or “therefore” become signposts rather than crutches, and you need far fewer of them.\n\nExaminers notice the difference. A script stuffed with “Moreover” and “In addition” at the start of every paragraph is not rewarded, because the markers are doing work the sentences have failed to do. Conversely, a well-ordered argument with three or four precise connectors reads as though the writer thought before typing. Clarity, in other words, is mostly a property of sequence — and sequence is decided before a single word is chosen.', vi:'Điều gì khiến một bài viết trở nên sáng rõ\n\nPhần lớn mọi người cho rằng viết rõ ràng là chuyện dùng từ đơn giản. Sự giản dị có giúp, nhưng người đọc đánh giá độ rõ chủ yếu qua việc mỗi câu có nối được với câu trước hay không. Một đoạn gồm những câu ngắn, giản dị nhưng không thấy quan hệ với nhau lại khó đọc hơn một đoạn gồm những câu dài mà được khớp nối đúng cách.\n\nMối nối mạnh nhất hoá ra không phải từ nối. Đó là trật tự thông tin: hãy kết thúc câu bằng ý mà câu sau sẽ nhặt lên. Khi chuỗi ấy đã có, những từ như “however” hay “therefore” trở thành biển chỉ đường chứ không còn là cái nạng, và bạn cần ít hơn hẳn.\n\nGiám khảo nhận ra khác biệt đó. Một bài nhồi “Moreover” và “In addition” ở đầu mỗi đoạn không được thưởng điểm, vì các dấu hiệu ấy đang làm thay phần việc mà bản thân câu văn đã không làm được. Ngược lại, một lập luận sắp xếp tốt với ba bốn từ nối chính xác đọc lên như thể người viết đã suy nghĩ trước khi gõ phím. Nói cách khác, sự sáng rõ phần lớn là thuộc tính của trình tự — và trình tự được quyết định trước cả khi chọn chữ đầu tiên.' } },
+
+  { level:'b2', no:10, en:'It was the timing that mattered', vi:'Nhấn mạnh: câu chẻ và đảo ngữ', skill:'Làm nổi bật ý chính',
+    grammar:[
+      { form:'Câu chẻ với «It»: It is/was + phần nhấn + that/who…', vi:'Đưa thành phần muốn nhấn ra ngay sau «It is/was».', note:'Nhấn được chủ ngữ, tân ngữ, trạng ngữ — nhưng không nhấn được động từ chính. Dùng «who» cho người, «that» cho mọi trường hợp.', ex:{ en:'It was the timing that mattered, not the price.', vi:'Chính thời điểm mới là điều quan trọng, không phải giá cả.' } },
+      { form:'Câu chẻ với «What»: What + mệnh đề + is/was…', vi:'Dồn sự chú ý vào phần đứng sau động từ «be».', note:'Nhấn hành động thì thêm «do»: What she did was (to) rewrite the whole report. Biến thể trang trọng: The reason why… / The thing that… / All I want is…', ex:{ en:'What surprised everyone was how calmly he replied.', vi:'Điều làm mọi người ngạc nhiên là anh ấy đáp lại bình tĩnh đến thế nào.' } },
+      { form:'Đảo ngữ sau trạng ngữ phủ định', vi:'Đưa trạng ngữ phủ định lên đầu câu thì phải đảo trợ động từ lên trước chủ ngữ.', note:'Nhóm hay gặp: Never, Rarely, Seldom, Hardly… when, No sooner… than, Not only… but also, Under no circumstances, Not until. Cấu trúc y như câu hỏi: Never have I seen…', ex:{ en:'Not only did the price rise, but the quality also fell.', vi:'Không chỉ giá tăng mà chất lượng còn giảm.' } },
+      { form:'Đảo ngữ với «So / Such» và trạng ngữ chỉ nơi chốn', vi:'So + tính từ + be + chủ ngữ… that; Such + be + danh từ… that.', note:'So heavy was the rain that the match was cancelled. Với nơi chốn không cần trợ động từ: In the corner stood an old piano. Đây là văn viết trang trọng hoặc kể chuyện, đừng dùng tràn lan trong email.', ex:{ en:'Such was the demand that the tickets sold out in an hour.', vi:'Nhu cầu lớn đến mức vé bán hết trong một giờ.' } }
+    ],
+    vocab:[
+      { en:'emphasise', uk:'ˈemfəsaɪz', us:'ˈemfəsaɪz', vi:'nhấn mạnh', pos:'động từ', note:'Mỹ viết emphasize. Danh từ emphasis /ˈemfəsɪs/.' },
+      { en:'highlight', uk:'ˈhaɪlaɪt', us:'ˈhaɪlaɪt', vi:'làm nổi bật', pos:'động từ / danh từ' },
+      { en:'stress', uk:'stres', us:'stres', vi:'nhấn mạnh; căng thẳng; trọng âm', pos:'động từ / danh từ' },
+      { en:'underline', uk:'ˌʌndəˈlaɪn', us:'ˌʌndərˈlaɪn', vi:'gạch chân; nhấn mạnh', pos:'động từ' },
+      { en:'remarkable', uk:'rɪˈmɑːkəbl', us:'rɪˈmɑːrkəbl', vi:'đáng chú ý', pos:'tính từ' },
+      { en:'striking', uk:'ˈstraɪkɪŋ', us:'ˈstraɪkɪŋ', vi:'nổi bật, gây ấn tượng mạnh', pos:'tính từ', note:'a striking difference / contrast — cụm hay dùng khi mô tả biểu đồ.' },
+      { en:'crucial', uk:'ˈkruːʃl', us:'ˈkruːʃl', vi:'then chốt', pos:'tính từ' },
+      { en:'vital', uk:'ˈvaɪtl', us:'ˈvaɪtl', vi:'thiết yếu', pos:'tính từ' },
+      { en:'essential', uk:'ɪˈsenʃl', us:'ɪˈsenʃl', vi:'không thể thiếu', pos:'tính từ', note:'It is essential that he be informed — dạng giả định, dùng V nguyên thể.' },
+      { en:'significant', uk:'sɪɡˈnɪfɪkənt', us:'sɪɡˈnɪfɪkənt', vi:'đáng kể, có ý nghĩa', pos:'tính từ' },
+      { en:'notable', uk:'ˈnəʊtəbl', us:'ˈnoʊtəbl', vi:'đáng ghi nhận', pos:'tính từ' },
+      { en:'precisely', uk:'prɪˈsaɪsli', us:'prɪˈsaɪsli', vi:'chính xác là', pos:'trạng từ' },
+      { en:'particularly', uk:'pəˈtɪkjələli', us:'pərˈtɪkjələrli', vi:'đặc biệt là', pos:'trạng từ' },
+      { en:'especially', uk:'ɪˈspeʃəli', us:'ɪˈspeʃəli', vi:'nhất là', pos:'trạng từ', note:'Không đặt ở đầu câu như «specially».' },
+      { en:'utterly', uk:'ˈʌtəli', us:'ˈʌtərli', vi:'hoàn toàn (thường mang sắc thái tiêu cực)', pos:'trạng từ' },
+      { en:'thoroughly', uk:'ˈθʌrəli', us:'ˈθɜːroʊli', vi:'kỹ lưỡng, triệt để', pos:'trạng từ' },
+      { en:'absolutely', uk:'ˌæbsəˈluːtli', us:'ˌæbsəˈluːtli', vi:'tuyệt đối', pos:'trạng từ', note:'Đi với tính từ tuyệt đối: absolutely essential, ✗ absolutely important.' },
+      { en:'exceptional', uk:'ɪkˈsepʃənl', us:'ɪkˈsepʃənl', vi:'xuất sắc; ngoại lệ', pos:'tính từ' },
+      { en:'extraordinary', uk:'ɪkˈstrɔːdnri', us:'ɪkˈstrɔːrdəneri', vi:'phi thường', pos:'tính từ', note:'Anh đọc gọn 4 âm tiết, Mỹ 5 âm tiết.' },
+      { en:'undeniably', uk:'ˌʌndɪˈnaɪəbli', us:'ˌʌndɪˈnaɪəbli', vi:'không thể phủ nhận là', pos:'trạng từ' }
+    ],
+    colloc:[
+      { p:'draw attention to', vi:'thu hút chú ý vào', ex:'The report draws attention to a striking regional gap.' },
+      { p:'make a strong case for', vi:'lập luận thuyết phục cho', ex:'The author makes a strong case for shorter working hours.' },
+      { p:'be worth noting', vi:'đáng lưu ý là', ex:'It is worth noting that the sample was very small.' }
+    ],
+    dialogue:[
+      { sp:'Dr Owen', en:'Your conclusion is correct but it lands softly. Nothing in it stands out.', vi:'Kết luận của em đúng nhưng rơi xuống nhẹ hều. Chẳng có gì nổi bật cả.' },
+      { sp:'Quan', en:'How do I make a sentence stand out without using capital letters or exclamation marks?', vi:'Làm sao để một câu nổi bật mà không cần viết hoa hay dấu chấm than ạ?' },
+      { sp:'Dr Owen', en:'Change the shape of the sentence. Instead of “The timing mattered most”, write “It was the timing that mattered most”.', vi:'Hãy đổi hình dạng câu. Thay vì “The timing mattered most”, hãy viết “It was the timing that mattered most”.' },
+      { sp:'Quan', en:'And for the paragraph about the survey?', vi:'Còn đoạn về khảo sát thì sao ạ?' },
+      { sp:'Dr Owen', en:'Try a “what” cleft. “What the survey revealed was a gap between what people say and what they do.”', vi:'Thử câu chẻ với “what”. “Điều khảo sát cho thấy là khoảng cách giữa lời nói và việc làm.”' },
+      { sp:'Quan', en:'I have also seen sentences beginning “Not only did…”. Is that too formal?', vi:'Em cũng thấy những câu bắt đầu bằng “Not only did…”. Như thế có quá trang trọng không ạ?' },
+      { sp:'Dr Owen', en:'It is formal, and it is powerful — but use it once. Never have I read a good essay with four inversions in it.', vi:'Nó trang trọng, và có sức nặng — nhưng chỉ dùng một lần. Thầy chưa từng đọc bài luận hay nào có tới bốn câu đảo ngữ.' }
+    ],
+    reading:{ en:'The last sentence problem\n\nSpeechwriters have a rule that surprises new writers: put the strongest word at the end. English sentences carry their weight at the close, which is why “The scheme failed, unfortunately” sounds limp while “Unfortunately, the scheme failed” sounds final. Nothing has changed except position.\n\nThe same rule scales up. In a paragraph, the last sentence is what the reader carries forward; in a report, the last paragraph is what gets quoted in the meeting. Skilled writers therefore draft in any order they like, then spend a disproportionate amount of time rearranging endings.\n\nEmphasis has a cost, though, and it is easy to overspend. So striking is a cleft sentence or an inversion that two in a row cancel each other out; the reader stops noticing the technique and starts noticing the writer. The professional habit is restraint: build ordinary sentences that are clear, and save the unusual shapes for the two or three moments where the argument genuinely turns. Used once, such a sentence is remembered. Used constantly, it is merely a style.', vi:'Vấn đề của câu cuối cùng\n\nNhững người viết diễn văn có một quy tắc khiến người mới viết ngạc nhiên: hãy đặt từ mạnh nhất ở cuối. Câu tiếng Anh dồn sức nặng về phía kết, đó là lý do “The scheme failed, unfortunately” nghe rệu rã trong khi “Unfortunately, the scheme failed” nghe dứt khoát. Chẳng có gì thay đổi ngoài vị trí.\n\nQuy tắc ấy đúng ở mọi quy mô. Trong một đoạn, câu cuối là thứ người đọc mang theo; trong một báo cáo, đoạn cuối là thứ được trích lại trong cuộc họp. Vì vậy người viết lành nghề soạn nháp theo thứ tự tuỳ thích, rồi dành lượng thời gian không cân xứng để sắp xếp lại các đoạn kết.\n\nTuy nhiên, sự nhấn mạnh có cái giá của nó, và rất dễ tiêu quá tay. Câu chẻ hay câu đảo ngữ nổi bật đến mức hai câu liên tiếp sẽ triệt tiêu lẫn nhau; người đọc thôi để ý đến kỹ thuật mà bắt đầu để ý đến người viết. Thói quen chuyên nghiệp là tiết chế: hãy dựng những câu bình thường thật rõ ràng, và dành các cấu trúc khác lạ cho hai ba khoảnh khắc mà lập luận thật sự chuyển hướng. Dùng một lần, câu ấy được nhớ. Dùng liên tục, nó chỉ còn là một lối viết.' } }
 
   ]
 };

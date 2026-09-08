@@ -5049,6 +5049,8 @@ function enTokens(text){
 }
 /* Đưa một dạng từ về dạng nguyên thể có trong kho (đơn giản hoá, đủ dùng cho A1–B2) */
 const EN_IRREG = {
+  bore:'bear', borne:'bear', overwrote:'overwrite', overwritten:'overwrite',
+  undertook:'undertake', undertaken:'undertake', proven:'prove',
   was:'be', were:'be', is:'be', am:'be', are:'be', been:'be', being:'be',
   had:'have', has:'have', having:'have', does:'do', did:'do', done:'do', doing:'do',
   went:'go', gone:'go', goes:'go', said:'say', says:'say', made:'make', took:'take', taken:'take',
@@ -5095,6 +5097,19 @@ function enLemma(raw){
   if (/ves$/.test(w)) cand.push(w.slice(0, -3) + 'f', w.slice(0, -3) + 'fe');
   if (/(ness|ment|tion|sion|ity|ance|ence)$/.test(w)) cand.push(w.replace(/(ness|ment|ity|ance|ence)$/, ''), w.replace(/(tion|sion)$/, 'e'), w.replace(/(tion|sion)$/, ''));
   if (/^(un|in|im|dis|re|non)/.test(w)) cand.push(w.replace(/^(un|in|im|dis|re|non)/, ''));
+  /* hậu tố phái sinh: -able/-ible · -less · -ful · -ably/-ibly · -ically · -ship · -hood · -ist */
+  if (/(able|ible)$/.test(w)) cand.push(w.slice(0, -4), w.slice(0, -4) + 'e', w.slice(0, -4) + 'y');
+  if (/(ably|ibly)$/.test(w)) cand.push(w.slice(0, -4), w.slice(0, -4) + 'e', w.slice(0, -4) + 'able');
+  if (/less$/.test(w)) cand.push(w.slice(0, -4), w.slice(0, -4) + 'e');
+  if (/ful$/.test(w)) cand.push(w.slice(0, -3), w.slice(0, -3) + 'e');
+  if (/ically$/.test(w)) cand.push(w.slice(0, -4), w.slice(0, -6));
+  if (/ingly$/.test(w)) cand.push(w.slice(0, -5), w.slice(0, -5) + 'e', w.slice(0, -2));
+  if (/edly$/.test(w)) cand.push(w.slice(0, -4), w.slice(0, -4) + 'e', w.slice(0, -2));
+  if (/(ship|hood)$/.test(w)) cand.push(w.slice(0, -4));
+  if (/ists?$/.test(w)) cand.push(w.replace(/ists?$/, ''), w.replace(/ists?$/, 'y'));
+  /* tiền tố ghép với hậu tố: unlived → live · redesigned → design */
+  const pre = w.match(/^(un|re|over|under|mis|dis|pre|co)(.+)$/);
+  if (pre) cand.push(pre[2], pre[2].replace(/(ed|ing|s)$/, ''), pre[2].replace(/ed$/, 'e'), pre[2].replace(/ing$/, 'e'));
   for (let i = 0; i < cand.length; i++) if (cand[i] && L[cand[i]]) return cand[i];
   return L[w] ? w : '';
 }
