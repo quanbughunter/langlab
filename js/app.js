@@ -5049,7 +5049,7 @@ function enTokens(text){
 }
 /* Đưa một dạng từ về dạng nguyên thể có trong kho (đơn giản hoá, đủ dùng cho A1–B2) */
 const EN_IRREG = {
-  bore:'bear', borne:'bear', overwrote:'overwrite', overwritten:'overwrite',
+  criteria:'criterion', phenomena:'phenomenon', bore:'bear', borne:'bear', overwrote:'overwrite', overwritten:'overwrite',
   undertook:'undertake', undertaken:'undertake', proven:'prove',
   was:'be', were:'be', is:'be', am:'be', are:'be', been:'be', being:'be',
   had:'have', has:'have', having:'have', does:'do', did:'do', done:'do', doing:'do',
