@@ -1247,39 +1247,18 @@ function aboutView(){
   return `
   <div class="about">
     <div class="about-hero">
-      <div class="about-logo"><img src="logo-full.png?v=260924" alt="LangLab — Phòng thí nghiệm ngôn ngữ"></div>
+      <div class="about-logo"><img src="logo-full.png?v=260924" alt="LangLab"></div>
       <h1 class="sr-only">LangLab</h1>
-      <p class="about-tag">Phòng thí nghiệm ngôn ngữ — học ngoại ngữ theo bài, có tra từ điển, luyện nghe–nói và trợ lý AI.</p>
+      <p class="about-tag">Một web app học ngoại ngữ, làm nghịch nghịch lúc rảnh rỗi.</p>
     </div>
 
     <section class="about-sec">
-      <h2>LangLab là gì?</h2>
-      <p>LangLab là ứng dụng web giúp người Việt học ngoại ngữ một cách bài bản. Hiện có <b>tiếng Hàn</b> (6 cấp từ Sơ cấp đến Cao cấp, thi thử TOPIK), <b>tiếng Trung</b> (HSK 1–5 — nét cơ bản, bộ thủ, pinyin, tập viết theo thứ tự nét, thi thử HSK) <b>tiếng Nga</b> (A1–C2 theo khung ТРКИ — bảng chữ cái, phát âm, viết tay, luyện nói, thi thử ТРКИ) <b>tiếng Nhật</b> (N5–N2 theo khung JLPT — kana, kanji có âm Hán–Việt, tập viết theo nét, chia động từ, thi thử JLPT) và <b>tiếng Anh</b> (theo khung CEFR — bảng IPA 44 âm vị, trọng âm, nối âm, từ điển nhiều tầng nghĩa với collocation và cụm động từ, hướng tới IELTS/TOEFL), sẽ mở rộng thêm các ngôn ngữ khác. Mỗi bài giữ nguyên cấu trúc quen thuộc: từ vựng → ngữ pháp → hội thoại → phát âm → văn hoá.</p>
-      <ul class="about-feats">
-        <li>Khoá học chia cấp, bám khung giáo trình chuẩn của từng ngôn ngữ.</li>
-        <li>Từ điển tra nhanh — bấm vào từ nào cũng xem được nghĩa và cách dùng.</li>
-        <li>Tập viết chữ theo đúng thứ tự nét (Hangul, Hán tự) và chữ viết tay Cyrillic.</li>
-        <li>Luyện nghe và phát âm với giọng đọc chuẩn.</li>
-        <li>Bài tập, ôn tập và thi thử có chấm điểm, kèm giải thích.</li>
-        <li><b>Bạn có biết?</b> — mẩu chuyện văn hoá, ẩm thực, lễ hội, thói quen của nước đang học, tự hiện ở góc màn hình trong lúc học; hình minh hoạ vẽ bằng SVG.</li>
-        <li><b>Labi</b> — trợ lý AI: hỏi đáp về ngôn ngữ và phân tích tệp âm thanh (tách câu–từ, tra nghĩa, dịch).</li>
-      </ul>
-    </section>
-
-    <section class="about-sec">
-      <h2>Ý nghĩa tên &amp; logo</h2>
-      <p><b>LangLab</b> = <i>Language</i> (ngôn ngữ) + <i>Lab</i> (phòng thí nghiệm): học ngôn ngữ như làm thí nghiệm — thử, luyện, tinh chỉnh cho tới khi thành thạo.</p>
-      <p>Logo là một chiếc bình thí nghiệm đang được rót vào một thứ “dung dịch” đặc biệt: chữ <b>a</b> của nhiều thứ tiếng — <span style="color:#1B4D8F"><b>A</b></span> (Anh), <span style="color:#C8402F"><b>ㅏ</b></span> (Hàn), <span style="color:#A67C1E"><b>あ</b></span> (Nhật), <span style="color:#2F6FBF"><b>阿</b></span> (Trung), <span style="color:#1F7A5A"><b>а</b></span> (Nga) — hoà vào nhau trong chiếc bình bên dưới.</p>
-    </section>
-
-    <section class="about-sec">
-      <h2>Người phát triển</h2>
       <div class="about-dev">
         <span class="about-dev-name">Nguyễn Đình Quân</span>
+        <span class="about-dev-loc">Hà Nội</span>
         <a class="about-dev-mail" href="mailto:nguyendinhquan7788266@gmail.com">nguyendinhquan7788266@gmail.com</a>
         <a class="about-dev-mail" href="https://www.facebook.com/nguyenquan99.0802" target="_blank" rel="noopener noreferrer">facebook.com/nguyenquan99.0802</a>
       </div>
-      <p class="about-note">Góp ý, báo lỗi hay đề xuất thêm ngôn ngữ mới — cứ nhắn cho mình nhé.</p>
     </section>
 
     <p class="about-foot">© LangLab · Nguyễn Đình Quân. Ghi công dữ liệu mở: 국립국어원 (CC BY-SA) · Make Me a Hanzi (Arphic PL) · Hanzi Writer (MIT) · hanzi-writer-data-jp / AnimCJK (LGPL, Arphic PL) cho nét kana–kanji · cấu trúc JLPT theo jlpt.jp.</p>
@@ -1328,7 +1307,7 @@ function asstChatTab(){
       ${A.busy ? '<div class="asst-msg assistant"><div class="asst-bubble typing"><span></span><span></span><span></span></div></div>' : ''}
     </div>
     <div class="asst-input">
-      <textarea id="asstInput" rows="1" placeholder="Hỏi về tiếng Hàn… (Enter để gửi)"${A.busy ? ' disabled' : ''}></textarea>
+      <textarea id="asstInput" rows="1" placeholder="hỏi gì hỏi đi… (Enter để gửi)"${A.busy ? ' disabled' : ''}></textarea>
       <button class="pbtn primary" data-asst-send="1"${A.busy ? ' disabled' : ''}>Gửi</button>
       ${A.messages.length ? '<button class="pbtn" data-asst-clear="1" title="Xoá hội thoại">Xoá</button>' : ''}
     </div>
@@ -1350,7 +1329,7 @@ function asstAudioTab(){
       <input type="file" id="asstFile" accept="audio/*" hidden>
     </label>
     ${body}
-    <p class="asst-note">Tệp được gửi tới máy chủ AI của bạn để phân tích, không lưu lại. Với tiếng Hàn, bấm vào từng từ để tra từ điển đầy đủ.</p>
+    <p class="asst-note">chờ lâu thì đi pha mì tôm ăn rồi quay lại nhé… 🙂</p>
   </div>`;
 }
 
@@ -1446,11 +1425,30 @@ function mountAssistant(){
   }
 }
 
+/* ---------- Labi: linh vật chữ A chibi (tự đổi màu theo ngôn ngữ đang xem) ---------- */
+function labiMascot(cls){
+  return `<svg class="labi-mascot${cls ? ' ' + cls : ''}" viewBox="0 0 64 64" role="img" aria-label="Labi">
+    <path fill="currentColor" fill-rule="evenodd" d="M32 5.5c2.6 0 4.9 1.6 5.8 4l15.3 40.2c1.1 2.9-.4 6.1-3.2 7.2s-6.1-.4-7.2-3.2l-2.2-5.8H23.5l-2.2 5.8c-1.1 2.9-4.3 4.3-7.2 3.2s-4.3-4.3-3.2-7.2L26.2 9.5c.9-2.4 3.2-4 5.8-4zm0 15.6-4.4 11.6h8.8L32 21.1z"/>
+    <ellipse cx="25.2" cy="40.6" rx="5.4" ry="6.2" fill="#fff"/>
+    <ellipse cx="38.8" cy="40.6" rx="5.4" ry="6.2" fill="#fff"/>
+    <circle class="labi-eye" cx="26.3" cy="41.6" r="2.8" fill="#20242a"/>
+    <circle class="labi-eye" cx="39.9" cy="41.6" r="2.8" fill="#20242a"/>
+    <circle cx="25.1" cy="39.8" r="1.1" fill="#fff"/>
+    <circle cx="38.7" cy="39.8" r="1.1" fill="#fff"/>
+    <ellipse cx="20.2" cy="49.4" rx="3.2" ry="2" fill="#F2889B" opacity=".8"/>
+    <ellipse cx="43.8" cy="49.4" rx="3.2" ry="2" fill="#F2889B" opacity=".8"/>
+    <path d="M29.4 49.2c1.1 1.4 2 2.1 2.6 2.1s1.5-.7 2.6-2.1" fill="none" stroke="#20242a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
+  </svg>`;
+}
+
 /* ---------- Labi: cửa sổ nổi kéo-thả (dùng chung engine kéo với bảng tra) ---------- */
 function labiBody(){
   const A = state.assistant;
   return `
-  <p class="asst-intro">Hỏi đáp nhanh về ngôn ngữ, hoặc tải lên một tệp âm thanh để AI nhận diện ngôn ngữ, tách câu–từ, tra nghĩa và dịch.</p>
+  <div class="labi-hi">
+    ${labiMascot()}
+    <span class="labi-hi-tx">cùng học nhé<b>!!!</b></span>
+  </div>
   <div class="asst-tabs">
     <button class="asst-tab${A.tab === 'chat' ? ' on' : ''}" data-asst-tab="chat">💬 Hỏi đáp</button>
     <button class="asst-tab${A.tab === 'audio' ? ' on' : ''}" data-asst-tab="audio">🎧 Phân tích âm thanh</button>
@@ -5753,14 +5751,75 @@ function factShowBubble(f){
   if (!f) return;
   const el = factBubbleEl();
   el.innerHTML = `
-    <button class="fact-bubble-main" data-fact-open="1" title="Mở xem chi tiết">
+    <span class="fact-bubble-grip" data-fact-grip="1" title="Kéo để đặt ở chỗ khác" aria-hidden="true">⋮⋮</span>
+    <button class="fact-bubble-main" data-fact-open="1" title="Mở xem chi tiết (kéo để di chuyển)">
       <span class="fact-bubble-ic">💡</span>
       <span class="fact-bubble-tx"><b>Bạn có biết?</b><i>${esc(f.title)}</i></span>
     </button>
     <button class="fact-bubble-x" data-fact-hide="1" title="Ẩn">✕</button>`;
   el.classList.add('show');
+  factApplyPos(el);
   state.fact = f;
 }
+
+/* ----- kéo rê bong bóng, đặt ở bất kỳ đâu trên màn hình ----- */
+function factClampPos(el, left, top){
+  const w = el.offsetWidth || 300, h = el.offsetHeight || 60, m = 6;
+  return {
+    left: Math.max(m, Math.min(window.innerWidth  - w - m, left)),
+    top:  Math.max(m, Math.min(window.innerHeight - h - m, top))
+  };
+}
+function factApplyPos(el){
+  const pos = store.get('factBubblePos', null);
+  if (!pos){ el.style.left = el.style.top = el.style.right = el.style.bottom = ''; return; }
+  const c = factClampPos(el, pos.left, pos.top);
+  el.style.left = c.left + 'px'; el.style.top = c.top + 'px';
+  el.style.right = 'auto'; el.style.bottom = 'auto';
+}
+function factResetPos(){
+  store.set('factBubblePos', null);
+  const el = $('#factBubble');
+  if (el){ el.style.left = el.style.top = el.style.right = el.style.bottom = ''; }
+}
+let _factDrag = null, _factSuppressClick = false;
+document.addEventListener('pointerdown', e => {
+  const el = e.target.closest && e.target.closest('#factBubble');
+  if (!el) return;
+  if (e.target.closest('[data-fact-hide]')) return;      /* nút ẩn vẫn bấm bình thường */
+  const r = el.getBoundingClientRect();
+  _factDrag = { el, dx: e.clientX - r.left, dy: e.clientY - r.top, x0: e.clientX, y0: e.clientY, moved: false };
+});
+document.addEventListener('pointermove', e => {
+  if (!_factDrag) return;
+  if (!_factDrag.moved){
+    if (Math.abs(e.clientX - _factDrag.x0) < 4 && Math.abs(e.clientY - _factDrag.y0) < 4) return;
+    _factDrag.moved = true;
+    _factDrag.el.classList.add('dragging');
+  }
+  const el = _factDrag.el;
+  const c = factClampPos(el, e.clientX - _factDrag.dx, e.clientY - _factDrag.dy);
+  el.style.left = c.left + 'px'; el.style.top = c.top + 'px';
+  el.style.right = 'auto'; el.style.bottom = 'auto';
+  if (e.cancelable) e.preventDefault();
+});
+function factDragEnd(){
+  if (!_factDrag) return;
+  const el = _factDrag.el, moved = _factDrag.moved;
+  el.classList.remove('dragging');
+  if (moved){
+    store.set('factBubblePos', { left: parseInt(el.style.left, 10) || 0, top: parseInt(el.style.top, 10) || 0 });
+    _factSuppressClick = true;                             /* nuốt đúng cú click phát sinh sau khi kéo */
+    setTimeout(() => { _factSuppressClick = false; }, 400);
+  }
+  _factDrag = null;
+}
+document.addEventListener('pointerup', factDragEnd);
+document.addEventListener('pointercancel', factDragEnd);
+window.addEventListener('resize', () => {
+  const el = $('#factBubble');
+  if (el && el.classList.contains('show') && store.get('factBubblePos', null)) factApplyPos(el);
+});
 function factHideBubble(){ const el = $('#factBubble'); if (el) el.classList.remove('show'); }
 function factSchedule(){
   clearTimeout(_factTimer);
@@ -5819,7 +5878,7 @@ function factClose(){
 }
 /* ----- màn hình «Bạn có biết?» ----- */
 if (typeof window !== 'undefined') window.__en = { lemma:enLemma, tokens:enTokens, ipa:enIpa, level:enLevel, lessons:enLessonList, phon:() => _EPA, course:() => _EC };
-window.__facts = { pick:factPick, lang:factLang, show:factShowBubble, schedule:factSchedule, on:factsOn, open:factOpen, pool:factPool, store };
+window.__facts = { pick:factPick, lang:factLang, show:factShowBubble, schedule:factSchedule, on:factsOn, open:factOpen, pool:factPool, store, applyPos:factApplyPos, resetPos:factResetPos, clampPos:factClampPos };
 VIEWS.facts = function(){
   const lang = state.factsLang || factLang() || 'ko';
   const pool = factPool(lang);
@@ -5836,7 +5895,8 @@ VIEWS.facts = function(){
   <div class="level-strip compact">${langs.map(l => `<button class="level-chip" data-facts-lang="${l}"${l === lang ? ' aria-pressed="true"' : ''}>${esc(FACT_LANG_NAME[l])}</button>`).join('')}</div>
   <div class="level-strip compact" style="margin-top:8px"><button class="level-chip" data-facts-cat="all"${cat === 'all' ? ' aria-pressed="true"' : ''}>Tất cả</button>${cats.map(c => `<button class="level-chip" data-facts-cat="${esc(c)}"${cat === c ? ' aria-pressed="true"' : ''}>${esc(c)}</button>`).join('')}</div>
   <div class="fact-grid">${list.map((f, i) => `<button class="fact-card" data-fact-idx="${_FA.indexOf(f)}">${factCardHTML(f)}</button>`).join('')}</div>
-  <div class="wp-actions" style="padding:10px 0 0">${factsOn() ? `<button class="pbtn" data-fact-off="1">🔕 Tắt bong bóng «Bạn có biết?»</button>` : `<button class="pbtn primary" data-fact-on="1">🔔 Bật lại bong bóng «Bạn có biết?»</button>`}<button class="pbtn" data-fact-next="1">🎲 Xem một mẩu ngẫu nhiên</button></div>
+  <div class="wp-actions" style="padding:10px 0 0">${factsOn() ? `<button class="pbtn" data-fact-off="1">🔕 Tắt bong bóng «Bạn có biết?»</button>` : `<button class="pbtn primary" data-fact-on="1">🔔 Bật lại bong bóng «Bạn có biết?»</button>`}<button class="pbtn" data-fact-next="1">🎲 Xem một mẩu ngẫu nhiên</button><button class="pbtn ghost" data-fact-pos-reset="1">↩︎ Trả bong bóng về góc cũ</button></div>
+  <p class="tk-note-small">Mẹo: bong bóng kéo rê được — giữ chuột (hoặc chạm giữ) rồi kéo đặt ở bất kỳ chỗ nào trên màn hình, vị trí sẽ được nhớ lại.</p>
   <p class="tk-note-small">Nội dung do LangLab biên soạn cho người học, có thể lược giản so với tài liệu chuyên khảo. Hình minh hoạ vẽ bằng SVG, không dùng ảnh của bên thứ ba.</p>`;
 };
 
@@ -5845,8 +5905,10 @@ document.addEventListener('click', e => {
 
   /* ----- Bạn có biết? ----- */
   if (t.closest('[data-fact-hide]')){ factHideBubble(); store.set('factLastAt', Date.now()); factSchedule(); return; }
-  if (t.closest('[data-fact-open]')){ factOpen(state.fact); return; }
+  if (t.closest('[data-fact-grip]')) return;
+  if (t.closest('[data-fact-open]')){ if (_factSuppressClick){ _factSuppressClick = false; return; } factOpen(state.fact); return; }
   if (t.closest('[data-fact-next]')){ const lg = state.factOpen && state.fact ? state.fact.lang : (state.view === 'facts' ? (state.factsLang || factLang() || 'ko') : (factLang() || 'ko')); const f = factPick(lg, state.factOpen ? state.fact : null); if (f) factOpen(f); return; }
+  if (t.closest('[data-fact-pos-reset]')){ factResetPos(); toast('Đã trả bong bóng về góc dưới bên trái.'); return; }
   if (t.closest('[data-fact-off]')){ store.set('factsOn', false); factClose(); factHideBubble(); toast('Đã tắt bong bóng «Bạn có biết?» — bật lại ở màn Bạn có biết?'); return; }
   if (t.closest('[data-fact-on]')){ store.set('factsOn', true); toast('Đã bật lại bong bóng «Bạn có biết?»'); render(); return; }
   const fIdx = t.closest('[data-fact-idx]');
