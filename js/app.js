@@ -5893,8 +5893,12 @@ VIEWS.en_srs = function(){
 const _EEX = (typeof EN_EXERCISES !== 'undefined') ? EN_EXERCISES : [];
 const EN_QZ_TYPE = {
   mc:'Trắc nghiệm', gap:'Điền dạng đúng', prep:'Chọn giới từ', order:'Sắp xếp câu',
-  rewrite:'Viết lại câu', match:'Ghép nghĩa', error:'Tìm lỗi sai', word:'Từ dễ nhầm'
+  rewrite:'Viết lại câu', match:'Ghép nghĩa', error:'Tìm lỗi sai', word:'Từ dễ nhầm',
+  guess:'Đoán nghĩa từ ngữ cảnh', context:'Chọn từ hợp ngữ cảnh', sense:'Nghĩa nào đúng ở đây',
+  odd:'Từ lạc nhóm', colloc:'Ghép collocation', family:'Họ từ'
 };
+/* Dạng có sẵn lựa chọn để bấm; các dạng còn lại thì gõ đáp án */
+const EN_QZ_CHOICE = ['mc','prep','match','error','word','guess','context','sense','odd','colloc'];
 function enQzPool(){
   const lv = state.en.quizLevel || 'all';
   const ty = state.en.quizType || 'all';
@@ -5914,7 +5918,7 @@ function enQzStart(){
 }
 function enQzCorrect(q, v){
   if (v === undefined || v === null || v === '') return false;
-  if (q.type === 'mc' || q.type === 'prep' || q.type === 'match' || q.type === 'error' || q.type === 'word') return +v === q.c;
+  if (EN_QZ_CHOICE.indexOf(q.type) >= 0) return +v === q.c;
   return enQzNorm(v) === enQzNorm(q.c);
 }
 VIEWS.en_quiz = function(){
@@ -5925,7 +5929,7 @@ VIEWS.en_quiz = function(){
   <div class="page-head">
     <span class="eyebrow">Tiếng Anh · Luyện tập</span>
     <h1>Bài tập tiếng Anh</h1>
-    <p>Kho có <b>${_EEX.length}</b> câu thuộc <b>8 dạng</b>: trắc nghiệm, điền dạng đúng của từ, chọn giới từ, sắp xếp câu, viết lại câu, ghép nghĩa cụm từ, tìm lỗi sai và phân biệt từ dễ nhầm. Mỗi câu đều có lời giải thích bằng tiếng Việt.</p>
+    <p>Kho có <b>${_EEX.length}</b> câu thuộc <b>${Object.keys(EN_QZ_TYPE).length} dạng</b>. Ngoài các dạng ngữ pháp quen thuộc còn có sáu dạng luyện từ trong ngữ cảnh: <b>đoán nghĩa từ ngữ cảnh</b> (từ mới nằm trong câu có manh mối), <b>chọn từ hợp ngữ cảnh</b>, <b>nghĩa nào đúng ở đây</b> (một từ nhiều nghĩa), <b>từ lạc nhóm</b>, <b>ghép collocation</b> và <b>họ từ</b>. Mỗi câu đều có lời giải thích bằng tiếng Việt.</p>
   </div>`;
 
   if (!Q || !Q.qs.length){
@@ -5967,7 +5971,7 @@ VIEWS.en_quiz = function(){
   }
 
   const q = Q.qs[Q.i], picked = Q.picked[Q.i];
-  const isChoice = ['mc','prep','match','error','word'].indexOf(q.type) >= 0;
+  const isChoice = EN_QZ_CHOICE.indexOf(q.type) >= 0;
   const body = isChoice
     ? `<div class="qz-opts">${q.o.map((o, i) => `<button class="qz-opt en${picked === i ? ' on' : ''}" data-en-quizpick="${i}">${esc(o)}</button>`).join('')}</div>`
     : `<div class="qz-input"><input id="enqzin" class="dict-q" type="text" placeholder="${q.type === 'order' ? 'Viết lại cả câu, không cần dấu chấm…' : 'Nhập đáp án…'}" value="${esc(picked || '')}" autocomplete="off" spellcheck="false"></div>`;
@@ -5975,7 +5979,7 @@ VIEWS.en_quiz = function(){
   return head + `
   <div class="qz-bar"><span>Câu ${Q.i + 1}/${Q.qs.length}</span><span class="qz-tag">${esc(EN_QZ_TYPE[q.type] || q.type)} · ${esc(q.tag)} · ${esc((q.lv || '').toUpperCase())}</span></div>
   <div class="qz-card">
-    <div class="qz-q en">${esc(q.q)}</div>
+    <div class="qz-q en" style="white-space:pre-line">${esc(q.q)}</div>
     ${body}
   </div>
   <div class="les-nav">
@@ -6345,7 +6349,7 @@ function factClose(){
 }
 /* ----- màn hình «Bạn có biết?» ----- */
 if (typeof window !== 'undefined') window.__rd = { list:rdList, lang:rdLang, all:() => _RD };
-window.__en = { lemma:enLemma, tokens:enTokens, ipa:enIpa, level:enLevel, lessons:enLessonList, phon:() => _EPA, course:() => _EC, entryEx:enEntryEx, exIndex:enExIndex };
+window.__en = { lemma:enLemma, tokens:enTokens, ipa:enIpa, level:enLevel, lessons:enLessonList, phon:() => _EPA, course:() => _EC, entryEx:enEntryEx, exIndex:enExIndex, qzChoice:EN_QZ_CHOICE, qzTypes:EN_QZ_TYPE, quiz:() => state.en.quiz };
 window.__facts = { pick:factPick, lang:factLang, show:factShowBubble, schedule:factSchedule, on:factsOn, open:factOpen, pool:factPool, store, applyPos:factApplyPos, resetPos:factResetPos, clampPos:factClampPos };
 VIEWS.facts = function(){
   const lang = state.factsLang || factLang() || 'ko';

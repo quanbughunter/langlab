@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
 <meta name="description" content="Ứng dụng học ngoại ngữ theo bài cho người Việt: tiếng Hàn (TOPIK), tiếng Nhật (JLPT), tiếng Trung (HSK), tiếng Nga (ТРКИ), tiếng Anh (IELTS/TOEFL) — từ vựng, ngữ pháp, hội thoại, tập viết, từ điển, thi thử.">
-<link rel="icon" type="image/png" href="logo-icon.png?v=260953">
-<link rel="manifest" href="manifest.webmanifest?v=260953">
+<link rel="icon" type="image/png" href="logo-icon.png?v=260954">
+<link rel="manifest" href="manifest.webmanifest?v=260954">
 <meta name="theme-color" content="#EAF1FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260953">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260954">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="LangLab">
@@ -1941,7 +1941,7 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   <header class="nav">
     <div class="nav-in">
       <div class="brand" data-go="about" role="link" tabindex="0" title="Giới thiệu LangLab">
-        <span class="brand-mark"><img src="logo-icon.png?v=260953" alt="LangLab" width="40" height="40"></span>
+        <span class="brand-mark"><img src="logo-icon.png?v=260954" alt="LangLab" width="40" height="40"></span>
         <span class="brand-name"><b>Lang</b><i>Lab</i></span>
       </div>
 
@@ -31706,7 +31706,107 @@ const EN_EXERCISES = [
 { lv:'b2', type:'rewrite', tag:'danh hoá', q:'Viết gọn bằng danh hoá: Prices rose sharply, and this worried the government. → The ___ in prices worried the government.', c:'sharp rise', e:'Danh hoá: động từ «rose sharply» thành cụm danh từ «the sharp rise».' },
 { lv:'b2', type:'rewrite', tag:'nhượng bộ', q:'Hoàn thành mẫu nhượng bộ: ___ it is true that the policy is expensive, the cost of inaction is higher.', c:'While', e:'«While it is true that…, …» là mẫu câu nhượng bộ chuẩn của bài luận band cao.' },
 { lv:'b2', type:'gap', tag:'ôn tập tổng hợp', q:'The data ___ (suggest) that the effect ___ (may) well be smaller than reported.', c:'suggest / may', e:'«data» chia số nhiều trong văn học thuật; sau «may» là động từ nguyên thể trần.' },
-{ lv:'b2', type:'error', tag:'ôn tập tổng hợp', q:'Tìm lỗi: Despite of the rain, the ceremony was went ahead as planned.', o:['Despite of','the rain','the ceremony','was went ahead'], c:0, e:'Có hai lỗi, nhưng lỗi được khoanh ở đây là «Despite of» — đúng phải là «Despite» hoặc «In spite of». (Vế sau đúng phải là «went ahead».)' }
+{ lv:'b2', type:'error', tag:'ôn tập tổng hợp', q:'Tìm lỗi: Despite of the rain, the ceremony was went ahead as planned.', o:['Despite of','the rain','the ceremony','was went ahead'], c:0, e:'Có hai lỗi, nhưng lỗi được khoanh ở đây là «Despite of» — đúng phải là «Despite» hoặc «In spite of». (Vế sau đúng phải là «went ahead».)' },
+/* ---------- DẠNG MỚI: ĐOÁN NGHĨA TỪ NGỮ CẢNH (guess) ---------- */
+{ lv:'a2', type:'guess', tag:'đoán nghĩa', q:'The path was so narrow that we had to walk in single file, one behind the other.  →  «narrow» ở đây nghĩa là gì?', o:['hẹp','dài','trơn','tối'], c:0, e:'Manh mối nằm ngay sau: phải đi hàng một, người này sau người kia — chỉ đường hẹp mới cần vậy.' },
+{ lv:'a2', type:'guess', tag:'đoán nghĩa', q:'She was exhausted after the trip: she slept for eleven hours and still felt tired.  →  «exhausted» nghĩa là gì?', o:['vui vẻ','kiệt sức','đói','bận'], c:1, e:'Ngủ mười một tiếng mà vẫn mệt — vế sau giải thích luôn cho từ đứng trước.' },
+{ lv:'a2', type:'guess', tag:'đoán nghĩa', q:'The shop was empty; there were no customers and no staff.  →  «empty» nghĩa là gì?', o:['đắt','trống không','mới','ồn'], c:1, e:'Dấu chấm phẩy mở ra lời giải thích: không có khách, không có nhân viên.' },
+{ lv:'b1', type:'guess', tag:'đoán nghĩa', q:'The instructions were ambiguous: half the class understood them one way and half the other.  →  «ambiguous» nghĩa là gì?', o:['dài dòng','mơ hồ, hiểu được hai cách','sai hoàn toàn','viết tay'], c:1, e:'Nửa lớp hiểu kiểu này, nửa kia hiểu kiểu khác — đó chính là định nghĩa của mơ hồ.' },
+{ lv:'b1', type:'guess', tag:'đoán nghĩa', q:'Unlike his brother, who talks constantly, Nam is reticent and rarely speaks first.  →  «reticent» nghĩa là gì?', o:['nói nhiều','kín tiếng, ít nói','thô lỗ','thông minh'], c:1, e:'Chữ «Unlike» báo hiệu tương phản: anh trai nói suốt, còn Nam thì ngược lại.' },
+{ lv:'b1', type:'guess', tag:'đoán nghĩa', q:'The medicine alleviated the pain but did not cure the illness.  →  «alleviate» nghĩa là gì?', o:['làm dịu bớt','chữa khỏi hẳn','gây ra','kéo dài'], c:0, e:'Vế «but did not cure» cho biết nó chỉ làm nhẹ đi chứ chưa khỏi.' },
+{ lv:'b1', type:'guess', tag:'đoán nghĩa', q:'The soil here is arid — nothing grows without irrigation.  →  «arid» nghĩa là gì?', o:['màu mỡ','khô cằn','lầy lội','mặn'], c:1, e:'Không tưới thì không mọc được gì — đất khô cằn.' },
+{ lv:'b1', type:'guess', tag:'đoán nghĩa', q:'His explanation was so convoluted that nobody could follow it, even after three attempts.  →  «convoluted» nghĩa là gì?', o:['ngắn gọn','rối rắm, vòng vo','to tiếng','buồn cười'], c:1, e:'«nobody could follow it» — không ai theo kịp, nên lời giải thích rối rắm.' },
+{ lv:'b2', type:'guess', tag:'đoán nghĩa', q:'Sales were negligible in the first year: fewer than twenty units in twelve months.  →  «negligible» nghĩa là gì?', o:['rất lớn','không đáng kể','ổn định','bất ngờ'], c:1, e:'Dấu hai chấm mở ra con số cụ thể — chưa tới hai mươi sản phẩm trong một năm.' },
+{ lv:'b2', type:'guess', tag:'đoán nghĩa', q:'The evidence was scant, so the committee postponed its decision.  →  «scant» nghĩa là gì?', o:['ít ỏi','đầy đủ','mới','đáng tin'], c:0, e:'Vì thiếu bằng chứng nên uỷ ban phải hoãn — quan hệ nguyên nhân kết quả cho biết nghĩa.' },
+{ lv:'b2', type:'guess', tag:'đoán nghĩa', q:'She was candid about the risks, listing every one before we signed.  →  «candid» nghĩa là gì?', o:['thẳng thắn','giấu giếm','lo lắng','vội vàng'], c:0, e:'Liệt kê mọi rủi ro trước khi ký — hành vi của người thẳng thắn.' },
+{ lv:'b2', type:'guess', tag:'đoán nghĩa', q:'The report was superficial: it described the symptoms but never asked why they occurred.  →  «superficial» nghĩa là gì?', o:['sâu sắc','hời hợt, chỉ bề mặt','dài','chính xác'], c:1, e:'Mô tả triệu chứng mà không hỏi nguyên nhân — dừng ở bề mặt.' },
+{ lv:'b2', type:'guess', tag:'đoán nghĩa', q:'Attendance dwindled from ninety people in March to eleven in September.  →  «dwindle» nghĩa là gì?', o:['tăng dần','giảm dần','dao động','ổn định'], c:1, e:'Con số 90 → 11 nói rõ chiều đi xuống.' },
+{ lv:'b2', type:'guess', tag:'đoán nghĩa', q:'The two accounts were incompatible: if one was true, the other could not be.  →  «incompatible» nghĩa là gì?', o:['giống hệt nhau','không thể cùng đúng','rất dài','đáng tin'], c:1, e:'Vế sau dấu hai chấm định nghĩa luôn: cái này đúng thì cái kia không thể đúng.' },
+{ lv:'b2', type:'guess', tag:'đoán nghĩa', q:'Rather than reprimand her, the manager thanked her for admitting the mistake early.  →  «reprimand» nghĩa là gì?', o:['khiển trách','khen thưởng','sa thải','thăng chức'], c:0, e:'«Rather than X, he thanked her» — X phải là hành động ngược với cảm ơn.' },
+
+/* ---------- DẠNG MỚI: CHỌN TỪ HỢP NGỮ CẢNH (context) ---------- */
+{ lv:'a2', type:'context', tag:'hợp ngữ cảnh', q:'Trong hai câu, chọn từ hợp với câu B:\nA. I ___ my keys every week. (đánh mất)\nB. We ___ the match three–nil last night.', o:['lost','missed','left','dropped'], c:0, e:'«lose a match» = thua trận. Cùng từ «lose» nhưng câu A là mất đồ, câu B là thua — một từ, hai ngữ cảnh.' },
+{ lv:'a2', type:'context', tag:'hợp ngữ cảnh', q:'Chọn từ đúng cho ngữ cảnh: The bus was late, so I ___ my first class.', o:['missed','lost','failed','forgot'], c:0, e:'miss a class = lỡ buổi học. «lose a class» không tồn tại; «fail» là trượt môn.' },
+{ lv:'a2', type:'context', tag:'hợp ngữ cảnh', q:'Chọn từ đúng: Could you ___ me your umbrella until tomorrow?', o:['lend','borrow','give','take'], c:0, e:'lend = cho mượn (người đưa); borrow = mượn (người nhận). Chủ ngữ ở đây là người đưa.' },
+{ lv:'b1', type:'context', tag:'hợp ngữ cảnh', q:'Chọn từ hợp nhất: After the accident the road was closed and traffic had to take a long ___.', o:['detour','journey','route','distance'], c:0, e:'detour = đường vòng bất đắc dĩ. «route» chỉ là tuyến đường nói chung, không mang nghĩa phải đi vòng.' },
+{ lv:'b1', type:'context', tag:'hợp ngữ cảnh', q:'Chọn từ hợp nhất: The medicine has no serious ___ effects, only a mild headache in some patients.', o:['side','extra','after','second'], c:0, e:'side effect = tác dụng phụ — một collocation cố định.' },
+{ lv:'b1', type:'context', tag:'hợp ngữ cảnh', q:'Chọn từ hợp nhất: She has a very ___ knowledge of Korean history — she can name every dynasty.', o:['thorough','wide','big','long'], c:0, e:'thorough knowledge = hiểu biết kỹ lưỡng. «big knowledge» không dùng trong tiếng Anh.' },
+{ lv:'b1', type:'context', tag:'hợp ngữ cảnh', q:'Chọn từ hợp nhất: The two brothers look identical, so people often ___ one for the other.', o:['mistake','confuse','change','replace'], c:0, e:'mistake A for B = nhầm A thành B. «confuse A with B» cũng đúng nhưng đi với «with», không phải «for».' },
+{ lv:'b2', type:'context', tag:'hợp ngữ cảnh', q:'Chọn từ hợp nhất: The new rules were introduced to ___ the risk of flooding, not to remove it entirely.', o:['reduce','erase','cancel','delete'], c:0, e:'reduce = giảm bớt. Ba từ còn lại đều mang nghĩa xoá sạch, mâu thuẫn với vế «not to remove it entirely».' },
+{ lv:'b2', type:'context', tag:'hợp ngữ cảnh', q:'Chọn từ hợp nhất: The findings ___ the earlier study rather than contradicting it.', o:['confirm','deny','doubt','ignore'], c:0, e:'Vế sau «rather than contradicting» đòi một từ trái nghĩa với «phản bác».' },
+{ lv:'b2', type:'context', tag:'hợp ngữ cảnh', q:'Chọn từ hợp nhất: Her argument is persuasive, but it ___ on one assumption that nobody has tested.', o:['rests','sits','lies','stands'], c:0, e:'rest on an assumption = dựa trên một giả định. Đây là cụm cố định trong văn học thuật.' },
+{ lv:'b2', type:'context', tag:'hợp ngữ cảnh', q:'Chọn từ hợp nhất: The company ___ responsibility for the delay and offered a full refund.', o:['accepted','received','took over','collected'], c:0, e:'accept responsibility = nhận trách nhiệm. «take responsibility» cũng đúng nhưng không phải «take over».' },
+{ lv:'b2', type:'context', tag:'hợp ngữ cảnh', q:'Chọn từ hợp nhất: These figures ___ a trend rather than proving a cause.', o:['suggest','prove','confirm','establish'], c:0, e:'Vế «rather than proving» loại ngay ba từ mang nghĩa khẳng định mạnh.' },
+{ lv:'b2', type:'context', tag:'hợp ngữ cảnh', q:'Chọn từ hợp nhất: He gave a ___ account of the meeting — nothing was left out.', o:['detailed','brief','vague','rough'], c:0, e:'«nothing was left out» đòi một từ mang nghĩa đầy đủ, chi tiết.' },
+{ lv:'b2', type:'context', tag:'hợp ngữ cảnh', q:'Chọn từ hợp nhất: The scheme was ___ by the council but rejected by residents.', o:['approved','refused','delayed','cancelled'], c:0, e:'Chữ «but» đòi hai vế trái nhau: hội đồng duyệt, dân bác.' },
+{ lv:'b2', type:'context', tag:'hợp ngữ cảnh', q:'Chọn từ hợp nhất: Prices remained ___ all year, moving less than one per cent.', o:['stable','volatile','sharp','sudden'], c:0, e:'Thay đổi dưới một phần trăm cả năm — đó là ổn định.' },
+
+/* ---------- DẠNG MỚI: NGHĨA NÀO ĐÚNG Ở ĐÂY (sense) ---------- */
+{ lv:'a2', type:'sense', tag:'nhiều nghĩa', q:'«book» trong câu này mang nghĩa nào?  —  I need to book a table for four.', o:['đặt trước','cuốn sách','ghi chép','học'], c:0, e:'«book» ở đây là động từ, nghĩa đặt chỗ. Danh từ «a book» mới là cuốn sách.' },
+{ lv:'a2', type:'sense', tag:'nhiều nghĩa', q:'«run» trong câu này mang nghĩa nào?  —  She runs a small bakery near the station.', o:['điều hành','chạy bộ','chảy','ứng cử'], c:0, e:'run a business = điều hành một cơ sở kinh doanh.' },
+{ lv:'a2', type:'sense', tag:'nhiều nghĩa', q:'«light» trong câu này mang nghĩa nào?  —  This bag is very light; I can carry it with one hand.', o:['nhẹ','ánh sáng','sáng màu','bật đèn'], c:0, e:'Vế sau «carry it with one hand» cho biết đây là nói về trọng lượng.' },
+{ lv:'b1', type:'sense', tag:'nhiều nghĩa', q:'«charge» trong câu này mang nghĩa nào?  —  The museum charges eight pounds for adults.', o:['thu phí','sạc pin','buộc tội','lao tới'], c:0, e:'charge + số tiền + for = thu bao nhiêu tiền cho cái gì.' },
+{ lv:'b1', type:'sense', tag:'nhiều nghĩa', q:'«charge» trong câu này mang nghĩa nào?  —  He was charged with theft last March.', o:['bị buộc tội','bị thu phí','được sạc','bị đuổi'], c:0, e:'be charged with + tội danh = bị buộc tội. Cùng một động từ, hai nghĩa hoàn toàn khác.' },
+{ lv:'b1', type:'sense', tag:'nhiều nghĩa', q:'«figure» trong câu này mang nghĩa nào?  —  The figure rose from twelve to forty in one year.', o:['con số','hình dáng','nhân vật','hình vẽ'], c:0, e:'«rose from twelve to forty» — đang nói về số liệu.' },
+{ lv:'b1', type:'sense', tag:'nhiều nghĩa', q:'«fine» trong câu này mang nghĩa nào?  —  He had to pay a fine of two hundred thousand dong.', o:['khoản tiền phạt','ổn, khoẻ','mảnh, mịn','đẹp trời'], c:0, e:'pay a fine = nộp phạt. Ở đây «fine» là danh từ.' },
+{ lv:'b1', type:'sense', tag:'nhiều nghĩa', q:'«mean» trong câu này mang nghĩa nào?  —  I did not mean to interrupt you.', o:['cố ý, có chủ đích','nghĩa là','keo kiệt','trung bình'], c:0, e:'mean to do something = cố ý làm gì.' },
+{ lv:'b2', type:'sense', tag:'nhiều nghĩa', q:'«address» trong câu này mang nghĩa nào?  —  The report fails to address the main objection.', o:['giải quyết, xử lý','địa chỉ','phát biểu','gửi thư'], c:0, e:'address a problem/objection = đối diện và xử lý vấn đề đó.' },
+{ lv:'b2', type:'sense', tag:'nhiều nghĩa', q:'«subject» trong câu này mang nghĩa nào?  —  All flights are subject to weather conditions.', o:['phụ thuộc vào','môn học','chủ đề','người tham gia nghiên cứu'], c:0, e:'be subject to = tuỳ thuộc vào, có thể bị ảnh hưởng bởi.' },
+{ lv:'b2', type:'sense', tag:'nhiều nghĩa', q:'«account» trong câu này mang nghĩa nào?  —  Her account of the incident differs from his.', o:['lời kể, tường thuật','tài khoản','hoá đơn','lý do'], c:0, e:'an account of something = một bản tường thuật về việc gì.' },
+{ lv:'b2', type:'sense', tag:'nhiều nghĩa', q:'«hold» trong câu này mang nghĩa nào?  —  Does the same rule hold for part-time staff?', o:['còn hiệu lực, còn đúng','cầm, giữ','tổ chức','chứa được'], c:0, e:'A rule holds = quy tắc đó vẫn đúng, vẫn áp dụng được.' },
+{ lv:'b2', type:'sense', tag:'nhiều nghĩa', q:'«draw» trong câu này mang nghĩa nào?  —  It is too early to draw a conclusion.', o:['rút ra','vẽ','kéo','hoà (trận đấu)'], c:0, e:'draw a conclusion = rút ra kết luận.' },
+{ lv:'b2', type:'sense', tag:'nhiều nghĩa', q:'«observe» trong câu này mang nghĩa nào?  —  Staff must observe the safety rules at all times.', o:['tuân thủ','quan sát','nhận xét','kỷ niệm'], c:0, e:'observe rules = tuân thủ quy định. Nghĩa «quan sát» quen thuộc hơn nhưng không hợp ở đây.' },
+{ lv:'b2', type:'sense', tag:'nhiều nghĩa', q:'«qualify» trong câu này mang nghĩa nào?  —  I would qualify that statement: it is true only in cities.', o:['nói thêm cho chặt chẽ','đủ điều kiện','tốt nghiệp','giành suất'], c:0, e:'qualify a statement = thêm điều kiện để lời khẳng định bớt tuyệt đối.' },
+/* ---------- DẠNG MỚI: TỪ LẠC NHÓM (odd) ---------- */
+{ lv:'a2', type:'odd', tag:'lạc nhóm', q:'Từ nào KHÔNG cùng nhóm với ba từ còn lại?', o:['breakfast','lunch','dinner','kitchen'], c:3, e:'Ba từ đầu là bữa ăn; «kitchen» là căn phòng.' },
+{ lv:'a2', type:'odd', tag:'lạc nhóm', q:'Từ nào KHÔNG cùng nhóm?', o:['tired','hungry','thirsty','table'], c:3, e:'Ba từ đầu tả cảm giác của cơ thể; «table» là đồ vật.' },
+{ lv:'a2', type:'odd', tag:'lạc nhóm', q:'Từ nào KHÔNG đi được với «make»?', o:['a mistake','a decision','a noise','a photo'], c:3, e:'take a photo, không phải make a photo. Ba cụm còn lại đều dùng make.' },
+{ lv:'b1', type:'odd', tag:'lạc nhóm', q:'Từ nào KHÔNG đi được với «do»?', o:['homework','the washing-up','a favour','a suggestion'], c:3, e:'make a suggestion. do homework · do the washing-up · do somebody a favour.' },
+{ lv:'b1', type:'odd', tag:'lạc nhóm', q:'Từ nào KHÔNG cùng nhóm nghĩa?', o:['exhausted','worn out','shattered','delighted'], c:3, e:'Ba từ đầu đều nghĩa là kiệt sức; «delighted» là vui sướng.' },
+{ lv:'b1', type:'odd', tag:'lạc nhóm', q:'Tính từ nào KHÔNG đi được với «heavy»?', o:['rain','traffic','smoker','wind'], c:3, e:'strong wind, không phải heavy wind. Heavy rain · heavy traffic · heavy smoker đều đúng.' },
+{ lv:'b1', type:'odd', tag:'lạc nhóm', q:'Từ nào KHÔNG cùng nhóm?', o:['jury','judge','verdict','recipe'], c:3, e:'Ba từ đầu thuộc trường từ vựng toà án; «recipe» là công thức nấu ăn.' },
+{ lv:'b2', type:'odd', tag:'lạc nhóm', q:'Từ nào KHÔNG đi được với «make»?', o:['an effort','progress','a difference','research'], c:3, e:'do research / carry out research, không phải make research.' },
+{ lv:'b2', type:'odd', tag:'lạc nhóm', q:'Từ nào KHÔNG cùng sắc thái với ba từ còn lại?', o:['thrifty','frugal','economical','stingy'], c:3, e:'Ba từ đầu khen ngợi sự tiết kiệm; «stingy» mang nghĩa chê là keo kiệt.' },
+{ lv:'b2', type:'odd', tag:'lạc nhóm', q:'Từ nào KHÔNG đi được với «take»?', o:['a risk','a break','responsibility','an effort'], c:3, e:'make an effort. Take a risk · take a break · take responsibility đều đúng.' },
+{ lv:'b2', type:'odd', tag:'lạc nhóm', q:'Từ nào KHÔNG cùng nhóm?', o:['nevertheless','however','nonetheless','therefore'], c:3, e:'Ba từ đầu chỉ sự tương phản; «therefore» chỉ kết quả.' },
+{ lv:'b2', type:'odd', tag:'lạc nhóm', q:'Từ nào KHÔNG đi được với «pay»?', o:['attention','a compliment','a visit','a decision'], c:3, e:'make a decision. Pay attention · pay a compliment · pay a visit đều là cụm chuẩn.' },
+{ lv:'b2', type:'odd', tag:'lạc nhóm', q:'Từ nào KHÔNG cùng nhóm nghĩa?', o:['plausible','credible','convincing','ambiguous'], c:3, e:'Ba từ đầu nghĩa là nghe có lý, đáng tin; «ambiguous» là mơ hồ.' },
+{ lv:'b2', type:'odd', tag:'lạc nhóm', q:'Từ nào KHÔNG cùng nhóm?', o:['hypothesis','methodology','sample','warranty'], c:3, e:'Ba từ đầu thuộc từ vựng nghiên cứu; «warranty» là bảo hành hàng hoá.' },
+{ lv:'b2', type:'odd', tag:'lạc nhóm', q:'Động từ nào KHÔNG đi với «a conclusion»?', o:['draw','reach','come to','make'], c:3, e:'draw / reach / come to a conclusion đều chuẩn; «make a conclusion» thì không tự nhiên.' },
+
+/* ---------- DẠNG MỚI: GHÉP COLLOCATION (colloc) ---------- */
+{ lv:'a2', type:'colloc', tag:'collocation', q:'Chọn từ đi cùng: to ___ a decision', o:['make','do','take','give'], c:0, e:'make a decision. Người Việt hay nói nhầm «do a decision».' },
+{ lv:'a2', type:'colloc', tag:'collocation', q:'Chọn từ đi cùng: to ___ a photo', o:['take','make','do','get'], c:0, e:'take a photo (Anh) / take a picture (Mỹ).' },
+{ lv:'a2', type:'colloc', tag:'collocation', q:'Chọn từ đi cùng: to ___ the bus', o:['catch','get','make','hold'], c:0, e:'catch the bus = kịp chuyến xe. «miss the bus» là lỡ.' },
+{ lv:'b1', type:'colloc', tag:'collocation', q:'Chọn từ đi cùng: to ___ a deadline', o:['meet','reach','arrive','hold'], c:0, e:'meet a deadline = kịp hạn; miss a deadline = trễ hạn.' },
+{ lv:'b1', type:'colloc', tag:'collocation', q:'Chọn từ đi cùng: to ___ an exam', o:['take','make','write','give'], c:0, e:'take an exam = đi thi. «give an exam» là ra đề (việc của giáo viên).' },
+{ lv:'b1', type:'colloc', tag:'collocation', q:'Chọn từ đi cùng: to ___ a mistake', o:['make','do','take','have'], c:0, e:'make a mistake — một trong những collocation hay sai nhất.' },
+{ lv:'b1', type:'colloc', tag:'collocation', q:'Chọn từ đi cùng: ___ interested in', o:['deeply','strongly','heavily','widely'], c:0, e:'deeply interested. «strongly» đi với opposed, believe; «heavily» đi với rely, rain.' },
+{ lv:'b1', type:'colloc', tag:'collocation', q:'Chọn từ đi cùng: to ___ a promise', o:['keep','hold','save','do'], c:0, e:'keep a promise = giữ lời; break a promise = thất hứa.' },
+{ lv:'b2', type:'colloc', tag:'collocation', q:'Chọn từ đi cùng: to ___ a complaint', o:['file','put','make up','send in'], c:0, e:'file a complaint (trang trọng) hoặc make a complaint. «put a complaint» không đúng.' },
+{ lv:'b2', type:'colloc', tag:'collocation', q:'Chọn từ đi cùng: to ___ research', o:['carry out','make','take','hold'], c:0, e:'carry out / conduct / do research. Không bao giờ «make research».' },
+{ lv:'b2', type:'colloc', tag:'collocation', q:'Chọn từ đi cùng: ___ dependent on', o:['heavily','deeply','widely','sharply'], c:0, e:'heavily dependent on = phụ thuộc nặng nề vào.' },
+{ lv:'b2', type:'colloc', tag:'collocation', q:'Chọn từ đi cùng: to ___ a distinction between', o:['draw','pull','put','give'], c:0, e:'draw a distinction between A and B = phân biệt rõ giữa A và B.' },
+{ lv:'b2', type:'colloc', tag:'collocation', q:'Chọn từ đi cùng: to ___ attention to', o:['draw','pull','make','set'], c:0, e:'draw attention to = thu hút chú ý vào. Cũng có «pay attention to» nhưng nghĩa khác: chú ý tới.' },
+{ lv:'b2', type:'colloc', tag:'collocation', q:'Chọn từ đi cùng: a ___ rise in prices', o:['sharp','strong','big','hard'], c:0, e:'a sharp rise / a sharp fall — cụm chuẩn khi mô tả biểu đồ.' },
+{ lv:'b2', type:'colloc', tag:'collocation', q:'Chọn từ đi cùng: to ___ a strong case for', o:['make','do','give','hold'], c:0, e:'make a strong case for = lập luận thuyết phục cho điều gì.' },
+
+/* ---------- DẠNG MỚI: HỌ TỪ (family) ---------- */
+{ lv:'a2', type:'family', tag:'họ từ', q:'Điền dạng đúng: She sings beautifully. Her ___ (sing) is the best part of the show.', c:'singing', e:'Cần một danh từ làm chủ ngữ: singing.' },
+{ lv:'a2', type:'family', tag:'họ từ', q:'Điền dạng đúng: The film was very ___ (bore). I fell asleep.', c:'boring', e:'-ing tả tính chất của sự vật; -ed tả cảm giác của người. Phim thì boring, người thì bored.' },
+{ lv:'a2', type:'family', tag:'họ từ', q:'Điền dạng đúng: I was ___ (bore) after ten minutes.', c:'bored', e:'Người cảm thấy chán thì dùng -ed.' },
+{ lv:'b1', type:'family', tag:'họ từ', q:'Điền dạng đúng: The teacher explained it clearly, but her ___ (explain) was still too fast.', c:'explanation', e:'explain (động từ) → explanation (danh từ). Chú ý mất chữ «i».' },
+{ lv:'b1', type:'family', tag:'họ từ', q:'Điền dạng đúng: He decided quickly. It was the right ___ (decide).', c:'decision', e:'decide → decision.' },
+{ lv:'b1', type:'family', tag:'họ từ', q:'Điền dạng đúng: They analysed the data, and the ___ (analyse) took two weeks.', c:'analysis', e:'analyse (động từ) → analysis (danh từ, số nhiều analyses).' },
+{ lv:'b1', type:'family', tag:'họ từ', q:'Điền dạng đúng: The service was ___ (rely) — the bus came on time every day.', c:'reliable', e:'rely → reliable (tính từ) → reliability (danh từ).' },
+{ lv:'b1', type:'family', tag:'họ từ', q:'Điền dạng đúng: She spoke with great ___ (confident) at the interview.', c:'confidence', e:'confident (tính từ) → confidence (danh từ).' },
+{ lv:'b2', type:'family', tag:'họ từ', q:'Điền dạng đúng: The results were ___ (significance) higher in the second group.', c:'significantly', e:'Cần trạng từ bổ nghĩa cho «higher»: significantly.' },
+{ lv:'b2', type:'family', tag:'họ từ', q:'Điền dạng đúng: We must ___ (strength) the argument before submitting it.', c:'strengthen', e:'strong (tính từ) → strength (danh từ) → strengthen (động từ).' },
+{ lv:'b2', type:'family', tag:'họ từ', q:'Điền dạng đúng: The evidence is ___ (persuade) but not conclusive.', c:'persuasive', e:'persuade → persuasive (tính từ) → persuasion (danh từ).' },
+{ lv:'b2', type:'family', tag:'họ từ', q:'Điền dạng đúng: His ___ (reluctant) to speak came from one bad experience.', c:'reluctance', e:'reluctant (tính từ) → reluctance (danh từ).' },
+{ lv:'b2', type:'family', tag:'họ từ', q:'Điền dạng đúng: The two accounts are ___ (consist) with each other.', c:'consistent', e:'consist → consistent (tính từ) → consistency (danh từ).' },
+{ lv:'b2', type:'family', tag:'họ từ', q:'Điền dạng đúng: The rule was applied ___ (consistent) across all departments.', c:'consistently', e:'Cần trạng từ bổ nghĩa cho động từ «was applied».' },
+{ lv:'b2', type:'family', tag:'họ từ', q:'Điền dạng đúng: There is no ___ (justify) for such a delay.', c:'justification', e:'justify → justification. Sau «no» cần danh từ.' }
 
 ];
 
@@ -40162,8 +40262,12 @@ VIEWS.en_srs = function(){
 const _EEX = (typeof EN_EXERCISES !== 'undefined') ? EN_EXERCISES : [];
 const EN_QZ_TYPE = {
   mc:'Trắc nghiệm', gap:'Điền dạng đúng', prep:'Chọn giới từ', order:'Sắp xếp câu',
-  rewrite:'Viết lại câu', match:'Ghép nghĩa', error:'Tìm lỗi sai', word:'Từ dễ nhầm'
+  rewrite:'Viết lại câu', match:'Ghép nghĩa', error:'Tìm lỗi sai', word:'Từ dễ nhầm',
+  guess:'Đoán nghĩa từ ngữ cảnh', context:'Chọn từ hợp ngữ cảnh', sense:'Nghĩa nào đúng ở đây',
+  odd:'Từ lạc nhóm', colloc:'Ghép collocation', family:'Họ từ'
 };
+/* Dạng có sẵn lựa chọn để bấm; các dạng còn lại thì gõ đáp án */
+const EN_QZ_CHOICE = ['mc','prep','match','error','word','guess','context','sense','odd','colloc'];
 function enQzPool(){
   const lv = state.en.quizLevel || 'all';
   const ty = state.en.quizType || 'all';
@@ -40183,7 +40287,7 @@ function enQzStart(){
 }
 function enQzCorrect(q, v){
   if (v === undefined || v === null || v === '') return false;
-  if (q.type === 'mc' || q.type === 'prep' || q.type === 'match' || q.type === 'error' || q.type === 'word') return +v === q.c;
+  if (EN_QZ_CHOICE.indexOf(q.type) >= 0) return +v === q.c;
   return enQzNorm(v) === enQzNorm(q.c);
 }
 VIEWS.en_quiz = function(){
@@ -40194,7 +40298,7 @@ VIEWS.en_quiz = function(){
   <div class="page-head">
     <span class="eyebrow">Tiếng Anh · Luyện tập</span>
     <h1>Bài tập tiếng Anh</h1>
-    <p>Kho có <b>${_EEX.length}</b> câu thuộc <b>8 dạng</b>: trắc nghiệm, điền dạng đúng của từ, chọn giới từ, sắp xếp câu, viết lại câu, ghép nghĩa cụm từ, tìm lỗi sai và phân biệt từ dễ nhầm. Mỗi câu đều có lời giải thích bằng tiếng Việt.</p>
+    <p>Kho có <b>${_EEX.length}</b> câu thuộc <b>${Object.keys(EN_QZ_TYPE).length} dạng</b>. Ngoài các dạng ngữ pháp quen thuộc còn có sáu dạng luyện từ trong ngữ cảnh: <b>đoán nghĩa từ ngữ cảnh</b> (từ mới nằm trong câu có manh mối), <b>chọn từ hợp ngữ cảnh</b>, <b>nghĩa nào đúng ở đây</b> (một từ nhiều nghĩa), <b>từ lạc nhóm</b>, <b>ghép collocation</b> và <b>họ từ</b>. Mỗi câu đều có lời giải thích bằng tiếng Việt.</p>
   </div>`;
 
   if (!Q || !Q.qs.length){
@@ -40236,7 +40340,7 @@ VIEWS.en_quiz = function(){
   }
 
   const q = Q.qs[Q.i], picked = Q.picked[Q.i];
-  const isChoice = ['mc','prep','match','error','word'].indexOf(q.type) >= 0;
+  const isChoice = EN_QZ_CHOICE.indexOf(q.type) >= 0;
   const body = isChoice
     ? `<div class="qz-opts">${q.o.map((o, i) => `<button class="qz-opt en${picked === i ? ' on' : ''}" data-en-quizpick="${i}">${esc(o)}</button>`).join('')}</div>`
     : `<div class="qz-input"><input id="enqzin" class="dict-q" type="text" placeholder="${q.type === 'order' ? 'Viết lại cả câu, không cần dấu chấm…' : 'Nhập đáp án…'}" value="${esc(picked || '')}" autocomplete="off" spellcheck="false"></div>`;
@@ -40244,7 +40348,7 @@ VIEWS.en_quiz = function(){
   return head + `
   <div class="qz-bar"><span>Câu ${Q.i + 1}/${Q.qs.length}</span><span class="qz-tag">${esc(EN_QZ_TYPE[q.type] || q.type)} · ${esc(q.tag)} · ${esc((q.lv || '').toUpperCase())}</span></div>
   <div class="qz-card">
-    <div class="qz-q en">${esc(q.q)}</div>
+    <div class="qz-q en" style="white-space:pre-line">${esc(q.q)}</div>
     ${body}
   </div>
   <div class="les-nav">
@@ -40614,7 +40718,7 @@ function factClose(){
 }
 /* ----- màn hình «Bạn có biết?» ----- */
 if (typeof window !== 'undefined') window.__rd = { list:rdList, lang:rdLang, all:() => _RD };
-window.__en = { lemma:enLemma, tokens:enTokens, ipa:enIpa, level:enLevel, lessons:enLessonList, phon:() => _EPA, course:() => _EC, entryEx:enEntryEx, exIndex:enExIndex };
+window.__en = { lemma:enLemma, tokens:enTokens, ipa:enIpa, level:enLevel, lessons:enLessonList, phon:() => _EPA, course:() => _EC, entryEx:enEntryEx, exIndex:enExIndex, qzChoice:EN_QZ_CHOICE, qzTypes:EN_QZ_TYPE, quiz:() => state.en.quiz };
 window.__facts = { pick:factPick, lang:factLang, show:factShowBubble, schedule:factSchedule, on:factsOn, open:factOpen, pool:factPool, store, applyPos:factApplyPos, resetPos:factResetPos, clampPos:factClampPos };
 VIEWS.facts = function(){
   const lang = state.factsLang || factLang() || 'ko';
