@@ -30,6 +30,7 @@ const state = {
   topik: null,
   labiOpen: false,
   fact: null, factOpen: false, factsLang: null, factsCat: 'all',
+  read: { lang:null, idx:null, tr:false, ans:{}, done:false },
   assistant: { tab:'chat', messages:[], busy:false,
                audio:{ busy:false, result:null, error:null, name:'', lang:'' } },
   deck: store.get('deck', []),
@@ -1280,6 +1281,144 @@ function aboutView(){
 }
 
 /* ============================================================
+   BÀI ĐỌC — học từ mới trong ngữ cảnh, dùng chung cho năm ngôn ngữ
+   Dữ liệu: readings.js (READINGS). Mỗi bài có đoạn văn, bản dịch từng đoạn,
+   chùm từ trọng tâm bấm tra được, câu hỏi hiểu bài và gợi ý luyện tập.
+   ============================================================ */
+const _RD = (typeof READINGS !== 'undefined') ? READINGS : [];
+const RD_LANGS = [
+  { id:'ko', vi:'Tiếng Hàn',   cls:'ko' }, { id:'zh', vi:'Tiếng Trung', cls:'zh' },
+  { id:'ja', vi:'Tiếng Nhật',  cls:'ja' }, { id:'ru', vi:'Tiếng Nga',   cls:'ru' },
+  { id:'en', vi:'Tiếng Anh',   cls:'en' }
+];
+function rdLang(){
+  const l = state.read.lang;
+  if (l && RD_LANGS.some(x => x.id === l)) return l;
+  const v = state.view;
+  if (v.indexOf('zh_') === 0) return 'zh';
+  if (v.indexOf('ru_') === 0) return 'ru';
+  if (v.indexOf('ja_') === 0) return 'ja';
+  if (v.indexOf('en_') === 0) return 'en';
+  return 'en';
+}
+function rdMeta(id){ return RD_LANGS.find(x => x.id === (id || rdLang())) || RD_LANGS[4]; }
+function rdList(){ return _RD.filter(r => r.lang === rdLang()); }
+function rdCur(){ const L = rdList(); const i = state.read.idx; return (i != null && L[i]) ? L[i] : null; }
+/* Bọc từ bấm được theo đúng bộ tách từ của từng ngôn ngữ */
+function rdTokens(text){
+  const l = rdLang();
+  if (l === 'zh') return zhTokens(text);
+  if (l === 'ru') return ruTokens(text);
+  if (l === 'ja') return shJaTokens(text);
+  if (l === 'en') return enTokens(text);
+  return Words.mark(text);
+}
+function rdSpeakBtn(text, cls){
+  const l = rdLang();
+  if (l === 'en') return enSpeakBtn(text, cls);
+  if (l === 'ru') return ruSpeakBtn(text, cls);
+  if (l === 'ja') return jaSpeakBtn(text, cls);
+  if (l === 'zh') return `<button class="${cls || 'icon-btn'}" data-zh-speak="${esc(text)}" title="Nghe">🔊</button>`;
+  return `<button class="${cls || 'icon-btn'}" data-say="${esc(text)}" title="Nghe">🔊</button>`;
+}
+/* Mở mục từ điển tương ứng khi bấm một từ khoá */
+function rdKeyBtn(k){
+  const l = rdLang(), w = esc(k.w);
+  const attr = l === 'en' ? `data-en-word="${esc(String(k.w).toLowerCase())}"`
+             : l === 'ru' ? `data-ruw="${w}"`
+             : l === 'ja' ? `data-jaw="${w}"`
+             : l === 'zh' ? `data-zc="${esc(String(k.w)[0] || '')}"`
+             : `data-kw="${w}"`;
+  return `<button class="rd-key" ${attr}>
+    <span class="rd-key-w ${rdMeta().cls}">${w}</span>
+    ${k.r ? `<span class="rd-key-r">${esc(k.r)}</span>` : ''}
+    <span class="rd-key-vi">${esc(k.vi)}</span>
+    ${k.note ? `<span class="rd-key-note">${esc(k.note)}</span>` : ''}
+  </button>`;
+}
+function rdScore(){
+  const r = rdCur(); if (!r) return { got:0, total:0 };
+  let got = 0;
+  r.qs.forEach((q, i) => { if (state.read.ans[i] === q.c) got++; });
+  return { got, total: r.qs.length };
+}
+VIEWS.read = function(){
+  const meta = rdMeta(), L = rdList(), cur = rdCur();
+  const chips = `<div class="level-strip compact sh-langs">${RD_LANGS.map(l =>
+    `<button class="level-chip" data-rd-lang="${l.id}"${l.id === rdLang() ? ' aria-pressed="true"' : ''}>${esc(l.vi)} <span class="sh-chip-n">${_RD.filter(r => r.lang === l.id).length}</span></button>`).join('')}</div>`;
+
+  if (!cur){
+    return `
+    <div class="page-head">
+      <span class="eyebrow">Bài đọc · ${esc(meta.vi)}</span>
+      <h1>Học từ mới trong ngữ cảnh</h1>
+      <p>Từ đứng một mình rất khó nhớ. Ở đây mỗi bài là một đoạn văn hoàn chỉnh viết quanh
+      một chùm từ, kèm bản dịch từng đoạn, phần từ trọng tâm bấm tra được, câu hỏi hiểu bài
+      và một gợi ý luyện tập. Đọc hết một bài là gặp lại mỗi từ vài lần trong những câu khác nhau.</p>
+    </div>
+    ${chips}
+    ${L.length ? `<div class="rd-grid">${L.map((r, i) => `
+      <button class="rd-card" data-rd-open="${i}">
+        <span class="rd-card-top"><span class="ph-tag hi">${esc(r.cat)}</span><span class="ph-tag">${esc(String(r.lv).toUpperCase())}</span><span class="rd-mins">${r.mins} phút</span></span>
+        <span class="rd-card-t ${meta.cls}">${esc(r.title)}</span>
+        <span class="rd-card-vi">${esc(r.vi)}</span>
+        <span class="rd-card-intro">${esc(r.intro)}</span>
+        <span class="rd-card-n">${r.keys.length} từ trọng tâm · ${r.qs.length} câu hỏi</span>
+      </button>`).join('')}</div>`
+      : '<p class="tk-note-small">Chưa có bài đọc cho thứ tiếng này.</p>'}`;
+  }
+
+  const sc = rdScore(), showTr = state.read.tr;
+  return `
+  <div class="page-head">
+    <span class="eyebrow"><button class="crumb-link" data-rd-back="1">Bài đọc</button> · ${esc(meta.vi)} · ${esc(String(cur.lv).toUpperCase())} · ${cur.mins} phút</span>
+    <h1 class="${meta.cls}">${esc(cur.title)}</h1>
+    <p>${esc(cur.vi)} — ${esc(cur.intro)}</p>
+  </div>
+  <div class="sh-bar">
+    <button class="pbtn ghost" data-rd-back="1">← Bài khác</button>
+    <button class="pbtn ${showTr ? 'primary' : ''}" data-rd-tr="1">${showTr ? 'Ẩn bản dịch' : 'Hiện bản dịch'}</button>
+    ${rdSpeakBtn(cur.text.join(' '), 'pbtn')}
+  </div>
+
+  <div class="rd-body">
+    ${cur.text.map((para, i) => `
+      <div class="rd-para">
+        <div class="rd-para-x ${meta.cls}">${rdTokens(para)} ${rdSpeakBtn(para, 'mini')}</div>
+        ${showTr ? `<div class="rd-para-vi">${esc(cur.tr[i] || '')}</div>` : ''}
+      </div>`).join('')}
+  </div>
+
+  <section class="zh-sec">
+    <h2>Từ trọng tâm <span class="sec-count">${cur.keys.length}</span></h2>
+    <p class="tk-note-small">Bấm một từ để mở mục từ điển đầy đủ.</p>
+    <div class="rd-keys">${cur.keys.map(rdKeyBtn).join('')}</div>
+  </section>
+
+  <section class="zh-sec">
+    <h2>Hiểu bài <span class="sec-count">${sc.got}/${sc.total}</span></h2>
+    ${cur.qs.map((q, i) => {
+      const picked = state.read.ans[i];
+      return `<div class="rd-q">
+        <div class="rd-q-t">${i + 1}. ${esc(q.q)}</div>
+        <div class="rd-q-opts">${q.o.map((o, j) => {
+          const on = picked === j;
+          const cls = picked == null ? '' : (j === q.c ? ' ok' : (on ? ' no' : ''));
+          return `<button class="rd-opt${on ? ' picked' : ''}${cls}" data-rd-ans="${i}:${j}">${esc(o)}</button>`;
+        }).join('')}</div>
+        ${picked != null ? `<div class="rd-q-e">${picked === q.c ? '✓ Đúng. ' : '✗ Chưa đúng. '}${esc(q.e)}</div>` : ''}
+      </div>`;
+    }).join('')}
+    <div class="wp-actions" style="padding:10px 0 0"><button class="pbtn" data-rd-reset="1">Làm lại phần hỏi</button></div>
+  </section>
+
+  <section class="zh-sec">
+    <h2>Sau khi đọc</h2>
+    <p>${esc(cur.after)}</p>
+  </section>`;
+};
+
+/* ============================================================
    LABI — trợ lý ngôn ngữ (cửa sổ nổi): hỏi đáp + phân tích tệp âm thanh
    ============================================================ */
 function mdLite(s){
@@ -1799,7 +1938,7 @@ function quizSummary(){
 const CRUMBS = {
   home:'Khoá học', lesson:'Bài học', write:'Tập viết',
   srs:'Ôn tập', dict:'Từ điển', quiz:'Bài tập', shadow:'Luyện shadowing',
-  numbers:'Số đếm', topik:'Thi thử TOPIK', about:'Giới thiệu', facts:'Bạn có biết?'
+  numbers:'Số đếm', topik:'Thi thử TOPIK', about:'Giới thiệu', facts:'Bạn có biết?', read:'Bài đọc'
 };
 
 function render(){
@@ -1809,12 +1948,13 @@ function render(){
 
   const KO_VIEWS = ['home','lesson','write','srs','dict','quiz','numbers','topik'];
   const isSh = state.view === 'shadow';
+  const isRd = state.view === 'read';
   $$('.nav-main [data-go]').forEach(b => {
     const on = b.dataset.go === state.view || (state.view === 'lesson' && b.dataset.go === 'home');
     b.setAttribute('aria-current', on ? 'page' : 'false');
   });
   const isZh = state.view.indexOf('zh_') === 0, isRu = state.view.indexOf('ru_') === 0, isJa = state.view.indexOf('ja_') === 0, isEn = state.view.indexOf('en_') === 0;
-  document.documentElement.setAttribute('data-lang', isSh ? shLang() : isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : isEn ? 'en' : 'ko');   // tông màu theo ngôn ngữ
+  document.documentElement.setAttribute('data-lang', isRd ? rdLang() : isSh ? shLang() : isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : isEn ? 'en' : 'ko');   // tông màu theo ngôn ngữ
   if (typeof syncThemeColor === 'function') syncThemeColor();
   const koDrop = $('#koDrop');
   if (koDrop) koDrop.classList.toggle('active', KO_VIEWS.includes(state.view));
@@ -1828,8 +1968,10 @@ function render(){
   if (enDrop) enDrop.classList.toggle('active', isEn);
   const shNav = $('#shNav');
   if (shNav) shNav.setAttribute('aria-current', isSh ? 'page' : 'false');
+  const rdNav = $('#rdNav');
+  if (rdNav) rdNav.setAttribute('aria-current', isRd ? 'page' : 'false');
   const tq = $('#topq');
-  const tqLang = isSh ? shLang() : isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : isEn ? 'en' : 'ko';
+  const tqLang = isRd ? rdLang() : isSh ? shLang() : isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : isEn ? 'en' : 'ko';
   if (tq) tq.placeholder = (tqLang === 'zh') ? 'Tra nhanh tiếng Trung (chữ Hán / pinyin / nghĩa)…' : (tqLang === 'ru') ? 'Tra nhanh tiếng Nga (không cần dấu trọng âm)…' : (tqLang === 'ja') ? 'Tra nhanh tiếng Nhật (kana / kanji / romaji / nghĩa)…' : (tqLang === 'en') ? 'Tra nhanh tiếng Anh (từ / phiên âm / nghĩa)…' : state.view === 'about' ? 'Tra nhanh: 한국어 · 中文 · русский · tiếng Việt…' : 'Tra nhanh tiếng Hàn (Hangul / romaja / nghĩa)…';
   $$('.nav-drop.open').forEach(d => {
     d.classList.remove('open');
@@ -1846,6 +1988,10 @@ function render(){
     ? jaCrumb()
     : isEn
     ? enCrumb()
+    : isRd
+    ? (rdCur()
+        ? `<button class="crumb-link" data-rd-back="1">Bài đọc</button> <span>›</span> <b>${esc(rdMeta().vi)} · ${esc(rdCur().title)}</b>`
+        : `<b>Bài đọc</b> <span>·</span> ${esc(rdMeta().vi)}`)
     : isSh
     ? (state.shadow.sents.length
         ? `<button class="crumb-link" id="shBack">Luyện shadowing</button> <span>›</span> <b>${esc(shMeta().vi)} · ${state.shadow.sents.length} câu</b>`
@@ -4402,10 +4548,10 @@ let _histReady = false, _applyingHist = false, _curDesc = null;
 function wordIsOpen(){ return document.body.classList.contains('wp-open'); }
 function histDesc(){
   const tok = (typeof wordState !== 'undefined' && wordState && wordState.token) || null;
-  return { v: state.view, lesson: state.lesson || null, zl: (state.zh && state.zh.lesson) || null, rl: (state.ru && state.ru.lesson) || null, jl: (state.ja && state.ja.lesson) || null, shl: (state.shadow && state.shadow.lang) || 'ko', shp: !!(state.shadow && state.shadow.sents && state.shadow.sents.length), word: wordIsOpen() ? (tok || 1) : null };
+  return { v: state.view, lesson: state.lesson || null, zl: (state.zh && state.zh.lesson) || null, rl: (state.ru && state.ru.lesson) || null, jl: (state.ja && state.ja.lesson) || null, shl: (state.shadow && state.shadow.lang) || 'ko', shp: !!(state.shadow && state.shadow.sents && state.shadow.sents.length), rdl: (state.read && state.read.lang) || null, rdi: (state.read && state.read.idx != null) ? state.read.idx : null, word: wordIsOpen() ? (tok || 1) : null };
 }
 function descEq(a, b){
-  return !!a && !!b && a.v === b.v && (a.lesson || null) === (b.lesson || null) && (a.zl || null) === (b.zl || null) && (a.rl || null) === (b.rl || null) && (a.jl || null) === (b.jl || null) && (a.shl || 'ko') === (b.shl || 'ko') && !!a.shp === !!b.shp && !!a.word === !!b.word;
+  return !!a && !!b && a.v === b.v && (a.lesson || null) === (b.lesson || null) && (a.zl || null) === (b.zl || null) && (a.rl || null) === (b.rl || null) && (a.jl || null) === (b.jl || null) && (a.shl || 'ko') === (b.shl || 'ko') && !!a.shp === !!b.shp && (a.rdl || null) === (b.rdl || null) && (a.rdi == null ? null : a.rdi) === (b.rdi == null ? null : b.rdi) && !!a.word === !!b.word;
 }
 function syncHist(){
   if (!_histReady || _applyingHist) return;
@@ -4423,13 +4569,16 @@ function applyHist(s){
   else if (s.word && !wordIsOpen() && typeof s.word === 'string') openWord(s.word);
   const sh = state.shadow;
   const shChanged = !!sh && ((s.shl || 'ko') !== (sh.lang || 'ko') || !!s.shp !== !!(sh.sents && sh.sents.length));
-  const changed = s.v !== state.view || (s.lesson || null) !== (state.lesson || null) || (s.zl || null) !== ((state.zh && state.zh.lesson) || null) || (s.rl || null) !== ((state.ru && state.ru.lesson) || null) || (s.jl || null) !== ((state.ja && state.ja.lesson) || null) || shChanged;
+  const rd = state.read;
+  const rdChanged = !!rd && ((s.rdl || null) !== (rd.lang || null) || (s.rdi == null ? null : s.rdi) !== (rd.idx == null ? null : rd.idx));
+  const changed = rdChanged || s.v !== state.view || (s.lesson || null) !== (state.lesson || null) || (s.zl || null) !== ((state.zh && state.zh.lesson) || null) || (s.rl || null) !== ((state.ru && state.ru.lesson) || null) || (s.jl || null) !== ((state.ja && state.ja.lesson) || null) || shChanged;
   if (changed){
     if (s.v !== state.view) stopAudio();
     state.view = s.v; state.lesson = s.lesson || null;
     if (state.zh) state.zh.lesson = s.zl || null;
     if (state.ru) state.ru.lesson = s.rl || null;
     if (state.ja) state.ja.lesson = s.jl || null;
+    if (rd && rdChanged){ rd.lang = s.rdl || null; rd.idx = (s.rdi == null) ? null : s.rdi; rd.ans = {}; }
     if (sh && shChanged){                       /* lùi/tiến trong màn Luyện shadowing */
       shStop();
       if ((s.shl || 'ko') !== (sh.lang || 'ko')) shSwitchLang(s.shl || 'ko');
@@ -6195,7 +6344,8 @@ function factClose(){
   factSchedule();
 }
 /* ----- màn hình «Bạn có biết?» ----- */
-if (typeof window !== 'undefined') window.__en = { lemma:enLemma, tokens:enTokens, ipa:enIpa, level:enLevel, lessons:enLessonList, phon:() => _EPA, course:() => _EC, entryEx:enEntryEx, exIndex:enExIndex };
+if (typeof window !== 'undefined') window.__rd = { list:rdList, lang:rdLang, all:() => _RD };
+window.__en = { lemma:enLemma, tokens:enTokens, ipa:enIpa, level:enLevel, lessons:enLessonList, phon:() => _EPA, course:() => _EC, entryEx:enEntryEx, exIndex:enExIndex };
 window.__facts = { pick:factPick, lang:factLang, show:factShowBubble, schedule:factSchedule, on:factsOn, open:factOpen, pool:factPool, store, applyPos:factApplyPos, resetPos:factResetPos, clampPos:factClampPos };
 VIEWS.facts = function(){
   const lang = state.factsLang || factLang() || 'ko';
@@ -6257,6 +6407,21 @@ document.addEventListener('click', e => {
   // gồm cả span .kw trong câu và ô .tok trong bảng tra câu
   const kw = t.closest('[data-kw]');
   if (kw){ hideTip(); openWord(kw.dataset.kw); return; }
+
+  /* ----- bài đọc ----- */
+  const rdL = t.closest('[data-rd-lang]');
+  if (rdL){ state.read.lang = rdL.dataset.rdLang; state.read.idx = null; state.read.ans = {}; render(); syncHist(); return; }
+  const rdO = t.closest('[data-rd-open]');
+  if (rdO){ state.read.idx = +rdO.dataset.rdOpen; state.read.ans = {}; state.read.tr = false; render(); syncHist(); return; }
+  if (t.closest('[data-rd-back]')){ state.read.idx = null; render(); syncHist(); return; }
+  if (t.closest('[data-rd-tr]')){ state.read.tr = !state.read.tr; render(); return; }
+  if (t.closest('[data-rd-reset]')){ state.read.ans = {}; render(); return; }
+  const rdA = t.closest('[data-rd-ans]');
+  if (rdA){
+    const [qi, oi] = rdA.dataset.rdAns.split(':').map(Number);
+    if (state.read.ans[qi] == null){ state.read.ans[qi] = oi; render(); }
+    return;
+  }
 
   /* ----- luyện shadowing ----- */
   const shL = t.closest('[data-sh-lang]');
