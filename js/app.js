@@ -2487,6 +2487,16 @@ const RU_LOOKUP = (function(){
     if (!e.refs.some(r => r.lv === lv && r.no === l.no)) e.refs.push({ lv, no:l.no });
     if (e.levels.indexOf(lv) < 0) e.levels.push(lv);
   }));
+  /* gộp kho từ thông dụng ngoài giáo trình (js/vocab-ru-common.js): đồ ăn, quần áo, cơ thể,
+     nhà cửa, giao thông, thể thao, thời tiết, động vật… — khử trùng theo dạng bỏ trọng âm */
+  const VC = (typeof VOCAB_RU !== 'undefined') ? VOCAB_RU : [];
+  const seen = {}; Object.keys(m).forEach(k => { seen[ruKey(k)] = 1; });
+  VC.forEach(w => {
+    const k = ruPlain(w.ru), kk = ruKey(k);
+    if (!k || seen[kk]) return;
+    seen[kk] = 1;
+    m[k] = Object.assign({ key:k, refs:[], levels:[], common:true }, w);
+  });
   /* gộp kho nghĩa soạn tay (js/dict-ru.js): thêm mục từ lõi chưa có trong bài, gắn nghĩa mở rộng cho mục đã có */
   const D = (typeof RU_DICT !== 'undefined') ? RU_DICT : {};
   const byKey = {}; Object.keys(m).forEach(k => { byKey[ruKey(k)] = k; });
@@ -2979,7 +2989,7 @@ function ruDictResults(q){
       <div class="zh-res-hz ru" style="font-size:20px;min-width:0">${esc(w.ru)}</div>
       <div class="zh-res-mid">
         <div class="zh-res-vi">${esc(w.vi)}</div>
-        <div class="zh-res-meta">${esc(w.pos)}${w.note ? ' · ' + esc(w.note) : ''}${w.refs.length ? ' · ' + w.refs.map(r => `<button class="zh-ref" data-ru-open="${r.lv}:${r.no}" title="Mở bài học">${esc(ruLevelName(r.lv))} bài ${r.no}</button>`).join(' ') : ' · <span class="ru-dict-tag">từ lõi</span>'}</div>
+        <div class="zh-res-meta">${esc(w.pos)}${w.note ? ' · ' + esc(w.note) : ''}${w.refs.length ? ' · ' + w.refs.map(r => `<button class="zh-ref" data-ru-open="${r.lv}:${r.no}" title="Mở bài học">${esc(ruLevelName(r.lv))} bài ${r.no}</button>`).join(' ') : (w.common ? ' · <span class="ru-dict-tag">từ thông dụng</span>' : ' · <span class="ru-dict-tag">từ lõi</span>')}</div>
       </div>
       <div class="zh-res-act">
         ${ruSpeakBtn(w.ru)}
@@ -2994,7 +3004,7 @@ VIEWS.ru_dict = function(){
   <div class="page-head">
     <span class="eyebrow">Tiếng Nga</span>
     <h1>Từ điển</h1>
-    <p>Tra trong ${Object.keys(RU_LOOKUP).length} từ (khoá A1–C2 + từ lõi). Gõ tiếng Nga không cần dấu trọng âm — kể cả dạng đã biến đổi — hoặc nghĩa tiếng Việt. Mỗi mục từ có nghĩa, cấu tạo từ, bảng biến cách/chia và ví dụ từ bài học.</p>
+    <p>Tra trong ${Object.keys(RU_LOOKUP).length} từ (khoá A1–C2 + từ lõi + từ thông dụng đời thường). Gõ tiếng Nga không cần dấu trọng âm — kể cả dạng đã biến đổi — hoặc nghĩa tiếng Việt. Mỗi mục từ có nghĩa, cấu tạo từ, bảng biến cách/chia và ví dụ từ bài học.</p>
   </div>
   <div class="zh-dict-search">
     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
