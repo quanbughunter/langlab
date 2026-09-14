@@ -8,6 +8,18 @@ const $  = (s, r) => (r || document).querySelector(s);
 const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
+/* ---------- icon dùng chung ----------
+   Trước đây nút nghe dùng emoji 🔊: mỗi hệ điều hành vẽ một kiểu, trên Windows là
+   hình khối nhiều màu trông cũ. Thay bằng SVG phẳng, một màu, ăn theo màu chữ. */
+const SPK_ICO = '<svg class="spk-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+  + '<path class="spk-body" d="M11.8 4.3 7.2 8H4.1a1.6 1.6 0 0 0-1.6 1.6v4.8a1.6 1.6 0 0 0 1.6 1.6h3.1l4.6 3.7z"/>'
+  + '<path class="spk-wave" d="M15.4 9.4a3.6 3.6 0 0 1 0 5.2"/>'
+  + '<path class="spk-wave" d="M18.1 6.8a7.4 7.4 0 0 1 0 10.4"/></svg>';
+const HP_ICO = '<svg class="hp-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+  + '<path class="hp-band" d="M4.4 14.4v-2.3a7.6 7.6 0 0 1 15.2 0v2.3"/>'
+  + '<rect class="hp-cup" x="2.5" y="13.4" width="4.2" height="7.2" rx="1.9"/>'
+  + '<rect class="hp-cup" x="17.3" y="13.4" width="4.2" height="7.2" rx="1.9"/></svg>';
+
 /* ---------- lưu trạng thái nhẹ ---------- */
 const store = {
   get(k, d){ try { const v = localStorage.getItem('langlab.' + k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
@@ -1318,8 +1330,8 @@ function rdSpeakBtn(text, cls){
   if (l === 'en') return enSpeakBtn(text, cls);
   if (l === 'ru') return ruSpeakBtn(text, cls);
   if (l === 'ja') return jaSpeakBtn(text, cls);
-  if (l === 'zh') return `<button class="${cls || 'icon-btn'}" data-zh-speak="${esc(text)}" title="Nghe">🔊</button>`;
-  return `<button class="${cls || 'icon-btn'}" data-say="${esc(text)}" title="Nghe">🔊</button>`;
+  if (l === 'zh') return `<button class="${cls || 'icon-btn'}" data-zh-speak="${esc(text)}" title="Nghe">${SPK_ICO}</button>`;
+  return `<button class="${cls || 'icon-btn'}" data-say="${esc(text)}" title="Nghe">${SPK_ICO}</button>`;
 }
 /* Mở mục từ điển tương ứng khi bấm một từ khoá */
 function rdKeyBtn(k){
@@ -1477,7 +1489,7 @@ function asstAudioTab(){
   return `
   <div class="asst-audio">
     <label class="asst-drop" for="asstFile">
-      <div class="asst-drop-ico">🎧</div>
+      <div class="asst-drop-ico">${HP_ICO}</div>
       <div><b>Chọn tệp âm thanh</b> để phân tích<br><small>mp3, m4a, wav, ogg… · nên ngắn (≤ ~2 phút) · tối đa ~15 MB</small></div>
       <input type="file" id="asstFile" accept="audio/*" hidden>
     </label>
@@ -1604,7 +1616,7 @@ function labiBody(){
   </div>
   <div class="asst-tabs">
     <button class="asst-tab${A.tab === 'chat' ? ' on' : ''}" data-asst-tab="chat">💬 Hỏi đáp</button>
-    <button class="asst-tab${A.tab === 'audio' ? ' on' : ''}" data-asst-tab="audio">🎧 Phân tích âm thanh</button>
+    <button class="asst-tab${A.tab === 'audio' ? ' on' : ''}" data-asst-tab="audio">${HP_ICO} Phân tích âm thanh</button>
   </div>
   ${A.tab === 'chat' ? asstChatTab() : asstAudioTab()}`;
 }
@@ -2225,7 +2237,7 @@ VIEWS.zh_pinyin = function(){
         <div class="zh-tone-name">${esc(t.name)}</div>
         <div class="zh-tone-vi">${esc(t.vi)}</div>
         <p class="zh-tone-desc">${esc(t.desc)}</p>
-        <button class="pbtn mini" data-zh-speak="${esc(t.hz)}">🔊 Nghe</button>
+        <button class="pbtn mini" data-zh-speak="${esc(t.hz)}">${SPK_ICO} Nghe</button>
       </div>`).join('')}
   </div>
   <div class="zh-py-cols">
@@ -2253,7 +2265,7 @@ VIEWS.zh_lesson = function(){
         <div class="zh-gram">
           <div class="zh-gram-form ko">${esc(g.form)} <span class="zh-gram-vi">— ${esc(g.vi)}</span></div>
           <p class="zh-gram-note">${esc(g.note)}</p>
-          <div class="zh-gram-ex"><span class="ko">${zhTokens(g.ex.zh)}</span> <button class="icon-btn" data-zh-speak="${esc(g.ex.zh)}" title="Nghe">🔊</button><div class="zh-ex-py py">${esc(g.ex.pinyin)}</div><div class="zh-ex-vi">${esc(g.ex.vi)}</div></div>
+          <div class="zh-gram-ex"><span class="ko">${zhTokens(g.ex.zh)}</span> <button class="icon-btn" data-zh-speak="${esc(g.ex.zh)}" title="Nghe">${SPK_ICO}</button><div class="zh-ex-py py">${esc(g.ex.pinyin)}</div><div class="zh-ex-vi">${esc(g.ex.vi)}</div></div>
         </div>`).join('')}
     </section>
     <section class="zh-sec">
@@ -2268,7 +2280,7 @@ VIEWS.zh_lesson = function(){
               <div class="zh-word-meta"><span class="zh-hv">${esc(w.hv)}</span> · ${esc(w.pos)}</div>
             </div>
             <div class="zh-word-act">
-              <button class="icon-btn" data-zh-speak="${esc(w.zh)}" title="Nghe">🔊</button>
+              <button class="icon-btn" data-zh-speak="${esc(w.zh)}" title="Nghe">${SPK_ICO}</button>
               <button class="icon-btn" data-zh-write="${esc(w.zh[0])}" title="Tập viết">✎</button>
             </div>
           </div>`).join('')}
@@ -2281,7 +2293,7 @@ VIEWS.zh_lesson = function(){
           <div class="zh-line">
             <span class="zh-sp">${esc(d.sp)}</span>
             <div class="zh-line-body">
-              <div class="zh-line-zh ko">${zhTokens(d.zh)} <button class="icon-btn" data-zh-speak="${esc(d.zh)}" title="Nghe">🔊</button></div>
+              <div class="zh-line-zh ko">${zhTokens(d.zh)} <button class="icon-btn" data-zh-speak="${esc(d.zh)}" title="Nghe">${SPK_ICO}</button></div>
               <div class="zh-line-py py">${esc(d.pinyin)}</div>
               <div class="zh-line-vi">${esc(d.vi)}</div>
             </div>
@@ -2321,7 +2333,7 @@ VIEWS.zh_write = function(){
           <button class="pbtn primary" data-hzw="anim">▶ Xem thứ tự nét</button>
           <button class="pbtn" data-hzw="quiz">✎ Luyện viết</button>
           <button class="pbtn" data-hzw="reset">↺ Làm lại</button>
-          <button class="pbtn" data-zh-speak="${esc(cur)}">🔊 Nghe</button>
+          <button class="pbtn" data-zh-speak="${esc(cur)}">${SPK_ICO} Nghe</button>
         </div>
       </div>
     </div>
@@ -2359,7 +2371,7 @@ function zhDictResults(q){
         <div class="zh-res-meta">${esc(w.pos)} · ${w.refs.map(r => `<button class="zh-ref" data-zh-open="${r.lv}:${r.no}" title="Mở bài học">${esc(zhLevelName(r.lv))} bài ${r.no}</button>`).join(' ')}</div>
       </div>
       <div class="zh-res-act">
-        <button class="icon-btn" data-zh-speak="${esc(w.zh)}" title="Nghe">🔊</button>
+        <button class="icon-btn" data-zh-speak="${esc(w.zh)}" title="Nghe">${SPK_ICO}</button>
         <a class="icon-btn" href="https://hvdic.thivien.net/whv/${encodeURIComponent(w.zh)}" target="_blank" rel="noopener noreferrer" title="Tra Hán–Việt">↗</a>
       </div>
     </div>`).join('');
@@ -2397,7 +2409,7 @@ VIEWS.zh_srs = function(){
       <div class="zh-card-back"><div class="py">${esc(w.pinyin)}</div><div class="zh-card-vi">${esc(w.vi)}</div><div class="zh-card-hv">${esc(w.hv)} · ${esc(w.pos)}</div></div>
     </div>
     <div class="zh-srs-ctrl">
-      <button class="pbtn" data-zh-speak="${esc(w.zh)}">🔊 Nghe</button>
+      <button class="pbtn" data-zh-speak="${esc(w.zh)}">${SPK_ICO} Nghe</button>
       <button class="pbtn primary" id="zhFlip">${s.show ? 'Ẩn đáp án' : 'Lật thẻ'}</button>
       <button class="pbtn" data-zh-srs="next">Thẻ sau →</button>
     </div>
@@ -2571,7 +2583,7 @@ function enSpeak(text, variant){
     else { try { synth.addEventListener('voiceschanged', speak, { once:true }); } catch(e){} setTimeout(speak, 300); }
   } catch(e){}
 }
-function enSpeakBtn(text, cls){ return `<button class="${cls || 'icon-btn'}" data-en-speak="${esc(text)}" title="Nghe">\ud83d\udd0a</button>`; }
+function enSpeakBtn(text, cls){ return `<button class="${cls || 'icon-btn'}" data-en-speak="${esc(text)}" title="Nghe">${SPK_ICO}</button>`; }
 function ruSpeak(text){
   try {
     const synth = window.speechSynthesis; if (!synth){ toast('Trình duyệt chưa hỗ trợ phát âm'); return; }
@@ -2632,7 +2644,7 @@ function ruTokens(str){
     return esc(m[1]) + `<span class="zc ru-tok" data-ruw="${esc(ruPlain(m[2]))}" title="Tra từ này">${esc(m[2])}</span>` + esc(m[3]);
   }).join('');
 }
-function ruSpeakBtn(text, cls){ return `<button class="${cls || 'icon-btn'}" data-ru-speak="${esc(ruPlain(text))}" title="Nghe">🔊</button>`; }
+function ruSpeakBtn(text, cls){ return `<button class="${cls || 'icon-btn'}" data-ru-speak="${esc(ruPlain(text))}" title="Nghe">${SPK_ICO}</button>`; }
 
 /* ---------------- Views tiếng Nga ---------------- */
 VIEWS.ru_home = function(){
@@ -2676,7 +2688,7 @@ VIEWS.ru_alphabet = function(){
   <div class="page-head">
     <span class="eyebrow">Tiếng Nga · Nền tảng</span>
     <h1>Bảng chữ cái Cyrillic — 33 chữ</h1>
-    <p>10 nguyên âm, 21 phụ âm và 2 dấu (ь, ъ). Bấm một chữ để xem tên chữ, cách đọc theo tai người Việt, ví dụ và dạng viết tay. Bấm 🔊 để nghe.</p>
+    <p>10 nguyên âm, 21 phụ âm và 2 dấu (ь, ъ). Bấm một chữ để xem tên chữ, cách đọc theo tai người Việt, ví dụ và dạng viết tay. Bấm ${SPK_ICO} để nghe.</p>
   </div>
   <div class="ru-alpha-legend"><span><i style="background:var(--seal)"></i>nguyên âm</span><span><i style="background:var(--ink)"></i>phụ âm</span><span><i style="background:var(--faint)"></i>dấu</span></div>
   <div class="ru-alpha">
@@ -2703,7 +2715,7 @@ VIEWS.ru_phonetics = function(){
   <div class="page-head">
     <span class="eyebrow">Tiếng Nga · Nền tảng</span>
     <h1>Phát âm — 8 quy tắc phải biết</h1>
-    <p>Tiếng Nga viết gần như đọc, nhưng <b>trọng âm</b> quyết định cách đọc nguyên âm, và phụ âm biến đổi theo vị trí. Nắm 8 quy tắc này là đọc được hầu hết từ mới. Bấm 🔊 để nghe ví dụ.</p>
+    <p>Tiếng Nga viết gần như đọc, nhưng <b>trọng âm</b> quyết định cách đọc nguyên âm, và phụ âm biến đổi theo vị trí. Nắm 8 quy tắc này là đọc được hầu hết từ mới. Bấm ${SPK_ICO} để nghe ví dụ.</p>
   </div>
   <div class="ru-phon">
     ${_RP.map((r, i) => `
@@ -2820,7 +2832,7 @@ VIEWS.ru_lesson = function(){
             </div>
           </div>`).join('')}
       </div>
-      <div class="stage-ctrl"><button class="pbtn" data-ru-speak="${esc(ruPlain(L.dialogue.map(d => d.ru).join(' ')))}">🔊 Nghe cả hội thoại</button></div>
+      <div class="stage-ctrl"><button class="pbtn" data-ru-speak="${esc(ruPlain(L.dialogue.map(d => d.ru).join(' ')))}">${SPK_ICO} Nghe cả hội thoại</button></div>
     </section>
     <div class="stage-ctrl">
       <button class="pbtn primary" data-go="ru_quiz">✎ Làm bài tập</button>
@@ -3128,7 +3140,7 @@ function ruMakeQuestions(n, mode){
       const sn = zhPick(sents); key = 'l|' + sn.ru; if (used[key]) continue;
       const d = zhDistract(allSents.filter(x => x.ru !== sn.ru), 'ru', sn.ru, 3).map(ruPlain);
       if (d.length < 3) continue;
-      q = { type:'mc', tag:'Nghe', prompt:'Bấm nghe rồi chọn câu vừa nghe:', main:`<button class="pbtn primary" data-ru-speak="${esc(ruPlain(sn.ru))}">🔊 Nghe câu</button>`, opts: zhShuffle([ruPlain(sn.ru)].concat(d)), answer:ruPlain(sn.ru), oc:'ru', speak:sn.ru, explain:`${ruPlain(sn.ru)} — ${sn.vi}` };
+      q = { type:'mc', tag:'Nghe', prompt:'Bấm nghe rồi chọn câu vừa nghe:', main:`<button class="pbtn primary" data-ru-speak="${esc(ruPlain(sn.ru))}">${SPK_ICO} Nghe câu</button>`, opts: zhShuffle([ruPlain(sn.ru)].concat(d)), answer:ruPlain(sn.ru), oc:'ru', speak:sn.ru, explain:`${ruPlain(sn.ru)} — ${sn.vi}` };
     }
     else if (type === 'dialog'){
       const cand = sents.filter(x => x.kind === 'dia' && x.next);
@@ -3216,7 +3228,7 @@ VIEWS.ru_speak = function(){
     <span class="eyebrow">Tiếng Nga · Luyện nói · ${esc(T.level)}</span>
     <h1 class="ru">${esc(T.ru)}</h1>
     <p>${esc(T.vi)}${T.src ? ` · <i>${esc(T.src)}</i>` : ''}</p>
-    <div class="stage-ctrl" style="padding:4px 0 0"><button class="pbtn" data-ru-speak="${esc(ruPlain(T.paras.map(p => p.ru).join(' ')))}">🔊 Nghe cả bài</button><button class="pbtn" data-ru-topic="">← Chủ đề khác</button></div>
+    <div class="stage-ctrl" style="padding:4px 0 0"><button class="pbtn" data-ru-speak="${esc(ruPlain(T.paras.map(p => p.ru).join(' ')))}">${SPK_ICO} Nghe cả bài</button><button class="pbtn" data-ru-topic="">← Chủ đề khác</button></div>
   </div>
   <div class="ru-speak">
     ${T.keys && T.keys.length ? `<div class="eyebrow">Từ khoá</div><div class="ru-keys">${T.keys.map(k => `<span class="ru-key ru"><b>${esc(k[0])}</b> <span>${esc(k[1])}</span></span>`).join('')}</div>` : ''}
@@ -3328,7 +3340,7 @@ function jaSpeak(text){
   } catch(e){}
 }
 function jaSpeech(a){ return jaPlain(String(a || '')).replace(/(男|女|男の人|女の人|先生|学生|店員|客|母|父|アナウンス|A|B)\s*[:：]\s*/g, '').replace(/(^|\s)[—–-]\s*/g, '$1'); }
-function jaSpeakBtn(text, cls){ return `<button class="${cls || 'icon-btn'}" data-ja-speak="${esc(jaPlain(text))}" title="Nghe">🔊</button>`; }
+function jaSpeakBtn(text, cls){ return `<button class="${cls || 'icon-btn'}" data-ja-speak="${esc(jaPlain(text))}" title="Nghe">${SPK_ICO}</button>`; }
 /* Kho từ: từ vựng các bài + kho nghĩa soạn tay (JA_DICT) */
 const JA_LOOKUP = (function(){
   const m = {};
@@ -3487,7 +3499,7 @@ VIEWS.ja_lesson = function(){
             </div>
           </div>`).join('')}
       </div>
-      <div class="stage-ctrl"><button class="pbtn" data-ja-speak="${esc(jaPlain(L.dialogue.map(d => d.jp).join('。')))}">🔊 Nghe cả hội thoại</button></div>
+      <div class="stage-ctrl"><button class="pbtn" data-ja-speak="${esc(jaPlain(L.dialogue.map(d => d.jp).join('。')))}">${SPK_ICO} Nghe cả hội thoại</button></div>
     </section>
     <div class="stage-ctrl">
       <button class="pbtn primary" data-go="ja_quiz">✎ Làm bài tập</button>
@@ -3606,7 +3618,7 @@ VIEWS.ja_write = function(){
           <button class="pbtn primary" data-hzw="anim">▶ Xem thứ tự nét</button>
           <button class="pbtn" data-hzw="quiz">✎ Luyện viết</button>
           <button class="pbtn" data-hzw="reset">↺ Làm lại</button>
-          <button class="pbtn" data-ja-speak="${esc(K && K.ex && K.ex[0] ? K.ex[0][1] : cur)}">🔊 Nghe</button>
+          <button class="pbtn" data-ja-speak="${esc(K && K.ex && K.ex[0] ? K.ex[0][1] : cur)}">${SPK_ICO} Nghe</button>
         </div>
       </div>
     </div>
@@ -3826,7 +3838,7 @@ function jaMakeQuestions(n, mode){
     else if (type === 'listen'){
       const sn = zhPick(sents); key = 'l|' + sn.jp; if (used[key]) continue;
       const opts = shuffle(others(sents, sn, x => x.vi, 3).concat([sn.vi]));
-      q = { type:'mc', tag:'Nghe', prompt:'Nghe rồi chọn nghĩa đúng:', main:`<button class="pbtn primary" data-ja-speak="${esc(jaPlain(sn.jp))}">🔊 Nghe câu</button>`, opts, answer:sn.vi, speak:sn.jp, explain: jaPlain(sn.jp) + ' — ' + sn.vi };
+      q = { type:'mc', tag:'Nghe', prompt:'Nghe rồi chọn nghĩa đúng:', main:`<button class="pbtn primary" data-ja-speak="${esc(jaPlain(sn.jp))}">${SPK_ICO} Nghe câu</button>`, opts, answer:sn.vi, speak:sn.jp, explain: jaPlain(sn.jp) + ' — ' + sn.vi };
     }
     else if (type === 'dialog'){
       const cand = sents.filter(x => x.next); if (!cand.length) continue;
@@ -3908,7 +3920,7 @@ VIEWS.ja_speak = function(){
     <div class="ru-qs"><b>Câu hỏi gợi ý:</b><ul>${cur.qs.map(q => `<li><span class="ja">${jaRuby(q)}</span> ${jaSpeakBtn(q, 'mini')}</li>`).join('')}</ul></div>
     <div class="ru-model"><b>Bài mẫu</b>
       ${cur.paras.map(p => `<div class="ru-para"><div class="ja ja-sent">${jaTokens(p.jp)} ${jaSpeakBtn(p.jp, 'mini')}</div><div class="ru-para-vi">${esc(p.vi)}</div></div>`).join('')}
-      <div class="stage-ctrl"><button class="pbtn primary" data-ja-speak="${esc(jaPlain(cur.paras.map(p => p.jp).join('。')))}">🔊 Nghe cả bài</button><button class="pbtn" data-ja-topic="">← Chủ đề khác</button></div>
+      <div class="stage-ctrl"><button class="pbtn primary" data-ja-speak="${esc(jaPlain(cur.paras.map(p => p.jp).join('。')))}">${SPK_ICO} Nghe cả bài</button><button class="pbtn" data-ja-topic="">← Chủ đề khác</button></div>
     </div>
   </div>`;
 };
@@ -5682,7 +5694,7 @@ VIEWS.en_phon = function(){
   ${chips}
   ${voice}
   ${body}
-  <p class="tk-note-small">Ký hiệu theo chuẩn IPA, giọng chuẩn Anh (Received Pronunciation) đối chiếu giọng Mỹ (General American). Nút 🔊 dùng giọng đọc có sẵn trong máy của bạn.</p>`;
+  <p class="tk-note-small">Ký hiệu theo chuẩn IPA, giọng chuẩn Anh (Received Pronunciation) đối chiếu giọng Mỹ (General American). Nút ${SPK_ICO} dùng giọng đọc có sẵn trong máy của bạn.</p>`;
 };
 
 /* ---------- Từ điển tiếng Anh ---------- */
@@ -6203,7 +6215,7 @@ function factSpeakBtn(f){
   const t = f.word && f.word.t;
   if (!t) return '';
   const attr = f.lang === 'zh' ? `data-zh-speak="${esc(t)}"` : f.lang === 'ru' ? `data-ru-speak="${esc(t)}"` : f.lang === 'ja' ? `data-ja-speak="${esc(t)}"` : f.lang === 'en' ? `data-en-speak="${esc(t)}"` : `data-speak="${esc(t)}"`;
-  return `<button class="icon-btn" ${attr} title="Nghe">🔊</button>`;
+  return `<button class="icon-btn" ${attr} title="Nghe">${SPK_ICO}</button>`;
 }
 function factCardHTML(f){
   return `

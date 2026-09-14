@@ -839,6 +839,21 @@ body:has(.mplayer.open) .view{padding-bottom:110px}
 }
 .icon-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .icon-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* Icon loa / tai nghe — SVG phẳng một màu, ăn theo màu chữ.
+   Trước dùng emoji 🔊 🎧 nên mỗi máy vẽ một kiểu, Windows ra hình khối nhiều màu trông cũ. */
+.spk-ico,.hp-ico{width:15px;height:15px;flex:none;display:inline-block;vertical-align:-3px}
+.spk-ico .spk-body{fill:currentColor;stroke:none}
+.spk-ico .spk-wave{fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round}
+.spk-ico .spk-wave:last-of-type{opacity:.5}
+.hp-ico .hp-band{fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round}
+.hp-ico .hp-cup{fill:currentColor;stroke:none}
+.icon-btn .spk-ico{width:15px;height:15px}
+.pbtn .spk-ico,.pbtn .hp-ico{width:14px;height:14px;vertical-align:0}
+.mini .spk-ico{width:13px;height:13px;vertical-align:-2px}
+.asst-tab .hp-ico{margin-right:2px;vertical-align:-3px}
+.asst-drop-ico .hp-ico{width:34px;height:34px;vertical-align:0;color:var(--muted)}
+
 .top-icon{width:32px;height:32px}
 .top-icon svg{width:15px;height:15px}
 .top-icon.alert{border-color:var(--seal);color:var(--seal);background:var(--seal-soft)}
