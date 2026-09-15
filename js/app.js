@@ -42,7 +42,7 @@ const state = {
   level: store.get('level', 'so-cap-1'),
   lesson: null,
   tab: 'vocab',
-  zh: { level:'hsk1', lesson:null, writeChar:'', srs:null, py:{ ini:'n', fin:'i', tone:3 } },
+  zh: { level:'hsk1', lesson:null, writeChar:'', writeWord:'', entry:null, srs:null, py:{ ini:'n', fin:'i', tone:3 } },
   ru: { level:'a1', lesson:null, letter:'А', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, trace:true },
   ja: { level:'n5', lesson:null, kana:'hiragana', kanaSel:'あ', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, kanjiLevel:null, kanjiSel:null, writeChar:'あ', furi:true },
   en: { level:'a1', lesson:null, dictQ:'', entry:null, phon:'iː', phonTab:'vowel', idiomTab:'phrasal', idiomGroup:'all', idiomQ:'', quizLevel:'all', quizType:'all', exam:null, speakTab:'ielts', speakIdx:0, spLeft:null, srsLevel:'all', srs:null, srs:null, quiz:null, exam:null, pracLevel:null, topic:null },
@@ -2069,6 +2069,22 @@ const ZH_LOOKUP = (function(){
     if (!e.refs.some(r => r.lv === lv && r.no === l.no)) e.refs.push({ lv, no:l.no });
     if (e.levels.indexOf(lv) < 0) e.levels.push(lv);
   }));
+  /* Từ thông dụng ngoài giáo trình (js/vocab-zh-common.js): 狗, 猫, 山, 海, 床, 鞋…
+     — khoá HSK không dạy nhưng tra từ điển là phải có. Từ nào đã có thì bỏ qua. */
+  const VC = (typeof VOCAB_ZH !== 'undefined') ? VOCAB_ZH : [];
+  VC.forEach(w => {
+    if (!w || !w.zh || m[w.zh]) return;
+    m[w.zh] = Object.assign({ lessons:[], refs:[], levels:[], common:true }, w);
+  });
+  /* Từ lõi soạn tay (js/dict-zh.js) chưa có trong khoá: mục nào khai báo `w` thì
+     thành mục từ độc lập, tra được như từ trong bài (refs rỗng). */
+  const D = (typeof ZH_DICT !== 'undefined') ? ZH_DICT : {};
+  Object.keys(D).forEach(k => {
+    const d = D[k];
+    if (m[k] || !d || !d.w) return;
+    m[k] = { zh:k, pinyin:d.w.pinyin || '', hv:d.w.hv || '', vi:d.w.vi || '', pos:d.w.pos || '',
+             lessons:[], refs:[], levels:[], core:true };
+  });
   return m;
 })();
 /* ---------- Ghép âm pinyin: thanh mẫu + vận mẫu + thanh điệu ----------
@@ -2154,6 +2170,145 @@ function zhSylIndex(){
 }
 function zhPy(){ return state.zh.py || (state.zh.py = { ini:'n', fin:'i', tone:3 }); }
 try { window.__zhPy = { ok: zhComboOk, spell: zhSpell, tone: zhToneMark, index: zhSylIndex, split: zhSplitPy, set: zhSylSet, cur: () => zhPy() }; } catch(e){}
+
+/* ---------- Mục từ tiếng Trung: cấu tạo từ · nghĩa · ví dụ · từ cùng chữ ----------
+   Không có từ điển chữ riêng, nên thông tin từng CHỮ được suy ra từ chính kho từ:
+   tách pinyin và âm Hán–Việt của từ theo số chữ rồi gom lại. */
+let _zhChar = null;
+function zhCharIndex(){
+  if (_zhChar) return _zhChar;
+  const idx = {};
+  Object.values(ZH_LOOKUP).forEach(w => {
+    const cs = Array.from(String(w.zh || '')).filter(hasHanzi);
+    if (!cs.length) return;
+    const ps = zhSylsOf(w), hs = String(w.hv || '').trim().split(/\s+/).filter(Boolean);
+    cs.forEach((c, i) => {
+      const e = idx[c] || (idx[c] = { py:[], hv:[], words:[] });
+      if (ps.length === cs.length && ps[i] && e.py.indexOf(ps[i]) < 0) e.py.push(ps[i]);
+      if (hs.length === cs.length && hs[i] && e.hv.indexOf(hs[i]) < 0) e.hv.push(hs[i]);
+      if (e.words.indexOf(w.zh) < 0) e.words.push(w.zh);
+    });
+  });
+  _zhChar = idx; return idx;
+}
+/* Pinyin của từ, tách thành từng âm tiết khớp với từng chữ */
+function zhSylsOf(w){
+  const cs = Array.from(String(w.zh || '')).filter(hasHanzi);
+  let ps = String(w.pinyin || '').trim().split(/\s+/).filter(Boolean);
+  if (cs.length > 1 && ps.length === 1){ const sp = zhSplitPy(ps[0]); if (sp && sp.length === cs.length) ps = sp; }
+  return ps;
+}
+/* Bộ thủ của một chữ, suy từ bảng RADICALS_ZH (mỗi bộ có danh sách chữ ví dụ) */
+let _zhRad = null;
+function zhRadOf(c){
+  if (!_zhRad){
+    _zhRad = {};
+    _ZR.forEach(r => {
+      if (!_zhRad[r.rad]) _zhRad[r.rad] = r;
+      (r.ex || []).forEach(x => { if (!_zhRad[x]) _zhRad[x] = r; });
+    });
+  }
+  return _zhRad[c] || null;
+}
+/* Câu ví dụ có chứa từ: quét hội thoại và ví dụ ngữ pháp của toàn khoá */
+function zhExamplesFor(word, limit){
+  const out = [], seen = {}, max = limit || 6;
+  const push = (zh, py, vi, lv, no) => {
+    if (out.length >= max || !zh || seen[zh]) return;
+    seen[zh] = 1; out.push({ zh, py:py || '', vi:vi || '', lv, no });
+  };
+  _ZC.lessons.forEach(l => {
+    (l.dialogue || []).forEach(d => { if (d.zh && d.zh.indexOf(word) >= 0) push(d.zh, d.pinyin, d.vi, l.level, l.no); });
+    (l.grammar || []).forEach(g => { if (g.ex && g.ex.zh && g.ex.zh.indexOf(word) >= 0) push(g.ex.zh, g.ex.pinyin, g.ex.vi, l.level, l.no); });
+  });
+  return out;
+}
+/* Một mục từ đầy đủ */
+function zhEntryHTML(key){
+  const w = ZH_LOOKUP[key]; if (!w) return '';
+  const D = (typeof ZH_DICT !== 'undefined' && ZH_DICT[key]) ? ZH_DICT[key] : null;
+  const cs = Array.from(String(w.zh)).filter(hasHanzi);
+  const ps = zhSylsOf(w), hs = String(w.hv || '').trim().split(/\s+/).filter(Boolean);
+  const CI = zhCharIndex();
+  const senses = (D && D.senses && D.senses.length)
+    ? D.senses
+    : String(w.vi || '').split(/\s*[;；]\s*/).filter(Boolean).map(v => ({ vi:v }));
+  const ex = zhExamplesFor(w.zh, 6);
+
+  const charCards = cs.map((c, i) => {
+    const ci = CI[c] || { py:[], hv:[], words:[] };
+    const rad = zhRadOf(c);
+    const others = ci.words.filter(x => x !== w.zh).slice(0, 10);
+    return `
+      <div class="zh-ch-card">
+        <div class="zh-ch-hz ko">${esc(c)}</div>
+        <div class="zh-ch-body">
+          <div class="zh-ch-top"><span class="py">${esc(ps[i] || ci.py[0] || '')}</span>${(hs[i] || ci.hv[0]) ? ` · <b>${esc(hs[i] || ci.hv[0])}</b>` : ''}</div>
+          ${rad ? `<div class="zh-ch-rad">bộ <b class="ko">${esc(rad.rad)}</b> <span class="zh-hv">${esc(rad.hv)}</span> — ${esc(rad.vi)}</div>` : ''}
+          ${others.length ? `<div class="zh-ch-more"><span>Từ khác dùng chữ này:</span> ${others.map(x => `<span class="zc ko" data-zh-entry="${esc(x)}">${esc(x)}</span>`).join('')}</div>` : ''}
+        </div>
+        <div class="zh-ch-act">
+          <button class="icon-btn" data-zh-speak="${esc(c)}" title="Nghe chữ ${esc(c)}">${SPK_ICO}</button>
+          <button class="icon-btn" data-zh-write="${esc(w.zh)}" data-zh-char="${esc(c)}" title="Tập viết chữ ${esc(c)}">${PEN_ICO}</button>
+        </div>
+      </div>`;
+  }).join('');
+
+  return `
+  <article class="zh-entry">
+    <button class="zh-entry-x" data-zh-entry-close="1" title="Đóng mục từ">✕</button>
+    <header class="zh-entry-head">
+      <div class="zh-entry-word ko">${esc(w.zh)}</div>
+      <div class="zh-entry-meta">
+        <div><span class="py">${esc(w.pinyin)}</span> · <b class="zh-hv">${esc(w.hv)}</b></div>
+        <div class="zh-entry-pos">${esc(w.pos || '')}${D && D.meas ? ` · lượng từ <b class="ko">${esc(D.meas)}</b>` : ''}</div>
+        <div class="zh-entry-refs">${w.refs.length ? w.refs.map(r => `<button class="zh-ref" data-zh-open="${r.lv}:${r.no}" title="Mở bài học">${esc(zhLevelName(r.lv))} bài ${r.no}</button>`).join(' ') : `<span class="zh-dict-tag">${w.common ? 'từ thông dụng' : 'từ lõi'} — chưa nằm trong bài nào</span>`}</div>
+      </div>
+      <div class="zh-entry-act">
+        <button class="pbtn" data-zh-speak="${esc(w.zh)}">${SPK_ICO} Nghe</button>
+        <button class="pbtn" data-zh-write="${esc(w.zh)}">${PEN_ICO}Tập viết</button>
+      </div>
+    </header>
+
+    <section class="zh-entry-sec">
+      <h3>Nghĩa</h3>
+      <ol class="zh-senses">${senses.map(s => `
+        <li>
+          <div class="zh-sense-vi">${esc(s.vi)}</div>
+          ${s.note ? `<div class="zh-sense-note">${esc(s.note)}</div>` : ''}
+          ${s.ex && s.ex[0] ? `<div class="zh-sense-ex"><span class="ko">${zhTokens(s.ex[0])}</span> <button class="icon-btn" data-zh-speak="${esc(s.ex[0])}" title="Nghe">${SPK_ICO}</button>${s.ex[1] ? `<div class="zh-ex-py py">${esc(s.ex[1])}</div>` : ''}${s.ex[2] ? `<div class="zh-ex-vi">${esc(s.ex[2])}</div>` : ''}</div>` : ''}
+        </li>`).join('')}</ol>
+      ${D && D.note ? `<p class="zh-entry-note">${esc(D.note)}</p>` : ''}
+    </section>
+
+    ${cs.length ? `<section class="zh-entry-sec">
+      <h3>Cấu tạo từ</h3>
+      <div class="zh-ch-grid">${charCards}</div>
+    </section>` : ''}
+
+    ${D && D.coll && D.coll.length ? `<section class="zh-entry-sec">
+      <h3>Kết hợp thường gặp</h3>
+      <ul class="zh-coll">${D.coll.map(c => `<li>${esc(c)}</li>`).join('')}</ul>
+    </section>` : ''}
+
+    ${(D && (D.syn || D.ant)) ? `<section class="zh-entry-sec zh-entry-rel">
+      ${D.syn ? `<div><b>Gần nghĩa:</b> ${esc(D.syn)}</div>` : ''}
+      ${D.ant ? `<div><b>Trái nghĩa:</b> ${esc(D.ant)}</div>` : ''}
+    </section>` : ''}
+
+    ${ex.length ? `<section class="zh-entry-sec">
+      <h3>Câu có dùng từ này</h3>
+      <div class="zh-entry-exs">${ex.map(e => `
+        <div class="zh-entry-ex">
+          <div class="zh-entry-ex-zh ko">${zhTokens(e.zh)} <button class="icon-btn" data-zh-speak="${esc(e.zh)}" title="Nghe">${SPK_ICO}</button></div>
+          ${e.py ? `<div class="zh-ex-py py">${esc(e.py)}</div>` : ''}
+          <div class="zh-ex-vi">${esc(e.vi)}${e.no ? ` · <button class="zh-ref" data-zh-open="${e.lv}:${e.no}">${esc(zhLevelName(e.lv))} bài ${e.no}</button>` : ''}</div>
+        </div>`).join('')}</div>
+    </section>` : `<section class="zh-entry-sec"><h3>Câu có dùng từ này</h3><p class="zh-entry-empty">Từ này chưa xuất hiện trong hội thoại hay ví dụ ngữ pháp của khoá — hãy xem phần «Cấu tạo từ» và các từ cùng chữ ở trên.</p></section>`}
+
+    <p class="zh-entry-more">Tra thêm âm Hán–Việt và nghĩa cổ: <a href="https://hvdic.thivien.net/whv/${encodeURIComponent(w.zh)}" target="_blank" rel="noopener noreferrer">hvdic.thivien.net ↗</a></p>
+  </article>`;
+}
 
 /* Tên ngắn của cấp: hsk3 → "HSK 3" */
 function zhLevelName(id){ const v = _ZC.levels.find(x => x.id === id); return v ? v.zh : (id || '').toUpperCase(); }
@@ -2448,7 +2603,7 @@ VIEWS.zh_lesson = function(){
             </div>
             <div class="zh-word-act">
               <button class="icon-btn" data-zh-speak="${esc(w.zh)}" title="Nghe">${SPK_ICO}</button>
-              <button class="icon-btn" data-zh-write="${esc(w.zh[0])}" title="Tập viết">${PEN_ICO}</button>
+              <button class="icon-btn" data-zh-write="${esc(w.zh)}" title="Tập viết">${PEN_ICO}</button>
             </div>
           </div>`).join('')}
       </div>
@@ -2504,6 +2659,17 @@ VIEWS.zh_write = function(){
         </div>
       </div>
     </div>
+    ${(function(){
+      const ww = state.zh.writeWord || '';
+      const wc = Array.from(ww).filter(hasHanzi);
+      if (wc.length < 2) return '';
+      const wi = ZH_LOOKUP[ww];
+      return `
+      <div class="zh-write-word">
+        <div class="zh-write-word-head">Chữ trong từ <b class="ko">${esc(ww)}</b>${wi ? ` · <span class="py">${esc(wi.pinyin)}</span> · ${esc(wi.vi)}` : ''} — luyện từng chữ:</div>
+        <div class="hz-chips">${wc.map(c => `<button class="hz-chip ko${c === cur ? ' on' : ''}" data-zh-writec="${esc(c)}">${esc(c)}</button>`).join('')}</div>
+      </div>`;
+    })()}
     <div class="zh-write-pick">
       <div class="zh-write-pick-head">
         <div class="eyebrow">Chọn chữ để luyện · ${chars.length} chữ</div>
@@ -2530,31 +2696,34 @@ function zhDictResults(q){
   if (!items.length) return `<p class="zh-empty">Không thấy từ nào khớp. Thử gõ chữ Hán hoặc pinyin không dấu.</p>` + crossDictHint(q, 'zh');
   const head = `<div class="zh-res-count">${total} từ${total > 80 ? ' · hiện 80 đầu, gõ thêm để thu hẹp' : ''}</div>` + crossDictHint(q, 'zh');
   return head + items.map(w => `
-    <div class="zh-res">
-      <div class="zh-res-hz ko" data-zh-write="${esc(w.zh[0])}">${esc(w.zh)}</div>
+    <div class="zh-res" data-zh-entry="${esc(w.zh)}" role="button" tabindex="0" title="Mở mục từ đầy đủ">
+      <div class="zh-res-hz ko">${esc(w.zh)}</div>
       <div class="zh-res-mid">
         <div><span class="py">${esc(w.pinyin)}</span> · <b>${esc(w.hv)}</b></div>
         <div class="zh-res-vi">${esc(w.vi)}</div>
-        <div class="zh-res-meta">${esc(w.pos)} · ${w.refs.map(r => `<button class="zh-ref" data-zh-open="${r.lv}:${r.no}" title="Mở bài học">${esc(zhLevelName(r.lv))} bài ${r.no}</button>`).join(' ')}</div>
+        <div class="zh-res-meta">${esc(w.pos)}${w.refs.length ? ' · ' + w.refs.map(r => `<button class="zh-ref" data-zh-open="${r.lv}:${r.no}" title="Mở bài học">${esc(zhLevelName(r.lv))} bài ${r.no}</button>`).join(' ') : (w.common ? ' · <span class="zh-dict-tag">từ thông dụng</span>' : ' · <span class="zh-dict-tag">từ lõi</span>')}</div>
       </div>
       <div class="zh-res-act">
         <button class="icon-btn" data-zh-speak="${esc(w.zh)}" title="Nghe">${SPK_ICO}</button>
-        <a class="icon-btn" href="https://hvdic.thivien.net/whv/${encodeURIComponent(w.zh)}" target="_blank" rel="noopener noreferrer" title="Tra Hán–Việt">↗</a>
+        <button class="icon-btn" data-zh-write="${esc(w.zh)}" title="Tập viết">${PEN_ICO}</button>
+        <button class="icon-btn" data-zh-entry="${esc(w.zh)}" title="Mở mục từ: cấu tạo, nghĩa, ví dụ">▸</button>
       </div>
     </div>`).join('');
 }
 VIEWS.zh_dict = function(){
   const q = state.zh.dictQ || '';
+  const entry = state.zh.entry && ZH_LOOKUP[state.zh.entry] ? state.zh.entry : null;
   return `
   <div class="page-head">
     <span class="eyebrow">Tiếng Trung</span>
     <h1>Từ điển</h1>
-    <p>Gõ chữ Hán, pinyin hoặc nghĩa tiếng Việt để tra trong ${Object.keys(ZH_LOOKUP).length} từ của khoá HSK 1–${_ZC.levels.filter(v => v.status === 'active').length}. Bấm chữ trong bài học cũng mở tra ở đây; bấm nhãn bài để nhảy tới bài học.</p>
+    <p>Gõ chữ Hán, pinyin hoặc nghĩa tiếng Việt để tra trong ${Object.keys(ZH_LOOKUP).length} từ của khoá HSK 1–${_ZC.levels.filter(v => v.status === 'active').length}. Bấm vào một từ để mở mục từ đầy đủ: <b>cấu tạo từ</b> (từng chữ, bộ thủ, âm Hán–Việt), các nghĩa, câu ví dụ có dùng từ đó và những từ khác cùng chữ.</p>
   </div>
   <div class="zh-dict-search">
     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
     <input id="zhq" type="search" value="${esc(q)}" placeholder="你好 / nǐ hǎo / xin chào…" autocomplete="off">
   </div>
+  ${entry ? zhEntryHTML(entry) : ''}
   <div id="zhResults" class="zh-results">${zhDictResults(q)}</div>`;
 };
 
@@ -6804,8 +6973,18 @@ document.addEventListener('click', e => {
   if (zLv){ const id = zLv.dataset.zhLevel, lv = _ZC.levels.find(x => x.id === id); if (lv && lv.status === 'active'){ state.zh.level = id; state.zh.lesson = null; render(); } return; }
   const zLes = t.closest('[data-zh-lesson]');
   if (zLes){ state.zh.lesson = +zLes.dataset.zhLesson; go('zh_lesson'); return; }
+  /* Tập viết: nút mang CẢ TỪ (data-zh-write) + có thể chỉ rõ chữ nào (data-zh-char).
+     Từ nhiều chữ được nhớ vào state.zh.writeWord để màn Tập viết hiện đủ các chữ của từ. */
+  const zWc = t.closest('[data-zh-writec]');    // đổi chữ trong cùng một từ — đứng yên tại chỗ
+  if (zWc){ state.zh.writeChar = zWc.dataset.zhWritec; renderKeep(); return; }
   const zWr = t.closest('[data-zh-write]');
-  if (zWr){ state.zh.writeChar = zWr.dataset.zhWrite; go('zh_write'); return; }
+  if (zWr){
+    const v = zWr.dataset.zhWrite || '';
+    const wc = Array.from(v).filter(hasHanzi);
+    state.zh.writeWord = wc.length > 1 ? v : '';
+    state.zh.writeChar = zWr.dataset.zhChar || wc[0] || v;
+    go('zh_write'); return;
+  }
   const zWl = t.closest('[data-zh-wlevel]');
   if (zWl){ state.zh.writeLevel = zWl.dataset.zhWlevel; state.zh.writeChar = ''; render(); return; }
   const zPr = t.closest('[data-zh-prac]');          // đổi cấp cho Ôn tập / Bài tập / Thi thử
@@ -6813,8 +6992,16 @@ document.addEventListener('click', e => {
   const zOp = t.closest('[data-zh-open]');          // nhãn "HSK 3 bài 5" trong từ điển → mở bài
   if (zOp){ const p = zOp.dataset.zhOpen.split(':'); const lv = _ZC.levels.find(x => x.id === p[0]);
     if (lv && lv.status === 'active'){ state.zh.level = p[0]; state.zh.lesson = +p[1]; go('zh_lesson'); } return; }
+  const zEn = t.closest('[data-zh-entry]');        // mở mục từ đầy đủ
+  if (zEn){ state.zh.entry = zEn.dataset.zhEntry;
+    if (state.view !== 'zh_dict') go('zh_dict'); else { window.scrollTo({ top:0 }); render(); }
+    return; }
+  if (t.closest('[data-zh-entry-close]')){ state.zh.entry = null; render(); return; }
   const zC = t.closest('[data-zc]');
-  if (zC){ state.zh.dictQ = zC.dataset.zc; go('zh_dict'); return; }
+  if (zC){ const v = zC.dataset.zc;
+    state.zh.dictQ = v;
+    state.zh.entry = ZH_LOOKUP[v] ? v : null;   // bấm đúng một từ có trong kho → mở luôn mục từ
+    go('zh_dict'); return; }
   const hzw = t.closest('[data-hzw]');
   if (hzw){
     if (zhWriter){ const a = hzw.dataset.hzw; try {

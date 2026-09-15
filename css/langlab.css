@@ -1388,6 +1388,53 @@ body.nav-collapsed .nav-in{gap:10px}
   .zh-mix-syl{font-size:36px}
 }
 
+/* ---------- Mục từ tiếng Trung ---------- */
+.zh-entry{position:relative;border:1px solid var(--line-strong);border-radius:14px;background:var(--surface);padding:18px 20px;margin-bottom:18px}
+.zh-entry-x{position:absolute;top:10px;right:10px;width:26px;height:26px;border:1px solid var(--line);border-radius:7px;background:var(--surface-2);color:var(--muted);cursor:pointer;line-height:1}
+.zh-entry-x:hover{border-color:var(--accent);color:var(--accent)}
+.zh-entry-head{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;padding-right:30px}
+.zh-entry-word{font-family:"Noto Sans KR",serif;font-size:46px;line-height:1.05;color:var(--accent)}
+.zh-entry-meta{min-width:0;flex:1 1 200px;font-size:13.5px;padding-top:4px}
+.zh-entry-meta .py{font-family:"JetBrains Mono",monospace;font-size:15px}
+.zh-entry-pos{font-size:12.5px;color:var(--muted);margin-top:2px}
+.zh-entry-refs{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.zh-entry-act{display:flex;gap:7px;flex-wrap:wrap}
+.zh-entry-sec{margin-top:16px;border-top:1px solid var(--line);padding-top:13px}
+.zh-entry-sec h3{font-family:"Fraunces","Lexend",serif;font-size:14.5px;margin:0 0 9px;color:var(--ink)}
+.zh-senses{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:9px}
+.zh-senses li::marker{color:var(--accent);font-weight:600}
+.zh-sense-vi{font-size:14px}
+.zh-sense-note{font-size:12.5px;color:var(--muted);margin-top:2px}
+.zh-sense-ex{margin-top:5px;padding-left:10px;border-left:2px solid var(--accent-soft)}
+.zh-sense-ex .ko{font-family:"Noto Sans KR",serif;font-size:17px}
+.zh-entry-note{font-size:12.5px;color:var(--ink);background:var(--accent-soft);border-radius:8px;padding:8px 12px;margin-top:10px;line-height:1.6}
+.zh-ch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:11px}
+.zh-ch-card{display:flex;gap:11px;align-items:flex-start;border:1px solid var(--line);border-radius:11px;background:var(--surface-2);padding:11px 12px}
+.zh-ch-hz{font-family:"Noto Sans KR",serif;font-size:36px;line-height:1;flex:none;color:var(--accent)}
+.zh-ch-body{min-width:0;flex:1}
+.zh-ch-top{font-size:13px}
+.zh-ch-top .py{font-family:"JetBrains Mono",monospace}
+.zh-ch-rad{font-size:12px;color:var(--muted);margin-top:3px}
+.zh-ch-rad .ko{font-family:"Noto Sans KR",serif;font-size:14px}
+.zh-ch-more{font-size:12px;color:var(--muted);margin-top:6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.zh-ch-more .zc{font-family:"Noto Sans KR",serif;font-size:16px;color:var(--ink)}
+.zh-ch-act{display:flex;flex-direction:column;gap:5px;flex:none}
+.zh-coll{margin:0;padding-left:18px;font-size:13px;line-height:1.75;color:var(--ink)}
+.zh-entry-rel{display:flex;gap:18px;flex-wrap:wrap;font-size:13px}
+.zh-entry-exs{display:flex;flex-direction:column;gap:11px}
+.zh-entry-ex{border-left:2px solid var(--line-strong);padding-left:11px}
+.zh-entry-ex-zh{font-family:"Noto Sans KR",serif;font-size:18px;line-height:1.5}
+.zh-entry-empty,.zh-entry-more{font-size:12.5px;color:var(--muted);line-height:1.6}
+.zh-entry-more{margin-top:14px}
+.zh-res{cursor:pointer}
+.zh-res:hover{border-color:var(--accent)}
+
+/* Dãy chữ của từ đang luyện trong màn Tập viết */
+.zh-write-word{border:1px solid var(--line);border-radius:12px;background:var(--surface-2);padding:11px 14px;margin-top:14px}
+.zh-write-word-head{font-size:12.5px;color:var(--muted);margin-bottom:8px}
+.zh-write-word-head .ko{font-family:"Noto Sans KR",serif;font-size:18px;color:var(--ink)}
+.zh-write-word .hz-chips{gap:7px}
+
 .zh-lesson{max-width:760px}
 .zh-les-title{font-family:"Noto Sans KR",serif;font-size:30px;font-weight:700;line-height:1.1}
 .zh-les-sub{font-size:15px;color:var(--muted);margin-top:3px}
@@ -1834,7 +1881,7 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 .ru-entry-meta{color:var(--muted);font-size:13.5px;margin-top:4px}
 .ru-gov{color:var(--accent-2);font-weight:600}
 .ru-entry-refs{margin-top:6px;display:flex;flex-wrap:wrap;gap:4px}
-.ru-dict-tag{font-size:11.5px;color:var(--muted);border:1px dashed var(--border);border-radius:999px;padding:1px 8px}
+.ru-dict-tag,.zh-dict-tag{font-size:11.5px;color:var(--muted);border:1px dashed var(--line);border-radius:999px;padding:1px 8px}
 .ru-entry-sec{padding:12px 0 4px;border-bottom:1px dashed var(--border)}
 .ru-entry-sec:last-child{border-bottom:0}
 .ru-entry-sec h3{font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
