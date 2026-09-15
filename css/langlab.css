@@ -854,6 +854,18 @@ body:has(.mplayer.open) .view{padding-bottom:110px}
 .asst-tab .hp-ico{margin-right:2px;vertical-align:-3px}
 .asst-drop-ico .hp-ico{width:34px;height:34px;vertical-align:0;color:var(--muted)}
 
+/* Icon nét mảnh dùng chung: bút (tập viết), bóng đèn («Bạn có biết?»), bong bóng
+   thoại, sách, đồng hồ — trước đây là emoji ✍ 💡 💬 📖 ⏱ nên mỗi máy vẽ một kiểu. */
+.ln-ico{width:16px;height:16px;flex:none;display:inline-block;vertical-align:-3px;
+  fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.zh-found-ico .ln-ico{width:22px;height:22px;vertical-align:0;stroke-width:1.7}
+.fact-bubble-ic .ln-ico{width:22px;height:22px;vertical-align:0}
+.note-card .mark .ln-ico{width:20px;height:20px;vertical-align:0}
+.pbtn .ln-ico{width:14px;height:14px;vertical-align:0}
+.icon-btn .ln-ico{width:14px;height:14px}
+.asst-tab .ln-ico{margin-right:2px}
+.ru-click-hint .ln-ico,.ja-kana-hint .ln-ico{width:15px;height:15px}
+
 .top-icon{width:32px;height:32px}
 .top-icon svg{width:15px;height:15px}
 .top-icon.alert{border-color:var(--seal);color:var(--seal);background:var(--seal-soft)}
@@ -1337,6 +1349,44 @@ body.nav-collapsed .nav-in{gap:10px}
 .zh-py-sec h2{font-family:"Fraunces","Lexend",serif;font-size:17px;margin:0 0 8px}
 .zh-py-chips{display:flex;flex-wrap:wrap;gap:6px}
 .zh-py-chip{font-family:"JetBrains Mono",monospace;font-size:13px;padding:4px 9px;border:1px solid var(--line);border-radius:7px;background:var(--surface-2);color:var(--ink)}
+
+/* Thẻ thanh mẫu / vận mẫu: ký hiệu · cách đọc cho người Việt · chữ ví dụ có nút nghe */
+.zh-py-lead{font-size:13px;color:var(--muted);line-height:1.65;max-width:78ch;margin:0 0 12px}
+.zh-py-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:12px;margin-bottom:22px}
+.zh-py-card{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px 14px}
+.zh-py-top{display:flex;align-items:baseline;gap:8px}
+.zh-py-sym{font-family:"JetBrains Mono",monospace;font-size:24px;font-weight:600;color:var(--accent);line-height:1}
+.zh-py-grp{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+.zh-py-vi{font-size:12.5px;line-height:1.6;color:var(--ink);margin:7px 0 9px}
+.zh-py-ex{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px dashed var(--line);padding-top:8px}
+.zh-py-ex .zc{font-family:"Noto Sans KR",serif;font-size:20px}
+.zh-py-ex .py{font-family:"JetBrains Mono",monospace;font-size:13px}
+.zh-py-exvi{font-size:12px;color:var(--muted);margin-right:auto}
+.zh-rad-head{gap:3px}
+.zh-rad-play{width:22px;height:22px;border-radius:6px;margin-top:4px}
+
+/* Bộ ghép âm: thanh mẫu + vận mẫu + thanh điệu → âm tiết */
+.zh-mix-sec{border:1px solid var(--line-strong);border-radius:14px;background:var(--surface-2);padding:16px 18px;margin-bottom:26px}
+.zh-mix-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:9px}
+.zh-mix-lb{flex:none;width:86px;font-size:12px;color:var(--muted);padding-top:5px}
+.zh-mix-chips{display:flex;flex-wrap:wrap;gap:5px;min-width:0}
+.zh-mix-chip{font-family:"JetBrains Mono",monospace;font-size:12.5px;padding:4px 9px;border:1px solid var(--line);border-radius:7px;background:var(--surface);color:var(--ink);cursor:pointer}
+.zh-mix-chip:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.zh-mix-chip.on{background:var(--accent);border-color:var(--accent);color:var(--surface);font-weight:600}
+.zh-mix-chip.off{opacity:.3;cursor:not-allowed}
+.zh-mix-out{margin-top:12px;border-top:1px solid var(--line);padding-top:14px;text-align:center}
+.zh-mix-syl{font-family:"JetBrains Mono",monospace;font-size:44px;font-weight:600;line-height:1.15;color:var(--accent)}
+.zh-mix-formula{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--muted);margin-top:4px}
+.zh-mix-note{font-size:12.5px;color:var(--ink);background:var(--accent-soft);border-radius:8px;padding:6px 12px;display:inline-block;margin-top:9px}
+.zh-mix-act{margin:12px 0 10px;display:flex;justify-content:center}
+.zh-mix-chars{font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
+.zh-mix-chars .zc{font-family:"Noto Sans KR",serif;font-size:24px;color:var(--ink)}
+.zh-mix-bad{font-size:13px;color:var(--muted);line-height:1.6;max-width:60ch;margin:0 auto}
+@media (max-width:640px){
+  .zh-mix-row{flex-direction:column;gap:4px}
+  .zh-mix-lb{width:auto;padding-top:0}
+  .zh-mix-syl{font-size:36px}
+}
 
 .zh-lesson{max-width:760px}
 .zh-les-title{font-family:"Noto Sans KR",serif;font-size:30px;font-weight:700;line-height:1.1}

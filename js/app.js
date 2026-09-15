@@ -19,6 +19,17 @@ const HP_ICO = '<svg class="hp-ico" viewBox="0 0 24 24" aria-hidden="true" focus
   + '<path class="hp-band" d="M4.4 14.4v-2.3a7.6 7.6 0 0 1 15.2 0v2.3"/>'
   + '<rect class="hp-cup" x="2.5" y="13.4" width="4.2" height="7.2" rx="1.9"/>'
   + '<rect class="hp-cup" x="17.3" y="13.4" width="4.2" height="7.2" rx="1.9"/></svg>';
+const PEN_ICO = '<svg class="ln-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+  + '<path d="M15.9 3.8a2.3 2.3 0 0 1 3.3 3.3L8.6 17.7l-4.3 1 1-4.3z"/><path d="M14.4 5.3 17.7 8.6"/></svg>';
+const BULB_ICO = '<svg class="ln-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+  + '<circle cx="12" cy="9.8" r="5.4"/><path d="M9.8 16.6h4.4M10.6 19.4h2.8"/></svg>';
+const CHAT_ICO = '<svg class="ln-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+  + '<path d="M4.2 7a2.8 2.8 0 0 1 2.8-2.8h10a2.8 2.8 0 0 1 2.8 2.8v6a2.8 2.8 0 0 1-2.8 2.8h-7l-3 3.6v-3.6a2.8 2.8 0 0 1-2.8-2.8z"/></svg>';
+const BOOK_ICO = '<svg class="ln-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+  + '<path d="M3.6 5h4.4a4 4 0 0 1 4 4v9.6a3 3 0 0 0-3-3H3.6z"/>'
+  + '<path d="M20.4 5h-4.4a4 4 0 0 0-4 4v9.6a3 3 0 0 1 3-3h5.4z"/></svg>';
+const CLOCK_ICO = '<svg class="ln-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+  + '<circle cx="12" cy="12" r="8.2"/><path d="M12 7.2V12l3.2 2"/></svg>';
 
 /* ---------- lưu trạng thái nhẹ ---------- */
 const store = {
@@ -31,7 +42,7 @@ const state = {
   level: store.get('level', 'so-cap-1'),
   lesson: null,
   tab: 'vocab',
-  zh: { level:'hsk1', lesson:null, writeChar:'', srs:null },
+  zh: { level:'hsk1', lesson:null, writeChar:'', srs:null, py:{ ini:'n', fin:'i', tone:3 } },
   ru: { level:'a1', lesson:null, letter:'А', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, trace:true },
   ja: { level:'n5', lesson:null, kana:'hiragana', kanaSel:'あ', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, kanjiLevel:null, kanjiSel:null, writeChar:'あ', furi:true },
   en: { level:'a1', lesson:null, dictQ:'', entry:null, phon:'iː', phonTab:'vowel', idiomTab:'phrasal', idiomGroup:'all', idiomQ:'', quizLevel:'all', quizType:'all', exam:null, speakTab:'ielts', speakIdx:0, spLeft:null, srsLevel:'all', srs:null, srs:null, quiz:null, exam:null, pracLevel:null, topic:null },
@@ -1228,7 +1239,7 @@ numbers(){
   </div>
 
   <div class="note-card">
-    <span class="mark">✎</span>
+    <span class="mark">${PEN_ICO}</span>
     <div>
       <h4>Dạng rút gọn trước đơn vị đếm</h4>
       <p>Bốn số đầu và 20 đổi dạng khi đứng trước đơn vị đếm:
@@ -1534,7 +1545,7 @@ function asstAudioResult(){
   const tools = `<div class="asst-para-tools">
     <button class="pbtn" data-speak="${esc(fullText)}"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg> Nghe cả đoạn</button>
     <button class="pbtn" data-asst-trans="1">${A.showVi ? 'Ẩn bản dịch' : 'Dịch từng câu'}</button>
-    <button class="pbtn" data-asst-edit="1">✎ Sửa ngắt câu</button>
+    <button class="pbtn" data-asst-edit="1">${PEN_ICO}Sửa ngắt câu</button>
     <button class="pbtn" data-asst-audio-reset="1">↻ Tệp khác</button>
   </div>`;
   const lines = segs.map((s, i) => {
@@ -1615,7 +1626,7 @@ function labiBody(){
     <span class="labi-hi-tx">cùng học nhé<b>!!!</b></span>
   </div>
   <div class="asst-tabs">
-    <button class="asst-tab${A.tab === 'chat' ? ' on' : ''}" data-asst-tab="chat">💬 Hỏi đáp</button>
+    <button class="asst-tab${A.tab === 'chat' ? ' on' : ''}" data-asst-tab="chat">${CHAT_ICO} Hỏi đáp</button>
     <button class="asst-tab${A.tab === 'audio' ? ' on' : ''}" data-asst-tab="audio">${HP_ICO} Phân tích âm thanh</button>
   </div>
   ${A.tab === 'chat' ? asstChatTab() : asstAudioTab()}`;
@@ -1953,7 +1964,14 @@ const CRUMBS = {
   numbers:'Số đếm', topik:'Thi thử TOPIK', about:'Giới thiệu', facts:'Bạn có biết?', read:'Bài đọc'
 };
 
+/* Vẽ lại mà GIỮ NGUYÊN chỗ đang đứng — dùng cho các bộ chọn nằm giữa trang
+   (ví dụ bộ ghép âm pinyin): đổi lựa chọn thì nội dung dưới thay đổi, nhưng
+   người dùng vẫn đang nhìn đúng chỗ đó, kéo vọt lên đầu trang là khó chịu. */
+let _keepScroll = false;
+function renderKeep(){ _keepScroll = true; render(); }
+
 function render(){
+  const keepY = _keepScroll ? (window.scrollY || window.pageYOffset || 0) : 0;
   const view = $('#view');
   view.innerHTML = VIEWS[state.view]();
   view.classList.toggle('wide', state.view === 'write');
@@ -2025,7 +2043,8 @@ function render(){
   }
   if (state.view === 'lesson' && state.tab === 'write') mountTrace();
   if (state.view === 'topik' && state.topik && state.topik.phase === 'doing') mountTopik(); else topikStopTimer();
-  window.scrollTo({ top:0, behavior:'instant' in window ? 'instant' : 'auto' });
+  if (_keepScroll){ _keepScroll = false; window.scrollTo({ top:keepY, behavior:'instant' in window ? 'instant' : 'auto' }); }
+  else window.scrollTo({ top:0, behavior:'instant' in window ? 'instant' : 'auto' });
   if (typeof tqSyncPh === 'function') tqSyncPh();
   if (typeof factSchedule === 'function') factSchedule();
 }
@@ -2052,6 +2071,90 @@ const ZH_LOOKUP = (function(){
   }));
   return m;
 })();
+/* ---------- Ghép âm pinyin: thanh mẫu + vận mẫu + thanh điệu ----------
+   Bảng ghép hợp lệ nằm ở PINYIN_ZH.combos; ba hàm dưới lo chính tả, dấu thanh
+   và việc tìm chữ Hán thật để đọc mẫu. */
+const ZH_COMBOS = _ZP.combos || {};
+function zhComboOk(ini, fin){
+  const s = ZH_COMBOS[ini || ''];
+  return !!s && s.split(' ').indexOf(fin) >= 0;
+}
+/* Quy tắc viết: iou→iu · uei→ui · uen→un · ü sau j q x viết u · uo sau b p m f viết o ·
+   không có thanh mẫu thì i→yi, u→wu, ü→yu… */
+function zhSpell(ini, fin){
+  if (!ini){
+    const Z = { i:'yi', ia:'ya', ie:'ye', iao:'yao', iou:'you', ian:'yan', 'in':'yin', iang:'yang', ing:'ying', iong:'yong',
+                u:'wu', ua:'wa', uo:'wo', uai:'wai', uei:'wei', uan:'wan', uen:'wen', uang:'wang', ueng:'weng',
+                'ü':'yu', 'üe':'yue', 'üan':'yuan', 'ün':'yun' };
+    return Z[fin] || fin;
+  }
+  let f = fin;
+  if (f === 'iou') f = 'iu';
+  else if (f === 'uei') f = 'ui';
+  else if (f === 'uen') f = 'un';
+  if (/^[jqx]$/.test(ini)) f = f.replace('ü', 'u');
+  if (/^[bpmf]$/.test(ini) && f === 'uo') f = 'o';
+  return ini + f;
+}
+/* Dấu thanh rơi vào a > o > e; nếu không có thì vào nguyên âm i/u/ü ĐỨNG SAU CÙNG (liù, huì) */
+const ZH_TONE_V = { a:'āáǎà', o:'ōóǒò', e:'ēéěè', i:'īíǐì', u:'ūúǔù', 'ü':'ǖǘǚǜ' };
+function zhToneMark(syl, n){
+  if (!n) return syl;
+  let i = syl.indexOf('a'), ch = 'a';
+  if (i < 0){ i = syl.indexOf('o'); ch = 'o'; }
+  if (i < 0){ i = syl.indexOf('e'); ch = 'e'; }
+  if (i < 0){ for (let k = syl.length - 1; k >= 0; k--){ if ('iuü'.indexOf(syl[k]) >= 0){ i = k; ch = syl[k]; break; } } }
+  if (i < 0 || !ZH_TONE_V[ch]) return syl;
+  return syl.slice(0, i) + ZH_TONE_V[ch][n - 1] + syl.slice(i + 1);
+}
+/* Bỏ dấu thanh (giữ nguyên số ký tự để tách âm tiết không lệch vị trí) */
+const ZH_DETONE = { 'ā':'a','á':'a','ǎ':'a','à':'a','ō':'o','ó':'o','ǒ':'o','ò':'o','ē':'e','é':'e','ě':'e','è':'e',
+  'ī':'i','í':'i','ǐ':'i','ì':'i','ū':'u','ú':'u','ǔ':'u','ù':'u','ǖ':'ü','ǘ':'ü','ǚ':'ü','ǜ':'ü','ê':'e','ń':'n','ň':'n','v':'ü' };
+/* Tập hợp mọi âm tiết hợp lệ (chưa dấu), sinh từ chính bảng ghép */
+let _zhSet = null;
+function zhSylSet(){
+  if (_zhSet) return _zhSet;
+  const S = {};
+  Object.keys(ZH_COMBOS).forEach(ini => String(ZH_COMBOS[ini]).split(' ').filter(Boolean)
+    .forEach(fin => { S[zhSpell(ini, fin)] = 1; }));
+  _zhSet = S; return S;
+}
+/* Tách pinyin viết liền thành từng âm tiết: lǎoshī → [lǎo, shī]. Trả null nếu không tách được. */
+function zhSplitPy(py){
+  const orig = Array.from(String(py)).filter(c => /[0-9]/.test(c) === false && /[a-zA-ZüÜÀ-ɏ]/.test(c));
+  const low = orig.map(c => { const d = c.toLowerCase(); return ZH_DETONE[d] || d; });
+  const S = zhSylSet(), out = [];
+  let i = 0;
+  while (i < low.length){
+    let hit = 0;
+    for (let n = Math.min(6, low.length - i); n >= 1; n--){ if (S[low.slice(i, i + n).join('')]){ hit = n; break; } }
+    if (!hit) return null;
+    out.push(orig.slice(i, i + hit).join(''));
+    i += hit;
+  }
+  return out.length ? out : null;
+}
+/* Chỉ mục «âm tiết có dấu → chữ Hán» dựng lười từ từ vựng khoá học, để ghép xong có chữ thật mà nghe */
+let _zhSyl = null;
+function zhSylIndex(){
+  if (_zhSyl) return _zhSyl;
+  const idx = {}, clean = s => String(s).toLowerCase().replace(/[^a-züà-ÿĀ-ǿ]/g, '');
+  Object.values(ZH_LOOKUP).forEach(w => {
+    const cs = Array.from(String(w.zh || '')).filter(hasHanzi);
+    let ps = String(w.pinyin || '').trim().split(/\s+/).filter(Boolean);
+    if (cs.length > 1 && ps.length === 1){ const sp = zhSplitPy(ps[0]); if (sp && sp.length === cs.length) ps = sp; }
+    if (!cs.length || cs.length !== ps.length) return;
+    cs.forEach((c, i) => {
+      const k = clean(ps[i]); if (!k) return;
+      const a = (idx[k] = idx[k] || []);
+      if (a.indexOf(c) < 0 && a.length < 8) a.push(c);
+    });
+  });
+  _zhSyl = idx; return idx;
+}
+function zhPy(){ return state.zh.py || (state.zh.py = { ini:'n', fin:'i', tone:3 }); }
+try { window.__zhPy = { ok: zhComboOk, spell: zhSpell, tone: zhToneMark, index: zhSylIndex, split: zhSplitPy, set: zhSylSet, cur: () => zhPy() }; } catch(e){}
+
 /* Tên ngắn của cấp: hsk3 → "HSK 3" */
 function zhLevelName(id){ const v = _ZC.levels.find(x => x.id === id); return v ? v.zh : (id || '').toUpperCase(); }
 /* Cấp dùng cho Ôn tập / Bài tập / Thi thử (mặc định theo cấp khoá học); 'all' = mọi cấp */
@@ -2207,12 +2310,12 @@ VIEWS.zh_radicals = function(){
   <div class="page-head">
     <span class="eyebrow">Tiếng Trung · Nền tảng</span>
     <h1>Bộ thủ thường gặp</h1>
-    <p>Bộ thủ là “thành phần gốc” gợi nghĩa của chữ Hán và là cách tra từ điển. Dưới đây là ${_ZR.length} bộ hay gặp, kèm âm Hán–Việt và chữ ví dụ (bấm để tra).</p>
+    <p>Bộ thủ là “thành phần gốc” gợi nghĩa của chữ Hán và là cách tra từ điển. Dưới đây là ${_ZR.length} bộ hay gặp, kèm âm Hán–Việt, pinyin và chữ ví dụ. Bấm chữ ví dụ để tra, bấm nút loa để nghe đọc bộ thủ.</p>
   </div>
   <div class="zh-rad-grid">
     ${_ZR.map(r => `
       <div class="zh-rad-card">
-        <div class="zh-rad-head"><span class="zh-rad-char ko">${esc(r.rad)}</span>${r.alt ? `<span class="zh-rad-alt ko">${esc(r.alt)}</span>` : ''}</div>
+        <div class="zh-rad-head"><span class="zh-rad-char ko">${esc(r.rad)}</span>${r.alt ? `<span class="zh-rad-alt ko">${esc(r.alt)}</span>` : ''}<button class="icon-btn zh-rad-play" data-zh-speak="${esc(r.rad)}" title="Nghe đọc bộ ${esc(r.rad)} (${esc(r.pinyin)})">${SPK_ICO}</button></div>
         <div class="zh-rad-info">
           <div><b>${esc(r.hv)}</b> <span class="py">${esc(r.pinyin)}</span></div>
           <div class="zh-rad-vi">${esc(r.vi)}</div>
@@ -2227,7 +2330,7 @@ VIEWS.zh_pinyin = function(){
   <div class="page-head">
     <span class="eyebrow">Tiếng Trung · Nền tảng</span>
     <h1>Pinyin &amp; thanh điệu</h1>
-    <p><b>Pinyin</b> (拼音 — Hán ngữ bính âm) là cách phiên âm chính thức của tiếng Phổ thông bằng chữ Latinh. Mỗi âm tiết = <b>phụ âm đầu + vần + thanh điệu</b> — ví dụ <span class="py">nǐ</span> = n + i + thanh 3. Mỗi âm tiết mang một trong 4 thanh (hoặc thanh nhẹ); đọc sai thanh là sai nghĩa.</p>
+    <p><b>Pinyin</b> (拼音 — Hán ngữ bính âm) là cách phiên âm chính thức của tiếng Phổ thông bằng chữ Latinh. Mỗi âm tiết = <b>phụ âm đầu + vần + thanh điệu</b> — ví dụ <span class="py">nǐ</span> = n + i + thanh 3. Mỗi âm tiết mang một trong 4 thanh (hoặc thanh nhẹ); đọc sai thanh là sai nghĩa. Bên dưới có <b>bộ ghép âm</b> để bạn tự ráp thử, và cách đọc + giọng đọc cho từng thanh mẫu, từng vận mẫu.</p>
   </div>
   <div class="zh-tone-row">
     ${_ZP.tones.map(t => `
@@ -2240,12 +2343,76 @@ VIEWS.zh_pinyin = function(){
         <button class="pbtn mini" data-zh-speak="${esc(t.hz)}">${SPK_ICO} Nghe</button>
       </div>`).join('')}
   </div>
-  <div class="zh-py-cols">
-    <section class="zh-py-sec"><h2>Phụ âm đầu (声母)</h2><div class="zh-py-chips">${_ZP.initials.map(x => `<span class="zh-py-chip">${esc(x)}</span>`).join('')}</div></section>
-    <section class="zh-py-sec"><h2>Vần (韵母)</h2><div class="zh-py-chips">${_ZP.finals.map(x => `<span class="zh-py-chip">${esc(x)}</span>`).join('')}</div></section>
-  </div>
+  ${zhMixHTML()}
+  <section class="zh-py-sec">
+    <h2>Thanh mẫu — phụ âm đầu (声母)</h2>
+    <p class="zh-py-lead">Phụ âm tiếng Trung không đọc trơ một mình; khi đọc tên người ta ghép sẵn một nguyên âm đỡ: <b class="py">bo po mo fo · de te ne le · ge ke he · ji qi xi · zhi chi shi ri · zi ci si</b>. Điều quan trọng nhất không phải “trong – đục” như tiếng Việt mà là <b>bật hơi hay không bật hơi</b>: b–p, d–t, g–k, j–q, zh–ch, z–c từng cặp chỉ khác nhau ở luồng hơi.</p>
+    <div class="zh-py-grid">${_ZP.initials.map(zhPySymCard).join('')}</div>
+  </section>
+  <section class="zh-py-sec">
+    <h2>Vận mẫu — vần (韵母)</h2>
+    <p class="zh-py-lead">Vần gồm nguyên âm chính, có thể thêm âm đệm phía trước và âm cuối phía sau. Ba vần <b class="py">iou · uei · uen</b> khi có phụ âm đầu sẽ bị viết gọn thành <b class="py">-iu · -ui · -un</b> — vẫn đọc đủ, chỉ là viết tắt.</p>
+    <div class="zh-py-grid">${_ZP.finals.map(zhPySymCard).join('')}</div>
+  </section>
   <section class="zh-py-sec"><h2>Lưu ý</h2><ul class="about-feats">${_ZP.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul></section>`;
 };
+
+/* Một thẻ thanh mẫu / vận mẫu: ký hiệu, cách đọc, chữ ví dụ có nút nghe */
+function zhPySymCard(x){
+  return `
+    <div class="zh-py-card">
+      <div class="zh-py-top"><span class="zh-py-sym py">${esc(x.p)}</span><span class="zh-py-grp">${esc(x.grp || '')}</span></div>
+      <p class="zh-py-vi">${esc(x.vi || '')}</p>
+      <div class="zh-py-ex">
+        ${x.hz ? `<span class="zc ko" data-zc="${esc(x.hz)}">${esc(x.hz)}</span>` : ''}
+        <span class="py">${esc(x.py || '')}</span>
+        <span class="zh-py-exvi">${esc(x.exvi || '')}</span>
+        ${x.hz ? `<button class="icon-btn" data-zh-speak="${esc(x.hz)}" title="Nghe ${esc(x.py || '')}">${SPK_ICO}</button>` : ''}
+      </div>
+    </div>`;
+}
+
+/* Bộ ghép âm: chọn thanh mẫu + vận mẫu + thanh điệu, ra âm tiết viết đúng chính tả,
+   chữ Hán thật đọc đúng âm đó và nút nghe. Vần nào không ghép được thì làm mờ. */
+function zhMixHTML(){
+  const P = zhPy();
+  const iChips = [{ p:'', vi:'Âm tiết không có phụ âm đầu (零声母)' }].concat(_ZP.initials).map(x =>
+    `<button class="zh-mix-chip py${P.ini === x.p ? ' on' : ''}" data-zh-py-i="${esc(x.p)}" title="${esc(x.vi || '')}">${x.p === '' ? '∅' : esc(x.p)}</button>`).join('');
+  const fChips = _ZP.finals.map(x => {
+    const ok = zhComboOk(P.ini, x.p);
+    return `<button class="zh-mix-chip py${P.fin === x.p ? ' on' : ''}${ok ? '' : ' off'}" data-zh-py-f="${esc(x.p)}"${ok ? '' : ' disabled'} title="${ok ? esc(x.vi || '') : 'Không ghép được với thanh mẫu đang chọn'}">${esc(x.p)}</button>`;
+  }).join('');
+  const tChips = [1, 2, 3, 4, 0].map(n =>
+    `<button class="zh-mix-chip${P.tone === n ? ' on' : ''}" data-zh-py-t="${n}">${n ? 'Thanh ' + n : 'Thanh nhẹ'}</button>`).join('');
+
+  const ok = zhComboOk(P.ini, P.fin);
+  const base = ok ? zhSpell(P.ini, P.fin) : '';
+  const syl = ok ? zhToneMark(base, P.tone) : '';
+  const chars = ok ? (zhSylIndex()[syl.toLowerCase()] || []) : [];
+  const raw = (P.ini || '∅') + ' + ' + P.fin;
+  const note = ok && base !== (P.ini + P.fin)
+    ? `<div class="zh-mix-note">Quy tắc chính tả: <b class="py">${esc(raw)}</b> viết thành <b class="py">${esc(base)}</b>.</div>` : '';
+
+  return `
+  <section class="zh-py-sec zh-mix-sec">
+    <h2>Ghép âm thử (拼音)</h2>
+    <p class="zh-py-lead">Chọn một thanh mẫu, một vận mẫu và một thanh điệu — LangLab ghép lại, viết đúng chính tả pinyin, tìm chữ Hán đọc đúng âm đó và đọc lên cho bạn nghe. Vần bị làm mờ là vần <b>không</b> ghép được với thanh mẫu đang chọn.</p>
+    <div class="zh-mix-row"><span class="zh-mix-lb">Thanh mẫu</span><div class="zh-mix-chips">${iChips}</div></div>
+    <div class="zh-mix-row"><span class="zh-mix-lb">Vận mẫu</span><div class="zh-mix-chips">${fChips}</div></div>
+    <div class="zh-mix-row"><span class="zh-mix-lb">Thanh điệu</span><div class="zh-mix-chips">${tChips}</div></div>
+    <div class="zh-mix-out${ok ? '' : ' bad'}">
+      ${ok ? `
+        <div class="zh-mix-syl py">${esc(syl)}</div>
+        <div class="zh-mix-formula py">${esc(raw)} + ${P.tone ? 'thanh ' + P.tone : 'thanh nhẹ'}</div>
+        ${note}
+        <div class="zh-mix-act"><button class="pbtn primary" data-zh-speak="${esc(chars[0] || syl)}">${SPK_ICO} Nghe âm tiết này</button></div>
+        ${chars.length
+          ? `<div class="zh-mix-chars"><span>Chữ đọc đúng âm này:</span> ${chars.map(c => `<span class="zc ko" data-zc="${esc(c)}">${esc(c)}</span>`).join('')}</div>`
+          : `<div class="zh-mix-chars"><span>Âm tiết này có thật, nhưng kho từ HSK của LangLab chưa có chữ nào mang đúng âm + thanh này — nút nghe sẽ đọc thẳng phần pinyin.</span></div>`}
+      ` : `<div class="zh-mix-bad">Tiếng Phổ thông không có âm tiết <b class="py">${esc(raw)}</b>. Hãy chọn một vần khác — những vần ghép được đang hiện rõ.</div>`}
+    </div>
+  </section>`;
+}
 
 VIEWS.zh_lesson = function(){
   const L = zhCurLesson();
@@ -2281,7 +2448,7 @@ VIEWS.zh_lesson = function(){
             </div>
             <div class="zh-word-act">
               <button class="icon-btn" data-zh-speak="${esc(w.zh)}" title="Nghe">${SPK_ICO}</button>
-              <button class="icon-btn" data-zh-write="${esc(w.zh[0])}" title="Tập viết">✎</button>
+              <button class="icon-btn" data-zh-write="${esc(w.zh[0])}" title="Tập viết">${PEN_ICO}</button>
             </div>
           </div>`).join('')}
       </div>
@@ -2301,7 +2468,7 @@ VIEWS.zh_lesson = function(){
       </div>
     </section>
     <div class="stage-ctrl">
-      <button class="pbtn primary" data-zh-write="${esc(chars[0] || '你')}">✎ Luyện viết chữ trong bài</button>
+      <button class="pbtn primary" data-zh-write="${esc(chars[0] || '你')}">${PEN_ICO}Luyện viết chữ trong bài</button>
       <button class="pbtn" data-go="zh_home">← Về danh sách bài</button>
     </div>
   </article>`;
@@ -2331,7 +2498,7 @@ VIEWS.zh_write = function(){
         }</div>
         <div class="zh-write-ctrl">
           <button class="pbtn primary" data-hzw="anim">▶ Xem thứ tự nét</button>
-          <button class="pbtn" data-hzw="quiz">✎ Luyện viết</button>
+          <button class="pbtn" data-hzw="quiz">${PEN_ICO}Luyện viết</button>
           <button class="pbtn" data-hzw="reset">↺ Làm lại</button>
           <button class="pbtn" data-zh-speak="${esc(cur)}">${SPK_ICO} Nghe</button>
         </div>
@@ -2652,8 +2819,8 @@ VIEWS.ru_home = function(){
   const cards = [
     ['ru_alphabet','Bảng chữ cái','33 chữ Cyrillic: tên, âm, ví dụ','Аа'],
     ['ru_phonetics','Phát âm','Trọng âm, giảm âm, cứng–mềm','ó'],
-    ['ru_write','Tập viết','Chữ in, nghiêng, viết tay + tô theo','✍'],
-    ['ru_speak','Luyện nói','Chủ đề vấn đáp РКИ có bài mẫu','💬']
+    ['ru_write','Tập viết','Chữ in, nghiêng, viết tay + tô theo',PEN_ICO],
+    ['ru_speak','Luyện nói','Chủ đề vấn đáp РКИ có bài mẫu',CHAT_ICO]
   ];
   return `
   <div class="page-head">
@@ -2705,7 +2872,7 @@ VIEWS.ru_alphabet = function(){
       <p><b>Cách đọc:</b> ${esc(cur.vi)}.</p>
       <p><b>Viết tay:</b> ${esc(cur.hw)}</p>
       <div class="ru-detail-ex">${cur.ex.map(e => `<span class="ru-ex"><b class="ru">${esc(e[0])}</b><span>${esc(e[1])}</span>${ruSpeakBtn(e[0], 'mini')}</span>`).join('')}</div>
-      <div class="stage-ctrl" style="margin-top:12px"><button class="pbtn" data-ru-write-letter="${esc(cur.up)}">✎ Tập viết chữ ${esc(cur.up)}</button></div>
+      <div class="stage-ctrl" style="margin-top:12px"><button class="pbtn" data-ru-write-letter="${esc(cur.up)}">${PEN_ICO}Tập viết chữ ${esc(cur.up)}</button></div>
     </div>
   </div>`;
 };
@@ -2796,7 +2963,7 @@ VIEWS.ru_lesson = function(){
       <div class="zh-les-sub">${esc(L.vi)}</div>
       <p class="zh-les-skill">${esc(L.skill)}</p>
     </header>
-    <div class="ru-click-hint">💡 Từ có <span class="ru"><span class="zc">gạch chấm</span></span> bấm được: mở nghĩa, cấu tạo từ, bảng biến cách và ví dụ.</div>
+    <div class="ru-click-hint">${BULB_ICO} Từ có <span class="ru"><span class="zc">gạch chấm</span></span> bấm được: mở nghĩa, cấu tạo từ, bảng biến cách và ví dụ.</div>
     <section class="zh-sec">
       <h2>Ngữ pháp</h2>
       ${L.grammar.map(g => `
@@ -2835,7 +3002,7 @@ VIEWS.ru_lesson = function(){
       <div class="stage-ctrl"><button class="pbtn" data-ru-speak="${esc(ruPlain(L.dialogue.map(d => d.ru).join(' ')))}">${SPK_ICO} Nghe cả hội thoại</button></div>
     </section>
     <div class="stage-ctrl">
-      <button class="pbtn primary" data-go="ru_quiz">✎ Làm bài tập</button>
+      <button class="pbtn primary" data-go="ru_quiz">${PEN_ICO}Làm bài tập</button>
       <button class="pbtn" data-go="ru_home">← Về danh sách bài</button>
     </div>
   </article>`;
@@ -3418,8 +3585,8 @@ VIEWS.ja_home = function(){
   const cards = [
     ['ja_kana','Bảng chữ Kana','Hiragana · Katakana · âm ghép · quy tắc','あ'],
     ['ja_kanji','Kanji','Chữ Hán theo cấp: âm On/Kun, Hán–Việt, nét','漢'],
-    ['ja_write','Tập viết','Xem thứ tự nét, tự viết kana và kanji','✍'],
-    ['ja_speak','Luyện nói','Chủ đề hội thoại có bài mẫu','💬']
+    ['ja_write','Tập viết','Xem thứ tự nét, tự viết kana và kanji',PEN_ICO],
+    ['ja_speak','Luyện nói','Chủ đề hội thoại có bài mẫu',CHAT_ICO]
   ];
   return `
   <div class="page-head">
@@ -3458,7 +3625,7 @@ VIEWS.ja_lesson = function(){
       <div class="zh-les-sub">${esc(L.vi)}</div>
       <p class="zh-les-skill">${esc(L.skill)}</p>
     </header>
-    <div class="ru-click-hint">💡 Từ có <span class="ja"><span class="zc">gạch chấm</span></span> bấm được: mở nghĩa, cách chia và ví dụ. <button class="mini" data-ja-furi="1">${furi ? 'Ẩn furigana' : 'Hiện furigana'}</button></div>
+    <div class="ru-click-hint">${BULB_ICO} Từ có <span class="ja"><span class="zc">gạch chấm</span></span> bấm được: mở nghĩa, cách chia và ví dụ. <button class="mini" data-ja-furi="1">${furi ? 'Ẩn furigana' : 'Hiện furigana'}</button></div>
     <section class="zh-sec">
       <h2>Ngữ pháp</h2>
       ${L.grammar.map(g => `
@@ -3485,7 +3652,7 @@ VIEWS.ja_lesson = function(){
     ${(L.kanji || []).length ? `<section class="zh-sec">
       <h2>Kanji của bài <span class="zh-count">${L.kanji.length}</span></h2>
       <div class="ja-kanji-row">${L.kanji.map(k => { const K = jaKanjiOf(k); return `<button class="ja-kcard" data-ja-kanji="${esc(k)}" title="Xem chi tiết"><span class="ja-kcard-k ja">${esc(k)}</span><span class="ja-kcard-hv">${K ? esc(K.hv) : ''}</span><span class="ja-kcard-vi">${K ? esc(K.vi) : ''}</span></button>`; }).join('')}</div>
-      <div class="stage-ctrl"><button class="pbtn" data-ja-write="${esc(L.kanji[0])}">✎ Luyện viết kanji của bài</button></div>
+      <div class="stage-ctrl"><button class="pbtn" data-ja-write="${esc(L.kanji[0])}">${PEN_ICO}Luyện viết kanji của bài</button></div>
     </section>` : ''}
     <section class="zh-sec">
       <h2>Hội thoại</h2>
@@ -3502,7 +3669,7 @@ VIEWS.ja_lesson = function(){
       <div class="stage-ctrl"><button class="pbtn" data-ja-speak="${esc(jaPlain(L.dialogue.map(d => d.jp).join('。')))}">${SPK_ICO} Nghe cả hội thoại</button></div>
     </section>
     <div class="stage-ctrl">
-      <button class="pbtn primary" data-go="ja_quiz">✎ Làm bài tập</button>
+      <button class="pbtn primary" data-go="ja_quiz">${PEN_ICO}Làm bài tập</button>
       <button class="pbtn" data-go="ja_home">← Về danh sách bài</button>
     </div>
   </article>`;
@@ -3530,9 +3697,9 @@ VIEWS.ja_kana = function(){
     <div class="hz" data-hz="${esc(glyph)}" data-src="jp" data-size="150"></div>
     <div class="ja-kana-info">
       <div class="ja-kana-big ja">${esc(cur.h)} <span class="ja-kana-alt">${esc(cur.k)}</span> <span class="ja-kana-rom">${esc(cur.r)}</span> ${jaSpeakBtn(cur.h, 'pbtn')}</div>
-      ${cur.hint ? `<p class="ja-kana-hint">💡 ${esc(cur.hint)}</p>` : ''}
+      ${cur.hint ? `<p class="ja-kana-hint">${BULB_ICO} ${esc(cur.hint)}</p>` : ''}
       ${cur.ex ? `<p class="ja-kana-ex">Ví dụ: <b class="ja">${esc(cur.ex[0])}</b> <span class="ja-romaji">${esc(cur.ex[1])}</span> — ${esc(cur.ex[2])} ${jaSpeakBtn(cur.ex[0], 'mini')}</p>` : ''}
-      <div class="stage-ctrl"><button class="pbtn" data-hzw="anim">▶ Xem thứ tự nét</button><button class="pbtn" data-ja-write="${esc(glyph)}">✎ Tập viết chữ này</button></div>
+      <div class="stage-ctrl"><button class="pbtn" data-hzw="anim">▶ Xem thứ tự nét</button><button class="pbtn" data-ja-write="${esc(glyph)}">${PEN_ICO}Tập viết chữ này</button></div>
     </div>
   </div>
   <h2 class="ja-sec-h">Bảng 46 chữ cơ bản (五十音)</h2>
@@ -3583,7 +3750,7 @@ VIEWS.ja_kanji = function(){
       <div class="ja-kanji-read"><span><b>On</b> <span class="ja">${K.on.length ? K.on.map(esc).join('・') : '—'}</span></span><span><b>Kun</b> <span class="ja">${K.kun.length ? K.kun.map(esc).join('・') : '—'}</span></span></div>
       <div class="ja-kanji-ex">${(K.ex || []).map(e => `<span class="ru-ex"><b class="ja zc" data-jaw="${esc(e[0])}">${esc(e[0])}</b><span><span class="ja">${esc(e[1])}</span> · ${esc(e[2])}</span>${jaSpeakBtn(e[1], 'mini')}</span>`).join('')}</div>` : '<p class="zh-empty">Chưa có dữ liệu chữ này.</p>'}
       ${inWords.length ? `<div class="ja-kanji-words"><b>Trong từ đã học:</b> ${inWords.map(w => `<button class="zh-ref ja" data-ja-entry="${esc(w.key)}">${esc(w.jp)}</button>`).join(' ')}</div>` : ''}
-      <div class="stage-ctrl"><button class="pbtn" data-hzw="anim">▶ Thứ tự nét</button><button class="pbtn" data-ja-write="${esc(sel)}">✎ Tập viết</button></div>
+      <div class="stage-ctrl"><button class="pbtn" data-hzw="anim">▶ Thứ tự nét</button><button class="pbtn" data-ja-write="${esc(sel)}">${PEN_ICO}Tập viết</button></div>
     </div>
   </div>
   <div class="eyebrow" style="margin-top:14px">${esc(jaLevelName(lv))} · ${list.length} chữ</div>
@@ -3616,7 +3783,7 @@ VIEWS.ja_write = function(){
         <div class="zh-write-meta">${K ? `<b>${esc(K.hv)}</b> · ${esc(K.vi)} · ${K.st} nét<div class="zh-write-vi">On: <span class="ja">${K.on.map(esc).join('・') || '—'}</span> · Kun: <span class="ja">${K.kun.map(esc).join('・') || '—'}</span></div>` : kanaInfo ? `<span class="ja-romaji">${esc(kanaInfo.r)}</span><div class="zh-write-vi">${esc(kanaInfo.hint || '')}</div>` : '<span class="zh-write-vi">Luyện thứ tự nét.</span>'}</div>
         <div class="zh-write-ctrl">
           <button class="pbtn primary" data-hzw="anim">▶ Xem thứ tự nét</button>
-          <button class="pbtn" data-hzw="quiz">✎ Luyện viết</button>
+          <button class="pbtn" data-hzw="quiz">${PEN_ICO}Luyện viết</button>
           <button class="pbtn" data-hzw="reset">↺ Làm lại</button>
           <button class="pbtn" data-ja-speak="${esc(K && K.ex && K.ex[0] ? K.ex[0][1] : cur)}">${SPK_ICO} Nghe</button>
         </div>
@@ -5541,9 +5708,9 @@ VIEWS.en_home = function(){
   const lv = enLevel(), L = enLessonList(), total = lv.lessons || 0;
   const cards = [
     ['en_phon','Phát âm & IPA','44 âm vị, trọng âm, nối âm, Anh vs Mỹ','/iː/'],
-    ['en_dict','Từ điển','Nghĩa nhiều tầng, từ loại, collocation, họ từ','📖'],
-    ['en_idiom','Idiom & Phrasal verb','Cụm động từ và thành ngữ dùng thật','💬'],
-    ['en_exam','Thi thử','IELTS · TOEFL iBT chuẩn thời gian','⏱']
+    ['en_dict','Từ điển','Nghĩa nhiều tầng, từ loại, collocation, họ từ',BOOK_ICO],
+    ['en_idiom','Idiom & Phrasal verb','Cụm động từ và thành ngữ dùng thật',CHAT_ICO],
+    ['en_exam','Thi thử','IELTS · TOEFL iBT chuẩn thời gian',CLOCK_ICO]
   ];
   return `
   <div class="page-head">
@@ -6246,7 +6413,7 @@ function factShowBubble(f){
   el.innerHTML = `
     <span class="fact-bubble-grip" data-fact-grip="1" title="Kéo để đặt ở chỗ khác" aria-hidden="true">⋮⋮</span>
     <button class="fact-bubble-main" data-fact-open="1" title="Mở xem chi tiết (kéo để di chuyển)">
-      <span class="fact-bubble-ic">💡</span>
+      <span class="fact-bubble-ic">${BULB_ICO}</span>
       <span class="fact-bubble-tx"><b>Bạn có biết?</b><i>${esc(f.title)}</i></span>
     </button>
     <button class="fact-bubble-x" data-fact-hide="1" title="Ẩn">✕</button>`;
@@ -6350,7 +6517,7 @@ function factOpen(f){
   el.innerHTML = `
     <div class="fact-sheet" role="dialog" aria-modal="true" aria-label="Bạn có biết?">
       <div class="fact-head">
-        <span class="fact-head-t">💡 Bạn có biết?</span>
+        <span class="fact-head-t">${BULB_ICO} Bạn có biết?</span>
         <button class="icon-btn" data-fact-close="1" title="Đóng"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       </div>
       ${factCardHTML(f)}
@@ -6624,6 +6791,15 @@ document.addEventListener('click', e => {
   /* ----- tiếng Trung ----- */
   const zSpeak = t.closest('[data-zh-speak]');
   if (zSpeak){ zhSpeak(zSpeak.dataset.zhSpeak); return; }
+  /* Bộ ghép âm nằm giữa trang → dùng renderKeep() để không bị kéo vọt lên đầu sau mỗi lần bấm */
+  const zPi = t.closest('[data-zh-py-i]');     // chọn thanh mẫu
+  if (zPi){ const P = zhPy(); P.ini = zPi.dataset.zhPyI;
+    if (!zhComboOk(P.ini, P.fin)){ const s = (ZH_COMBOS[P.ini] || '').split(' ').filter(Boolean); if (s.length) P.fin = s[0]; }
+    renderKeep(); return; }
+  const zPf = t.closest('[data-zh-py-f]');     // chọn vận mẫu
+  if (zPf){ zhPy().fin = zPf.dataset.zhPyF; renderKeep(); return; }
+  const zPt = t.closest('[data-zh-py-t]');     // chọn thanh điệu
+  if (zPt){ zhPy().tone = +zPt.dataset.zhPyT; renderKeep(); return; }
   const zLv = t.closest('[data-zh-level]');
   if (zLv){ const id = zLv.dataset.zhLevel, lv = _ZC.levels.find(x => x.id === id); if (lv && lv.status === 'active'){ state.zh.level = id; state.zh.lesson = null; render(); } return; }
   const zLes = t.closest('[data-zh-lesson]');

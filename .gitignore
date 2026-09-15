@@ -17,6 +17,10 @@ audio/ko/
 !audio/tts/
 !audio/tts/*.mp3
 
+# Ảnh logo bản nháp — chỉ để trên máy, KHÔNG đưa lên repo
+logo-b2.png
+logo-goc-co-vien.png
+
 # Khoa API va cache ban dich - chi nam tren may minh
 api-key.txt
 cache/
