@@ -42,7 +42,7 @@ const state = {
   level: store.get('level', 'so-cap-1'),
   lesson: null,
   tab: 'vocab',
-  zh: { level:'hsk1', lesson:null, writeChar:'', writeWord:'', entry:null, srs:null, py:{ ini:'n', fin:'i', tone:3 } },
+  zh: { level:'hsk1', lesson:null, writeChar:'', writeWord:'', entry:null, srs:null, rad:'', radS:'all', py:{ ini:'n', fin:'i', tone:3 } },
   ru: { level:'a1', lesson:null, letter:'А', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, trace:true },
   ja: { level:'n5', lesson:null, kana:'hiragana', kanaSel:'あ', exam:null, srs:null, quiz:null, pracLevel:null, topic:null, kanjiLevel:null, kanjiSel:null, writeChar:'あ', furi:true },
   en: { level:'a1', lesson:null, dictQ:'', entry:null, phon:'iː', phonTab:'vowel', idiomTab:'phrasal', idiomGroup:'all', idiomQ:'', quizLevel:'all', quizType:'all', exam:null, speakTab:'ielts', speakIdx:0, spLeft:null, srsLevel:'all', srs:null, srs:null, quiz:null, exam:null, pracLevel:null, topic:null },
@@ -2170,6 +2170,7 @@ function zhSylIndex(){
 }
 function zhPy(){ return state.zh.py || (state.zh.py = { ini:'n', fin:'i', tone:3 }); }
 try { window.__zhPy = { ok: zhComboOk, spell: zhSpell, tone: zhToneMark, index: zhSylIndex, split: zhSplitPy, set: zhSylSet, cur: () => zhPy() }; } catch(e){}
+try { window.__zhRad = c => zhRadOf(c); window.__zhCount = () => Object.keys(ZH_LOOKUP).length; } catch(e){}
 
 /* ---------- Mục từ tiếng Trung: cấu tạo từ · nghĩa · ví dụ · từ cùng chữ ----------
    Không có từ điển chữ riêng, nên thông tin từng CHỮ được suy ra từ chính kho từ:
@@ -2198,17 +2199,51 @@ function zhSylsOf(w){
   if (cs.length > 1 && ps.length === 1){ const sp = zhSplitPy(ps[0]); if (sp && sp.length === cs.length) ps = sp; }
   return ps;
 }
-/* Bộ thủ của một chữ, suy từ bảng RADICALS_ZH (mỗi bộ có danh sách chữ ví dụ) */
+/* ---------- Tra theo bộ thủ + số nét (部首检字) ----------
+   Bảng bộ thủ đầy đủ ở js/radicals-zh.js; số nét TỔNG của từng chữ đếm trực
+   tiếp từ dữ liệu Hanzi Writer nên luôn khớp với hình trong màn Tập viết. */
+const _ZRF = (typeof RADICALS_FULL_ZH !== 'undefined') ? RADICALS_FULL_ZH : [];
+
+/* Bộ thủ của một chữ — ưu tiên bảng đầy đủ, lùi về bảng 28 bộ hay gặp */
 let _zhRad = null;
 function zhRadOf(c){
   if (!_zhRad){
     _zhRad = {};
     _ZR.forEach(r => {
-      if (!_zhRad[r.rad]) _zhRad[r.rad] = r;
-      (r.ex || []).forEach(x => { if (!_zhRad[x]) _zhRad[x] = r; });
+      const o = { rad:r.rad, hv:r.hv, vi:r.vi, py:r.pinyin };
+      if (!_zhRad[r.rad]) _zhRad[r.rad] = o;
+      (r.ex || []).forEach(x => { if (!_zhRad[x]) _zhRad[x] = o; });
+    });
+    _ZRF.forEach(r => {
+      const o = { rad:r.r, hv:r.hv, vi:r.vi, py:r.py, s:r.s };
+      _zhRad[r.r] = o;
+      Array.from(r.alt || '').forEach(a => { _zhRad[a] = o; });
+      Array.from(r.ex || '').forEach(x => { if (!_zhRad[x] || !_zhRad[x].s) _zhRad[x] = o; });
     });
   }
   return _zhRad[c] || null;
+}
+/* Chữ này có thật trong kho từ của LangLab không */
+function zhHasChar(c){ return !!zhCharIndex()[c]; }
+/* Số nét của một chữ, lấy từ dữ liệu nét đã nạp; chưa nạp thì null */
+function zhStrokes(c){
+  const d = (window.HANZI_DATA || {})[c];
+  return (d && d.strokes && d.strokes.length) ? d.strokes.length : null;
+}
+/* Nạp dữ liệu nét cho một loạt chữ rồi vẽ lại. Mỗi chữ chỉ thử MỘT lần —
+   mở bằng file:// thì fetch bị chặn, không có cờ này sẽ lặp vô tận. */
+const _zhTriedStroke = {};
+let _zhStrokeBusy = false;
+function zhLoadStrokes(chars){
+  if (_zhStrokeBusy || typeof fetch !== 'function') return;
+  const miss = chars.filter(c => zhStrokes(c) == null && !_zhTriedStroke[c]);
+  if (!miss.length) return;
+  miss.forEach(c => { _zhTriedStroke[c] = 1; });
+  _zhStrokeBusy = true;
+  Promise.all(miss.map(c => zhLoadChar(c).catch(() => null))).then(() => {
+    _zhStrokeBusy = false;
+    if (state.view === 'zh_rad') renderKeep();
+  });
 }
 /* Câu ví dụ có chứa từ: quét hội thoại và ví dụ ngữ pháp của toàn khoá */
 function zhExamplesFor(word, limit){
@@ -2386,7 +2421,7 @@ function zhWriteLevel(){
   return ids.indexOf(cur) >= 0 ? cur : (ids[0] || 'hsk1');
 }
 function zhCrumb(){
-  const map = { zh_home:'Khoá học', zh_strokes:'Các nét', zh_radicals:'Bộ thủ',
+  const map = { zh_home:'Khoá học', zh_strokes:'Các nét', zh_radicals:'Bộ thủ', zh_rad:'Tra theo bộ thủ',
     zh_pinyin:'Pinyin & thanh điệu', zh_write:'Tập viết', zh_dict:'Từ điển', zh_srs:'Ôn tập',
     zh_quiz:'Bài tập', zh_exam:'Thi thử HSK' };
   const L = zhCurLesson();
@@ -2406,6 +2441,7 @@ VIEWS.zh_home = function(){
   const cards = [
     ['zh_strokes','Các nét','8 nét cơ bản của chữ Hán','⼂'],
     ['zh_radicals','Bộ thủ','Bộ thường gặp + Hán–Việt','部'],
+    ['zh_rad','Tra theo bộ thủ','Gặp chữ lạ: bộ thủ + số nét','查'],
     ['zh_pinyin','Pinyin & thanh điệu','Ghép âm và 4 thanh','声'],
     ['zh_write','Tập viết','Xem thứ tự nét & luyện tô','写']
   ];
@@ -2478,6 +2514,82 @@ VIEWS.zh_radicals = function(){
         </div>
       </div>`).join('')}
   </div>`;
+};
+
+/* Màn «Tra theo bộ thủ»: chọn bộ theo số nét của BỘ, rồi xem chữ xếp theo SỐ NÉT CÒN LẠI */
+VIEWS.zh_rad = function(){
+  const curR = state.zh.rad || '';
+  const grp = state.zh.radS || 'all';
+  const sizes = [];
+  _ZRF.forEach(r => { if (sizes.indexOf(r.s) < 0) sizes.push(r.s); });
+  sizes.sort((a, b) => a - b);
+
+  const nOf = r => Array.from(r.ex || '').filter(c => hasHanzi(c) && zhHasChar(c)).length;
+  const list = _ZRF.filter(r => grp === 'all' || r.s === +grp);
+  const R = _ZRF.find(r => r.r === curR) || null;
+
+  const chips = list.map(r => {
+    const n = nOf(r);
+    return `<button class="zh-rl-rad${r.r === curR ? ' on' : ''}${n ? '' : ' empty'}" data-zh-rad="${esc(r.r)}" title="${esc(r.hv)} — ${esc(r.vi)} · ${n} chữ">
+      <span class="ko">${esc(r.r)}</span>${r.alt ? `<i class="zh-rl-alt ko">${esc(r.alt)}</i>` : ''}
+      <i class="zh-rl-hv">${esc(r.hv)}</i>${n ? `<i class="zh-rl-n">${n}</i>` : ''}
+    </button>`;
+  }).join('');
+
+  let panel = `<p class="zh-rl-hint">Chọn một bộ thủ ở trên để xem những chữ mang bộ đó, xếp theo <b>số nét còn lại</b> — đúng cách tra của từ điển giấy.</p>`;
+  if (R){
+    const chars = Array.from(R.ex || '').filter(c => hasHanzi(c) && zhHasChar(c));
+    zhLoadStrokes(chars);
+    const groups = {};
+    chars.forEach(c => {
+      const t = zhStrokes(c);
+      const k = (t == null) ? '?' : String(Math.max(0, t - R.s));
+      (groups[k] = groups[k] || []).push(c);
+    });
+    const keys = Object.keys(groups).sort((a, b) => (a === '?' ? 999 : +a) - (b === '?' ? 999 : +b));
+    const cell = c => {
+      const ci = zhCharIndex()[c] || { py:[], hv:[], words:[] };
+      const t = zhStrokes(c);
+      const target = ZH_LOOKUP[c] ? c : (ci.words[0] || '');
+      return `<button class="zh-rl-char" data-zh-entry="${esc(target)}" title="Mở mục từ${target && target !== c ? ' ' + esc(target) : ''}">
+        <span class="ko">${esc(c)}</span>
+        <i class="py">${esc(ci.py[0] || '')}</i>
+        <i class="zh-rl-chv">${esc(ci.hv[0] || '')}</i>
+        ${t == null ? '' : `<i class="zh-rl-cn">${t} nét</i>`}
+      </button>`;
+    };
+    panel = `
+    <div class="zh-rl-panel">
+      <div class="zh-rl-head">
+        <span class="zh-rl-big ko">${esc(R.r)}</span>
+        <div>
+          <div class="zh-rl-title"><b>${esc(R.hv)}</b> <span class="py">${esc(R.py)}</span> — ${esc(R.vi)}</div>
+          <div class="zh-rl-sub">Bộ ${R.s} nét${R.alt ? ` · viết trong chữ thành <b class="ko">${esc(R.alt)}</b>` : ''} · ${chars.length} chữ trong kho LangLab</div>
+        </div>
+        <button class="mini" data-zh-rad="">Bỏ chọn</button>
+      </div>
+      ${chars.length ? keys.map(k => `
+        <div class="zh-rl-grp">
+          <div class="zh-rl-grp-h">${k === '?' ? 'Chưa đếm được số nét' : (k === '0' ? 'Chính bộ thủ' : `+ ${k} nét còn lại`)}</div>
+          <div class="zh-rl-chars">${groups[k].map(cell).join('')}</div>
+        </div>`).join('')
+        : `<p class="zh-rl-hint">Kho từ của LangLab chưa có chữ nào mang bộ này.</p>`}
+      ${groups['?'] ? `<p class="zh-rl-note">Số nét được đếm từ dữ liệu nét của Hanzi Writer. Mở trang bằng đường dẫn tệp (file://) thì trình duyệt chặn việc đọc các tệp đó, nên một số chữ chưa xếp được — mở trang qua web thì đủ.</p>` : ''}
+    </div>`;
+  }
+
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Tiếng Trung · Nền tảng</span>
+    <h1>Tra theo bộ thủ &amp; số nét</h1>
+    <p>Gặp một chữ lạ mà không biết đọc thế nào thì không tra theo pinyin được. Cách cổ điển: tìm <b>bộ thủ</b> của chữ (thường nằm bên trái hoặc bên trên), xem bộ đó mấy nét, rồi <b>đếm số nét còn lại</b> của phần kia. Ví dụ 河 có bộ <b class="ko">氵</b> (3 nét) và phần còn lại 可 5 nét → tìm ở nhóm «+5 nét» của bộ 氵.</p>
+  </div>
+  <div class="zh-rl-sizes">
+    <button class="level-chip" data-zh-rads="all"${grp === 'all' ? ' aria-pressed="true"' : ''}>Tất cả</button>
+    ${sizes.map(s => `<button class="level-chip" data-zh-rads="${s}"${grp === String(s) ? ' aria-pressed="true"' : ''}>${s} nét</button>`).join('')}
+  </div>
+  <div class="zh-rl-grid">${chips}</div>
+  ${panel}`;
 };
 
 VIEWS.zh_pinyin = function(){
@@ -6960,6 +7072,10 @@ document.addEventListener('click', e => {
   /* ----- tiếng Trung ----- */
   const zSpeak = t.closest('[data-zh-speak]');
   if (zSpeak){ zhSpeak(zSpeak.dataset.zhSpeak); return; }
+  const zRd = t.closest('[data-zh-rad]');      // tra theo bộ thủ: chọn / bỏ chọn một bộ
+  if (zRd){ state.zh.rad = zRd.dataset.zhRad || ''; renderKeep(); return; }
+  const zRs = t.closest('[data-zh-rads]');     // lọc bộ thủ theo số nét của bộ
+  if (zRs){ state.zh.radS = zRs.dataset.zhRads; state.zh.rad = ''; renderKeep(); return; }
   /* Bộ ghép âm nằm giữa trang → dùng renderKeep() để không bị kéo vọt lên đầu sau mỗi lần bấm */
   const zPi = t.closest('[data-zh-py-i]');     // chọn thanh mẫu
   if (zPi){ const P = zhPy(); P.ini = zPi.dataset.zhPyI;
