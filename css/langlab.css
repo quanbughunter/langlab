@@ -1146,7 +1146,8 @@ body.nav-collapsed .nav-in{gap:10px}
 
 .rd-body{margin-top:16px;display:grid;gap:14px;max-width:760px}
 .rd-para{padding:13px 16px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
-.rd-para-x{font-size:16.5px;line-height:1.9}
+.rd-para-x{font-size:16.5px;line-height:1.9;overflow-wrap:break-word;min-width:0}
+.rd-para{overflow:hidden}
 .rd-para-vi{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);color:var(--muted);font-size:14px;line-height:1.7}
 
 .rd-keys{display:grid;grid-template-columns:repeat(auto-fill,minmax(214px,1fr));gap:8px;margin-top:8px}
@@ -1428,6 +1429,24 @@ body.nav-collapsed .nav-in{gap:10px}
 .zh-entry-more{margin-top:14px}
 .zh-res{cursor:pointer}
 .zh-res:hover{border-color:var(--accent)}
+
+/* Thanh «Dừng đọc» — nổi ở đáy màn hình mỗi khi có tiếng đang phát,
+   bấm là cắt mọi giọng (Web Speech, mp3 thu sẵn, shadowing). Phím Esc cũng được. */
+.say-bar{
+  position:fixed;left:50%;bottom:18px;z-index:70;
+  transform:translate(-50%,14px);opacity:0;pointer-events:none;
+  transition:opacity .16s ease,transform .16s ease;
+}
+.say-bar.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.say-stop{
+  display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+  border:1px solid var(--accent);border-radius:999px;background:var(--accent);color:var(--surface);
+  font:inherit;font-size:13px;font-weight:500;padding:9px 17px;
+  box-shadow:0 6px 22px rgba(0,0,0,.2);
+}
+.say-stop:hover{filter:brightness(1.08)}
+.say-stop svg{width:12px;height:12px;fill:currentColor;stroke:none;flex:none}
+@media (max-width:640px){ .say-bar{bottom:12px} }
 
 /* ---------- Tra theo bộ thủ & số nét ---------- */
 .zh-rl-sizes{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}

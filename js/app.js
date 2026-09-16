@@ -580,18 +580,80 @@ function ensureVoice(){
   return true;
 }
 
+/* ============================================================
+   PHÁT ÂM DÙNG CHUNG + NÚT DỪNG
+   Mọi đường phát tiếng (Web Speech của Trung/Nga/Nhật/Anh, mp3 thu sẵn và
+   giọng máy của tiếng Hàn, shadowing) đều đi qua sayBegin/sayEnd, nên thanh
+   «Dừng đọc» luôn đúng trạng thái và stopAudio() cắt được tất cả.
+   ============================================================ */
+let _sayGuard = null;
+function sayBar(){
+  let el = $('#sayBar');
+  if (!el){
+    el = document.createElement('div');
+    el.id = 'sayBar'; el.className = 'say-bar';
+    el.innerHTML = '<button class="say-stop" data-say-stop="1" title="Dừng đọc (phím Esc)">'
+      + '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="6.5" width="11" height="11" rx="2.4"/></svg>'
+      + '<span>Dừng đọc</span></button>';
+    document.body.appendChild(el);
+  }
+  return el;
+}
+function sayBegin(){
+  try { sayBar().classList.add('show'); } catch(e){}
+  clearTimeout(_sayGuard);
+  _sayGuard = setTimeout(sayEnd, 300000);   // chốt an toàn, không để thanh kẹt mãi
+}
+function sayEnd(){
+  clearTimeout(_sayGuard); _sayGuard = null;
+  const el = $('#sayBar'); if (el) el.classList.remove('show');
+}
+function sayOn(){ const el = $('#sayBar'); return !!el && el.classList.contains('show'); }
+/* Đọc một đoạn bằng giọng máy của trình duyệt, tự bật/tắt nút dừng.
+   pick = regex chọn giọng, warn = lời nhắc khi máy chưa có giọng đó. */
+function sayWeb(text, lang, rate, pick, warn){
+  try {
+    const synth = window.speechSynthesis;
+    if (!synth){ toast('Trình duyệt chưa hỗ trợ phát âm'); return; }
+    const plain = String(text || '').trim();
+    if (!plain) return;
+    let done = false;
+    const go = () => {
+      if (done) return; done = true;
+      synth.cancel();
+      const u = new SpeechSynthesisUtterance(plain);
+      u.lang = lang; u.rate = rate || 0.85;
+      const vs = synth.getVoices() || [];
+      const v = vs.find(x => pick.test((x.lang || '') + ' ' + (x.name || '')));
+      if (v) u.voice = v;
+      else if (warn && !sayWeb._warned[lang] && !vs.some(x => pick.test(x.lang || ''))){
+        sayWeb._warned[lang] = 1; toast(warn);
+      }
+      u.onend = sayEnd; u.onerror = sayEnd;
+      sayBegin();
+      synth.speak(u);
+    };
+    const vs = synth.getVoices() || [];
+    if (vs.length) go();
+    else { try { synth.addEventListener('voiceschanged', go, { once:true }); } catch(e){} setTimeout(go, 300); }
+  } catch(e){ sayEnd(); }
+}
+sayWeb._warned = {};
+
 /* Ưu tiên tệp mp3 thu sẵn bằng giọng neural; giọng máy chỉ là dự phòng. */
 function speak(text, opts){
   opts = opts || {};
   Speech.stop();
+  const fin = () => { sayEnd(); if (opts.onEnd) opts.onEnd(); };
+  sayBegin();
   TTS.play(text, {
     rate: opts.slow ? .72 : 1,
-    onEnd: opts.onEnd,
+    onEnd: fin,
     onFail(){
-      if (!Speech.supported){ toast('Trình duyệt này chưa hỗ trợ phát âm'); return; }
+      if (!Speech.supported){ sayEnd(); toast('Trình duyệt này chưa hỗ trợ phát âm'); return; }
       Speech.onReady(() => {
-        if (!ensureVoice()) return;
-        Speech.speak(text, { rate: opts.slow ? Math.max(.45, Speech.cfg.rate - .3) : opts.rate, onEnd: opts.onEnd });
+        if (!ensureVoice()){ sayEnd(); return; }
+        Speech.speak(text, { rate: opts.slow ? Math.max(.45, Speech.cfg.rate - .3) : opts.rate, onEnd: fin });
       });
     }
   });
@@ -601,7 +663,9 @@ function speakSlow(text){ speak(text, { slow: true }); }
 
 function stopAudio(){
   shToken++;
+  try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch(e){}
   TTS.stop(); Speech.stop();
+  sayEnd();
   $$('.dlg-row').forEach(r => r.classList.remove('speaking'));
   $$('.sh-row').forEach(r => r.classList.remove('on', 'waiting'));
   $$('.sh-chunk').forEach(c => c.classList.remove('on'));
@@ -2385,24 +2449,8 @@ function zhLoadChar(c){
     .then(d => { D[c] = d; return d; });
 }
 function zhSpeak(text){
-  try {
-    const synth = window.speechSynthesis; if (!synth){ toast('Trình duyệt chưa hỗ trợ phát âm'); return; }
-    let done = false;
-    const speak = () => {
-      if (done) return; done = true;
-      synth.cancel();
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = 'zh-CN'; u.rate = 0.8;
-      const vs = synth.getVoices() || [];
-      const zh = vs.find(v => /(^zh\b|zh[-_]|chinese|中文|普通话|mandarin)/i.test((v.lang || '') + ' ' + (v.name || '')));
-      if (zh) u.voice = zh;
-      else if (!zhSpeak._warned && !vs.some(v => /^zh/i.test(v.lang || ''))){ zhSpeak._warned = true; toast('Máy chưa có giọng đọc tiếng Trung — cài gói giọng zh-CN để nghe rõ thanh điệu.'); }
-      synth.speak(u);
-    };
-    const vs = synth.getVoices() || [];
-    if (vs.length) speak();                                   // đã có danh sách giọng → đọc ngay
-    else { try { synth.addEventListener('voiceschanged', speak, { once:true }); } catch(e){} setTimeout(speak, 300); }
-  } catch(e){}
+  sayWeb(text, 'zh-CN', 0.8, /(^zh\b|zh[-_]|chinese|\u4e2d\u6587|\u666e\u901a\u8bdd|mandarin)/i,
+    'M\u00e1y ch\u01b0a c\u00f3 gi\u1ecdng \u0111\u1ecdc ti\u1ebfng Trung \u2014 c\u00e0i g\u00f3i gi\u1ecdng zh-CN \u0111\u1ec3 nghe r\u00f5 thanh \u0111i\u1ec7u.');
 }
 function zhLevel(){ return _ZC.levels.find(x => x.id === state.zh.level) || _ZC.levels[0] || { vi:'HSK 1', zh:'HSK 1' }; }
 function zhLessonList(){ return _ZC.lessons.filter(l => l.level === state.zh.level); }
@@ -3008,50 +3056,16 @@ function ruOpenWord(tok){
 
 /* ---- Phát âm tiếng Anh (dùng giọng en-GB nếu có, không thì en-US) ---- */
 function enSpeak(text, variant){
-  try {
-    const synth = window.speechSynthesis; if (!synth){ toast('Trình duyệt chưa hỗ trợ phát âm'); return; }
-    const plain = String(text || '').replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"').trim();
-    if (!plain) return;
-    const want = variant || store.get('enVoice', 'uk');
-    let done = false;
-    const speak = () => {
-      if (done) return; done = true;
-      synth.cancel();
-      const u = new SpeechSynthesisUtterance(plain);
-      u.lang = want === 'us' ? 'en-US' : 'en-GB'; u.rate = 0.9;
-      const vs = synth.getVoices() || [];
-      const pref = want === 'us' ? /en[-_]us|american/i : /en[-_]gb|british|united kingdom/i;
-      const v = vs.find(x => pref.test((x.lang || '') + ' ' + (x.name || ''))) || vs.find(x => /^en\b|en[-_]/i.test(x.lang || ''));
-      if (v) u.voice = v;
-      else if (!enSpeak._warned){ enSpeak._warned = true; toast('Máy chưa có giọng đọc tiếng Anh — cài gói giọng en-GB hoặc en-US trong hệ điều hành.'); }
-      synth.speak(u);
-    };
-    const vs = synth.getVoices() || [];
-    if (vs.length) speak();
-    else { try { synth.addEventListener('voiceschanged', speak, { once:true }); } catch(e){} setTimeout(speak, 300); }
-  } catch(e){}
+  const plain = String(text || '').replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"').trim();
+  const want = variant || store.get('enVoice', 'uk');
+  const pref = want === 'us' ? /en[-_]us|american/i : /en[-_]gb|british|united kingdom/i;
+  sayWeb(plain, want === 'us' ? 'en-US' : 'en-GB', 0.9, pref,
+    'M\u00e1y ch\u01b0a c\u00f3 gi\u1ecdng \u0111\u1ecdc ti\u1ebfng Anh \u2014 c\u00e0i g\u00f3i gi\u1ecdng en-GB ho\u1eb7c en-US trong h\u1ec7 \u0111i\u1ec1u h\u00e0nh.');
 }
 function enSpeakBtn(text, cls){ return `<button class="${cls || 'icon-btn'}" data-en-speak="${esc(text)}" title="Nghe">${SPK_ICO}</button>`; }
 function ruSpeak(text){
-  try {
-    const synth = window.speechSynthesis; if (!synth){ toast('Trình duyệt chưa hỗ trợ phát âm'); return; }
-    const plain = ruPlain(text);
-    let done = false;
-    const speak = () => {
-      if (done) return; done = true;
-      synth.cancel();
-      const u = new SpeechSynthesisUtterance(plain);
-      u.lang = 'ru-RU'; u.rate = 0.85;
-      const vs = synth.getVoices() || [];
-      const ru = vs.find(v => /^ru\b|ru[-_]|russian|русск/i.test((v.lang || '') + ' ' + (v.name || '')));
-      if (ru) u.voice = ru;
-      else if (!ruSpeak._warned && !vs.some(v => /^ru/i.test(v.lang || ''))){ ruSpeak._warned = true; toast('Máy chưa có giọng đọc tiếng Nga — cài gói giọng ru-RU (Русский) trong hệ điều hành.'); }
-      synth.speak(u);
-    };
-    const vs = synth.getVoices() || [];
-    if (vs.length) speak();
-    else { try { synth.addEventListener('voiceschanged', speak, { once:true }); } catch(e){} setTimeout(speak, 300); }
-  } catch(e){}
+  sayWeb(ruPlain(text), 'ru-RU', 0.85, /^ru\b|ru[-_]|russian|\u0440\u0443\u0441\u0441\u043a/i,
+    'M\u00e1y ch\u01b0a c\u00f3 gi\u1ecdng \u0111\u1ecdc ti\u1ebfng Nga \u2014 c\u00e0i g\u00f3i gi\u1ecdng ru-RU (\u0420\u0443\u0441\u0441\u043a\u0438\u0439) trong h\u1ec7 \u0111i\u1ec1u h\u00e0nh.');
 }
 /* Lời đọc bài nghe ТРКИ: bỏ nhãn người nói, gạch đầu dòng */
 function ruSpeech(a){ return ruPlain(String(a || '')).replace(/(^|\s)[—–-]\s*/g, '$1').replace(/(Он|Она|Диктор|Мужчина|Женщина|Вопрос|Журналист|Гид|Продавец|Покупатель|Врач|Пациент|Студент|Преподаватель|[А-ЯЁ][а-яё]+)\s*:\s*/g, ''); }
@@ -3767,25 +3781,8 @@ function jaTokens(str){
 }
 function jaRuby(str){ return String(str || '').split(/\s+/).filter(Boolean).map(jaRubyTok).join(''); }
 function jaSpeak(text){
-  try {
-    const synth = window.speechSynthesis; if (!synth){ toast('Trình duyệt chưa hỗ trợ phát âm'); return; }
-    const plain = jaPlain(text).replace(/[「」『』]/g, '');
-    let done = false;
-    const speak = () => {
-      if (done) return; done = true;
-      synth.cancel();
-      const u = new SpeechSynthesisUtterance(plain);
-      u.lang = 'ja-JP'; u.rate = 0.9;
-      const vs = synth.getVoices() || [];
-      const ja = vs.find(v => /^ja\b|ja[-_]|japan|日本/i.test((v.lang || '') + ' ' + (v.name || '')));
-      if (ja) u.voice = ja;
-      else if (!jaSpeak._warned && !vs.some(v => /^ja/i.test(v.lang || ''))){ jaSpeak._warned = true; toast('Máy chưa có giọng đọc tiếng Nhật — cài gói giọng ja-JP (日本語) trong hệ điều hành.'); }
-      synth.speak(u);
-    };
-    const vs = synth.getVoices() || [];
-    if (vs.length) speak();
-    else { try { synth.addEventListener('voiceschanged', speak, { once:true }); } catch(e){} setTimeout(speak, 300); }
-  } catch(e){}
+  sayWeb(jaPlain(text).replace(/[\u300c\u300d\u300e\u300f]/g, ''), 'ja-JP', 0.9, /^ja\b|ja[-_]|japan|\u65e5\u672c/i,
+    'M\u00e1y ch\u01b0a c\u00f3 gi\u1ecdng \u0111\u1ecdc ti\u1ebfng Nh\u1eadt \u2014 c\u00e0i g\u00f3i gi\u1ecdng ja-JP (\u65e5\u672c\u8a9e) trong h\u1ec7 \u0111i\u1ec1u h\u00e0nh.');
 }
 function jaSpeech(a){ return jaPlain(String(a || '')).replace(/(男|女|男の人|女の人|先生|学生|店員|客|母|父|アナウンス|A|B)\s*[:：]\s*/g, '').replace(/(^|\s)[—–-]\s*/g, '$1'); }
 function jaSpeakBtn(text, cls){ return `<button class="${cls || 'icon-btn'}" data-ja-speak="${esc(jaPlain(text))}" title="Nghe">${SPK_ICO}</button>`; }
@@ -5294,6 +5291,8 @@ function shJaTokens(text){
 
 /** Đọc một câu bằng giọng của ngôn ngữ đang chọn; gọi onEnd khi xong. */
 function shSpeakGeneric(text, code, rate, onEnd){
+  sayBegin();
+  const _fin = onEnd; onEnd = () => { sayEnd(); if (_fin) _fin(); };
   const fin = (() => { let done = false; return () => { if (done) return; done = true; try { onEnd && onEnd(); } catch(e){} }; })();
   try {
     const synth = window.speechSynthesis;
@@ -7069,6 +7068,8 @@ document.addEventListener('click', e => {
     return;
   }
 
+  if (t.closest('[data-say-stop]')){ stopAudio(); return; }
+
   /* ----- tiếng Trung ----- */
   const zSpeak = t.closest('[data-zh-speak]');
   if (zSpeak){ zhSpeak(zSpeak.dataset.zhSpeak); return; }
@@ -7560,7 +7561,7 @@ document.addEventListener('keydown', e => {
     const b = $('#flipBtn'); if (b) b.textContent = on ? 'Ẩn đáp án' : 'Lật thẻ';
   }
   if (e.key === 'Enter' && state.view === 'write'){ drawStage(); }
-  if (e.key === 'Escape'){ uiCloseWord(); hideTip(); Speech.stop(); }
+  if (e.key === 'Escape'){ uiCloseWord(); hideTip(); stopAudio(); }
   // Enter trên một từ = mở bảng tra (dùng bàn phím)
   if (e.key === 'Enter' && e.target.classList && e.target.classList.contains('kw')){
     e.preventDefault(); openWord(e.target.dataset.kw);
