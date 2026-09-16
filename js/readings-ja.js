@@ -286,7 +286,317 @@
     { q:'Điều gì bị cấm?', o:['Nói chuyện','Thả khăn vào nước nóng','Đội khăn lên đầu','Đi cùng bạn'], c:1, e:'タオルを おゆに 入れては いけません.' },
     { q:'Kết luận của người viết?', o:['Quy tắc quá phiền','Quy tắc thật ra là sự để ý đến nhau','Không nên đi sentou','Người Nhật khó tính'], c:1, e:'じつは おたがいへの 気づかいでした.' }
   ],
-  after:'Viết 6 câu về một quy tắc ứng xử ở Việt Nam, dùng ～なければ ならない và ～ては いけない.' }
+  after:'Viết 6 câu về một quy tắc ứng xử ở Việt Nam, dùng ～なければ ならない và ～ては いけない.' },
+
+{ lang:'ja', lv:'n5', mins:3, cat:'Đời sống', title:'学校[がっこう]への 道[みち]', vi:'Đường đến trường',
+  intro:'N5. Chùm từ trọng tâm: phương tiện, thời gian, trợ từ で và から～まで.',
+  text:[
+    'うちから 学校まで 三十分[さんじゅっぷん]ぐらい かかります。',
+    'まず バスに のって、つぎの えきで 電車[でんしゃ]に のりかえます。',
+    'あさは 人[ひと]が 多[おお]いので、すわれません。いつも 立[た]って います。',
+    '電車の 中[なか]で わたしは たんごを おぼえます。みじかい 時間[じかん]ですが、いい べんきょうに なります。'
+  ],
+  tr:[
+    'Từ nhà đến trường mất khoảng ba mươi phút.',
+    'Trước tiên tôi lên xe buýt, rồi đổi sang tàu điện ở ga tiếp theo.',
+    'Buổi sáng đông người nên không ngồi được. Tôi luôn đứng.',
+    'Trên tàu tôi học thuộc từ vựng. Là khoảng thời gian ngắn nhưng lại học được nhiều.'
+  ],
+  keys:[
+    { w:'～から ～まで', r:'-kara -made', vi:'từ… đến…' },
+    { w:'かかる', r:'kakaru', vi:'mất (thời gian, tiền)' },
+    { w:'のりかえる', r:'norikaeru', vi:'đổi tàu, chuyển tuyến' },
+    { w:'すわる', r:'suwaru', vi:'ngồi' },
+    { w:'立つ', r:'tatsu', vi:'đứng' },
+    { w:'おぼえる', r:'oboeru', vi:'ghi nhớ, học thuộc' },
+    { w:'みじかい', r:'mijikai', vi:'ngắn' },
+    { w:'～ので', r:'-node', vi:'vì… nên…' }
+  ],
+  qs:[
+    { q:'Mất bao lâu để đến trường?', o:['15 phút','Khoảng 30 phút','1 tiếng','10 phút'], c:1, e:'三十分ぐらい かかります.' },
+    { q:'Buổi sáng vì sao không ngồi được?', o:['Không có ghế','Vì đông người','Vì đứng cho khoẻ','Vì chỉ đi một bến'], c:1, e:'あさは 人が 多いので、すわれません.' },
+    { q:'Trên tàu người viết làm gì?', o:['Ngủ','Học thuộc từ vựng','Nghe nhạc','Xem điện thoại'], c:1, e:'たんごを おぼえます.' }
+  ],
+  after:'Tả đường đi học của bạn bằng 4 câu, dùng ～から ～まで và ～ので.' },
+
+{ lang:'ja', lv:'n5', mins:3, cat:'Đời sống', title:'きっさてんで', vi:'Ở quán cà phê',
+  intro:'N5. Chùm từ trọng tâm: gọi đồ uống, nóng lạnh, ～ましょうか.',
+  text:[
+    'じゅぎょうの あと、友[とも]だちと きっさてんへ 行[い]きました。',
+    'わたしは あたたかい コーヒーを、友だちは つめたい こうちゃを たのみました。',
+    '友だちが「ケーキも たのみましょうか」と 言[い]いました。わたしは「いいですね」と こたえました。',
+    'まどの そばの せきで 二時間[にじかん]ぐらい 話[はな]しました。そとは あめでしたが、中[なか]は あたたかかったです。'
+  ],
+  tr:[
+    'Sau giờ học, tôi đi quán cà phê với bạn.',
+    'Tôi gọi cà phê nóng, bạn tôi gọi hồng trà đá.',
+    'Bạn nói: “Gọi cả bánh nữa nhé?” Tôi trả lời: “Hay đấy.”',
+    'Chúng tôi ngồi chỗ cạnh cửa sổ nói chuyện khoảng hai tiếng. Bên ngoài trời mưa nhưng bên trong thì ấm.'
+  ],
+  keys:[
+    { w:'きっさてん', r:'kissaten', vi:'quán cà phê' },
+    { w:'たのむ', r:'tanomu', vi:'gọi món, nhờ' },
+    { w:'あたたかい', r:'atatakai', vi:'ấm' },
+    { w:'つめたい', r:'tsumetai', vi:'lạnh (đồ vật)' },
+    { w:'～ましょうか', r:'-mashou ka', vi:'…nhé? (rủ rê)' },
+    { w:'そば', r:'soba', vi:'bên cạnh' },
+    { w:'せき', r:'seki', vi:'chỗ ngồi' },
+    { w:'そと', r:'soto', vi:'bên ngoài' }
+  ],
+  qs:[
+    { q:'Người viết gọi gì?', o:['Hồng trà đá','Cà phê nóng','Nước cam','Trà sữa'], c:1, e:'あたたかい コーヒーを… たのみました.' },
+    { q:'Bạn rủ gọi thêm gì?', o:['Bánh','Kem','Nước','Cà phê nữa'], c:0, e:'ケーキも たのみましょうか.' },
+    { q:'Bên ngoài trời thế nào?', o:['Nắng','Mưa','Tuyết','Nhiều gió'], c:1, e:'そとは あめでしたが…' }
+  ],
+  after:'Viết hội thoại gọi đồ uống 6 câu, dùng ～ましょうか hai lần.' },
+
+{ lang:'ja', lv:'n5', mins:3, cat:'Thiên nhiên', title:'きょうの てんき', vi:'Thời tiết hôm nay',
+  intro:'N5. Chùm từ trọng tâm: bốn mùa, tính từ tả thời tiết, ～たい.',
+  text:[
+    '日本[にほん]には はる、なつ、あき、ふゆが あります。わたしは あきが いちばん すきです。',
+    'なつは あつくて、あめが 多[おお]いです。ふゆは さむくて、ゆきが ふります。',
+    'きょうは かぜが 少[すこ]し ふいて いますが、そらは とても きれいです。',
+    'こんな 日[ひ]は こうえんへ 行[い]きたいです。でも しゅくだいが 多いので、うちに います。'
+  ],
+  tr:[
+    'Nhật Bản có xuân, hạ, thu, đông. Tôi thích mùa thu nhất.',
+    'Mùa hè nóng và mưa nhiều. Mùa đông lạnh và có tuyết rơi.',
+    'Hôm nay gió thổi một chút nhưng bầu trời rất đẹp.',
+    'Ngày như thế này tôi muốn ra công viên. Nhưng bài tập nhiều quá nên tôi ở nhà.'
+  ],
+  keys:[
+    { w:'はる / なつ / あき / ふゆ', r:'haru/natsu/aki/fuyu', vi:'xuân/hạ/thu/đông' },
+    { w:'あつい', r:'atsui', vi:'nóng' },
+    { w:'さむい', r:'samui', vi:'lạnh' },
+    { w:'ゆきが ふる', r:'yuki ga furu', vi:'tuyết rơi' },
+    { w:'かぜが ふく', r:'kaze ga fuku', vi:'gió thổi' },
+    { w:'そら', r:'sora', vi:'bầu trời' },
+    { w:'～たい', r:'-tai', vi:'muốn…' },
+    { w:'～くて', r:'-kute', vi:'nối tính từ đuôi い' }
+  ],
+  qs:[
+    { q:'Người viết thích mùa nào?', o:['Xuân','Hè','Thu','Đông'], c:2, e:'あきが いちばん すきです.' },
+    { q:'Mùa đông thế nào?', o:['Nóng','Lạnh và có tuyết','Nhiều mưa','Nhiều gió'], c:1, e:'ふゆは さむくて、ゆきが ふります.' },
+    { q:'Vì sao không ra công viên?', o:['Trời mưa','Nhiều bài tập','Bạn bận','Xa quá'], c:1, e:'しゅくだいが 多いので、うちに います.' }
+  ],
+  after:'Tả bốn mùa ở Việt Nam bằng 4 câu, dùng ～くて và ～たい.' },
+
+{ lang:'ja', lv:'n5', mins:3, cat:'Gia đình', title:'友[とも]だちの たんじょうび', vi:'Sinh nhật bạn',
+  intro:'N5. Chùm từ trọng tâm: quà, lời cảm ơn, thể た kể chuyện quá khứ.',
+  text:[
+    'きのうは たなかさんの たんじょうびでした。友だちが みんな あつまりました。',
+    'わたしは 小[ちい]さい プレゼントを 用意[ようい]しました。日本語[にほんご]の 本[ほん]と きれいな ペンを 買[か]いました。',
+    'たなかさんは「ありがとう。とても うれしいです」と 言[い]いました。',
+    'みんなで ケーキを 食[た]べて、うたを うたいました。とても たのしい ばんでした。'
+  ],
+  tr:[
+    'Hôm qua là sinh nhật anh Tanaka. Bạn bè tụ họp đông đủ.',
+    'Tôi chuẩn bị một món quà nhỏ. Tôi mua một quyển sách tiếng Nhật và một cây bút đẹp.',
+    'Anh Tanaka nói: “Cảm ơn nhé. Mình vui lắm.”',
+    'Mọi người cùng ăn bánh và hát. Đó là một buổi tối rất vui.'
+  ],
+  keys:[
+    { w:'たんじょうび', r:'tanjoubi', vi:'sinh nhật' },
+    { w:'あつまる', r:'atsumaru', vi:'tụ họp' },
+    { w:'プレゼント', r:'purezento', vi:'món quà' },
+    { w:'用意する', r:'youi suru', vi:'chuẩn bị' },
+    { w:'うれしい', r:'ureshii', vi:'vui mừng' },
+    { w:'うたを うたう', r:'uta o utau', vi:'hát' },
+    { w:'たのしい', r:'tanoshii', vi:'vui' },
+    { w:'ばん', r:'ban', vi:'buổi tối' }
+  ],
+  qs:[
+    { q:'Người viết mua quà gì?', o:['Bánh','Sách tiếng Nhật và bút','Hoa','Áo'], c:1, e:'日本語の 本と きれいな ペンを 買いました.' },
+    { q:'Tanaka nói gì?', o:['Không cần đâu','Cảm ơn, mình vui lắm','Đắt quá','Mình có rồi'], c:1, e:'ありがとう。とても うれしいです.' },
+    { q:'Mọi người làm gì?', o:['Xem phim','Ăn bánh và hát','Đi ăn ngoài','Chơi game'], c:1, e:'ケーキを 食べて、うたを うたいました.' }
+  ],
+  after:'Kể một buổi sinh nhật bằng 5 câu, toàn bộ dùng thể ました.' },
+
+{ lang:'ja', lv:'n4', mins:4, cat:'Ẩm thực', title:'りょうりを ならう', vi:'Học nấu ăn',
+  intro:'N4. Chùm từ trọng tâm: các bước nấu ăn, trình tự, ～まえに / ～てから.',
+  text:[
+    'せんしゅうの 週末[しゅうまつ]、友[とも]だちに おにぎりの 作[つく]り方[かた]を 教[おそ]わりました。',
+    'まず ごはんに 少[すこ]し しおを まぜます。にぎる まえに 手[て]を ぬらすと ごはんが つきません。',
+    'つぎに 中[なか]に ぐを 入[い]れて、三角[さんかく]の かたちに にぎります。さいごに のりを まきます。',
+    '作ってから すぐ 食[た]べたら、とても おいしかったです。かたちは あまり きれいでは ありませんでしたが。'
+  ],
+  tr:[
+    'Cuối tuần trước tôi được bạn dạy cách làm onigiri.',
+    'Trước tiên trộn chút muối vào cơm. Trước khi nắm, làm ướt tay thì cơm sẽ không dính.',
+    'Tiếp theo cho nhân vào giữa rồi nắm thành hình tam giác. Cuối cùng quấn lá rong biển.',
+    'Làm xong ăn ngay thì rất ngon. Chỉ có điều hình dạng thì không đẹp lắm.'
+  ],
+  keys:[
+    { w:'作り方', r:'tsukurikata', vi:'cách làm' },
+    { w:'教わる', r:'osowaru', vi:'được dạy' },
+    { w:'まぜる', r:'mazeru', vi:'trộn' },
+    { w:'にぎる', r:'nigiru', vi:'nắm' },
+    { w:'～まえに', r:'-mae ni', vi:'trước khi…' },
+    { w:'ぬらす', r:'nurasu', vi:'làm ướt' },
+    { w:'ぐ', r:'gu', vi:'nhân (bánh, cơm)' },
+    { w:'まく', r:'maku', vi:'quấn' }
+  ],
+  qs:[
+    { q:'Trộn gì vào cơm?', o:['Đường','Chút muối','Dấm','Nước tương'], c:1, e:'ごはんに 少し しおを まぜます.' },
+    { q:'Vì sao phải làm ướt tay?', o:['Cho sạch','Để cơm không dính tay','Cho mát','Để nắm chặt hơn'], c:1, e:'手を ぬらすと ごはんが つきません.' },
+    { q:'Kết quả ra sao?', o:['Rất ngon, hình đẹp','Rất ngon nhưng hình không đẹp','Không ngon','Hỏng hoàn toàn'], c:1, e:'とても おいしかったです。かたちは あまり きれいでは ありませんでした.' }
+  ],
+  after:'Viết 6 bước nấu một món, dùng ～まえに và ～てから.' },
+
+{ lang:'ja', lv:'n4', mins:4, cat:'Dịch vụ', title:'ぎんこうで', vi:'Ở ngân hàng',
+  intro:'N4. Chùm từ trọng tâm: mở tài khoản, giấy tờ, ～ないで ください.',
+  text:[
+    '日本[にほん]に 来[き]て 一週間[いっしゅうかん]で ぎんこうに 行[い]って こうざを 作[つく]りました。',
+    'ばんごうふだを とって 十分[じゅっぷん]ぐらい 待[ま]ちました。じゅんばんに なると、店員[てんいん]さんが パスポートを 見[み]せて くださいと 言[い]いました。',
+    'もうしこみしょに 名前[なまえ]、じゅうしょ、でんわばんごうを 書[か]きました。一[ひと]つ わからない ところが あったので、聞[き]きました。',
+    '店員さんは しんせつに 教[おし]えて くれました。さいごに「あんしょうばんごうは ほかの 人[ひと]に 言わないで ください」と 言われました。'
+  ],
+  tr:[
+    'Sang Nhật được một tuần thì tôi ra ngân hàng mở tài khoản.',
+    'Tôi lấy số thứ tự rồi đợi khoảng mười phút. Đến lượt, nhân viên bảo tôi cho xem hộ chiếu.',
+    'Tôi điền tên, địa chỉ, số điện thoại vào đơn. Có một chỗ không hiểu nên tôi đã hỏi.',
+    'Nhân viên chỉ dẫn rất tận tình. Cuối cùng tôi được dặn: “Đừng nói mã PIN cho người khác.”'
+  ],
+  keys:[
+    { w:'こうざ', r:'kouza', vi:'tài khoản ngân hàng' },
+    { w:'ばんごうふだ', r:'bangoufuda', vi:'phiếu số thứ tự' },
+    { w:'じゅんばん', r:'junban', vi:'lượt, thứ tự' },
+    { w:'もうしこみしょ', r:'moushikomisho', vi:'đơn đăng ký' },
+    { w:'じゅうしょ', r:'juusho', vi:'địa chỉ' },
+    { w:'あんしょうばんごう', r:'anshou bangou', vi:'mã PIN' },
+    { w:'～て くださる', r:'-te kudasaru', vi:'ai đó làm cho (kính ngữ)' },
+    { w:'～ないで ください', r:'-naide kudasai', vi:'xin đừng…' }
+  ],
+  qs:[
+    { q:'Việc đầu tiên khi vào ngân hàng?', o:['Điền đơn','Lấy số thứ tự','Đưa hộ chiếu','Gọi nhân viên'], c:1, e:'ばんごうふだを とって…' },
+    { q:'Giấy tờ cần là gì?', o:['Thẻ cư trú','Hộ chiếu','Bằng lái','Thẻ sinh viên'], c:1, e:'パスポートを 見せて ください.' },
+    { q:'Lời dặn cuối?', o:['Giữ sổ cẩn thận','Đừng nói mã PIN cho người khác','Quay lại sau một tuần','Không rút quá nhiều'], c:1, e:'あんしょうばんごうは ほかの 人に 言わないで ください.' }
+  ],
+  after:'Viết hội thoại ở ngân hàng 6 câu, dùng ～て ください và ～ないで ください.' },
+
+{ lang:'ja', lv:'n4', mins:4, cat:'Học tập', title:'としょかんの せき', vi:'Chỗ ngồi trong thư viện',
+  intro:'N4. Chùm từ trọng tâm: mùa thi, quy định, ～ように なる.',
+  text:[
+    'しけんの 時期[じき]は としょかんに せきが ありません。あさ 八時[はちじ]に 行[い]っても もう いっぱいです。',
+    '本[ほん]だけ 置[お]いて 何時間[なんじかん]も もどって こない 人[ひと]も いました。それでは ほかの 人が すわれません。',
+    'さいきんは アプリで せきを よやく できるように なりました。時間[じかん]が すぎると せきが じどうてきに あきます。',
+    'ルールが できてから、ずっと こうへいに なりました。わたしも あんしんして べんきょう できます。'
+  ],
+  tr:[
+    'Mùa thi thì thư viện không còn chỗ. Tám giờ sáng đến cũng đã kín rồi.',
+    'Có người chỉ để sách rồi mấy tiếng liền không quay lại. Như thế thì người khác không ngồi được.',
+    'Gần đây đã có thể đặt chỗ bằng ứng dụng. Hết giờ là chỗ tự động được nhả ra.',
+    'Từ khi có quy định, mọi thứ công bằng hơn hẳn. Tôi cũng yên tâm học hành.'
+  ],
+  keys:[
+    { w:'時期', r:'jiki', vi:'thời kỳ, mùa' },
+    { w:'いっぱい', r:'ippai', vi:'đầy, kín' },
+    { w:'置く', r:'oku', vi:'đặt, để' },
+    { w:'よやく', r:'yoyaku', vi:'đặt trước' },
+    { w:'～ように なる', r:'-you ni naru', vi:'trở nên… được' },
+    { w:'じどうてきに', r:'jidouteki ni', vi:'tự động' },
+    { w:'こうへい', r:'kouhei', vi:'công bằng' },
+    { w:'あんしんする', r:'anshin suru', vi:'yên tâm' }
+  ],
+  qs:[
+    { q:'Vấn đề cũ là gì?', o:['Thư viện đóng sớm','Có người để sách giữ chỗ rồi bỏ đi','Không có ổ điện','Quá ồn'], c:1, e:'本だけ 置いて… もどって こない 人も いました.' },
+    { q:'Cách giải quyết?', o:['Thuê bảo vệ','Đặt chỗ bằng ứng dụng','Cấm mang sách','Mở thêm phòng'], c:1, e:'アプリで せきを よやく できるように なりました.' },
+    { q:'Kết quả?', o:['Tệ hơn','Công bằng hơn hẳn','Không đổi','Ít người đến hơn'], c:1, e:'ずっと こうへいに なりました.' }
+  ],
+  after:'Viết 6 câu về một quy định ở trường bạn, dùng ～ように なる.' },
+
+{ lang:'ja', lv:'n3', mins:5, cat:'Học tập', title:'日本語[にほんご]の むずかしさ', vi:'Cái khó của tiếng Nhật',
+  intro:'N3. Chùm từ trọng tâm: kính ngữ, mức độ lịch sự, thái độ với lỗi sai.',
+  text:[
+    '日本語を 学[まな]んで きて 一番[いちばん] むずかしかったのは、文法[ぶんぽう]よりも 話[はな]し方[かた]でした。',
+    'おなじ ことを 言[い]うのでも、あいてが だれかに よって「食[た]べて」「食べます」「めしあがって ください」と かわります。',
+    'はじめの ころ、なかの いい 友[とも]だちに ていねいすぎる ことばを 使[つか]って、かえって よそよそしく なった ことも ありました。',
+    '今[いま]は まちがえるのを こわがりません。まちがえながら おぼえるのが 一番 はやいと 思[おも]うからです。'
+  ],
+  tr:[
+    'Học tiếng Nhật đến giờ, thứ khó nhất với tôi không phải ngữ pháp mà là cách nói.',
+    'Cùng một điều muốn nói, tuỳ đối phương là ai mà thành “食べて”, “食べます”, “めしあがって ください”.',
+    'Hồi đầu, tôi từng dùng lối nói quá lịch sự với bạn thân, hoá ra lại thành xa cách.',
+    'Giờ tôi không sợ sai nữa. Vì tôi nghĩ vừa sai vừa nhớ mới là cách nhanh nhất.'
+  ],
+  keys:[
+    { w:'話し方', r:'hanashikata', vi:'cách nói' },
+    { w:'あいて', r:'aite', vi:'đối phương' },
+    { w:'～に よって', r:'-ni yotte', vi:'tuỳ theo…' },
+    { w:'ていねい', r:'teinei', vi:'lịch sự' },
+    { w:'かえって', r:'kaette', vi:'trái lại, hoá ra' },
+    { w:'よそよそしい', r:'yosoyososhii', vi:'xa cách, khách sáo' },
+    { w:'こわがる', r:'kowagaru', vi:'sợ' },
+    { w:'～ながら', r:'-nagara', vi:'vừa… vừa…' }
+  ],
+  qs:[
+    { q:'Cái khó nhất là gì?', o:['Ngữ pháp','Cách nói theo đối phương','Chữ Hán','Phát âm'], c:1, e:'文法よりも 話し方でした.' },
+    { q:'Người viết từng mắc lỗi gì?', o:['Nói trống không với thầy','Dùng lối quá lịch sự với bạn thân','Dùng sai thì','Nói quá nhanh'], c:1, e:'なかの いい 友だちに ていねいすぎる ことばを 使って…' },
+    { q:'Quan điểm hiện tại?', o:['Học kỹ rồi mới nói','Vừa sai vừa nhớ là nhanh nhất','Chỉ nói với người quen','Tránh kính ngữ'], c:1, e:'まちがえながら おぼえるのが 一番 はやい…' }
+  ],
+  after:'Viết 6 câu về cái khó nhất khi học ngoại ngữ, dùng ～に よって và ～ながら.' },
+
+{ lang:'ja', lv:'n3', mins:5, cat:'Đời sống', title:'自転車[じてんしゃ]の ルール', vi:'Luật đi xe đạp',
+  intro:'N3. Chùm từ trọng tâm: quy tắc giao thông, đỗ xe, ～ては いけない.',
+  text:[
+    '日本[にほん]では 自転車が とても べんりですが、ルールは 思[おも]ったより きびしいです。',
+    'よる ライトを つけないで 走[はし]っては いけません。ふたりのりも きんしされて います。',
+    'えきの まえに かってに とめると、すぐ てっきょされて しまいます。とりに 行[い]くと お金[かね]を はらわなければ なりません。',
+    'はじめは めんどうだと 思いましたが、じこが 少[すく]ない 理由[りゆう]が わかりました。ルールは じぶんを まもる ものでも あります。'
+  ],
+  tr:[
+    'Ở Nhật xe đạp rất tiện, nhưng luật lệ nghiêm hơn tôi tưởng.',
+    'Ban đêm không được chạy mà không bật đèn. Chở hai người cũng bị cấm.',
+    'Nếu đỗ bừa trước ga thì xe bị thu ngay. Đi lấy lại thì phải nộp tiền.',
+    'Lúc đầu tôi thấy phiền, nhưng rồi hiểu ra vì sao tai nạn ít. Quy tắc cũng là thứ bảo vệ chính mình.'
+  ],
+  keys:[
+    { w:'ライトを つける', r:'raito o tsukeru', vi:'bật đèn' },
+    { w:'ふたりのり', r:'futarinori', vi:'chở hai người' },
+    { w:'きんしする', r:'kinshi suru', vi:'cấm' },
+    { w:'かってに', r:'katte ni', vi:'tuỳ tiện' },
+    { w:'とめる', r:'tomeru', vi:'đỗ, dừng' },
+    { w:'てっきょする', r:'tekkyo suru', vi:'thu dọn, cẩu đi' },
+    { w:'はらう', r:'harau', vi:'trả (tiền)' },
+    { w:'まもる', r:'mamoru', vi:'bảo vệ; tuân thủ' }
+  ],
+  qs:[
+    { q:'Ban đêm bắt buộc phải làm gì?', o:['Đi chậm','Bật đèn','Đội mũ','Đi trên vỉa hè'], c:1, e:'ライトを つけないで 走っては いけません.' },
+    { q:'Đỗ bừa trước ga thì sao?', o:['Bị phạt tại chỗ','Xe bị thu, lấy lại phải trả tiền','Không sao','Bị khoá bánh'], c:1, e:'すぐ てっきょされて しまいます.' },
+    { q:'Kết luận của người viết?', o:['Luật quá phiền','Quy tắc cũng là thứ bảo vệ chính mình','Không nên đi xe đạp','Nên đi tàu'], c:1, e:'ルールは じぶんを まもる ものでも あります.' }
+  ],
+  after:'Viết 6 câu về luật giao thông ở Việt Nam, dùng ～ては いけない và ～なければ ならない.' },
+
+{ lang:'ja', lv:'n3', mins:5, cat:'Văn hoá', title:'お正月[しょうがつ]の 朝[あさ]', vi:'Buổi sáng ngày Tết',
+  intro:'N3. Chùm từ trọng tâm: phong tục năm mới, món ăn, cảm nhận gia đình.',
+  text:[
+    '日本[にほん]の お正月は しずかです。大[おお]みそかの よるは 家族[かぞく]で そばを 食[た]べます。',
+    '元日[がんじつ]の 朝[あさ]、おせちりょうりを ならべます。ひとつひとつの りょうりに いみが あります。',
+    'たとえば くろまめは まめに はたらけるように、かずのこは 子[こ]どもが ふえるように という ねがいです。',
+    'そのあと じんじゃへ はつもうでに 行[い]きます。人[ひと]が 多[おお]くて さむいですが、その 空気[くうき]が 好[す]きです。'
+  ],
+  tr:[
+    'Tết ở Nhật khá tĩnh lặng. Đêm cuối năm cả nhà cùng ăn mì soba.',
+    'Sáng mùng một, người ta bày mâm osechi. Từng món một đều mang một ý nghĩa.',
+    'Ví dụ đậu đen là mong làm việc chăm chỉ, trứng cá trích là mong con cháu đông đúc.',
+    'Sau đó cả nhà đi lễ đền đầu năm. Đông người và lạnh, nhưng tôi thích cái không khí ấy.'
+  ],
+  keys:[
+    { w:'お正月', r:'oshougatsu', vi:'Tết Nguyên đán (dương lịch ở Nhật)' },
+    { w:'大みそか', r:'oomisoka', vi:'đêm giao thừa' },
+    { w:'元日', r:'ganjitsu', vi:'ngày mùng một' },
+    { w:'おせちりょうり', r:'osechi ryouri', vi:'mâm cỗ Tết Nhật' },
+    { w:'ならべる', r:'naraberu', vi:'bày biện' },
+    { w:'ねがい', r:'negai', vi:'điều ước, mong muốn' },
+    { w:'はつもうで', r:'hatsumoude', vi:'lễ đền đầu năm' },
+    { w:'～ように', r:'-you ni', vi:'mong rằng, để mà' }
+  ],
+  qs:[
+    { q:'Đêm cuối năm ăn món gì?', o:['Osechi','Mì soba','Bánh mochi','Sushi'], c:1, e:'大みそかの よるは 家族で そばを 食べます.' },
+    { q:'Đậu đen mang ý nghĩa gì?', o:['Sống lâu','Làm việc chăm chỉ','Nhiều tiền','Bình an'], c:1, e:'くろまめは まめに はたらけるように…' },
+    { q:'Sau bữa sáng cả nhà làm gì?', o:['Đi chơi','Đi lễ đền đầu năm','Ngủ tiếp','Đi mua sắm'], c:1, e:'じんじゃへ はつもうでに 行きます.' }
+  ],
+  after:'Viết 6 câu về Tết ở Việt Nam, dùng ～ように và ～たり～たり.' }
 
   );
 })();
