@@ -432,38 +432,6 @@ const READINGS = [
   ],
   after:'Dùng 把 viết 3 câu về việc bạn chuẩn bị trước khi làm gì đó.' },
 
-{ lang:'zh', lv:'hsk4', mins:5, cat:'Xã hội', title:'城市里的“慢”生活', vi:'Nhịp sống «chậm» giữa thành phố',
-  intro:'Bài đọc HSK4 về lựa chọn lối sống. Chùm từ trọng tâm: nhịp sống, áp lực, cân bằng.',
-  text:[
-    '这几年，越来越多的年轻人开始讨论“慢生活”。他们并不是不想努力，而是发现一直加速下去，身体和心情都跟不上。',
-    '一位在上海工作了八年的设计师说，她以前每天工作十二个小时，周末也在回消息。后来她把手机的提醒全部关掉，只在固定时间处理工作，效率反而提高了。',
-    '当然，“慢”不是所有人都有条件选择。房租、家庭和竞争都是真实的压力。对很多人来说，慢一点意味着收入少一点。',
-    '专家认为，关键不在快慢，而在能不能自己决定节奏。真正让人疲惫的往往不是工作量，而是完全无法安排自己的时间。'
-  ],
-  tr:[
-    'Mấy năm nay, ngày càng nhiều người trẻ bắt đầu bàn về «lối sống chậm». Họ không phải không muốn nỗ lực, mà là nhận ra cứ tăng tốc mãi thì cơ thể và tinh thần đều theo không kịp.',
-    'Một nhà thiết kế đã làm việc tám năm ở Thượng Hải nói, trước đây cô làm mười hai tiếng mỗi ngày, cuối tuần cũng vẫn trả lời tin nhắn. Sau đó cô tắt hết thông báo trên điện thoại, chỉ xử lý công việc vào giờ cố định, và hiệu suất ngược lại còn tăng lên.',
-    'Tất nhiên, «chậm» không phải ai cũng có điều kiện để chọn. Tiền thuê nhà, gia đình và cạnh tranh đều là áp lực có thật. Với nhiều người, chậm lại một chút đồng nghĩa với thu nhập ít đi một chút.',
-    'Các chuyên gia cho rằng mấu chốt không nằm ở nhanh hay chậm, mà ở chỗ có tự quyết được nhịp của mình hay không. Thứ thật sự làm người ta kiệt sức thường không phải khối lượng công việc, mà là hoàn toàn không sắp xếp được thời gian của chính mình.'
-  ],
-  keys:[
-    { w:'加速', r:'jiāsù', vi:'tăng tốc' },
-    { w:'跟不上', r:'gēn bu shàng', vi:'theo không kịp' },
-    { w:'提醒', r:'tíxǐng', vi:'thông báo nhắc nhở' },
-    { w:'效率', r:'xiàolǜ', vi:'hiệu suất' },
-    { w:'房租', r:'fángzū', vi:'tiền thuê nhà' },
-    { w:'竞争', r:'jìngzhēng', vi:'cạnh tranh' },
-    { w:'节奏', r:'jiézòu', vi:'nhịp độ' },
-    { w:'疲惫', r:'píbèi', vi:'mệt mỏi kiệt sức' }
-  ],
-  qs:[
-    { q:'«Lối sống chậm» theo bài KHÔNG có nghĩa là gì?', o:['Không muốn nỗ lực','Tự quyết nhịp sống','Giảm giờ làm','Tắt thông báo'], c:0, e:'他们并不是不想努力 — không phải là lười.' },
-    { q:'Nhà thiết kế đã thay đổi điều gì?', o:['Đổi công ty','Tắt thông báo, xử lý việc vào giờ cố định','Chuyển về quê','Làm ít đơn hơn'], c:1, e:'把手机的提醒全部关掉，只在固定时间处理工作.' },
-    { q:'Kết quả sau khi thay đổi là gì?', o:['Hiệu suất giảm','Hiệu suất tăng','Thu nhập giảm','Không đổi'], c:1, e:'效率反而提高了 — 反而 nghĩa là «ngược lại».' },
-    { q:'Theo chuyên gia, điều gì làm người ta kiệt sức nhất?', o:['Khối lượng công việc','Không tự sắp xếp được thời gian','Tiền lương thấp','Đường đi làm xa'], c:1, e:'不是工作量，而是完全无法安排自己的时间.' }
-  ],
-  after:'Dùng 不是…而是… viết 3 câu nói về một hiểu lầm thường gặp.' },
-
 /* ================= TIẾNG NHẬT ================= */
 { lang:'ja', lv:'n5', mins:3, cat:'Đời sống', title:'コンビニの朝', vi:'Buổi sáng ở cửa hàng tiện lợi',
   intro:'Bài đọc N5, câu ngắn, kanji cơ bản. Chùm từ trọng tâm: buổi sáng, mua sắm, thói quen.',

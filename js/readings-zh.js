@@ -258,129 +258,129 @@
   ],
   after:'Viết 5 câu về một lần bạn làm thủ tục giấy tờ, dùng 先…然后… và 提醒.' },
 
-{ lang:'zh', lv:'hsk4', mins:6, cat:'Công việc', title:'第一次面试', vi:'Lần phỏng vấn đầu tiên',
-  intro:'HSK4. Chùm từ trọng tâm: xin việc, tự giới thiệu, điểm mạnh điểm yếu.',
+{ lang:'zh', lv:'hsk1', mins:3, cat:'Đời sống', title:'今天天气怎么样', vi:'Hôm nay thời tiết thế nào',
+  intro:'HSK1. Chùm từ trọng tâm: thời tiết, nóng lạnh, câu hỏi 怎么样.',
   text:[
-    '毕业前一个月，我去一家公司面试。出门前我把简历检查了三遍，心里还是有点儿紧张。',
-    '面试官问的第一个问题很普通：“请简单介绍一下你自己。”我按照准备好的内容说了两分钟。',
-    '接着他问：“你觉得自己最大的缺点是什么？”这个问题不好回答。我想了想，说我做事太慢，但是在慢慢改。',
-    '出来以后，我觉得表现一般。没想到三天后接到了电话——我被录取了。原来诚实比完美更重要。'
+    '今天上午下雨了，很冷。我穿了一件大衣才出门。',
+    '中午雨停了，太阳出来了，天气很好。',
+    '下午我和朋友去公园。人不多，我们走了一个小时。',
+    '朋友问我：“明天天气怎么样？”我说：“我不知道，看手机吧。”'
   ],
   tr:[
-    'Một tháng trước khi tốt nghiệp, tôi đi phỏng vấn ở một công ty. Trước khi ra khỏi nhà tôi kiểm tra CV ba lượt, trong lòng vẫn hơi căng thẳng.',
-    'Câu hỏi đầu tiên của người phỏng vấn rất bình thường: “Bạn giới thiệu ngắn gọn về mình đi.” Tôi nói theo nội dung đã chuẩn bị trong hai phút.',
-    'Tiếp đó anh ấy hỏi: “Bạn thấy khuyết điểm lớn nhất của mình là gì?” Câu này không dễ trả lời. Tôi nghĩ một lát rồi nói mình làm việc hơi chậm, nhưng đang dần sửa.',
-    'Ra ngoài, tôi thấy mình thể hiện cũng thường. Không ngờ ba ngày sau nhận được điện thoại — tôi được nhận. Hoá ra thành thật còn quan trọng hơn hoàn hảo.'
+    'Sáng nay trời mưa, rất lạnh. Tôi mặc một chiếc áo khoác dài mới ra khỏi nhà.',
+    'Buổi trưa mưa tạnh, mặt trời ló ra, thời tiết rất đẹp.',
+    'Buổi chiều tôi và bạn đi công viên. Người không đông, chúng tôi đi bộ một tiếng.',
+    'Bạn hỏi tôi: “Mai thời tiết thế nào?” Tôi nói: “Tớ không biết, xem điện thoại đi.”'
   ],
   keys:[
-    { w:'面试', r:'miànshì', vi:'phỏng vấn' },
-    { w:'简历', r:'jiǎnlì', vi:'sơ yếu lý lịch, CV' },
-    { w:'紧张', r:'jǐnzhāng', vi:'căng thẳng' },
-    { w:'按照', r:'ànzhào', vi:'theo, dựa theo' },
-    { w:'缺点', r:'quēdiǎn', vi:'khuyết điểm', note:'trái nghĩa: 优点' },
-    { w:'表现', r:'biǎoxiàn', vi:'thể hiện' },
-    { w:'录取', r:'lùqǔ', vi:'được nhận, trúng tuyển' },
-    { w:'诚实', r:'chéngshí', vi:'thành thật' }
+    { w:'下雨', r:'xiàyǔ', vi:'trời mưa' },
+    { w:'冷', r:'lěng', vi:'lạnh' },
+    { w:'穿', r:'chuān', vi:'mặc' },
+    { w:'大衣', r:'dàyī', vi:'áo khoác dài' },
+    { w:'停', r:'tíng', vi:'dừng, tạnh' },
+    { w:'太阳', r:'tàiyáng', vi:'mặt trời' },
+    { w:'公园', r:'gōngyuán', vi:'công viên' },
+    { w:'怎么样', r:'zěnmeyàng', vi:'thế nào' }
   ],
   qs:[
-    { q:'Người viết chuẩn bị thế nào trước khi đi?', o:['Không chuẩn bị gì','Kiểm tra CV ba lượt','Học thuộc câu trả lời','Nhờ bạn đi cùng'], c:1, e:'把简历检查了三遍.' },
-    { q:'Câu hỏi khó là câu nào?', o:['Giới thiệu bản thân','Khuyết điểm lớn nhất là gì','Lương mong muốn','Vì sao chọn công ty'], c:1, e:'这个问题不好回答.' },
-    { q:'Kết luận của người viết?', o:['Phải tỏ ra hoàn hảo','Thành thật quan trọng hơn hoàn hảo','Không nên đi phỏng vấn sớm','Nên nói dối về khuyết điểm'], c:1, e:'原来诚实比完美更重要.' }
+    { q:'Buổi sáng trời thế nào?', o:['Nắng','Mưa và lạnh','Có tuyết','Nhiều gió'], c:1, e:'今天上午下雨了，很冷.' },
+    { q:'Buổi chiều hai người làm gì?', o:['Ở nhà','Đi công viên','Đi mua sắm','Đi học'], c:1, e:'下午我和朋友去公园.' },
+    { q:'Người viết trả lời câu hỏi về thời tiết ngày mai ra sao?', o:['Sẽ mưa','Sẽ nắng','Không biết, xem điện thoại','Rất lạnh'], c:2, e:'我不知道，看手机吧.' }
   ],
-  after:'Viết phần tự giới thiệu 2 phút của bạn, dùng 按照 · 表现 · 优点 và 缺点.' },
+  after:'Viết 4 câu về thời tiết hôm nay ở chỗ bạn, dùng 下雨 · 太阳 · 怎么样.' },
 
-{ lang:'zh', lv:'hsk4', mins:6, cat:'Đời sống', title:'租房记', vi:'Chuyện thuê nhà',
-  intro:'HSK4. Chùm từ trọng tâm: hợp đồng, tiền đặt cọc, điều kiện nhà cửa.',
+{ lang:'zh', lv:'hsk1', mins:3, cat:'Đời sống', title:'打电话给妈妈', vi:'Gọi điện cho mẹ',
+  intro:'HSK1. Chùm từ trọng tâm: gọi điện, hỏi thăm, câu hỏi có 吗 và 呢.',
   text:[
-    '来北京工作以后，第一件麻烦事就是租房子。网上的照片总是比实际好看得多。',
-    '看了五六套，我才找到合适的：离地铁站走路十分钟，房租一个月三千五，包物业费。',
-    '签合同的时候要交一个月押金。房东提醒我：“退房的时候，家具坏了要照价赔。”',
-    '搬进去的第一个晚上，屋子还很空，可是我躺在床上想：从今天起，这就是我在这座城市的家了。'
+    '每个星期天晚上，我都给妈妈打电话。',
+    '妈妈问：“你吃饭了吗？身体好吗？”我说：“吃了，我很好。你呢？”',
+    '妈妈说家里都好，爸爸在看电视，猫在睡觉。',
+    '我们说了二十分钟。挂了电话，我有点儿想家，可是心里很暖。'
   ],
   tr:[
-    'Sau khi lên Bắc Kinh làm việc, chuyện phiền phức đầu tiên chính là thuê nhà. Ảnh trên mạng bao giờ cũng đẹp hơn thực tế nhiều.',
-    'Xem năm sáu căn, tôi mới tìm được căn vừa ý: đi bộ mười phút là tới ga tàu điện ngầm, tiền nhà ba nghìn rưỡi một tháng, bao phí quản lý.',
-    'Lúc ký hợp đồng phải đóng một tháng tiền cọc. Chủ nhà nhắc tôi: “Khi trả nhà, đồ đạc hỏng thì phải đền theo giá.”',
-    'Đêm đầu tiên dọn vào, căn phòng còn trống trải, nhưng nằm trên giường tôi nghĩ: từ hôm nay, đây chính là nhà của mình ở thành phố này.'
+    'Tối chủ nhật nào tôi cũng gọi điện cho mẹ.',
+    'Mẹ hỏi: “Con ăn cơm chưa? Sức khoẻ có tốt không?” Tôi nói: “Ăn rồi ạ, con khoẻ. Còn mẹ?”',
+    'Mẹ nói ở nhà đều ổn, bố đang xem tivi, con mèo đang ngủ.',
+    'Chúng tôi nói chuyện hai mươi phút. Cúp máy xong, tôi hơi nhớ nhà, nhưng trong lòng rất ấm.'
   ],
   keys:[
-    { w:'租', r:'zū', vi:'thuê' },
-    { w:'麻烦', r:'máfan', vi:'phiền phức' },
-    { w:'实际', r:'shíjì', vi:'thực tế' },
-    { w:'合适', r:'héshì', vi:'vừa ý, phù hợp' },
-    { w:'房租', r:'fángzū', vi:'tiền thuê nhà' },
-    { w:'签合同', r:'qiān hétong', vi:'ký hợp đồng' },
-    { w:'押金', r:'yājīn', vi:'tiền đặt cọc' },
-    { w:'赔', r:'péi', vi:'đền, bồi thường' }
+    { w:'打电话', r:'dǎ diànhuà', vi:'gọi điện thoại' },
+    { w:'身体', r:'shēntǐ', vi:'sức khoẻ, cơ thể' },
+    { w:'呢', r:'ne', vi:'còn… thì sao', note:'你呢？— còn bạn thì sao?' },
+    { w:'在', r:'zài', vi:'đang', note:'在 + động từ: 在看电视 — đang xem tivi' },
+    { w:'睡觉', r:'shuìjiào', vi:'ngủ' },
+    { w:'挂', r:'guà', vi:'cúp (máy)', note:'挂电话 — cúp điện thoại' },
+    { w:'想家', r:'xiǎng jiā', vi:'nhớ nhà' },
+    { w:'暖', r:'nuǎn', vi:'ấm' }
   ],
   qs:[
-    { q:'Người viết xem bao nhiêu căn mới chọn được?', o:['Một hai căn','Năm sáu căn','Mười căn','Không xem căn nào'], c:1, e:'看了五六套，我才找到合适的.' },
-    { q:'Tiền nhà một tháng là bao nhiêu?', o:['1500','2500','3500','5000'], c:2, e:'房租一个月三千五.' },
-    { q:'Chủ nhà nhắc điều gì?', o:['Không được nuôi mèo','Đồ đạc hỏng phải đền theo giá','Trả tiền trước ba tháng','Không được về muộn'], c:1, e:'家具坏了要照价赔.' }
+    { q:'Bao lâu gọi một lần?', o:['Mỗi ngày','Tối chủ nhật hằng tuần','Mỗi tháng','Rất hiếm khi'], c:1, e:'每个星期天晚上，我都给妈妈打电话.' },
+    { q:'Bố đang làm gì?', o:['Ngủ','Xem tivi','Nấu cơm','Đi làm'], c:1, e:'爸爸在看电视.' },
+    { q:'Cúp máy xong người viết cảm thấy thế nào?', o:['Buồn hẳn','Hơi nhớ nhà nhưng lòng ấm','Rất vui','Không cảm thấy gì'], c:1, e:'我有点儿想家，可是心里很暖.' }
   ],
-  after:'Viết 6 câu hỏi bạn sẽ hỏi chủ nhà trước khi ký hợp đồng.' },
+  after:'Viết lại cuộc gọi về nhà bằng 5 câu, dùng 在 + động từ và 呢.' },
 
-{ lang:'zh', lv:'hsk4', mins:6, cat:'Du lịch', title:'高铁上的三个小时', vi:'Ba tiếng trên tàu cao tốc',
-  intro:'HSK4. Chùm từ trọng tâm: đi tàu, quan sát bạn đồng hành, cảm nhận về tốc độ đổi thay.',
+{ lang:'zh', lv:'hsk2', mins:4, cat:'Học tập', title:'学汉字真难吗', vi:'Học chữ Hán có khó không',
+  intro:'HSK2. Chùm từ trọng tâm: khó dễ, cách học, động từ + 得 chỉ mức độ.',
   text:[
-    '从上海到北京，高铁只要四个多小时。车厢里很安静，大部分人都在看手机或者睡觉。',
-    '我旁边坐着一位老人，他说自己年轻的时候坐绿皮车，同样的路要走一天一夜。',
-    '“那时候窗户能打开，风吹进来，饭是自己带的。”他笑着说，“现在快是快，可是少了点儿味道。”',
-    '窗外的田野一片片往后退。我忽然明白，速度让我们省下时间，可是省下的时间用来做什么，才是更难的问题。'
+    '刚开始学汉语的时候，我觉得汉字太难了，写得很慢，也记不住。',
+    '老师说：“别着急。汉字有部首，一个部首就是一个意思。”',
+    '比如“氵”跟水有关系：河、海、洗。我一下子明白了很多字。',
+    '现在我每天写十个字，写得比以前好了。难还是难，但是不那么怕了。'
   ],
   tr:[
-    'Từ Thượng Hải đến Bắc Kinh, tàu cao tốc chỉ mất hơn bốn tiếng. Trong toa rất yên tĩnh, phần lớn mọi người đều xem điện thoại hoặc ngủ.',
-    'Ngồi cạnh tôi là một cụ già, cụ kể hồi trẻ đi tàu vỏ xanh, cùng quãng đường ấy phải đi một ngày một đêm.',
-    '“Hồi đó cửa sổ mở được, gió thổi vào, cơm thì tự mang theo.” Cụ cười nói, “Bây giờ nhanh thì nhanh thật, nhưng thiếu đi chút hương vị.”',
-    'Đồng ruộng ngoài cửa sổ lùi lại từng mảng. Tôi chợt hiểu, tốc độ giúp ta tiết kiệm thời gian, nhưng thời gian tiết kiệm được dùng để làm gì mới là câu hỏi khó hơn.'
+    'Lúc mới bắt đầu học tiếng Trung, tôi thấy chữ Hán khó quá, viết rất chậm, cũng không nhớ nổi.',
+    'Cô giáo nói: “Đừng sốt ruột. Chữ Hán có bộ thủ, mỗi bộ thủ là một ý nghĩa.”',
+    'Ví dụ “氵” liên quan đến nước: sông, biển, rửa. Tôi hiểu ra nhiều chữ cùng một lúc.',
+    'Bây giờ mỗi ngày tôi viết mười chữ, viết khá hơn trước. Khó thì vẫn khó, nhưng không còn sợ như thế nữa.'
   ],
   keys:[
-    { w:'高铁', r:'gāotiě', vi:'tàu cao tốc' },
-    { w:'车厢', r:'chēxiāng', vi:'toa tàu' },
-    { w:'大部分', r:'dàbùfen', vi:'phần lớn' },
-    { w:'同样', r:'tóngyàng', vi:'cùng, như nhau' },
-    { w:'味道', r:'wèidao', vi:'hương vị; cái chất riêng' },
-    { w:'田野', r:'tiányě', vi:'đồng ruộng' },
-    { w:'忽然', r:'hūrán', vi:'chợt, bỗng' },
-    { w:'速度', r:'sùdù', vi:'tốc độ' }
+    { w:'刚', r:'gāng', vi:'vừa mới' },
+    { w:'记不住', r:'jì bu zhù', vi:'không nhớ nổi' },
+    { w:'别着急', r:'bié zháojí', vi:'đừng sốt ruột' },
+    { w:'部首', r:'bùshǒu', vi:'bộ thủ' },
+    { w:'比如', r:'bǐrú', vi:'ví dụ' },
+    { w:'有关系', r:'yǒu guānxi', vi:'có liên quan' },
+    { w:'一下子', r:'yíxiàzi', vi:'một lúc, bỗng chốc' },
+    { w:'怕', r:'pà', vi:'sợ' }
   ],
   qs:[
-    { q:'Ngày xưa đi tàu vỏ xanh mất bao lâu?', o:['Bốn tiếng','Một ngày một đêm','Hai ngày','Nửa ngày'], c:1, e:'同样的路要走一天一夜.' },
-    { q:'Cụ già tiếc điều gì?', o:['Vé đắt hơn','Thiếu đi chút hương vị','Tàu chạy ồn','Không có chỗ ngồi'], c:1, e:'现在快是快，可是少了点儿味道.' },
-    { q:'Suy nghĩ cuối của người viết là gì?', o:['Nên đi tàu chậm','Câu hỏi khó là dùng thời gian tiết kiệm được vào việc gì','Tàu cao tốc quá đắt','Nên nói chuyện với người lạ nhiều hơn'], c:1, e:'省下的时间用来做什么，才是更难的问题.' }
+    { q:'Lúc đầu người viết gặp khó ở chỗ nào?', o:['Nghe','Viết chậm và không nhớ chữ','Phát âm','Ngữ pháp'], c:1, e:'写得很慢，也记不住.' },
+    { q:'Cô giáo mách cách gì?', o:['Viết thật nhiều','Nhìn vào bộ thủ để hiểu nghĩa','Học thuộc từ điển','Xem phim'], c:1, e:'汉字有部首，一个部首就是一个意思.' },
+    { q:'Bộ 氵 liên quan đến gì?', o:['Lửa','Nước','Cây cối','Tay'], c:1, e:'“氵”跟水有关系：河、海、洗.' }
   ],
-  after:'Viết 6 câu so sánh một việc «ngày xưa» và «bây giờ», dùng 同样 · 可是 · 忽然.' },
+  after:'Viết 5 câu kể cách bạn học chữ Hán, dùng 动词 + 得 (写得慢 / 写得好).' },
 
-{ lang:'zh', lv:'hsk5', mins:7, cat:'Xã hội', title:'共享单车的最后一公里', vi:'Cây số cuối cùng của xe đạp công cộng',
-  intro:'HSK5. Chùm từ trọng tâm: kinh tế chia sẻ, quản lý đô thị, lợi và hại của một tiện ích.',
+{ lang:'zh', lv:'hsk3', mins:5, cat:'Giao thông', title:'第一次坐地铁', vi:'Lần đầu đi tàu điện ngầm',
+  intro:'HSK3. Chùm từ trọng tâm: mua vé, đổi tuyến, giờ cao điểm.',
   text:[
-    '几年前，共享单车几乎在一夜之间铺满了中国的城市。扫码就能骑走，一块钱解决从地铁站到家的“最后一公里”。',
-    '它确实方便，也让不少人重新回到自行车上。可是问题很快出现：车被随意停在人行道上，有的甚至堆成小山。',
-    '后来政府划出专门的停车区，企业也用技术手段限制乱停：停错地方就多收钱。秩序慢慢好了一些。',
-    '这件事给人的启发不只是关于自行车。一个新东西出现的时候，方便往往先到，规则总是后到；而能不能长久，就看规则追不追得上。'
+    '刚到北京的第二天，我第一次坐地铁。站里人来人往，我站在自动售票机前面看了半天。',
+    '一个学生帮我买了票，还告诉我：“你要坐二号线，然后在西直门换四号线。”',
+    '车上很挤，大家都站着看手机。到站的时候，广播说“请注意脚下”。',
+    '虽然有点儿紧张，但是我一次也没坐错。下车以后我想：原来看懂地图并不难。'
   ],
   tr:[
-    'Vài năm trước, xe đạp công cộng gần như phủ kín các thành phố Trung Quốc chỉ sau một đêm. Quét mã là đạp đi được, một tệ giải quyết “cây số cuối cùng” từ ga tàu điện ngầm về nhà.',
-    'Nó quả thật tiện lợi, cũng khiến không ít người quay lại với xe đạp. Nhưng vấn đề nhanh chóng xuất hiện: xe bị để bừa trên vỉa hè, có chỗ còn chất thành đống như núi nhỏ.',
-    'Về sau chính quyền vạch ra khu đỗ riêng, doanh nghiệp cũng dùng biện pháp kỹ thuật để hạn chế đỗ bừa: đỗ sai chỗ thì bị thu thêm tiền. Trật tự dần khá lên.',
-    'Điều chuyện này gợi ra không chỉ là về xe đạp. Khi một thứ mới xuất hiện, sự tiện lợi thường đến trước, quy tắc bao giờ cũng đến sau; còn có bền được hay không thì tuỳ vào việc quy tắc có đuổi kịp hay không.'
+    'Ngày thứ hai vừa đến Bắc Kinh, tôi lần đầu đi tàu điện ngầm. Trong ga người qua kẻ lại, tôi đứng trước máy bán vé tự động nhìn mãi.',
+    'Một bạn sinh viên giúp tôi mua vé, còn bảo tôi: “Cậu phải đi tuyến số 2, rồi đổi sang tuyến số 4 ở Tây Trực Môn.”',
+    'Trên tàu rất chật, ai cũng đứng xem điện thoại. Lúc đến bến, loa phát thanh nói “xin chú ý dưới chân”.',
+    'Tuy hơi căng thẳng, nhưng tôi không đi nhầm lần nào. Xuống tàu rồi tôi nghĩ: hoá ra xem hiểu bản đồ cũng không khó.'
   ],
   keys:[
-    { w:'共享', r:'gòngxiǎng', vi:'chia sẻ chung' },
-    { w:'扫码', r:'sǎomǎ', vi:'quét mã' },
-    { w:'确实', r:'quèshí', vi:'quả thật' },
-    { w:'随意', r:'suíyì', vi:'tuỳ tiện, bừa bãi' },
-    { w:'人行道', r:'rénxíngdào', vi:'vỉa hè' },
-    { w:'限制', r:'xiànzhì', vi:'hạn chế' },
-    { w:'秩序', r:'zhìxù', vi:'trật tự' },
-    { w:'启发', r:'qǐfā', vi:'gợi mở, điều rút ra' }
+    { w:'地铁', r:'dìtiě', vi:'tàu điện ngầm' },
+    { w:'人来人往', r:'rén lái rén wǎng', vi:'người qua kẻ lại' },
+    { w:'售票机', r:'shòupiàojī', vi:'máy bán vé' },
+    { w:'半天', r:'bàntiān', vi:'hồi lâu', note:'nghĩa bóng: một lúc lâu, không phải nửa ngày' },
+    { w:'换', r:'huàn', vi:'đổi', note:'换线 — đổi tuyến; 换车 — đổi xe' },
+    { w:'挤', r:'jǐ', vi:'chật, chen chúc' },
+    { w:'广播', r:'guǎngbō', vi:'loa phát thanh' },
+    { w:'并不', r:'bìng bù', vi:'không hề', note:'nhấn mạnh phủ định: 并不难 — không hề khó' }
   ],
   qs:[
-    { q:'“Cây số cuối cùng” chỉ điều gì?', o:['Quãng đường dài nhất','Quãng từ ga tàu điện ngầm về nhà','Đường đua xe đạp','Cây số đầu tiên của chuyến đi'], c:1, e:'一块钱解决从地铁站到家的“最后一公里”.' },
-    { q:'Vấn đề lớn nhất là gì?', o:['Xe quá đắt','Xe bị để bừa trên vỉa hè','Không ai biết đi xe đạp','Xe hay hỏng'], c:1, e:'车被随意停在人行道上.' },
-    { q:'Bài rút ra kết luận nào?', o:['Nên cấm xe đạp công cộng','Tiện lợi đến trước, quy tắc đến sau — bền hay không tuỳ quy tắc có đuổi kịp','Công nghệ giải quyết mọi thứ','Chính quyền không nên can thiệp'], c:1, e:'方便往往先到，规则总是后到.' }
+    { q:'Ai giúp người viết mua vé?', o:['Nhân viên nhà ga','Một bạn sinh viên','Bạn cùng phòng','Không ai'], c:1, e:'一个学生帮我买了票.' },
+    { q:'Phải đổi tuyến ở đâu?', o:['Tuyến 2 ở Tây Trực Môn sang tuyến 4','Tuyến 4 sang tuyến 1','Không phải đổi','Ở bến cuối'], c:0, e:'坐二号线，然后在西直门换四号线.' },
+    { q:'Kết luận của người viết?', o:['Tàu điện ngầm quá phức tạp','Xem hiểu bản đồ không hề khó','Nên đi taxi hơn','Lần sau sẽ đi bộ'], c:1, e:'原来看懂地图并不难.' }
   ],
-  after:'Viết 8 câu bàn về một tiện ích mới ở Việt Nam, dùng 确实 · 限制 · 秩序 · 启发.' }
+  after:'Viết 5 câu chỉ đường cho bạn đi từ nhà bạn tới trường, dùng 先 · 然后 · 换.' }
 
   );
 })();
