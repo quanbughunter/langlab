@@ -658,7 +658,813 @@
     { q:'Bao nhiêu tiền được để dành?', o:['Toàn bộ','Một nửa số còn lại','Một phần ba','Không để dành'], c:1, e:'남은 돈의 절반은 통장에 넣었습니다.' },
     { q:'Người viết nhận ra điều gì?', o:['Lương quá thấp','Tiêu thì dễ, dành dụm thì khó','Không nên làm thêm','Nên đổi việc'], c:1, e:'쓰기는 쉽지만 모으기는 어렵다…' }
   ],
-  after:'Viết 6 câu về kế hoạch chi tiêu của bạn, dùng -기는 쉽지만 -기는 어렵다.' }
+  after:'Viết 6 câu về kế hoạch chi tiêu của bạn, dùng -기는 쉽지만 -기는 어렵다.' },
+
+{ lang:'ko', lv:'so-cap-1', mins:3, cat:'Giao thông', title:'지하철에서', vi:'Trên tàu điện ngầm',
+  intro:'Sơ cấp 1. Chùm từ trọng tâm: đi tàu, đổi tuyến, nhường ghế.',
+  text:[
+    '저는 매일 지하철로 학교에 갑니다. 이 호선에서 저 호선으로 한 번 갈아탑니다.',
+    '아침에는 사람이 아주 많습니다. 자리가 없어서 보통 서서 갑니다.',
+    '오늘은 할머니 한 분이 타셨습니다. 그래서 저는 자리를 양보했습니다.',
+    '할머니께서 “고마워요, 학생”이라고 말씀하셨습니다. 저는 하루 종일 기분이 좋았습니다.'
+  ],
+  tr:[
+    'Tôi đi tàu điện ngầm đến trường mỗi ngày. Tôi đổi từ tuyến số 2 sang tuyến số 4 một lần.',
+    'Buổi sáng người rất đông. Vì không có chỗ nên tôi thường đứng.',
+    'Hôm nay có một bà cụ lên tàu. Vì vậy tôi đã nhường chỗ.',
+    'Bà cụ nói: “Cảm ơn cháu nhé.” Cả ngày hôm đó tôi thấy vui.'
+  ],
+  keys:[
+    { w:'지하철', r:'jihacheol', vi:'tàu điện ngầm' },
+    { w:'호선', r:'hoseon', vi:'tuyến (số)' },
+    { w:'갈아타다', r:'garatada', vi:'đổi tuyến' },
+    { w:'자리', r:'jari', vi:'chỗ ngồi' },
+    { w:'서서 가다', r:'seoseo gada', vi:'đứng mà đi' },
+    { w:'양보하다', r:'yangbohada', vi:'nhường' },
+    { w:'-(으)셨습니다', r:'-(eu)syeotseumnida', vi:'đuôi kính ngữ quá khứ', note:'타셨습니다 — cụ ấy đã lên' },
+    { w:'하루 종일', r:'haru jongil', vi:'cả ngày' }
+  ],
+  qs:[
+    { q:'Người viết đổi tuyến mấy lần?', o:['Không lần nào','Một lần','Hai lần','Ba lần'], c:1, e:'한 번 갈아탑니다.' },
+    { q:'Buổi sáng người viết thường làm gì trên tàu?', o:['Ngồi đọc sách','Đứng vì hết chỗ','Ngủ','Nghe nhạc'], c:1, e:'자리가 없어서 보통 서서 갑니다.' },
+    { q:'Hôm nay có chuyện gì?', o:['Trễ tàu','Nhường chỗ cho một bà cụ','Mất thẻ','Đi nhầm tuyến'], c:1, e:'저는 자리를 양보했습니다.' }
+  ],
+  after:'Viết 5 câu về đường đi làm/đi học của bạn, dùng -(으)로 · -아서/어서 · 보통.' },
+
+{ lang:'ko', lv:'so-cap-1', mins:3, cat:'Ẩm thực', title:'식당에서 주문하기', vi:'Gọi món ở quán ăn',
+  intro:'Sơ cấp 1. Chùm từ trọng tâm: gọi món, cay, thêm cơm.',
+  text:[
+    '친구와 저는 점심에 한식당에 갔습니다. 메뉴가 아주 많았습니다.',
+    '저는 비빔밥을, 친구는 김치찌개를 주문했습니다.',
+    '저는 매운 음식을 잘 못 먹습니다. 그래서 “조금만 맵게 해 주세요”라고 부탁했습니다.',
+    '밥이 부족해서 한 공기 더 시켰습니다. 반찬은 공짜라서 정말 좋았습니다.'
+  ],
+  tr:[
+    'Bạn tôi và tôi đi quán ăn Hàn vào buổi trưa. Thực đơn rất nhiều món.',
+    'Tôi gọi bibimbap, bạn tôi gọi canh kimchi.',
+    'Tôi không ăn cay giỏi. Nên tôi nhờ: “Cho tôi ít cay thôi ạ.”',
+    'Vì cơm không đủ nên tôi gọi thêm một bát. Món phụ thì miễn phí nên thật là thích.'
+  ],
+  keys:[
+    { w:'주문하다', r:'jumunhada', vi:'gọi món, đặt' },
+    { w:'메뉴', r:'menyu', vi:'thực đơn' },
+    { w:'맵다', r:'maepda', vi:'cay' },
+    { w:'잘 못 -', r:'jal mot', vi:'không… giỏi' },
+    { w:'-아/어 주세요', r:'-a/eo juseyo', vi:'làm ơn… giúp', note:'맵게 해 주세요 — làm cay giúp tôi' },
+    { w:'공기', r:'gonggi', vi:'bát (cơm)' },
+    { w:'반찬', r:'banchan', vi:'món phụ' },
+    { w:'공짜', r:'gongjja', vi:'miễn phí' }
+  ],
+  qs:[
+    { q:'Người viết gọi món gì?', o:['Canh kimchi','Bibimbap','Mì lạnh','Gà rán'], c:1, e:'저는 비빔밥을… 주문했습니다.' },
+    { q:'Người viết nhờ gì?', o:['Cho thêm cay','Làm ít cay thôi','Không cho hành','Mang nhanh lên'], c:1, e:'조금만 맵게 해 주세요.' },
+    { q:'Món phụ thì sao?', o:['Tính thêm tiền','Miễn phí','Không có','Phải chọn trước'], c:1, e:'반찬은 공짜라서 정말 좋았습니다.' }
+  ],
+  after:'Viết 5 câu gọi món ở quán, dùng -을/를 주문하다 · -아/어 주세요 · 더.' },
+
+{ lang:'ko', lv:'so-cap-1', mins:3, cat:'Đời sống', title:'우리 집 고양이', vi:'Con mèo nhà tôi',
+  intro:'Sơ cấp 1. Chùm từ trọng tâm: thú cưng, thói quen, tính cách.',
+  text:[
+    '우리 집에는 고양이가 한 마리 있습니다. 이름은 “구름”입니다.',
+    '털이 하얗고 눈이 큽니다. 낮에는 거의 잠만 잡니다.',
+    '제가 집에 오면 문 앞에 나옵니다. 하지만 안아 주면 곧 도망갑니다.',
+    '구름은 조용하지만 외로울 때 옆에 앉아 있습니다. 저는 구름이 정말 좋습니다.'
+  ],
+  tr:[
+    'Nhà tôi có một con mèo. Tên nó là “Gureum” (Mây).',
+    'Lông trắng và mắt to. Ban ngày hầu như chỉ ngủ.',
+    'Khi tôi về nhà, nó ra trước cửa. Nhưng bế lên thì nó chạy mất ngay.',
+    'Gureum im lặng, nhưng lúc tôi cô đơn thì nó ngồi bên cạnh. Tôi rất quý Gureum.'
+  ],
+  keys:[
+    { w:'마리', r:'mari', vi:'con (đếm động vật)' },
+    { w:'털', r:'teol', vi:'lông' },
+    { w:'하얗다', r:'hayata', vi:'trắng' },
+    { w:'거의', r:'geoui', vi:'hầu như' },
+    { w:'안다', r:'anda', vi:'ôm, bế' },
+    { w:'도망가다', r:'domangada', vi:'chạy trốn' },
+    { w:'외롭다', r:'oeropda', vi:'cô đơn' },
+    { w:'-(으)면', r:'-(eu)myeon', vi:'nếu, khi', note:'집에 오면 — khi về nhà' }
+  ],
+  qs:[
+    { q:'Con mèo tên gì?', o:['Haneul','Gureum','Nunmul','Byeol'], c:1, e:'이름은 “구름”입니다.' },
+    { q:'Ban ngày nó làm gì?', o:['Chạy nhảy','Hầu như chỉ ngủ','Ăn suốt','Kêu nhiều'], c:1, e:'낮에는 거의 잠만 잡니다.' },
+    { q:'Khi được bế thì sao?', o:['Nằm yên','Chạy mất ngay','Kêu to','Ngủ luôn'], c:1, e:'안아 주면 곧 도망갑니다.' }
+  ],
+  after:'Tả một con vật bạn thích bằng 5 câu, dùng -고 · 거의 · -(으)면.' },
+
+{ lang:'ko', lv:'so-cap-1', mins:3, cat:'Sức khoẻ', title:'아침 운동', vi:'Tập thể dục buổi sáng',
+  intro:'Sơ cấp 1. Chùm từ trọng tâm: thói quen buổi sáng, công viên, cảm giác.',
+  text:[
+    '저는 요즘 아침마다 공원에서 운동을 합니다. 여섯 시 반에 일어납니다.',
+    '처음에는 너무 힘들었습니다. 십 분만 뛰어도 숨이 찼습니다.',
+    '지금은 삼십 분 정도 뛸 수 있습니다. 몸이 가벼워졌습니다.',
+    '공원에는 할아버지들도 많이 나오십니다. 매일 인사를 하니까 이제 친해졌습니다.'
+  ],
+  tr:[
+    'Dạo này sáng nào tôi cũng tập thể dục ở công viên. Tôi dậy lúc sáu giờ rưỡi.',
+    'Lúc đầu rất mệt. Chạy mười phút thôi cũng đã hụt hơi.',
+    'Bây giờ tôi chạy được khoảng ba mươi phút. Người nhẹ hẳn đi.',
+    'Ở công viên cũng có nhiều cụ ông ra tập. Vì ngày nào cũng chào nhau nên giờ đã thân.'
+  ],
+  keys:[
+    { w:'-마다', r:'-mada', vi:'mỗi', note:'아침마다 — sáng nào cũng' },
+    { w:'힘들다', r:'himdeulda', vi:'mệt, vất vả' },
+    { w:'숨이 차다', r:'sumi chada', vi:'hụt hơi' },
+    { w:'-(으)ㄹ 수 있다', r:'-(eu)l su itda', vi:'có thể' },
+    { w:'가볍다', r:'gabyeopda', vi:'nhẹ' },
+    { w:'-아/어지다', r:'-a/eojida', vi:'trở nên', note:'가벼워졌습니다 — đã nhẹ đi' },
+    { w:'인사하다', r:'insahada', vi:'chào hỏi' },
+    { w:'친해지다', r:'chinhaejida', vi:'trở nên thân' }
+  ],
+  qs:[
+    { q:'Người viết dậy lúc mấy giờ?', o:['5h','6h','6h30','7h'], c:2, e:'여섯 시 반에 일어납니다.' },
+    { q:'Lúc đầu chạy bao lâu đã hụt hơi?', o:['5 phút','10 phút','20 phút','30 phút'], c:1, e:'십 분만 뛰어도 숨이 찼습니다.' },
+    { q:'Vì sao thân với các cụ ông?', o:['Cùng câu lạc bộ','Vì ngày nào cũng chào nhau','Là hàng xóm','Cùng chạy nhóm'], c:1, e:'매일 인사를 하니까 이제 친해졌습니다.' }
+  ],
+  after:'Viết 5 câu về thói quen buổi sáng, dùng -마다 · -(으)ㄹ 수 있다 · -아/어지다.' },
+
+{ lang:'ko', lv:'so-cap-1', mins:3, cat:'Mua sắm', title:'옷 가게에서', vi:'Ở cửa hàng quần áo',
+  intro:'Sơ cấp 1. Chùm từ trọng tâm: thử đồ, cỡ, màu sắc, đổi hàng.',
+  text:[
+    '주말에 친구와 옷 가게에 갔습니다. 파란색 셔츠가 마음에 들었습니다.',
+    '“입어 봐도 돼요?”라고 물어보고 탈의실에 들어갔습니다.',
+    '조금 작아서 한 사이즈 큰 것을 부탁했습니다. 그게 딱 맞았습니다.',
+    '값은 삼만 오천 원이었습니다. 조금 비쌌지만 오래 입을 수 있을 것 같습니다.'
+  ],
+  tr:[
+    'Cuối tuần tôi đi cửa hàng quần áo với bạn. Tôi thích cái áo sơ mi màu xanh.',
+    'Tôi hỏi “Tôi mặc thử được không ạ?” rồi vào phòng thử đồ.',
+    'Hơi chật nên tôi xin cỡ to hơn một số. Cái đó thì vừa in.',
+    'Giá là ba mươi lăm nghìn won. Hơi đắt nhưng chắc mặc được lâu.'
+  ],
+  keys:[
+    { w:'마음에 들다', r:'maeume deulda', vi:'vừa ý, ưng' },
+    { w:'입어 보다', r:'ibeo boda', vi:'mặc thử' },
+    { w:'-아/어도 되다', r:'-a/eodo doeda', vi:'được phép' },
+    { w:'탈의실', r:'taruisil', vi:'phòng thử đồ' },
+    { w:'사이즈', r:'saijeu', vi:'cỡ' },
+    { w:'딱 맞다', r:'ttak matda', vi:'vừa in' },
+    { w:'값', r:'gap', vi:'giá' },
+    { w:'-(으)ㄹ 것 같다', r:'-(eu)l geot gatda', vi:'chắc là, có vẻ' }
+  ],
+  qs:[
+    { q:'Người viết thích món gì?', o:['Quần jean','Áo sơ mi xanh','Áo khoác','Váy'], c:1, e:'파란색 셔츠가 마음에 들었습니다.' },
+    { q:'Vấn đề với cái đầu tiên?', o:['Màu xấu','Hơi chật','Bị bẩn','Quá đắt'], c:1, e:'조금 작아서 한 사이즈 큰 것을 부탁했습니다.' },
+    { q:'Giá bao nhiêu?', o:['25.000 won','35.000 won','45.000 won','55.000 won'], c:1, e:'삼만 오천 원이었습니다.' }
+  ],
+  after:'Viết 5 câu mua quần áo, dùng 마음에 들다 · -아/어 보다 · -(으)ㄹ 것 같다.' },
+
+{ lang:'ko', lv:'so-cap-1', mins:3, cat:'Đời sống', title:'방 청소', vi:'Dọn phòng',
+  intro:'Sơ cấp 1. Chùm từ trọng tâm: việc nhà, thứ tự công việc, cảm giác sau khi xong.',
+  text:[
+    '한 달 동안 방을 청소하지 않았습니다. 그래서 오늘 아침에 시작했습니다.',
+    '먼저 옷을 정리하고, 그 다음에 책상을 닦았습니다.',
+    '침대 밑에서 잃어버린 열쇠를 찾았습니다. 정말 놀랐습니다.',
+    '세 시간 걸렸지만 방이 아주 깨끗해졌습니다. 마음도 가벼워졌습니다.'
+  ],
+  tr:[
+    'Suốt một tháng tôi không dọn phòng. Nên sáng nay tôi bắt tay vào làm.',
+    'Đầu tiên tôi xếp quần áo, sau đó lau bàn học.',
+    'Dưới gầm giường tôi tìm thấy cái chìa khoá bị mất. Tôi thật sự giật mình.',
+    'Mất ba tiếng nhưng phòng sạch hẳn ra. Lòng cũng nhẹ đi.'
+  ],
+  keys:[
+    { w:'청소하다', r:'cheongsohada', vi:'dọn dẹp' },
+    { w:'먼저', r:'meonjeo', vi:'trước tiên' },
+    { w:'정리하다', r:'jeongnihada', vi:'sắp xếp' },
+    { w:'그 다음에', r:'geu daeume', vi:'sau đó' },
+    { w:'닦다', r:'dakda', vi:'lau' },
+    { w:'밑', r:'mit', vi:'phía dưới' },
+    { w:'잃어버리다', r:'ireobeorida', vi:'đánh mất' },
+    { w:'깨끗해지다', r:'kkaekkeutaejida', vi:'trở nên sạch' }
+  ],
+  qs:[
+    { q:'Bao lâu rồi chưa dọn phòng?', o:['Một tuần','Một tháng','Hai tháng','Nửa năm'], c:1, e:'한 달 동안 방을 청소하지 않았습니다.' },
+    { q:'Tìm thấy gì dưới gầm giường?', o:['Ví','Chìa khoá đã mất','Điện thoại','Sách'], c:1, e:'침대 밑에서 잃어버린 열쇠를 찾았습니다.' },
+    { q:'Mất bao lâu?', o:['Một tiếng','Hai tiếng','Ba tiếng','Cả ngày'], c:2, e:'세 시간 걸렸지만…' }
+  ],
+  after:'Viết 5 câu về việc nhà bạn làm, dùng 먼저 · 그 다음에 · -아/어지다.' },
+
+{ lang:'ko', lv:'so-cap-1', mins:3, cat:'Đời sống', title:'우체국에서', vi:'Ở bưu điện',
+  intro:'Sơ cấp 1. Chùm từ trọng tâm: gửi thư, cân, phí, thời gian.',
+  text:[
+    '고향에 있는 동생에게 소포를 보내려고 우체국에 갔습니다.',
+    '직원이 상자를 저울에 올렸습니다. 이 킬로그램이었습니다.',
+    '“베트남까지 얼마나 걸려요?”라고 물었더니 “보통 십 일쯤 걸립니다”라고 했습니다.',
+    '값은 삼만 원이었습니다. 동생이 상자를 열 때의 얼굴이 벌써 보이는 것 같습니다.'
+  ],
+  tr:[
+    'Tôi đến bưu điện để gửi bưu kiện cho em trai đang ở quê.',
+    'Nhân viên đặt cái hộp lên cân. Được hai ki-lô-gam.',
+    'Tôi hỏi “Gửi về Việt Nam mất bao lâu ạ?” thì được trả lời “Thường mất khoảng mười ngày.”',
+    'Giá là ba mươi nghìn won. Tôi như đã thấy trước gương mặt em tôi lúc mở hộp.'
+  ],
+  keys:[
+    { w:'우체국', r:'ucheguk', vi:'bưu điện' },
+    { w:'소포', r:'sopo', vi:'bưu kiện' },
+    { w:'-(으)려고', r:'-(eu)ryeogo', vi:'để mà (mục đích)' },
+    { w:'저울', r:'jeoul', vi:'cân' },
+    { w:'걸리다', r:'geollida', vi:'mất (thời gian)' },
+    { w:'-았/었더니', r:'-at/eotdeoni', vi:'khi tôi… thì' },
+    { w:'쯤', r:'jjeum', vi:'khoảng' },
+    { w:'벌써', r:'beolsseo', vi:'đã, sớm rồi' }
+  ],
+  qs:[
+    { q:'Người viết gửi gì?', o:['Một lá thư','Một bưu kiện','Tiền','Hoa'], c:1, e:'소포를 보내려고…' },
+    { q:'Hộp nặng bao nhiêu?', o:['1 kg','2 kg','3 kg','5 kg'], c:1, e:'이 킬로그램이었습니다.' },
+    { q:'Gửi về Việt Nam mất bao lâu?', o:['3 ngày','5 ngày','10 ngày','1 tháng'], c:2, e:'보통 십 일쯤 걸립니다.' }
+  ],
+  after:'Viết 5 câu gửi đồ về quê, dùng -(으)려고 · 걸리다 · 쯤.' },
+
+{ lang:'ko', lv:'so-cap-1', mins:3, cat:'Học tập', title:'한국어 수업 첫날', vi:'Ngày đầu lớp tiếng Hàn',
+  intro:'Sơ cấp 1. Chùm từ trọng tâm: lớp học, tự giới thiệu, bạn cùng lớp.',
+  text:[
+    '오늘은 한국어 수업 첫날이었습니다. 저는 조금 긴장했습니다.',
+    '선생님께서 “이름이 뭐예요?”라고 물으셨습니다. 저는 “저는 흐엔입니다”라고 대답했습니다.',
+    '교실에는 여덟 명이 있었습니다. 중국, 일본, 몽골에서 온 친구들입니다.',
+    '수업이 끝난 후에 같이 커피를 마셨습니다. 한국어로만 이야기했는데 재미있었습니다.'
+  ],
+  tr:[
+    'Hôm nay là ngày đầu tiên của lớp tiếng Hàn. Tôi hơi hồi hộp.',
+    'Cô giáo hỏi: “Em tên gì?” Tôi trả lời: “Em là Huyền ạ.”',
+    'Trong lớp có tám người. Là các bạn đến từ Trung Quốc, Nhật Bản, Mông Cổ.',
+    'Sau khi tan lớp chúng tôi cùng đi uống cà phê. Chỉ nói bằng tiếng Hàn thôi mà vui lắm.'
+  ],
+  keys:[
+    { w:'첫날', r:'cheonnal', vi:'ngày đầu tiên' },
+    { w:'긴장하다', r:'ginjanghada', vi:'hồi hộp' },
+    { w:'-께서', r:'-kkeseo', vi:'trợ từ chủ ngữ kính ngữ' },
+    { w:'대답하다', r:'daedaphada', vi:'trả lời' },
+    { w:'교실', r:'gyosil', vi:'lớp học' },
+    { w:'-에서 오다', r:'-eseo oda', vi:'đến từ' },
+    { w:'-(으)ㄴ 후에', r:'-(eu)n hue', vi:'sau khi' },
+    { w:'-(으)로만', r:'-(eu)roman', vi:'chỉ bằng' }
+  ],
+  qs:[
+    { q:'Trong lớp có bao nhiêu người?', o:['Sáu','Bảy','Tám','Mười'], c:2, e:'교실에는 여덟 명이 있었습니다.' },
+    { q:'Các bạn đến từ đâu?', o:['Trung Quốc, Nhật Bản, Mông Cổ','Mỹ, Anh, Pháp','Thái, Lào, Campuchia','Nga, Đức, Ý'], c:0, e:'중국, 일본, 몽골에서 온 친구들입니다.' },
+    { q:'Sau giờ học họ làm gì?', o:['Về nhà ngay','Cùng uống cà phê','Đi thư viện','Làm bài tập'], c:1, e:'수업이 끝난 후에 같이 커피를 마셨습니다.' }
+  ],
+  after:'Viết 5 câu tự giới thiệu, dùng 저는 …입니다 · -에서 오다 · -(으)ㄴ 후에.' },
+
+{ lang:'ko', lv:'so-cap-1', mins:3, cat:'Đời sống', title:'비 오는 날', vi:'Ngày trời mưa',
+  intro:'Sơ cấp 1. Chùm từ trọng tâm: thời tiết, ô, muộn giờ.',
+  text:[
+    '오늘 아침에 비가 많이 왔습니다. 저는 우산이 없었습니다.',
+    '그래서 버스 정류장까지 뛰어갔습니다. 옷이 다 젖었습니다.',
+    '회사에 십 분 늦게 도착했습니다. 부장님께서 웃으면서 “괜찮아요”라고 하셨습니다.',
+    '점심시간에 편의점에서 우산을 하나 샀습니다. 이제 가방에 항상 넣어 둡니다.'
+  ],
+  tr:[
+    'Sáng nay mưa rất to. Tôi thì không có ô.',
+    'Nên tôi chạy đến bến xe buýt. Quần áo ướt hết.',
+    'Tôi đến công ty muộn mười phút. Trưởng phòng cười bảo: “Không sao đâu.”',
+    'Giờ nghỉ trưa tôi mua một cái ô ở cửa hàng tiện lợi. Giờ thì lúc nào cũng để sẵn trong cặp.'
+  ],
+  keys:[
+    { w:'비가 오다', r:'biga oda', vi:'trời mưa' },
+    { w:'우산', r:'usan', vi:'ô, dù' },
+    { w:'뛰어가다', r:'ttwieogada', vi:'chạy đến' },
+    { w:'젖다', r:'jeotda', vi:'ướt' },
+    { w:'늦게', r:'neutge', vi:'muộn' },
+    { w:'도착하다', r:'dochakada', vi:'đến nơi' },
+    { w:'부장님', r:'bujangnim', vi:'trưởng phòng' },
+    { w:'-아/어 두다', r:'-a/eo duda', vi:'để sẵn', note:'넣어 둡니다 — để sẵn vào' }
+  ],
+  qs:[
+    { q:'Vì sao quần áo ướt?', o:['Làm đổ nước','Không có ô, chạy dưới mưa','Rơi xuống nước','Giặt chưa khô'], c:1, e:'우산이 없었습니다… 옷이 다 젖었습니다.' },
+    { q:'Đến công ty muộn bao lâu?', o:['5 phút','10 phút','20 phút','30 phút'], c:1, e:'회사에 십 분 늦게 도착했습니다.' },
+    { q:'Bây giờ người viết làm gì?', o:['Đi taxi','Luôn để ô sẵn trong cặp','Dậy sớm hơn','Xem dự báo'], c:1, e:'이제 가방에 항상 넣어 둡니다.' }
+  ],
+  after:'Viết 5 câu về một ngày mưa, dùng -아/어서 · 늦게 · -아/어 두다.' },
+
+{ lang:'ko', lv:'so-cap-2', mins:4, cat:'Đời sống', title:'미용실에서', vi:'Ở tiệm cắt tóc',
+  intro:'Sơ cấp 2. Chùm từ trọng tâm: cắt tóc, yêu cầu cụ thể, hiểu lầm nhỏ.',
+  text:[
+    '한국에 온 지 반년이 됐는데 아직 미용실에 간 적이 없었습니다.',
+    '오늘 용기를 내서 집 근처 미용실에 갔습니다. 미용사가 “어떻게 해 드릴까요?”라고 물었습니다.',
+    '저는 “조금만 잘라 주세요”라고 했는데, 생각보다 많이 짧아졌습니다.',
+    '거울을 보고 조금 놀랐지만, 친구들은 오히려 잘 어울린다고 했습니다. 다음에는 사진을 보여 줘야겠습니다.'
+  ],
+  tr:[
+    'Tôi sang Hàn Quốc được nửa năm rồi mà chưa bao giờ đi tiệm cắt tóc.',
+    'Hôm nay tôi lấy hết can đảm đến tiệm gần nhà. Thợ hỏi: “Anh muốn cắt thế nào ạ?”',
+    'Tôi bảo “Cắt ngắn một chút thôi ạ”, thế mà nó ngắn hơn tôi tưởng nhiều.',
+    'Nhìn gương tôi hơi hoảng, nhưng bạn bè lại bảo là hợp. Lần sau chắc phải cho xem ảnh.'
+  ],
+  keys:[
+    { w:'-(으)ㄴ 지 …이/가 되다', r:'-(eu)n ji … i/ga doeda', vi:'đã được bao lâu kể từ khi' },
+    { w:'-(으)ㄴ 적이 없다', r:'-(eu)n jeogi eopda', vi:'chưa từng' },
+    { w:'용기를 내다', r:'yonggireul naeda', vi:'lấy can đảm' },
+    { w:'미용사', r:'miyongsa', vi:'thợ làm tóc' },
+    { w:'자르다', r:'jareuda', vi:'cắt' },
+    { w:'생각보다', r:'saenggakboda', vi:'hơn tưởng tượng' },
+    { w:'오히려', r:'ohiryeo', vi:'ngược lại' },
+    { w:'어울리다', r:'eoullida', vi:'hợp, phù hợp' }
+  ],
+  qs:[
+    { q:'Người viết sang Hàn bao lâu rồi?', o:['Ba tháng','Nửa năm','Một năm','Hai năm'], c:1, e:'한국에 온 지 반년이 됐는데…' },
+    { q:'Kết quả cắt tóc thế nào?', o:['Đúng như mong muốn','Ngắn hơn tưởng nhiều','Bị hỏng hẳn','Không cắt được'], c:1, e:'생각보다 많이 짧아졌습니다.' },
+    { q:'Bạn bè nói gì?', o:['Xấu quá','Ngược lại, bảo là hợp','Không nhận ra','Nên nuôi dài'], c:1, e:'친구들은 오히려 잘 어울린다고 했습니다.' }
+  ],
+  after:'Viết 6 câu về một lần đi cắt tóc, dùng -(으)ㄴ 적이 없다 · 생각보다 · 오히려.' },
+
+{ lang:'ko', lv:'so-cap-2', mins:4, cat:'Đời sống', title:'휴대폰을 바꿨어요', vi:'Tôi đổi điện thoại',
+  intro:'Sơ cấp 2. Chùm từ trọng tâm: mua điện thoại, hợp đồng, so sánh giá.',
+  text:[
+    '삼 년 쓴 휴대폰이 자꾸 꺼져서 새것으로 바꾸기로 했습니다.',
+    '매장 세 군데를 돌아다니면서 가격을 비교했습니다. 같은 모델인데 가격이 달랐습니다.',
+    '직원이 “요금제를 바꾸시면 더 싸집니다”라고 설명해 줬습니다.',
+    '결국 할부로 샀습니다. 매달 조금씩 내니까 부담이 크지 않습니다.'
+  ],
+  tr:[
+    'Cái điện thoại dùng ba năm cứ tự tắt nên tôi quyết định đổi máy mới.',
+    'Tôi đi ba cửa hàng để so giá. Cùng một mẫu mà giá lại khác nhau.',
+    'Nhân viên giải thích: “Nếu anh đổi gói cước thì sẽ rẻ hơn.”',
+    'Cuối cùng tôi mua trả góp. Mỗi tháng trả một ít nên không nặng gánh lắm.'
+  ],
+  keys:[
+    { w:'자꾸', r:'jakku', vi:'cứ, liên tục' },
+    { w:'꺼지다', r:'kkeojida', vi:'tắt (máy)' },
+    { w:'-기로 하다', r:'-giro hada', vi:'quyết định làm' },
+    { w:'매장', r:'maejang', vi:'cửa hàng' },
+    { w:'비교하다', r:'bigyohada', vi:'so sánh' },
+    { w:'요금제', r:'yogeumje', vi:'gói cước' },
+    { w:'할부', r:'halbu', vi:'trả góp' },
+    { w:'부담', r:'budam', vi:'gánh nặng' }
+  ],
+  qs:[
+    { q:'Vì sao phải đổi máy?', o:['Máy vỡ','Máy cứ tự tắt','Mất máy','Muốn mẫu mới'], c:1, e:'자꾸 꺼져서 새것으로 바꾸기로 했습니다.' },
+    { q:'Người viết đi mấy cửa hàng?', o:['Một','Hai','Ba','Bốn'], c:2, e:'매장 세 군데를 돌아다니면서…' },
+    { q:'Cuối cùng mua thế nào?', o:['Trả một lần','Trả góp','Mua cũ','Vay bạn'], c:1, e:'결국 할부로 샀습니다.' }
+  ],
+  after:'Viết 6 câu về một lần mua đồ điện tử, dùng -기로 하다 · 비교하다 · 결국.' },
+
+{ lang:'ko', lv:'so-cap-2', mins:4, cat:'Văn hoá', title:'집들이에 초대받았어요', vi:'Được mời tân gia',
+  intro:'Sơ cấp 2. Chùm từ trọng tâm: tân gia, quà tặng, phép lịch sự khi đến nhà.',
+  text:[
+    '한국 친구가 이사를 해서 집들이에 저를 초대했습니다.',
+    '한국에서는 집들이에 휴지나 세제를 선물합니다. 잘 풀리고 깨끗하라는 뜻이라고 합니다.',
+    '저는 휴지 한 묶음을 사 갔습니다. 친구가 웃으면서 “한국 사람 다 됐네”라고 했습니다.',
+    '그날 우리는 늦게까지 이야기했습니다. 남의 나라에서도 집 같은 곳이 생겼습니다.'
+  ],
+  tr:[
+    'Bạn người Hàn của tôi chuyển nhà nên mời tôi đến mừng tân gia.',
+    'Ở Hàn Quốc, người ta tặng giấy vệ sinh hoặc bột giặt khi mừng tân gia. Nghe nói mang ý nghĩa mọi việc trôi chảy và sạch sẽ.',
+    'Tôi mua một lốc giấy mang đi. Bạn tôi cười bảo: “Thành người Hàn hẳn rồi đấy.”',
+    'Hôm đó chúng tôi nói chuyện đến khuya. Ở xứ người mà tôi cũng có một nơi giống như nhà.'
+  ],
+  keys:[
+    { w:'집들이', r:'jipdeuri', vi:'tiệc tân gia' },
+    { w:'초대하다', r:'chodaehada', vi:'mời' },
+    { w:'휴지', r:'hyuji', vi:'giấy vệ sinh' },
+    { w:'세제', r:'seje', vi:'bột giặt' },
+    { w:'풀리다', r:'pullida', vi:'được gỡ ra, trôi chảy' },
+    { w:'-(으)라는 뜻', r:'-(eu)raneun tteut', vi:'mang ý nghĩa là hãy…' },
+    { w:'묶음', r:'mukkeum', vi:'lốc, bó' },
+    { w:'남의 나라', r:'namui nara', vi:'xứ người' }
+  ],
+  qs:[
+    { q:'Ở Hàn thường tặng gì khi tân gia?', o:['Hoa và rượu','Giấy vệ sinh hoặc bột giặt','Tiền mặt','Tranh treo tường'], c:1, e:'집들이에 휴지나 세제를 선물합니다.' },
+    { q:'Ý nghĩa của món quà đó?', o:['Giàu sang','Mọi việc trôi chảy và sạch sẽ','Sống lâu','Đông con'], c:1, e:'잘 풀리고 깨끗하라는 뜻…' },
+    { q:'Bạn người Hàn nói gì?', o:['Không cần quà','“Thành người Hàn hẳn rồi”','Quà sai rồi','Đắt quá'], c:1, e:'“한국 사람 다 됐네”라고 했습니다.' }
+  ],
+  after:'Viết 6 câu về phong tục tặng quà ở Việt Nam, dùng -(으)ㄴ다고 하다 và -(으)라는 뜻.' },
+
+{ lang:'ko', lv:'so-cap-2', mins:4, cat:'Thể thao', title:'주말 등산', vi:'Leo núi cuối tuần',
+  intro:'Sơ cấp 2. Chùm từ trọng tâm: leo núi, chuẩn bị, kimbap trên đỉnh núi.',
+  text:[
+    '한국 사람들은 등산을 정말 좋아합니다. 주말마다 산에 사람이 가득합니다.',
+    '지난 토요일에 저도 동료들과 북한산에 갔습니다. 새벽 여섯 시에 만났습니다.',
+    '처음 한 시간은 괜찮았는데 그 다음부터 다리가 떨렸습니다.',
+    '정상에서 먹은 김밥은 지금까지 먹은 김밥 중에서 제일 맛있었습니다. 힘들어야 맛있다는 말이 맞는 것 같습니다.'
+  ],
+  tr:[
+    'Người Hàn Quốc rất thích leo núi. Cuối tuần nào trên núi cũng đầy người.',
+    'Thứ Bảy vừa rồi tôi cũng đi núi Bukhan với các đồng nghiệp. Chúng tôi hẹn nhau lúc sáu giờ sáng.',
+    'Một tiếng đầu thì ổn, từ sau đó chân tôi run lẩy bẩy.',
+    'Món kimbap ăn trên đỉnh núi là kimbap ngon nhất tôi từng ăn. Câu “phải vất vả mới ngon” xem ra là đúng.'
+  ],
+  keys:[
+    { w:'등산', r:'deungsan', vi:'leo núi' },
+    { w:'가득하다', r:'gadeukada', vi:'đầy' },
+    { w:'동료', r:'dongnyo', vi:'đồng nghiệp' },
+    { w:'새벽', r:'saebyeok', vi:'rạng sáng' },
+    { w:'떨리다', r:'tteollida', vi:'run' },
+    { w:'정상', r:'jeongsang', vi:'đỉnh núi' },
+    { w:'-(으)ㄴ 것 중에서', r:'-(eu)n geot jungeseo', vi:'trong số những cái đã…' },
+    { w:'-아/어야', r:'-a/eoya', vi:'phải… thì mới' }
+  ],
+  qs:[
+    { q:'Họ hẹn nhau lúc mấy giờ?', o:['5h','6h','7h','8h'], c:1, e:'새벽 여섯 시에 만났습니다.' },
+    { q:'Sau một tiếng thì thế nào?', o:['Vẫn khoẻ','Chân run lẩy bẩy','Bỏ cuộc','Lên tới đỉnh'], c:1, e:'그 다음부터 다리가 떨렸습니다.' },
+    { q:'Kimbap trên đỉnh thế nào?', o:['Bình thường','Ngon nhất từng ăn','Bị nguội','Không ăn nổi'], c:1, e:'지금까지 먹은 김밥 중에서 제일 맛있었습니다.' }
+  ],
+  after:'Kể một lần bạn leo núi hoặc đi bộ đường dài, dùng -마다 · -아/어야 · 제일.' },
+
+{ lang:'ko', lv:'so-cap-2', mins:4, cat:'Sức khoẻ', title:'감기에 걸렸어요', vi:'Tôi bị cảm',
+  intro:'Sơ cấp 2. Chùm từ trọng tâm: bị cảm, nghỉ ngơi, lời khuyên của bạn.',
+  text:[
+    '어제부터 목이 아프고 콧물이 났습니다. 감기에 걸린 것 같습니다.',
+    '약국에서 약을 사 먹었지만 밤에 열이 났습니다.',
+    '룸메이트가 따뜻한 죽을 끓여 줬습니다. “푹 쉬어야 빨리 나아”라고 했습니다.',
+    '이틀 쉬고 나니까 많이 좋아졌습니다. 아플 때 옆에 누가 있다는 것이 큰 힘이 됩니다.'
+  ],
+  tr:[
+    'Từ hôm qua tôi bị đau họng và chảy nước mũi. Hình như tôi bị cảm.',
+    'Tôi mua thuốc ở hiệu thuốc uống nhưng đêm lại sốt.',
+    'Bạn cùng phòng nấu cho tôi bát cháo nóng. Bạn ấy bảo: “Phải nghỉ cho đã thì mới nhanh khỏi.”',
+    'Nghỉ hai ngày thì đỡ hẳn. Lúc ốm mà có người bên cạnh thì thật là một chỗ dựa lớn.'
+  ],
+  keys:[
+    { w:'감기에 걸리다', r:'gamgie geollida', vi:'bị cảm' },
+    { w:'콧물이 나다', r:'konmuri nada', vi:'chảy nước mũi' },
+    { w:'약국', r:'yakguk', vi:'hiệu thuốc' },
+    { w:'열이 나다', r:'yeori nada', vi:'bị sốt' },
+    { w:'끓이다', r:'kkeurida', vi:'nấu, đun' },
+    { w:'푹 쉬다', r:'puk swida', vi:'nghỉ cho đã' },
+    { w:'낫다', r:'natda', vi:'khỏi bệnh' },
+    { w:'-고 나니까', r:'-go nanikka', vi:'sau khi… thì' }
+  ],
+  qs:[
+    { q:'Triệu chứng đầu tiên là gì?', o:['Đau bụng','Đau họng và chảy nước mũi','Đau đầu','Ho'], c:1, e:'목이 아프고 콧물이 났습니다.' },
+    { q:'Bạn cùng phòng làm gì?', o:['Đưa đi viện','Nấu cháo nóng','Mua thuốc','Gọi bác sĩ'], c:1, e:'따뜻한 죽을 끓여 줬습니다.' },
+    { q:'Sau mấy ngày thì đỡ?', o:['Một ngày','Hai ngày','Ba ngày','Một tuần'], c:1, e:'이틀 쉬고 나니까 많이 좋아졌습니다.' }
+  ],
+  after:'Viết 6 câu về một lần bị ốm, dùng -에 걸리다 · -아/어 주다 · -고 나니까.' },
+
+{ lang:'ko', lv:'so-cap-2', mins:4, cat:'Du lịch', title:'여행 계획 세우기', vi:'Lên kế hoạch du lịch',
+  intro:'Sơ cấp 2. Chùm từ trọng tâm: đặt vé, chỗ ở, ngân sách.',
+  text:[
+    '다음 달에 부산에 가기로 했습니다. 친구 두 명과 같이 갑니다.',
+    '먼저 기차표를 예매했습니다. 미리 사면 훨씬 쌉니다.',
+    '숙소는 바다가 보이는 곳으로 정했습니다. 조금 비싸지만 하루쯤은 괜찮다고 생각했습니다.',
+    '예산은 한 사람당 이십만 원입니다. 계획을 세우는 것도 여행의 절반인 것 같습니다.'
+  ],
+  tr:[
+    'Tháng sau tôi quyết định đi Busan. Tôi đi cùng hai người bạn.',
+    'Trước tiên tôi đặt vé tàu. Mua trước thì rẻ hơn nhiều.',
+    'Chỗ ở thì chọn nơi nhìn ra biển. Hơi đắt nhưng tôi nghĩ một ngày thì cũng được.',
+    'Ngân sách là hai trăm nghìn won mỗi người. Xem ra lên kế hoạch cũng đã là một nửa chuyến đi.'
+  ],
+  keys:[
+    { w:'계획을 세우다', r:'gyehoegeul seuda', vi:'lập kế hoạch' },
+    { w:'예매하다', r:'yemaehada', vi:'đặt vé trước' },
+    { w:'미리', r:'miri', vi:'trước' },
+    { w:'훨씬', r:'hwolssin', vi:'hơn nhiều' },
+    { w:'숙소', r:'sukso', vi:'chỗ ở' },
+    { w:'정하다', r:'jeonghada', vi:'quyết định, chọn' },
+    { w:'예산', r:'yesan', vi:'ngân sách' },
+    { w:'-당', r:'-dang', vi:'mỗi (đơn vị)', note:'한 사람당 — mỗi người' }
+  ],
+  qs:[
+    { q:'Đi đâu, với mấy người?', o:['Seoul, một người','Busan, hai người bạn','Jeju, ba người','Gyeongju, một mình'], c:1, e:'부산에… 친구 두 명과 같이 갑니다.' },
+    { q:'Vì sao đặt vé sớm?', o:['Hết vé nhanh','Mua trước rẻ hơn nhiều','Được chọn ghế','Có bảo hiểm'], c:1, e:'미리 사면 훨씬 쌉니다.' },
+    { q:'Ngân sách mỗi người?', o:['100.000 won','150.000 won','200.000 won','300.000 won'], c:2, e:'한 사람당 이십만 원입니다.' }
+  ],
+  after:'Lập kế hoạch một chuyến đi bằng 6 câu, dùng -기로 하다 · 미리 · -당.' },
+
+{ lang:'ko', lv:'so-cap-2', mins:4, cat:'Mua sắm', title:'중고 거래', vi:'Mua bán đồ cũ',
+  intro:'Sơ cấp 2. Chùm từ trọng tâm: app đồ cũ, hẹn gặp, kiểm tra hàng.',
+  text:[
+    '한국에는 중고 물건을 사고파는 앱이 있습니다. 저도 책상을 하나 샀습니다.',
+    '판매자와 채팅으로 약속을 정하고 지하철역 앞에서 만났습니다.',
+    '직접 보니까 사진보다 상태가 좋았습니다. 값도 새것의 삼분의 일이었습니다.',
+    '무거워서 택시를 탔는데, 택시비가 책상값의 절반이었습니다. 그래도 후회하지 않습니다.'
+  ],
+  tr:[
+    'Ở Hàn Quốc có ứng dụng mua bán đồ cũ. Tôi cũng mua một cái bàn học.',
+    'Tôi nhắn tin hẹn với người bán rồi gặp nhau trước ga tàu điện ngầm.',
+    'Nhìn tận mắt thì tình trạng còn tốt hơn ảnh. Giá cũng chỉ bằng một phần ba đồ mới.',
+    'Vì nặng nên tôi đi taxi, mà tiền taxi bằng nửa tiền cái bàn. Dù vậy tôi không hối hận.'
+  ],
+  keys:[
+    { w:'중고', r:'junggo', vi:'đồ cũ, second-hand' },
+    { w:'사고팔다', r:'sagopalda', vi:'mua bán' },
+    { w:'판매자', r:'panmaeja', vi:'người bán' },
+    { w:'약속을 정하다', r:'yaksogeul jeonghada', vi:'hẹn gặp' },
+    { w:'직접', r:'jikjeop', vi:'trực tiếp' },
+    { w:'상태', r:'sangtae', vi:'tình trạng' },
+    { w:'삼분의 일', r:'sambunui il', vi:'một phần ba' },
+    { w:'후회하다', r:'huhoehada', vi:'hối hận' }
+  ],
+  qs:[
+    { q:'Người viết mua gì?', o:['Ghế','Bàn học','Tủ lạnh','Xe đạp'], c:1, e:'저도 책상을 하나 샀습니다.' },
+    { q:'Tình trạng hàng thế nào?', o:['Xấu hơn ảnh','Tốt hơn ảnh','Đúng như ảnh','Bị hỏng'], c:1, e:'사진보다 상태가 좋았습니다.' },
+    { q:'Tiền taxi bằng bao nhiêu?', o:['Một phần ba tiền bàn','Một nửa tiền bàn','Bằng tiền bàn','Không đáng kể'], c:1, e:'택시비가 책상값의 절반이었습니다.' }
+  ],
+  after:'Viết 6 câu về một lần mua đồ cũ, dùng 직접 · -보다 · 그래도.' },
+
+{ lang:'ko', lv:'so-cap-2', mins:4, cat:'Giải trí', title:'영화관에서', vi:'Ở rạp chiếu phim',
+  intro:'Sơ cấp 2. Chùm từ trọng tâm: đặt ghế, phụ đề, cảm nhận sau phim.',
+  text:[
+    '어제 한국 영화를 자막 없이 봤습니다. 처음으로 시도해 봤습니다.',
+    '앱으로 자리를 예매했습니다. 가운데 자리가 제일 인기가 많아서 일찍 예매해야 합니다.',
+    '대사를 다 알아듣지는 못했지만 이야기는 이해했습니다.',
+    '나오면서 친구에게 줄거리를 한국어로 설명해 봤습니다. 반년 전의 저는 못 했을 일입니다.'
+  ],
+  tr:[
+    'Hôm qua tôi xem một bộ phim Hàn không phụ đề. Lần đầu tiên tôi thử như thế.',
+    'Tôi đặt ghế bằng ứng dụng. Ghế giữa được ưa chuộng nhất nên phải đặt sớm.',
+    'Tôi không nghe hiểu hết lời thoại, nhưng câu chuyện thì tôi hiểu.',
+    'Lúc đi ra tôi thử kể lại nội dung cho bạn bằng tiếng Hàn. Tôi của nửa năm trước thì chưa làm nổi.'
+  ],
+  keys:[
+    { w:'자막', r:'jamak', vi:'phụ đề' },
+    { w:'시도하다', r:'sidohada', vi:'thử, thử sức' },
+    { w:'예매하다', r:'yemaehada', vi:'đặt trước' },
+    { w:'인기가 많다', r:'ingiga manta', vi:'được ưa chuộng' },
+    { w:'대사', r:'daesa', vi:'lời thoại' },
+    { w:'알아듣다', r:'aradeutda', vi:'nghe hiểu' },
+    { w:'줄거리', r:'julgeori', vi:'nội dung, cốt truyện' },
+    { w:'-(으)ㄹ 일', r:'-(eu)l il', vi:'việc mà…', note:'못 했을 일 — việc đã không làm nổi' }
+  ],
+  qs:[
+    { q:'Người viết xem phim thế nào?', o:['Có phụ đề Việt','Không có phụ đề','Phụ đề tiếng Anh','Có lồng tiếng'], c:1, e:'한국 영화를 자막 없이 봤습니다.' },
+    { q:'Vì sao phải đặt ghế sớm?', o:['Rạp nhỏ','Ghế giữa được ưa chuộng nhất','Giá tăng theo giờ','Hay hết vé cuối tuần'], c:1, e:'가운데 자리가 제일 인기가 많아서…' },
+    { q:'Sau phim người viết làm gì?', o:['Viết đánh giá','Kể lại nội dung bằng tiếng Hàn','Xem lại lần nữa','Tra từ điển'], c:1, e:'줄거리를 한국어로 설명해 봤습니다.' }
+  ],
+  after:'Viết 6 câu về một bộ phim bạn xem, dùng -아/어 보다 · -지는 못하다 · -(으)ㄹ 일.' },
+
+{ lang:'ko', lv:'so-cap-2', mins:4, cat:'Đời sống', title:'분실물 센터', vi:'Trung tâm đồ thất lạc',
+  intro:'Sơ cấp 2. Chùm từ trọng tâm: mất đồ, khai báo, tìm lại được.',
+  text:[
+    '지난주에 지하철에서 가방을 놓고 내렸습니다. 안에 지갑과 노트북이 있었습니다.',
+    '역무원에게 말했더니 “분실물 센터에 연락해 보세요”라고 했습니다.',
+    '다음 날 전화가 왔습니다. 누군가 가방을 그대로 맡겨 놓았다고 했습니다.',
+    '하나도 없어진 것이 없었습니다. 이름도 모르는 그분께 아직도 고맙습니다.'
+  ],
+  tr:[
+    'Tuần trước tôi để quên cái cặp trên tàu điện ngầm rồi xuống. Bên trong có ví và máy tính xách tay.',
+    'Tôi báo cho nhân viên nhà ga thì được bảo: “Anh thử liên hệ trung tâm đồ thất lạc xem.”',
+    'Hôm sau có điện thoại. Họ nói có người đã gửi lại nguyên cái cặp.',
+    'Không mất thứ gì cả. Tôi vẫn còn biết ơn người ấy dù không biết tên.'
+  ],
+  keys:[
+    { w:'놓고 내리다', r:'noko naerida', vi:'để quên rồi xuống xe' },
+    { w:'지갑', r:'jigap', vi:'ví' },
+    { w:'역무원', r:'yeongmuwon', vi:'nhân viên nhà ga' },
+    { w:'분실물', r:'bunsilmul', vi:'đồ thất lạc' },
+    { w:'연락하다', r:'yeollakada', vi:'liên hệ' },
+    { w:'그대로', r:'geudaero', vi:'nguyên như vậy' },
+    { w:'맡기다', r:'matgida', vi:'gửi lại, giao cho giữ' },
+    { w:'없어지다', r:'eopseojida', vi:'biến mất' }
+  ],
+  qs:[
+    { q:'Trong cặp có gì?', o:['Sách vở','Ví và máy tính xách tay','Quần áo','Điện thoại'], c:1, e:'안에 지갑과 노트북이 있었습니다.' },
+    { q:'Nhân viên nhà ga khuyên gì?', o:['Đợi ở ga','Liên hệ trung tâm đồ thất lạc','Báo công an','Đăng lên mạng'], c:1, e:'분실물 센터에 연락해 보세요.' },
+    { q:'Kết quả ra sao?', o:['Mất ví','Tìm lại đủ, không mất gì','Chỉ còn cặp','Không tìm thấy'], c:1, e:'하나도 없어진 것이 없었습니다.' }
+  ],
+  after:'Kể một lần mất và tìm lại đồ, dùng -았/었더니 · 그대로 · 하나도 -지 않다.' },
+
+{ lang:'ko', lv:'trung-cap-1', mins:5, cat:'Ngôn ngữ', title:'존댓말과 반말', vi:'Kính ngữ và lối nói thân mật',
+  intro:'Trung cấp 1. Chùm từ trọng tâm: kính ngữ, khoảng cách, khi nào được nói thân mật.',
+  text:[
+    '한국어를 배우면서 가장 어려운 것은 문법이 아니라 존댓말과 반말의 경계였습니다.',
+    '처음 만난 사람에게는 당연히 존댓말을 씁니다. 그런데 언제부터 반말을 해도 되는지 아무도 알려 주지 않습니다.',
+    '한 친구가 말했습니다. “말 놓자”라는 말이 나오면 그때부터야.',
+    '결국 언어의 문제가 아니라 관계의 문제였습니다. 말이 바뀌는 순간, 사이도 조금 가까워집니다.'
+  ],
+  tr:[
+    'Học tiếng Hàn, thứ khó nhất với tôi không phải ngữ pháp mà là ranh giới giữa kính ngữ và lối nói thân mật.',
+    'Với người mới gặp thì đương nhiên dùng kính ngữ. Nhưng từ lúc nào mới được nói thân mật thì chẳng ai chỉ cho cả.',
+    'Một người bạn bảo tôi: “Khi nào có người nói ‘bỏ kính ngữ đi’ thì từ đó mới được.”',
+    'Hoá ra đó không phải chuyện ngôn ngữ mà là chuyện quan hệ. Ngay lúc cách nói đổi đi, khoảng cách giữa hai người cũng gần lại một chút.'
+  ],
+  keys:[
+    { w:'존댓말', r:'jondaenmal', vi:'kính ngữ' },
+    { w:'반말', r:'banmal', vi:'lối nói thân mật' },
+    { w:'경계', r:'gyeonggye', vi:'ranh giới' },
+    { w:'당연히', r:'dangyeonhi', vi:'đương nhiên' },
+    { w:'-아/어도 되다', r:'-a/eodo doeda', vi:'được phép' },
+    { w:'말을 놓다', r:'mareul nota', vi:'bỏ kính ngữ, nói thân mật' },
+    { w:'관계', r:'gwangye', vi:'quan hệ' },
+    { w:'사이', r:'sai', vi:'khoảng cách, tình thân' }
+  ],
+  qs:[
+    { q:'Điều khó nhất với người viết là gì?', o:['Ngữ pháp','Ranh giới kính ngữ / thân mật','Phát âm','Từ vựng'], c:1, e:'문법이 아니라 존댓말과 반말의 경계였습니다.' },
+    { q:'Khi nào được nói thân mật?', o:['Sau một tháng','Khi có người đề nghị “말 놓자”','Khi cùng tuổi','Bất cứ lúc nào'], c:1, e:'“말 놓자”라는 말이 나오면 그때부터야.' },
+    { q:'Kết luận của bài?', o:['Nên luôn dùng kính ngữ','Đó là chuyện quan hệ chứ không phải ngôn ngữ','Nên học thuộc quy tắc','Người Hàn hay đổi ý'], c:1, e:'언어의 문제가 아니라 관계의 문제였습니다.' }
+  ],
+  after:'Viết 6 câu so sánh cách xưng hô tiếng Việt và tiếng Hàn, dùng -이/가 아니라 và -(으)면서.' },
+
+{ lang:'ko', lv:'trung-cap-1', mins:5, cat:'Xã hội', title:'배달 문화', vi:'Văn hoá giao đồ ăn',
+  intro:'Trung cấp 1. Chùm từ trọng tâm: giao hàng tận nơi, tiện lợi, mặt trái.',
+  text:[
+    '한국의 배달 문화는 세계에서 손꼽힐 만큼 발달했습니다. 한강 공원에서도 치킨을 시킬 수 있습니다.',
+    '앱을 열고 몇 번만 누르면 삼십 분 안에 음식이 도착합니다.',
+    '하지만 그만큼 일회용 쓰레기도 늘었습니다. 한 끼를 먹고 나면 플라스틱 그릇이 다섯 개나 나옵니다.',
+    '요즘은 다회용 용기를 쓰는 가게도 생기고 있습니다. 편리함과 책임 사이에서 균형을 찾는 중인 것 같습니다.'
+  ],
+  tr:[
+    'Văn hoá giao đồ ăn của Hàn Quốc phát triển đến mức đứng vào hàng đầu thế giới. Ngồi ở công viên sông Hàn cũng gọi được gà rán.',
+    'Mở ứng dụng, bấm vài lần là trong ba mươi phút đồ ăn đã tới.',
+    'Nhưng rác dùng một lần cũng tăng lên chừng ấy. Ăn xong một bữa là có tới năm cái hộp nhựa.',
+    'Dạo này đã có những quán dùng hộp tái sử dụng. Xem ra người ta đang đi tìm điểm cân bằng giữa tiện lợi và trách nhiệm.'
+  ],
+  keys:[
+    { w:'배달', r:'baedal', vi:'giao hàng tận nơi' },
+    { w:'손꼽히다', r:'sonkkopida', vi:'được xếp vào hàng đầu' },
+    { w:'-(으)ㄹ 만큼', r:'-(eu)l mankeum', vi:'đến mức' },
+    { w:'시키다', r:'sikida', vi:'gọi (món)' },
+    { w:'일회용', r:'ilhoeyong', vi:'dùng một lần' },
+    { w:'-이나', r:'-ina', vi:'những (nhấn số lượng nhiều)' },
+    { w:'다회용 용기', r:'dahoeyong yonggi', vi:'hộp tái sử dụng' },
+    { w:'균형', r:'gyunhyeong', vi:'cân bằng' }
+  ],
+  qs:[
+    { q:'Ở đâu cũng gọi được đồ ăn, ví dụ?', o:['Trên tàu','Công viên sông Hàn','Trong rạp phim','Trên núi'], c:1, e:'한강 공원에서도 치킨을 시킬 수 있습니다.' },
+    { q:'Mặt trái là gì?', o:['Giá cao','Rác dùng một lần tăng','Đồ ăn nguội','Nhân viên ít'], c:1, e:'일회용 쓰레기도 늘었습니다.' },
+    { q:'Giải pháp đang xuất hiện?', o:['Cấm giao hàng','Quán dùng hộp tái sử dụng','Giao bằng xe điện','Thu phí rác'], c:1, e:'다회용 용기를 쓰는 가게도 생기고 있습니다.' }
+  ],
+  after:'Viết 6 câu về dịch vụ giao đồ ăn ở Việt Nam, dùng -(으)ㄹ 만큼 · -이나 · -는 중이다.' },
+
+{ lang:'ko', lv:'trung-cap-1', mins:5, cat:'Công việc', title:'회식', vi:'Tiệc liên hoan công ty',
+  intro:'Trung cấp 1. Chùm từ trọng tâm: liên hoan, rượu, thay đổi của thế hệ mới.',
+  text:[
+    '입사한 지 한 달쯤 됐을 때 첫 회식이 있었습니다. 저는 술을 잘 못 마십니다.',
+    '예전에는 술을 거절하기가 어려웠다고 합니다. 하지만 요즘은 분위기가 많이 달라졌습니다.',
+    '부장님이 먼저 “안 마셔도 괜찮아요”라고 말씀하셨습니다. 저는 사이다를 마셨습니다.',
+    '중요한 것은 술이 아니라 같이 앉아 있는 시간이었습니다. 그날 저는 동료들의 다른 얼굴을 봤습니다.'
+  ],
+  tr:[
+    'Khi vào công ty được khoảng một tháng thì có buổi liên hoan đầu tiên. Tôi thì không uống được rượu.',
+    'Nghe nói ngày trước từ chối rượu rất khó. Nhưng dạo này không khí đã khác đi nhiều.',
+    'Trưởng phòng chủ động nói trước: “Không uống cũng không sao đâu.” Tôi uống nước ngọt.',
+    'Điều quan trọng không phải là rượu mà là khoảng thời gian ngồi cùng nhau. Hôm ấy tôi nhìn thấy một gương mặt khác của các đồng nghiệp.'
+  ],
+  keys:[
+    { w:'입사하다', r:'ipsahada', vi:'vào công ty làm' },
+    { w:'회식', r:'hoesik', vi:'tiệc liên hoan công ty' },
+    { w:'거절하다', r:'geojeolhada', vi:'từ chối' },
+    { w:'-다고 하다', r:'-dago hada', vi:'nghe nói rằng' },
+    { w:'분위기', r:'bunwigi', vi:'không khí' },
+    { w:'달라지다', r:'dallajida', vi:'thay đổi, khác đi' },
+    { w:'말씀하시다', r:'malsseumhasida', vi:'nói (kính ngữ)' },
+    { w:'-이/가 아니라', r:'-i/ga anira', vi:'không phải… mà là' }
+  ],
+  qs:[
+    { q:'Buổi liên hoan đầu diễn ra khi nào?', o:['Ngày đầu đi làm','Khoảng một tháng sau khi vào','Sau nửa năm','Cuối năm'], c:1, e:'입사한 지 한 달쯤 됐을 때…' },
+    { q:'Trưởng phòng nói gì?', o:['Phải uống một ly','“Không uống cũng không sao”','Về sớm đi','Uống thay bằng bia'], c:1, e:'“안 마셔도 괜찮아요”라고 말씀하셨습니다.' },
+    { q:'Điều quan trọng theo người viết?', o:['Rượu','Thời gian ngồi cùng nhau','Đồ ăn','Ai trả tiền'], c:1, e:'술이 아니라 같이 앉아 있는 시간이었습니다.' }
+  ],
+  after:'Viết 6 câu về văn hoá liên hoan ở nơi bạn làm, dùng -다고 하다 · 달라지다 · -이/가 아니라.' },
+
+{ lang:'ko', lv:'trung-cap-1', mins:5, cat:'Xã hội', title:'층간 소음', vi:'Tiếng ồn giữa các tầng',
+  intro:'Trung cấp 1. Chùm từ trọng tâm: chung cư, tiếng ồn, cách nói chuyện với hàng xóm.',
+  text:[
+    '아파트에 살면 층간 소음 문제를 한 번쯤 겪게 됩니다.',
+    '저희 윗집에는 어린아이가 둘 있습니다. 밤 아홉 시가 넘어도 뛰는 소리가 들립니다.',
+    '처음에는 화가 났지만, 곧바로 올라가지 않고 며칠 더 지켜봤습니다.',
+    '나중에 엘리베이터에서 만났을 때 웃으면서 이야기했습니다. 그 뒤로 소리가 많이 줄었습니다. 화를 내기 전에 말을 거는 편이 낫습니다.'
+  ],
+  tr:[
+    'Sống ở chung cư thì thế nào cũng có lần gặp chuyện tiếng ồn giữa các tầng.',
+    'Nhà tầng trên chúng tôi có hai đứa nhỏ. Quá chín giờ tối vẫn nghe tiếng chạy nhảy.',
+    'Lúc đầu tôi bực, nhưng không lên ngay mà theo dõi thêm mấy hôm.',
+    'Sau đó gặp nhau trong thang máy, tôi cười rồi nói chuyện. Từ sau đó tiếng ồn giảm hẳn. Trước khi nổi giận thì bắt chuyện vẫn hơn.'
+  ],
+  keys:[
+    { w:'층간 소음', r:'cheunggan soeum', vi:'tiếng ồn giữa các tầng' },
+    { w:'겪다', r:'gyeokda', vi:'trải qua, gặp phải' },
+    { w:'윗집', r:'witjip', vi:'nhà tầng trên' },
+    { w:'화가 나다', r:'hwaga nada', vi:'nổi giận' },
+    { w:'곧바로', r:'gotbaro', vi:'ngay lập tức' },
+    { w:'지켜보다', r:'jikyeoboda', vi:'quan sát, theo dõi' },
+    { w:'말을 걸다', r:'mareul geolda', vi:'bắt chuyện' },
+    { w:'-는 편이 낫다', r:'-neun pyeoni natda', vi:'thà… thì hơn' }
+  ],
+  qs:[
+    { q:'Nhà tầng trên có gì?', o:['Một con chó','Hai đứa trẻ nhỏ','Người tập đàn','Ba sinh viên'], c:1, e:'저희 윗집에는 어린아이가 둘 있습니다.' },
+    { q:'Người viết phản ứng thế nào lúc đầu?', o:['Lên ngay','Bực nhưng theo dõi thêm mấy hôm','Gọi bảo vệ','Chuyển nhà'], c:1, e:'곧바로 올라가지 않고 며칠 더 지켜봤습니다.' },
+    { q:'Bài học rút ra?', o:['Nên báo ban quản lý','Bắt chuyện tốt hơn nổi giận','Nên chuyển đi','Đeo nút tai'], c:1, e:'화를 내기 전에 말을 거는 편이 낫습니다.' }
+  ],
+  after:'Viết 6 câu về một mâu thuẫn nhỏ với hàng xóm, dùng -게 되다 · -기 전에 · -는 편이 낫다.' },
+
+{ lang:'ko', lv:'trung-cap-1', mins:5, cat:'Đời sống', title:'고향 생각', vi:'Nhớ quê',
+  intro:'Trung cấp 1. Chùm từ trọng tâm: nhớ nhà, mùi vị quê hương, gọi điện về.',
+  text:[
+    '외국에 살면 사소한 것에서 고향이 떠오릅니다.',
+    '저는 비 냄새를 맡을 때마다 하노이의 골목이 생각납니다. 비 오는 날이면 어머니가 항상 국수를 끓여 주셨습니다.',
+    '지난주에는 한국 마트에서 베트남 쌀국수를 발견했습니다. 맛은 비슷했지만 같지는 않았습니다.',
+    '그날 밤 어머니께 영상 통화를 걸었습니다. 화면 너머의 부엌이, 제가 아는 그대로였습니다.'
+  ],
+  tr:[
+    'Sống ở nước ngoài, quê hương hiện lên từ những thứ rất vặt vãnh.',
+    'Mỗi lần ngửi thấy mùi mưa là tôi lại nhớ những con ngõ Hà Nội. Ngày mưa mẹ tôi luôn nấu cho tôi bát phở.',
+    'Tuần trước tôi tìm thấy phở Việt Nam trong siêu thị Hàn. Vị thì giống, nhưng không phải là một.',
+    'Đêm đó tôi gọi video cho mẹ. Căn bếp bên kia màn hình vẫn y như tôi vẫn biết.'
+  ],
+  keys:[
+    { w:'사소하다', r:'sasohada', vi:'vặt vãnh, nhỏ nhặt' },
+    { w:'떠오르다', r:'tteooreuda', vi:'hiện lên (trong đầu)' },
+    { w:'냄새를 맡다', r:'naemsaereul matda', vi:'ngửi thấy mùi' },
+    { w:'-(으)ㄹ 때마다', r:'-(eu)l ttaemada', vi:'mỗi lần' },
+    { w:'골목', r:'golmok', vi:'ngõ, hẻm' },
+    { w:'발견하다', r:'balgyeonhada', vi:'phát hiện, tìm thấy' },
+    { w:'영상 통화', r:'yeongsang tonghwa', vi:'gọi video' },
+    { w:'너머', r:'neomeo', vi:'bên kia, phía sau' }
+  ],
+  qs:[
+    { q:'Điều gì gợi nhớ quê nhất?', o:['Tiếng nhạc','Mùi mưa','Ánh đèn','Giọng nói'], c:1, e:'비 냄새를 맡을 때마다…' },
+    { q:'Ngày mưa mẹ thường làm gì?', o:['Gọi điện','Nấu phở','Đóng cửa sổ','Đi chợ'], c:1, e:'어머니가 항상 국수를 끓여 주셨습니다.' },
+    { q:'Phở mua ở siêu thị Hàn thế nào?', o:['Ngon hơn','Giống nhưng không phải là một','Dở','Không ăn được'], c:1, e:'맛은 비슷했지만 같지는 않았습니다.' }
+  ],
+  after:'Viết 6 câu về thứ khiến bạn nhớ nhà, dùng -(으)ㄹ 때마다 · -지만 · 그대로.' },
+
+{ lang:'ko', lv:'trung-cap-1', mins:5, cat:'Học tập', title:'한국어 실력이 늘지 않을 때', vi:'Khi tiếng Hàn mãi không tiến bộ',
+  intro:'Trung cấp 1. Chùm từ trọng tâm: chững lại, cách vượt qua, kiên trì.',
+  text:[
+    '공부를 시작하고 여섯 달쯤 되면 실력이 멈춘 것 같은 시기가 옵니다.',
+    '단어는 아는데 입에서 안 나오고, 드라마는 여전히 반밖에 안 들립니다.',
+    '선생님께서 말씀하셨습니다. “그건 느는 게 멈춘 게 아니라, 안에서 쌓이고 있는 겁니다.”',
+    '저는 매일 다섯 문장씩 소리 내어 읽기로 했습니다. 두 달 뒤, 어느 날 갑자기 문장이 그냥 나왔습니다.'
+  ],
+  tr:[
+    'Học được khoảng sáu tháng thì sẽ đến một giai đoạn tưởng như trình độ đứng yên.',
+    'Từ thì biết mà miệng không bật ra được, phim thì vẫn chỉ nghe được một nửa.',
+    'Cô giáo bảo tôi: “Đó không phải là ngừng tiến bộ, mà là đang tích lại bên trong.”',
+    'Tôi quyết định mỗi ngày đọc to năm câu. Hai tháng sau, một hôm bỗng nhiên câu cứ thế bật ra.'
+  ],
+  keys:[
+    { w:'실력', r:'sillyeok', vi:'trình độ, thực lực' },
+    { w:'늘다', r:'neulda', vi:'tăng lên, tiến bộ' },
+    { w:'멈추다', r:'meomchuda', vi:'dừng lại' },
+    { w:'시기', r:'sigi', vi:'giai đoạn' },
+    { w:'여전히', r:'yeojeonhi', vi:'vẫn còn' },
+    { w:'-밖에 안', r:'-bakke an', vi:'chỉ… mà thôi' },
+    { w:'쌓이다', r:'ssahida', vi:'tích lại' },
+    { w:'소리 내어 읽다', r:'sori naeeo ikda', vi:'đọc to thành tiếng' }
+  ],
+  qs:[
+    { q:'Giai đoạn chững lại đến khi nào?', o:['Sau một tháng','Khoảng sáu tháng','Sau một năm','Sau hai năm'], c:1, e:'여섯 달쯤 되면 실력이 멈춘 것 같은 시기가 옵니다.' },
+    { q:'Cô giáo giải thích thế nào?', o:['Phải học thêm giờ','Đang tích lại bên trong','Nên đổi giáo trình','Nên nghỉ một thời gian'], c:1, e:'안에서 쌓이고 있는 겁니다.' },
+    { q:'Người viết làm gì?', o:['Học thuộc 50 từ/ngày','Mỗi ngày đọc to 5 câu','Xem phim không phụ đề','Viết nhật ký'], c:1, e:'매일 다섯 문장씩 소리 내어 읽기로 했습니다.' }
+  ],
+  after:'Viết 6 câu về cách bạn vượt qua lúc nản, dùng -는 것 같다 · -밖에 안 · -기로 하다.' },
+
+{ lang:'ko', lv:'trung-cap-1', mins:5, cat:'Xã hội', title:'노약자석', vi:'Ghế ưu tiên',
+  intro:'Trung cấp 1. Chùm từ trọng tâm: ghế ưu tiên, quy tắc bất thành văn, tranh luận.',
+  text:[
+    '지하철에는 노약자석이 있습니다. 노인, 임산부, 몸이 불편한 분을 위한 자리입니다.',
+    '자리가 비어 있어도 젊은 사람들은 대부분 앉지 않습니다. 법이 아니라 습관입니다.',
+    '어떤 사람은 “비어 있으면 앉았다가 필요할 때 비켜 주면 된다”고 말합니다.',
+    '정답은 없을지도 모릅니다. 다만 누군가를 위해 자리를 남겨 두는 마음은, 어느 나라에서나 배울 만합니다.'
+  ],
+  tr:[
+    'Trên tàu điện ngầm có ghế ưu tiên. Là chỗ dành cho người già, phụ nữ mang thai, người đi lại khó khăn.',
+    'Dù ghế trống thì phần lớn người trẻ cũng không ngồi. Không phải luật, mà là thói quen.',
+    'Có người nói: “Trống thì cứ ngồi, lúc cần thì đứng dậy nhường là được.”',
+    'Có lẽ không có đáp án đúng. Chỉ có điều cái tâm để dành một chỗ cho ai đó thì ở nước nào cũng đáng học.'
+  ],
+  keys:[
+    { w:'노약자석', r:'noyakjaseok', vi:'ghế ưu tiên' },
+    { w:'임산부', r:'imsanbu', vi:'phụ nữ mang thai' },
+    { w:'-을/를 위한', r:'-eul/reul wihan', vi:'dành cho' },
+    { w:'비어 있다', r:'bieo itda', vi:'đang trống' },
+    { w:'대부분', r:'daebubun', vi:'phần lớn' },
+    { w:'비켜 주다', r:'bikyeo juda', vi:'nhường chỗ, tránh ra' },
+    { w:'-(으)ㄹ지도 모르다', r:'-(eu)ljido moreuda', vi:'có lẽ' },
+    { w:'-(으)ㄹ 만하다', r:'-(eu)l manhada', vi:'đáng để' }
+  ],
+  qs:[
+    { q:'Ghế ưu tiên dành cho ai?', o:['Trẻ em','Người già, phụ nữ mang thai, người đi lại khó khăn','Nhân viên nhà ga','Người mua vé tháng'], c:1, e:'노인, 임산부, 몸이 불편한 분을 위한 자리입니다.' },
+    { q:'Người trẻ thường làm gì khi ghế trống?', o:['Ngồi ngay','Phần lớn vẫn không ngồi','Đặt đồ lên','Xin phép rồi ngồi'], c:1, e:'젊은 사람들은 대부분 앉지 않습니다.' },
+    { q:'Kết luận của bài?', o:['Nên bỏ ghế ưu tiên','Cái tâm để dành chỗ cho người khác đáng học','Nên phạt tiền','Nên tăng số ghế'], c:1, e:'자리를 남겨 두는 마음은… 배울 만합니다.' }
+  ],
+  after:'Viết 6 câu nêu ý kiến về ghế ưu tiên, dùng -(으)ㄹ지도 모르다 · 다만 · -(으)ㄹ 만하다.' },
+
+{ lang:'ko', lv:'trung-cap-1', mins:5, cat:'Công việc', title:'이력서를 쓰는 날', vi:'Ngày viết hồ sơ xin việc',
+  intro:'Trung cấp 1. Chùm từ trọng tâm: hồ sơ, thư giới thiệu bản thân, phỏng vấn.',
+  text:[
+    '한국 회사에 지원하려면 이력서와 자기소개서를 써야 합니다.',
+    '자기소개서가 제일 어렵습니다. 자기 이야기를 한국어로, 그것도 겸손하게 써야 하기 때문입니다.',
+    '저는 “외국인이라서 부족하다”라고 쓰려다가 지웠습니다. 대신 두 나라 말을 할 수 있다는 점을 썼습니다.',
+    '면접에서 면접관이 그 부분을 물었습니다. 약점처럼 보이던 것이 사실은 제 이야기의 시작이었습니다.'
+  ],
+  tr:[
+    'Muốn ứng tuyển vào công ty Hàn thì phải viết sơ yếu lý lịch và thư giới thiệu bản thân.',
+    'Thư giới thiệu bản thân là khó nhất. Vì phải kể chuyện của mình bằng tiếng Hàn, mà lại còn phải khiêm tốn.',
+    'Tôi định viết “vì là người nước ngoài nên tôi còn thiếu sót” rồi lại xoá đi. Thay vào đó tôi viết về việc mình nói được hai thứ tiếng.',
+    'Khi phỏng vấn, người phỏng vấn hỏi đúng đoạn ấy. Cái tưởng như điểm yếu hoá ra lại là chỗ bắt đầu câu chuyện của tôi.'
+  ],
+  keys:[
+    { w:'지원하다', r:'jiwonhada', vi:'ứng tuyển' },
+    { w:'이력서', r:'iryeokseo', vi:'sơ yếu lý lịch' },
+    { w:'자기소개서', r:'jagisogaeseo', vi:'thư giới thiệu bản thân' },
+    { w:'겸손하다', r:'gyeomsonhada', vi:'khiêm tốn' },
+    { w:'-(으)려다가', r:'-(eu)ryeodaga', vi:'định… rồi lại' },
+    { w:'지우다', r:'jiuda', vi:'xoá' },
+    { w:'면접', r:'myeonjeop', vi:'phỏng vấn' },
+    { w:'약점', r:'yakjeom', vi:'điểm yếu' }
+  ],
+  qs:[
+    { q:'Phần nào khó nhất?', o:['Sơ yếu lý lịch','Thư giới thiệu bản thân','Bảng điểm','Ảnh thẻ'], c:1, e:'자기소개서가 제일 어렵습니다.' },
+    { q:'Người viết đã xoá câu nào?', o:['Về kinh nghiệm làm thêm','“Vì là người nước ngoài nên còn thiếu sót”','Về điểm số','Về sở thích'], c:1, e:'“외국인이라서 부족하다”라고 쓰려다가 지웠습니다.' },
+    { q:'Kết quả ở buổi phỏng vấn?', o:['Không ai hỏi','Người phỏng vấn hỏi đúng đoạn đó','Bị đánh trượt','Phải viết lại'], c:1, e:'면접관이 그 부분을 물었습니다.' }
+  ],
+  after:'Viết 6 câu giới thiệu bản thân cho nhà tuyển dụng, dùng -(으)려면 · -기 때문이다 · 대신.' }
 
   );
 })();
