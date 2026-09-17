@@ -1485,6 +1485,15 @@ const EN_LOOKUP = {};
       if (!EN_LOOKUP[k]) EN_LOOKUP[k] = { w:w.en, uk:w.uk, us:w.us, pos:w.pos, senses:[{ vi:w.vi, note:w.note || '' }], src:'course' };
     }));
   }
+  /* Từ thông dụng ngoài khoá học (js/vocab-en-common.js): mọi từ khoá của
+     bài đọc đều phải tra được. Từ nào khoá học đã có thì bỏ qua. */
+  if (typeof VOCAB_EN !== 'undefined'){
+    VOCAB_EN.forEach(w => {
+      const k = String(w.en).toLowerCase();
+      if (EN_LOOKUP[k]) return;
+      EN_LOOKUP[k] = { w:w.en, uk:w.uk, us:w.us, pos:w.pos, senses:[{ vi:w.vi, note:w.note || '', ex:w.ex }], src:'common' };
+    });
+  }
   EN_DICT.forEach(e => {
     const k = String(e.w).toLowerCase();
     EN_LOOKUP[k] = Object.assign({}, EN_LOOKUP[k] || {}, e, { src:'dict' });

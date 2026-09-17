@@ -33,10 +33,11 @@ function mark(text){
 
 /* Trợ từ (조사) — dính vào danh từ. Xếp dài trước để cắt cụm dài nhất. */
 const PARTICLES = [
-  '으로부터','로부터','에게서','한테서','에서는','에게도','으로는','이라고','이에요',
+  '으로부터','로부터','에게서','한테서','에서는','에서도','에서만','에게도','에게는',
+  '으로는','으로도','이라고','이에요','까지만','부터는',
   '에서','께서','에게','한테','부터','까지','마다','처럼','보다','밖에','조차','이나',
-  '으로','에는','에도','하고','이랑','라고','예요',
-  '와','과','은','는','이','가','을','를','도','에','의','로','만','께','랑'
+  '으로','에는','에도','에만','하고','이랑','라고','예요','만큼','라도','이라도',
+  '와','과','은','는','이','가','을','를','도','에','의','로','만','께','랑','뿐','쯤','씩','째'
 ];
 
 /* Đuôi bắt đầu bằng nguyên âm hoà (아/어/여/해) — cần xử lý riêng. */
@@ -44,9 +45,14 @@ const HARMONY_ENDINGS = ['요', '서'];
 
 /* Đuôi còn lại: bỏ đuôi rồi thêm 다 là ra dạng gốc. */
 const PLAIN_ENDINGS = [
-  '았습니다','었습니다','였습니다','겠습니다','습니다','습니까',
-  '으려고','으니까','으세요','는데요','은데요','읍시다',
-  '니다','니까','시다','지만','으면','는데','은데','으러','려고','네요','나요',
+  '았습니다','었습니다','였습니다','겠습니다','으셨습니다','셨습니다','으십니다','십니다',
+  '습니다','습니까',
+  '으니까요','으려면','으면서','았지만','었지만','였지만','았는데','었는데',
+  '으셨어요','셨어요','니까요','는다고','ㄴ다고',
+  '으려고','으니까','으세요','는데요','은데요','읍시다','는다','습니',
+  '니다','니까','시다','지만','으면','면서','는데','은데','으러','려고','네요','나요',
+  '려면','았다','었다','였다','았고','었고','였고','아야','어야','여야',
+  '아도','어도','여도','을까','ㄹ까','기로',
   '고','지','게','는','면','러','며'
 ];
 
@@ -54,6 +60,10 @@ const jong = ch => { const p = (typeof decomposeHangul === 'function') && decomp
 const dropJong = ch => {
   const p = (typeof decomposeHangul === 'function') && decomposeHangul(ch);
   return p && p.jong ? composeHangul(p.cho, p.jung, '') : ch;
+};
+const setJong = (ch, j) => {
+  const p = (typeof decomposeHangul === 'function') && decomposeHangul(ch);
+  return p ? composeHangul(p.cho, p.jung, j) : ch;
 };
 /* Gỡ hiện tượng co nguyên âm khi chia thì: 봐→보, 와→오, 줘→주, 돼→되, 해→하 */
 const UNCONTRACT = { 'ㅘ':'ㅗ', 'ㅝ':'ㅜ', 'ㅙ':'ㅚ', 'ㅞ':'ㅜ' };
@@ -72,6 +82,50 @@ function restoreEu(ch){
 }
 
 /** Sinh các dạng có thể tra được, xếp theo độ tin cậy. */
+/* Thân từ -> dạng gốc …다 (dùng chung cho mọi nhánh gỡ đuôi) */
+function baseCandidates(s, add){
+  if (!s || !s.length) return;
+  const last = s.slice(-1);
+  if (/해$/.test(s)) add(s.slice(0, -1) + '하다', 'dạng gốc …하다', 'base');
+  if (/했$/.test(s)) add(s.slice(0, -1) + '하다', 'dạng gốc …하다, bỏ đuôi quá khứ', 'base');
+  /* bất quy tắc ㅂ: 매워→맵다 · 시끄러워→시끄럽다 · 가까운→가깝다 */
+  if (/[워우]$/.test(last) && s.length > 1){
+    add(s.slice(0, -2) + setJong(s.slice(-2, -1), 'ㅂ') + '다', 'dạng gốc bất quy tắc ㅂ', 'base');
+  }
+  /* bất quy tắc 르: 달라→다르다 · 불러→부르다 · 몰라→모르다 */
+  if (/[라러]$/.test(last) && s.length > 1 && jong(s.slice(-2, -1)) === 'ㄹ'){
+    add(s.slice(0, -2) + dropJong(s.slice(-2, -1)) + '르다', 'dạng gốc bất quy tắc 르', 'base');
+  }
+  /* bất quy tắc ㄷ: 들어→듣다 · 걸어→걷다 */
+  if (/[아어]$/.test(last) && s.length > 1 && jong(s.slice(-2, -1)) === 'ㄹ'){
+    add(s.slice(0, -2) + setJong(s.slice(-2, -1), 'ㄷ') + '다', 'dạng gốc bất quy tắc ㄷ', 'base');
+  }
+  /* -이- gặp 어 co thành 여: 져→지다 · 껴→끼다 · 려→리다 · 혀→히다 */
+  const dp = (typeof decomposeHangul === 'function') && decomposeHangul(last);
+  if (dp && !dp.jong && dp.jung === 'ㅕ'){
+    add(s.slice(0, -1) + composeHangul(dp.cho, 'ㅣ', '') + '다', 'dạng gốc, gỡ co -이- + 어', 'base');
+  }
+  const un2 = uncontract(last);
+  if (un2) add(s.slice(0, -1) + un2 + '다', 'dạng gốc, gỡ nguyên âm co', 'base');
+  const eu2 = restoreEu(last);
+  if (eu2) add(s.slice(0, -1) + eu2 + '다', 'dạng gốc bất quy tắc ㅡ', 'base');
+  add(s + '다', 'dạng gốc …다', 'base');
+  add(s, 'thân từ', 'stem');
+}
+function stemToBase(s, add){
+  if (!s || !s.length) return;
+  baseCandidates(s, add);
+  const last = s.slice(-1);
+  /* gỡ đuôi quá khứ rồi thử lại: 달랐→달라→다르다 · 좋아졌→좋아져→좋아지다 */
+  if (/[았었였]$/.test(last) && s.length > 1) baseCandidates(s.slice(0, -1), add);
+  else if (jong(last) === 'ㅆ' && last !== '있' && last !== '없') baseCandidates(s.slice(0, -1) + dropJong(last), add);
+  /* gỡ kính ngữ -시- / -셨-: 하셨→하다 · 보시→보다 · 웃으셨→웃다 */
+  if (/으셨$/.test(s) && s.length > 2) baseCandidates(s.slice(0, -2), add);
+  else if (/셨$/.test(s) && s.length > 1) baseCandidates(s.slice(0, -1), add);
+  if (/으시$/.test(s) && s.length > 2) baseCandidates(s.slice(0, -2), add);
+  else if (/시$/.test(s) && s.length > 1) baseCandidates(s.slice(0, -1), add);
+}
+
 function forms(token){
   const out = [], seen = {};
   const add = (f, why, kind) => {
@@ -103,6 +157,7 @@ function forms(token){
         if (eu) add(core.slice(0, -1) + eu + '다', 'dạng gốc bất quy tắc ㅡ', 'base');
       }
       add(core + '다', 'dạng gốc …다', 'base');
+      stemToBase(core, add);
     } else {
       const un = uncontract(s.slice(-1));           // 바꿔→바꾸 · 봐→보 · 와→오
       if (un) add(s.slice(0, -1) + un + '다', 'dạng gốc, gỡ nguyên âm co', 'base');
@@ -110,6 +165,7 @@ function forms(token){
       const eu = restoreEu(s.slice(-1));            // 예뻐→예쁘 · 바빠→바쁘 · 커→크 · 아파→아프
       if (eu) add(s.slice(0, -1) + eu + '다', 'dạng gốc bất quy tắc ㅡ', 'base');
     }
+    stemToBase(s, add);
     add(s, 'bỏ đuôi -' + e, 'stem');
     break;
   }
@@ -124,19 +180,41 @@ function forms(token){
         s = s.slice(0, -1) + dropJong(s.slice(-1));
       }
       if (s.length){
-        add(s + '다', 'dạng gốc …다', 'base');
+        stemToBase(s, add);
         add(s, 'bỏ đuôi -' + e, 'stem');
       }
       break;
     }
   }
 
-  /* --- danh từ + trợ từ --- */
-  for (const p of PARTICLES){
-    if (token.length > p.length && token.slice(-p.length) === p){
-      add(token.slice(0, -p.length), 'bỏ trợ từ ' + p, 'noun');
-      break;
+  /* --- danh từ + trợ từ (gỡ tối đa 3 lớp: 에서만 · 들이 · 까지만) --- */
+  let cur = token;
+  for (let pass = 0; pass < 3; pass++){
+    let hit = null;
+    for (const p of PARTICLES){
+      if (cur.length > p.length && cur.slice(-p.length) === p){ hit = p; break; }
     }
+    if (!hit) break;
+    cur = cur.slice(0, -hit.length);
+    add(cur, 'bỏ trợ từ ' + hit, 'noun');
+    if (/들$/.test(cur) && cur.length > 1) add(cur.slice(0, -1), 'bỏ đuôi số nhiều 들', 'noun');
+  }
+  if (/들$/.test(token) && token.length > 1) add(token.slice(0, -1), 'bỏ đuôi số nhiều 들', 'noun');
+
+  /* --- đuôi định ngữ: -은 / -는 / -을 / -ㄴ / -ㄹ (작은 · 큰 · 갈 · 아플 · 포장된) --- */
+  for (const e of ['은','는','을']){
+    if (token.length > e.length && token.slice(-e.length) === e) stemToBase(token.slice(0, -e.length), add);
+  }
+  {
+    const lc = token.slice(-1), j = jong(lc);
+    if ((j === 'ㄴ' || j === 'ㄹ' || j === 'ㅁ') && token.length >= 1) stemToBase(token.slice(0, -1) + dropJong(lc), add);
+  }
+
+  /* --- đuôi kể …다 / …ㄴ다 (되었다 · 말한다 · 나타난다) --- */
+  if (/다$/.test(token) && token.length > 1){
+    const prev = token.slice(-2, -1);
+    if (jong(prev) === 'ㄴ') stemToBase(token.slice(0, -2) + dropJong(prev), add);
+    stemToBase(token.slice(0, -1), add);
   }
 
   /* --- danh từ + hệ từ 이다: 학생입니다 / 학생이에요 / 학생이야 → 학생 --- */

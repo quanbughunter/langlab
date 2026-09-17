@@ -386,10 +386,13 @@ speechChecks().then(shadowChecks).then(rest).then(() => {
   window.DICT_KO.push({ko:'세상',rom:'sesang',vi:'thế gian',pos:'danh từ',hanja:'世上',
     senses:[{def_vi:'thế gian',def_ko:'지구 위 전체.'},
             {def_vi:'thế giới',def_ko:'사람이 살고 있는 사회.',examples:['넓은 세상을 보다.']}]});
+  /* từ nào kho sẵn có thì addDict gộp nghĩa (không tăng số mục), từ mới thì thêm vào */
+  const freshN = window.DICT_KO.filter(v => !window.Words.analyze(v.ko).hit).length;
   const addedN = window.Words.addDict(window.DICT_KO);
   check('lazy-load gộp từ điển', () => {
-    if (window.__langlab_wordcount() !== before + addedN) throw new Error('không gộp');
-    if (addedN < 2) throw new Error('thêm ' + addedN);
+    if (window.__langlab_wordcount() !== before + freshN) throw new Error('không gộp');
+    if (addedN !== window.DICT_KO.length) throw new Error('addDict trả về ' + addedN);
+    if (freshN < 1) throw new Error('không có mục mới nào để thêm');
   });
   click(d.querySelector('[data-go="dict"]'));
   check('tra từ vừa nạp muộn', () => {

@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
 <meta name="description" content="Ứng dụng học ngoại ngữ theo bài cho người Việt: tiếng Hàn (TOPIK), tiếng Nhật (JLPT), tiếng Trung (HSK), tiếng Nga (ТРКИ), tiếng Anh (IELTS/TOEFL) — từ vựng, ngữ pháp, hội thoại, tập viết, từ điển, thi thử.">
-<link rel="icon" type="image/png" href="logo-icon.png?v=260960">
-<link rel="manifest" href="manifest.webmanifest?v=260960">
+<link rel="icon" type="image/png" href="logo-icon.png?v=260961">
+<link rel="manifest" href="manifest.webmanifest?v=260961">
 <meta name="theme-color" content="#EAF1FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260960">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260961">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="LangLab">
@@ -2108,7 +2108,7 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   <header class="nav">
     <div class="nav-in">
       <div class="brand" data-go="about" role="link" tabindex="0" title="Giới thiệu LangLab">
-        <span class="brand-mark"><img src="logo-icon.png?v=260960" alt="LangLab" width="40" height="40"></span>
+        <span class="brand-mark"><img src="logo-icon.png?v=260961" alt="LangLab" width="40" height="40"></span>
         <span class="brand-name"><b>Lang</b><i>Lab</i></span>
       </div>
 
@@ -7018,7 +7018,550 @@ const VOCAB_COMMON = [
   {ko:'장', rom:'jang', vi:'tờ, tấm', pos:'đơn vị', hanja:'張', hv:'trương'},
   {ko:'번', rom:'beon', vi:'lần', pos:'đơn vị', hanja:'番', hv:'phiên'},
   {ko:'살', rom:'sal', vi:'tuổi', pos:'đơn vị'},
-  {ko:'반', rom:'ban', vi:'một nửa; lớp', pos:'danh từ', hanja:'半', hv:'bán'}
+  {ko:'반', rom:'ban', vi:'một nửa; lớp', pos:'danh từ', hanja:'半', hv:'bán'},
+
+  /* ============================================================
+     TỪ KHOÁ TRONG BÀI ĐỌC (js/readings-ko.js · js/readings.js)
+     Mọi từ khoá của 50 bài đọc tiếng Hàn đều phải tra được.
+     Phần dưới bù những mục giáo trình chưa dạy.
+     ============================================================ */
+
+  /* ---------- Nhà ở · đồ đạc ---------- */
+  {ko:'자취방', rom:'jachwibang', vi:'phòng trọ tự nấu ăn', pos:'danh từ', hanja:'自炊房', hv:'tự xuý phòng'},
+  {ko:'보증금', rom:'bojeunggeum', vi:'tiền đặt cọc', pos:'danh từ', hanja:'保證金', hv:'bảo chứng kim'},
+  {ko:'조건', rom:'jogeon', vi:'điều kiện', pos:'danh từ', hanja:'條件', hv:'điều kiện'},
+  {ko:'계약하다', rom:'gyeyakhada', vi:'ký hợp đồng', pos:'động từ', hanja:'契約—', hv:'khế ước'},
+  {ko:'엘리베이터', rom:'ellibeiteo', vi:'thang máy', pos:'danh từ'},
+  {ko:'윗집', rom:'witjip', vi:'nhà tầng trên', pos:'danh từ'},
+  {ko:'층간 소음', rom:'cheunggan soeum', vi:'tiếng ồn giữa các tầng', pos:'cụm danh từ', hanja:'層間騷音', hv:'tầng gian tao âm'},
+  {ko:'집들이', rom:'jipdeuri', vi:'tiệc mừng nhà mới, tân gia', pos:'danh từ'},
+  {ko:'상자', rom:'sangja', vi:'cái hộp, thùng', pos:'danh từ', hanja:'箱子', hv:'tương tử'},
+  {ko:'휴지', rom:'hyuji', vi:'giấy vệ sinh', pos:'danh từ', hanja:'休紙', hv:'hưu chỉ'},
+  {ko:'세제', rom:'seje', vi:'bột giặt, chất tẩy rửa', pos:'danh từ', hanja:'洗劑', hv:'tẩy tễ'},
+  {ko:'저울', rom:'jeoul', vi:'cái cân', pos:'danh từ'},
+  {ko:'탈의실', rom:'taruisil', vi:'phòng thử đồ', pos:'danh từ', hanja:'脫衣室', hv:'thoát y thất'},
+  {ko:'골목', rom:'golmok', vi:'ngõ, hẻm', pos:'danh từ'},
+  {ko:'밑', rom:'mit', vi:'phía dưới', pos:'danh từ'},
+  {ko:'밖', rom:'bak', vi:'bên ngoài', pos:'danh từ'},
+  {ko:'안', rom:'an', vi:'bên trong', pos:'danh từ'},
+  {ko:'창가', rom:'changga', vi:'cạnh cửa sổ', pos:'danh từ', hanja:'窓—', hv:'song'},
+  {ko:'자리', rom:'jari', vi:'chỗ, chỗ ngồi', pos:'danh từ'},
+  {ko:'노약자석', rom:'noyakjaseok', vi:'ghế ưu tiên', pos:'danh từ', hanja:'老弱者席', hv:'lão nhược giả tịch'},
+
+  /* ---------- Mua sắm · dịch vụ ---------- */
+  {ko:'택배', rom:'taekbae', vi:'giao hàng tận nơi', pos:'danh từ', hanja:'宅配', hv:'trạch phối'},
+  {ko:'배달', rom:'baedal', vi:'việc giao hàng tận nơi', pos:'danh từ', hanja:'配達', hv:'phối đạt'},
+  {ko:'배달하다', rom:'baedalhada', vi:'giao hàng tận nơi', pos:'động từ', hanja:'配達—', hv:'phối đạt'},
+  {ko:'매장', rom:'maejang', vi:'cửa hàng, gian hàng', pos:'danh từ', hanja:'賣場', hv:'mại trường'},
+  {ko:'전통 시장', rom:'jeontong sijang', vi:'chợ truyền thống', pos:'cụm danh từ', hanja:'傳統市場', hv:'truyền thống thị trường'},
+  {ko:'가격표', rom:'gagyeokpyo', vi:'bảng giá', pos:'danh từ', hanja:'價格表', hv:'giá cách biểu'},
+  {ko:'덤', rom:'deom', vi:'phần cho thêm', pos:'danh từ'},
+  {ko:'공짜', rom:'gongjja', vi:'miễn phí, của chùa', pos:'danh từ'},
+  {ko:'할부', rom:'halbu', vi:'trả góp', pos:'danh từ', hanja:'割賦', hv:'cát phú'},
+  {ko:'요금제', rom:'yogeumje', vi:'gói cước', pos:'danh từ', hanja:'料金制', hv:'liệu kim chế'},
+  {ko:'중고', rom:'junggo', vi:'đồ cũ, hàng second-hand', pos:'danh từ', hanja:'中古', hv:'trung cổ'},
+  {ko:'판매자', rom:'panmaeja', vi:'người bán', pos:'danh từ', hanja:'販賣者', hv:'phiến mại giả'},
+  {ko:'사이즈', rom:'saijeu', vi:'cỡ, kích thước', pos:'danh từ'},
+  {ko:'묶음', rom:'mukkeum', vi:'lốc, bó', pos:'danh từ'},
+  {ko:'무게', rom:'muge', vi:'cân nặng, trọng lượng', pos:'danh từ'},
+  {ko:'분실물', rom:'bunsilmul', vi:'đồ thất lạc', pos:'danh từ', hanja:'紛失物', hv:'phân thất vật'},
+  {ko:'일회용', rom:'ilhoeyong', vi:'loại dùng một lần', pos:'danh từ', hanja:'一回用', hv:'nhất hồi dụng'},
+  {ko:'다회용 용기', rom:'dahoeyong yonggi', vi:'hộp tái sử dụng', pos:'cụm danh từ', hanja:'多回用容器', hv:'đa hồi dụng dung khí'},
+  {ko:'사고팔다', rom:'sagopalda', vi:'mua bán', pos:'động từ'},
+  {ko:'이용하다', rom:'iyonghada', vi:'sử dụng', pos:'động từ', hanja:'利用—', hv:'lợi dụng'},
+  {ko:'구하다', rom:'guhada', vi:'tìm kiếm (nhà, việc)', pos:'động từ', hanja:'求—', hv:'cầu'},
+  {ko:'딱 맞다', rom:'ttak matda', vi:'vừa in, khít', pos:'cụm động từ'},
+  {ko:'인기가 많다', rom:'ingiga manta', vi:'được ưa chuộng', pos:'cụm động từ', hanja:'人氣—', hv:'nhân khí'},
+
+  /* ---------- Công việc · giấy tờ ---------- */
+  {ko:'직원', rom:'jigwon', vi:'nhân viên', pos:'danh từ', hanja:'職員', hv:'chức viên'},
+  {ko:'부장님', rom:'bujangnim', vi:'trưởng phòng', pos:'danh từ', hanja:'部長—', hv:'bộ trưởng'},
+  {ko:'역무원', rom:'yeongmuwon', vi:'nhân viên nhà ga', pos:'danh từ', hanja:'驛務員', hv:'dịch vụ viên'},
+  {ko:'미용사', rom:'miyongsa', vi:'thợ làm tóc', pos:'danh từ', hanja:'美容師', hv:'mỹ dung sư'},
+  {ko:'간호사', rom:'ganhosa', vi:'y tá, điều dưỡng', pos:'danh từ', hanja:'看護師', hv:'khán hộ sư'},
+  {ko:'입사하다', rom:'ipsahada', vi:'vào công ty làm', pos:'động từ', hanja:'入社—', hv:'nhập xã'},
+  {ko:'회식', rom:'hoesik', vi:'tiệc liên hoan công ty', pos:'danh từ', hanja:'會食', hv:'hội thực'},
+  {ko:'자기소개서', rom:'jagisogaeseo', vi:'thư giới thiệu bản thân', pos:'danh từ', hanja:'自己紹介書', hv:'tự kỷ thiệu giới thư'},
+  {ko:'약점', rom:'yakjeom', vi:'điểm yếu', pos:'danh từ', hanja:'弱點', hv:'nhược điểm'},
+  {ko:'비밀번호', rom:'bimilbeonho', vi:'mật khẩu', pos:'danh từ', hanja:'祕密番號', hv:'bí mật phiên hiệu'},
+  {ko:'번호표를 뽑다', rom:'beonhopyoreul ppopda', vi:'rút số thứ tự', pos:'cụm động từ', hanja:'番號票—', hv:'phiên hiệu phiếu'},
+  {ko:'주문을 받다', rom:'jumuneul batda', vi:'nhận đơn gọi món', pos:'cụm động từ', hanja:'注文—', hv:'chú văn'},
+  {ko:'확인하다', rom:'hwaginhada', vi:'kiểm tra, xác nhận', pos:'động từ', hanja:'確認—', hv:'xác nhận'},
+  {ko:'지적하다', rom:'jijeokhada', vi:'chỉ ra, nêu vấn đề', pos:'động từ', hanja:'指摘—', hv:'chỉ trích'},
+  {ko:'지자체', rom:'jijache', vi:'chính quyền địa phương', pos:'danh từ', hanja:'自治體', hv:'tự trị thể'},
+  {ko:'기준', rom:'gijun', vi:'tiêu chuẩn, cái chuẩn', pos:'danh từ', hanja:'基準', hv:'cơ chuẩn'},
+  {ko:'일인 가구', rom:'irin gagu', vi:'hộ một người', pos:'cụm danh từ', hanja:'一人家口', hv:'nhất nhân gia khẩu'},
+
+  /* ---------- Học tập · ngôn ngữ ---------- */
+  {ko:'고등학생', rom:'godeunghaksaeng', vi:'học sinh cấp ba', pos:'danh từ', hanja:'高等學生', hv:'cao đẳng học sinh'},
+  {ko:'시험 기간', rom:'siheom gigan', vi:'mùa thi, kỳ thi', pos:'cụm danh từ', hanja:'試驗期間', hv:'thí nghiệm kỳ gian'},
+  {ko:'외우다', rom:'oeuda', vi:'học thuộc', pos:'động từ'},
+  {ko:'높임말', rom:'nopimmal', vi:'kính ngữ', pos:'danh từ'},
+  {ko:'반말', rom:'banmal', vi:'lối nói thân mật, không kính ngữ', pos:'danh từ', hanja:'半—', hv:'bán'},
+  {ko:'말을 놓다', rom:'mareul nota', vi:'bỏ kính ngữ, chuyển sang nói thân mật', pos:'cụm động từ'},
+  {ko:'말을 걸다', rom:'mareul geolda', vi:'bắt chuyện', pos:'cụm động từ'},
+  {ko:'말씀하시다', rom:'malsseumhasida', vi:'nói (kính ngữ)', pos:'động từ'},
+  {ko:'여쭤보다', rom:'yeojjwoboda', vi:'hỏi (kính ngữ)', pos:'động từ'},
+  {ko:'뵙다', rom:'boepda', vi:'gặp (kính ngữ)', pos:'động từ'},
+  {ko:'주무시다', rom:'jumusida', vi:'ngủ (kính ngữ)', pos:'động từ'},
+  {ko:'소리 내어 읽다', rom:'sori naeeo ikda', vi:'đọc to thành tiếng', pos:'cụm động từ'},
+  {ko:'틀리다', rom:'teullida', vi:'sai, nhầm', pos:'động từ'},
+  {ko:'자막', rom:'jamak', vi:'phụ đề', pos:'danh từ', hanja:'字幕', hv:'tự mạc'},
+  {ko:'대사', rom:'daesa', vi:'lời thoại', pos:'danh từ', hanja:'臺詞', hv:'đài từ'},
+  {ko:'줄거리', rom:'julgeori', vi:'nội dung, cốt truyện', pos:'danh từ'},
+  {ko:'시기', rom:'sigi', vi:'giai đoạn, thời kỳ', pos:'danh từ', hanja:'時期', hv:'thời kỳ'},
+  {ko:'쌓이다', rom:'ssahida', vi:'chất chồng, tích lại', pos:'động từ'},
+  {ko:'시도하다', rom:'sidohada', vi:'thử sức, thử làm', pos:'động từ', hanja:'試圖—', hv:'thí đồ'},
+  {ko:'비교하다', rom:'bigyohada', vi:'so sánh', pos:'động từ', hanja:'比較—', hv:'tỉ giác'},
+  {ko:'발견하다', rom:'balgyeonhada', vi:'phát hiện, tìm ra', pos:'động từ', hanja:'發見—', hv:'phát kiến'},
+
+  /* ---------- Sức khoẻ · cơ thể ---------- */
+  {ko:'감기에 걸리다', rom:'gamgie geollida', vi:'bị cảm', pos:'cụm động từ', hanja:'感氣—', hv:'cảm khí'},
+  {ko:'약을 먹다', rom:'yageul meokda', vi:'uống thuốc', pos:'cụm động từ', hanja:'藥—', hv:'dược'},
+  {ko:'열이 나다', rom:'yeori nada', vi:'bị sốt', pos:'cụm động từ', hanja:'熱—', hv:'nhiệt'},
+  {ko:'콧물이 나다', rom:'konmuri nada', vi:'chảy nước mũi', pos:'cụm động từ'},
+  {ko:'숨이 차다', rom:'sumi chada', vi:'hụt hơi, thở dốc', pos:'cụm động từ'},
+  {ko:'푹 쉬다', rom:'puk swida', vi:'nghỉ cho đã', pos:'cụm động từ'},
+  {ko:'지치다', rom:'jichida', vi:'kiệt sức', pos:'động từ'},
+  {ko:'떨리다', rom:'tteollida', vi:'run', pos:'động từ'},
+  {ko:'임산부', rom:'imsanbu', vi:'phụ nữ mang thai', pos:'danh từ', hanja:'妊産婦', hv:'nhâm sản phụ'},
+  {ko:'털', rom:'teol', vi:'lông', pos:'danh từ'},
+  {ko:'냄새를 맡다', rom:'naemsaereul matda', vi:'ngửi thấy mùi', pos:'cụm động từ'},
+
+  /* ---------- Đi lại ---------- */
+  {ko:'호선', rom:'hoseon', vi:'tuyến (số) tàu điện ngầm', pos:'danh từ', hanja:'號線', hv:'hiệu tuyến'},
+  {ko:'고속도로', rom:'gosokdoro', vi:'đường cao tốc', pos:'danh từ', hanja:'高速道路', hv:'cao tốc đạo lộ'},
+  {ko:'서서 가다', rom:'seoseo gada', vi:'đứng mà đi (trên xe)', pos:'cụm động từ'},
+  {ko:'놓고 내리다', rom:'noko naerida', vi:'để quên rồi xuống xe', pos:'cụm động từ'},
+  {ko:'비켜 주다', rom:'bikyeo juda', vi:'nhường chỗ, tránh ra', pos:'cụm động từ'},
+  {ko:'자리를 비우다', rom:'jarireul biuda', vi:'bỏ trống chỗ, rời chỗ', pos:'cụm động từ'},
+  {ko:'뛰어가다', rom:'ttwieogada', vi:'chạy đến', pos:'động từ'},
+  {ko:'데려가다', rom:'deryeogada', vi:'dẫn ai đi cùng', pos:'động từ'},
+  {ko:'서두르다', rom:'seodureuda', vi:'vội vàng, gấp gáp', pos:'động từ'},
+  {ko:'싣다', rom:'sitda', vi:'chất, xếp lên xe', pos:'động từ'},
+
+  /* ---------- Việc nhà · sinh hoạt ---------- */
+  {ko:'빨래', rom:'ppallae', vi:'việc giặt giũ; đồ giặt', pos:'danh từ'},
+  {ko:'정리하다', rom:'jeongnihada', vi:'sắp xếp, dọn gọn', pos:'động từ', hanja:'整理—', hv:'chỉnh lý'},
+  {ko:'닦다', rom:'dakda', vi:'lau, chùi', pos:'động từ'},
+  {ko:'붙이다', rom:'buchida', vi:'dán, gắn', pos:'động từ'},
+  {ko:'지우다', rom:'jiuda', vi:'xoá', pos:'động từ'},
+  {ko:'자르다', rom:'jareuda', vi:'cắt', pos:'động từ'},
+  {ko:'식히다', rom:'sikhida', vi:'để nguội', pos:'động từ'},
+  {ko:'펴다', rom:'pyeoda', vi:'trải ra, mở ra', pos:'động từ'},
+  {ko:'안다', rom:'anda', vi:'ôm, bế', pos:'động từ'},
+  {ko:'잃어버리다', rom:'ireobeorida', vi:'đánh mất', pos:'động từ'},
+  {ko:'없어지다', rom:'eopseojida', vi:'biến mất', pos:'động từ'},
+  {ko:'깨끗해지다', rom:'kkaekkeutaejida', vi:'trở nên sạch', pos:'động từ'},
+  {ko:'음식물 쓰레기', rom:'eumsingmul sseuregi', vi:'rác thực phẩm', pos:'cụm danh từ', hanja:'飮食物—', hv:'ẩm thực vật'},
+  {ko:'전용', rom:'jeonyong', vi:'chuyên dụng, dùng riêng', pos:'danh từ', hanja:'專用', hv:'chuyên dụng'},
+  {ko:'따로', rom:'ttaro', vi:'riêng ra, tách ra', pos:'trạng từ'},
+  {ko:'밥을 사다', rom:'babeul sada', vi:'mời ăn, bao một bữa', pos:'cụm động từ'},
+  {ko:'영상 통화', rom:'yeongsang tonghwa', vi:'gọi video', pos:'cụm danh từ', hanja:'映像通話', hv:'ánh tượng thông thoại'},
+  {ko:'안부', rom:'anbu', vi:'tin tức, tình hình (hỏi thăm)', pos:'danh từ', hanja:'安否', hv:'an phủ'},
+  {ko:'약속을 정하다', rom:'yaksogeul jeonghada', vi:'hẹn gặp, chốt lịch', pos:'cụm động từ', hanja:'約束—定—', hv:'ước thúc · định'},
+  {ko:'용기를 내다', rom:'yonggireul naeda', vi:'lấy can đảm', pos:'cụm động từ', hanja:'勇氣—', hv:'dũng khí'},
+  {ko:'화를 내다', rom:'hwareul naeda', vi:'nổi giận', pos:'cụm động từ', hanja:'火—', hv:'hoả'},
+  {ko:'깜짝 놀라다', rom:'kkamjjak nollada', vi:'giật mình', pos:'cụm động từ'},
+  {ko:'마음에 들다', rom:'maeume deulda', vi:'vừa ý, ưng', pos:'cụm động từ'},
+  {ko:'노래를 부르다', rom:'noraereul bureuda', vi:'hát', pos:'cụm động từ'},
+  {ko:'습관이 되다', rom:'seupgwani doeda', vi:'thành thói quen', pos:'cụm động từ', hanja:'習慣—', hv:'tập quán'},
+  {ko:'알려 주다', rom:'allyeo juda', vi:'chỉ bảo cho, cho biết', pos:'cụm động từ'},
+  {ko:'도망가다', rom:'domangada', vi:'chạy trốn', pos:'động từ', hanja:'逃亡—', hv:'đào vong'},
+  {ko:'지켜보다', rom:'jikyeoboda', vi:'quan sát, theo dõi', pos:'động từ'},
+  {ko:'겪다', rom:'gyeokda', vi:'trải qua, gặp phải', pos:'động từ'},
+  {ko:'떠오르다', rom:'tteooreuda', vi:'hiện lên (trong đầu); mọc lên', pos:'động từ'},
+  {ko:'멈추다', rom:'meomchuda', vi:'dừng lại', pos:'động từ'},
+  {ko:'느껴지다', rom:'neukkyeojida', vi:'cảm thấy, thấy như', pos:'động từ'},
+  {ko:'달라지다', rom:'dallajida', vi:'thay đổi, khác đi', pos:'động từ'},
+  {ko:'늘다', rom:'neulda', vi:'tăng lên; tiến bộ', pos:'động từ'},
+  {ko:'정하다', rom:'jeonghada', vi:'quyết định, chọn', pos:'động từ', hanja:'定—', hv:'định'},
+  {ko:'꺼지다', rom:'kkeojida', vi:'tắt (máy, đèn)', pos:'động từ'},
+  {ko:'젖다', rom:'jeotda', vi:'bị ướt', pos:'động từ'},
+  {ko:'비가 오다', rom:'biga oda', vi:'trời mưa', pos:'cụm động từ'},
+  {ko:'바람이 불다', rom:'barami bulda', vi:'gió thổi', pos:'cụm động từ'},
+  {ko:'햇빛이 들다', rom:'haetbichi deulda', vi:'nắng chiếu vào', pos:'cụm động từ'},
+  {ko:'비어 있다', rom:'bieo itda', vi:'đang để trống', pos:'cụm động từ'},
+  {ko:'손꼽히다', rom:'sonkkopida', vi:'được xếp vào hàng đầu', pos:'động từ'},
+  {ko:'나타나다', rom:'natanada', vi:'xuất hiện, hiện ra', pos:'động từ'},
+  {ko:'없다', rom:'eopda', vi:'không có, không tồn tại', pos:'tính từ'},
+
+  /* ---------- Tính chất · cảm nhận ---------- */
+  {ko:'신선하다', rom:'sinseonhada', vi:'tươi, tươi mới', pos:'tính từ', hanja:'新鮮—', hv:'tân tiên'},
+  {ko:'싱싱하다', rom:'singsinghada', vi:'tươi rói (rau, cá)', pos:'tính từ'},
+  {ko:'힘들다', rom:'himdeulda', vi:'vất vả, mệt', pos:'tính từ'},
+  {ko:'흔하다', rom:'heunhada', vi:'phổ biến, thường gặp', pos:'tính từ'},
+  {ko:'부족하다', rom:'bujokhada', vi:'thiếu, không đủ', pos:'tính từ', hanja:'不足—', hv:'bất túc'},
+  {ko:'분명하다', rom:'bunmyeonghada', vi:'rõ ràng', pos:'tính từ', hanja:'分明—', hv:'phân minh'},
+  {ko:'공평하다', rom:'gongpyeonghada', vi:'công bằng', pos:'tính từ', hanja:'公平—', hv:'công bình'},
+  {ko:'어색하다', rom:'eosaekhada', vi:'gượng gạo, ngượng', pos:'tính từ', hanja:'語塞—', hv:'ngữ tắc'},
+  {ko:'귀찮다', rom:'gwichanta', vi:'phiền, ngại', pos:'tính từ'},
+  {ko:'아깝다', rom:'akkapda', vi:'tiếc, phí', pos:'tính từ'},
+  {ko:'사소하다', rom:'sasohada', vi:'vặt vãnh, nhỏ nhặt', pos:'tính từ', hanja:'些少—', hv:'ta thiểu'},
+  {ko:'가득하다', rom:'gadeukada', vi:'đầy ắp', pos:'tính từ'},
+  {ko:'하얗다', rom:'hayata', vi:'trắng', pos:'tính từ'},
+  {ko:'두려워하다', rom:'duryeowohada', vi:'sợ hãi, e sợ', pos:'động từ'},
+  {ko:'상태', rom:'sangtae', vi:'tình trạng', pos:'danh từ', hanja:'狀態', hv:'trạng thái'},
+  {ko:'분위기', rom:'bunwigi', vi:'không khí, bầu không khí', pos:'danh từ', hanja:'雰圍氣', hv:'phân vi khí'},
+  {ko:'상대', rom:'sangdae', vi:'đối phương, người cùng', pos:'danh từ', hanja:'相對', hv:'tương đối'},
+  {ko:'정', rom:'jeong', vi:'cái tình, sự gắn bó', pos:'danh từ', hanja:'情', hv:'tình'},
+  {ko:'정상', rom:'jeongsang', vi:'đỉnh núi', pos:'danh từ', hanja:'頂上', hv:'đỉnh thượng'},
+  {ko:'너머', rom:'neomeo', vi:'bên kia, phía sau', pos:'danh từ'},
+  {ko:'그대로', rom:'geudaero', vi:'nguyên như vậy', pos:'trạng từ'},
+  {ko:'남의 나라', rom:'namui nara', vi:'xứ người, nước người ta', pos:'cụm danh từ'},
+  {ko:'삼분의 일', rom:'sambunui il', vi:'một phần ba', pos:'cụm số từ', hanja:'三分—一', hv:'tam phân chi nhất'},
+  {ko:'절반', rom:'jeolban', vi:'một nửa', pos:'danh từ', hanja:'折半', hv:'chiết bán'},
+  {ko:'대부분', rom:'daebubun', vi:'phần lớn', pos:'danh từ', hanja:'大部分', hv:'đại bộ phận'},
+  {ko:'첫날', rom:'cheonnal', vi:'ngày đầu tiên', pos:'danh từ'},
+  {ko:'하루 종일', rom:'haru jongil', vi:'cả ngày', pos:'cụm trạng từ', hanja:'—終日', hv:'chung nhật'},
+  {ko:'사계절', rom:'sagyejeol', vi:'bốn mùa', pos:'danh từ', hanja:'四季節', hv:'tứ quý tiết'},
+  {ko:'평소', rom:'pyeongso', vi:'ngày thường, lúc bình thường', pos:'danh từ', hanja:'平素', hv:'bình tố'},
+  {ko:'한참', rom:'hancham', vi:'một hồi lâu', pos:'danh từ'},
+  {ko:'직접', rom:'jikjeop', vi:'trực tiếp, tận tay', pos:'trạng từ', hanja:'直接', hv:'trực tiếp'},
+  {ko:'미리', rom:'miri', vi:'trước, từ trước', pos:'trạng từ'},
+  {ko:'훨씬', rom:'hwolssin', vi:'hơn hẳn, hơn nhiều', pos:'trạng từ'},
+  {ko:'거의', rom:'geoui', vi:'hầu như', pos:'trạng từ'},
+  {ko:'자꾸', rom:'jakku', vi:'cứ, liên tục', pos:'trạng từ'},
+  {ko:'오히려', rom:'ohiryeo', vi:'ngược lại, trái lại', pos:'trạng từ'},
+  {ko:'반대', rom:'bandae', vi:'ngược lại; sự phản đối', pos:'danh từ', hanja:'反對', hv:'phản đối'},
+  {ko:'당연히', rom:'dangyeonhi', vi:'đương nhiên', pos:'trạng từ', hanja:'當然—', hv:'đương nhiên'},
+  {ko:'여전히', rom:'yeojeonhi', vi:'vẫn còn, y như cũ', pos:'trạng từ', hanja:'如前—', hv:'như tiền'},
+  {ko:'곧바로', rom:'gotbaro', vi:'ngay lập tức', pos:'trạng từ'},
+  {ko:'자동으로', rom:'jadongeuro', vi:'tự động', pos:'trạng từ', hanja:'自動—', hv:'tự động'},
+  {ko:'생각보다', rom:'saenggakboda', vi:'hơn tưởng tượng', pos:'cụm trạng từ'},
+  {ko:'그 다음에', rom:'geu daeume', vi:'sau đó', pos:'cụm trạng từ'},
+  {ko:'다 해서', rom:'da haeseo', vi:'tất cả là, cộng lại là', pos:'cụm trạng từ'},
+  {ko:'아무것도', rom:'amugeotdo', vi:'không gì cả', pos:'đại từ'},
+  {ko:'쯤', rom:'jjeum', vi:'khoảng, cỡ', pos:'phụ tố'},
+  {ko:'잘 못 -', rom:'jal mot', vi:'không… giỏi, làm không nên', pos:'cụm trạng từ'},
+
+  /* ---------- Đuôi câu · mẫu ngữ pháp trong bài đọc ---------- */
+  {ko:'-째', rom:'-jjae', vi:'thứ… (đếm thứ tự thời gian)', pos:'phụ tố'},
+  {ko:'-마다', rom:'-mada', vi:'mỗi, cứ mỗi', pos:'trợ từ'},
+  {ko:'-쯤', rom:'-jjeum', vi:'khoảng, cỡ', pos:'phụ tố'},
+  {ko:'-당', rom:'-dang', vi:'mỗi (đơn vị)', pos:'phụ tố', hanja:'當', hv:'đương'},
+  {ko:'-이나', rom:'-ina', vi:'những (nhấn số lượng nhiều)', pos:'trợ từ'},
+  {ko:'-동안', rom:'-dongan', vi:'trong suốt (khoảng thời gian)', pos:'danh từ phụ thuộc'},
+  {ko:'-께서', rom:'-kkeseo', vi:'trợ từ chủ ngữ kính ngữ', pos:'trợ từ'},
+  {ko:'-에 따라', rom:'-e ttara', vi:'tuỳ theo…', pos:'cụm ngữ pháp'},
+  {ko:'-을/를 위한', rom:'-eul/reul wihan', vi:'dành cho…', pos:'cụm ngữ pháp'},
+  {ko:'-에서 -까지', rom:'-eseo -kkaji', vi:'từ… đến…', pos:'cụm ngữ pháp'},
+  {ko:'-에서 오다', rom:'-eseo oda', vi:'đến từ…', pos:'cụm ngữ pháp'},
+  {ko:'-(으)로만', rom:'-(eu)roman', vi:'chỉ bằng…', pos:'cụm ngữ pháp'},
+  {ko:'-밖에 안', rom:'-bakke an', vi:'chỉ… mà thôi', pos:'cụm ngữ pháp'},
+  {ko:'-았/었-', rom:'-at/eot-', vi:'đuôi quá khứ', pos:'đuôi câu'},
+  {ko:'-(으)셨습니다', rom:'-(eu)syeotseumnida', vi:'đuôi kính ngữ quá khứ', pos:'đuôi câu'},
+  {ko:'-(으)면서', rom:'-(eu)myeonseo', vi:'vừa… vừa…', pos:'đuôi câu'},
+  {ko:'-(으)면', rom:'-(eu)myeon', vi:'nếu…, khi…', pos:'đuôi câu'},
+  {ko:'-(으)려고', rom:'-(eu)ryeogo', vi:'để mà (mục đích)', pos:'đuôi câu'},
+  {ko:'-(으)려다가', rom:'-(eu)ryeodaga', vi:'định… rồi lại…', pos:'đuôi câu'},
+  {ko:'-기 전에', rom:'-gi jeone', vi:'trước khi…', pos:'cụm ngữ pháp'},
+  {ko:'-(으)ㄴ 후에', rom:'-(eu)n hue', vi:'sau khi…', pos:'cụm ngữ pháp'},
+  {ko:'-고 나니까', rom:'-go nanikka', vi:'sau khi… thì…', pos:'cụm ngữ pháp'},
+  {ko:'-았/었더니', rom:'-at/eotdeoni', vi:'làm… thì kết quả là…', pos:'cụm ngữ pháp'},
+  {ko:'-기 때문에', rom:'-gi ttaemune', vi:'bởi vì…', pos:'cụm ngữ pháp'},
+  {ko:'-기로 하다', rom:'-giro hada', vi:'quyết định làm…', pos:'cụm ngữ pháp'},
+  {ko:'-고 싶다', rom:'-go sipda', vi:'muốn…', pos:'cụm ngữ pháp'},
+  {ko:'-아/어야 하다', rom:'-a/eoya hada', vi:'phải…', pos:'cụm ngữ pháp'},
+  {ko:'-아/어야', rom:'-a/eoya', vi:'phải… thì mới…', pos:'đuôi câu'},
+  {ko:'-아/어지다', rom:'-a/eojida', vi:'trở nên…', pos:'cụm ngữ pháp'},
+  {ko:'-아/어도 되다', rom:'-a/eodo doeda', vi:'được phép…', pos:'cụm ngữ pháp'},
+  {ko:'-아/어 주세요', rom:'-a/eo juseyo', vi:'làm ơn… giúp tôi', pos:'cụm ngữ pháp'},
+  {ko:'-아/어 주다', rom:'-a/eo juda', vi:'làm giúp cho ai', pos:'cụm ngữ pháp'},
+  {ko:'-아/어 드리다', rom:'-a/eo deurida', vi:'làm cho (kính ngữ)', pos:'cụm ngữ pháp'},
+  {ko:'-아/어 두다', rom:'-a/eo duda', vi:'làm sẵn, để sẵn', pos:'cụm ngữ pháp'},
+  {ko:'-(으)면 되다', rom:'-(eu)myeon doeda', vi:'chỉ cần… là được', pos:'cụm ngữ pháp'},
+  {ko:'-(으)ㄹ 수 있다', rom:'-(eu)l su itda', vi:'có thể…', pos:'cụm ngữ pháp'},
+  {ko:'-(으)ㄹ 수 없다', rom:'-(eu)l su eopda', vi:'không thể…', pos:'cụm ngữ pháp'},
+  {ko:'-(으)ㄹ 거예요', rom:'-(eu)l geoyeyo', vi:'sẽ… (dự định, phỏng đoán)', pos:'cụm ngữ pháp'},
+  {ko:'-(으)ㄹ까 봐', rom:'-(eu)lkka bwa', vi:'sợ rằng…', pos:'cụm ngữ pháp'},
+  {ko:'-(으)ㄹ까요?', rom:'-(eu)lkkayo', vi:'…nhé? (rủ rê, hỏi ý)', pos:'đuôi câu'},
+  {ko:'-(으)ㄹ 것 같다', rom:'-(eu)l geot gatda', vi:'chắc là…, có vẻ…', pos:'cụm ngữ pháp'},
+  {ko:'-(으)ㄹ 만큼', rom:'-(eu)l mankeum', vi:'đến mức…', pos:'cụm ngữ pháp'},
+  {ko:'-(으)ㄹ 만하다', rom:'-(eu)l manhada', vi:'đáng để…', pos:'cụm ngữ pháp'},
+  {ko:'-(으)ㄹ지도 모르다', rom:'-(eu)ljido moreuda', vi:'có lẽ…, biết đâu…', pos:'cụm ngữ pháp'},
+  {ko:'-(으)ㄹ 때마다', rom:'-(eu)l ttaemada', vi:'mỗi lần…', pos:'cụm ngữ pháp'},
+  {ko:'-(으)ㄹ 일', rom:'-(eu)l il', vi:'việc mà… (sẽ/có thể)', pos:'cụm ngữ pháp'},
+  {ko:'-(으)ㄴ 적이 없다', rom:'-(eu)n jeogi eopda', vi:'chưa từng…', pos:'cụm ngữ pháp'},
+  {ko:'-(으)ㄴ 지 …이/가 되다', rom:'-(eu)n ji … i/ga doeda', vi:'đã được bao lâu kể từ khi…', pos:'cụm ngữ pháp'},
+  {ko:'-(으)ㄴ 지 -만에', rom:'-(eu)n ji -mane', vi:'sau khi… được đúng…', pos:'cụm ngữ pháp'},
+  {ko:'-(으)ㄴ 대신', rom:'-(eu)n daesin', vi:'bù lại, đổi lấy', pos:'cụm ngữ pháp'},
+  {ko:'-(으)ㄴ 것 중에서', rom:'-(eu)n geot jungeseo', vi:'trong số những cái đã…', pos:'cụm ngữ pháp'},
+  {ko:'-(으)라는 뜻', rom:'-(eu)raneun tteut', vi:'mang ý nghĩa là hãy…', pos:'cụm ngữ pháp'},
+  {ko:'-는 법', rom:'-neun beop', vi:'cách làm…', pos:'cụm ngữ pháp'},
+  {ko:'-는 편이 낫다', rom:'-neun pyeoni natda', vi:'thà… thì hơn', pos:'cụm ngữ pháp'},
+  {ko:'-다고 하다', rom:'-dago hada', vi:'nghe nói rằng…', pos:'cụm ngữ pháp'},
+  {ko:'-지 마세요', rom:'-ji maseyo', vi:'xin đừng…', pos:'cụm ngữ pháp'},
+  {ko:'-이/가 아니라', rom:'-i/ga anira', vi:'không phải… mà là…', pos:'cụm ngữ pháp'},
+
+  /* ============================================================
+     TỪ TRONG THÂN BÀI ĐỌC
+     Trong bài đọc mỗi từ đều bấm tra được, nên cả những từ nền tảng
+     nhất (있다, 것, 수, 때, 더…) cũng phải có mục.
+     ============================================================ */
+
+  /* ---------- Vị từ nền tảng ---------- */
+  {ko:'있다', rom:'itda', vi:'có; ở, tồn tại', pos:'tính từ'},
+  {ko:'않다', rom:'anta', vi:'không (phủ định đứng sau -지)', pos:'động từ'},
+  {ko:'싶다', rom:'sipda', vi:'muốn (dùng với -고 싶다)', pos:'tính từ'},
+  {ko:'아니다', rom:'anida', vi:'không phải là', pos:'tính từ'},
+  {ko:'나다', rom:'nada', vi:'ra, nảy sinh (열이 나다, 눈물이 나다)', pos:'động từ'},
+  {ko:'넘다', rom:'neomda', vi:'vượt quá, trèo qua', pos:'động từ'},
+  {ko:'넓다', rom:'neopda', vi:'rộng', pos:'tính từ'},
+  {ko:'두다', rom:'duda', vi:'đặt, để', pos:'động từ'},
+  {ko:'끝내다', rom:'kkeutnaeda', vi:'kết thúc, làm cho xong', pos:'động từ'},
+  {ko:'생기다', rom:'saenggida', vi:'nảy sinh, xuất hiện; trông như', pos:'động từ'},
+  {ko:'좋아지다', rom:'joajida', vi:'tốt lên, đỡ hơn', pos:'động từ'},
+  {ko:'작아지다', rom:'jagajida', vi:'nhỏ đi', pos:'động từ'},
+  {ko:'들어오다', rom:'deureooda', vi:'đi vào, lọt vào', pos:'động từ'},
+  {ko:'도와주다', rom:'dowajuda', vi:'giúp đỡ', pos:'động từ'},
+  {ko:'알리다', rom:'allida', vi:'báo cho biết', pos:'động từ'},
+  {ko:'부르다', rom:'bureuda', vi:'gọi; hát', pos:'động từ'},
+  {ko:'드시다', rom:'deusida', vi:'dùng bữa, ăn (kính ngữ)', pos:'động từ'},
+  {ko:'운영하다', rom:'unyeonghada', vi:'vận hành, điều hành', pos:'động từ', hanja:'運營—', hv:'vận doanh'},
+  {ko:'포장되다', rom:'pojangdoeda', vi:'được đóng gói', pos:'động từ', hanja:'包裝—', hv:'bao trang'},
+  {ko:'설계되다', rom:'seolgyedoeda', vi:'được thiết kế', pos:'động từ', hanja:'設計—', hv:'thiết kế'},
+  {ko:'이상하다', rom:'isanghada', vi:'kỳ lạ, khác thường', pos:'tính từ', hanja:'異常—', hv:'dị thường'},
+
+  /* ---------- Danh từ phụ thuộc · đại từ ---------- */
+  {ko:'것', rom:'geot', vi:'cái, việc, điều', pos:'danh từ phụ thuộc'},
+  {ko:'게', rom:'ge', vi:'cái mà… (rút gọn của 것이)', pos:'danh từ phụ thuộc'},
+  {ko:'걸', rom:'geol', vi:'cái mà… (rút gọn của 것을)', pos:'danh từ phụ thuộc'},
+  {ko:'수', rom:'su', vi:'khả năng (dùng trong -(으)ㄹ 수 있다/없다)', pos:'danh từ phụ thuộc'},
+  {ko:'때', rom:'ttae', vi:'lúc, khi', pos:'danh từ phụ thuộc'},
+  {ko:'점', rom:'jeom', vi:'điểm, khía cạnh', pos:'danh từ', hanja:'點', hv:'điểm'},
+  {ko:'그', rom:'geu', vi:'đó, ấy (chỉ định)', pos:'đại từ chỉ định'},
+  {ko:'이런', rom:'ireon', vi:'thế này, như thế này', pos:'đại từ chỉ định'},
+  {ko:'뭔가', rom:'mwonga', vi:'cái gì đó', pos:'đại từ'},
+  {ko:'이렇게', rom:'ireoke', vi:'như thế này', pos:'trạng từ'},
+
+  /* ---------- Trạng từ hay gặp ---------- */
+  {ko:'더', rom:'deo', vi:'hơn, thêm', pos:'trạng từ'},
+  {ko:'제일', rom:'jeil', vi:'nhất', pos:'trạng từ', hanja:'第一', hv:'đệ nhất'},
+  {ko:'가장', rom:'gajang', vi:'nhất (trang trọng hơn 제일)', pos:'trạng từ'},
+  {ko:'이제', rom:'ije', vi:'bây giờ, từ giờ', pos:'trạng từ'},
+  {ko:'함께', rom:'hamkke', vi:'cùng nhau', pos:'trạng từ'},
+  {ko:'다만', rom:'daman', vi:'chỉ có điều', pos:'liên từ'},
+  {ko:'갑자기', rom:'gapjagi', vi:'đột nhiên', pos:'trạng từ'},
+  {ko:'가까이', rom:'gakkai', vi:'gần, ở gần', pos:'trạng từ'},
+  {ko:'꼭', rom:'kkok', vi:'nhất định, chắc chắn', pos:'trạng từ'},
+  {ko:'깜짝', rom:'kkamjjak', vi:'giật nảy (깜짝 놀라다)', pos:'trạng từ'},
+  {ko:'대신', rom:'daesin', vi:'thay vì, thay cho', pos:'danh từ', hanja:'代身', hv:'đại thân'},
+  {ko:'결국', rom:'gyeolguk', vi:'cuối cùng thì', pos:'trạng từ', hanja:'結局', hv:'kết cục'},
+  {ko:'동안', rom:'dongan', vi:'trong khoảng (thời gian)', pos:'danh từ'},
+  {ko:'다', rom:'da', vi:'tất cả, hết', pos:'trạng từ'},
+  {ko:'혼자서도', rom:'honjaseodo', vi:'ngay cả khi một mình', pos:'cụm trạng từ'},
+
+  /* ---------- Số đếm ---------- */
+  {ko:'둘', rom:'dul', vi:'hai (số đếm thuần Hàn)', pos:'số từ'},
+  {ko:'두', rom:'du', vi:'hai (đứng trước danh từ)', pos:'số từ'},
+  {ko:'세', rom:'se', vi:'ba (đứng trước danh từ)', pos:'số từ'},
+  {ko:'네', rom:'ne', vi:'bốn (đứng trước danh từ); vâng', pos:'số từ'},
+  {ko:'다섯', rom:'daseot', vi:'năm (số đếm thuần Hàn)', pos:'số từ'},
+  {ko:'여섯', rom:'yeoseot', vi:'sáu (số đếm thuần Hàn)', pos:'số từ'},
+  {ko:'일곱', rom:'ilgop', vi:'bảy (số đếm thuần Hàn)', pos:'số từ'},
+  {ko:'여덟', rom:'yeodeol', vi:'tám (số đếm thuần Hàn)', pos:'số từ'},
+  {ko:'첫', rom:'cheot', vi:'đầu tiên (첫 번째)', pos:'số thứ tự'},
+  {ko:'번째', rom:'beonjjae', vi:'thứ… (đếm thứ tự)', pos:'danh từ phụ thuộc', hanja:'番—', hv:'phiên'},
+  {ko:'오', rom:'o', vi:'năm (số Hán–Hàn)', pos:'số từ', hanja:'五', hv:'ngũ'},
+  {ko:'십오', rom:'sibo', vi:'mười lăm', pos:'số từ', hanja:'十五', hv:'thập ngũ'},
+  {ko:'삼십', rom:'samsip', vi:'ba mươi', pos:'số từ', hanja:'三十', hv:'tam thập'},
+  {ko:'이백', rom:'ibaek', vi:'hai trăm', pos:'số từ', hanja:'二百', hv:'nhị bách'},
+  {ko:'삼천', rom:'samcheon', vi:'ba nghìn', pos:'số từ', hanja:'三千', hv:'tam thiên'},
+  {ko:'이틀', rom:'iteul', vi:'hai ngày', pos:'danh từ'},
+  {ko:'사흘', rom:'saheul', vi:'ba ngày', pos:'danh từ'},
+
+  /* ---------- Đơn vị đếm ---------- */
+  {ko:'끼', rom:'kki', vi:'bữa (đếm bữa ăn)', pos:'đơn vị'},
+  {ko:'층', rom:'cheung', vi:'tầng', pos:'đơn vị', hanja:'層', hv:'tầng'},
+
+  /* ---------- Danh từ đời sống ---------- */
+  {ko:'근처', rom:'geuncheo', vi:'gần đây, vùng lân cận', pos:'danh từ', hanja:'近處', hv:'cận xứ'},
+  {ko:'마트', rom:'mateu', vi:'siêu thị', pos:'danh từ'},
+  {ko:'커피숍', rom:'keopisyop', vi:'quán cà phê', pos:'danh từ'},
+  {ko:'단어', rom:'daneo', vi:'từ vựng, từ', pos:'danh từ', hanja:'單語', hv:'đơn ngữ'},
+  {ko:'눈물', rom:'nunmul', vi:'nước mắt', pos:'danh từ'},
+  {ko:'남동생', rom:'namdongsaeng', vi:'em trai', pos:'danh từ', hanja:'男—', hv:'nam'},
+  {ko:'집주인', rom:'jipjuin', vi:'chủ nhà', pos:'danh từ', hanja:'—主人', hv:'chủ nhân'},
+  {ko:'사장님', rom:'sajangnim', vi:'giám đốc, ông/bà chủ', pos:'danh từ', hanja:'社長—', hv:'xã trưởng'},
+  {ko:'운동장', rom:'undongjang', vi:'sân vận động, sân trường', pos:'danh từ', hanja:'運動場', hv:'vận động trường'},
+  {ko:'시청', rom:'sicheong', vi:'toà thị chính', pos:'danh từ', hanja:'市廳', hv:'thị sảnh'},
+  {ko:'주택', rom:'jutaek', vi:'nhà ở, nhà riêng', pos:'danh từ', hanja:'住宅', hv:'trú trạch'},
+  {ko:'의료', rom:'uiryo', vi:'y tế', pos:'danh từ', hanja:'醫療', hv:'y liệu'},
+  {ko:'가구', rom:'gagu', vi:'hộ gia đình; đồ nội thất', pos:'danh từ', hanja:'家口 / 家具', hv:'gia khẩu / gia cụ'},
+  {ko:'전체', rom:'jeonche', vi:'toàn bộ', pos:'danh từ', hanja:'全體', hv:'toàn thể'},
+  {ko:'상품', rom:'sangpum', vi:'sản phẩm, mặt hàng', pos:'danh từ', hanja:'商品', hv:'thương phẩm'},
+  {ko:'위기', rom:'wigi', vi:'khủng hoảng, lúc nguy cấp', pos:'danh từ', hanja:'危機', hv:'nguy cơ'},
+  {ko:'서비스', rom:'seobiseu', vi:'dịch vụ', pos:'danh từ'},
+  {ko:'형태', rom:'hyeongtae', vi:'hình thái, dạng', pos:'danh từ', hanja:'形態', hv:'hình thái'},
+  {ko:'분량', rom:'bullyang', vi:'khẩu phần, lượng', pos:'danh từ', hanja:'分量', hv:'phân lượng'},
+  {ko:'가전제품', rom:'gajeonjepum', vi:'đồ điện gia dụng', pos:'danh từ', hanja:'家電製品', hv:'gia điện chế phẩm'},
+  {ko:'반대쪽', rom:'bandaejjok', vi:'phía đối diện', pos:'danh từ', hanja:'反對—', hv:'phản đối'},
+  {ko:'혼밥', rom:'honbap', vi:'ăn cơm một mình', pos:'danh từ', note:'혼자 + 밥 — từ mới của giới trẻ'},
+  {ko:'혼술', rom:'honsul', vi:'uống rượu một mình', pos:'danh từ', note:'혼자 + 술'},
+  {ko:'삼각김밥', rom:'samgak gimbap', vi:'cơm nắm tam giác', pos:'danh từ', hanja:'三角—', hv:'tam giác'},
+  {ko:'김치찌개', rom:'gimchi jjigae', vi:'canh kimchi', pos:'danh từ'},
+  {ko:'아메리카노', rom:'amerikano', vi:'cà phê americano', pos:'danh từ'},
+  {ko:'라테', rom:'rate', vi:'cà phê latte', pos:'danh từ'},
+  {ko:'아이스', rom:'aiseu', vi:'đá, lạnh (아이스 아메리카노)', pos:'danh từ'},
+  {ko:'볼펜', rom:'bolpen', vi:'bút bi', pos:'danh từ'},
+
+  /* ---------- Tên riêng trong bài ---------- */
+  {ko:'하노이', rom:'Hanoi', vi:'Hà Nội', pos:'tên riêng'},
+  {ko:'한강', rom:'Hangang', vi:'sông Hàn (Seoul)', pos:'tên riêng', hanja:'漢江', hv:'Hán giang'},
+  {ko:'민수', rom:'Minsu', vi:'Min-su (tên nam phổ biến)', pos:'tên riêng'},
+  {ko:'북한산', rom:'Bukhansan', vi:'núi Bukhan (Seoul)', pos:'tên riêng', hanja:'北漢山', hv:'Bắc Hán sơn'},
+  {ko:'부산', rom:'Busan', vi:'Busan', pos:'tên riêng', hanja:'釜山', hv:'Phủ Sơn'},
+  {ko:'구름', rom:'gureum', vi:'đám mây; tên con mèo trong bài đọc', pos:'danh từ'},
+
+  /* ---------- Bổ sung đợt 2: từ còn lại trong thân bài đọc ---------- */
+
+  /* Danh từ */
+  {ko:'건물', rom:'geonmul', vi:'toà nhà', pos:'danh từ', hanja:'建物', hv:'kiến vật'},
+  {ko:'가운데', rom:'gaunde', vi:'ở giữa; trong số', pos:'danh từ'},
+  {ko:'노트북', rom:'noteubuk', vi:'máy tính xách tay', pos:'danh từ'},
+  {ko:'룸메이트', rom:'rummeiteu', vi:'bạn cùng phòng', pos:'danh từ'},
+  {ko:'미용실', rom:'miyongsil', vi:'tiệm làm tóc', pos:'danh từ', hanja:'美容室', hv:'mỹ dung thất'},
+  {ko:'한식당', rom:'hansikdang', vi:'quán ăn Hàn', pos:'danh từ', hanja:'韓食堂', hv:'Hàn thực đường'},
+  {ko:'지하철역', rom:'jihacheollyeok', vi:'ga tàu điện ngầm', pos:'danh từ', hanja:'地下鐵驛', hv:'địa hạ thiết dịch'},
+  {ko:'아파트', rom:'apateu', vi:'chung cư, căn hộ', pos:'danh từ'},
+  {ko:'옆집', rom:'yeopjip', vi:'nhà bên cạnh', pos:'danh từ'},
+  {ko:'센터', rom:'senteo', vi:'trung tâm', pos:'danh từ'},
+  {ko:'점심시간', rom:'jeomsimsigan', vi:'giờ nghỉ trưa', pos:'danh từ', hanja:'點心時間', hv:'điểm tâm thời gian'},
+  {ko:'일주일', rom:'iljuil', vi:'một tuần', pos:'danh từ', hanja:'一週日', hv:'nhất chu nhật'},
+  {ko:'반년', rom:'bannyeon', vi:'nửa năm', pos:'danh từ', hanja:'半年', hv:'bán niên'},
+  {ko:'기간', rom:'gigan', vi:'thời gian, kỳ hạn', pos:'danh từ', hanja:'期間', hv:'kỳ gian'},
+  {ko:'마지막', rom:'majimak', vi:'cuối cùng', pos:'danh từ'},
+  {ko:'다음', rom:'daeum', vi:'tiếp theo, lần sau', pos:'danh từ'},
+  {ko:'이번', rom:'ibeon', vi:'lần này', pos:'danh từ', hanja:'—番', hv:'phiên'},
+  {ko:'지난', rom:'jinan', vi:'vừa qua, trước (지난주)', pos:'định từ'},
+  {ko:'전', rom:'jeon', vi:'trước (시간); toàn bộ', pos:'danh từ', hanja:'前', hv:'tiền'},
+  {ko:'후', rom:'hu', vi:'sau (시간)', pos:'danh từ', hanja:'後', hv:'hậu'},
+  {ko:'중', rom:'jung', vi:'trong, giữa; đang', pos:'danh từ', hanja:'中', hv:'trung'},
+  {ko:'적', rom:'jeok', vi:'lần, kinh nghiệm (-(으)ㄴ 적이 있다)', pos:'danh từ phụ thuộc'},
+  {ko:'지', rom:'ji', vi:'kể từ khi (-(으)ㄴ 지)', pos:'danh từ phụ thuộc'},
+  {ko:'편', rom:'pyeon', vi:'phía, bên; xu hướng (-는 편이다)', pos:'danh từ phụ thuộc', hanja:'便', hv:'tiện'},
+  {ko:'만', rom:'man', vi:'vạn (10 000); sau đúng… (지 일주일 만에)', pos:'danh từ', hanja:'萬', hv:'vạn'},
+  {ko:'제', rom:'je', vi:'của tôi (khiêm nhường, rút gọn 저의)', pos:'đại từ'},
+  {ko:'저희', rom:'jeohui', vi:'chúng tôi (khiêm nhường)', pos:'đại từ'},
+  {ko:'자기', rom:'jagi', vi:'bản thân mình', pos:'đại từ', hanja:'自己', hv:'tự kỷ'},
+  {ko:'누구', rom:'nugu', vi:'ai', pos:'đại từ nghi vấn'},
+  {ko:'누군가', rom:'nugunga', vi:'ai đó', pos:'đại từ'},
+  {ko:'무슨', rom:'museun', vi:'cái gì, loại nào', pos:'định từ nghi vấn'},
+  {ko:'어떤', rom:'eotteon', vi:'nào đó, thế nào', pos:'định từ'},
+  {ko:'어느', rom:'eoneu', vi:'nào (trong số)', pos:'định từ'},
+  {ko:'아무', rom:'amu', vi:'bất kỳ ai/cái gì', pos:'định từ'},
+  {ko:'하나', rom:'hana', vi:'một (số đếm thuần Hàn)', pos:'số từ'},
+  {ko:'아홉', rom:'ahop', vi:'chín (số đếm thuần Hàn)', pos:'số từ'},
+  {ko:'십', rom:'sip', vi:'mười (số Hán–Hàn)', pos:'số từ', hanja:'十', hv:'thập'},
+  {ko:'삼분', rom:'sambun', vi:'ba phần (삼분의 일: một phần ba)', pos:'danh từ', hanja:'三分', hv:'tam phân'},
+  {ko:'군데', rom:'gunde', vi:'nơi, chỗ (đếm địa điểm)', pos:'đơn vị'},
+  {ko:'통', rom:'tong', vi:'thùng; bức (đếm thư, điện thoại)', pos:'đơn vị'},
+  {ko:'칸', rom:'kan', vi:'ô, ngăn, khoang', pos:'danh từ'},
+  {ko:'뜻', rom:'tteut', vi:'nghĩa, ý nghĩa', pos:'danh từ'},
+  {ko:'소리', rom:'sori', vi:'tiếng, âm thanh', pos:'danh từ'},
+  {ko:'모양', rom:'moyang', vi:'hình dáng', pos:'danh từ', hanja:'模樣', hv:'mô dạng'},
+  {ko:'문법', rom:'munbeop', vi:'ngữ pháp', pos:'danh từ', hanja:'文法', hv:'văn pháp'},
+  {ko:'문장', rom:'munjang', vi:'câu văn', pos:'danh từ', hanja:'文章', hv:'văn chương'},
+  {ko:'한국어', rom:'hangugeo', vi:'tiếng Hàn', pos:'danh từ', hanja:'韓國語', hv:'Hàn quốc ngữ'},
+  {ko:'인기', rom:'ingi', vi:'sự được yêu thích', pos:'danh từ', hanja:'人氣', hv:'nhân khí'},
+  {ko:'영상', rom:'yeongsang', vi:'hình ảnh, video', pos:'danh từ', hanja:'映像', hv:'ánh tượng'},
+  {ko:'채팅', rom:'chaeting', vi:'nhắn tin trò chuyện', pos:'danh từ'},
+  {ko:'앱', rom:'aep', vi:'ứng dụng (app)', pos:'danh từ'},
+  {ko:'화', rom:'hwa', vi:'cơn giận', pos:'danh từ', hanja:'火', hv:'hoả'},
+  {ko:'힘', rom:'him', vi:'sức lực', pos:'danh từ'},
+  {ko:'숨', rom:'sum', vi:'hơi thở', pos:'danh từ'},
+  {ko:'햇빛', rom:'haetbit', vi:'ánh nắng', pos:'danh từ'},
+  {ko:'파란색', rom:'paransaek', vi:'màu xanh dương', pos:'danh từ', hanja:'—色', hv:'sắc'},
+  {ko:'새것', rom:'saegeot', vi:'đồ mới', pos:'danh từ'},
+  {ko:'주문', rom:'jumun', vi:'đơn hàng, việc gọi món', pos:'danh từ', hanja:'注文', hv:'chú văn'},
+  {ko:'필요', rom:'piryo', vi:'sự cần thiết', pos:'danh từ', hanja:'必要', hv:'tất yếu'},
+  {ko:'편리함', rom:'pyeollinam', vi:'sự tiện lợi', pos:'danh từ', hanja:'便利—', hv:'tiện lợi'},
+  {ko:'택시비', rom:'taeksibi', vi:'tiền taxi', pos:'danh từ', hanja:'—費', hv:'phí'},
+  {ko:'책상값', rom:'chaeksanggap', vi:'tiền cái bàn học', pos:'danh từ', hanja:'冊床—', hv:'sách sàng'},
+  {ko:'별로', rom:'byeollo', vi:'không mấy, chẳng lấy gì làm', pos:'trạng từ', hanja:'別—', hv:'biệt'},
+  {ko:'곧', rom:'got', vi:'ngay, sắp', pos:'trạng từ'},
+  {ko:'그냥', rom:'geunyang', vi:'cứ thế, chỉ đơn giản là', pos:'trạng từ'},
+  {ko:'오래', rom:'orae', vi:'lâu', pos:'trạng từ'},
+  {ko:'못', rom:'mot', vi:'không thể (phủ định năng lực)', pos:'trạng từ'},
+  {ko:'딱', rom:'ttak', vi:'vừa khít, đúng y', pos:'trạng từ'},
+  {ko:'따라', rom:'ttara', vi:'theo (-에 따라)', pos:'trạng từ'},
+  {ko:'그래', rom:'geurae', vi:'ừ, thế à', pos:'thán từ'},
+  {ko:'아니라', rom:'anira', vi:'không phải… (mà là)', pos:'cụm ngữ pháp'},
+
+  /* Đồ ăn · vật liệu */
+  {ko:'김', rom:'gim', vi:'rong biển khô', pos:'danh từ'},
+  {ko:'참기름', rom:'chamgireum', vi:'dầu vừng', pos:'danh từ'},
+  {ko:'당근', rom:'danggeun', vi:'cà rốt', pos:'danh từ'},
+  {ko:'햄', rom:'haem', vi:'thịt nguội, giăm bông', pos:'danh từ'},
+  {ko:'과자', rom:'gwaja', vi:'bánh kẹo, đồ ăn vặt', pos:'danh từ', hanja:'菓子', hv:'quả tử'},
+  {ko:'술', rom:'sul', vi:'rượu', pos:'danh từ'},
+  {ko:'치킨', rom:'chikin', vi:'gà rán', pos:'danh từ'},
+  {ko:'쌀국수', rom:'ssalguksu', vi:'phở, bún gạo', pos:'danh từ'},
+  {ko:'사이다', rom:'saida', vi:'nước ngọt có ga vị chanh', pos:'danh từ'},
+  {ko:'테이프', rom:'teipeu', vi:'băng dính', pos:'danh từ'},
+  {ko:'플라스틱', rom:'peullaseutik', vi:'nhựa', pos:'danh từ'},
+  {ko:'유리병', rom:'yuribyeong', vi:'chai thuỷ tinh', pos:'danh từ', hanja:'琉璃甁', hv:'lưu ly bình'},
+  {ko:'배편', rom:'baepyeon', vi:'đường biển (gửi hàng)', pos:'danh từ', hanja:'—便', hv:'tiện'},
+  {ko:'드라마', rom:'deurama', vi:'phim truyền hình', pos:'danh từ'},
+  {ko:'면접관', rom:'myeonjeopgwan', vi:'người phỏng vấn', pos:'danh từ', hanja:'面接官', hv:'diện tiếp quan'},
+  {ko:'세계', rom:'segye', vi:'thế giới', pos:'danh từ', hanja:'世界', hv:'thế giới'},
+  {ko:'중국', rom:'jungguk', vi:'Trung Quốc', pos:'tên riêng', hanja:'中國', hv:'Trung quốc'},
+  {ko:'몽골', rom:'monggol', vi:'Mông Cổ', pos:'tên riêng'},
+  {ko:'설', rom:'seol', vi:'Tết Nguyên đán (Hàn Quốc)', pos:'danh từ'},
+  {ko:'어린아이', rom:'eorinai', vi:'trẻ nhỏ', pos:'danh từ'},
+  {ko:'남', rom:'nam', vi:'người khác, người dưng', pos:'danh từ'},
+  {ko:'이야기', rom:'iyagi', vi:'câu chuyện', pos:'danh từ'},
+
+  /* Động từ · tính từ */
+  {ko:'이야기하다', rom:'iyagihada', vi:'nói chuyện, kể chuyện', pos:'động từ'},
+  {ko:'물어보다', rom:'mureoboda', vi:'hỏi thử', pos:'động từ'},
+  {ko:'알아듣다', rom:'aradeutda', vi:'nghe hiểu', pos:'động từ'},
+  {ko:'걸어가다', rom:'georeogada', vi:'đi bộ đến', pos:'động từ'},
+  {ko:'돌아다니다', rom:'doradanida', vi:'đi lòng vòng, đi khắp nơi', pos:'động từ'},
+  {ko:'나오다', rom:'naoda', vi:'đi ra, xuất hiện', pos:'động từ'},
+  {ko:'들리다', rom:'deullida', vi:'nghe thấy (tự nhiên)', pos:'động từ'},
+  {ko:'보이다', rom:'boida', vi:'nhìn thấy; cho xem', pos:'động từ'},
+  {ko:'넣다', rom:'neota', vi:'bỏ vào, cho vào', pos:'động từ'},
+  {ko:'놓다', rom:'nota', vi:'đặt xuống, để', pos:'động từ'},
+  {ko:'남기다', rom:'namgida', vi:'để lại', pos:'động từ'},
+  {ko:'남다', rom:'namda', vi:'còn lại', pos:'động từ'},
+  {ko:'맡기다', rom:'matgida', vi:'gửi lại, giao cho giữ', pos:'động từ'},
+  {ko:'버리다', rom:'beorida', vi:'vứt bỏ', pos:'động từ'},
+  {ko:'보내다', rom:'bonaeda', vi:'gửi; trải qua (thời gian)', pos:'động từ'},
+  {ko:'바뀌다', rom:'bakkwida', vi:'bị đổi, thay đổi', pos:'động từ'},
+  {ko:'변하다', rom:'byeonhada', vi:'biến đổi', pos:'động từ', hanja:'變—', hv:'biến'},
+  {ko:'사라지다', rom:'sarajida', vi:'biến mất', pos:'động từ'},
+  {ko:'줄다', rom:'julda', vi:'giảm đi', pos:'động từ'},
+  {ko:'지나다', rom:'jinada', vi:'trôi qua, đi qua', pos:'động từ'},
+  {ko:'뽑다', rom:'ppopda', vi:'rút ra, chọn ra', pos:'động từ'},
+  {ko:'누르다', rom:'nureuda', vi:'bấm, ấn', pos:'động từ'},
+  {ko:'비우다', rom:'biuda', vi:'làm trống, bỏ trống', pos:'động từ'},
+  {ko:'비키다', rom:'bikida', vi:'tránh ra, dịch ra', pos:'động từ'},
+  {ko:'끓이다', rom:'kkeurida', vi:'đun, nấu sôi', pos:'động từ'},
+  {ko:'앉다', rom:'anta', vi:'ngồi', pos:'động từ'},
+  {ko:'입다', rom:'ipda', vi:'mặc', pos:'động từ'},
+  {ko:'웃다', rom:'utda', vi:'cười', pos:'động từ'},
+  {ko:'붙다', rom:'butda', vi:'dính vào; đỗ (kỳ thi)', pos:'động từ'},
+  {ko:'자르다', rom:'jareuda', vi:'cắt, chặt', pos:'động từ'},
+  {ko:'틀리다', rom:'teullida', vi:'sai, nhầm', pos:'động từ'},
+  {ko:'모으다', rom:'moeuda', vi:'thu góp, dành dụm', pos:'động từ'},
+  {ko:'예매하다', rom:'yemaehada', vi:'đặt vé trước', pos:'động từ', hanja:'豫買—', hv:'dự mại'},
+  {ko:'연락하다', rom:'yeollakhada', vi:'liên lạc', pos:'động từ', hanja:'連絡—', hv:'liên lạc'},
+  {ko:'설명하다', rom:'seolmyeonghada', vi:'giải thích', pos:'động từ', hanja:'說明—', hv:'thuyết minh'},
+  {ko:'생각하다', rom:'saenggakhada', vi:'nghĩ', pos:'động từ'},
+  {ko:'거절하다', rom:'geojeolhada', vi:'từ chối', pos:'động từ', hanja:'拒絕—', hv:'cự tuyệt'},
+  {ko:'위하다', rom:'wihada', vi:'vì, dành cho (-을/를 위하다)', pos:'động từ', hanja:'爲—', hv:'vị'},
+  {ko:'어울리다', rom:'eoullida', vi:'hợp, hoà hợp', pos:'động từ'},
+  {ko:'어색해지다', rom:'eosaekhaejida', vi:'trở nên gượng gạo', pos:'động từ'},
+  {ko:'가까워지다', rom:'gakkawojida', vi:'gần lại, thân hơn', pos:'động từ'},
+  {ko:'가벼워지다', rom:'gabyeowojida', vi:'nhẹ đi', pos:'động từ'},
+  {ko:'짧아지다', rom:'jjalbajida', vi:'ngắn đi', pos:'động từ'},
+  {ko:'공평해지다', rom:'gongpyeonghaejida', vi:'trở nên công bằng', pos:'động từ', hanja:'公平—', hv:'công bình'},
+  {ko:'얇다', rom:'yalda', vi:'mỏng', pos:'tính từ'},
+  {ko:'젊다', rom:'jeomda', vi:'trẻ', pos:'tính từ'},
+  {ko:'낯설다', rom:'natseolda', vi:'lạ lẫm, không quen', pos:'tính từ'},
+  {ko:'친하다', rom:'chinhada', vi:'thân thiết', pos:'tính từ', hanja:'親—', hv:'thân'}
 ];
 if (typeof window !== 'undefined') window.VOCAB_COMMON = VOCAB_COMMON;
 
@@ -7607,10 +8150,11 @@ function mark(text){
 
 /* Trợ từ (조사) — dính vào danh từ. Xếp dài trước để cắt cụm dài nhất. */
 const PARTICLES = [
-  '으로부터','로부터','에게서','한테서','에서는','에게도','으로는','이라고','이에요',
+  '으로부터','로부터','에게서','한테서','에서는','에서도','에서만','에게도','에게는',
+  '으로는','으로도','이라고','이에요','까지만','부터는',
   '에서','께서','에게','한테','부터','까지','마다','처럼','보다','밖에','조차','이나',
-  '으로','에는','에도','하고','이랑','라고','예요',
-  '와','과','은','는','이','가','을','를','도','에','의','로','만','께','랑'
+  '으로','에는','에도','에만','하고','이랑','라고','예요','만큼','라도','이라도',
+  '와','과','은','는','이','가','을','를','도','에','의','로','만','께','랑','뿐','쯤','씩','째'
 ];
 
 /* Đuôi bắt đầu bằng nguyên âm hoà (아/어/여/해) — cần xử lý riêng. */
@@ -7618,9 +8162,14 @@ const HARMONY_ENDINGS = ['요', '서'];
 
 /* Đuôi còn lại: bỏ đuôi rồi thêm 다 là ra dạng gốc. */
 const PLAIN_ENDINGS = [
-  '았습니다','었습니다','였습니다','겠습니다','습니다','습니까',
-  '으려고','으니까','으세요','는데요','은데요','읍시다',
-  '니다','니까','시다','지만','으면','는데','은데','으러','려고','네요','나요',
+  '았습니다','었습니다','였습니다','겠습니다','으셨습니다','셨습니다','으십니다','십니다',
+  '습니다','습니까',
+  '으니까요','으려면','으면서','았지만','었지만','였지만','았는데','었는데',
+  '으셨어요','셨어요','니까요','는다고','ㄴ다고',
+  '으려고','으니까','으세요','는데요','은데요','읍시다','는다','습니',
+  '니다','니까','시다','지만','으면','면서','는데','은데','으러','려고','네요','나요',
+  '려면','았다','었다','였다','았고','었고','였고','아야','어야','여야',
+  '아도','어도','여도','을까','ㄹ까','기로',
   '고','지','게','는','면','러','며'
 ];
 
@@ -7628,6 +8177,10 @@ const jong = ch => { const p = (typeof decomposeHangul === 'function') && decomp
 const dropJong = ch => {
   const p = (typeof decomposeHangul === 'function') && decomposeHangul(ch);
   return p && p.jong ? composeHangul(p.cho, p.jung, '') : ch;
+};
+const setJong = (ch, j) => {
+  const p = (typeof decomposeHangul === 'function') && decomposeHangul(ch);
+  return p ? composeHangul(p.cho, p.jung, j) : ch;
 };
 /* Gỡ hiện tượng co nguyên âm khi chia thì: 봐→보, 와→오, 줘→주, 돼→되, 해→하 */
 const UNCONTRACT = { 'ㅘ':'ㅗ', 'ㅝ':'ㅜ', 'ㅙ':'ㅚ', 'ㅞ':'ㅜ' };
@@ -7646,6 +8199,50 @@ function restoreEu(ch){
 }
 
 /** Sinh các dạng có thể tra được, xếp theo độ tin cậy. */
+/* Thân từ -> dạng gốc …다 (dùng chung cho mọi nhánh gỡ đuôi) */
+function baseCandidates(s, add){
+  if (!s || !s.length) return;
+  const last = s.slice(-1);
+  if (/해$/.test(s)) add(s.slice(0, -1) + '하다', 'dạng gốc …하다', 'base');
+  if (/했$/.test(s)) add(s.slice(0, -1) + '하다', 'dạng gốc …하다, bỏ đuôi quá khứ', 'base');
+  /* bất quy tắc ㅂ: 매워→맵다 · 시끄러워→시끄럽다 · 가까운→가깝다 */
+  if (/[워우]$/.test(last) && s.length > 1){
+    add(s.slice(0, -2) + setJong(s.slice(-2, -1), 'ㅂ') + '다', 'dạng gốc bất quy tắc ㅂ', 'base');
+  }
+  /* bất quy tắc 르: 달라→다르다 · 불러→부르다 · 몰라→모르다 */
+  if (/[라러]$/.test(last) && s.length > 1 && jong(s.slice(-2, -1)) === 'ㄹ'){
+    add(s.slice(0, -2) + dropJong(s.slice(-2, -1)) + '르다', 'dạng gốc bất quy tắc 르', 'base');
+  }
+  /* bất quy tắc ㄷ: 들어→듣다 · 걸어→걷다 */
+  if (/[아어]$/.test(last) && s.length > 1 && jong(s.slice(-2, -1)) === 'ㄹ'){
+    add(s.slice(0, -2) + setJong(s.slice(-2, -1), 'ㄷ') + '다', 'dạng gốc bất quy tắc ㄷ', 'base');
+  }
+  /* -이- gặp 어 co thành 여: 져→지다 · 껴→끼다 · 려→리다 · 혀→히다 */
+  const dp = (typeof decomposeHangul === 'function') && decomposeHangul(last);
+  if (dp && !dp.jong && dp.jung === 'ㅕ'){
+    add(s.slice(0, -1) + composeHangul(dp.cho, 'ㅣ', '') + '다', 'dạng gốc, gỡ co -이- + 어', 'base');
+  }
+  const un2 = uncontract(last);
+  if (un2) add(s.slice(0, -1) + un2 + '다', 'dạng gốc, gỡ nguyên âm co', 'base');
+  const eu2 = restoreEu(last);
+  if (eu2) add(s.slice(0, -1) + eu2 + '다', 'dạng gốc bất quy tắc ㅡ', 'base');
+  add(s + '다', 'dạng gốc …다', 'base');
+  add(s, 'thân từ', 'stem');
+}
+function stemToBase(s, add){
+  if (!s || !s.length) return;
+  baseCandidates(s, add);
+  const last = s.slice(-1);
+  /* gỡ đuôi quá khứ rồi thử lại: 달랐→달라→다르다 · 좋아졌→좋아져→좋아지다 */
+  if (/[았었였]$/.test(last) && s.length > 1) baseCandidates(s.slice(0, -1), add);
+  else if (jong(last) === 'ㅆ' && last !== '있' && last !== '없') baseCandidates(s.slice(0, -1) + dropJong(last), add);
+  /* gỡ kính ngữ -시- / -셨-: 하셨→하다 · 보시→보다 · 웃으셨→웃다 */
+  if (/으셨$/.test(s) && s.length > 2) baseCandidates(s.slice(0, -2), add);
+  else if (/셨$/.test(s) && s.length > 1) baseCandidates(s.slice(0, -1), add);
+  if (/으시$/.test(s) && s.length > 2) baseCandidates(s.slice(0, -2), add);
+  else if (/시$/.test(s) && s.length > 1) baseCandidates(s.slice(0, -1), add);
+}
+
 function forms(token){
   const out = [], seen = {};
   const add = (f, why, kind) => {
@@ -7677,6 +8274,7 @@ function forms(token){
         if (eu) add(core.slice(0, -1) + eu + '다', 'dạng gốc bất quy tắc ㅡ', 'base');
       }
       add(core + '다', 'dạng gốc …다', 'base');
+      stemToBase(core, add);
     } else {
       const un = uncontract(s.slice(-1));           // 바꿔→바꾸 · 봐→보 · 와→오
       if (un) add(s.slice(0, -1) + un + '다', 'dạng gốc, gỡ nguyên âm co', 'base');
@@ -7684,6 +8282,7 @@ function forms(token){
       const eu = restoreEu(s.slice(-1));            // 예뻐→예쁘 · 바빠→바쁘 · 커→크 · 아파→아프
       if (eu) add(s.slice(0, -1) + eu + '다', 'dạng gốc bất quy tắc ㅡ', 'base');
     }
+    stemToBase(s, add);
     add(s, 'bỏ đuôi -' + e, 'stem');
     break;
   }
@@ -7698,19 +8297,41 @@ function forms(token){
         s = s.slice(0, -1) + dropJong(s.slice(-1));
       }
       if (s.length){
-        add(s + '다', 'dạng gốc …다', 'base');
+        stemToBase(s, add);
         add(s, 'bỏ đuôi -' + e, 'stem');
       }
       break;
     }
   }
 
-  /* --- danh từ + trợ từ --- */
-  for (const p of PARTICLES){
-    if (token.length > p.length && token.slice(-p.length) === p){
-      add(token.slice(0, -p.length), 'bỏ trợ từ ' + p, 'noun');
-      break;
+  /* --- danh từ + trợ từ (gỡ tối đa 3 lớp: 에서만 · 들이 · 까지만) --- */
+  let cur = token;
+  for (let pass = 0; pass < 3; pass++){
+    let hit = null;
+    for (const p of PARTICLES){
+      if (cur.length > p.length && cur.slice(-p.length) === p){ hit = p; break; }
     }
+    if (!hit) break;
+    cur = cur.slice(0, -hit.length);
+    add(cur, 'bỏ trợ từ ' + hit, 'noun');
+    if (/들$/.test(cur) && cur.length > 1) add(cur.slice(0, -1), 'bỏ đuôi số nhiều 들', 'noun');
+  }
+  if (/들$/.test(token) && token.length > 1) add(token.slice(0, -1), 'bỏ đuôi số nhiều 들', 'noun');
+
+  /* --- đuôi định ngữ: -은 / -는 / -을 / -ㄴ / -ㄹ (작은 · 큰 · 갈 · 아플 · 포장된) --- */
+  for (const e of ['은','는','을']){
+    if (token.length > e.length && token.slice(-e.length) === e) stemToBase(token.slice(0, -e.length), add);
+  }
+  {
+    const lc = token.slice(-1), j = jong(lc);
+    if ((j === 'ㄴ' || j === 'ㄹ' || j === 'ㅁ') && token.length >= 1) stemToBase(token.slice(0, -1) + dropJong(lc), add);
+  }
+
+  /* --- đuôi kể …다 / …ㄴ다 (되었다 · 말한다 · 나타난다) --- */
+  if (/다$/.test(token) && token.length > 1){
+    const prev = token.slice(-2, -1);
+    if (jong(prev) === 'ㄴ') stemToBase(token.slice(0, -2) + dropJong(prev), add);
+    stemToBase(token.slice(0, -1), add);
   }
 
   /* --- danh từ + hệ từ 이다: 학생입니다 / 학생이에요 / 학생이야 → 학생 --- */
@@ -12657,11 +13278,649 @@ const VOCAB_ZH = [
   {zh:'后面', pinyin:'hòumiàn', hv:'hậu diện', vi:'phía sau', pos:'danh từ'},
   {zh:'中间', pinyin:'zhōngjiān', hv:'trung gian', vi:'ở giữa', pos:'danh từ'},
   {zh:'左边', pinyin:'zuǒbian', hv:'tả biên', vi:'bên trái', pos:'danh từ'},
-  {zh:'右边', pinyin:'yòubian', hv:'hữu biên', vi:'bên phải', pos:'danh từ'}
+  {zh:'右边', pinyin:'yòubian', hv:'hữu biên', vi:'bên phải', pos:'danh từ'},
+
+  /* ============================================================
+     TỪ KHOÁ TRONG BÀI ĐỌC (js/readings-zh.js)
+     Mọi từ khoá của 50 bài đọc đều phải tra được. Phần dưới bù
+     những từ bài đọc có mà giáo trình HSK chưa dạy.
+     ============================================================ */
+
+  /* ---------- Ăn uống · bếp núc ---------- */
+  {zh:'早饭', pinyin:'zǎofàn', hv:'tảo phạn', vi:'bữa sáng', pos:'danh từ'},
+  {zh:'食堂', pinyin:'shítáng', hv:'thực đường', vi:'nhà ăn, căng tin', pos:'danh từ'},
+  {zh:'做饭', pinyin:'zuòfàn', hv:'tố phạn', vi:'nấu cơm', pos:'động từ'},
+  {zh:'尝', pinyin:'cháng', hv:'thường', vi:'nếm thử', pos:'động từ'},
+  {zh:'包饺子', pinyin:'bāo jiǎozi', hv:'bao giảo tử', vi:'gói sủi cảo', pos:'cụm động từ'},
+  {zh:'红烧肉', pinyin:'hóngshāoròu', hv:'hồng thiêu nhục', vi:'thịt kho tàu', pos:'danh từ'},
+  {zh:'火候', pinyin:'huǒhou', hv:'hoả hầu', vi:'độ lửa, mức lửa khi nấu', pos:'danh từ'},
+  {zh:'豆沙', pinyin:'dòushā', hv:'đậu sa', vi:'nhân đậu đỏ', pos:'danh từ'},
+  {zh:'点心', pinyin:'diǎnxin', hv:'điểm tâm', vi:'bánh ngọt, đồ ăn vặt', pos:'danh từ'},
+  {zh:'水开', pinyin:'shuǐ kāi', hv:'thuỷ khai', vi:'nước sôi', pos:'cụm động từ'},
+  {zh:'烂', pinyin:'làn', hv:'lạn', vi:'nát, nhũn', pos:'tính từ'},
+  {zh:'不错', pinyin:'búcuò', hv:'bất thác', vi:'khá đấy, ngon đấy', pos:'tính từ'},
+
+  /* ---------- Mua sắm · tiền nong ---------- */
+  {zh:'外卖', pinyin:'wàimài', hv:'ngoại mại', vi:'đồ ăn giao tận nơi', pos:'danh từ'},
+  {zh:'骑手', pinyin:'qíshǒu', hv:'kỵ thủ', vi:'tài xế xe máy giao hàng', pos:'danh từ'},
+  {zh:'扣钱', pinyin:'kòu qián', hv:'khấu tiền', vi:'trừ tiền', pos:'cụm động từ'},
+  {zh:'一共', pinyin:'yígòng', hv:'nhất cộng', vi:'tất cả, tổng cộng', pos:'phó từ'},
+  {zh:'多少钱', pinyin:'duōshao qián', hv:'đa thiểu tiền', vi:'bao nhiêu tiền', pos:'cụm hỏi'},
+  {zh:'价钱', pinyin:'jiàqian', hv:'giá tiền', vi:'giá cả', pos:'danh từ'},
+  {zh:'商量', pinyin:'shāngliang', hv:'thương lượng', vi:'bàn bạc, mặc cả', pos:'động từ'},
+  {zh:'实物', pinyin:'shíwù', hv:'thực vật', vi:'hàng thật (khác ảnh)', pos:'danh từ'},
+  {zh:'退换', pinyin:'tuìhuàn', hv:'thoái hoán', vi:'đổi trả hàng', pos:'động từ'},
+  {zh:'客服', pinyin:'kèfú', hv:'khách phục', vi:'chăm sóc khách hàng', pos:'danh từ'},
+  {zh:'运费', pinyin:'yùnfèi', hv:'vận phí', vi:'phí vận chuyển', pos:'danh từ'},
+  {zh:'申请', pinyin:'shēnqǐng', hv:'thân thỉnh', vi:'xin, đăng ký', pos:'động từ'},
+  {zh:'一号', pinyin:'yí hào', hv:'nhất hiệu', vi:'một cỡ, một số (giày, áo)', pos:'cụm danh từ'},
+  {zh:'值', pinyin:'zhí', hv:'trị', vi:'đáng giá, hời', pos:'động từ'},
+  {zh:'破费', pinyin:'pòfèi', hv:'phá phí', vi:'tốn kém (lời khách sáo khi nhận quà)', pos:'động từ'},
+  {zh:'书店', pinyin:'shūdiàn', hv:'thư điếm', vi:'hiệu sách', pos:'danh từ'},
+  {zh:'收摊', pinyin:'shōutān', hv:'thu than', vi:'dọn hàng, nghỉ bán', pos:'động từ'},
+  {zh:'摘', pinyin:'zhāi', hv:'trích', vi:'hái, ngắt', pos:'động từ'},
+  {zh:'旧', pinyin:'jiù', hv:'cựu', vi:'cũ', pos:'tính từ'},
+
+  /* ---------- Nhà cửa · đồ dùng ---------- */
+  {zh:'小区', pinyin:'xiǎoqū', hv:'tiểu khu', vi:'khu dân cư, chung cư', pos:'danh từ'},
+  {zh:'门口', pinyin:'ménkǒu', hv:'môn khẩu', vi:'cửa ra vào, ngoài cửa', pos:'danh từ'},
+  {zh:'隔壁', pinyin:'gébì', hv:'cách bích', vi:'sát vách, nhà bên', pos:'danh từ'},
+  {zh:'楼道', pinyin:'lóudào', hv:'lâu đạo', vi:'hành lang chung cư', pos:'danh từ'},
+  {zh:'门卫室', pinyin:'ménwèishì', hv:'môn vệ thất', vi:'phòng bảo vệ', pos:'danh từ'},
+  {zh:'箱子', pinyin:'xiāngzi', hv:'tương tử', vi:'cái hộp, cái thùng', pos:'danh từ'},
+  {zh:'本子', pinyin:'běnzi', hv:'bản tử', vi:'quyển vở', pos:'danh từ'},
+  {zh:'吸尘器', pinyin:'xīchénqì', hv:'hấp trần khí', vi:'máy hút bụi', pos:'danh từ'},
+  {zh:'充电宝', pinyin:'chōngdiànbǎo', hv:'sung điện bảo', vi:'sạc dự phòng', pos:'danh từ'},
+  {zh:'灰', pinyin:'huī', hv:'hôi', vi:'bụi; màu xám', pos:'danh từ'},
+  {zh:'乱', pinyin:'luàn', hv:'loạn', vi:'bừa bộn, lộn xộn', pos:'tính từ'},
+  {zh:'擦', pinyin:'cā', hv:'sát', vi:'lau, chùi', pos:'động từ'},
+  {zh:'收起来', pinyin:'shōu qǐlai', hv:'thu khởi lai', vi:'cất đi, dọn vào', pos:'cụm động từ'},
+  {zh:'装', pinyin:'zhuāng', hv:'trang', vi:'lắp đặt; đựng', pos:'động từ'},
+  {zh:'放着', pinyin:'fàngzhe', hv:'phóng trứ', vi:'đang đặt, đang để', pos:'cụm động từ'},
+  {zh:'留', pinyin:'liú', hv:'lưu', vi:'để lại, giữ lại', pos:'động từ'},
+
+  /* ---------- Đi lại ---------- */
+  {zh:'上错', pinyin:'shàng cuò', hv:'thượng thác', vi:'lên nhầm (xe, tàu)', pos:'cụm động từ'},
+  {zh:'过马路', pinyin:'guò mǎlù', hv:'quá mã lộ', vi:'qua đường', pos:'cụm động từ'},
+  {zh:'站牌', pinyin:'zhànpái', hv:'trạm bài', vi:'bảng tên bến xe', pos:'danh từ'},
+  {zh:'售票机', pinyin:'shòupiàojī', hv:'thụ phiếu cơ', vi:'máy bán vé', pos:'danh từ'},
+  {zh:'广播', pinyin:'guǎngbō', hv:'quảng bá', vi:'loa phát thanh; phát thanh', pos:'danh từ'},
+  {zh:'挤', pinyin:'jǐ', hv:'tễ', vi:'chật, chen chúc; chen', pos:'tính từ'},
+  {zh:'开车', pinyin:'kāichē', hv:'khai xa', vi:'lái xe', pos:'động từ'},
+  {zh:'后轮', pinyin:'hòulún', hv:'hậu luân', vi:'bánh sau', pos:'danh từ'},
+  {zh:'没气', pinyin:'méi qì', hv:'một khí', vi:'hết hơi (lốp xe)', pos:'cụm động từ'},
+  {zh:'内胎', pinyin:'nèitāi', hv:'nội thai', vi:'săm xe', pos:'danh từ'},
+  {zh:'认识路', pinyin:'rènshi lù', hv:'nhận thức lộ', vi:'biết đường', pos:'cụm động từ'},
+  {zh:'往左拐', pinyin:'wǎng zuǒ guǎi', hv:'vãng tả quải', vi:'rẽ trái', pos:'cụm động từ'},
+  {zh:'快递', pinyin:'kuàidì', hv:'khoái đệ', vi:'chuyển phát nhanh', pos:'danh từ'},
+  {zh:'包裹', pinyin:'bāoguǒ', hv:'bao khoả', vi:'bưu kiện', pos:'danh từ'},
+  {zh:'取件码', pinyin:'qǔjiànmǎ', hv:'thủ kiện mã', vi:'mã lấy hàng', pos:'danh từ'},
+  {zh:'支付码', pinyin:'zhīfùmǎ', hv:'chi phó mã', vi:'mã thanh toán', pos:'danh từ'},
+  {zh:'称', pinyin:'chēng', hv:'xưng', vi:'cân (đo trọng lượng)', pos:'động từ'},
+
+  /* ---------- Học hành · công việc ---------- */
+  {zh:'新词', pinyin:'xīncí', hv:'tân từ', vi:'từ mới', pos:'danh từ'},
+  {zh:'听得懂', pinyin:'tīng de dǒng', hv:'thính đắc đổng', vi:'nghe hiểu được', pos:'cụm động từ'},
+  {zh:'听不懂', pinyin:'tīng bu dǒng', hv:'thính bất đổng', vi:'nghe không hiểu', pos:'cụm động từ'},
+  {zh:'看懂', pinyin:'kàndǒng', hv:'khán đổng', vi:'xem/đọc mà hiểu', pos:'cụm động từ'},
+  {zh:'记不住', pinyin:'jì bu zhù', hv:'ký bất trú', vi:'không nhớ nổi', pos:'cụm động từ'},
+  {zh:'部首', pinyin:'bùshǒu', hv:'bộ thủ', vi:'bộ thủ (chữ Hán)', pos:'danh từ'},
+  {zh:'上课', pinyin:'shàngkè', hv:'thượng khoá', vi:'lên lớp, vào học', pos:'động từ'},
+  {zh:'上小学', pinyin:'shàng xiǎoxué', hv:'thượng tiểu học', vi:'học tiểu học', pos:'cụm động từ'},
+  {zh:'班', pinyin:'bān', hv:'ban', vi:'lớp; ca làm', pos:'danh từ'},
+  {zh:'学生卡', pinyin:'xuéshēngkǎ', hv:'học sinh ca', vi:'thẻ sinh viên', pos:'danh từ'},
+  {zh:'教', pinyin:'jiāo', hv:'giáo', vi:'dạy', pos:'động từ'},
+  {zh:'试', pinyin:'shì', hv:'thí', vi:'thử', pos:'động từ'},
+  {zh:'发现', pinyin:'fāxiàn', hv:'phát hiện', vi:'phát hiện, nhận ra', pos:'động từ'},
+  {zh:'解决', pinyin:'jiějué', hv:'giải quyết', vi:'giải quyết', pos:'động từ'},
+  {zh:'结果', pinyin:'jiéguǒ', hv:'kết quả', vi:'kết quả; kết quả là', pos:'danh từ'},
+  {zh:'师傅', pinyin:'shīfu', hv:'sư phó', vi:'bác thợ, thầy thợ', pos:'danh từ'},
+  {zh:'挣', pinyin:'zhèng', hv:'tranh', vi:'kiếm (tiền)', pos:'động từ'},
+  {zh:'取号', pinyin:'qǔhào', hv:'thủ hiệu', vi:'lấy số thứ tự', pos:'động từ'},
+  {zh:'轮到', pinyin:'lúndào', hv:'luân đáo', vi:'đến lượt', pos:'động từ'},
+  {zh:'填表', pinyin:'tián biǎo', hv:'điền biểu', vi:'điền đơn, điền biểu mẫu', pos:'cụm động từ'},
+  {zh:'国籍', pinyin:'guójí', hv:'quốc tịch', vi:'quốc tịch', pos:'danh từ'},
+  {zh:'发信息', pinyin:'fā xìnxī', hv:'phát tín tức', vi:'nhắn tin', pos:'cụm động từ'},
+  {zh:'同屋', pinyin:'tóngwū', hv:'đồng ốc', vi:'bạn cùng phòng', pos:'danh từ'},
+
+  /* ---------- Cơ thể · sức khoẻ ---------- */
+  {zh:'嗓子', pinyin:'sǎngzi', hv:'tảng tử', vi:'cổ họng', pos:'danh từ'},
+  {zh:'腰', pinyin:'yāo', hv:'yêu', vi:'lưng, eo', pos:'danh từ'},
+  {zh:'呼吸', pinyin:'hūxī', hv:'hô hấp', vi:'hít thở', pos:'động từ'},
+  {zh:'拖', pinyin:'tuō', hv:'tha', vi:'kéo lê; để lâu, lần lữa', pos:'động từ'},
+  {zh:'好多了', pinyin:'hǎo duō le', hv:'hảo đa liễu', vi:'đỡ nhiều rồi', pos:'cụm từ'},
+  {zh:'下水', pinyin:'xiàshuǐ', hv:'hạ thuỷ', vi:'xuống nước', pos:'động từ'},
+  {zh:'步', pinyin:'bù', hv:'bộ', vi:'bước chân', pos:'danh từ'},
+
+  /* ---------- Tình cảm · tính cách ---------- */
+  {zh:'幸福', pinyin:'xìngfú', hv:'hạnh phúc', vi:'hạnh phúc', pos:'tính từ'},
+  {zh:'心情', pinyin:'xīnqíng', hv:'tâm tình', vi:'tâm trạng', pos:'danh từ'},
+  {zh:'怕', pinyin:'pà', hv:'phạ', vi:'sợ', pos:'động từ'},
+  {zh:'想家', pinyin:'xiǎng jiā', hv:'tưởng gia', vi:'nhớ nhà', pos:'cụm động từ'},
+  {zh:'别着急', pinyin:'bié zháojí', hv:'biệt trước cấp', vi:'đừng sốt ruột', pos:'cụm từ'},
+  {zh:'慢慢来', pinyin:'mànmàn lái', hv:'mạn mạn lai', vi:'từ từ thôi, cứ thong thả', pos:'cụm từ'},
+  {zh:'怎么了', pinyin:'zěnme le', hv:'chẩm ma liễu', vi:'bị làm sao thế', pos:'cụm hỏi'},
+  {zh:'催', pinyin:'cuī', hv:'thôi', vi:'giục, thúc', pos:'động từ'},
+  {zh:'熟', pinyin:'shú', hv:'thục', vi:'thân quen; chín', pos:'tính từ'},
+
+  /* ---------- Quan hệ · phong tục ---------- */
+  {zh:'长辈', pinyin:'zhǎngbèi', hv:'trưởng bối', vi:'người bậc trên', pos:'danh từ'},
+  {zh:'街坊邻居', pinyin:'jiēfang línjū', hv:'nhai phường lân cư', vi:'hàng xóm láng giềng', pos:'cụm danh từ'},
+  {zh:'点头', pinyin:'diǎntóu', hv:'điểm đầu', vi:'gật đầu', pos:'động từ'},
+  {zh:'送礼', pinyin:'sònglǐ', hv:'tống lễ', vi:'tặng quà', pos:'động từ'},
+  {zh:'过年', pinyin:'guònián', hv:'quá niên', vi:'ăn Tết', pos:'động từ'},
+  {zh:'除夕', pinyin:'chúxī', hv:'trừ tịch', vi:'đêm giao thừa', pos:'danh từ'},
+  {zh:'红包', pinyin:'hóngbāo', hv:'hồng bao', vi:'bao lì xì', pos:'danh từ'},
+  {zh:'农历', pinyin:'nónglì', hv:'nông lịch', vi:'âm lịch', pos:'danh từ'},
+  {zh:'赏月', pinyin:'shǎngyuè', hv:'thưởng nguyệt', vi:'ngắm trăng', pos:'động từ'},
+  {zh:'同音', pinyin:'tóngyīn', hv:'đồng âm', vi:'đồng âm', pos:'tính từ'},
+  {zh:'钟', pinyin:'zhōng', hv:'chung', vi:'đồng hồ treo; chuông', pos:'danh từ'},
+  {zh:'人来人往', pinyin:'rén lái rén wǎng', hv:'nhân lai nhân vãng', vi:'người qua kẻ lại', pos:'thành ngữ'},
+
+  /* ---------- Thiên nhiên · thời tiết · cây cối ---------- */
+  {zh:'停', pinyin:'tíng', hv:'đình', vi:'dừng; (mưa) tạnh', pos:'động từ'},
+  {zh:'暖', pinyin:'nuǎn', hv:'noãn', vi:'ấm', pos:'tính từ'},
+  {zh:'忽然', pinyin:'hūrán', hv:'hốt nhiên', vi:'bỗng nhiên', pos:'phó từ'},
+  {zh:'下起了', pinyin:'xià qǐ le', hv:'hạ khởi liễu', vi:'bắt đầu đổ (mưa, tuyết)', pos:'cụm động từ'},
+  {zh:'山顶', pinyin:'shāndǐng', hv:'sơn đỉnh', vi:'đỉnh núi', pos:'danh từ'},
+  {zh:'养', pinyin:'yǎng', hv:'dưỡng', vi:'nuôi, trồng, chăm', pos:'động từ'},
+  {zh:'浇水', pinyin:'jiāo shuǐ', hv:'kiêu thuỷ', vi:'tưới nước', pos:'cụm động từ'},
+  {zh:'破', pinyin:'pò', hv:'phá', vi:'thủng, rách, vỡ', pos:'tính từ'},
+
+  /* ---------- Thời gian ---------- */
+  {zh:'一会儿', pinyin:'yíhuìr', hv:'nhất hội nhi', vi:'một lát', pos:'danh từ'},
+  {zh:'半天', pinyin:'bàntiān', hv:'bán thiên', vi:'nửa ngày; hồi lâu', pos:'danh từ'},
+  {zh:'以后', pinyin:'yǐhòu', hv:'dĩ hậu', vi:'sau khi, về sau', pos:'danh từ'},
+  {zh:'后来', pinyin:'hòulái', hv:'hậu lai', vi:'sau đó (chuyện đã qua)', pos:'danh từ'},
+  {zh:'去年', pinyin:'qùnián', hv:'khứ niên', vi:'năm ngoái', pos:'danh từ'},
+  {zh:'半个小时', pinyin:'bàn ge xiǎoshí', hv:'bán cá tiểu thời', vi:'nửa tiếng', pos:'cụm danh từ'},
+  {zh:'一下子', pinyin:'yíxiàzi', hv:'nhất hạ tử', vi:'một lúc, bỗng chốc', pos:'phó từ'},
+  {zh:'一次', pinyin:'yí cì', hv:'nhất thứ', vi:'một lần', pos:'cụm danh từ'},
+  {zh:'晚', pinyin:'wǎn', hv:'vãn', vi:'muộn, trễ', pos:'tính từ'},
+  {zh:'太晚', pinyin:'tài wǎn', hv:'thái vãn', vi:'quá khuya, muộn quá', pos:'cụm tính từ'},
+  {zh:'早点儿', pinyin:'zǎo diǎnr', hv:'tảo điểm nhi', vi:'sớm hơn một chút', pos:'cụm trạng từ'},
+  {zh:'那一刻', pinyin:'nà yí kè', hv:'na nhất khắc', vi:'khoảnh khắc ấy', pos:'cụm danh từ'},
+  {zh:'随时', pinyin:'suíshí', hv:'tuỳ thời', vi:'bất cứ lúc nào', pos:'phó từ'},
+  {zh:'超过', pinyin:'chāoguò', hv:'siêu quá', vi:'vượt quá', pos:'động từ'},
+
+  /* ---------- Sinh hoạt hằng ngày ---------- */
+  {zh:'洗脸', pinyin:'xǐliǎn', hv:'tẩy kiểm', vi:'rửa mặt', pos:'động từ'},
+  {zh:'刷牙', pinyin:'shuāyá', hv:'loát nha', vi:'đánh răng', pos:'động từ'},
+  {zh:'走走', pinyin:'zǒuzou', hv:'tẩu tẩu', vi:'đi dạo một chút', pos:'động từ'},
+  {zh:'打球', pinyin:'dǎqiú', hv:'đả cầu', vi:'chơi bóng', pos:'động từ'},
+  {zh:'玩儿', pinyin:'wánr', hv:'ngoạn nhi', vi:'chơi', pos:'động từ'},
+  {zh:'说话', pinyin:'shuōhuà', hv:'thuyết thoại', vi:'nói chuyện', pos:'động từ'},
+  {zh:'等', pinyin:'děng', hv:'đẳng', vi:'đợi, chờ', pos:'động từ'},
+  {zh:'好好', pinyin:'hǎohāo', hv:'hảo hảo', vi:'cho tử tế, cho đàng hoàng', pos:'phó từ'},
+  {zh:'没电', pinyin:'méi diàn', hv:'một điện', vi:'hết pin, mất điện', pos:'cụm động từ'},
+  {zh:'住得下去', pinyin:'zhù de xiàqu', hv:'trú đắc hạ khứ', vi:'ở lại được, trụ được', pos:'cụm động từ'},
+  {zh:'想办法', pinyin:'xiǎng bànfǎ', hv:'tưởng biện pháp', vi:'tìm cách', pos:'cụm động từ'},
+
+  /* ---------- Hư từ · liên từ · phó từ ---------- */
+  {zh:'可以', pinyin:'kěyǐ', hv:'khả dĩ', vi:'có thể, được phép', pos:'động từ năng nguyện'},
+  {zh:'不要', pinyin:'búyào', hv:'bất yếu', vi:'đừng, không được', pos:'phó từ'},
+  {zh:'并不', pinyin:'bìng bù', hv:'tịnh bất', vi:'không hề, chẳng hề', pos:'phó từ'},
+  {zh:'比如', pinyin:'bǐrú', hv:'tỉ như', vi:'ví dụ như', pos:'liên từ'},
+  {zh:'于是', pinyin:'yúshì', hv:'ư thị', vi:'thế là, vì vậy', pos:'liên từ'},
+  {zh:'而是', pinyin:'érshì', hv:'nhi thị', vi:'mà là', pos:'liên từ', note:'不是…而是… — không phải… mà là…'},
+  {zh:'而已', pinyin:'éryǐ', hv:'nhi dĩ', vi:'…thôi mà, chỉ vậy thôi', pos:'trợ từ'},
+  {zh:'正好', pinyin:'zhènghǎo', hv:'chính hảo', vi:'vừa vặn, vừa đúng lúc', pos:'phó từ'},
+  {zh:'原来', pinyin:'yuánlái', hv:'nguyên lai', vi:'hoá ra; vốn dĩ', pos:'phó từ'},
+  {zh:'自己', pinyin:'zìjǐ', hv:'tự kỷ', vi:'tự mình, bản thân', pos:'đại từ'},
+  {zh:'它', pinyin:'tā', hv:'tha', vi:'nó (con vật, đồ vật)', pos:'đại từ'},
+  {zh:'反', pinyin:'fǎn', hv:'phản', vi:'ngược, trái lại', pos:'tính từ'},
+  {zh:'余', pinyin:'yú', hv:'dư', vi:'dư, thừa', pos:'động từ'},
+  {zh:'老', pinyin:'lǎo', hv:'lão', vi:'già; dai, quá lửa', pos:'tính từ'},
+  {zh:'真实', pinyin:'zhēnshí', hv:'chân thực', vi:'chân thực', pos:'tính từ'},
+  {zh:'就行', pinyin:'jiù xíng', hv:'tựu hành', vi:'là được rồi', pos:'cụm từ'},
+  {zh:'有关系', pinyin:'yǒu guānxi', hv:'hữu quan hệ', vi:'có liên quan', pos:'cụm động từ'},
+
+  /* ---------- Lượng từ ---------- */
+  {zh:'口', pinyin:'kǒu', hv:'khẩu', vi:'lượng từ đếm nhân khẩu; miệng', pos:'lượng từ'},
+  {zh:'只', pinyin:'zhī', hv:'chích', vi:'lượng từ cho con vật nhỏ', pos:'lượng từ'},
+  {zh:'斤', pinyin:'jīn', hv:'cân', vi:'cân (500 g)', pos:'lượng từ'},
+  {zh:'一把', pinyin:'yì bǎ', hv:'nhất bả', vi:'một nắm, một nải', pos:'cụm lượng từ'},
+  {zh:'辆', pinyin:'liàng', hv:'lượng', vi:'lượng từ cho xe', pos:'lượng từ'},
+  {zh:'节', pinyin:'jié', hv:'tiết', vi:'lượng từ cho tiết học, đốt', pos:'lượng từ'},
+  {zh:'张', pinyin:'zhāng', hv:'trương', vi:'lượng từ cho vé, giấy, bàn', pos:'lượng từ'},
+  {zh:'盆', pinyin:'pén', hv:'bồn', vi:'chậu (lượng từ và danh từ)', pos:'lượng từ'},
+  {zh:'朵', pinyin:'duǒ', hv:'đoá', vi:'lượng từ cho bông hoa', pos:'lượng từ'},
+
+  /* ---------- Mẫu câu hay gặp trong bài đọc ---------- */
+  {zh:'不管…都', pinyin:'bùguǎn…dōu', hv:'bất quản…đô', vi:'dù… thì cũng…', pos:'cấu trúc'},
+  {zh:'先…再…', pinyin:'xiān…zài…', hv:'tiên…tái…', vi:'trước… rồi…', pos:'cấu trúc'},
+  {zh:'太…了', pinyin:'tài…le', hv:'thái…liễu', vi:'quá…, … quá', pos:'cấu trúc'},
+  {zh:'又…又…', pinyin:'yòu…yòu…', hv:'hựu…hựu…', vi:'vừa… vừa…', pos:'cấu trúc'},
+  {zh:'连…都…', pinyin:'lián…dōu…', hv:'liên…đô…', vi:'đến cả… cũng…', pos:'cấu trúc'},
+  {zh:'对…不好', pinyin:'duì…bù hǎo', hv:'đối…bất hảo', vi:'không tốt cho…', pos:'cấu trúc'},
+  {zh:'从来没…过', pinyin:'cónglái méi…guo', hv:'tòng lai một…quá', vi:'chưa từng… bao giờ', pos:'cấu trúc'},
+  {zh:'再也没…过', pinyin:'zài yě méi…guo', hv:'tái dã một…quá', vi:'không bao giờ… nữa', pos:'cấu trúc'},
+  {zh:'照…说的', pinyin:'zhào…shuō de', hv:'chiếu…thuyết đích', vi:'theo lời… nói', pos:'cấu trúc'}
 ];
 
 if (typeof window !== 'undefined') window.VOCAB_ZH = VOCAB_ZH;
 if (typeof module !== 'undefined' && module.exports) module.exports = { VOCAB_ZH };
+
+</script>
+<script>
+/* ============================================================
+   LangLab — MỤC TỪ CHO TỪNG CHỮ HÁN (单字)
+   ------------------------------------------------------------
+   Trong bài đọc, mỗi chữ Hán đều bấm được. Giáo trình chỉ dạy TỪ
+   (两 chữ trở lên) nên bấm vào một chữ lẻ thường ra rỗng. Tệp này
+   bù các chữ lẻ có mặt trong 50 bài đọc tiếng Trung.
+
+   Do LangLab tự biên soạn. Chữ nào đã là mục từ sẽ được khử trùng
+   lặp khi gộp vào ZH_LOOKUP (xem js/app.js).
+
+   Trường dữ liệu:  zh · pinyin · hv (âm Hán–Việt) · vi · pos
+   ============================================================ */
+
+const CHARS_ZH = [
+
+  /* ---------- Họ · tên riêng ---------- */
+  {zh:'阮', pinyin:'Ruǎn', hv:'Nguyễn', vi:'họ Nguyễn', pos:'chữ Hán'},
+  {zh:'李', pinyin:'Lǐ', hv:'Lý', vi:'họ Lý; quả mận', pos:'chữ Hán'},
+  {zh:'王', pinyin:'Wáng', hv:'Vương', vi:'họ Vương; vua', pos:'chữ Hán'},
+  {zh:'林', pinyin:'lín', hv:'lâm', vi:'rừng; họ Lâm', pos:'chữ Hán'},
+  {zh:'北', pinyin:'běi', hv:'bắc', vi:'phía bắc', pos:'chữ Hán'},
+  {zh:'京', pinyin:'jīng', hv:'kinh', vi:'kinh đô', pos:'chữ Hán'},
+  {zh:'西', pinyin:'xī', hv:'tây', vi:'phía tây', pos:'chữ Hán'},
+  {zh:'安', pinyin:'ān', hv:'an', vi:'yên ổn, bình an', pos:'chữ Hán'},
+  {zh:'南', pinyin:'nán', hv:'nam', vi:'phía nam', pos:'chữ Hán'},
+  {zh:'东', pinyin:'dōng', hv:'đông', vi:'phía đông', pos:'chữ Hán'},
+
+  /* ---------- Học hành ---------- */
+  {zh:'学', pinyin:'xué', hv:'học', vi:'học', pos:'chữ Hán'},
+  {zh:'习', pinyin:'xí', hv:'tập', vi:'luyện tập', pos:'chữ Hán'},
+  {zh:'汉', pinyin:'hàn', hv:'hán', vi:'người Hán, chữ Hán', pos:'chữ Hán'},
+  {zh:'语', pinyin:'yǔ', hv:'ngữ', vi:'ngôn ngữ, tiếng', pos:'chữ Hán'},
+  {zh:'词', pinyin:'cí', hv:'từ', vi:'từ (ngôn ngữ)', pos:'chữ Hán'},
+  {zh:'字', pinyin:'zì', hv:'tự', vi:'chữ', pos:'chữ Hán'},
+  {zh:'典', pinyin:'diǎn', hv:'điển', vi:'sách chuẩn mực (từ điển)', pos:'chữ Hán'},
+  {zh:'校', pinyin:'xiào', hv:'hiệu', vi:'trường học', pos:'chữ Hán'},
+  {zh:'师', pinyin:'shī', hv:'sư', vi:'thầy, người dạy', pos:'chữ Hán'},
+  {zh:'生', pinyin:'shēng', hv:'sinh', vi:'sinh ra, sống; học sinh', pos:'chữ Hán'},
+  {zh:'考', pinyin:'kǎo', hv:'khảo', vi:'thi, kiểm tra', pos:'chữ Hán'},
+  {zh:'复', pinyin:'fù', hv:'phục', vi:'lặp lại, ôn lại', pos:'chữ Hán'},
+  {zh:'解', pinyin:'jiě', hv:'giải', vi:'cởi ra, giải thích', pos:'chữ Hán'},
+  {zh:'释', pinyin:'shì', hv:'thích', vi:'giải nghĩa, buông ra', pos:'chữ Hán'},
+  {zh:'记', pinyin:'jì', hv:'ký', vi:'ghi, nhớ', pos:'chữ Hán'},
+  {zh:'首', pinyin:'shǒu', hv:'thủ', vi:'đầu; đứng đầu (bộ thủ)', pos:'chữ Hán'},
+  {zh:'系', pinyin:'xì', hv:'hệ', vi:'hệ thống, liên hệ', pos:'chữ Hán'},
+  {zh:'知', pinyin:'zhī', hv:'tri', vi:'biết', pos:'chữ Hán'},
+  {zh:'道', pinyin:'dào', hv:'đạo', vi:'đường; đạo lý', pos:'chữ Hán'},
+  {zh:'注', pinyin:'zhù', hv:'chú', vi:'rót vào; chú ý', pos:'chữ Hán'},
+  {zh:'意', pinyin:'yì', hv:'ý', vi:'ý, ý nghĩ', pos:'chữ Hán'},
+  {zh:'思', pinyin:'sī', hv:'tư', vi:'nghĩ', pos:'chữ Hán'},
+  {zh:'认', pinyin:'rèn', hv:'nhận', vi:'nhận biết, thừa nhận', pos:'chữ Hán'},
+  {zh:'识', pinyin:'shí', hv:'thức', vi:'biết, hiểu biết', pos:'chữ Hán'},
+  {zh:'简', pinyin:'jiǎn', hv:'giản', vi:'đơn giản', pos:'chữ Hán'},
+  {zh:'技', pinyin:'jì', hv:'kỹ', vi:'kỹ năng, tay nghề', pos:'chữ Hán'},
+  {zh:'术', pinyin:'shù', hv:'thuật', vi:'thuật, kỹ thuật', pos:'chữ Hán'},
+  {zh:'法', pinyin:'fǎ', hv:'pháp', vi:'phép, cách, luật', pos:'chữ Hán'},
+  {zh:'讲', pinyin:'jiǎng', hv:'giảng', vi:'nói, giảng giải', pos:'chữ Hán'},
+  {zh:'究', pinyin:'jiū', hv:'cứu', vi:'xét kỹ, nghiên cứu', pos:'chữ Hán'},
+
+  /* ---------- Thời gian ---------- */
+  {zh:'今', pinyin:'jīn', hv:'kim', vi:'nay, hiện tại', pos:'chữ Hán'},
+  {zh:'年', pinyin:'nián', hv:'niên', vi:'năm', pos:'chữ Hán'},
+  {zh:'早', pinyin:'zǎo', hv:'tảo', vi:'sớm; buổi sáng', pos:'chữ Hán'},
+  {zh:'午', pinyin:'wǔ', hv:'ngọ', vi:'buổi trưa', pos:'chữ Hán'},
+  {zh:'时', pinyin:'shí', hv:'thời', vi:'thời gian, lúc', pos:'chữ Hán'},
+  {zh:'候', pinyin:'hòu', hv:'hậu', vi:'lúc, thời điểm; chờ', pos:'chữ Hán'},
+  {zh:'间', pinyin:'jiān', hv:'gian', vi:'khoảng giữa; phòng', pos:'chữ Hán'},
+  {zh:'后', pinyin:'hòu', hv:'hậu', vi:'sau, phía sau', pos:'chữ Hán'},
+  {zh:'前', pinyin:'qián', hv:'tiền', vi:'trước, phía trước', pos:'chữ Hán'},
+  {zh:'始', pinyin:'shǐ', hv:'thuỷ', vi:'bắt đầu', pos:'chữ Hán'},
+  {zh:'终', pinyin:'zhōng', hv:'chung', vi:'cuối cùng, kết thúc', pos:'chữ Hán'},
+  {zh:'昨', pinyin:'zuó', hv:'tạc', vi:'hôm qua', pos:'chữ Hán'},
+  {zh:'现', pinyin:'xiàn', hv:'hiện', vi:'hiện nay, xuất hiện', pos:'chữ Hán'},
+  {zh:'星', pinyin:'xīng', hv:'tinh', vi:'ngôi sao; tuần (星期)', pos:'chữ Hán'},
+  {zh:'期', pinyin:'qī', hv:'kỳ', vi:'kỳ hạn, thời kỳ', pos:'chữ Hán'},
+  {zh:'周', pinyin:'zhōu', hv:'chu', vi:'tuần; vòng quanh', pos:'chữ Hán'},
+  {zh:'末', pinyin:'mò', hv:'mạt', vi:'cuối, ngọn', pos:'chữ Hán'},
+  {zh:'春', pinyin:'chūn', hv:'xuân', vi:'mùa xuân', pos:'chữ Hán'},
+  {zh:'夏', pinyin:'xià', hv:'hạ', vi:'mùa hè', pos:'chữ Hán'},
+  {zh:'秋', pinyin:'qiū', hv:'thu', vi:'mùa thu', pos:'chữ Hán'},
+  {zh:'夜', pinyin:'yè', hv:'dạ', vi:'đêm', pos:'chữ Hán'},
+  {zh:'除', pinyin:'chú', hv:'trừ', vi:'trừ bỏ; đêm trừ tịch', pos:'chữ Hán'},
+  {zh:'夕', pinyin:'xī', hv:'tịch', vi:'chiều tối', pos:'chữ Hán'},
+  {zh:'刻', pinyin:'kè', hv:'khắc', vi:'khắc (15 phút); khoảnh khắc; khắc chạm', pos:'chữ Hán'},
+  {zh:'历', pinyin:'lì', hv:'lịch', vi:'lịch; trải qua', pos:'chữ Hán'},
+  {zh:'农', pinyin:'nóng', hv:'nông', vi:'nông nghiệp, nhà nông', pos:'chữ Hán'},
+  {zh:'之', pinyin:'zhī', hv:'chi', vi:'của (văn viết)', pos:'chữ Hán'},
+  {zh:'至', pinyin:'zhì', hv:'chí', vi:'đến, tới; cực kỳ', pos:'chữ Hán'},
+  {zh:'已', pinyin:'yǐ', hv:'dĩ', vi:'đã, rồi', pos:'chữ Hán'},
+  {zh:'经', pinyin:'jīng', hv:'kinh', vi:'trải qua; kinh sách', pos:'chữ Hán'},
+  {zh:'总', pinyin:'zǒng', hv:'tổng', vi:'tổng cộng; luôn luôn', pos:'chữ Hán'},
+  {zh:'常', pinyin:'cháng', hv:'thường', vi:'thường xuyên', pos:'chữ Hán'},
+  {zh:'随', pinyin:'suí', hv:'tuỳ', vi:'theo, tuỳ theo', pos:'chữ Hán'},
+  {zh:'忽', pinyin:'hū', hv:'hốt', vi:'bỗng nhiên', pos:'chữ Hán'},
+  {zh:'正', pinyin:'zhèng', hv:'chính', vi:'đúng, chính; đang', pos:'chữ Hán'},
+  {zh:'直', pinyin:'zhí', hv:'trực', vi:'thẳng; thẳng thắn', pos:'chữ Hán'},
+  {zh:'万', pinyin:'wàn', hv:'vạn', vi:'vạn (10 000)', pos:'chữ Hán'},
+  {zh:'百', pinyin:'bǎi', hv:'bách', vi:'trăm', pos:'chữ Hán'},
+  {zh:'第', pinyin:'dì', hv:'đệ', vi:'thứ (số thứ tự)', pos:'chữ Hán'},
+  {zh:'单', pinyin:'dān', hv:'đơn', vi:'đơn lẻ; đơn, phiếu', pos:'chữ Hán'},
+  {zh:'共', pinyin:'gòng', hv:'cộng', vi:'chung, cộng lại', pos:'chữ Hán'},
+  {zh:'全', pinyin:'quán', hv:'toàn', vi:'toàn bộ, đầy đủ', pos:'chữ Hán'},
+  {zh:'量', pinyin:'liàng', hv:'lượng', vi:'số lượng; đo', pos:'chữ Hán'},
+  {zh:'些', pinyin:'xiē', hv:'ta', vi:'một ít, vài', pos:'chữ Hán'},
+  {zh:'条', pinyin:'tiáo', hv:'điều', vi:'lượng từ cho vật dài; điều khoản', pos:'chữ Hán'},
+  {zh:'片', pinyin:'piàn', hv:'phiến', vi:'miếng, tấm', pos:'chữ Hán'},
+  {zh:'般', pinyin:'bān', hv:'ban', vi:'loại, kiểu (一般: nói chung)', pos:'chữ Hán'},
+  {zh:'样', pinyin:'yàng', hv:'dạng', vi:'kiểu, dáng', pos:'chữ Hán'},
+  {zh:'次', pinyin:'cì', hv:'thứ', vi:'lần; thứ tự', pos:'chữ Hán'},
+
+  /* ---------- Con người · gia đình ---------- */
+  {zh:'朋', pinyin:'péng', hv:'bằng', vi:'bạn bè', pos:'chữ Hán'},
+  {zh:'友', pinyin:'yǒu', hv:'hữu', vi:'bạn', pos:'chữ Hán'},
+  {zh:'爸', pinyin:'bà', hv:'ba', vi:'bố', pos:'chữ Hán'},
+  {zh:'妈', pinyin:'mā', hv:'ma', vi:'mẹ', pos:'chữ Hán'},
+  {zh:'哥', pinyin:'gē', hv:'ca', vi:'anh trai', pos:'chữ Hán'},
+  {zh:'妹', pinyin:'mèi', hv:'muội', vi:'em gái', pos:'chữ Hán'},
+  {zh:'男', pinyin:'nán', hv:'nam', vi:'nam giới', pos:'chữ Hán'},
+  {zh:'奶', pinyin:'nǎi', hv:'nãi', vi:'bà nội; sữa', pos:'chữ Hán'},
+  {zh:'爷', pinyin:'yé', hv:'gia', vi:'ông nội', pos:'chữ Hán'},
+  {zh:'阿', pinyin:'ā', hv:'a', vi:'tiền tố gọi thân mật', pos:'chữ Hán'},
+  {zh:'姨', pinyin:'yí', hv:'di', vi:'dì, cô (phụ nữ trung niên)', pos:'chữ Hán'},
+  {zh:'孩', pinyin:'hái', hv:'hài', vi:'đứa trẻ', pos:'chữ Hán'},
+  {zh:'儿', pinyin:'ér', hv:'nhi', vi:'con, trẻ nhỏ; đuôi 儿', pos:'chữ Hán'},
+  {zh:'辈', pinyin:'bèi', hv:'bối', vi:'thế hệ, bậc', pos:'chữ Hán'},
+  {zh:'夫', pinyin:'fū', hv:'phu', vi:'chồng; người đàn ông', pos:'chữ Hán'},
+  {zh:'妻', pinyin:'qī', hv:'thê', vi:'vợ', pos:'chữ Hán'},
+  {zh:'员', pinyin:'yuán', hv:'viên', vi:'thành viên, nhân viên', pos:'chữ Hán'},
+  {zh:'傅', pinyin:'fù', hv:'phó', vi:'thầy dạy nghề (师傅)', pos:'chữ Hán'},
+  {zh:'坊', pinyin:'fāng', hv:'phường', vi:'xóm, phường; xưởng', pos:'chữ Hán'},
+  {zh:'邻', pinyin:'lín', hv:'lân', vi:'láng giềng', pos:'chữ Hán'},
+  {zh:'居', pinyin:'jū', hv:'cư', vi:'ở, cư trú', pos:'chữ Hán'},
+  {zh:'客', pinyin:'kè', hv:'khách', vi:'khách', pos:'chữ Hán'},
+  {zh:'己', pinyin:'jǐ', hv:'kỷ', vi:'mình, bản thân', pos:'chữ Hán'},
+  {zh:'身', pinyin:'shēn', hv:'thân', vi:'thân thể', pos:'chữ Hán'},
+  {zh:'体', pinyin:'tǐ', hv:'thể', vi:'cơ thể; thể loại', pos:'chữ Hán'},
+
+  /* ---------- Cơ thể · sức khoẻ ---------- */
+  {zh:'医', pinyin:'yī', hv:'y', vi:'y học, chữa bệnh', pos:'chữ Hán'},
+  {zh:'院', pinyin:'yuàn', hv:'viện', vi:'viện, sân trong', pos:'chữ Hán'},
+  {zh:'病', pinyin:'bìng', hv:'bệnh', vi:'bệnh', pos:'chữ Hán'},
+  {zh:'感', pinyin:'gǎn', hv:'cảm', vi:'cảm thấy; cảm động', pos:'chữ Hán'},
+  {zh:'冒', pinyin:'mào', hv:'mạo', vi:'bốc lên; liều (感冒: cảm)', pos:'chữ Hán'},
+  {zh:'咳', pinyin:'ké', hv:'khái', vi:'ho', pos:'chữ Hán'},
+  {zh:'嗽', pinyin:'sou', hv:'thấu', vi:'ho (咳嗽)', pos:'chữ Hán'},
+  {zh:'烧', pinyin:'shāo', hv:'thiêu', vi:'đốt; sốt', pos:'chữ Hán'},
+  {zh:'检', pinyin:'jiǎn', hv:'kiểm', vi:'kiểm tra', pos:'chữ Hán'},
+  {zh:'查', pinyin:'chá', hv:'tra', vi:'tra cứu, kiểm tra', pos:'chữ Hán'},
+  {zh:'针', pinyin:'zhēn', hv:'châm', vi:'cây kim; mũi tiêm', pos:'chữ Hán'},
+  {zh:'护', pinyin:'hù', hv:'hộ', vi:'bảo vệ, chăm sóc', pos:'chữ Hán'},
+  {zh:'休', pinyin:'xiū', hv:'hưu', vi:'nghỉ ngơi', pos:'chữ Hán'},
+  {zh:'息', pinyin:'xī', hv:'tức', vi:'nghỉ; hơi thở; tin tức', pos:'chữ Hán'},
+  {zh:'睡', pinyin:'shuì', hv:'thuỵ', vi:'ngủ', pos:'chữ Hán'},
+  {zh:'舒', pinyin:'shū', hv:'thư', vi:'thư thái, dễ chịu', pos:'chữ Hán'},
+  {zh:'服', pinyin:'fú', hv:'phục', vi:'quần áo; phục vụ; uống thuốc', pos:'chữ Hán'},
+  {zh:'嗓', pinyin:'sǎng', hv:'tảng', vi:'cổ họng, giọng', pos:'chữ Hán'},
+  {zh:'眼', pinyin:'yǎn', hv:'nhãn', vi:'mắt', pos:'chữ Hán'},
+  {zh:'睛', pinyin:'jīng', hv:'tinh', vi:'con ngươi (眼睛: mắt)', pos:'chữ Hán'},
+  {zh:'牙', pinyin:'yá', hv:'nha', vi:'răng', pos:'chữ Hán'},
+  {zh:'肚', pinyin:'dù', hv:'đỗ', vi:'bụng', pos:'chữ Hán'},
+  {zh:'呼', pinyin:'hū', hv:'hô', vi:'thở ra; gọi', pos:'chữ Hán'},
+  {zh:'吸', pinyin:'xī', hv:'hấp', vi:'hít vào, hút', pos:'chữ Hán'},
+  {zh:'严', pinyin:'yán', hv:'nghiêm', vi:'nghiêm, nghiêm trọng', pos:'chữ Hán'},
+
+  /* ---------- Ăn uống ---------- */
+  {zh:'食', pinyin:'shí', hv:'thực', vi:'ăn, thức ăn', pos:'chữ Hán'},
+  {zh:'堂', pinyin:'táng', hv:'đường', vi:'nhà lớn, sảnh (食堂)', pos:'chữ Hán'},
+  {zh:'馆', pinyin:'guǎn', hv:'quán', vi:'quán, nhà (饭馆)', pos:'chữ Hán'},
+  {zh:'面', pinyin:'miàn', hv:'diện', vi:'mặt; mì; phía', pos:'chữ Hán'},
+  {zh:'蛋', pinyin:'dàn', hv:'đản', vi:'trứng', pos:'chữ Hán'},
+  {zh:'青', pinyin:'qīng', hv:'thanh', vi:'xanh; trẻ', pos:'chữ Hán'},
+  {zh:'豆', pinyin:'dòu', hv:'đậu', vi:'đậu', pos:'chữ Hán'},
+  {zh:'腐', pinyin:'fǔ', hv:'hủ', vi:'thiu, mục (豆腐: đậu phụ)', pos:'chữ Hán'},
+  {zh:'苹', pinyin:'píng', hv:'bình', vi:'táo (苹果)', pos:'chữ Hán'},
+  {zh:'果', pinyin:'guǒ', hv:'quả', vi:'quả, kết quả', pos:'chữ Hán'},
+  {zh:'香', pinyin:'xiāng', hv:'hương', vi:'thơm', pos:'chữ Hán'},
+  {zh:'蕉', pinyin:'jiāo', hv:'tiêu', vi:'chuối (香蕉)', pos:'chữ Hán'},
+  {zh:'柿', pinyin:'shì', hv:'thị', vi:'quả hồng; cà chua (西红柿)', pos:'chữ Hán'},
+  {zh:'葱', pinyin:'cōng', hv:'thông', vi:'hành lá', pos:'chữ Hán'},
+  {zh:'鲜', pinyin:'xiān', hv:'tiên', vi:'tươi, tươi ngon', pos:'chữ Hán'},
+  {zh:'味', pinyin:'wèi', hv:'vị', vi:'mùi vị', pos:'chữ Hán'},
+  {zh:'饺', pinyin:'jiǎo', hv:'giảo', vi:'sủi cảo (饺子)', pos:'chữ Hán'},
+  {zh:'糕', pinyin:'gāo', hv:'cao', vi:'bánh (蛋糕: bánh ga-tô)', pos:'chữ Hán'},
+  {zh:'饼', pinyin:'bǐng', hv:'bính', vi:'bánh dẹt (月饼)', pos:'chữ Hán'},
+  {zh:'沙', pinyin:'shā', hv:'sa', vi:'cát; nhân nghiền (豆沙)', pos:'chữ Hán'},
+  {zh:'莲', pinyin:'lián', hv:'liên', vi:'hoa sen', pos:'chữ Hán'},
+  {zh:'蓉', pinyin:'róng', hv:'dung', vi:'bột nhuyễn (莲蓉: nhân hạt sen)', pos:'chữ Hán'},
+  {zh:'仁', pinyin:'rén', hv:'nhân', vi:'nhân hạt; lòng nhân', pos:'chữ Hán'},
+  {zh:'瓶', pinyin:'píng', hv:'bình', vi:'cái chai', pos:'chữ Hán'},
+  {zh:'桶', pinyin:'tǒng', hv:'dũng', vi:'cái thùng', pos:'chữ Hán'},
+  {zh:'火', pinyin:'huǒ', hv:'hoả', vi:'lửa', pos:'chữ Hán'},
+  {zh:'浇', pinyin:'jiāo', hv:'kiêu', vi:'tưới, dội', pos:'chữ Hán'},
+
+  /* ---------- Nhà cửa · đồ vật ---------- */
+  {zh:'房', pinyin:'fáng', hv:'phòng', vi:'nhà, phòng', pos:'chữ Hán'},
+  {zh:'屋', pinyin:'wū', hv:'ốc', vi:'nhà, gian nhà', pos:'chữ Hán'},
+  {zh:'室', pinyin:'shì', hv:'thất', vi:'phòng, buồng', pos:'chữ Hán'},
+  {zh:'栋', pinyin:'dòng', hv:'đống', vi:'toà (lượng từ cho nhà)', pos:'chữ Hán'},
+  {zh:'窗', pinyin:'chuāng', hv:'song', vi:'cửa sổ', pos:'chữ Hán'},
+  {zh:'户', pinyin:'hù', hv:'hộ', vi:'cửa; hộ gia đình', pos:'chữ Hán'},
+  {zh:'桌', pinyin:'zhuō', hv:'trác', vi:'cái bàn', pos:'chữ Hán'},
+  {zh:'椅', pinyin:'yǐ', hv:'ỷ', vi:'cái ghế', pos:'chữ Hán'},
+  {zh:'子', pinyin:'zi', hv:'tử', vi:'con; hậu tố danh từ', pos:'chữ Hán'},
+  {zh:'枕', pinyin:'zhěn', hv:'chẩm', vi:'cái gối', pos:'chữ Hán'},
+  {zh:'柜', pinyin:'guì', hv:'quỹ', vi:'cái tủ', pos:'chữ Hán'},
+  {zh:'箱', pinyin:'xiāng', hv:'tương', vi:'cái hộp, thùng', pos:'chữ Hán'},
+  {zh:'袋', pinyin:'dài', hv:'đại', vi:'cái túi', pos:'chữ Hán'},
+  {zh:'板', pinyin:'bǎn', hv:'bản', vi:'tấm ván; ông chủ (老板)', pos:'chữ Hán'},
+  {zh:'叶', pinyin:'yè', hv:'diệp', vi:'lá cây', pos:'chữ Hán'},
+  {zh:'尘', pinyin:'chén', hv:'trần', vi:'bụi', pos:'chữ Hán'},
+  {zh:'器', pinyin:'qì', hv:'khí', vi:'đồ dùng, thiết bị', pos:'chữ Hán'},
+  {zh:'机', pinyin:'jī', hv:'cơ', vi:'máy; cơ hội', pos:'chữ Hán'},
+  {zh:'脑', pinyin:'nǎo', hv:'não', vi:'não; máy tính (电脑)', pos:'chữ Hán'},
+  {zh:'电', pinyin:'diàn', hv:'điện', vi:'điện', pos:'chữ Hán'},
+  {zh:'视', pinyin:'shì', hv:'thị', vi:'nhìn; tivi (电视)', pos:'chữ Hán'},
+  {zh:'影', pinyin:'yǐng', hv:'ảnh', vi:'bóng; phim (电影)', pos:'chữ Hán'},
+  {zh:'照', pinyin:'zhào', hv:'chiếu', vi:'chiếu sáng; chụp ảnh', pos:'chữ Hán'},
+  {zh:'响', pinyin:'xiǎng', hv:'hưởng', vi:'vang lên, kêu', pos:'chữ Hán'},
+  {zh:'音', pinyin:'yīn', hv:'âm', vi:'âm thanh', pos:'chữ Hán'},
+  {zh:'乐', pinyin:'yuè', hv:'nhạc', vi:'âm nhạc; (lè) vui', pos:'chữ Hán'},
+  {zh:'钥', pinyin:'yào', hv:'dược', vi:'chìa khoá (钥匙)', pos:'chữ Hán'},
+  {zh:'匙', pinyin:'shi', hv:'thi', vi:'thìa; chìa (钥匙)', pos:'chữ Hán'},
+  {zh:'充', pinyin:'chōng', hv:'sung', vi:'nạp, đổ đầy', pos:'chữ Hán'},
+  {zh:'宝', pinyin:'bǎo', hv:'bảo', vi:'báu vật', pos:'chữ Hán'},
+  {zh:'支', pinyin:'zhī', hv:'chi', vi:'chi trả; cái (lượng từ)', pos:'chữ Hán'},
+  {zh:'卡', pinyin:'kǎ', hv:'ca', vi:'cái thẻ', pos:'chữ Hán'},
+  {zh:'码', pinyin:'mǎ', hv:'mã', vi:'mã số', pos:'chữ Hán'},
+  {zh:'牌', pinyin:'pái', hv:'bài', vi:'tấm biển; thương hiệu', pos:'chữ Hán'},
+  {zh:'表', pinyin:'biǎo', hv:'biểu', vi:'bảng, biểu; đồng hồ đeo tay', pos:'chữ Hán'},
+  {zh:'栏', pinyin:'lán', hv:'lan', vi:'ô, cột (trong biểu mẫu)', pos:'chữ Hán'},
+  {zh:'衣', pinyin:'yī', hv:'y', vi:'áo, quần áo', pos:'chữ Hán'},
+  {zh:'色', pinyin:'sè', hv:'sắc', vi:'màu sắc', pos:'chữ Hán'},
+  {zh:'颜', pinyin:'yán', hv:'nhan', vi:'màu; nét mặt', pos:'chữ Hán'},
+  {zh:'金', pinyin:'jīn', hv:'kim', vi:'vàng, kim loại', pos:'chữ Hán'},
+  {zh:'银', pinyin:'yín', hv:'ngân', vi:'bạc; ngân hàng (银行)', pos:'chữ Hán'},
+  {zh:'礼', pinyin:'lǐ', hv:'lễ', vi:'lễ nghi; quà tặng', pos:'chữ Hán'},
+  {zh:'物', pinyin:'wù', hv:'vật', vi:'vật, đồ vật', pos:'chữ Hán'},
+
+  /* ---------- Giao thông · nơi chốn ---------- */
+  {zh:'车', pinyin:'chē', hv:'xa', vi:'xe', pos:'chữ Hán'},
+  {zh:'铁', pinyin:'tiě', hv:'thiết', vi:'sắt; tàu điện ngầm (地铁)', pos:'chữ Hán'},
+  {zh:'地', pinyin:'dì', hv:'địa', vi:'đất, mặt đất', pos:'chữ Hán'},
+  {zh:'图', pinyin:'tú', hv:'đồ', vi:'bản đồ, hình vẽ', pos:'chữ Hán'},
+  {zh:'路', pinyin:'lù', hv:'lộ', vi:'đường', pos:'chữ Hán'},
+  {zh:'往', pinyin:'wǎng', hv:'vãng', vi:'đi về phía', pos:'chữ Hán'},
+  {zh:'左', pinyin:'zuǒ', hv:'tả', vi:'bên trái', pos:'chữ Hán'},
+  {zh:'右', pinyin:'yòu', hv:'hữu', vi:'bên phải', pos:'chữ Hán'},
+  {zh:'拐', pinyin:'guǎi', hv:'quải', vi:'rẽ, ngoặt', pos:'chữ Hán'},
+  {zh:'旁', pinyin:'páng', hv:'bàng', vi:'bên cạnh', pos:'chữ Hán'},
+  {zh:'边', pinyin:'biān', hv:'biên', vi:'bên, mép, rìa', pos:'chữ Hán'},
+  {zh:'内', pinyin:'nèi', hv:'nội', vi:'bên trong', pos:'chữ Hán'},
+  {zh:'外', pinyin:'wài', hv:'ngoại', vi:'bên ngoài', pos:'chữ Hán'},
+  {zh:'上', pinyin:'shàng', hv:'thượng', vi:'trên; lên', pos:'chữ Hán'},
+  {zh:'下', pinyin:'xià', hv:'hạ', vi:'dưới; xuống', pos:'chữ Hán'},
+  {zh:'中', pinyin:'zhōng', hv:'trung', vi:'giữa; Trung Quốc', pos:'chữ Hán'},
+  {zh:'国', pinyin:'guó', hv:'quốc', vi:'nước, quốc gia', pos:'chữ Hán'},
+  {zh:'城', pinyin:'chéng', hv:'thành', vi:'thành phố, thành luỹ', pos:'chữ Hán'},
+  {zh:'市', pinyin:'shì', hv:'thị', vi:'chợ; thành phố', pos:'chữ Hán'},
+  {zh:'店', pinyin:'diàn', hv:'điếm', vi:'cửa hàng', pos:'chữ Hán'},
+  {zh:'摊', pinyin:'tān', hv:'than', vi:'quầy hàng, sạp', pos:'chữ Hán'},
+  {zh:'公', pinyin:'gōng', hv:'công', vi:'chung, công cộng', pos:'chữ Hán'},
+  {zh:'司', pinyin:'sī', hv:'ty', vi:'quản lý (公司: công ty)', pos:'chữ Hán'},
+  {zh:'业', pinyin:'yè', hv:'nghiệp', vi:'nghề, ngành', pos:'chữ Hán'},
+  {zh:'商', pinyin:'shāng', hv:'thương', vi:'buôn bán; bàn bạc', pos:'chữ Hán'},
+  {zh:'务', pinyin:'wù', hv:'vụ', vi:'việc, nhiệm vụ', pos:'chữ Hán'},
+  {zh:'园', pinyin:'yuán', hv:'viên', vi:'vườn, công viên', pos:'chữ Hán'},
+  {zh:'馆', pinyin:'guǎn', hv:'quán', vi:'quán, toà nhà công', pos:'chữ Hán'},
+  {zh:'卫', pinyin:'wèi', hv:'vệ', vi:'bảo vệ, vệ sinh', pos:'chữ Hán'},
+  {zh:'址', pinyin:'zhǐ', hv:'chỉ', vi:'địa chỉ, vị trí', pos:'chữ Hán'},
+  {zh:'籍', pinyin:'jí', hv:'tịch', vi:'sổ sách; quốc tịch', pos:'chữ Hán'},
+  {zh:'名', pinyin:'míng', hv:'danh', vi:'tên; nổi tiếng', pos:'chữ Hán'},
+  {zh:'堵', pinyin:'dǔ', hv:'đổ', vi:'tắc, nghẽn', pos:'chữ Hán'},
+  {zh:'售', pinyin:'shòu', hv:'thụ', vi:'bán', pos:'chữ Hán'},
+  {zh:'广', pinyin:'guǎng', hv:'quảng', vi:'rộng; quảng bá', pos:'chữ Hán'},
+  {zh:'播', pinyin:'bō', hv:'bá', vi:'phát, gieo', pos:'chữ Hán'},
+  {zh:'递', pinyin:'dì', hv:'đệ', vi:'chuyển giao (快递)', pos:'chữ Hán'},
+  {zh:'裹', pinyin:'guǒ', hv:'khoả', vi:'bọc, gói (包裹)', pos:'chữ Hán'},
+  {zh:'信', pinyin:'xìn', hv:'tín', vi:'thư; tin tưởng', pos:'chữ Hán'},
+
+  /* ---------- Thiên nhiên ---------- */
+  {zh:'雨', pinyin:'yǔ', hv:'vũ', vi:'mưa', pos:'chữ Hán'},
+  {zh:'阳', pinyin:'yáng', hv:'dương', vi:'mặt trời, dương', pos:'chữ Hán'},
+  {zh:'气', pinyin:'qì', hv:'khí', vi:'khí, hơi; tức giận', pos:'chữ Hán'},
+  {zh:'氵', pinyin:'shuǐ', hv:'thuỷ', vi:'bộ ba chấm thuỷ (nước)', pos:'bộ thủ'},
+  {zh:'山', pinyin:'shān', hv:'sơn', vi:'núi', pos:'chữ Hán'},
+  {zh:'顶', pinyin:'dǐng', hv:'đỉnh', vi:'đỉnh, chóp', pos:'chữ Hán'},
+  {zh:'爬', pinyin:'pá', hv:'ba', vi:'leo, bò', pos:'chữ Hán'},
+  {zh:'游', pinyin:'yóu', hv:'du', vi:'bơi; đi chơi', pos:'chữ Hán'},
+  {zh:'泳', pinyin:'yǒng', hv:'vịnh', vi:'bơi lội', pos:'chữ Hán'},
+  {zh:'浪', pinyin:'làng', hv:'lãng', vi:'sóng; phóng túng', pos:'chữ Hán'},
+  {zh:'费', pinyin:'fèi', hv:'phí', vi:'chi phí; tiêu tốn', pos:'chữ Hán'},
+  {zh:'团', pinyin:'tuán', hv:'đoàn', vi:'đoàn, khối tròn', pos:'chữ Hán'},
+  {zh:'赏', pinyin:'shǎng', hv:'thưởng', vi:'thưởng thức; ban thưởng', pos:'chữ Hán'},
+
+  /* ---------- Động từ ---------- */
+  {zh:'起', pinyin:'qǐ', hv:'khởi', vi:'dậy, khởi đầu', pos:'chữ Hán'},
+  {zh:'喜', pinyin:'xǐ', hv:'hỷ', vi:'vui mừng, thích', pos:'chữ Hán'},
+  {zh:'欢', pinyin:'huān', hv:'hoan', vi:'vui vẻ (喜欢: thích)', pos:'chữ Hán'},
+  {zh:'和', pinyin:'hé', hv:'hoà', vi:'và; hoà thuận', pos:'chữ Hán'},
+  {zh:'可', pinyin:'kě', hv:'khả', vi:'có thể; nhưng', pos:'chữ Hán'},
+  {zh:'高', pinyin:'gāo', hv:'cao', vi:'cao', pos:'chữ Hán'},
+  {zh:'兴', pinyin:'xìng', hv:'hứng', vi:'hứng thú (高兴: vui)', pos:'chữ Hán'},
+  {zh:'卖', pinyin:'mài', hv:'mại', vi:'bán', pos:'chữ Hán'},
+  {zh:'有', pinyin:'yǒu', hv:'hữu', vi:'có', pos:'chữ Hán'},
+  {zh:'小', pinyin:'xiǎo', hv:'tiểu', vi:'nhỏ', pos:'chữ Hán'},
+  {zh:'大', pinyin:'dà', hv:'đại', vi:'to, lớn', pos:'chữ Hán'},
+  {zh:'按', pinyin:'àn', hv:'án', vi:'bấm, ấn; theo', pos:'chữ Hán'},
+  {zh:'顺', pinyin:'shùn', hv:'thuận', vi:'thuận, xuôi', pos:'chữ Hán'},
+  {zh:'序', pinyin:'xù', hv:'tự', vi:'thứ tự', pos:'chữ Hán'},
+  {zh:'排', pinyin:'pái', hv:'bài', vi:'xếp hàng, sắp xếp', pos:'chữ Hán'},
+  {zh:'问', pinyin:'wèn', hv:'vấn', vi:'hỏi', pos:'chữ Hán'},
+  {zh:'扣', pinyin:'kòu', hv:'khấu', vi:'trừ, khấu; cài', pos:'chữ Hán'},
+  {zh:'所', pinyin:'suǒ', hv:'sở', vi:'nơi; sở dĩ (所以)', pos:'chữ Hán'},
+  {zh:'以', pinyin:'yǐ', hv:'dĩ', vi:'lấy, dùng; để mà', pos:'chữ Hán'},
+  {zh:'来', pinyin:'lái', hv:'lai', vi:'đến, tới', pos:'chữ Hán'},
+  {zh:'回', pinyin:'huí', hv:'hồi', vi:'quay về; lần', pos:'chữ Hán'},
+  {zh:'工', pinyin:'gōng', hv:'công', vi:'công việc, thợ', pos:'chữ Hán'},
+  {zh:'作', pinyin:'zuò', hv:'tác', vi:'làm, sáng tác', pos:'chữ Hán'},
+  {zh:'辛', pinyin:'xīn', hv:'tân', vi:'cay đắng, vất vả', pos:'chữ Hán'},
+  {zh:'但', pinyin:'dàn', hv:'đãn', vi:'nhưng', pos:'chữ Hán'},
+  {zh:'自', pinyin:'zì', hv:'tự', vi:'tự, từ', pos:'chữ Hán'},
+  {zh:'由', pinyin:'yóu', hv:'do', vi:'do, bởi; tự do', pos:'chữ Hán'},
+  {zh:'算', pinyin:'suàn', hv:'toán', vi:'tính toán; coi như', pos:'chữ Hán'},
+  {zh:'存', pinyin:'cún', hv:'tồn', vi:'gửi, cất giữ; tồn tại', pos:'chữ Hán'},
+  {zh:'行', pinyin:'xíng', hv:'hành', vi:'đi; được; (háng) hàng', pos:'chữ Hán'},
+  {zh:'见', pinyin:'jiàn', hv:'kiến', vi:'thấy, gặp', pos:'chữ Hán'},
+  {zh:'告', pinyin:'gào', hv:'cáo', vi:'báo, nói cho biết', pos:'chữ Hán'},
+  {zh:'诉', pinyin:'sù', hv:'tố', vi:'kể, tố cáo', pos:'chữ Hán'},
+  {zh:'迟', pinyin:'chí', hv:'trì', vi:'chậm, trễ', pos:'chữ Hán'},
+  {zh:'净', pinyin:'jìng', hv:'tịnh', vi:'sạch (干净)', pos:'chữ Hán'},
+  {zh:'管', pinyin:'guǎn', hv:'quản', vi:'quản lý; cái ống', pos:'chữ Hán'},
+  {zh:'走', pinyin:'zǒu', hv:'tẩu', vi:'đi, bước', pos:'chữ Hán'},
+  {zh:'取', pinyin:'qǔ', hv:'thủ', vi:'lấy, rút', pos:'chữ Hán'},
+  {zh:'轮', pinyin:'lún', hv:'luân', vi:'bánh xe; đến lượt', pos:'chữ Hán'},
+  {zh:'需', pinyin:'xū', hv:'nhu', vi:'cần', pos:'chữ Hán'},
+  {zh:'填', pinyin:'tián', hv:'điền', vi:'điền vào', pos:'chữ Hán'},
+  {zh:'耐', pinyin:'nài', hv:'nại', vi:'chịu đựng, kiên nhẫn', pos:'chữ Hán'},
+  {zh:'提', pinyin:'tí', hv:'đề', vi:'nâng, xách; nêu ra', pos:'chữ Hán'},
+  {zh:'醒', pinyin:'xǐng', hv:'tỉnh', vi:'tỉnh dậy; nhắc nhở', pos:'chữ Hán'},
+  {zh:'密', pinyin:'mì', hv:'mật', vi:'kín, dày; bí mật', pos:'chữ Hán'},
+  {zh:'载', pinyin:'zài', hv:'tải', vi:'chở, tải', pos:'chữ Hán'},
+  {zh:'出', pinyin:'chū', hv:'xuất', vi:'ra, đi ra', pos:'chữ Hán'},
+  {zh:'动', pinyin:'dòng', hv:'động', vi:'động, cử động', pos:'chữ Hán'},
+  {zh:'紧', pinyin:'jǐn', hv:'khẩn', vi:'chặt, gấp', pos:'chữ Hán'},
+  {zh:'原', pinyin:'yuán', hv:'nguyên', vi:'vốn, nguyên; đồng bằng', pos:'chữ Hán'},
+  {zh:'漂', pinyin:'piào', hv:'phiêu', vi:'đẹp (漂亮); trôi nổi', pos:'chữ Hán'},
+  {zh:'努', pinyin:'nǔ', hv:'nỗ', vi:'gắng sức', pos:'chữ Hán'},
+  {zh:'力', pinyin:'lì', hv:'lực', vi:'sức, lực', pos:'chữ Hán'},
+  {zh:'玩', pinyin:'wán', hv:'ngoạn', vi:'chơi', pos:'chữ Hán'},
+  {zh:'舞', pinyin:'wǔ', hv:'vũ', vi:'múa, nhảy', pos:'chữ Hán'},
+  {zh:'理', pinyin:'lǐ', hv:'lý', vi:'lý lẽ; chỉnh lý', pos:'chữ Hán'},
+  {zh:'假', pinyin:'jià', hv:'giả', vi:'kỳ nghỉ; (jiǎ) giả', pos:'chữ Hán'},
+  {zh:'运', pinyin:'yùn', hv:'vận', vi:'vận chuyển; vận động', pos:'chữ Hán'},
+  {zh:'谢', pinyin:'xiè', hv:'tạ', vi:'cảm ơn', pos:'chữ Hán'},
+  {zh:'靠', pinyin:'kào', hv:'kháo', vi:'dựa vào', pos:'chữ Hán'},
+  {zh:'细', pinyin:'xì', hv:'tế', vi:'nhỏ, mảnh; tỉ mỉ', pos:'chữ Hán'},
+  {zh:'爆', pinyin:'bào', hv:'bạo', vi:'nổ bùng', pos:'chữ Hán'},
+  {zh:'故', pinyin:'gù', hv:'cố', vi:'cũ, cố; nguyên do', pos:'chữ Hán'},
+  {zh:'事', pinyin:'shì', hv:'sự', vi:'việc, chuyện', pos:'chữ Hán'},
+  {zh:'决', pinyin:'jué', hv:'quyết', vi:'quyết định', pos:'chữ Hán'},
+  {zh:'定', pinyin:'dìng', hv:'định', vi:'định, ổn định', pos:'chữ Hán'},
+  {zh:'扫', pinyin:'sǎo', hv:'tảo', vi:'quét', pos:'chữ Hán'},
+  {zh:'收', pinyin:'shōu', hv:'thu', vi:'thu, nhận, cất', pos:'chữ Hán'},
+  {zh:'结', pinyin:'jié', hv:'kết', vi:'kết, buộc; kết quả', pos:'chữ Hán'},
+  {zh:'超', pinyin:'chāo', hv:'siêu', vi:'vượt quá', pos:'chữ Hán'},
+  {zh:'且', pinyin:'qiě', hv:'thả', vi:'vả lại, hơn nữa', pos:'chữ Hán'},
+  {zh:'价', pinyin:'jià', hv:'giá', vi:'giá cả', pos:'chữ Hán'},
+  {zh:'闹', pinyin:'nào', hv:'náo', vi:'ồn ào, náo nhiệt', pos:'chữ Hán'},
+  {zh:'实', pinyin:'shí', hv:'thực', vi:'thật, thực tế', pos:'chữ Hán'},
+  {zh:'惯', pinyin:'guàn', hv:'quán', vi:'quen (习惯)', pos:'chữ Hán'},
+  {zh:'申', pinyin:'shēn', hv:'thân', vi:'trình bày, xin', pos:'chữ Hán'},
+  {zh:'退', pinyin:'tuì', hv:'thoái', vi:'lùi; trả lại', pos:'chữ Hán'},
+  {zh:'评', pinyin:'píng', hv:'bình', vi:'bình luận, đánh giá', pos:'chữ Hán'},
+  {zh:'成', pinyin:'chéng', hv:'thành', vi:'thành, trở thành', pos:'chữ Hán'},
+  {zh:'胎', pinyin:'tāi', hv:'thai', vi:'bào thai; lốp, săm xe', pos:'chữ Hán'},
+  {zh:'隔', pinyin:'gé', hv:'cách', vi:'ngăn cách', pos:'chữ Hán'},
+  {zh:'壁', pinyin:'bì', hv:'bích', vi:'vách, tường', pos:'chữ Hán'},
+  {zh:'差', pinyin:'chà', hv:'sai', vi:'kém, thiếu; (chāi) công tác', pos:'chữ Hán'},
+  {zh:'活', pinyin:'huó', hv:'hoạt', vi:'sống; linh hoạt', pos:'chữ Hán'},
+  {zh:'麻', pinyin:'má', hv:'ma', vi:'cây gai; tê (麻烦: phiền)', pos:'chữ Hán'},
+  {zh:'烦', pinyin:'fán', hv:'phiền', vi:'phiền, bực', pos:'chữ Hán'},
+  {zh:'其', pinyin:'qí', hv:'kỳ', vi:'của nó, đó (其实: thật ra)', pos:'chữ Hán'},
+  {zh:'特', pinyin:'tè', hv:'đặc', vi:'đặc biệt', pos:'chữ Hán'},
+  {zh:'散', pinyin:'sàn', hv:'tán', vi:'tản ra, chia lìa', pos:'chữ Hán'},
+  {zh:'拒', pinyin:'jù', hv:'cự', vi:'từ chối, cự tuyệt', pos:'chữ Hán'},
+  {zh:'绝', pinyin:'jué', hv:'tuyệt', vi:'dứt, tuyệt đối', pos:'chữ Hán'},
+  {zh:'貌', pinyin:'mào', hv:'mạo', vi:'dáng vẻ (礼貌: lễ phép)', pos:'chữ Hán'},
+  {zh:'尊', pinyin:'zūn', hv:'tôn', vi:'tôn kính', pos:'chữ Hán'},
+
+  /* ---------- Tính chất · cảm xúc ---------- */
+  {zh:'幸', pinyin:'xìng', hv:'hạnh', vi:'may mắn, hạnh phúc', pos:'chữ Hán'},
+  {zh:'福', pinyin:'fú', hv:'phúc', vi:'phúc, may mắn', pos:'chữ Hán'},
+  {zh:'情', pinyin:'qíng', hv:'tình', vi:'tình cảm, tình hình', pos:'chữ Hán'},
+  {zh:'心', pinyin:'xīn', hv:'tâm', vi:'tim; lòng', pos:'chữ Hán'},
+  {zh:'觉', pinyin:'jué', hv:'giác', vi:'cảm thấy; (jiào) giấc ngủ', pos:'chữ Hán'},
+  {zh:'错', pinyin:'cuò', hv:'thác', vi:'sai; (不错) khá tốt', pos:'chữ Hán'},
+  {zh:'宜', pinyin:'yí', hv:'nghi', vi:'thích hợp (便宜: rẻ)', pos:'chữ Hán'},
+  {zh:'附', pinyin:'fù', hv:'phụ', vi:'kèm theo, gần (附近)', pos:'chữ Hán'},
+  {zh:'对', pinyin:'duì', hv:'đối', vi:'đúng; đối với', pos:'chữ Hán'},
+  {zh:'虽', pinyin:'suī', hv:'tuy', vi:'tuy, mặc dù', pos:'chữ Hán'},
+  {zh:'然', pinyin:'rán', hv:'nhiên', vi:'như vậy, thế nhưng', pos:'chữ Hán'},
+  {zh:'因', pinyin:'yīn', hv:'nhân', vi:'nguyên nhân, bởi vì', pos:'chữ Hán'},
+  {zh:'为', pinyin:'wèi', hv:'vị', vi:'vì, cho; (wéi) làm', pos:'chữ Hán'},
+  {zh:'如', pinyin:'rú', hv:'như', vi:'như, giống như', pos:'chữ Hán'},
+  {zh:'什', pinyin:'shén', hv:'thập', vi:'cái gì (什么)', pos:'chữ Hán'},
+  {zh:'么', pinyin:'me', hv:'ma', vi:'trợ từ nghi vấn (什么, 怎么)', pos:'chữ Hán'},
+  {zh:'怎', pinyin:'zěn', hv:'chẩm', vi:'thế nào (怎么)', pos:'chữ Hán'},
+  {zh:'吧', pinyin:'ba', hv:'ba', vi:'trợ từ đề nghị: … nhé', pos:'chữ Hán'},
+  {zh:'烟', pinyin:'yān', hv:'yên', vi:'khói; thuốc lá', pos:'chữ Hán'},
+  {zh:'王', pinyin:'wáng', hv:'vương', vi:'vua; họ Vương', pos:'chữ Hán'},
+  {zh:'明', pinyin:'míng', hv:'minh', vi:'sáng, rõ; ngày mai (明天)', pos:'chữ Hán'},
+  {zh:'于', pinyin:'yú', hv:'vu', vi:'ở, tại, đối với (văn viết)', pos:'chữ Hán'},
+  {zh:'住', pinyin:'zhù', hv:'trú', vi:'ở, cư trú; dừng lại', pos:'chữ Hán'},
+  {zh:'同', pinyin:'tóng', hv:'đồng', vi:'giống nhau, cùng', pos:'chữ Hán'}
+];
+
+if (typeof window !== 'undefined') window.CHARS_ZH = CHARS_ZH;
+if (typeof module !== 'undefined' && module.exports) module.exports = { CHARS_ZH };
 
 </script>
 <script>
@@ -19631,7 +20890,7 @@ const RuMorph = (function(){
       if (PRON[w]){
         const P = PRON[w]; (P.cases || []).forEach(c => strip(c).split(/[\/(),]/).forEach(x => { x = x.trim().replace(/^(о|об|обо|ни о)\s+/, ''); if (x) out.add(x); }));
         (P.table || []).forEach(r => r.forEach(c => strip(c).split(/[\/]/).forEach(x => { x = x.trim().replace(/^(о|об|обо)\s+/, ''); if (x) out.add(x); })));
-      } else if (/tính từ|причастие|so sánh/.test(p) && /(ый|ий|ой)$/.test(w)){
+      } else if (/tính từ|причастие|so sánh|đại từ|số thứ tự/.test(p) && /(ый|ий|ой)$/.test(w)){
         const a = adj(lemma); if (a){ [a.m, a.f, a.n, a.pl].forEach(t => Object.values(t).forEach(f => out.add(strip(f)))); (a.short || []).forEach(f => out.add(strip(f))); if (a.cmp) out.add(strip(a.cmp)); }
       } else if (/danh từ/.test(p) || (!p && /[а-я]/.test(w) && !/(ть|ти|чь)(ся|сь)?$/.test(w))){
         const n = noun(lemma, { pos:p, vi });
@@ -20655,7 +21914,385 @@ const VOCAB_RU = [
   {ru:'почти́', vi:'gần như', pos:'trạng từ'},
   {ru:'совсе́м', vi:'hoàn toàn', pos:'trạng từ'},
   {ru:'сли́шком', vi:'quá (mức)', pos:'trạng từ'},
-  {ru:'дово́льно', vi:'khá; đủ rồi', pos:'trạng từ'}
+  {ru:'дово́льно', vi:'khá; đủ rồi', pos:'trạng từ'},
+
+  /* ============================================================
+     TỪ KHOÁ TRONG BÀI ĐỌC (js/readings-ru.js · js/readings.js)
+     Mọi từ khoá của 50 bài đọc tiếng Nga đều phải tra được.
+     ============================================================ */
+
+  /* ---------- Danh từ: người ---------- */
+  {ru:'продавщи́ца', vi:'nữ nhân viên bán hàng', pos:'danh từ giống cái'},
+  {ru:'сотру́дница', vi:'nữ nhân viên', pos:'danh từ giống cái'},
+  {ru:'апте́карь', vi:'dược sĩ', pos:'danh từ giống đực'},
+  {ru:'посети́тель', vi:'khách tới thăm, người đến làm việc', pos:'danh từ giống đực'},
+  {ru:'заве́дующая', vi:'bà quản lý, trưởng bộ phận', pos:'danh từ giống cái'},
+  {ru:'волонтёр', vi:'tình nguyện viên', pos:'danh từ giống đực'},
+  {ru:'курье́р', vi:'người giao hàng', pos:'danh từ giống đực'},
+  {ru:'пенсионе́р', vi:'người về hưu', pos:'danh từ giống đực'},
+  {ru:'экспе́рт', vi:'chuyên gia', pos:'danh từ giống đực'},
+  {ru:'толпа́', vi:'đám đông', pos:'danh từ giống cái'},
+  {ru:'населе́ние', vi:'dân số', pos:'danh từ giống trung'},
+
+  /* ---------- Danh từ: nhà cửa, đồ vật ---------- */
+  {ru:'двор', vi:'sân (chung cư), sân nhà', pos:'danh từ giống đực'},
+  {ru:'што́ра', vi:'rèm cửa', pos:'danh từ giống cái'},
+  {ru:'коро́бка', vi:'cái thùng, cái hộp', pos:'danh từ giống cái'},
+  {ru:'конве́рт', vi:'phong bì', pos:'danh từ giống đực'},
+  {ru:'скаме́йка', vi:'ghế băng, ghế đá', pos:'danh từ giống cái'},
+  {ru:'забо́р', vi:'hàng rào', pos:'danh từ giống đực'},
+  {ru:'гря́дка', vi:'luống rau', pos:'danh từ giống cái'},
+  {ru:'уча́сток', vi:'mảnh đất, thửa đất', pos:'danh từ giống đực'},
+  {ru:'то́поль', vi:'cây dương', pos:'danh từ giống đực'},
+  {ru:'склад', vi:'nhà kho', pos:'danh từ giống đực'},
+  {ru:'рука́в', vi:'tay áo', pos:'danh từ giống đực'},
+  {ru:'посы́лка', vi:'bưu kiện', pos:'danh từ giống cái'},
+  {ru:'бланк', vi:'tờ khai, mẫu đơn', pos:'danh từ giống đực'},
+  {ru:'а́дрес', vi:'địa chỉ', pos:'danh từ giống đực'},
+  {ru:'тало́н', vi:'phiếu (khám, xếp số)', pos:'danh từ giống đực'},
+  {ru:'термина́л', vi:'máy lấy số, máy tự phục vụ', pos:'danh từ giống đực'},
+  {ru:'путеводи́тель', vi:'sách hướng dẫn du lịch', pos:'danh từ giống đực'},
+  {ru:'проду́кты', vi:'thực phẩm', pos:'danh từ số nhiều'},
+  {ru:'загото́вки', vi:'đồ dự trữ (muối, ngâm, đóng lọ)', pos:'danh từ số nhiều'},
+
+  /* ---------- Danh từ: nơi chốn ---------- */
+  {ru:'ваго́н', vi:'toa tàu', pos:'danh từ giống đực'},
+  {ru:'коридо́р', vi:'hành lang', pos:'danh từ giống đực'},
+  {ru:'на́бережная', vi:'bờ kè, đường ven sông', pos:'danh từ giống cái'},
+  {ru:'ба́ня', vi:'nhà tắm hơi kiểu Nga', pos:'danh từ giống cái'},
+  {ru:'пари́лка', vi:'phòng xông hơi', pos:'danh từ giống cái'},
+  {ru:'като́к', vi:'sân trượt băng', pos:'danh từ giống đực'},
+  {ru:'у́гол', vi:'góc (phố, phòng)', pos:'danh từ giống đực'},
+  {ru:'учрежде́ние', vi:'cơ quan, công sở', pos:'danh từ giống trung'},
+  {ru:'фили́ал', vi:'chi nhánh', pos:'danh từ giống đực'},
+  {ru:'интерне́т-магази́н', vi:'cửa hàng trực tuyến', pos:'danh từ giống đực'},
+  {ru:'простра́нство', vi:'không gian', pos:'danh từ giống trung'},
+
+  /* ---------- Danh từ: khái niệm ---------- */
+  {ru:'необходи́мость', vi:'điều cần thiết', pos:'danh từ giống cái'},
+  {ru:'гра́мотность', vi:'sự biết đọc biết viết; kỹ năng cơ bản', pos:'danh từ giống cái'},
+  {ru:'репети́ция', vi:'buổi tập, diễn tập', pos:'danh từ giống cái'},
+  {ru:'алфави́т', vi:'bảng chữ cái', pos:'danh từ giống đực'},
+  {ru:'паде́ж', vi:'cách (ngữ pháp)', pos:'danh từ giống đực'},
+  {ru:'литерату́ра', vi:'văn học', pos:'danh từ giống cái'},
+  {ru:'мело́дия', vi:'giai điệu', pos:'danh từ giống cái'},
+  {ru:'сюже́т', vi:'sự việc, phóng sự, cốt truyện', pos:'danh từ giống đực'},
+  {ru:'обы́чай', vi:'phong tục', pos:'danh từ giống đực'},
+  {ru:'кура́нты', vi:'chuông đồng hồ điện Kremlin', pos:'danh từ số nhiều'},
+  {ru:'улы́бка', vi:'nụ cười', pos:'danh từ giống cái'},
+  {ru:'ра́зница', vi:'sự khác biệt', pos:'danh từ giống cái'},
+  {ru:'отсу́тствие', vi:'sự vắng mặt, sự thiếu vắng', pos:'danh từ giống trung'},
+  {ru:'форма́льность', vi:'hình thức, thủ tục hình thức', pos:'danh từ giống cái'},
+  {ru:'уваже́ние', vi:'sự tôn trọng', pos:'danh từ giống trung'},
+  {ru:'свобо́да', vi:'tự do', pos:'danh từ giống cái'},
+  {ru:'спо́соб', vi:'cách thức', pos:'danh từ giống đực'},
+  {ru:'прое́кт', vi:'dự án', pos:'danh từ giống đực'},
+  {ru:'возвра́т', vi:'việc trả lại hàng', pos:'danh từ giống đực'},
+  {ru:'переса́дка', vi:'việc đổi tuyến, chuyển tàu', pos:'danh từ giống cái'},
+  {ru:'полчаса́', vi:'nửa tiếng', pos:'danh từ giống đực'},
+  {ru:'выходно́й', vi:'ngày nghỉ', pos:'danh từ giống đực'},
+  {ru:'темнота́', vi:'bóng tối', pos:'danh từ giống cái'},
+  {ru:'ску́ка', vi:'sự chán chường', pos:'danh từ giống cái'},
+  {ru:'чу́до', vi:'phép màu, điều kỳ diệu', pos:'danh từ giống trung'},
+  {ru:'фон', vi:'phông nền', pos:'danh từ giống đực'},
+
+  /* ---------- Động từ ---------- */
+  {ru:'расти́', vi:'mọc, lớn lên', pos:'động từ NSV'},
+  {ru:'выра́щивать', vi:'trồng trọt, gây giống', pos:'động từ NSV'},
+  {ru:'молча́ть', vi:'im lặng', pos:'động từ NSV'},
+  {ru:'замолча́ть', vi:'im bặt, nín lặng', pos:'động từ СВ'},
+  {ru:'висе́ть', vi:'treo, được treo', pos:'động từ NSV'},
+  {ru:'ве́сить', vi:'nặng bao nhiêu', pos:'động từ NSV'},
+  {ru:'шути́ть', vi:'đùa', pos:'động từ NSV'},
+  {ru:'буди́ть', vi:'đánh thức', pos:'động từ NSV'},
+  {ru:'мяу́кать', vi:'kêu meo meo', pos:'động từ NSV'},
+  {ru:'здоро́ваться', vi:'chào hỏi nhau', pos:'động từ NSV'},
+  {ru:'пригласи́ть', vi:'mời', pos:'động từ СВ'},
+  {ru:'зака́нчиваться', vi:'kết thúc, chấm dứt', pos:'động từ NSV'},
+  {ru:'зако́нчить', vi:'làm xong, hoàn thành', pos:'động từ СВ'},
+  {ru:'жале́ть', vi:'tiếc; thương xót', pos:'động từ NSV'},
+  {ru:'согласи́ться', vi:'đồng ý', pos:'động từ СВ'},
+  {ru:'дыша́ть', vi:'thở', pos:'động từ NSV'},
+  {ru:'вы́бежать', vi:'chạy ào ra', pos:'động từ СВ'},
+  {ru:'пры́гнуть', vi:'nhảy một cái', pos:'động từ СВ'},
+  {ru:'перее́хать', vi:'chuyển nhà; đi qua', pos:'động từ СВ'},
+  {ru:'пуга́ть', vi:'làm sợ, doạ', pos:'động từ NSV'},
+  {ru:'пуга́ться', vi:'hoảng sợ', pos:'động từ NSV'},
+  {ru:'па́хнуть', vi:'toả mùi, có mùi', pos:'động từ NSV'},
+  {ru:'попро́бовать', vi:'nếm thử; thử làm', pos:'động từ СВ'},
+  {ru:'про́бовать', vi:'nếm; thử', pos:'động từ NSV'},
+  {ru:'ката́ться', vi:'trượt, đi chơi (xe, băng)', pos:'động từ NSV'},
+  {ru:'упа́сть', vi:'ngã, rơi', pos:'động từ СВ'},
+  {ru:'выступа́ть', vi:'phát biểu, biểu diễn', pos:'động từ NSV'},
+  {ru:'записа́ться', vi:'đăng ký, đặt lịch', pos:'động từ СВ'},
+  {ru:'послу́шаться', vi:'nghe lời', pos:'động từ СВ'},
+  {ru:'кра́сить', vi:'sơn, nhuộm', pos:'động từ NSV'},
+  {ru:'закры́ть', vi:'đóng, đóng cửa', pos:'động từ СВ'},
+  {ru:'привезти́', vi:'chở đến, mang đến', pos:'động từ СВ'},
+  {ru:'верну́ть', vi:'trả lại, hoàn lại', pos:'động từ СВ'},
+  {ru:'обра́доваться', vi:'mừng rỡ', pos:'động từ СВ'},
+  {ru:'заня́ть', vi:'chiếm chỗ; mất (bao nhiêu thời gian)', pos:'động từ СВ'},
+  {ru:'серди́ться', vi:'giận, bực', pos:'động từ NSV'},
+  {ru:'счита́ться', vi:'được coi là', pos:'động từ NSV'},
+  {ru:'отмени́ть', vi:'huỷ bỏ', pos:'động từ СВ'},
+  {ru:'исче́знуть', vi:'biến mất', pos:'động từ СВ'},
+  {ru:'исчеза́ть', vi:'biến mất dần', pos:'động từ NSV'},
+  {ru:'хму́риться', vi:'chau mày, nhăn mặt', pos:'động từ NSV'},
+  {ru:'побы́ть', vi:'ở lại một lúc', pos:'động từ СВ'},
+  {ru:'копа́ть', vi:'đào, xới', pos:'động từ NSV'},
+  {ru:'чини́ть', vi:'sửa chữa', pos:'động từ NSV'},
+  {ru:'переписа́ть', vi:'viết lại, chép lại', pos:'động từ СВ'},
+  {ru:'оби́деть', vi:'làm phật lòng, làm tổn thương', pos:'động từ СВ'},
+  {ru:'цени́ть', vi:'trân trọng, coi trọng', pos:'động từ NSV'},
+  {ru:'возника́ть', vi:'nảy sinh, xuất hiện', pos:'động từ NSV'},
+  {ru:'нажа́ть', vi:'bấm, nhấn', pos:'động từ СВ'},
+  {ru:'стара́ться', vi:'cố gắng', pos:'động từ NSV'},
+  {ru:'перевести́', vi:'dịch; chuyển', pos:'động từ СВ'},
+  {ru:'ожида́ть', vi:'mong đợi, chờ đợi', pos:'động từ NSV'},
+  {ru:'появи́ться', vi:'xuất hiện', pos:'động từ СВ'},
+  {ru:'заставля́ть', vi:'bắt buộc, ép', pos:'động từ NSV'},
+  {ru:'получа́ться', vi:'làm được, hoá ra, thành công', pos:'động từ NSV'},
+  {ru:'выдава́ть', vi:'cấp phát, cho mượn', pos:'động từ NSV'},
+  {ru:'храни́ть', vi:'gìn giữ, bảo quản', pos:'động từ NSV'},
+  {ru:'запеча́тать', vi:'dán kín (phong bì)', pos:'động từ СВ'},
+  {ru:'зави́сеть', vi:'phụ thuộc', pos:'động từ NSV'},
+  {ru:'обраща́ться', vi:'xưng hô với; ngỏ lời với', pos:'động từ NSV'},
+
+  /* ---------- Tính từ ---------- */
+  {ru:'мла́дший', vi:'nhỏ tuổi hơn, em', pos:'tính từ'},
+  {ru:'лу́чший', vi:'tốt nhất, thân nhất', pos:'tính từ'},
+  {ru:'ну́жный', vi:'cần thiết', pos:'tính từ'},
+  {ru:'гре́чневый', vi:'thuộc kiều mạch', pos:'tính từ'},
+  {ru:'пожило́й', vi:'lớn tuổi', pos:'tính từ'},
+  {ru:'ночно́й', vi:'ban đêm', pos:'tính từ'},
+  {ru:'ра́зный', vi:'khác nhau', pos:'tính từ'},
+  {ru:'ра́зные', vi:'khác nhau, đủ kiểu', pos:'tính từ'},
+  {ru:'одина́ковый', vi:'giống hệt nhau', pos:'tính từ'},
+  {ru:'гла́вный', vi:'chính, quan trọng nhất', pos:'tính từ'},
+  {ru:'никако́й', vi:'không… nào cả', pos:'tính từ'},
+  {ru:'бума́жный', vi:'bằng giấy', pos:'tính từ'},
+  {ru:'госуда́рственный', vi:'thuộc nhà nước', pos:'tính từ'},
+  {ru:'идеа́льный', vi:'lý tưởng', pos:'tính từ'},
+  {ru:'неви́димый', vi:'vô hình', pos:'tính từ'},
+  {ru:'невысо́кий', vi:'không cao, thấp', pos:'tính từ'},
+  {ru:'кре́пче', vi:'bền hơn, chắc hơn', pos:'tính từ so sánh'},
+  {ru:'бли́же', vi:'gần hơn', pos:'tính từ so sánh'},
+
+  /* ---------- Trạng từ ---------- */
+  {ru:'сле́ва', vi:'bên trái', pos:'trạng từ'},
+  {ru:'спра́ва', vi:'bên phải', pos:'trạng từ'},
+  {ru:'напро́тив', vi:'đối diện; ngược lại', pos:'trạng từ'},
+  {ru:'шу́мно', vi:'ồn ào', pos:'trạng từ'},
+  {ru:'поня́тно', vi:'dễ hiểu, đã rõ', pos:'trạng từ'},
+  {ru:'беспла́тно', vi:'miễn phí', pos:'trạng từ'},
+  {ru:'наизу́сть', vi:'thuộc lòng', pos:'trạng từ'},
+  {ru:'впервы́е', vi:'lần đầu tiên', pos:'trạng từ'},
+  {ru:'про́сто', vi:'chỉ đơn giản là; dễ', pos:'trạng từ'},
+  {ru:'нело́вко', vi:'ngượng ngùng, khó xử', pos:'trạng từ'},
+  {ru:'специа́льно', vi:'cố ý, có chủ đích', pos:'trạng từ'},
+  {ru:'физи́чески', vi:'về mặt thể chất', pos:'trạng từ'},
+  {ru:'невозмо́жно', vi:'không thể', pos:'trạng từ'},
+  {ru:'почему́-то', vi:'không hiểu sao', pos:'trạng từ'},
+  {ru:'изнутри́', vi:'từ bên trong', pos:'trạng từ'},
+  {ru:'гла́вное', vi:'điều quan trọng nhất là', pos:'trạng từ'},
+
+  /* ---------- Cụm cố định trong bài đọc ---------- */
+  {ru:'ря́дом с', vi:'bên cạnh', pos:'cụm cố định'},
+  {ru:'у окна́', vi:'cạnh cửa sổ', pos:'cụm cố định'},
+  {ru:'на ме́сте', vi:'đến nơi; tại chỗ', pos:'cụm cố định'},
+  {ru:'мыть посу́ду', vi:'rửa bát', pos:'cụm cố định'},
+  {ru:'ка́ждую неде́лю', vi:'mỗi tuần', pos:'cụm cố định'},
+  {ru:'рабо́чий день', vi:'ngày làm việc', pos:'cụm cố định'},
+  {ru:'никогда́ не', vi:'chưa bao giờ, không bao giờ', pos:'cụm cố định'},
+  {ru:'пока́ не', vi:'cho đến khi', pos:'cụm cố định'},
+  {ru:'сла́бые сто́роны', vi:'điểm yếu', pos:'cụm cố định'},
+  {ru:'зави́сеть от', vi:'phụ thuộc vào', pos:'cụm cố định'},
+  {ru:'обраща́ться к', vi:'xưng hô với, ngỏ lời với', pos:'cụm cố định'},
+  {ru:'не хвата́ть', vi:'thiếu; nhớ, hụt hẫng', pos:'cụm cố định'},
+  {ru:'загада́ть жела́ние', vi:'ước một điều', pos:'cụm cố định'},
+  {ru:'померя́ть давле́ние', vi:'đo huyết áp', pos:'cụm cố định'},
+  {ru:'вы́писать реце́пт', vi:'kê đơn thuốc', pos:'cụm cố định'},
+  {ru:'вы́звать такси́', vi:'gọi taxi', pos:'cụm cố định'},
+  {ru:'ра́зница ме́жду', vi:'sự khác biệt giữa', pos:'cụm cố định'},
+  {ru:'пряма́я кри́тика', vi:'phê bình thẳng', pos:'cụm cố định'},
+  {ru:'на са́мом де́ле', vi:'thật ra, trên thực tế', pos:'cụm cố định'},
+  {ru:'всё ещё', vi:'vẫn còn', pos:'cụm cố định'},
+  {ru:'оди́н и тот же', vi:'cùng một, y hệt', pos:'cụm cố định'},
+  {ru:'тот же', vi:'cùng một, chính cái đó', pos:'cụm cố định'},
+  {ru:'до сих пор', vi:'đến tận bây giờ', pos:'cụm cố định'},
+  {ru:'повыша́ть го́лос', vi:'lớn tiếng, cao giọng', pos:'cụm cố định'},
+  {ru:'ввести́ пра́вило', vi:'đặt ra quy tắc', pos:'cụm cố định'},
+  {ru:'превраща́ться в', vi:'biến thành', pos:'cụm cố định'},
+  {ru:'ста́вить грани́цы', vi:'đặt ra ranh giới', pos:'cụm cố định'},
+  {ru:'ни сло́ва', vi:'không một chữ nào', pos:'cụm cố định'},
+  {ru:'сдать экза́мен', vi:'thi đỗ', pos:'cụm cố định'},
+
+  /* ============================================================
+     TỪ TRONG THÂN BÀI ĐỌC
+     Trong bài đọc mỗi từ đều bấm tra được, nên những từ rất cơ bản
+     (и, не, там, надо…) cũng phải có mục. Phần dưới bù nốt.
+     ============================================================ */
+
+  /* ---------- Liên từ · tiểu từ · hư từ ---------- */
+  {ru:'и', vi:'và', pos:'liên từ'},
+  {ru:'а', vi:'còn, mà (đối lập nhẹ)', pos:'liên từ'},
+  {ru:'и́ли', vi:'hoặc, hay là', pos:'liên từ'},
+  {ru:'не', vi:'không (phủ định)', pos:'tiểu từ'},
+  {ru:'ни', vi:'không một… nào (ни… ни…)', pos:'tiểu từ'},
+  {ru:'так', vi:'như vậy, thế', pos:'trạng từ'},
+  {ru:'там', vi:'ở đó, đằng kia', pos:'trạng từ'},
+  {ru:'здесь', vi:'ở đây', pos:'trạng từ'},
+  {ru:'тогда́', vi:'khi đó, lúc ấy', pos:'trạng từ'},
+  {ru:'никуда́', vi:'không đi đâu cả', pos:'trạng từ'},
+  {ru:'наза́д', vi:'trước đây; lùi lại', pos:'trạng từ'},
+  {ru:'на́до', vi:'cần phải', pos:'vị ngữ trạng từ'},
+  {ru:'про', vi:'về, nói về (khẩu ngữ)', pos:'giới từ'},
+  {ru:'раз', vi:'lần; một khi', pos:'danh từ giống đực'},
+  {ru:'действи́тельно', vi:'thật sự, quả thực', pos:'trạng từ'},
+  {ru:'абсолю́тно', vi:'hoàn toàn, tuyệt đối', pos:'trạng từ'},
+  {ru:'непло́хо', vi:'cũng khá, không tệ', pos:'trạng từ'},
+  {ru:'недо́рого', vi:'không đắt', pos:'trạng từ'},
+  {ru:'по-англи́йски', vi:'bằng tiếng Anh', pos:'trạng từ'},
+
+  /* ---------- Đại từ · từ hạn định ---------- */
+  {ru:'наш', vi:'của chúng tôi', pos:'đại từ sở hữu'},
+  {ru:'ка́ждый', vi:'mỗi, từng', pos:'đại từ hạn định'},
+  {ru:'тако́й', vi:'như thế, loại như vậy', pos:'đại từ hạn định'},
+  {ru:'друго́й', vi:'khác; người khác', pos:'tính từ'},
+  {ru:'еди́нственный', vi:'duy nhất', pos:'tính từ'},
+  {ru:'о́бщий', vi:'chung', pos:'tính từ'},
+  {ru:'сре́дний', vi:'trung bình; ở giữa', pos:'tính từ'},
+
+  /* ---------- Số đếm · số thứ tự ---------- */
+  {ru:'двена́дцать', vi:'mười hai', pos:'số từ'},
+  {ru:'пятна́дцать', vi:'mười lăm', pos:'số từ'},
+  {ru:'три́дцать', vi:'ba mươi', pos:'số từ'},
+  {ru:'со́рок', vi:'bốn mươi', pos:'số từ'},
+  {ru:'пятьдеся́т', vi:'năm mươi', pos:'số từ'},
+  {ru:'во́семьдесят', vi:'tám mươi', pos:'số từ'},
+  {ru:'девяно́сто', vi:'chín mươi', pos:'số từ'},
+  {ru:'ми́нус', vi:'âm (nhiệt độ); trừ', pos:'danh từ giống đực'},
+  {ru:'пе́рвый', vi:'thứ nhất', pos:'số thứ tự'},
+  {ru:'второ́й', vi:'thứ hai', pos:'số thứ tự'},
+  {ru:'девя́тый', vi:'thứ chín', pos:'số thứ tự'},
+  {ru:'полго́да', vi:'nửa năm', pos:'danh từ giống đực'},
+
+  /* ---------- Tháng · thời gian ---------- */
+  {ru:'сентя́брь', vi:'tháng Chín', pos:'danh từ giống đực'},
+  {ru:'октя́брь', vi:'tháng Mười', pos:'danh từ giống đực'},
+  {ru:'ноя́брь', vi:'tháng Mười một', pos:'danh từ giống đực'},
+  {ru:'дека́брь', vi:'tháng Mười hai', pos:'danh từ giống đực'},
+  {ru:'ма́йский', vi:'thuộc tháng Năm', pos:'tính từ'},
+  {ru:'про́шлый', vi:'vừa qua, năm/tháng trước', pos:'tính từ'},
+  {ru:'шестидеся́тые', vi:'những năm sáu mươi', pos:'danh từ số nhiều'},
+  {ru:'сон', vi:'giấc ngủ; giấc mơ', pos:'danh từ giống đực'},
+
+  /* ---------- Danh từ đời sống ---------- */
+  {ru:'телефо́н', vi:'điện thoại', pos:'danh từ giống đực'},
+  {ru:'ка́рта', vi:'bản đồ; thẻ ngân hàng', pos:'danh từ giống cái'},
+  {ru:'ку́хня', vi:'nhà bếp; ẩm thực', pos:'danh từ giống cái'},
+  {ru:'дверь', vi:'cửa ra vào', pos:'danh từ giống cái'},
+  {ru:'сад', vi:'khu vườn', pos:'danh từ giống đực'},
+  {ru:'вера́нда', vi:'hiên nhà, hành lang có mái', pos:'danh từ giống cái'},
+  {ru:'доро́жка', vi:'lối đi nhỏ', pos:'danh từ giống cái'},
+  {ru:'холод', vi:'cái lạnh, giá rét', pos:'danh từ giống đực'},
+  {ru:'матема́тика', vi:'toán học', pos:'danh từ giống cái'},
+  {ru:'культу́ра', vi:'văn hoá', pos:'danh từ giống cái'},
+  {ru:'техноло́гия', vi:'công nghệ', pos:'danh từ giống cái'},
+  {ru:'пробле́ма', vi:'vấn đề', pos:'danh từ giống cái'},
+  {ru:'ресу́рс', vi:'nguồn lực, tài nguyên', pos:'danh từ giống đực'},
+  {ru:'прогре́сс', vi:'sự tiến bộ', pos:'danh từ giống đực'},
+  {ru:'фра́за', vi:'câu nói, cụm từ', pos:'danh từ giống cái'},
+  {ru:'домино́', vi:'cờ domino', pos:'danh từ giống trung'},
+  {ru:'преступле́ние', vi:'tội ác', pos:'danh từ giống trung'},
+  {ru:'наказа́ние', vi:'sự trừng phạt', pos:'danh từ giống trung'},
+  {ru:'зло́сть', vi:'sự tức giận, ác ý', pos:'danh từ giống cái'},
+  {ru:'хо́лодность', vi:'sự lạnh lùng', pos:'danh từ giống cái'},
+  {ru:'че́стность', vi:'sự thành thật', pos:'danh từ giống cái'},
+  {ru:'Рождество́', vi:'lễ Giáng sinh', pos:'danh từ giống trung'},
+  {ru:'чита́тель', vi:'người đọc, độc giả', pos:'danh từ giống đực'},
+  {ru:'библиоте́карь', vi:'thủ thư', pos:'danh từ giống đực'},
+  {ru:'сосе́дка', vi:'bà/cô hàng xóm', pos:'danh từ giống cái'},
+  {ru:'президе́нт', vi:'tổng thống', pos:'danh từ giống đực'},
+
+  /* ---------- Tính từ ---------- */
+  {ru:'небольшо́й', vi:'không lớn, nhỏ nhắn', pos:'tính từ'},
+  {ru:'просто́й', vi:'đơn giản', pos:'tính từ'},
+  {ru:'це́лый', vi:'nguyên cả, trọn vẹn', pos:'tính từ'},
+  {ru:'норма́льный', vi:'bình thường', pos:'tính từ'},
+  {ru:'прия́тный', vi:'dễ chịu, thú vị', pos:'tính từ'},
+  {ru:'постоя́нный', vi:'thường xuyên, cố định', pos:'tính từ'},
+  {ru:'до́лжный', vi:'phải, đáng phải', pos:'tính từ'},
+  {ru:'обя́занный', vi:'có nghĩa vụ phải', pos:'tính từ'},
+  {ru:'пи́сьменный', vi:'thuộc chữ viết (письменный стол: bàn viết)', pos:'tính từ'},
+  {ru:'компью́терный', vi:'thuộc máy tính', pos:'tính từ'},
+  {ru:'шко́льный', vi:'thuộc nhà trường', pos:'tính từ'},
+  {ru:'райо́нный', vi:'thuộc quận, cấp quận', pos:'tính từ'},
+  {ru:'моско́вский', vi:'thuộc Moskva', pos:'tính từ'},
+  {ru:'вьетна́мский', vi:'thuộc Việt Nam', pos:'tính từ'},
+  {ru:'живо́й', vi:'sống, sống động', pos:'tính từ'},
+  {ru:'уста́лый', vi:'mệt mỏi', pos:'tính từ'},
+  {ru:'рад', vi:'vui mừng, mừng là', pos:'tính từ ngắn'},
+
+  /* ---------- Động từ ---------- */
+  {ru:'соли́ть', vi:'muối (dưa, cà)', pos:'động từ NSV'},
+  {ru:'шуме́ть', vi:'gây ồn, ồn ào', pos:'động từ NSV'},
+  {ru:'скуча́ть', vi:'nhớ; buồn chán', pos:'động từ NSV'},
+  {ru:'выбира́ть', vi:'lựa chọn', pos:'động từ NSV'},
+  {ru:'забы́ть', vi:'quên', pos:'động từ СВ'},
+  {ru:'откры́ть', vi:'mở ra', pos:'động từ СВ'},
+  {ru:'фотографи́ровать', vi:'chụp ảnh', pos:'động từ NSV'},
+  {ru:'поду́мать', vi:'nghĩ một lát, nghĩ ra', pos:'động từ СВ'},
+  {ru:'хвата́ть', vi:'đủ; chộp lấy', pos:'động từ NSV'},
+  {ru:'взять', vi:'lấy, cầm', pos:'động từ СВ'},
+  {ru:'набра́ть', vi:'nhặt đầy, gom được; bấm số', pos:'động từ СВ'},
+  {ru:'переста́ть', vi:'thôi, ngừng làm gì', pos:'động từ СВ'},
+  {ru:'залива́ть', vi:'đổ nước lên; làm ngập', pos:'động từ NSV'},
+  {ru:'встать', vi:'đứng dậy; dậy', pos:'động từ СВ'},
+  {ru:'бить', vi:'đánh; (chuông) điểm', pos:'động từ NSV'},
+  {ru:'научи́ть', vi:'dạy cho biết', pos:'động từ СВ'},
+  {ru:'поме́рить', vi:'đo thử', pos:'động từ СВ'},
+  {ru:'послу́шать', vi:'nghe một lát', pos:'động từ СВ'},
+  {ru:'вы́писать', vi:'ghi ra, kê (đơn)', pos:'động từ СВ'},
+  {ru:'офо́рмить', vi:'làm thủ tục, hoàn tất giấy tờ', pos:'động từ СВ'},
+  {ru:'вы́звать', vi:'gọi đến (taxi, bác sĩ)', pos:'động từ СВ'},
+  {ru:'означа́ть', vi:'có nghĩa là', pos:'động từ NSV'},
+  {ru:'улыбну́ться', vi:'mỉm cười', pos:'động từ СВ'},
+  {ru:'позва́ть', vi:'gọi, mời đến', pos:'động từ СВ'},
+  {ru:'показа́ть', vi:'cho xem, chỉ ra', pos:'động từ СВ'},
+  {ru:'пыта́ться', vi:'cố thử, gắng', pos:'động từ NSV'},
+  {ru:'переводи́ться', vi:'được dịch ra', pos:'động từ NSV'},
+  {ru:'повыша́ть', vi:'nâng lên, tăng', pos:'động từ NSV'},
+  {ru:'замолка́ть', vi:'lặng dần, im đi', pos:'động từ NSV'},
+  {ru:'вспомина́ть', vi:'nhớ lại', pos:'động từ NSV'},
+  {ru:'поговори́ть', vi:'trò chuyện một lát', pos:'động từ СВ'},
+  {ru:'ввести́', vi:'đưa vào, áp dụng', pos:'động từ СВ'},
+  {ru:'превраща́ться', vi:'biến thành', pos:'động từ NSV'},
+  {ru:'услы́шать', vi:'nghe thấy', pos:'động từ СВ'},
+  {ru:'записа́ть', vi:'ghi lại', pos:'động từ СВ'},
+  {ru:'де́ться', vi:'biến đi đâu mất', pos:'động từ СВ'},
+
+  /* ---------- Tên riêng gặp trong bài ---------- */
+  {ru:'Куа́н', vi:'Quân (tên nhân vật người Việt)', pos:'tên riêng'},
+  {ru:'Хано́й', vi:'Hà Nội', pos:'tên riêng'},
+  {ru:'Москва́', vi:'Moskva (Mát-xcơ-va)', pos:'tên riêng'},
+  {ru:'Каза́нь', vi:'Kazan (thành phố Nga)', pos:'tên riêng'},
+  {ru:'Петербу́рг', vi:'Saint Petersburg', pos:'tên riêng'},
+  {ru:'Казахста́н', vi:'Kazakhstan', pos:'tên riêng'},
+  {ru:'Ниге́рия', vi:'Nigeria', pos:'tên riêng'},
+  {ru:'Алекса́ндр', vi:'Aleksandr (tên nam)', pos:'tên riêng', note:'Gọi thân: Са́ша, Са́шенька, Шу́ра, Санёк'},
+  {ru:'Са́ша', vi:'Sasha — cách gọi thân của Александр / Александра', pos:'tên riêng'},
+  {ru:'А́нна', vi:'Anna (tên nữ)', pos:'tên riêng'},
+  {ru:'Ми́ша', vi:'Misha — cách gọi thân của Михаи́л', pos:'tên riêng'},
+  {ru:'Ба́рсик', vi:'Barsik — tên mèo phổ biến ở Nga', pos:'tên riêng'},
+  {ru:'фо', vi:'phở (món ăn Việt Nam)', pos:'danh từ giống trung'},
+  {ru:'мно́гие', vi:'nhiều người, nhiều cái', pos:'đại từ hạn định'},
+  {ru:'по-пре́жнему', vi:'vẫn như trước', pos:'trạng từ'},
+  {ru:'намно́го', vi:'hơn nhiều, hơn hẳn', pos:'trạng từ'},
+  {ru:'Са́шенька', vi:'Sashenka — cách gọi âu yếm của Са́ша', pos:'tên riêng'},
+  {ru:'Шу́ра', vi:'Shura — một cách gọi thân khác của Алекса́ндр', pos:'tên riêng'},
+  {ru:'Санёк', vi:'Sanyok — cách gọi suồng sã của Алекса́ндр', pos:'tên riêng'},
+  {ru:'Ива́новна', vi:'Ivanovna — phụ danh nữ, con gái ông Ива́н', pos:'tên riêng'}
 ];
 
 if (typeof window !== 'undefined') window.VOCAB_RU = VOCAB_RU;
@@ -21823,6 +23460,7 @@ const KANJI_JA = [
   { k:'昇', lv:'n2', hv:'THĂNG', on:['ショウ'], kun:['のぼ.る'], vi:'thăng', st:8, ex:[['上昇','じょうしょう','tăng lên'],['昇進','しょうしん','thăng tiến'],['昇る','のぼる','mọc (mặt trời)']] },
   { k:'池', lv:'n2', hv:'TRÌ', on:['チ'], kun:['いけ'], vi:'ao', st:6, ex:[['池','いけ','ao'],['電池','でんち','pin'],['池袋','いけぶくろ','Ikebukuro']] },
   { k:'血', lv:'n2', hv:'HUYẾT', on:['ケツ'], kun:['ち'], vi:'máu', st:6, ex:[['血','ち','máu'],['血液','けつえき','máu (y học)'],['血圧','けつあつ','huyết áp']] },
+  { k:'湯', lv:'n3', hv:'THANG', on:['トウ'], kun:['ゆ'], vi:'nước nóng', st:12, ex:[['お湯','おゆ','nước nóng'],['湯船','ゆぶね','bồn tắm'],['銭湯','せんとう','nhà tắm công cộng']] },
   { k:'温', lv:'n2', hv:'ÔN', on:['オン'], kun:['あたた.かい'], vi:'ấm', st:12, ex:[['温度','おんど','nhiệt độ'],['温泉','おんせん','suối nước nóng'],['温かい','あたたかい','ấm']] },
   { k:'季', lv:'n2', hv:'QUÝ', on:['キ'], kun:[], vi:'mùa', st:8, ex:[['季節','きせつ','mùa'],['四季','しき','bốn mùa'],['雨季','うき','mùa mưa']] },
   { k:'星', lv:'n2', hv:'TINH', on:['セイ'], kun:['ほし'], vi:'sao', st:9, ex:[['星','ほし','ngôi sao'],['火星','かせい','sao Hoả'],['星座','せいざ','chòm sao']] },
@@ -26088,6 +27726,310 @@ const JaMorph = (function(){
   return { group, verb, adj, deinflect, romajiToKana, kanaToRomaji, hira, kata, isKana, FORM_LABELS, ADJ_LABELS };
 })();
 if (typeof module !== 'undefined') module.exports = JaMorph;
+
+</script>
+<script>
+/* ============================================================
+   LangLab — TỪ VỰNG THÔNG DỤNG TIẾNG NHẬT (ngoài giáo trình)
+   ------------------------------------------------------------
+   Giáo trình N5–N3 chỉ dạy từ phục vụ chủ đề từng bài, nên nhiều từ
+   xuất hiện trong bài đọc lại không tra được. Tệp này bù đúng khoảng
+   trống đó: mọi từ khoá của 50 bài đọc tiếng Nhật đều phải mở ra
+   được mục từ điển.
+
+   Do LangLab tự biên soạn. Từ nào đã có trong giáo trình sẽ được khử
+   trùng lặp khi gộp vào JA_LOOKUP (xem js/app.js).
+
+   Trường dữ liệu giống hệt vocab của khoá học:
+     jp · kana · romaji · vi · pos · [g: nhóm động từ] · [note]
+   ============================================================ */
+
+const VOCAB_JA = [
+
+  /* ---------- Nhà cửa · đồ vật ---------- */
+  { jp:'かべ', kana:'かべ', romaji:'kabe', vi:'bức tường', pos:'danh từ' },
+  { jp:'はこ', kana:'はこ', romaji:'hako', vi:'cái hộp, thùng', pos:'danh từ' },
+  { jp:'ふね', kana:'ふね', romaji:'fune', vi:'tàu thuỷ, thuyền', pos:'danh từ' },
+  { jp:'ふくろ', kana:'ふくろ', romaji:'fukuro', vi:'túi đựng', pos:'danh từ' },
+  { jp:'タオル', kana:'タオル', romaji:'taoru', vi:'cái khăn', pos:'danh từ' },
+  { jp:'マスク', kana:'マスク', romaji:'masuku', vi:'khẩu trang', pos:'danh từ' },
+  { jp:'ベンチ', kana:'ベンチ', romaji:'benchi', vi:'ghế đá, ghế băng', pos:'danh từ' },
+  { jp:'せんたくき', kana:'せんたくき', romaji:'sentakuki', vi:'máy giặt', pos:'danh từ' },
+  { jp:'ペットボトル', kana:'ペットボトル', romaji:'petto botoru', vi:'chai nhựa', pos:'danh từ' },
+  { jp:'もえる ゴミ', kana:'もえる ごみ', romaji:'moeru gomi', vi:'rác cháy được', pos:'cụm danh từ' },
+  { jp:'ゆぶね', kana:'ゆぶね', romaji:'yubune', vi:'bồn nước nóng', pos:'danh từ' },
+  { jp:'ゆかた', kana:'ゆかた', romaji:'yukata', vi:'yukata — kimono mùa hè bằng vải bông', pos:'danh từ' },
+  { jp:'もうしこみしょ', kana:'もうしこみしょ', romaji:'moushikomisho', vi:'đơn đăng ký', pos:'danh từ' },
+  { jp:'あんしょうばんごう', kana:'あんしょうばんごう', romaji:'anshou bangou', vi:'mã PIN, mật mã', pos:'danh từ' },
+  { jp:'しっぽ', kana:'しっぽ', romaji:'shippo', vi:'cái đuôi', pos:'danh từ' },
+
+  /* ---------- Nơi chốn ---------- */
+  { jp:'商店街', kana:'しょうてんがい', romaji:'shoutengai', vi:'khu phố buôn bán', pos:'danh từ' },
+  { jp:'きっさてん', kana:'きっさてん', romaji:'kissaten', vi:'quán cà phê kiểu cũ', pos:'danh từ' },
+  { jp:'やおや', kana:'やおや', romaji:'yaoya', vi:'hàng rau', pos:'danh từ' },
+  { jp:'やっきょく', kana:'やっきょく', romaji:'yakkyoku', vi:'hiệu thuốc', pos:'danh từ' },
+  { jp:'せんとう', kana:'せんとう', romaji:'sentou', vi:'nhà tắm công cộng', pos:'danh từ' },
+  { jp:'レジ', kana:'レジ', romaji:'reji', vi:'quầy thu ngân', pos:'danh từ' },
+  { jp:'田舎', kana:'いなか', romaji:'inaka', vi:'nông thôn, quê', pos:'danh từ' },
+  { jp:'都会', kana:'とかい', romaji:'tokai', vi:'đô thị, thành phố lớn', pos:'danh từ' },
+  { jp:'土地', kana:'とち', romaji:'tochi', vi:'vùng đất, mảnh đất', pos:'danh từ' },
+  { jp:'木の 下', kana:'きの した', romaji:'ki no shita', vi:'dưới gốc cây', pos:'cụm danh từ' },
+  { jp:'裏', kana:'うら', romaji:'ura', vi:'mặt sau, mặt khuất', pos:'danh từ' },
+
+  /* ---------- Người · quan hệ ---------- */
+  { jp:'店主', kana:'てんしゅ', romaji:'tenshu', vi:'chủ cửa hàng', pos:'danh từ' },
+  { jp:'常連', kana:'じょうれん', romaji:'jouren', vi:'khách quen', pos:'danh từ' },
+  { jp:'他人', kana:'たにん', romaji:'tanin', vi:'người khác, người lạ', pos:'danh từ' },
+  { jp:'生徒', kana:'せいと', romaji:'seito', vi:'học sinh', pos:'danh từ' },
+  { jp:'おとしより', kana:'おとしより', romaji:'otoshiyori', vi:'người già', pos:'danh từ' },
+  { jp:'お年寄り', kana:'おとしより', romaji:'otoshiyori', vi:'người cao tuổi', pos:'danh từ' },
+  { jp:'ちち / はは', kana:'ちち / はは', romaji:'chichi / haha', vi:'bố / mẹ (khi nói về nhà mình)', pos:'nhóm từ', note:'Nói về bố mẹ người khác: お父[とう]さん / お母[かあ]さん' },
+  { jp:'ボランティア', kana:'ボランティア', romaji:'borantia', vi:'tình nguyện; tình nguyện viên', pos:'danh từ (する)' },
+  { jp:'一人暮らし', kana:'ひとりぐらし', romaji:'hitorigurashi', vi:'sống một mình', pos:'danh từ (する)' },
+
+  /* ---------- Ăn uống ---------- */
+  { jp:'ひるごはん', kana:'ひるごはん', romaji:'hirugohan', vi:'bữa trưa', pos:'danh từ' },
+  { jp:'おにぎり', kana:'おにぎり', romaji:'onigiri', vi:'cơm nắm', pos:'danh từ' },
+  { jp:'かきごおり', kana:'かきごおり', romaji:'kakigoori', vi:'đá bào', pos:'danh từ' },
+  { jp:'おせちりょうり', kana:'おせちりょうり', romaji:'osechi ryouri', vi:'mâm cỗ Tết Nhật', pos:'danh từ' },
+  { jp:'ぐ', kana:'ぐ', romaji:'gu', vi:'nhân (bánh, cơm nắm)', pos:'danh từ' },
+  { jp:'つめたい', kana:'つめたい', romaji:'tsumetai', vi:'lạnh (sờ vào); lạnh nhạt', pos:'tính từ い' },
+
+  /* ---------- Lễ tết · phong tục ---------- */
+  { jp:'お正月', kana:'おしょうがつ', romaji:'oshougatsu', vi:'Tết đầu năm (dương lịch, ở Nhật)', pos:'danh từ' },
+  { jp:'大みそか', kana:'おおみそか', romaji:'oomisoka', vi:'đêm giao thừa (31/12)', pos:'danh từ' },
+  { jp:'元日', kana:'がんじつ', romaji:'ganjitsu', vi:'ngày mùng một Tết', pos:'danh từ' },
+  { jp:'はつもうで', kana:'はつもうで', romaji:'hatsumoude', vi:'lễ đền đầu năm', pos:'danh từ' },
+  { jp:'ねがい', kana:'ねがい', romaji:'negai', vi:'điều ước, mong muốn', pos:'danh từ' },
+  { jp:'まんかい', kana:'まんかい', romaji:'mankai', vi:'nở rộ (hoa)', pos:'danh từ' },
+  { jp:'時期', kana:'じき', romaji:'jiki', vi:'thời kỳ, mùa, dịp', pos:'danh từ' },
+  { jp:'じだい', kana:'じだい', romaji:'jidai', vi:'thời đại', pos:'danh từ' },
+  { jp:'以前', kana:'いぜん', romaji:'izen', vi:'trước đây', pos:'danh từ' },
+
+  /* ---------- Thiên nhiên · thời tiết ---------- */
+  { jp:'しつど', kana:'しつど', romaji:'shitsudo', vi:'độ ẩm', pos:'danh từ' },
+  { jp:'セミ', kana:'セミ', romaji:'semi', vi:'con ve sầu', pos:'danh từ' },
+  { jp:'波', kana:'なみ', romaji:'nami', vi:'làn sóng, đợt sóng', pos:'danh từ' },
+  { jp:'光景', kana:'こうけい', romaji:'koukei', vi:'quang cảnh, cảnh tượng', pos:'danh từ' },
+  { jp:'はる / なつ / あき / ふゆ', kana:'はる / なつ / あき / ふゆ', romaji:'haru / natsu / aki / fuyu', vi:'xuân / hạ / thu / đông', pos:'nhóm từ' },
+  { jp:'ゆきが ふる', kana:'ゆきが ふる', romaji:'yuki ga furu', vi:'tuyết rơi', pos:'cụm động từ' },
+  { jp:'かぜが ふく', kana:'かぜが ふく', romaji:'kaze ga fuku', vi:'gió thổi', pos:'cụm động từ' },
+  { jp:'日が 入る', kana:'ひが はいる', romaji:'hi ga hairu', vi:'nắng chiếu vào', pos:'cụm động từ' },
+  { jp:'花火が 上がる', kana:'はなびが あがる', romaji:'hanabi ga agaru', vi:'pháo hoa bắn lên', pos:'cụm động từ' },
+  { jp:'ちる', kana:'ちる', romaji:'chiru', vi:'rụng (hoa, lá)', pos:'động từ nhóm I', g:'1' },
+
+  /* ---------- Cơ thể · sức khoẻ ---------- */
+  { jp:'かぜを ひく', kana:'かぜを ひく', romaji:'kaze o hiku', vi:'bị cảm', pos:'cụm động từ' },
+  { jp:'ねつが 出る', kana:'ねつが でる', romaji:'netsu ga deru', vi:'bị sốt', pos:'cụm động từ' },
+  { jp:'あせが 出る', kana:'あせが でる', romaji:'ase ga deru', vi:'đổ mồ hôi', pos:'cụm động từ' },
+  { jp:'くすりを 出す', kana:'くすりを だす', romaji:'kusuri o dasu', vi:'kê thuốc', pos:'cụm động từ' },
+  { jp:'たいした ことは ない', kana:'たいした ことは ない', romaji:'taishita koto wa nai', vi:'không có gì nghiêm trọng', pos:'cụm' },
+  { jp:'力が 抜ける', kana:'ちからが ぬける', romaji:'chikara ga nukeru', vi:'buông lỏng, hết căng cứng', pos:'cụm động từ' },
+  { jp:'ふるえる', kana:'ふるえる', romaji:'furueru', vi:'run', pos:'động từ nhóm II', g:'2' },
+  { jp:'つかる', kana:'つかる', romaji:'tsukaru', vi:'ngâm mình (trong nước)', pos:'động từ nhóm I', g:'1' },
+
+  /* ---------- Sinh hoạt hằng ngày ---------- */
+  { jp:'かおを あらう', kana:'かおを あらう', romaji:'kao o arau', vi:'rửa mặt', pos:'cụm động từ' },
+  { jp:'うたを うたう', kana:'うたを うたう', romaji:'uta o utau', vi:'hát một bài', pos:'cụm động từ' },
+  { jp:'カードを つくる', kana:'カードを つくる', romaji:'kaado o tsukuru', vi:'làm thẻ', pos:'cụm động từ' },
+  { jp:'ライトを つける', kana:'ライトを つける', romaji:'raito o tsukeru', vi:'bật đèn', pos:'cụm động từ' },
+  { jp:'ばしょを とる', kana:'ばしょを とる', romaji:'basho o toru', vi:'giữ chỗ', pos:'cụm động từ' },
+  { jp:'道に まよう', kana:'みちに まよう', romaji:'michi ni mayou', vi:'lạc đường', pos:'cụm động từ' },
+  { jp:'声を かける', kana:'こえを かける', romaji:'koe o kakeru', vi:'cất lời, bắt chuyện', pos:'cụm động từ' },
+  { jp:'文句を 言う', kana:'もんくを いう', romaji:'monku o iu', vi:'phàn nàn', pos:'cụm động từ' },
+  { jp:'気が つく', kana:'きが つく', romaji:'ki ga tsuku', vi:'nhận ra, để ý thấy', pos:'cụm động từ' },
+  { jp:'きもちが いい', kana:'きもちが いい', romaji:'kimochi ga ii', vi:'thấy dễ chịu', pos:'cụm' },
+  { jp:'いっぱいに なる', kana:'いっぱいに なる', romaji:'ippai ni naru', vi:'đầy lên', pos:'cụm động từ' },
+  { jp:'しゅうに 一回', kana:'しゅうに いっかい', romaji:'shuu ni ikkai', vi:'một lần mỗi tuần', pos:'cụm' },
+  { jp:'ふたりのり', kana:'ふたりのり', romaji:'futarinori', vi:'chở hai người (trên xe đạp, xe máy)', pos:'danh từ' },
+  { jp:'かんそう', kana:'かんそう', romaji:'kansou', vi:'sự sấy khô, hong khô', pos:'danh từ (する)' },
+  { jp:'出会い', kana:'であい', romaji:'deai', vi:'cuộc gặp gỡ', pos:'danh từ' },
+  { jp:'回数', kana:'かいすう', romaji:'kaisuu', vi:'số lần', pos:'danh từ' },
+  { jp:'れんきゅう', kana:'れんきゅう', romaji:'renkyuu', vi:'kỳ nghỉ dài, chuỗi ngày nghỉ liền', pos:'danh từ' },
+  { jp:'満員', kana:'まんいん', romaji:'man-in', vi:'chật kín người', pos:'danh từ' },
+
+  /* ---------- Động từ ---------- */
+  { jp:'はがす', kana:'はがす', romaji:'hagasu', vi:'bóc ra, gỡ ra', pos:'động từ nhóm I', g:'1' },
+  { jp:'ならぶ', kana:'ならぶ', romaji:'narabu', vi:'xếp hàng; xếp thành dãy', pos:'động từ nhóm I', g:'1' },
+  { jp:'ひびく', kana:'ひびく', romaji:'hibiku', vi:'vang lên, dội lại', pos:'động từ nhóm I', g:'1' },
+  { jp:'にぎる', kana:'にぎる', romaji:'nigiru', vi:'nắm, nắm chặt', pos:'động từ nhóm I', g:'1' },
+  { jp:'まく', kana:'まく', romaji:'maku', vi:'quấn, cuộn', pos:'động từ nhóm I', g:'1' },
+  { jp:'しく', kana:'しく', romaji:'shiku', vi:'trải ra (chiếu, bạt)', pos:'động từ nhóm I', g:'1' },
+  { jp:'ぬらす', kana:'ぬらす', romaji:'nurasu', vi:'làm ướt', pos:'động từ nhóm I', g:'1' },
+  { jp:'うごかす', kana:'うごかす', romaji:'ugokasu', vi:'làm cho động, ngoe nguẩy', pos:'động từ nhóm I', g:'1' },
+  { jp:'ゆずる', kana:'ゆずる', romaji:'yuzuru', vi:'nhường', pos:'động từ nhóm I', g:'1' },
+  { jp:'こわがる', kana:'こわがる', romaji:'kowagaru', vi:'sợ, tỏ ra sợ', pos:'động từ nhóm I', g:'1' },
+  { jp:'こまる', kana:'こまる', romaji:'komaru', vi:'lúng túng, khó xử', pos:'động từ nhóm I', g:'1' },
+  { jp:'通じる', kana:'つうじる', romaji:'tsuujiru', vi:'hiểu được nhau, thông', pos:'động từ nhóm II', g:'2' },
+  { jp:'広まる', kana:'ひろまる', romaji:'hiromaru', vi:'lan rộng', pos:'động từ nhóm I', g:'1' },
+  { jp:'暮らす', kana:'くらす', romaji:'kurasu', vi:'sinh sống', pos:'động từ nhóm I', g:'1' },
+  { jp:'置く', kana:'おく', romaji:'oku', vi:'đặt, để', pos:'động từ nhóm I', g:'1' },
+  { jp:'感じる', kana:'かんじる', romaji:'kanjiru', vi:'cảm thấy', pos:'động từ nhóm II', g:'2' },
+  { jp:'あずける', kana:'あずける', romaji:'azukeru', vi:'gửi, ký gửi', pos:'động từ nhóm II', g:'2' },
+  { jp:'たずねる', kana:'たずねる', romaji:'tazuneru', vi:'ghé thăm; hỏi thăm', pos:'động từ nhóm II', g:'2' },
+  { jp:'きずつける', kana:'きずつける', romaji:'kizutsukeru', vi:'làm tổn thương', pos:'động từ nhóm II', g:'2' },
+  { jp:'なくなる', kana:'なくなる', romaji:'naku naru', vi:'hết, biến mất', pos:'động từ nhóm I', g:'1' },
+  { jp:'教わる', kana:'おそわる', romaji:'osowaru', vi:'được dạy, học được từ ai', pos:'động từ nhóm I', g:'1' },
+  { jp:'てっきょする', kana:'てっきょする', romaji:'tekkyo suru', vi:'thu dọn, cẩu đi', pos:'động từ nhóm III', g:'3' },
+
+  /* ---------- Tính từ ---------- */
+  { jp:'明るい', kana:'あかるい', romaji:'akarui', vi:'sáng; vui vẻ', pos:'tính từ い' },
+  { jp:'あかるい', kana:'あかるい', romaji:'akarui', vi:'sáng sủa', pos:'tính từ い' },
+  { jp:'こわい', kana:'こわい', romaji:'kowai', vi:'đáng sợ', pos:'tính từ い' },
+  { jp:'はずかしい', kana:'はずかしい', romaji:'hazukashii', vi:'ngượng, xấu hổ', pos:'tính từ い' },
+  { jp:'みじかい', kana:'みじかい', romaji:'mijikai', vi:'ngắn', pos:'tính từ い' },
+  { jp:'うるさい', kana:'うるさい', romaji:'urusai', vi:'ồn ào; lắm lời', pos:'tính từ い' },
+  { jp:'つらい', kana:'つらい', romaji:'tsurai', vi:'khổ sở, khó chịu', pos:'tính từ い' },
+  { jp:'よそよそしい', kana:'よそよそしい', romaji:'yosoyososhii', vi:'xa cách, khách sáo', pos:'tính từ い' },
+  { jp:'めんどう', kana:'めんどう', romaji:'mendou', vi:'phiền phức', pos:'tính từ な' },
+  { jp:'単純', kana:'たんじゅん', romaji:'tanjun', vi:'đơn giản', pos:'tính từ な' },
+  { jp:'不しんせつ', kana:'ふしんせつ', romaji:'fu-shinsetsu', vi:'thiếu tử tế', pos:'tính từ な' },
+  { jp:'当たり前', kana:'あたりまえ', romaji:'atarimae', vi:'đương nhiên, lẽ thường', pos:'danh từ / tính từ な' },
+  { jp:'標準語', kana:'ひょうじゅんご', romaji:'hyoujungo', vi:'tiếng chuẩn', pos:'danh từ' },
+  { jp:'気づかい', kana:'きづかい', romaji:'kizukai', vi:'sự để ý, sự quan tâm đến người khác', pos:'danh từ' },
+  { jp:'工夫', kana:'くふう', romaji:'kufuu', vi:'sự khéo léo, cách xoay xở', pos:'danh từ (する)' },
+  { jp:'まちがい', kana:'まちがい', romaji:'machigai', vi:'lỗi sai, sự nhầm lẫn', pos:'danh từ' },
+  { jp:'距離の 取り方', kana:'きょりの とりかた', romaji:'kyori no torikata', vi:'cách giữ khoảng cách', pos:'cụm danh từ' },
+
+  /* ---------- Trạng từ ---------- */
+  { jp:'たまたま', kana:'たまたま', romaji:'tamatama', vi:'tình cờ', pos:'trạng từ' },
+  { jp:'ぜんぶで', kana:'ぜんぶで', romaji:'zenbu de', vi:'tổng cộng là', pos:'trạng từ' },
+  { jp:'だいぶ', kana:'だいぶ', romaji:'daibu', vi:'khá là, đỡ hẳn', pos:'trạng từ' },
+  { jp:'ときどき', kana:'ときどき', romaji:'tokidoki', vi:'thỉnh thoảng', pos:'trạng từ' },
+  { jp:'どんどん', kana:'どんどん', romaji:'dondon', vi:'liên tục, ào ạt', pos:'trạng từ' },
+  { jp:'しばらく', kana:'しばらく', romaji:'shibaraku', vi:'một lúc, một thời gian', pos:'trạng từ' },
+  { jp:'たいてい', kana:'たいてい', romaji:'taitei', vi:'hầu hết, thường thì', pos:'trạng từ' },
+  { jp:'いっぱい', kana:'いっぱい', romaji:'ippai', vi:'đầy, kín; rất nhiều', pos:'trạng từ' },
+  { jp:'思ったより', kana:'おもったより', romaji:'omotta yori', vi:'hơn là mình tưởng', pos:'cụm' },
+  { jp:'その 一方で', kana:'その いっぽうで', romaji:'sono ippou de', vi:'mặt khác', pos:'cụm' },
+  { jp:'三つ', kana:'みっつ', romaji:'mittsu', vi:'ba cái', pos:'lượng từ' },
+  { jp:'だれの', kana:'だれの', romaji:'dare no', vi:'của ai', pos:'nghi vấn' },
+
+  /* ---------- Hậu tố · trợ từ ---------- */
+  { jp:'～分', kana:'ぶん', romaji:'-bun', vi:'phần cho (mấy ngày, mấy người)', pos:'hậu tố' },
+  { jp:'～冊', kana:'さつ', romaji:'-satsu', vi:'cuốn (đếm sách, vở)', pos:'lượng từ' },
+  { jp:'～回', kana:'かい', romaji:'-kai', vi:'lần', pos:'lượng từ' },
+  { jp:'～ずつ', kana:'ずつ', romaji:'-zutsu', vi:'mỗi… một', pos:'trợ từ' },
+  { jp:'～より', kana:'より', romaji:'-yori', vi:'hơn (so sánh)', pos:'trợ từ' },
+  { jp:'～まで', kana:'まで', romaji:'-made', vi:'đến, tối đa', pos:'trợ từ' },
+  { jp:'～と', kana:'と', romaji:'-to', vi:'hễ… thì (điều kiện tất yếu)', pos:'trợ từ' },
+  { jp:'～ば', kana:'ば', romaji:'-ba', vi:'nếu… thì', pos:'đuôi điều kiện' },
+  { jp:'～ので', kana:'ので', romaji:'-node', vi:'vì… nên (lý do khách quan)', pos:'liên từ' },
+  { jp:'～ほど', kana:'ほど', romaji:'-hodo', vi:'đến mức', pos:'trợ từ' },
+  { jp:'～だけで', kana:'だけで', romaji:'-dake de', vi:'chỉ… mà đã', pos:'cụm trợ từ' },
+  { jp:'～かぎり', kana:'かぎり', romaji:'-kagiri', vi:'chừng nào còn…', pos:'cụm ngữ pháp' },
+  { jp:'～方', kana:'かた', romaji:'-kata', vi:'cách làm…', pos:'hậu tố' },
+
+  /* ---------- Mẫu ngữ pháp trong bài đọc ---------- */
+  { jp:'～てから', kana:'てから', romaji:'-te kara', vi:'sau khi… thì', pos:'cụm ngữ pháp' },
+  { jp:'～ごろ', kana:'ごろ', romaji:'-goro', vi:'khoảng (thời điểm)', pos:'hậu tố' },
+  { jp:'～ながら', kana:'ながら', romaji:'-nagara', vi:'vừa… vừa…', pos:'cụm ngữ pháp' },
+  { jp:'～まえに', kana:'まえに', romaji:'-mae ni', vi:'trước khi…', pos:'cụm ngữ pháp' },
+  { jp:'～あいだ', kana:'あいだ', romaji:'-aida', vi:'trong lúc…', pos:'cụm ngữ pháp' },
+  { jp:'～から ～まで', kana:'から まで', romaji:'-kara -made', vi:'từ… đến…', pos:'cụm ngữ pháp' },
+  { jp:'～から はじめる', kana:'から はじめる', romaji:'-kara hajimeru', vi:'bắt đầu từ…', pos:'cụm ngữ pháp' },
+  { jp:'～て くれる', kana:'て くれる', romaji:'-te kureru', vi:'ai đó làm cho mình', pos:'cụm ngữ pháp' },
+  { jp:'～て くださる', kana:'て くださる', romaji:'-te kudasaru', vi:'ai đó làm cho mình (kính ngữ)', pos:'cụm ngữ pháp' },
+  { jp:'～て しまう', kana:'て しまう', romaji:'-te shimau', vi:'lỡ làm mất rồi; làm xong hẳn', pos:'cụm ngữ pháp' },
+  { jp:'～ては いけない', kana:'ては いけない', romaji:'-te wa ikenai', vi:'không được…', pos:'cụm ngữ pháp' },
+  { jp:'～ないで ください', kana:'ないで ください', romaji:'-naide kudasai', vi:'xin đừng…', pos:'cụm ngữ pháp' },
+  { jp:'～なければ ならない', kana:'なければ ならない', romaji:'-nakereba naranai', vi:'phải…', pos:'cụm ngữ pháp' },
+  { jp:'～たまま', kana:'たまま', romaji:'-ta mama', vi:'cứ để nguyên trạng thái đó', pos:'cụm ngữ pháp' },
+  { jp:'～たい', kana:'たい', romaji:'-tai', vi:'muốn…', pos:'cụm ngữ pháp' },
+  { jp:'～くて', kana:'くて', romaji:'-kute', vi:'nối tính từ đuôi い', pos:'cụm ngữ pháp' },
+  { jp:'～く なる', kana:'く なる', romaji:'-ku naru', vi:'trở nên… (với tính từ い)', pos:'cụm ngữ pháp' },
+  { jp:'～ように なる', kana:'ように なる', romaji:'-you ni naru', vi:'dần trở nên… được', pos:'cụm ngữ pháp' },
+  { jp:'～ように', kana:'ように', romaji:'-you ni', vi:'mong rằng…; để mà…', pos:'cụm ngữ pháp' },
+  { jp:'～ように 感じる', kana:'ように かんじる', romaji:'-you ni kanjiru', vi:'cảm thấy như là…', pos:'cụm ngữ pháp' },
+  { jp:'～ような 気が する', kana:'ような きが する', romaji:'-you na ki ga suru', vi:'có cảm giác như…', pos:'cụm ngữ pháp' },
+  { jp:'～ようです', kana:'ようです', romaji:'-you desu', vi:'hình như, có vẻ như', pos:'cụm ngữ pháp' },
+  { jp:'～そうです', kana:'そうです', romaji:'-sou desu', vi:'nghe nói là…', pos:'cụm ngữ pháp' },
+  { jp:'～のだ', kana:'のだ', romaji:'-no da', vi:'là vì…, hoá ra là…', pos:'cụm ngữ pháp' },
+  { jp:'～つもり', kana:'つもり', romaji:'-tsumori', vi:'dự định…', pos:'cụm ngữ pháp' },
+  { jp:'～に する', kana:'に する', romaji:'-ni suru', vi:'quyết định chọn…', pos:'cụm ngữ pháp' },
+  { jp:'～に なります', kana:'に なります', romaji:'-ni narimasu', vi:'đã được (bao lâu); trở thành', pos:'cụm ngữ pháp' },
+  { jp:'～に よって', kana:'に よって', romaji:'-ni yotte', vi:'tuỳ theo…; bởi…', pos:'cụm ngữ pháp' },
+  { jp:'～させて もらう', kana:'させて もらう', romaji:'-sasete morau', vi:'xin phép được…', pos:'cụm ngữ pháp' },
+  { jp:'～れる/られる', kana:'れる/られる', romaji:'-reru / -rareru', vi:'thể bị động', pos:'cụm ngữ pháp' },
+  { jp:'～と 言われる', kana:'と いわれる', romaji:'-to iwareru', vi:'được cho là, người ta nói rằng', pos:'cụm ngữ pháp' },
+  { jp:'～だけでなく', kana:'だけでなく', romaji:'-dake de naku', vi:'không chỉ… mà còn', pos:'cụm ngữ pháp' },
+  { jp:'～ことが 多い', kana:'ことが おおい', romaji:'-koto ga ooi', vi:'thường hay…', pos:'cụm ngữ pháp' },
+  { jp:'～かわりに', kana:'かわりに', romaji:'-kawari ni', vi:'bù lại, đổi lấy; thay vì', pos:'cụm ngữ pháp' },
+  { jp:'～まちがえる', kana:'まちがえる', romaji:'-machigaeru', vi:'làm nhầm…', pos:'cụm ngữ pháp' },
+  { jp:'～も かかる', kana:'も かかる', romaji:'-mo kakaru', vi:'mất những… (nhấn mạnh nhiều)', pos:'cụm ngữ pháp' },
+  { jp:'～ものか', kana:'ものか', romaji:'-mono ka', vi:'lẽ nào lại… (kinh ngạc, phản bác)', pos:'cụm ngữ pháp' },
+  { jp:'～ましょうか', kana:'ましょうか', romaji:'-mashou ka', vi:'…nhé? (rủ rê, đề nghị giúp)', pos:'cụm ngữ pháp' },
+  { jp:'～より ずっと', kana:'より ずっと', romaji:'-yori zutto', vi:'hơn… nhiều', pos:'cụm ngữ pháp' },
+  { jp:'～は いません', kana:'は いません', romaji:'-wa imasen', vi:'không có ai…', pos:'cụm ngữ pháp' },
+
+  /* ---------- Bổ sung: từ còn lại trong thân bài đọc ---------- */
+  { jp:'商店', kana:'しょうてん', romaji:'shouten', vi:'cửa hiệu', pos:'danh từ' },
+  { jp:'本屋', kana:'ほんや', romaji:'hon-ya', vi:'hiệu sách', pos:'danh từ' },
+  { jp:'曜日', kana:'ようび', romaji:'youbi', vi:'thứ (trong tuần)', pos:'danh từ' },
+  { jp:'地図', kana:'ちず', romaji:'chizu', vi:'bản đồ', pos:'danh từ' },
+  { jp:'空気', kana:'くうき', romaji:'kuuki', vi:'không khí', pos:'danh từ' },
+  { jp:'花火', kana:'はなび', romaji:'hanabi', vi:'pháo hoa', pos:'danh từ' },
+  { jp:'初日', kana:'しょにち', romaji:'shonichi', vi:'ngày đầu tiên', pos:'danh từ' },
+  { jp:'気持ち', kana:'きもち', romaji:'kimochi', vi:'tâm trạng, cảm giác', pos:'danh từ' },
+  { jp:'都市', kana:'とし', romaji:'toshi', vi:'đô thị', pos:'danh từ' },
+  { jp:'社会', kana:'しゃかい', romaji:'shakai', vi:'xã hội', pos:'danh từ' },
+  { jp:'外国', kana:'がいこく', romaji:'gaikoku', vi:'nước ngoài', pos:'danh từ' },
+  { jp:'理解', kana:'りかい', romaji:'rikai', vi:'sự hiểu', pos:'danh từ (する)' },
+  { jp:'改革', kana:'かいかく', romaji:'kaikaku', vi:'cải cách', pos:'danh từ (する)' },
+  { jp:'標準', kana:'ひょうじゅん', romaji:'hyoujun', vi:'tiêu chuẩn', pos:'danh từ' },
+  { jp:'距離', kana:'きょり', romaji:'kyori', vi:'khoảng cách', pos:'danh từ' },
+  { jp:'小学校', kana:'しょうがっこう', romaji:'shougakkou', vi:'trường tiểu học', pos:'danh từ' },
+  { jp:'小学生', kana:'しょうがくせい', romaji:'shougakusei', vi:'học sinh tiểu học', pos:'danh từ' },
+  { jp:'高校生', kana:'こうこうせい', romaji:'koukousei', vi:'học sinh cấp ba', pos:'danh từ' },
+  { jp:'大学生', kana:'だいがくせい', romaji:'daigakusei', vi:'sinh viên đại học', pos:'danh từ' },
+  { jp:'友だち', kana:'ともだち', romaji:'tomodachi', vi:'bạn bè', pos:'danh từ' },
+  { jp:'お土産', kana:'おみやげ', romaji:'omiyage', vi:'quà đặc sản mang về', pos:'danh từ' },
+  { jp:'山手線', kana:'やまのてせん', romaji:'Yamanote-sen', vi:'tuyến Yamanote (Tokyo)', pos:'tên riêng' },
+  { jp:'大阪', kana:'おおさか', romaji:'Oosaka', vi:'Osaka', pos:'tên riêng' },
+  { jp:'おばあさん', kana:'おばあさん', romaji:'obaasan', vi:'bà cụ; bà nội/ngoại', pos:'danh từ' },
+  { jp:'おまわりさん', kana:'おまわりさん', romaji:'omawarisan', vi:'chú cảnh sát khu vực', pos:'danh từ' },
+  { jp:'年寄り', kana:'としより', romaji:'toshiyori', vi:'người có tuổi', pos:'danh từ' },
+  { jp:'村', kana:'むら', romaji:'mura', vi:'làng', pos:'danh từ' },
+  { jp:'まわり', kana:'まわり', romaji:'mawari', vi:'xung quanh', pos:'danh từ' },
+  { jp:'ルール', kana:'ルール', romaji:'ruuru', vi:'quy tắc, luật lệ', pos:'danh từ' },
+  { jp:'ラベル', kana:'ラベル', romaji:'raberu', vi:'nhãn dán', pos:'danh từ' },
+  { jp:'ボタン', kana:'ボタン', romaji:'botan', vi:'nút bấm', pos:'danh từ' },
+  { jp:'アプリ', kana:'アプリ', romaji:'apuri', vi:'ứng dụng', pos:'danh từ' },
+  { jp:'カレンダー', kana:'カレンダー', romaji:'karendaa', vi:'tờ lịch', pos:'danh từ' },
+  { jp:'ベッド', kana:'ベッド', romaji:'beddo', vi:'cái giường', pos:'danh từ' },
+  { jp:'トマト', kana:'トマト', romaji:'tomato', vi:'cà chua', pos:'danh từ' },
+  { jp:'にんじん', kana:'にんじん', romaji:'ninjin', vi:'cà rốt', pos:'danh từ' },
+  { jp:'みそ', kana:'みそ', romaji:'miso', vi:'tương miso', pos:'danh từ' },
+  { jp:'まめ', kana:'まめ', romaji:'mame', vi:'hạt đậu', pos:'danh từ' },
+  { jp:'たこやき', kana:'たこやき', romaji:'takoyaki', vi:'bánh bạch tuộc nướng', pos:'danh từ' },
+  { jp:'カレー', kana:'カレー', romaji:'karee', vi:'cà ri', pos:'danh từ' },
+  { jp:'まつり', kana:'まつり', romaji:'matsuri', vi:'lễ hội', pos:'danh từ' },
+  { jp:'コインランドリー', kana:'コインランドリー', romaji:'koin randorii', vi:'tiệm giặt tự động', pos:'danh từ' },
+  { jp:'ブルーシート', kana:'ブルーシート', romaji:'buruu shiito', vi:'tấm bạt xanh', pos:'danh từ' },
+  { jp:'つぶす', kana:'つぶす', romaji:'tsubusu', vi:'bóp bẹp, nghiền nát', pos:'động từ nhóm I', g:'1' },
+  { jp:'小さな', kana:'ちいさな', romaji:'chiisana', vi:'nhỏ (đứng trước danh từ)', pos:'định từ' },
+  { jp:'次々に', kana:'つぎつぎに', romaji:'tsugitsugi ni', vi:'lần lượt, cái này đến cái kia', pos:'trạng từ' },
+  { jp:'ひとつひとつ', kana:'ひとつひとつ', romaji:'hitotsu hitotsu', vi:'từng cái một', pos:'trạng từ' },
+  { jp:'もう一度', kana:'もういちど', romaji:'mou ichido', vi:'một lần nữa', pos:'trạng từ' },
+  { jp:'そこで', kana:'そこで', romaji:'soko de', vi:'thế là, vì vậy', pos:'liên từ' },
+  { jp:'ところが', kana:'ところが', romaji:'tokoro ga', vi:'thế mà, nào ngờ', pos:'liên từ' },
+  { jp:'それでは', kana:'それでは', romaji:'sore dewa', vi:'vậy thì', pos:'liên từ' },
+  { jp:'すると', kana:'すると', romaji:'suru to', vi:'thế rồi, vừa vậy thì', pos:'liên từ' },
+  { jp:'さて', kana:'さて', romaji:'sate', vi:'vậy thì, nói tiếp', pos:'liên từ' },
+  { jp:'けれど', kana:'けれど', romaji:'keredo', vi:'nhưng mà', pos:'liên từ' },
+  { jp:'かも', kana:'かも', romaji:'kamo', vi:'có lẽ (かもしれない)', pos:'cụm ngữ pháp' },
+  { jp:'誰か', kana:'だれか', romaji:'dare ka', vi:'ai đó', pos:'đại từ' },
+  { jp:'これほど', kana:'これほど', romaji:'kore hodo', vi:'đến mức này', pos:'trạng từ' },
+  { jp:'～られる', kana:'られる', romaji:'-rareru', vi:'thể bị động / khả năng', pos:'cụm ngữ pháp' },
+  { jp:'一回', kana:'いっかい', romaji:'ikkai', vi:'một lần', pos:'lượng từ' },
+  { jp:'一年', kana:'いちねん', romaji:'ichinen', vi:'một năm', pos:'danh từ' },
+  { jp:'年前', kana:'ねんまえ', romaji:'nen mae', vi:'… năm trước', pos:'hậu tố' },
+  { jp:'毎週', kana:'まいしゅう', romaji:'maishuu', vi:'hằng tuần', pos:'danh từ' },
+  { jp:'出会う', kana:'であう', romaji:'deau', vi:'gặp gỡ, tình cờ gặp', pos:'động từ nhóm I', g:'1' }
+];
+
+if (typeof window !== 'undefined') window.VOCAB_JA = VOCAB_JA;
+if (typeof module !== 'undefined' && module.exports) module.exports = { VOCAB_JA };
 
 </script>
 <script>
@@ -32101,6 +34043,189 @@ if (typeof module !== 'undefined'){ module.exports = { EN_EXAMPLES }; }
 </script>
 <script>
 /* ============================================================
+   LangLab — TỪ VỰNG THÔNG DỤNG TIẾNG ANH (ngoài khoá học)
+   ------------------------------------------------------------
+   Khoá A1–B2 chỉ dạy từ phục vụ chủ đề từng bài, nên nhiều từ có
+   trong bài đọc lại không tra được. Tệp này bù đúng khoảng trống
+   đó: mọi từ khoá của 50 bài đọc tiếng Anh đều phải mở ra được mục
+   từ điển.
+
+   Do LangLab tự biên soạn. Từ nào khoá học hoặc EN_DICT đã có sẽ
+   được khử trùng lặp khi gộp vào EN_LOOKUP (xem js/dict-en.js).
+
+   Trường dữ liệu:  en · uk · us · pos · vi · [note]
+   ============================================================ */
+
+const VOCAB_EN = [
+
+  /* ---------- Danh từ: đời sống, đồ vật ---------- */
+  { en:'kettle', uk:'ˈketl', us:'ˈketl', pos:'danh từ', vi:'ấm đun nước' , ex:['The kettle boiled while I was reading the news.','Ấm nước sôi trong lúc tôi đang đọc tin.']},
+  { en:'pan', uk:'pæn', us:'pæn', pos:'danh từ', vi:'cái chảo' , ex:['Heat the pan before you add the oil.','Làm nóng chảo trước khi cho dầu vào.']},
+  { en:'bell', uk:'bel', us:'bel', pos:'danh từ', vi:'cái chuông' , ex:['The bell on my bicycle stopped working last winter.','Cái chuông xe đạp của tôi hỏng từ mùa đông trước.']},
+  { en:'button', uk:'ˈbʌtn', us:'ˈbʌtn', pos:'danh từ', vi:'nút bấm; cúc áo' , ex:['She pressed the wrong button and the lift went up.','Cô ấy bấm nhầm nút nên thang máy đi lên.']},
+  { en:'hose', uk:'həʊz', us:'hoʊz', pos:'danh từ', vi:'vòi nước' , ex:['He watered the young trees with a long green hose.','Ông ấy tưới mấy cây non bằng một cái vòi xanh dài.']},
+  { en:'cart', uk:'kɑːt', us:'kɑːrt', pos:'danh từ', vi:'xe đẩy, xe kéo' , ex:['After nine, the carts arrive and the street changes.','Sau chín giờ, những chiếc xe đẩy kéo đến và con phố đổi khác.']},
+  { en:'stairs', uk:'steəz', us:'sterz', pos:'danh từ số nhiều', vi:'cầu thang' , ex:['I sat on the stairs and waited for my sister.','Tôi ngồi trên cầu thang đợi chị.']},
+  { en:'wardrobe', uk:'ˈwɔːdrəʊb', us:'ˈwɔːrdroʊb', pos:'danh từ', vi:'tủ quần áo' , ex:['The greenest shirt is the one already in your wardrobe.','Chiếc áo xanh nhất là chiếc đang nằm trong tủ bạn.']},
+  { en:'cloth', uk:'klɒθ', us:'klɔːθ', pos:'danh từ', vi:'vải, mảnh vải' , ex:['I bought two cloth bags and left them by the door.','Tôi mua hai cái túi vải và để chúng cạnh cửa.']},
+  { en:'cotton', uk:'ˈkɒtn', us:'ˈkɑːtn', pos:'danh từ', vi:'bông, sợi bông' , ex:['Growing cotton uses a surprising amount of water.','Trồng bông tốn một lượng nước nhiều đến bất ngờ.']},
+  { en:'arrow', uk:'ˈærəʊ', us:'ˈæroʊ', pos:'danh từ', vi:'mũi tên' , ex:['Most of us just follow a blue arrow on a screen.','Phần lớn chúng ta chỉ đi theo một mũi tên xanh trên màn hình.']},
+  { en:'concrete', uk:'ˈkɒŋkriːt', us:'ˈkɑːŋkriːt', pos:'danh từ', vi:'bê tông' },
+  { en:'drain', uk:'dreɪn', us:'dreɪn', pos:'danh từ', vi:'cống thoát nước' , ex:['Rain that would rush into the drains is slowed down.','Nước mưa lẽ ra ào xuống cống thì được làm chậm lại.']},
+  { en:'seed', uk:'siːd', us:'siːd', pos:'danh từ', vi:'hạt giống' , ex:['The building holds nearly a million seed samples.','Toà nhà giữ gần một triệu mẫu hạt giống.']},
+  { en:'crop', uk:'krɒp', us:'krɑːp', pos:'danh từ', vi:'cây trồng, vụ mùa' , ex:['If a crop disappears, the seed still exists somewhere.','Nếu một loại cây trồng biến mất, hạt giống của nó vẫn còn ở đâu đó.']},
+  { en:'chilli', uk:'ˈtʃɪli', us:'ˈtʃɪli', pos:'danh từ', vi:'quả ớt', note:'Mỹ thường viết chili' , ex:['My grandmother grows onions and chillies behind the house.','Bà tôi trồng hành và ớt ở sau nhà.']},
+  { en:'lake', uk:'leɪk', us:'leɪk', pos:'danh từ', vi:'cái hồ' , ex:['My parents walk around the lake after dinner.','Bố mẹ tôi đi bộ quanh hồ sau bữa tối.']},
+  { en:'shade', uk:'ʃeɪd', us:'ʃeɪd', pos:'danh từ', vi:'bóng mát, bóng râm' , ex:['The street now has the best shade in the neighbourhood.','Con phố giờ có bóng mát đẹp nhất khu.']},
+  { en:'paperwork', uk:'ˈpeɪpəwɜːk', us:'ˈpeɪpərwɜːrk', pos:'danh từ', vi:'giấy tờ, thủ tục hành chính' , ex:['Each cart is a business with no office and almost no paperwork.','Mỗi chiếc xe đẩy là một doanh nghiệp không văn phòng, gần như không giấy tờ.']},
+  { en:'estuary', uk:'ˈestʃuəri', us:'ˈestʃueri', pos:'danh từ', vi:'cửa sông' , ex:['Salt water from the estuary reaches the fields in summer.','Nước mặn từ cửa sông tràn vào đồng ruộng vào mùa hè.']},
+  { en:'foreshore', uk:'ˈfɔːʃɔː', us:'ˈfɔːrʃɔːr', pos:'danh từ', vi:'bãi bồi ven sông lộ ra khi triều xuống' , ex:['At low tide the foreshore fills with people looking for shellfish.','Khi triều xuống, bãi bồi đầy người đi tìm ngao sò.']},
+  { en:'sewage', uk:'ˈsuːɪdʒ', us:'ˈsuːɪdʒ', pos:'danh từ', vi:'nước thải sinh hoạt' , ex:['The city treats its sewage before it reaches the river.','Thành phố xử lý nước thải trước khi chảy ra sông.']},
+  { en:'ecosystem', uk:'ˈiːkəʊsɪstəm', us:'ˈiːkoʊsɪstəm', pos:'danh từ', vi:'hệ sinh thái' , ex:['A river ecosystem recovers slowly once the water is clean.','Hệ sinh thái một dòng sông phục hồi chậm khi nước đã sạch.']},
+  { en:'sparrow', uk:'ˈspærəʊ', us:'ˈspæroʊ', pos:'danh từ', vi:'chim sẻ' , ex:['She has counted the sparrows in her garden for eleven years.','Bà ấy đã đếm chim sẻ trong vườn suốt mười một năm.']},
+  { en:'queue', uk:'kjuː', us:'kjuː', pos:'danh từ', vi:'hàng người xếp chờ', note:'Mỹ thường dùng line' },
+  { en:'sphere', uk:'sfɪə', us:'sfɪr', pos:'danh từ', vi:'hình cầu, mặt cầu' , ex:['A map turns a sphere into a flat sheet of paper.','Bản đồ biến một hình cầu thành một tờ giấy phẳng.']},
+  { en:'projection', uk:'prəˈdʒekʃn', us:'prəˈdʒekʃn', pos:'danh từ', vi:'phép chiếu (bản đồ); dự báo' , ex:['Every projection distorts something: size, shape or distance.','Phép chiếu nào cũng làm méo một thứ: diện tích, hình dạng hoặc khoảng cách.']},
+  { en:'refill', uk:'ˈriːfɪl', us:'ˈriːfɪl', pos:'danh từ', vi:'lần rót thêm; đồ thay ruột' , ex:['The second refill costs the shop almost nothing.','Lần rót thêm thứ hai gần như chẳng tốn gì của quán.']},
+  { en:'margin', uk:'ˈmɑːdʒɪn', us:'ˈmɑːrdʒɪn', pos:'danh từ', vi:'lề trang; biên lợi nhuận' , ex:['Someone had written notes in the margins of the novel.','Ai đó đã ghi chú vào lề cuốn tiểu thuyết.']},
+  { en:'profit', uk:'ˈprɒfɪt', us:'ˈprɑːfɪt', pos:'danh từ', vi:'lợi nhuận' , ex:['One rainy week can erase a month of profit.','Một tuần mưa có thể xoá sạch lợi nhuận cả tháng.']},
+  { en:'odour', uk:'ˈəʊdə', us:'ˈoʊdər', pos:'danh từ', vi:'mùi (thường là khó chịu)', note:'Mỹ viết odor' , ex:['The odour of rain on hot concrete brings back my childhood.','Mùi mưa trên bê tông nóng gợi lại tuổi thơ tôi.']},
+  { en:'trigger', uk:'ˈtrɪɡə', us:'ˈtrɪɡər', pos:'danh từ', vi:'tác nhân khơi dậy; cò súng' , ex:['What interests me is how specific these triggers are.','Điều tôi thấy thú vị là những thứ khơi gợi ấy cụ thể đến mức nào.']},
+  { en:'illusion', uk:'ɪˈluːʒn', us:'ɪˈluːʒn', pos:'danh từ', vi:'ảo tưởng, ảo giác' , ex:['Reading twice creates an illusion of knowing.','Đọc lại hai lần tạo ra ảo tưởng là mình đã biết.']},
+  { en:'betrayal', uk:'bɪˈtreɪəl', us:'bɪˈtreɪəl', pos:'danh từ', vi:'sự phản bội' , ex:['He described the closure of the library as a small betrayal.','Ông ấy gọi việc đóng cửa thư viện là một sự phản bội nhỏ.']},
+  { en:'accumulation', uk:'əˌkjuːmjəˈleɪʃn', us:'əˌkjuːmjəˈleɪʃn', pos:'danh từ', vi:'sự tích luỹ dần' , ex:['Progress is an accumulation you cannot feel day by day.','Tiến bộ là sự tích luỹ mà ngày qua ngày ta không cảm thấy.']},
+  { en:'familiarity', uk:'fəˌmɪliˈærəti', us:'fəˌmɪliˈærəti', pos:'danh từ', vi:'sự quen thuộc' , ex:['Familiarity with a text is not the same as knowing it.','Quen mặt một bài đọc không giống với việc hiểu nó.']},
+  { en:'mismatch', uk:'ˈmɪsmætʃ', us:'ˈmɪsmætʃ', pos:'danh từ', vi:'sự lệch pha, sự không khớp' , ex:['There is a mismatch between what we read and what we recall.','Có sự lệch pha giữa điều ta đọc và điều ta nhớ lại được.']},
+  { en:'retention', uk:'rɪˈtenʃn', us:'rɪˈtenʃn', pos:'danh từ', vi:'khả năng nhớ lâu; sự giữ lại' , ex:['Testing yourself improves retention more than rereading.','Tự kiểm tra giúp nhớ lâu hơn là đọc lại.']},
+  { en:'threshold', uk:'ˈθreʃhəʊld', us:'ˈθreʃhoʊld', pos:'danh từ', vi:'ngưỡng; bậc cửa' , ex:['Once the salt passes a certain threshold, the rice dies.','Khi độ mặn vượt một ngưỡng nhất định, lúa sẽ chết.']},
+  { en:'timescale', uk:'ˈtaɪmskeɪl', us:'ˈtaɪmskeɪl', pos:'danh từ', vi:'thang thời gian' , ex:['What makes the project unusual is its timescale.','Điều khiến dự án khác thường là thang thời gian của nó.']},
+  { en:'navigation', uk:'ˌnævɪˈɡeɪʃn', us:'ˌnævɪˈɡeɪʃn', pos:'danh từ', vi:'sự định hướng, dẫn đường' , ex:['This kind of navigation changes the brain spatial memory.','Kiểu định hướng này làm thay đổi trí nhớ không gian của não.']},
+  { en:'precision', uk:'prɪˈsɪʒn', us:'prɪˈsɪʒn', pos:'danh từ', vi:'sự chính xác' , ex:['Perhaps that precision is the point of memory.','Có lẽ chính sự chính xác ấy mới là điều đáng nói của ký ức.']},
+  { en:'anger', uk:'ˈæŋɡə', us:'ˈæŋɡər', pos:'danh từ', vi:'cơn giận' , ex:['The anger is usually about their week, not about her.','Cơn giận ấy thường là vì cả tuần của họ, chứ không phải vì cô ấy.']},
+  { en:'sight', uk:'saɪt', us:'saɪt', pos:'danh từ', vi:'thị giác; cảnh tượng' , ex:['Smell reaches memory by a shorter road than sight.','Mùi đến được ký ức bằng con đường ngắn hơn thị giác.']},
+  { en:'trick', uk:'trɪk', us:'trɪk', pos:'danh từ', vi:'mẹo; trò lừa' , ex:['There is a well-known trick among students.','Có một mẹo nổi tiếng trong giới sinh viên.']},
+  { en:'challenge', uk:'ˈtʃælɪndʒ', us:'ˈtʃælɪndʒ', pos:'danh từ', vi:'thách thức' },
+  { en:'adjective', uk:'ˈædʒɪktɪv', us:'ˈædʒɪktɪv', pos:'danh từ', vi:'tính từ (ngữ pháp)' , ex:['English mostly uses adjectives to talk about rain.','Tiếng Anh chủ yếu dùng tính từ để nói về mưa.']},
+  { en:'handwriting', uk:'ˈhændraɪtɪŋ', us:'ˈhændraɪtɪŋ', pos:'danh từ', vi:'nét chữ viết tay' , ex:['The best part of the shop is the handwriting inside the books.','Điều hay nhất ở tiệm sách là những nét chữ viết tay bên trong.']},
+  { en:'platform', uk:'ˈplætfɔːm', us:'ˈplætfɔːrm', pos:'danh từ', vi:'sân ga; nền tảng' , ex:['I was in a hurry and did not check the platform number.','Tôi đang vội nên không kiểm tra số sân ga.']},
+  { en:'disease', uk:'dɪˈziːz', us:'dɪˈziːz', pos:'danh từ', vi:'bệnh, dịch bệnh' },
+
+  /* ---------- Danh từ: người ---------- */
+  { en:'driver', uk:'ˈdraɪvə', us:'ˈdraɪvər', pos:'danh từ', vi:'tài xế, người lái' , ex:['The driver knows her name and says good morning every day.','Bác tài biết tên cô ấy và ngày nào cũng chào buổi sáng.']},
+  { en:'player', uk:'ˈpleɪə', us:'ˈpleɪər', pos:'danh từ', vi:'cầu thủ, người chơi' },
+  { en:'stranger', uk:'ˈstreɪndʒə', us:'ˈstreɪndʒər', pos:'danh từ', vi:'người lạ' , ex:['You asked a stranger, took a wrong turn, and learned the city.','Bạn hỏi một người lạ, rẽ nhầm, rồi thuộc dần thành phố.']},
+  { en:'researcher', uk:'rɪˈsɜːtʃə', us:'rɪˈsɜːrtʃər', pos:'danh từ', vi:'nhà nghiên cứu' },
+  { en:'planner', uk:'ˈplænə', us:'ˈplænər', pos:'danh từ', vi:'nhà quy hoạch; sổ kế hoạch' , ex:['Some planners argue that a good city fits in fifteen minutes.','Một số nhà quy hoạch cho rằng một thành phố tốt nằm gọn trong mười lăm phút.']},
+  { en:'regular', uk:'ˈreɡjələ', us:'ˈreɡjələr', pos:'danh từ', vi:'khách quen', note:'Là tính từ: đều đặn, thường lệ' , ex:['The owner knows every regular by name.','Chủ quán biết tên từng người khách quen.']},
+  { en:'guard', uk:'ɡɑːd', us:'ɡɑːrd', pos:'động từ', vi:'canh gác, trông coi' , ex:['People are more careful with things nobody guards.','Người ta cẩn thận hơn với những thứ chẳng ai canh gác.']},
+
+  /* ---------- Tính từ ---------- */
+  { en:'bright', uk:'braɪt', us:'braɪt', pos:'tính từ', vi:'sáng; thông minh' , ex:['My room is small but bright, with one big window.','Phòng tôi nhỏ nhưng sáng, có một cửa sổ lớn.']},
+  { en:'lazy', uk:'ˈleɪzi', us:'ˈleɪzi', pos:'tính từ', vi:'lười' , ex:['That is not because readers are lazy.','Không phải vì người đọc lười.']},
+  { en:'helpful', uk:'ˈhelpfl', us:'ˈhelpfl', pos:'tính từ', vi:'nhiệt tình giúp đỡ; hữu ích' , ex:['I said yes to everything and thought that was being helpful.','Tôi nhận hết mọi việc và tưởng như thế là nhiệt tình.']},
+  { en:'fragile', uk:'ˈfrædʒaɪl', us:'ˈfrædʒl', pos:'tính từ', vi:'mong manh, dễ vỡ' , ex:['It is fragile work: one rainy week changes everything.','Đó là công việc mong manh: một tuần mưa là đổi hết.']},
+  { en:'familiar', uk:'fəˈmɪliə', us:'fəˈmɪliər', pos:'tính từ', vi:'quen thuộc' , ex:['Once a week, in a familiar area, put the phone away.','Mỗi tuần một lần, ở khu vực quen thuộc, hãy cất điện thoại đi.']},
+  { en:'unfamiliar', uk:'ˌʌnfəˈmɪliə', us:'ˌʌnfəˈmɪliər', pos:'tính từ', vi:'lạ, không quen mắt' , ex:['The same street feels unfamiliar in the dark.','Cũng con phố ấy mà trong bóng tối lại thấy lạ.']},
+  { en:'uncomfortable', uk:'ʌnˈkʌmftəbl', us:'ʌnˈkʌmfərtəbl', pos:'tính từ', vi:'khó chịu, ngượng nghịu' },
+  { en:'spatial', uk:'ˈspeɪʃl', us:'ˈspeɪʃl', pos:'tính từ', vi:'thuộc không gian' , ex:['Taxi drivers develop a stronger spatial memory.','Tài xế taxi phát triển trí nhớ không gian mạnh hơn.']},
+  { en:'detailed', uk:'ˈdiːteɪld', us:'dɪˈteɪld', pos:'tính từ', vi:'chi tiết, tỉ mỉ' , ex:['Languages grow detailed where life demands detail.','Ngôn ngữ trở nên chi tiết ở đúng chỗ đời sống đòi hỏi sự chi tiết.']},
+  { en:'rational', uk:'ˈræʃnəl', us:'ˈræʃnəl', pos:'tính từ', vi:'hợp lý, có lý trí' , ex:['That is a rational response, not laziness.','Đó là phản ứng hợp lý, không phải lười.']},
+  { en:'involuntary', uk:'ɪnˈvɒləntri', us:'ɪnˈvɑːlənteri', pos:'tính từ', vi:'không chủ ý, tự phát' , ex:['Researchers describe this as involuntary memory.','Các nhà nghiên cứu gọi đó là ký ức không chủ ý.']},
+  { en:'conscious', uk:'ˈkɒnʃəs', us:'ˈkɑːnʃəs', pos:'tính từ', vi:'thuộc ý thức; tỉnh táo; có ý thức về' , ex:['We are rarely conscious of how we found the way.','Ta hiếm khi ý thức được mình đã tìm ra đường thế nào.']},
+  { en:'profitable', uk:'ˈprɒfɪtəbl', us:'ˈprɑːfɪtəbl', pos:'tính từ', vi:'có lãi, sinh lời' , ex:['Free refills turned out to be profitable for the shop.','Việc rót thêm miễn phí hoá ra lại có lãi cho quán.']},
+  { en:'untouched', uk:'ʌnˈtʌtʃt', us:'ʌnˈtʌtʃt', pos:'tính từ', vi:'còn nguyên vẹn, chưa ai đụng đến' , ex:['Nothing in the bag was missing and the laptop was untouched.','Không thiếu thứ gì trong cặp và cái máy tính vẫn còn nguyên.']},
+  { en:'second-hand', uk:'ˌsekənd ˈhænd', us:'ˌsekənd ˈhænd', pos:'tính từ', vi:'đồ cũ, đã qua sử dụng' , ex:['There is a second-hand bookshop near the university.','Gần trường đại học có một tiệm sách cũ.']},
+
+  /* ---------- Động từ ---------- */
+  { en:'heat', uk:'hiːt', us:'hiːt', pos:'động từ', vi:'làm nóng; (danh từ) cái nóng' },
+  { en:'flatten', uk:'ˈflætn', us:'ˈflætn', pos:'động từ', vi:'làm phẳng, trải phẳng' , ex:['To draw the earth, you must flatten a sphere.','Muốn vẽ trái đất, bạn phải trải phẳng một hình cầu.']},
+  { en:'distort', uk:'dɪˈstɔːt', us:'dɪˈstɔːrt', pos:'động từ', vi:'làm méo, bóp méo' , ex:['Every map distorts something, and every map chooses what.','Bản đồ nào cũng làm méo một thứ, và tự chọn làm méo thứ gì.']},
+  { en:'swell', uk:'swel', us:'swel', pos:'động từ', vi:'phình to ra, sưng lên' , ex:['On this map, countries near the poles swell enormously.','Trên bản đồ này, các nước gần cực phình to khủng khiếp.']},
+  { en:'outperform', uk:'ˌaʊtpəˈfɔːm', us:'ˌaʊtpərˈfɔːrm', pos:'động từ', vi:'vượt trội hơn' , ex:['Shops with free refills outperformed the ones without.','Những quán rót thêm miễn phí làm ăn tốt hơn những quán không.']},
+  { en:'pool', uk:'puːl', us:'puːl', pos:'động từ', vi:'gom chung lại để dùng chung' , ex:['Neighbours pool their tools instead of each buying one.','Hàng xóm gom chung dụng cụ thay vì ai cũng mua một bộ.']},
+  { en:'rehearse', uk:'rɪˈhɜːs', us:'rɪˈhɜːrs', pos:'động từ', vi:'ôn lại, diễn tập lại' , ex:['Rereading only rehearses the shape of the page.','Đọc lại chỉ ôn lại cái dáng của trang giấy.']},
+  { en:'drift', uk:'drɪft', us:'drɪft', pos:'động từ', vi:'trôi dần, trôi giạt' },
+  { en:'retrieve', uk:'rɪˈtriːv', us:'rɪˈtriːv', pos:'động từ', vi:'truy xuất lại, lấy lại' , ex:['You learn by trying to retrieve, not by looking again.','Bạn học được nhờ cố nhớ lại, chứ không nhờ nhìn lại.']},
+  { en:'discharge', uk:'dɪsˈtʃɑːdʒ', us:'dɪsˈtʃɑːrdʒ', pos:'động từ', vi:'xả thải; cho xuất viện' , ex:['Factories may not discharge waste into the river.','Nhà máy không được xả thải ra sông.']},
+  { en:'enforce', uk:'ɪnˈfɔːs', us:'ɪnˈfɔːrs', pos:'động từ', vi:'thực thi (luật, quy định)' , ex:['The rule existed for years before anyone enforced it.','Quy định ấy tồn tại nhiều năm trước khi có ai thực thi.']},
+  { en:'suppress', uk:'səˈpres', us:'səˈpres', pos:'động từ', vi:'đè nén, kìm hãm' , ex:['Cold water suppresses the smell for a few hours only.','Nước lạnh chỉ kìm được mùi trong vài tiếng.']},
+  { en:'deposit', uk:'dɪˈpɒzɪt', us:'dɪˈpɑːzɪt', pos:'động từ', vi:'gửi vào, ký gửi; (danh từ) tiền đặt cọc' , ex:['Countries deposit seeds and can ask for them back.','Các nước gửi hạt giống vào và có thể xin lấy lại.']},
+
+  /* ---------- Mục ghi rõ từ loại vì từ có nhiều vai trò ---------- */
+  { en:'water (v.)', uk:'ˈwɔːtə', us:'ˈwɔːtər', pos:'động từ', vi:'tưới (cây)' , ex:['He waters the trees on our street every evening.','Chiều nào ông ấy cũng tưới cây trên phố chúng tôi.']},
+  { en:'work (v.)', uk:'wɜːk', us:'wɜːrk', pos:'động từ', vi:'có hiệu quả; chạy, hoạt động' , ex:['I studied two hours every Sunday and it never worked.','Tôi học hai tiếng mỗi chủ nhật và chẳng bao giờ hiệu quả.']},
+  { en:'state (v.)', uk:'steɪt', us:'steɪt', pos:'động từ', vi:'khẳng định, nêu rõ' , ex:['The body of the article qualifies what the headline states.','Phần thân bài làm nhẹ đi điều cái tít khẳng định.']},
+  { en:'return (v.)', uk:'rɪˈtɜːn', us:'rɪˈtɜːrn', pos:'động từ', vi:'trả lại; trở về' , ex:['A song can return a whole season to you in three seconds.','Một bài hát có thể trả lại cả một mùa cho bạn trong ba giây.']},
+  { en:'lower (v.)', uk:'ˈləʊə', us:'ˈloʊər', pos:'động từ', vi:'hạ xuống, làm giảm' , ex:['A layer of soil can lower the temperature by several degrees.','Một lớp đất có thể hạ nhiệt độ xuống vài độ.']},
+  { en:'experience (v.)', uk:'ɪkˈspɪəriəns', us:'ɪkˈspɪriəns', pos:'động từ', vi:'trải nghiệm, nếm trải' , ex:['Getting there faster means experiencing less of the distance.','Đến nơi nhanh hơn nghĩa là trải nghiệm ít hơn quãng đường.']},
+  { en:'last (v.)', uk:'lɑːst', us:'læst', pos:'động từ', vi:'kéo dài, bền được' , ex:['The call lasts about twenty minutes every Sunday.','Cuộc gọi kéo dài chừng hai mươi phút mỗi chủ nhật.']},
+  { en:'take (time)', uk:'teɪk', us:'teɪk', pos:'động từ', vi:'mất (bao nhiêu thời gian)' , ex:['The train takes thirteen hours; the plane takes one.','Tàu mất mười ba tiếng; máy bay mất một tiếng.']},
+
+  /* ---------- Cụm động từ ---------- */
+  { en:'ask for', uk:'ɑːsk fɔː', us:'æsk fɔːr', pos:'cụm động từ', vi:'gọi, yêu cầu, xin' , ex:['A customer asked for tea, not coffee.','Một khách gọi trà chứ không phải cà phê.']},
+  { en:'talk about', uk:'tɔːk əˈbaʊt', us:'tɔːk əˈbaʊt', pos:'cụm động từ', vi:'nói về' , ex:['We talk about the weather and the price of food.','Chúng tôi nói chuyện thời tiết và giá thực phẩm.']},
+  { en:'look in', uk:'lʊk ɪn', us:'lʊk ɪn', pos:'cụm động từ', vi:'tìm ở trong (túi, ngăn)' , ex:['I lost my key and looked in my bag three times.','Tôi mất chìa khoá và lục túi ba lần.']},
+  { en:'look for', uk:'lʊk fɔː', us:'lʊk fɔːr', pos:'cụm động từ', vi:'tìm kiếm' , ex:['My kettle broke, so I looked for a new one online.','Ấm nước hỏng nên tôi lên mạng tìm cái mới.']},
+  { en:'look up', uk:'lʊk ʌp', us:'lʊk ʌp', pos:'cụm động từ', vi:'tra cứu (từ điển, thông tin)' , ex:['She asks questions I cannot answer, so I look them up.','Em ấy hỏi những câu tôi không trả lời được, nên tôi phải tra.']},
+  { en:'wait for', uk:'weɪt fɔː', us:'weɪt fɔːr', pos:'cụm động từ', vi:'đợi ai/cái gì' , ex:['I sat on the stairs and waited for my sister.','Tôi ngồi ở cầu thang đợi chị.']},
+  { en:'get off', uk:'ɡet ɒf', us:'ɡet ɔːf', pos:'cụm động từ', vi:'xuống xe, xuống tàu' , ex:['I got off at a small station I had never heard of.','Tôi xuống ở một ga nhỏ chưa từng nghe tên.']},
+  { en:'get lost', uk:'ɡet lɒst', us:'ɡet lɔːst', pos:'cụm động từ', vi:'bị lạc' , ex:['Before phone maps, getting lost was normal.','Trước khi có bản đồ điện thoại, lạc đường là chuyện thường.']},
+  { en:'hear of', uk:'hɪər ɒv', us:'hɪr ʌv', pos:'cụm động từ', vi:'nghe nói đến' , ex:['It was a station I had never heard of before.','Đó là một ga tôi chưa từng nghe đến.']},
+  { en:'throw away', uk:'θrəʊ əˈweɪ', us:'θroʊ əˈweɪ', pos:'cụm động từ', vi:'vứt đi' , ex:['I still think about how close I came to throwing it away.','Tôi vẫn còn nghĩ mình đã suýt vứt nó đi.']},
+  { en:'take out', uk:'teɪk aʊt', us:'teɪk aʊt', pos:'cụm động từ', vi:'lấy ra, rút ra' , ex:['I took out my phone, then put it back in my pocket.','Tôi rút điện thoại ra, rồi lại cất vào túi.']},
+  { en:'put back', uk:'pʊt bæk', us:'pʊt bæk', pos:'cụm động từ', vi:'cất lại chỗ cũ' , ex:['He read one page, then put the book back on the shelf.','Anh ấy đọc một trang rồi đặt cuốn sách lại lên giá.']},
+  { en:'switch off', uk:'swɪtʃ ɒf', us:'swɪtʃ ɔːf', pos:'cụm động từ', vi:'tắt đi' , ex:['Hearing is the sense we cannot switch off.','Thính giác là giác quan ta không tắt được.']},
+  { en:'calm down', uk:'kɑːm daʊn', us:'kɑːm daʊn', pos:'cụm động từ', vi:'nguôi đi, bình tĩnh lại' , ex:['People often calm down before the problem is solved.','Người ta thường nguôi đi trước cả khi vấn đề được giải quyết.']},
+  { en:'agree with', uk:'əˈɡriː wɪð', us:'əˈɡriː wɪð', pos:'cụm động từ', vi:'đồng tình với' , ex:['The first week was hard; my body did not agree with the plan.','Tuần đầu rất khó; cơ thể tôi không chịu theo kế hoạch.']},
+  { en:'go to bed', uk:'ɡəʊ tə bed', us:'ɡoʊ tə bed', pos:'cụm động từ', vi:'đi ngủ' , ex:['For years I went to bed at one in the morning.','Nhiều năm liền tôi đi ngủ lúc một giờ sáng.']},
+  { en:'make tea', uk:'meɪk tiː', us:'meɪk tiː', pos:'cụm động từ', vi:'pha trà' , ex:['I cannot go out, so I make tea and open a book.','Tôi không ra ngoài được nên pha trà và mở một cuốn sách.']},
+  { en:'say yes to', uk:'seɪ jes tuː', us:'seɪ jes tuː', pos:'cụm động từ', vi:'nhận lời, đồng ý với' , ex:['For a long time I said yes to everything at work.','Đã lâu tôi cứ nhận hết mọi việc ở công ty.']},
+  { en:'come close to', uk:'kʌm kləʊs tuː', us:'kʌm kloʊs tuː', pos:'cụm động từ', vi:'suýt nữa thì' , ex:['I came close to throwing away a kettle that still worked.','Tôi suýt vứt đi cái ấm vẫn còn chạy tốt.']},
+  { en:'remember to', uk:'rɪˈmembə tuː', us:'rɪˈmembər tuː', pos:'cụm động từ', vi:'nhớ làm việc gì' , ex:['The hard part was remembering to take the bags.','Phần khó là nhớ mang theo mấy cái túi.']},
+  { en:'bother to', uk:'ˈbɒðə tuː', us:'ˈbɑːðər tuː', pos:'cụm động từ', vi:'chịu khó làm gì' , ex:['Translating why a language bothered to have that word is harder.','Dịch được lý do ngôn ngữ ấy chịu khó có từ đó mới là phần khó hơn.']},
+  { en:'stop -ing', uk:'stɒp', us:'stɑːp', pos:'cụm động từ', vi:'thôi không làm gì nữa', note:'stop to do = dừng lại để làm' , ex:['By the third week I stopped needing coffee after lunch.','Đến tuần thứ ba tôi thôi cần cà phê sau bữa trưa.']},
+  { en:'be sure', uk:'biː ʃʊə', us:'biː ʃʊr', pos:'cụm động từ', vi:'chắc chắn, tin chắc' , ex:['I was not sure, but I tried it anyway.','Tôi không chắc lắm, nhưng vẫn cứ thử.']},
+  { en:'be afraid of', uk:'biː əˈfreɪd ɒv', us:'biː əˈfreɪd ʌv', pos:'cụm động từ', vi:'sợ cái gì' , ex:['I was afraid of mistakes, so I said nothing.','Tôi sợ sai nên chẳng nói gì.']},
+  { en:'be tied to', uk:'biː taɪd tuː', us:'biː taɪd tuː', pos:'cụm động từ', vi:'gắn chặt với' , ex:['Sound is tied very closely to memory.','Âm thanh gắn rất chặt với ký ức.']},
+  { en:'used to', uk:'juːst tuː', us:'juːst tuː', pos:'cụm động từ', vi:'trước kia thường (giờ không còn)' , ex:['I used to come home with six plastic bags after one trip.','Trước kia mỗi chuyến đi chợ tôi mang về sáu cái túi ni lông.']},
+  { en:'take it personally', uk:'teɪk ɪt ˈpɜːsənəli', us:'teɪk ɪt ˈpɜːrsənəli', pos:'cụm động từ', vi:'xem đó là chuyện cá nhân, để bụng' , ex:['She has learned not to take it personally.','Chị ấy đã học được cách không xem đó là chuyện cá nhân.']},
+
+  /* ---------- Cụm danh từ · cụm giới từ ---------- */
+  { en:'every day', uk:'ˈevri deɪ', us:'ˈevri deɪ', pos:'cụm trạng từ', vi:'mỗi ngày', note:'Tính từ viết liền: everyday (thường ngày)' , ex:['I write five new words in my notebook every day.','Mỗi ngày tôi viết năm từ mới vào cuốn sổ.']},
+  { en:'next to', uk:'nekst tuː', us:'nekst tuː', pos:'cụm giới từ', vi:'bên cạnh' , ex:['The bed is next to the wall and the desk is under the window.','Giường kê sát tường còn bàn học đặt dưới cửa sổ.']},
+  { en:'by the door', uk:'baɪ ðə dɔː', us:'baɪ ðə dɔːr', pos:'cụm giới từ', vi:'cạnh cửa' , ex:['Our dog sleeps by the door when it rains.','Trời mưa thì con chó nhà tôi ngủ cạnh cửa.']},
+  { en:'at first', uk:'ət fɜːst', us:'ət fɜːrst', pos:'cụm trạng từ', vi:'lúc đầu' , ex:['At first I was bored, but now I like the walk.','Ban đầu tôi thấy chán, nhưng giờ tôi thích đi bộ.']},
+  { en:'in a hurry', uk:'ɪn ə ˈhʌri', us:'ɪn ə ˈhɜːri', pos:'cụm trạng từ', vi:'vội vàng' , ex:['I was in a hurry and got on the wrong train.','Tôi đang vội và lên nhầm tàu.']},
+  { en:'in fact', uk:'ɪn fækt', us:'ɪn fækt', pos:'cụm trạng từ', vi:'thực ra; thậm chí' , ex:['Nobody was angry. In fact, my manager thanked me.','Chẳng ai giận cả. Thậm chí sếp còn cảm ơn tôi.']},
+  { en:'since then', uk:'sɪns ðen', us:'sɪns ðen', pos:'cụm trạng từ', vi:'từ đó trở đi' , ex:['Since then I always ask one question before I pack.','Từ đó trước khi xếp đồ tôi luôn hỏi một câu.']},
+  { en:'on purpose', uk:'ɒn ˈpɜːpəs', us:'ɑːn ˈpɜːrpəs', pos:'cụm trạng từ', vi:'cố tình, có chủ đích' , ex:['Once a year I choose the thirteen hours on purpose.','Mỗi năm một lần tôi cố tình chọn mười ba tiếng.']},
+  { en:'by contrast', uk:'baɪ ˈkɒntrɑːst', us:'baɪ ˈkɑːntræst', pos:'cụm trạng từ', vi:'ngược lại, trái lại' , ex:['English, by contrast, has many words for degrees of cold.','Ngược lại, tiếng Anh có nhiều từ chỉ các mức độ lạnh.']},
+  { en:'without limit', uk:'wɪˈðaʊt ˈlɪmɪt', us:'wɪˈðaʊt ˈlɪmɪt', pos:'cụm giới từ', vi:'vô hạn, không giới hạn' , ex:['Water is used without limit in the cotton field.','Ở ruộng bông, nước được dùng vô hạn.']},
+  { en:'a pair of', uk:'ə peər ɒv', us:'ə per ʌv', pos:'cụm định lượng', vi:'một đôi, một cặp' , ex:['I packed two shirts, one pair of shoes and a book.','Tôi xếp hai cái áo, một đôi giày và một cuốn sách.']},
+  { en:'nothing else', uk:'ˈnʌθɪŋ els', us:'ˈnʌθɪŋ els', pos:'cụm danh từ', vi:'không gì khác' , ex:['Two shirts, one pair of shoes and a book. Nothing else.','Hai cái áo, một đôi giày và một cuốn sách. Không gì khác.']},
+  { en:'the same', uk:'ðə seɪm', us:'ðə seɪm', pos:'cụm danh từ', vi:'giống nhau, như nhau' , ex:['We say the same things every Sunday.','Chủ nhật nào chúng tôi cũng nói đúng những chuyện ấy.']},
+  { en:'the same place', uk:'ðə seɪm pleɪs', us:'ðə seɪm pleɪs', pos:'cụm danh từ', vi:'cùng một chỗ' , ex:['Now I always put the key in the same place.','Bây giờ tôi luôn để chìa khoá ở đúng một chỗ.']},
+  { en:'the best part', uk:'ðə best pɑːt', us:'ðə best pɑːrt', pos:'cụm danh từ', vi:'phần hay nhất' , ex:['After the game we drink sugarcane juice: the best part.','Sau trận chúng tôi uống nước mía: phần hay nhất.']},
+  { en:'the hard part', uk:'ðə hɑːd pɑːt', us:'ðə hɑːrd pɑːrt', pos:'cụm danh từ', vi:'phần khó nhất' , ex:['The hard part was not buying them, but remembering them.','Phần khó không phải là mua chúng, mà là nhớ mang theo.']},
+  { en:'the opposite', uk:'ði ˈɒpəzɪt', us:'ði ˈɑːpəzɪt', pos:'cụm danh từ', vi:'điều ngược lại' , ex:['Most modern cities were built around the opposite idea.','Phần lớn đô thị hiện đại được xây theo ý tưởng ngược lại.']},
+  { en:'middle path', uk:'ˈmɪdl pɑːθ', us:'ˈmɪdl pæθ', pos:'cụm danh từ', vi:'lối đi ở giữa, giải pháp dung hoà' , ex:['But there is a middle path: wear what you own longer.','Nhưng có một lối đi ở giữa: mặc lâu hơn những thứ bạn đã có.']},
+  { en:'fried rice', uk:'fraɪd raɪs', us:'fraɪd raɪs', pos:'cụm danh từ', vi:'cơm rang' , ex:['My mother is teaching me to cook, starting with fried rice.','Mẹ đang dạy tôi nấu ăn, bắt đầu từ cơm rang.']},
+  { en:'rice field', uk:'raɪs fiːld', us:'raɪs fiːld', pos:'cụm danh từ', vi:'ruộng lúa' , ex:['I watched the sun rise over the rice fields near Sa Pa.','Tôi ngắm mặt trời mọc trên những thửa ruộng gần Sa Pa.']},
+  { en:'plastic bag', uk:'ˈplæstɪk bæɡ', us:'ˈplæstɪk bæɡ', pos:'cụm danh từ', vi:'túi ni lông' , ex:['Six plastic bags a week became six a year.','Sáu túi ni lông một tuần thành sáu túi một năm.']},
+  { en:'sun rise', uk:'sʌn raɪz', us:'sʌn raɪz', pos:'cụm danh từ', vi:'mặt trời mọc', note:'Thường viết liền: sunrise' , ex:['I stood and watched the sun rise for ten minutes.','Tôi đứng ngắm mặt trời mọc suốt mười phút.']},
+  { en:'lights off', uk:'laɪts ɒf', us:'laɪts ɔːf', pos:'cụm từ', vi:'tắt đèn (đi ngủ)' , ex:['Lights off at eleven, for one month.','Tắt đèn lúc mười một giờ, trong một tháng.']},
+  { en:'wrong turn', uk:'rɒŋ tɜːn', us:'rɔːŋ tɜːrn', pos:'cụm danh từ', vi:'ngã rẽ nhầm' , ex:['You took a wrong turn and slowly learned the city.','Bạn rẽ nhầm rồi dần thuộc thành phố.']},
+  { en:'support line', uk:'səˈpɔːt laɪn', us:'səˈpɔːrt laɪn', pos:'cụm danh từ', vi:'tổng đài hỗ trợ' , ex:['My cousin works on a support line and answers sixty calls a day.','Chị họ tôi làm tổng đài hỗ trợ, mỗi ngày nhận sáu mươi cuộc gọi.']},
+  { en:'informal sector', uk:'ɪnˈfɔːml ˈsektə', us:'ɪnˈfɔːrml ˈsektər', pos:'cụm danh từ', vi:'khu vực kinh tế phi chính thức' , ex:['Economists call this the informal sector.','Các nhà kinh tế gọi đó là khu vực phi chính thức.']},
+  { en:'word of mouth', uk:'wɜːd əv maʊθ', us:'wɜːrd əv maʊθ', pos:'cụm danh từ', vi:'sự truyền miệng' , ex:['The shop grew by word of mouth, not advertising.','Quán lớn lên nhờ truyền miệng, không phải quảng cáo.']}
+];
+
+if (typeof window !== 'undefined') window.VOCAB_EN = VOCAB_EN;
+if (typeof module !== 'undefined' && module.exports) module.exports = { VOCAB_EN };
+
+</script>
+<script>
+/* ============================================================
    LangLab — Từ điển Anh–Việt cho người học
    Mỗi mục từ: phiên âm Anh/Mỹ, từ loại, các nghĩa xếp theo tần suất,
    ví dụ có dịch, dạng biến đổi, họ từ, collocation, cụm động từ,
@@ -33586,6 +35711,15 @@ const EN_LOOKUP = {};
       const k = String(w.en).toLowerCase();
       if (!EN_LOOKUP[k]) EN_LOOKUP[k] = { w:w.en, uk:w.uk, us:w.us, pos:w.pos, senses:[{ vi:w.vi, note:w.note || '' }], src:'course' };
     }));
+  }
+  /* Từ thông dụng ngoài khoá học (js/vocab-en-common.js): mọi từ khoá của
+     bài đọc đều phải tra được. Từ nào khoá học đã có thì bỏ qua. */
+  if (typeof VOCAB_EN !== 'undefined'){
+    VOCAB_EN.forEach(w => {
+      const k = String(w.en).toLowerCase();
+      if (EN_LOOKUP[k]) return;
+      EN_LOOKUP[k] = { w:w.en, uk:w.uk, us:w.us, pos:w.pos, senses:[{ vi:w.vi, note:w.note || '', ex:w.ex }], src:'common' };
+    });
   }
   EN_DICT.forEach(e => {
     const k = String(e.w).toLowerCase();
@@ -45365,7 +47499,7 @@ function rdKeyBtn(k){
   const attr = l === 'en' ? `data-en-word="${esc(String(k.w).toLowerCase())}"`
              : l === 'ru' ? `data-ruw="${w}"`
              : l === 'ja' ? `data-jaw="${w}"`
-             : l === 'zh' ? `data-zc="${esc(String(k.w)[0] || '')}"`
+             : l === 'zh' ? `data-zc="${esc(String(k.w))}"`
              : `data-kw="${w}"`;
   return `<button class="rd-key" ${attr}>
     <span class="rd-key-w ${rdMeta().cls}">${w}</span>
@@ -46091,6 +48225,13 @@ const ZH_LOOKUP = (function(){
     if (!w || !w.zh || m[w.zh]) return;
     m[w.zh] = Object.assign({ lessons:[], refs:[], levels:[], common:true }, w);
   });
+  /* Chữ Hán lẻ (js/chars-zh.js): trong bài đọc mỗi chữ đều bấm được, nên chữ
+     nào chưa là mục từ thì bù ở đây. */
+  const CC = (typeof CHARS_ZH !== 'undefined') ? CHARS_ZH : [];
+  CC.forEach(w => {
+    if (!w || !w.zh || m[w.zh]) return;
+    m[w.zh] = Object.assign({ lessons:[], refs:[], levels:[], common:true, single:true }, w);
+  });
   /* Từ lõi soạn tay (js/dict-zh.js) chưa có trong khoá: mục nào khai báo `w` thì
      thành mục từ độc lập, tra được như từ trong bài (refs rỗng). */
   const D = (typeof ZH_DICT !== 'undefined') ? ZH_DICT : {};
@@ -46186,6 +48327,7 @@ function zhSylIndex(){
 function zhPy(){ return state.zh.py || (state.zh.py = { ini:'n', fin:'i', tone:3 }); }
 try { window.__zhPy = { ok: zhComboOk, spell: zhSpell, tone: zhToneMark, index: zhSylIndex, split: zhSplitPy, set: zhSylSet, cur: () => zhPy() }; } catch(e){}
 try { window.__zhRad = c => zhRadOf(c); window.__zhCount = () => Object.keys(ZH_LOOKUP).length; } catch(e){}
+try { window.__zhDict = { lookup: ZH_LOOKUP, tokens: zhTokens }; } catch(e){}
 
 /* ---------- Mục từ tiếng Trung: cấu tạo từ · nghĩa · ví dụ · từ cùng chữ ----------
    Không có từ điển chữ riêng, nên thông tin từng CHỮ được suy ra từ chính kho từ:
@@ -46987,15 +49129,20 @@ function ruFormIndex(){
 }
 /* Tìm mục từ cho một từ bấm trong câu: đúng từ gốc → dạng biến đổi → cụm có chứa */
 function ruLemmatize(tok){
-  const k = ruKey(String(tok).replace(/[^А-Яа-яЁё́-]/g, ''));
+  const raw = ruPlain(String(tok).replace(/[^А-Яа-яЁё́\s-]/g, '').trim().replace(/\s+/g, ' '));
+  const plain = ruPlain(String(tok).replace(/[^А-Яа-яЁё́-]/g, ''));
+  const k = ruKey(plain);
   if (!k) return [];
+  /* trùng khít khoá mục từ (và, không, ở…; cả cụm «ря́дом с») — bắt trước mọi phép suy dạng */
+  if (RU_LOOKUP[raw]) return [raw];
+  if (RU_LOOKUP[plain]) return [plain];
   const exact = Object.values(RU_LOOKUP).filter(w => ruKey(w.ru) === k || String(w.ru).split(/\s*\/\s*/).some(p => ruKey(p) === k));
   if (exact.length) return exact.map(w => w.key);
   const hit = ruFormIndex()[k];
   if (hit && hit.length) return hit.filter(key => !/\s/.test(ruPlain(key))).concat(hit.filter(key => /\s/.test(ruPlain(key))));
   return [];
 }
-try { window.__ruDict = { lemmatize: ruLemmatize, lookup: RU_LOOKUP, forms: ruFormIndex }; } catch(e){}
+try { window.__ruDict = { lemmatize: ruLemmatize, lookup: RU_LOOKUP, forms: ruFormIndex, tokens: ruTokens }; } catch(e){}
 /* Bấm một từ trong câu: mở mục từ nếu tìm được từ gốc, không thì tìm gần đúng */
 function ruOpenWord(tok){
   const keys = ruLemmatize(tok);
@@ -47747,6 +49894,14 @@ const JA_LOOKUP = (function(){
     if (!e.refs.some(r => r.lv === lv && r.no === l.no)) e.refs.push({ lv, no:l.no });
     if (e.levels.indexOf(lv) < 0) e.levels.push(lv);
   }));
+  /* Từ thông dụng ngoài giáo trình (js/vocab-ja-common.js): mọi từ khoá của
+     bài đọc đều phải tra được. Từ nào giáo trình đã dạy thì bỏ qua. */
+  const VC = (typeof VOCAB_JA !== 'undefined') ? VOCAB_JA : [];
+  VC.forEach(w => {
+    const k = String(w.jp || '').trim();
+    if (!k || m[k]) return;
+    m[k] = Object.assign({ key:k, refs:[], levels:[], common:true }, w);
+  });
   const D = (typeof JA_DICT !== 'undefined') ? JA_DICT : {};
   Object.keys(D).forEach(k => { const d = D[k]; if (m[k]) m[k].dict = d; else m[k] = { key:k, jp:k, kana:d.kana || k, romaji:d.romaji || (_JM ? _JM.kanaToRomaji(d.kana || k) : ''), vi:d.vi || (d.senses && d.senses[0] ? d.senses[0].vi : ''), pos:d.pos || '', g:d.g, note:'', refs:[], levels:[], dict:d }; });
   return m;
@@ -47773,6 +49928,12 @@ function jaFormIndex(){
   _jaFormIdx = idx; return idx;
 }
 function jaLemmatize(tok){
+  /* trùng khít khoá mục từ (kể cả cụm có dấu cách và mẫu ～…) */
+  {
+    const raw = String(tok || '').replace(/([^\s\[\]]+)\[[^\]]*\]/g, '$1').trim().replace(/\s+/g, ' ');
+    const p0  = jaPlain(String(tok)).trim();
+    for (const cand of [raw, p0, '～' + raw, '～' + p0]) if (cand && JA_LOOKUP[cand]) return [cand];
+  }
   const s = String(tok || '').replace(/[。、！？「」（）『』…・\s]/g, '');
   if (!s) return [];
   const idx = jaFormIndex(), out = [];
@@ -48136,12 +50297,22 @@ VIEWS.ja_dict = function(){
 };
 function jaOpenWord(tok){
   const keys = jaLemmatize(tok);
-  state.ja.dictQ = jaPlain(tok);
+  const plain = jaPlain(tok);
+  /* Một chữ Kanji lẻ mà kho từ chưa có mục: mở thẳng trang Kanji (âm On/Kun,
+     Hán–Việt, nghĩa, thứ tự nét) thay vì để rơi vào ô tìm kiếm rỗng. */
+  if (!keys.length && [...plain].length === 1 && /[\u4e00-\u9fff]/.test(plain) && jaKanjiOf(plain)){
+    state.ja.kanjiSel = plain;
+    state.ja.kanjiLevel = (jaKanjiOf(plain) || {}).lv || state.ja.kanjiLevel;
+    if (state.view !== 'ja_kanji') go('ja_kanji'); else render();
+    try { window.scrollTo({ top:0 }); } catch(e){}
+    return;
+  }
+  state.ja.dictQ = plain;
   state.ja.entry = keys.length ? keys[0] : null;
   if (state.view !== 'ja_dict') go('ja_dict'); else render();
   try { window.scrollTo({ top:0 }); } catch(e){}
 }
-try { window.__jaDict = { lemmatize: jaLemmatize, lookup: JA_LOOKUP, forms: jaFormIndex }; } catch(e){}
+try { window.__jaDict = { lemmatize: jaLemmatize, lookup: JA_LOOKUP, forms: jaFormIndex, tokens: shJaTokens }; } catch(e){}
 
 /* ---------- Ôn tập ---------- */
 VIEWS.ja_srs = function(){
@@ -50769,7 +52940,7 @@ function factClose(){
 }
 /* ----- màn hình «Bạn có biết?» ----- */
 if (typeof window !== 'undefined') window.__rd = { list:rdList, lang:rdLang, all:() => _RD };
-window.__en = { lemma:enLemma, tokens:enTokens, ipa:enIpa, level:enLevel, lessons:enLessonList, phon:() => _EPA, course:() => _EC, entryEx:enEntryEx, exIndex:enExIndex, qzChoice:EN_QZ_CHOICE, qzTypes:EN_QZ_TYPE, quiz:() => state.en.quiz };
+window.__en = { lookup: (typeof EN_LOOKUP !== 'undefined' ? EN_LOOKUP : {}), lemma:enLemma, tokens:enTokens, ipa:enIpa, level:enLevel, lessons:enLessonList, phon:() => _EPA, course:() => _EC, entryEx:enEntryEx, exIndex:enExIndex, qzChoice:EN_QZ_CHOICE, qzTypes:EN_QZ_TYPE, quiz:() => state.en.quiz };
 window.__facts = { pick:factPick, lang:factLang, show:factShowBubble, schedule:factSchedule, on:factsOn, open:factOpen, pool:factPool, store, applyPos:factApplyPos, resetPos:factResetPos, clampPos:factClampPos };
 VIEWS.facts = function(){
   const lang = state.factsLang || factLang() || 'ko';

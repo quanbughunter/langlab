@@ -883,7 +883,7 @@ const RuMorph = (function(){
       if (PRON[w]){
         const P = PRON[w]; (P.cases || []).forEach(c => strip(c).split(/[\/(),]/).forEach(x => { x = x.trim().replace(/^(о|об|обо|ни о)\s+/, ''); if (x) out.add(x); }));
         (P.table || []).forEach(r => r.forEach(c => strip(c).split(/[\/]/).forEach(x => { x = x.trim().replace(/^(о|об|обо)\s+/, ''); if (x) out.add(x); })));
-      } else if (/tính từ|причастие|so sánh/.test(p) && /(ый|ий|ой)$/.test(w)){
+      } else if (/tính từ|причастие|so sánh|đại từ|số thứ tự/.test(p) && /(ый|ий|ой)$/.test(w)){
         const a = adj(lemma); if (a){ [a.m, a.f, a.n, a.pl].forEach(t => Object.values(t).forEach(f => out.add(strip(f)))); (a.short || []).forEach(f => out.add(strip(f))); if (a.cmp) out.add(strip(a.cmp)); }
       } else if (/danh từ/.test(p) || (!p && /[а-я]/.test(w) && !/(ть|ти|чь)(ся|сь)?$/.test(w))){
         const n = noun(lemma, { pos:p, vi });

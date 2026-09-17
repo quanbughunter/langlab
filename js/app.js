@@ -1414,7 +1414,7 @@ function rdKeyBtn(k){
   const attr = l === 'en' ? `data-en-word="${esc(String(k.w).toLowerCase())}"`
              : l === 'ru' ? `data-ruw="${w}"`
              : l === 'ja' ? `data-jaw="${w}"`
-             : l === 'zh' ? `data-zc="${esc(String(k.w)[0] || '')}"`
+             : l === 'zh' ? `data-zc="${esc(String(k.w))}"`
              : `data-kw="${w}"`;
   return `<button class="rd-key" ${attr}>
     <span class="rd-key-w ${rdMeta().cls}">${w}</span>
@@ -2140,6 +2140,13 @@ const ZH_LOOKUP = (function(){
     if (!w || !w.zh || m[w.zh]) return;
     m[w.zh] = Object.assign({ lessons:[], refs:[], levels:[], common:true }, w);
   });
+  /* Chữ Hán lẻ (js/chars-zh.js): trong bài đọc mỗi chữ đều bấm được, nên chữ
+     nào chưa là mục từ thì bù ở đây. */
+  const CC = (typeof CHARS_ZH !== 'undefined') ? CHARS_ZH : [];
+  CC.forEach(w => {
+    if (!w || !w.zh || m[w.zh]) return;
+    m[w.zh] = Object.assign({ lessons:[], refs:[], levels:[], common:true, single:true }, w);
+  });
   /* Từ lõi soạn tay (js/dict-zh.js) chưa có trong khoá: mục nào khai báo `w` thì
      thành mục từ độc lập, tra được như từ trong bài (refs rỗng). */
   const D = (typeof ZH_DICT !== 'undefined') ? ZH_DICT : {};
@@ -2235,6 +2242,7 @@ function zhSylIndex(){
 function zhPy(){ return state.zh.py || (state.zh.py = { ini:'n', fin:'i', tone:3 }); }
 try { window.__zhPy = { ok: zhComboOk, spell: zhSpell, tone: zhToneMark, index: zhSylIndex, split: zhSplitPy, set: zhSylSet, cur: () => zhPy() }; } catch(e){}
 try { window.__zhRad = c => zhRadOf(c); window.__zhCount = () => Object.keys(ZH_LOOKUP).length; } catch(e){}
+try { window.__zhDict = { lookup: ZH_LOOKUP, tokens: zhTokens }; } catch(e){}
 
 /* ---------- Mục từ tiếng Trung: cấu tạo từ · nghĩa · ví dụ · từ cùng chữ ----------
    Không có từ điển chữ riêng, nên thông tin từng CHỮ được suy ra từ chính kho từ:
@@ -3036,15 +3044,20 @@ function ruFormIndex(){
 }
 /* Tìm mục từ cho một từ bấm trong câu: đúng từ gốc → dạng biến đổi → cụm có chứa */
 function ruLemmatize(tok){
-  const k = ruKey(String(tok).replace(/[^А-Яа-яЁё́-]/g, ''));
+  const raw = ruPlain(String(tok).replace(/[^А-Яа-яЁё́\s-]/g, '').trim().replace(/\s+/g, ' '));
+  const plain = ruPlain(String(tok).replace(/[^А-Яа-яЁё́-]/g, ''));
+  const k = ruKey(plain);
   if (!k) return [];
+  /* trùng khít khoá mục từ (và, không, ở…; cả cụm «ря́дом с») — bắt trước mọi phép suy dạng */
+  if (RU_LOOKUP[raw]) return [raw];
+  if (RU_LOOKUP[plain]) return [plain];
   const exact = Object.values(RU_LOOKUP).filter(w => ruKey(w.ru) === k || String(w.ru).split(/\s*\/\s*/).some(p => ruKey(p) === k));
   if (exact.length) return exact.map(w => w.key);
   const hit = ruFormIndex()[k];
   if (hit && hit.length) return hit.filter(key => !/\s/.test(ruPlain(key))).concat(hit.filter(key => /\s/.test(ruPlain(key))));
   return [];
 }
-try { window.__ruDict = { lemmatize: ruLemmatize, lookup: RU_LOOKUP, forms: ruFormIndex }; } catch(e){}
+try { window.__ruDict = { lemmatize: ruLemmatize, lookup: RU_LOOKUP, forms: ruFormIndex, tokens: ruTokens }; } catch(e){}
 /* Bấm một từ trong câu: mở mục từ nếu tìm được từ gốc, không thì tìm gần đúng */
 function ruOpenWord(tok){
   const keys = ruLemmatize(tok);
@@ -3796,6 +3809,14 @@ const JA_LOOKUP = (function(){
     if (!e.refs.some(r => r.lv === lv && r.no === l.no)) e.refs.push({ lv, no:l.no });
     if (e.levels.indexOf(lv) < 0) e.levels.push(lv);
   }));
+  /* Từ thông dụng ngoài giáo trình (js/vocab-ja-common.js): mọi từ khoá của
+     bài đọc đều phải tra được. Từ nào giáo trình đã dạy thì bỏ qua. */
+  const VC = (typeof VOCAB_JA !== 'undefined') ? VOCAB_JA : [];
+  VC.forEach(w => {
+    const k = String(w.jp || '').trim();
+    if (!k || m[k]) return;
+    m[k] = Object.assign({ key:k, refs:[], levels:[], common:true }, w);
+  });
   const D = (typeof JA_DICT !== 'undefined') ? JA_DICT : {};
   Object.keys(D).forEach(k => { const d = D[k]; if (m[k]) m[k].dict = d; else m[k] = { key:k, jp:k, kana:d.kana || k, romaji:d.romaji || (_JM ? _JM.kanaToRomaji(d.kana || k) : ''), vi:d.vi || (d.senses && d.senses[0] ? d.senses[0].vi : ''), pos:d.pos || '', g:d.g, note:'', refs:[], levels:[], dict:d }; });
   return m;
@@ -3822,6 +3843,12 @@ function jaFormIndex(){
   _jaFormIdx = idx; return idx;
 }
 function jaLemmatize(tok){
+  /* trùng khít khoá mục từ (kể cả cụm có dấu cách và mẫu ～…) */
+  {
+    const raw = String(tok || '').replace(/([^\s\[\]]+)\[[^\]]*\]/g, '$1').trim().replace(/\s+/g, ' ');
+    const p0  = jaPlain(String(tok)).trim();
+    for (const cand of [raw, p0, '～' + raw, '～' + p0]) if (cand && JA_LOOKUP[cand]) return [cand];
+  }
   const s = String(tok || '').replace(/[。、！？「」（）『』…・\s]/g, '');
   if (!s) return [];
   const idx = jaFormIndex(), out = [];
@@ -4185,12 +4212,22 @@ VIEWS.ja_dict = function(){
 };
 function jaOpenWord(tok){
   const keys = jaLemmatize(tok);
-  state.ja.dictQ = jaPlain(tok);
+  const plain = jaPlain(tok);
+  /* Một chữ Kanji lẻ mà kho từ chưa có mục: mở thẳng trang Kanji (âm On/Kun,
+     Hán–Việt, nghĩa, thứ tự nét) thay vì để rơi vào ô tìm kiếm rỗng. */
+  if (!keys.length && [...plain].length === 1 && /[\u4e00-\u9fff]/.test(plain) && jaKanjiOf(plain)){
+    state.ja.kanjiSel = plain;
+    state.ja.kanjiLevel = (jaKanjiOf(plain) || {}).lv || state.ja.kanjiLevel;
+    if (state.view !== 'ja_kanji') go('ja_kanji'); else render();
+    try { window.scrollTo({ top:0 }); } catch(e){}
+    return;
+  }
+  state.ja.dictQ = plain;
   state.ja.entry = keys.length ? keys[0] : null;
   if (state.view !== 'ja_dict') go('ja_dict'); else render();
   try { window.scrollTo({ top:0 }); } catch(e){}
 }
-try { window.__jaDict = { lemmatize: jaLemmatize, lookup: JA_LOOKUP, forms: jaFormIndex }; } catch(e){}
+try { window.__jaDict = { lemmatize: jaLemmatize, lookup: JA_LOOKUP, forms: jaFormIndex, tokens: shJaTokens }; } catch(e){}
 
 /* ---------- Ôn tập ---------- */
 VIEWS.ja_srs = function(){
@@ -6818,7 +6855,7 @@ function factClose(){
 }
 /* ----- màn hình «Bạn có biết?» ----- */
 if (typeof window !== 'undefined') window.__rd = { list:rdList, lang:rdLang, all:() => _RD };
-window.__en = { lemma:enLemma, tokens:enTokens, ipa:enIpa, level:enLevel, lessons:enLessonList, phon:() => _EPA, course:() => _EC, entryEx:enEntryEx, exIndex:enExIndex, qzChoice:EN_QZ_CHOICE, qzTypes:EN_QZ_TYPE, quiz:() => state.en.quiz };
+window.__en = { lookup: (typeof EN_LOOKUP !== 'undefined' ? EN_LOOKUP : {}), lemma:enLemma, tokens:enTokens, ipa:enIpa, level:enLevel, lessons:enLessonList, phon:() => _EPA, course:() => _EC, entryEx:enEntryEx, exIndex:enExIndex, qzChoice:EN_QZ_CHOICE, qzTypes:EN_QZ_TYPE, quiz:() => state.en.quiz };
 window.__facts = { pick:factPick, lang:factLang, show:factShowBubble, schedule:factSchedule, on:factsOn, open:factOpen, pool:factPool, store, applyPos:factApplyPos, resetPos:factResetPos, clampPos:factClampPos };
 VIEWS.facts = function(){
   const lang = state.factsLang || factLang() || 'ko';

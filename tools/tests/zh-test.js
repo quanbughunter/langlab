@@ -60,7 +60,7 @@ const check = (name, fn) => { try { const r = fn(); if (r===false) throw new Err
   check('Tập viết: HanziWriter dựng SVG 248 (mount hoãn rAF)', () => { const b=d.getElementById('hzBig'); if(process.env.DBG) console.log(b&&b.outerHTML.slice(0,200)); const s2=b&&b.querySelector('svg'); return !!s2 && s2.getAttribute('width')==='248'; });
   const chipHan = d.querySelector('.hz-chip[data-zh-write=\"汉\"]');
   if (chipHan){ chipHan.dispatchEvent(new win.MouseEvent('click',{bubbles:true})); await new Promise(r=>setTimeout(r,30));
-    check('Tập viết: chữ lẻ 汉 có dòng thông tin (không chạm nút)', () => { const m=d.querySelector('.zh-write-meta'); return !!m && m.textContent.includes('汉语'); });
+    check('Tập viết: chữ lẻ 汉 có dòng thông tin (không chạm nút)', () => { const m=d.querySelector('.zh-write-meta'); const t=m?m.textContent:''; return !!m && (t.includes('汉语') || (t.includes('hàn') && t.includes('hán'))); });
   }
   // chữ ngoài bundle (HSK3) → thử fetch hanzi/<hex>.json; jsdom không có server → đánh dấu hz-miss thay vì treo
   d.querySelector('[data-zh-wlevel=\"hsk3\"]').dispatchEvent(new win.MouseEvent('click',{bubbles:true}));
