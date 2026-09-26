@@ -1596,10 +1596,28 @@ function picList(){ return _PIC.filter(q => q.lang === picLang()); }
 function picCur(){ const L = picList(), i = state.pic.idx; return (i != null && L[i]) ? L[i] : null; }
 function picRes(){ return store.get('picRes', {}) || {}; }
 function picSetRes(id, ok){ const r = picRes(); r[id] = !!ok; store.set('picRes', r); }
+/* Xáo thứ tự A·B·C·D theo mã câu hỏi: dữ liệu cứ viết câu đúng lên đầu cho dễ
+   soát, còn người học thì không đoán được đáp án hay nằm ở đâu. Cùng một câu
+   hỏi luôn ra cùng một thứ tự nên phần giải thích vẫn khớp. */
+function picSeed(id){
+  let h = 0x811c9dc5; const s = String(id);
+  for (let i = 0; i < s.length; i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; }
+  return h || 1;
+}
+function picOpts(q){
+  if (q._opts) return q._opts;
+  const a = q.opts.slice();
+  let s = picSeed(q.id);
+  const rnd = () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(rnd() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; }
+  try { Object.defineProperty(q, '_opts', { value:a, enumerable:false }); } catch(e){ q._opts = a; }
+  return a;
+}
+
 /* Các câu sẽ đọc lên: câu dẫn rồi tới A, B, C, D */
 function picLines(q){
   return [PIC_PROMPT[q.lang] || PIC_PROMPT.en]
-    .concat(q.opts.map((o, i) => PIC_LETTERS[i] + '. ' + o.t));
+    .concat(picOpts(q).map((o, i) => PIC_LETTERS[i] + '. ' + o.t));
 }
 function picPlayLabel(){
   if (state.pic.show) return 'Nghe lại';
@@ -1644,6 +1662,8 @@ function picKeyBtn(k){
   </button>`;
 }
 
+try { window.__pic = { opts: picOpts, lines: picLines }; } catch(e){}
+
 VIEWS.pic = function(){
   const meta = picMeta(), L = picList(), cur = picCur(), res = picRes();
   const chips = `<div class="level-strip compact sh-langs">${RD_LANGS.map(l => {
@@ -1679,10 +1699,11 @@ VIEWS.pic = function(){
 
   /* ---------- một câu ---------- */
   const picked = state.pic.pick, show = state.pic.show;
-  const ci = cur.opts.findIndex(o => o.ok);
+  const shown = picOpts(cur);
+  const ci = shown.findIndex(o => o.ok);
   const idx = state.pic.idx, last = L.length - 1;
 
-  const opts = cur.opts.map((o, i) => {
+  const opts = shown.map((o, i) => {
     let cls = 'pic-opt';
     if (show){
       if (o.ok) cls += ' right';
@@ -1724,7 +1745,7 @@ VIEWS.pic = function(){
     </div>
     <h2>Lời thoại và vì sao ba câu kia sai</h2>
     <ul class="pic-why">
-      ${cur.opts.map((o, i) => o.ok
+      ${shown.map((o, i) => o.ok
         ? `<li class="ok"><b>${PIC_LETTERS[i]}.</b> <span class="pic-why-t">${esc(o.t)}</span> ${picSpeakBtn(o.t, 'icon-btn mini')}<span class="pic-trap">đáp án đúng</span></li>`
         : `<li><b>${PIC_LETTERS[i]}.</b> <span class="pic-why-t">${esc(o.t)}</span> ${picSpeakBtn(o.t, 'icon-btn mini')}<span class="pic-trap">${esc(o.trap)}</span><span class="pic-why-v">${esc(o.why)}</span></li>`
       ).join('')}
@@ -6208,6 +6229,7 @@ function enTokens(text){
 }
 /* Đưa một dạng từ về dạng nguyên thể có trong kho (đơn giản hoá, đủ dùng cho A1–B2) */
 const EN_IRREG = {
+  lying:'lie', lain:'lie', hung:'hang', hanging:'hang', swept:'sweep', climbing:'climb',
   criteria:'criterion', phenomena:'phenomenon', bore:'bear', borne:'bear', overwrote:'overwrite', overwritten:'overwrite',
   undertook:'undertake', undertaken:'undertake', proven:'prove',
   was:'be', were:'be', is:'be', am:'be', are:'be', been:'be', being:'be',
@@ -7183,7 +7205,8 @@ document.addEventListener('click', e => {
   if (t.closest('[data-pic-show]')){
     const q = picCur(); if (!q || state.pic.pick == null) return;
     stopAudio(); state.pic.show = true;
-    picSetRes(q.id, !!(q.opts[state.pic.pick] && q.opts[state.pic.pick].ok));
+    const sh = picOpts(q);
+    picSetRes(q.id, !!(sh[state.pic.pick] && sh[state.pic.pick].ok));
     renderKeep(); return;
   }
   if (t.closest('[data-pic-reset]')){ state.pic.plays = 0; renderKeep(); return; }

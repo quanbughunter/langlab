@@ -147,7 +147,7 @@ P.board = o => {
 /* ---------- người (neo: đáy, giữa · cao khoảng 112) ---------- */
 P.person = o => {
   const hair = o.hair === 'long', pose = o.pose || 'stand';
-  const head = ci(0, -96, 13) + (hair ? pa('M-13 -96 q-5 18 2 22 M13 -96 q5 18 -2 22') : '');
+  let head = ci(0, -96, 13) + (hair ? pa('M-13 -96 q-5 18 2 22 M13 -96 q5 18 -2 22') : '');
   let body = ln(0, -83, 0, -46), arms = '', legs = '', extra = '';
 
   if (pose === 'sit'){
@@ -158,8 +158,10 @@ P.person = o => {
     legs = pa('M0 -46 l-13 46 M0 -46 l15 46');
     arms = pa('M0 -76 l-16 16 M0 -76 l17 13');
   } else if (pose === 'run'){
-    legs = pa('M0 -46 l-20 40 M0 -46 l22 30');
-    arms = pa('M0 -76 l-20 8 M0 -76 l20 -12');
+    head = ci(12, -92, 13) + (hair ? pa('M-1 -92 q-5 18 2 22 M25 -92 q5 18 -2 22') : '');
+    body = ln(10, -79, -4, -46);
+    legs = pa('M-4 -46 l-22 34 M-26 -12 l-8 6 M-4 -46 l24 22 M20 -24 l4 22');
+    arms = pa('M6 -70 l22 -14 M6 -70 l-22 2 l-6 12');
   } else if (pose === 'read'){
     arms = pa('M0 -76 q14 8 18 16 M0 -76 q-14 8 -18 16');
     extra = pa('M-20 -58 h40 v14 h-40 z', 'sv-soft') + ln(0, -58, 0, -44);
@@ -252,6 +254,54 @@ P.flower = () => ln(0, 0, 0, -30)
 P.money = () => rc(-18, -12, 36, 12, 1.5, 'sv-fill') + ci(0, -6, 4);
 P.ball = () => ci(0, -13, 13, 'sv-fill') + el(0, -13, 5, 13) + ln(-13, -13, 13, -13);
 P.bicycle = () => ci(-20, -12, 12) + ci(20, -12, 12) + pa('M-20 -12 l10 -18 h20 l10 18') + pa('M-10 -30 h-8') + ln(10, -30, 16, -22);
+
+/* ---------- bổ sung: đồ trong nhà (neo: đáy, giữa) ---------- */
+P.lamp = () => el(0, -2, 13, 4, 'sv-fill') + ln(0, -6, 0, -42)
+  + pa('M-17 -42 h34 l-7 -22 h-20 z', 'sv-fill');
+P.rug = o => { const w = o.w || 96; return el(0, -3, w / 2, 8, 'sv-fill') + el(0, -3, w / 2 - 9, 5, 'sv-faint'); };
+P.bin = () => pa('M-14 -34 l3 34 h22 l3 -34 z', 'sv-fill') + ln(-16, -34, 16, -34) + ln(0, -40, 0, -34);
+P.broom = () => ln(6, -58, -6, -14) + pa('M-14 -14 h16 l5 14 h-26 z', 'sv-fill');
+P.bucket = () => pa('M-13 -22 l3 22 h20 l3 -22 z', 'sv-fill') + pa('M-13 -22 q13 -16 26 0');
+P.ladder = o => { const h = o.h || 96; let t = ln(-13, 0, -9, -h) + ln(13, 0, 9, -h);
+  for (let i = 1; i <= 4; i++){ const y = -h * i / 5; t += ln(-13 + i * 0.8, y, 13 - i * 0.8, y); } return t; };
+P.suitcase = () => rc(-22, -32, 44, 32, 3, 'sv-fill') + ln(-22, -18, 22, -18)
+  + pa('M-8 -32 v-7 h16 v7') + ci(-14, 2, 3) + ci(14, 2, 3);
+P.can = () => rc(-8, -26, 16, 26, 3, 'sv-fill') + ln(-8, -20, 8, -20);
+P.egg = () => pa('M0 0 q-11 0 -11 -13 q0 -17 11 -17 q11 0 11 17 q0 13 -11 13 z', 'sv-fill');
+P.racket = () => rc(-2.5, -22, 5, 22, 2, 'sv-fill') + el(0, -41, 15, 19, 'sv-fill')
+  + ln(-11, -41, 11, -41, 'sv-faint') + ln(-11, -33, 11, -33, 'sv-faint') + ln(-11, -49, 11, -49, 'sv-faint')
+  + ln(0, -59, 0, -23, 'sv-faint') + ln(-8, -56, -8, -26, 'sv-faint') + ln(8, -56, 8, -26, 'sv-faint');
+P.coat = () => pa('M-11 -50 l-11 6 l-5 24 h8 l-2 20 h42 l-2 -20 h8 l-5 -24 l-11 -6 z', 'sv-fill')
+  + pa('M-11 -50 l11 9 l11 -9') + ln(0, -41, 0, 0) + pa('M0 -50 v-7 q0 -6 -7 -6');
+P.cupboard = o => { const w = o.w || 66, h = o.h || 116, hw = w / 2;
+  return rc(-hw, -h, w, h, 3, 'sv-fill') + ln(0, -h, 0, 0)
+    + ci(-6, -h / 2, 2.6, 'sv-accent') + ci(6, -h / 2, 2.6, 'sv-accent'); };
+P.laptop = () => pa('M-20 -12 h40 l4 12 h-48 z', 'sv-fill') + rc(-17, -40, 34, 28, 2, 'sv-fill');
+
+/* ---------- bổ sung: xe cộ (neo: đáy, giữa) ---------- */
+P.car = o => { const w = o.w || 92, hw = w / 2;
+  return pa(`M${n2(-hw)} -14 l8 -16 h${n2(w - 30)} l10 16 z`, 'sv-fill')
+    + rc(-hw, -14, w, 14, 3, 'sv-fill')
+    + ln(-hw + 16, -30, -hw + 16, -14) + ln(hw - 22, -30, hw - 22, -14)
+    + ci(-hw + 18, 0, 8) + ci(hw - 18, 0, 8); };
+P.bus = o => { const w = o.w || 126, hw = w / 2;
+  let t = rc(-hw, -56, w, 56, 4, 'sv-fill') + ln(-hw, -38, hw, -38);
+  for (let i = 0; i < 4; i++) t += rc(-hw + 9 + i * ((w - 18) / 4), -52, (w - 18) / 4 - 6, 12, 1.5, 'sv-soft');
+  return t + ci(-hw + 22, 0, 9) + ci(hw - 22, 0, 9) + ln(hw - 8, -38, hw - 8, -4); };
+
+/* ---------- bổ sung: treo tường (neo: góc trên bên trái) ---------- */
+P.picture = o => { const w = o.w || 62, h = o.h || 48;
+  return rc(0, 0, w, h, 2, 'sv-fill') + pa(`M6 ${n2(h - 8)} l${n2(w * 0.3)} ${n2(-h * 0.5)} l${n2(w * 0.25)} ${n2(h * 0.26)} l${n2(w * 0.2)} ${n2(-h * 0.3)} l${n2(w * 0.2)} ${n2(h * 0.38)} z`, 'sv-soft'); };
+P.calendar = o => { const w = o.w || 50, h = o.h || 54;
+  return rc(0, 0, w, h, 3, 'sv-fill') + ln(0, 15, w, 15)
+    + ln(w * 0.3, -5, w * 0.3, 4) + ln(w * 0.7, -5, w * 0.7, 4)
+    + `<text class="sv-text" x="${n2(w / 2)}" y="${n2(h * 0.78)}" text-anchor="middle">${String(o.text || '').replace(/[<&>]/g, '')}</text>`; };
+P.curtain = o => { const h = o.h || 86;
+  return pa(`M0 0 q7 ${n2(h / 2)} 0 ${n2(h)} q9 -6 11 -${n2(h)} z`, 'sv-fill')
+    + pa(`M26 0 q-7 ${n2(h / 2)} 0 ${n2(h)} q-9 -6 -11 -${n2(h)} z`, 'sv-fill'); };
+P.sign = o => { const d = o.dir === 'left' ? -1 : 1;
+  return ln(0, 0, 0, -44) + rc(-26, -70, 52, 26, 3, 'sv-fill')
+    + pa(`M${n2(-10 * d)} -57 h${n2(16 * d)} M${n2(6 * d)} -63 l${n2(6 * d)} 6 l${n2(-6 * d)} 6`); };
 
 /* ---------- trên cao (neo: tâm) ---------- */
 P.clock = o => {

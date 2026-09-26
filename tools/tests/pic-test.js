@@ -59,7 +59,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
       return (q.scene.items || []).some(it => parts.indexOf(it.p) < 0);
     });
     if (bad.length) console.log('   câu lỗi:', bad.map(x => x.id).join(' '));
-    return P.length >= 15 && bad.length === 0;
+    return P.length >= 110 && bad.length === 0;
   });
 
   check('ba câu nhiễu của MỘT bài không được cùng một kiểu bẫy', () => {
@@ -69,10 +69,46 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
     return bad.length === 0;
   });
 
-  check('đáp án đúng không dồn vào một vị trí', () => {
-    const P = win.eval('LISTEN_PIC'), c = {};
-    P.forEach(q => { const i = q.opts.findIndex(o => o.ok); c[i] = (c[i] || 0) + 1; });
-    return Object.keys(c).length >= 3 && Math.max(...Object.values(c)) <= P.length * 0.6;
+  check('nhiễu phải SÁT câu đúng: mỗi câu có ít nhất một nhiễu chỉ lệch ≤2 từ', () => {
+    const P = win.eval('LISTEN_PIC');
+    const tok = s => String(s).toLowerCase().replace(/[.,!?]/g, '').split(/\s+/).filter(Boolean);
+    const dist = (a, b) => {                       // Levenshtein đếm theo TỪ
+      const m = a.length, n = b.length, d = Array.from({ length:m + 1 }, (_, i) => [i, ...Array(n).fill(0)]);
+      for (let j = 0; j <= n; j++) d[0][j] = j;
+      for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++)
+        d[i][j] = Math.min(d[i-1][j] + 1, d[i][j-1] + 1, d[i-1][j-1] + (a[i-1] === b[j-1] ? 0 : 1));
+      return d[m][n];
+    };
+    const far = P.filter(q => {
+      const c = tok(q.opts.find(o => o.ok).t);
+      return Math.min(...q.opts.filter(o => !o.ok).map(o => dist(c, tok(o.t)))) > 2;
+    });
+    if (far.length) console.log('   nhiễu còn xa:', far.map(x => x.id).join(' '));
+    return far.length === 0;
+  });
+
+  check('không dùng từ lạ: mọi từ trong đáp án đều tra được ở từ điển tiếng Anh', () => {
+    const P = win.eval('LISTEN_PIC'), L = win.__en.lookup, lemma = win.__en.lemma;
+    const NAMES = new Set(['nam', 'lan', 'huy', 'minh']);
+    const GRAM = new Set(['a','an','the','is','are','was','were','be','am','isn','aren','wasn','doesn','don',
+      'didn','hasn','haven','has','have','had','do','does','did','s','t','not','no','and','or','but','so',
+      'of','to','in','on','at','for','with','from','by','it','its','he','she','they','them','him','her','his',
+      'their','we','you','i','my','your','our','this','that','these','those','there','here','one','ones',
+      'other','another','both','neither','nor','either','all','most','some','any','none','each','every','too',
+      'also','still','already','yet','just','only','almost','nobody','somebody','someone','up','down','out',
+      'off','over','under','than','as','if','when','while','because','about','into','onto','o']);
+    const bad = {};
+    P.filter(q => q.lang === 'en').forEach(q => q.opts.forEach(o => {
+      String(o.t).toLowerCase().replace(/[.,!?]/g, '').split(/[\s']+/).filter(Boolean).forEach(w => {
+        if (NAMES.has(w) || GRAM.has(w) || L[w]) return;
+        const base = lemma(w);
+        if (base && L[base]) return;
+        (bad[w] = bad[w] || []).push(q.id);
+      });
+    }));
+    const ks = Object.keys(bad);
+    if (ks.length) console.log('   chưa tra được:', ks.slice(0, 12).join(' '), '(' + ks.length + ' từ)');
+    return ks.length === 0;
   });
 
   check('SCENE dựng được SVG hợp lệ cho mọi câu', () => {
@@ -86,7 +122,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
   /* ---------- màn danh sách ---------- */
   click('#pcNav');
   check('navbar mở được màn Nghe & tranh, có chip 5 thứ tiếng và lưới câu hỏi', () =>
-    n('[data-pic-lang]') === 5 && n('.pic-card') >= 15 && n('.pic-card .scene') >= 15);
+    n('[data-pic-lang]') === 5 && n('.pic-card') >= 110 && n('.pic-card .scene') >= 110);
 
   check('thứ tiếng chưa có câu nào thì chip bị khoá', () => {
     const chips = [...d.querySelectorAll('[data-pic-lang]')];
@@ -121,7 +157,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
     const P = win.eval('LISTEN_PIC');
     if (spoken.length < 5) { console.log('   chỉ đọc ' + spoken.length + ' câu'); return false; }
     return /Look at the picture/.test(spoken[0])
-      && P[0].opts.every((o, i) => spoken[i + 1] === 'ABCD'[i] + '. ' + o.t);
+      && win.__pic.opts(P[0]).every((o, i) => spoken[i + 1] === 'ABCD'[i] + '. ' + o.t);
   });
   check('nghe xong một lượt thì còn 1 lượt', () => /còn 1 lượt/.test($('#picPlay').textContent));
 
@@ -188,6 +224,10 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
   });
 
   /* ---------- mở lời thoại ---------- */
+  {                                  // bấm đúng ô chứa đáp án đúng, dù nó nằm ở đâu sau khi xáo
+    const P0 = win.eval('LISTEN_PIC')[0];
+    click('[data-pic-ans="' + win.__pic.opts(P0).findIndex(o => o.ok) + '"]');
+  }
   click('[data-pic-show]');
   check('mở lời thoại: hiện đủ 4 câu, đánh dấu câu đúng và câu đã chọn', () => {
     const P = win.eval('LISTEN_PIC'), t = body();
@@ -195,9 +235,17 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
       && !!$('.pic-opt.right') && !!$('.pic-verdict');
   });
 
-  check('câu 1 chọn B là đúng → báo đúng', () => {
-    const P = win.eval('LISTEN_PIC');
-    return P[0].opts[1].ok === true && $('.pic-verdict').classList.contains('ok');
+  check('chọn đúng ô chứa đáp án đúng thì báo đúng', () =>
+    $('.pic-verdict').classList.contains('ok'));
+
+  check('thứ tự A·B·C·D được xáo theo mã câu hỏi và luôn ổn định', () => {
+    const P = win.eval('LISTEN_PIC'), o = win.__pic.opts;
+    if (o(P[3]).map(x => x.t).join('|') !== o(P[3]).map(x => x.t).join('|')) return false;
+    const pos = {};
+    P.forEach(q => { pos[o(q).findIndex(x => x.ok)] = (pos[o(q).findIndex(x => x.ok)] || 0) + 1; });
+    const max = Math.max(...Object.values(pos));
+    if (Object.keys(pos).length < 4 || max > P.length * 0.4){ console.log('   phân bố:', JSON.stringify(pos)); return false; }
+    return true;
   });
 
   check('có giải thích cho từng câu nhiễu, kèm tên kiểu bẫy', () => {
@@ -231,7 +279,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
     /Câu 3 \/ /.test(body()) && /còn 2 lượt/.test($('#picPlay').textContent) && n('.pic-opt-t') === 0);
 
   click('[data-pic-back]');
-  check('về danh sách thì có đếm số câu đã làm', () => /đã làm/.test(body()) && n('.pic-card') >= 15);
+  check('về danh sách thì có đếm số câu đã làm', () => /đã làm/.test(body()) && n('.pic-card') >= 110);
 
   check('câu đã làm được đánh dấu đúng/sai trên thẻ', () => n('.pic-card .pic-mark') >= 2);
 
@@ -239,7 +287,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
   click('[data-pic-open="0"]');
   win.history.back(); await wait(120);
   check('bấm back thì quay lại danh sách chứ không văng khỏi màn', () =>
-    n('.pic-card') >= 15 && !$('.pic-frame'));
+    n('.pic-card') >= 110 && !$('.pic-frame'));
 
   check('không có lỗi console', () => { if (errors.length) console.log('   ' + errors[0]); return errors.length === 0; });
 

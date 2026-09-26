@@ -89,7 +89,7 @@ const LISTEN_PIC = [
   opts:[
     { t:'Nam is cooking at the stove.', ok:true },
     { t:'Nam is standing next to the fridge.', why:'Tủ lạnh có trong tranh nhưng ở tít bên trái, Nam đứng bên bếp lò.', trap:'đúng vật, sai vị trí' },
-    { t:'Nam is opening the window.', why:'Sai hành động — cửa sổ có thật nhưng Nam không đụng vào nó.', trap:'hành động' },
+    { t:'Nam is cooking at the window.', why:'Chỉ khác mỗi từ cuối. Cửa sổ có thật trong tranh nhưng Nam đứng bên bếp lò.', trap:'đúng vật, sai vị trí' },
     { t:'There is a cat under the table.', why:'Trong tranh không hề có con mèo nào. Câu nghe rất xuôi tai nên dễ gật bừa.', trap:'chi tiết không có' }
   ],
   keys:[
@@ -160,7 +160,7 @@ const LISTEN_PIC = [
   ]},
   alt:'Ngoài phố trời mưa, Lan vừa đi vừa che ô đang mở, bên phải có một cái cây.',
   opts:[
-    { t:'It is snowing, so Lan is wearing a coat.', why:'Sai thời tiết — trong tranh là những vạch mưa xiên, không phải hạt tuyết tròn.', trap:'thời tiết' },
+    { t:'It is snowing, so Lan is using an umbrella.', why:'Chỉ khác mỗi từ thứ ba. Trong tranh là những vạch mưa xiên, không phải hạt tuyết tròn.', trap:'thời tiết' },
     { t:'It is raining, so Lan is using an umbrella.', ok:true },
     { t:'It is sunny, but Lan is carrying an umbrella.', why:'Nửa sau đúng (Lan có cầm ô) nên rất dễ gật. Nhưng trời đang mưa chứ không nắng.', trap:'đúng một nửa' },
     { t:'Lan is closing her umbrella because the rain stopped.', why:'Cái ô trong tranh đang bung ra, và mưa vẫn rơi.', trap:'hành động ngược' }
@@ -284,7 +284,7 @@ const LISTEN_PIC = [
   ]},
   alt:'Trong lớp học có bảng đen: Lan ngồi viết ở bàn, kệ sách ở bên phải, đồng hồ chỉ 9 giờ.',
   opts:[
-    { t:'Lan is reading a book at her desk.', why:'Trên kệ có sách thật, nhưng Lan đang cầm bút viết chứ không cầm sách đọc.', trap:'đúng vật, sai hành động' },
+    { t:'Lan is reading at her desk.', why:'Chỉ khác mỗi động từ. Trên kệ có sách thật, nhưng Lan đang cầm bút.', trap:'hành động' },
     { t:'Lan is writing on the board.', why:'Cái bảng có trong tranh nhưng Lan ngồi ở bàn, không đứng viết bảng.', trap:'đúng hành động, sai vị trí' },
     { t:'Lan is sitting next to the window.', why:'Trong lớp này không vẽ cửa sổ nào. Câu nghe hợp lý nên dễ chọn bừa.', trap:'chi tiết không có' },
     { t:'Lan is writing at her desk.', ok:true }
@@ -310,7 +310,7 @@ const LISTEN_PIC = [
   opts:[
     { t:'Both of them are talking on the phone.', why:'«Both» là cả hai. Chỉ một người cầm điện thoại, người kia cầm sách.', trap:'số lượng: both' },
     { t:'One of them is talking on the phone and the other is reading.', ok:true },
-    { t:'One of them is reading and the other is sleeping.', why:'Vế đầu đúng nên rất dễ gật. Nhưng không ai đang ngủ cả.', trap:'đúng một nửa' },
+    { t:'One of them is talking on the phone and the other is too.', why:'Chỉ khác mỗi từ cuối. «is too» nghĩa là người kia cũng đang nghe điện thoại.', trap:'phủ định chìm' },
     { t:'Neither of them is reading.', why:'«Neither» là không ai cả. Thực tế có một người đang đọc.', trap:'phủ định: neither' }
   ],
   keys:[
@@ -356,7 +356,7 @@ const LISTEN_PIC = [
   ]},
   alt:'Trong phòng: kệ sách sát tường bên trái, chậu cây đứng giữa, bàn làm việc và ghế ở bên phải.',
   opts:[
-    { t:'The plant is behind the desk.', why:'«behind» là ở phía sau. Chậu cây đứng ngang hàng, bên trái cái bàn.', trap:'vị trí' },
+    { t:'The plant is behind the desk and the bookshelf.', why:'Chỉ khác mỗi giới từ. behind là ở phía sau, còn chậu cây đứng ngang hàng ở khoảng giữa.', trap:'giới từ' },
     { t:'The plant is between the desk and the bookshelf.', ok:true },
     { t:'The plant is in front of the bookshelf.', why:'Kệ sách có thật nhưng chậu cây không che trước nó, nó nằm ở khoảng giữa hai vật.', trap:'vị trí' },
     { t:'There is no plant in the room.', why:'Phủ định thẳng thừng — nghe qua tưởng loại được ngay, nhưng chậu cây rõ ràng có trong tranh.', trap:'phủ định' }
@@ -382,7 +382,7 @@ const LISTEN_PIC = [
   alt:'Buổi sáng 7 giờ: một người đang đưa cốc lên uống, trên bàn có ổ bánh mì, ngoài cửa sổ trời nắng.',
   opts:[
     { t:'He drinks coffee every morning.', why:'Câu này đúng ngữ pháp và nghe rất hợp cảnh, nhưng nó tả THÓI QUEN. Tranh chỉ cho biết chuyện đang xảy ra lúc này.', trap:'sai thì' },
-    { t:'He is making coffee.', why:'Sai hành động — anh ấy đang đưa cốc lên uống, không phải đang pha.', trap:'hành động' },
+    { t:'He is making coffee right now.', why:'Chỉ khác mỗi động từ. Anh ấy đang đưa cốc lên uống chứ không phải đang pha.', trap:'hành động' },
     { t:'He is drinking coffee right now.', ok:true },
     { t:'He has finished his coffee.', why:'Sai thì và sai trạng thái — cốc đang trên tay, việc uống chưa xong.', trap:'sai thì' }
   ],
