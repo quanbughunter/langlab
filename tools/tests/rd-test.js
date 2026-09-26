@@ -9,7 +9,7 @@ const dom = new JSDOM(html,{runScripts:'dangerously',pretendToBeVisual:true,virt
  w.Element.prototype.getBBox=()=>({x:0,y:0,width:100,height:100}); w.Element.prototype.scrollIntoView=function(){};
  w.Element.prototype.getBoundingClientRect=()=>({left:0,top:0,width:300,height:300,right:300,bottom:300});
  w.HTMLCanvasElement.prototype.getContext=()=>new Proxy({},{get:()=>()=>{}});
- w.scrollTo=()=>{}; w.matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){},addListener(){},removeListener(){}});
+ w.__scrolls=[]; w.scrollTo=o=>w.__scrolls.push(o&&o.top); w.matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){},addListener(){},removeListener(){}});
  w.fetch=()=>Promise.reject(new Error('x'));
  w.speechSynthesis={getVoices:()=>[{lang:'ko-KR'},{lang:'zh-CN'},{lang:'ja-JP'},{lang:'ru-RU'},{lang:'en-GB'}],addEventListener(){},removeEventListener(){},cancel(){},speak(u){spoken.push(u.lang);setTimeout(()=>u.onend&&u.onend(),5);}};
  w.SpeechSynthesisUtterance=function(t){this.text=t;};
@@ -96,7 +96,20 @@ setTimeout(()=>{
 
   setTimeout(()=>{
     check('sau khi lùi lịch sử thì về danh sách bài đọc', ()=> n('.rd-card') > 0 && n('.rd-para') === 0);
-    check('không có lỗi console', ()=>{ if(errors.length) console.log('   '+errors.slice(0,2).join(' | ')); return errors.length===0; });
+    check('trả lời câu hỏi và bật bản dịch thì trang đứng yên, không nhảy lên đầu', ()=>{
+    click('#rdNav'); click('[data-rd-open="0"]');
+    Object.defineProperty(win,'scrollY',{value:720,configurable:true});
+    win.__scrolls.length=0; click('[data-rd-tr]');
+    const a = win.__scrolls[win.__scrolls.length-1];
+    win.__scrolls.length=0; click('[data-rd-ans="0:0"]');
+    const b = win.__scrolls[win.__scrolls.length-1];
+    win.__scrolls.length=0; click('[data-rd-back]');
+    const c = win.__scrolls[win.__scrolls.length-1];
+    Object.defineProperty(win,'scrollY',{value:0,configurable:true});
+    return a===720 && b===720 && c===0;      // ở lại chỗ cũ, nhưng đổi màn thì vẫn về đầu
+  });
+
+  check('không có lỗi console', ()=>{ if(errors.length) console.log('   '+errors.slice(0,2).join(' | ')); return errors.length===0; });
     console.log('\n'+pass+' đạt / '+fail+' lỗi');
     process.exit(fail?1:0);
   }, 120);

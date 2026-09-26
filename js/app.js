@@ -1611,10 +1611,8 @@ function picPlay(){
   if (!state.pic.show && state.pic.plays >= PIC_MAX_PLAYS){
     toast('Đã hết lượt nghe — chọn một đáp án rồi mở lời thoại nhé'); return;
   }
-  if (!state.pic.show){
-    state.pic.plays++;
-    const b = $('#picPlay'); if (b){ b.textContent = picPlayLabel(); if (state.pic.plays >= PIC_MAX_PLAYS) b.disabled = true; }
-  }
+  /* vẽ lại tại chỗ để nút Nghe đổi nhãn và nút Đặt lại lượt hiện ra ngay */
+  if (!state.pic.show){ state.pic.plays++; renderKeep(); }
   const mark = i => {
     $$('.pic-opt').forEach(el => el.classList.remove('reading'));
     if (i > 0){ const el = $$('.pic-opt')[i - 1]; if (el) el.classList.add('reading'); }
@@ -1707,7 +1705,10 @@ VIEWS.pic = function(){
     <div class="pic-frame">${SCENE.render(cur.scene, { label:cur.alt })}</div>
     <div class="pic-controls">
       <button class="pbtn primary" id="picPlay" data-pic-play="1"${(!show && state.pic.plays >= PIC_MAX_PLAYS) ? ' disabled' : ''}>${picPlayLabel()}</button>
-      ${show ? '' : '<span class="pic-hint">Bốn câu chỉ được đọc lên, không hiện chữ.</span>'}
+      ${(!show && state.pic.plays > 0) ? '<button class="pbtn ghost" data-pic-reset="1" title="Cho lại hai lượt nghe từ đầu">↺ Đặt lại lượt nghe</button>' : ''}
+      ${show ? '' : `<span class="pic-hint">${state.pic.plays >= PIC_MAX_PLAYS
+        ? 'Hết lượt — bấm Đặt lại nếu muốn nghe thêm.'
+        : 'Bốn câu chỉ được đọc lên, không hiện chữ.'}</span>`}
     </div>
     <div class="pic-opts">${opts}</div>
     ${!show ? `<div class="pic-actions">
@@ -7178,13 +7179,14 @@ document.addEventListener('click', e => {
   if (t.closest('[data-pic-back]')){ stopAudio(); state.pic.idx = null; render(); syncHist(); return; }
   if (t.closest('[data-pic-play]')){ picPlay(); return; }
   const pcA = t.closest('[data-pic-ans]');
-  if (pcA){ if (state.pic.show) return; state.pic.pick = +pcA.dataset.picAns; render(); return; }
+  if (pcA){ if (state.pic.show) return; state.pic.pick = +pcA.dataset.picAns; renderKeep(); return; }
   if (t.closest('[data-pic-show]')){
     const q = picCur(); if (!q || state.pic.pick == null) return;
     stopAudio(); state.pic.show = true;
     picSetRes(q.id, !!(q.opts[state.pic.pick] && q.opts[state.pic.pick].ok));
-    render(); return;
+    renderKeep(); return;
   }
+  if (t.closest('[data-pic-reset]')){ state.pic.plays = 0; renderKeep(); return; }
   if (t.closest('[data-pic-retry]')){ stopAudio(); state.pic.plays = 0; state.pic.pick = null; state.pic.show = false; render(); return; }
   if (t.closest('[data-pic-next]')){
     stopAudio();
@@ -7200,12 +7202,12 @@ document.addEventListener('click', e => {
   const rdO = t.closest('[data-rd-open]');
   if (rdO){ state.read.idx = +rdO.dataset.rdOpen; state.read.ans = {}; state.read.tr = false; render(); syncHist(); return; }
   if (t.closest('[data-rd-back]')){ state.read.idx = null; render(); syncHist(); return; }
-  if (t.closest('[data-rd-tr]')){ state.read.tr = !state.read.tr; render(); return; }
-  if (t.closest('[data-rd-reset]')){ state.read.ans = {}; render(); return; }
+  if (t.closest('[data-rd-tr]')){ state.read.tr = !state.read.tr; renderKeep(); return; }
+  if (t.closest('[data-rd-reset]')){ state.read.ans = {}; renderKeep(); return; }
   const rdA = t.closest('[data-rd-ans]');
   if (rdA){
     const [qi, oi] = rdA.dataset.rdAns.split(':').map(Number);
-    if (state.read.ans[qi] == null){ state.read.ans[qi] = oi; render(); }
+    if (state.read.ans[qi] == null){ state.read.ans[qi] = oi; renderKeep(); }
     return;
   }
 

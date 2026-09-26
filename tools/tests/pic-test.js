@@ -11,7 +11,7 @@ const dom = new JSDOM(html, { runScripts:'dangerously', pretendToBeVisual:true, 
   w.Element.prototype.scrollIntoView = function(){};
   w.Element.prototype.getBoundingClientRect = () => ({ left:0, top:0, width:300, height:300, right:300, bottom:300 });
   w.HTMLCanvasElement.prototype.getContext = () => new Proxy({}, { get:() => () => {} });
-  w.scrollTo = () => {}; w.matchMedia = () => ({ matches:false, addEventListener(){}, removeEventListener(){}, addListener(){}, removeListener(){} });
+  w.__scrolls = []; w.scrollTo = o => w.__scrolls.push(o && o.top); w.matchMedia = () => ({ matches:false, addEventListener(){}, removeEventListener(){}, addListener(){}, removeListener(){} });
   w.fetch = () => Promise.reject(new Error('x'));
   w.speechSynthesis = { getVoices:() => [{ lang:'en-GB', name:'UK English' }], addEventListener(){}, removeEventListener(){}, cancel(){},
     speak(u){ spoken.push(u.text); setTimeout(() => u.onend && u.onend(), 3); } };
@@ -127,6 +127,54 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
 
   click('#picPlay'); await wait(600);
   check('hết hai lượt thì nút nghe bị khoá', () => $('#picPlay').disabled === true);
+
+  /* ---------- đặt lại lượt nghe ---------- */
+  check('hết lượt thì hiện nút đặt lại, kèm lời nhắc', () =>
+    !!d.querySelector('[data-pic-reset]') && /Đặt lại nếu muốn nghe thêm/.test(body()));
+
+  click('[data-pic-reset]');
+  check('bấm đặt lại: có lại hai lượt, nút nghe mở khoá', () =>
+    /còn 2 lượt/.test($('#picPlay').textContent) && $('#picPlay').disabled === false);
+
+  spoken.length = 0;
+  click('#picPlay'); await wait(2600);
+  check('sau khi đặt lại thì nghe lại được thật', () => spoken.length >= 5);
+
+  check('chưa nghe lượt nào thì chưa hiện nút đặt lại', () => {
+    click('#pcNav'); click('[data-pic-open="0"]');
+    return !d.querySelector('[data-pic-reset]');
+  });
+  click('#picPlay'); await wait(600);
+  check('nghe một lượt là nút đặt lại xuất hiện ngay, không phải đợi hết lượt', () =>
+    !!d.querySelector('[data-pic-reset]') && /còn 1 lượt/.test($('#picPlay').textContent));
+
+  /* ---------- không được nhảy về đầu trang ---------- */
+  Object.defineProperty(win, 'scrollY', { value:640, configurable:true });
+  win.__scrolls.length = 0;
+  click('[data-pic-ans="0"]');
+  check('chọn đáp án thì trang đứng yên, không nhảy lên đầu', () => {
+    const sc = win.__scrolls;
+    if (!sc.length) { console.log('   không gọi scrollTo lần nào'); return false; }
+    return sc[sc.length - 1] === 640;
+  });
+
+  win.__scrolls.length = 0;
+  click('[data-pic-ans="1"]');
+  check('đổi đáp án cũng đứng yên', () => win.__scrolls[win.__scrolls.length - 1] === 640);
+
+  win.__scrolls.length = 0;
+  click('[data-pic-reset]');
+  check('bấm đặt lại lượt nghe cũng đứng yên', () => win.__scrolls[win.__scrolls.length - 1] === 640);
+
+  win.__scrolls.length = 0;
+  click('[data-pic-show]');
+  check('mở lời thoại cũng đứng yên tại chỗ đang xem', () => win.__scrolls[win.__scrolls.length - 1] === 640);
+
+  win.__scrolls.length = 0;
+  click('[data-pic-back]');
+  check('nhưng đổi màn (về danh sách) thì VẪN phải về đầu trang', () => win.__scrolls[win.__scrolls.length - 1] === 0);
+  Object.defineProperty(win, 'scrollY', { value:0, configurable:true });
+  click('[data-pic-open="0"]');
 
   /* ---------- chọn đáp án ---------- */
   click('[data-pic-ans="0"]');
