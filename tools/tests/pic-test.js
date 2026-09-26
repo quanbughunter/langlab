@@ -1,0 +1,200 @@
+/* Nghe & chọn câu đúng với tranh — kiểm thử jsdom
+   Chạy từ thư mục gốc repo: node tools/tests/pic-test.js */
+const { JSDOM, VirtualConsole } = require('jsdom');
+const fs = require('fs');
+const errors = [];
+const vc = new VirtualConsole(); vc.on('jsdomError', e => { if (!/Not implemented/.test(e.message)) errors.push(e.message); });
+const spoken = [];
+const html = fs.readFileSync(process.cwd() + '/dist/langlab.html', 'utf8');
+const dom = new JSDOM(html, { runScripts:'dangerously', pretendToBeVisual:true, virtualConsole:vc, url:'http://localhost:9999/', beforeParse(w){
+  w.Element.prototype.getBBox = () => ({ x:0, y:0, width:100, height:100 });
+  w.Element.prototype.scrollIntoView = function(){};
+  w.Element.prototype.getBoundingClientRect = () => ({ left:0, top:0, width:300, height:300, right:300, bottom:300 });
+  w.HTMLCanvasElement.prototype.getContext = () => new Proxy({}, { get:() => () => {} });
+  w.scrollTo = () => {}; w.matchMedia = () => ({ matches:false, addEventListener(){}, removeEventListener(){}, addListener(){}, removeListener(){} });
+  w.fetch = () => Promise.reject(new Error('x'));
+  w.speechSynthesis = { getVoices:() => [{ lang:'en-GB', name:'UK English' }], addEventListener(){}, removeEventListener(){}, cancel(){},
+    speak(u){ spoken.push(u.text); setTimeout(() => u.onend && u.onend(), 3); } };
+  w.SpeechSynthesisUtterance = function(t){ this.text = t; };
+  /* chưa thu sẵn mp3 nào -> thẻ audio báo lỗi ngay để rơi về giọng máy, đúng như trên trình duyệt thật */
+  w.Audio = function(){
+    const self = this;
+    this.paused = true; this.playbackRate = 1; this.preload = 'none'; this._ev = {};
+    this.pause = function(){};
+    this.addEventListener = function(k, f){ (self._ev[k] = self._ev[k] || []).push(f); };
+    this.removeEventListener = function(k, f){ self._ev[k] = (self._ev[k] || []).filter(x => x !== f); };
+    Object.defineProperty(this, 'src', { get(){ return self._src; },
+      set(v){ self._src = v; setTimeout(() => {
+        if (self.onerror) self.onerror();
+        (self._ev.error || []).forEach(f => f());
+      }, 0); } });
+    this.play = function(){ return Promise.reject(new Error('không có tệp')); };
+  };
+}});
+const win = dom.window, d = win.document;
+const $ = s => d.querySelector(s), n = s => d.querySelectorAll(s).length;
+const click = s => { const e = typeof s === 'string' ? $(s) : s; if (e) e.dispatchEvent(new win.MouseEvent('click', { bubbles:true })); };
+const body = () => d.getElementById('view').textContent;
+let pass = 0, fail = 0;
+const check = (name, fn) => { let ok = false; try { ok = !!fn(); } catch(e){ console.log('   ✗ ' + e.message); } if (ok){ pass++; console.log('ok   ' + name); } else { fail++; console.log('FAIL ' + name + ' — sai'); } };
+const wait = ms => new Promise(r => setTimeout(r, ms));
+
+(async () => {
+  await wait(260);
+
+  /* ---------- dữ liệu ---------- */
+  check('dữ liệu: mỗi câu đủ trường, đúng 1 đáp án đúng, 3 câu nhiễu có giải thích', () => {
+    const P = win.eval('LISTEN_PIC'), SC = win.eval('SCENE');
+    const parts = SC.partNames(), bgs = SC.bgNames(), ids = new Set();
+    const bad = P.filter(q => {
+      if (ids.has(q.id)) return true; ids.add(q.id);
+      if (!q.scene || !q.alt || !q.cat || !q.lv) return true;
+      if (!Array.isArray(q.opts) || q.opts.length !== 4) return true;
+      if (q.opts.filter(o => o.ok).length !== 1) return true;
+      if (new Set(q.opts.map(o => o.t)).size !== 4) return true;
+      if (q.opts.some(o => !o.ok && (!o.why || !o.trap))) return true;
+      if (!q.keys || q.keys.length < 4 || !q.gram || !q.gram.length) return true;
+      if (q.gram.some(g => !g.p || !g.vi || !g.ex || g.ex.length !== 2)) return true;
+      if (bgs.indexOf(q.scene.bg) < 0) return true;
+      return (q.scene.items || []).some(it => parts.indexOf(it.p) < 0);
+    });
+    if (bad.length) console.log('   câu lỗi:', bad.map(x => x.id).join(' '));
+    return P.length >= 15 && bad.length === 0;
+  });
+
+  check('ba câu nhiễu của MỘT bài không được cùng một kiểu bẫy', () => {
+    const P = win.eval('LISTEN_PIC');
+    const bad = P.filter(q => new Set(q.opts.filter(o => !o.ok).map(o => o.trap)).size < 2);
+    if (bad.length) console.log('   trùng kiểu bẫy:', bad.map(x => x.id).join(' '));
+    return bad.length === 0;
+  });
+
+  check('đáp án đúng không dồn vào một vị trí', () => {
+    const P = win.eval('LISTEN_PIC'), c = {};
+    P.forEach(q => { const i = q.opts.findIndex(o => o.ok); c[i] = (c[i] || 0) + 1; });
+    return Object.keys(c).length >= 3 && Math.max(...Object.values(c)) <= P.length * 0.6;
+  });
+
+  check('SCENE dựng được SVG hợp lệ cho mọi câu', () => {
+    const P = win.eval('LISTEN_PIC'), SC = win.eval('SCENE');
+    return P.every(q => {
+      const s = SC.render(q.scene, { label:q.alt });
+      return s.indexOf('<svg') === 0 && s.indexOf('</svg>') > 0 && s.indexOf('NaN') < 0 && s.indexOf('undefined') < 0;
+    });
+  });
+
+  /* ---------- màn danh sách ---------- */
+  click('#pcNav');
+  check('navbar mở được màn Nghe & tranh, có chip 5 thứ tiếng và lưới câu hỏi', () =>
+    n('[data-pic-lang]') === 5 && n('.pic-card') >= 15 && n('.pic-card .scene') >= 15);
+
+  check('thứ tiếng chưa có câu nào thì chip bị khoá', () => {
+    const chips = [...d.querySelectorAll('[data-pic-lang]')];
+    const en = chips.find(c => c.dataset.picLang === 'en');
+    return !en.disabled && chips.filter(c => c.disabled).length === 4;
+  });
+
+  /* ---------- mở một câu ---------- */
+  click('[data-pic-open="0"]');
+  check('mở câu: có tranh, có nút nghe, 4 đáp án A B C D', () =>
+    !!$('.pic-frame .scene') && !!$('#picPlay') && n('.pic-opt') === 4
+    && [...d.querySelectorAll('.pic-letter')].map(e => e.textContent).join('') === 'ABCD');
+
+  check('chưa chọn thì KHÔNG lộ chữ của đáp án', () => {
+    const P = win.eval('LISTEN_PIC');
+    const t = body();
+    return n('.pic-opt-hidden') === 4 && n('.pic-opt-t') === 0
+      && P[0].opts.every(o => t.indexOf(o.t) < 0);
+  });
+
+  check('chưa chọn thì nút mở lời thoại bị khoá', () => {
+    const b = d.querySelector('[data-pic-show]');
+    return !!b && b.disabled;
+  });
+
+  /* ---------- nghe ---------- */
+  check('nút nghe hiện số lượt còn lại', () => /còn 2 lượt/.test($('#picPlay').textContent));
+  spoken.length = 0;
+  click('#picPlay');
+  await wait(2600);            // câu dẫn + 4 đáp án, mỗi câu cách nhau ~380ms
+  check('bấm nghe: đọc câu dẫn rồi đọc lần lượt A, B, C, D', () => {
+    const P = win.eval('LISTEN_PIC');
+    if (spoken.length < 5) { console.log('   chỉ đọc ' + spoken.length + ' câu'); return false; }
+    return /Look at the picture/.test(spoken[0])
+      && P[0].opts.every((o, i) => spoken[i + 1] === 'ABCD'[i] + '. ' + o.t);
+  });
+  check('nghe xong một lượt thì còn 1 lượt', () => /còn 1 lượt/.test($('#picPlay').textContent));
+
+  click('#picPlay'); await wait(600);
+  check('hết hai lượt thì nút nghe bị khoá', () => $('#picPlay').disabled === true);
+
+  /* ---------- chọn đáp án ---------- */
+  click('[data-pic-ans="0"]');
+  check('chọn A: ô A được đánh dấu, vẫn chưa lộ lời thoại', () =>
+    !!$('.pic-opt.picked') && n('.pic-opt-t') === 0 && !d.querySelector('[data-pic-show]').disabled);
+
+  click('[data-pic-ans="1"]');
+  check('đổi ý sang B được (chưa mở lời thoại thì còn sửa được)', () => {
+    const ps = [...d.querySelectorAll('.pic-opt')];
+    return ps[1].classList.contains('picked') && !ps[0].classList.contains('picked');
+  });
+
+  /* ---------- mở lời thoại ---------- */
+  click('[data-pic-show]');
+  check('mở lời thoại: hiện đủ 4 câu, đánh dấu câu đúng và câu đã chọn', () => {
+    const P = win.eval('LISTEN_PIC'), t = body();
+    return n('.pic-opt-t') === 4 && P[0].opts.every(o => t.indexOf(o.t) >= 0)
+      && !!$('.pic-opt.right') && !!$('.pic-verdict');
+  });
+
+  check('câu 1 chọn B là đúng → báo đúng', () => {
+    const P = win.eval('LISTEN_PIC');
+    return P[0].opts[1].ok === true && $('.pic-verdict').classList.contains('ok');
+  });
+
+  check('có giải thích cho từng câu nhiễu, kèm tên kiểu bẫy', () => {
+    const P = win.eval('LISTEN_PIC'), t = body();
+    return n('.pic-why li') === 4 && n('.pic-trap') === 4
+      && P[0].opts.filter(o => !o.ok).every(o => t.indexOf(o.why) >= 0 && t.indexOf(o.trap) >= 0);
+  });
+
+  check('có phần từ vựng bấm tra được và phần ngữ pháp', () => {
+    const P = win.eval('LISTEN_PIC'), t = body();
+    return n('.rd-keys .rd-key[data-en-word]') === P[0].keys.length
+      && n('.pic-gram') === P[0].gram.length && t.indexOf(P[0].gram[0].p) >= 0;
+  });
+
+  check('mở lời thoại rồi thì nghe lại không giới hạn', () =>
+    /Nghe lại/.test($('#picPlay').textContent) && $('#picPlay').disabled === false);
+
+  check('bấm từ vựng thì mở mục từ điển tiếng Anh', () => {
+    click('.rd-keys .rd-key[data-en-word]');
+    return /Từ điển|từ điển/.test(body()) && !!d.querySelector('#enEntry, .ru-entry');
+  });
+
+  /* ---------- điều hướng ---------- */
+  click('#pcNav'); click('[data-pic-open="1"]');
+  check('mở câu khác thì lượt nghe được đặt lại', () =>
+    /còn 2 lượt/.test($('#picPlay').textContent) && n('.pic-opt-t') === 0);
+
+  click('[data-pic-ans="2"]'); click('[data-pic-show]');
+  click('[data-pic-next]');
+  check('nút «câu tiếp theo» sang câu 3 và đặt lại trạng thái', () =>
+    /Câu 3 \/ /.test(body()) && /còn 2 lượt/.test($('#picPlay').textContent) && n('.pic-opt-t') === 0);
+
+  click('[data-pic-back]');
+  check('về danh sách thì có đếm số câu đã làm', () => /đã làm/.test(body()) && n('.pic-card') >= 15);
+
+  check('câu đã làm được đánh dấu đúng/sai trên thẻ', () => n('.pic-card .pic-mark') >= 2);
+
+  /* ---------- lùi lịch sử ---------- */
+  click('[data-pic-open="0"]');
+  win.history.back(); await wait(120);
+  check('bấm back thì quay lại danh sách chứ không văng khỏi màn', () =>
+    n('.pic-card') >= 15 && !$('.pic-frame'));
+
+  check('không có lỗi console', () => { if (errors.length) console.log('   ' + errors[0]); return errors.length === 0; });
+
+  console.log('\n' + pass + ' đạt / ' + fail + ' lỗi');
+  process.exit(fail ? 1 : 0);
+})();

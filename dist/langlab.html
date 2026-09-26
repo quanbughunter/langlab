@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
 <meta name="description" content="Ứng dụng học ngoại ngữ theo bài cho người Việt: tiếng Hàn (TOPIK), tiếng Nhật (JLPT), tiếng Trung (HSK), tiếng Nga (ТРКИ), tiếng Anh (IELTS/TOEFL) — từ vựng, ngữ pháp, hội thoại, tập viết, từ điển, thi thử.">
-<link rel="icon" type="image/png" href="logo-icon.png?v=260961">
-<link rel="manifest" href="manifest.webmanifest?v=260961">
+<link rel="icon" type="image/png" href="logo-icon.png?v=260962">
+<link rel="manifest" href="manifest.webmanifest?v=260962">
 <meta name="theme-color" content="#EAF1FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260961">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=260962">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="LangLab">
@@ -2100,6 +2100,83 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 .fact-card .fact-body p{font-size:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .fact-card .fact-extra,.fact-card .fact-word{display:none}
 
+/* ============================================================
+   NGHE & CHỌN CÂU ĐÚNG VỚI TRANH
+   Tranh vẽ bằng nét, màu lấy từ biến của tông ngôn ngữ đang chọn
+   nên tự đổi theo từng thứ tiếng và tự đảo khi sang nền tối.
+   ============================================================ */
+.scene{display:block;width:100%;height:auto;color:var(--ink)}
+.scene .sv-fill{fill:var(--surface-2)}
+.scene .sv-soft{fill:var(--accent-soft)}
+.scene .sv-accent{fill:var(--accent)}
+.scene .sv-faint{stroke:var(--faint)}
+.scene .sv-ground{stroke:var(--line-strong)}
+.scene .sv-text{font-family:inherit;font-size:13px;font-weight:600;fill:var(--ink);stroke:none}
+
+.pic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:14px}
+.pic-card{position:relative;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:10px;cursor:pointer;color:var(--ink);font:inherit;transition:border-color .15s,transform .15s,box-shadow .15s}
+.pic-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.09)}
+.pic-card.ok{border-color:var(--accent-2)}
+.pic-card.no{border-color:var(--seal)}
+.pic-thumb{display:block;background:var(--surface-2);border-radius:12px;padding:6px;margin-bottom:8px}
+.pic-card-meta{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.pic-lv{display:inline-block;padding:1px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-weight:600;font-size:12px}
+.pic-cat{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pic-mark{font-weight:700}
+.pic-card.ok .pic-mark{color:var(--accent-2)}
+.pic-card.no .pic-mark{color:var(--seal)}
+
+.pic-stage{display:flex;flex-direction:column;gap:14px}
+.pic-frame{background:var(--surface-2);border:1px solid var(--line);border-radius:18px;padding:10px;max-width:560px;margin:0 auto;width:100%}
+.pic-controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.pic-hint{color:var(--muted);font-size:14px}
+
+.pic-opts{display:grid;gap:10px}
+.pic-opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;font:inherit;color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;transition:border-color .15s,background .15s}
+.pic-opt:hover:not(:disabled){border-color:var(--accent)}
+.pic-opt:disabled{cursor:default}
+.pic-letter{flex:none;width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:var(--surface-2);border:1.5px solid var(--line);font-weight:700}
+.pic-opt-body{flex:1;min-width:0}
+.pic-opt-hidden{color:var(--faint);font-style:italic;font-size:14px}
+.pic-opt-t{font-size:16px}
+.pic-opt.picked{border-color:var(--accent);background:var(--accent-soft)}
+.pic-opt.picked .pic-letter{background:var(--accent);border-color:var(--accent);color:#fff}
+.pic-opt.reading{border-color:var(--accent-2)}
+.pic-opt.reading .pic-letter{background:var(--accent-2);border-color:var(--accent-2);color:#fff;animation:picPulse 1s ease-in-out infinite}
+@keyframes picPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.pic-opt.right{border-color:var(--accent-2);background:var(--accent-soft)}
+.pic-opt.right .pic-letter{background:var(--accent-2);border-color:var(--accent-2);color:#fff}
+.pic-opt.wrong{border-color:var(--seal);background:var(--seal-soft)}
+.pic-opt.wrong .pic-letter{background:var(--seal);border-color:var(--seal);color:#fff}
+
+.pic-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.pic-verdict{font-size:18px;font-weight:600;padding:10px 14px;border-radius:14px;margin-bottom:14px}
+.pic-verdict.ok{background:var(--accent-soft);color:var(--accent)}
+.pic-verdict.no{background:var(--seal-soft);color:var(--seal)}
+
+.pic-why{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.pic-why li{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.pic-why li.ok{border-color:var(--accent-2);background:var(--accent-soft)}
+.pic-why-t{font-size:16px}
+.pic-trap{display:inline-block;padding:1px 9px;border-radius:999px;background:var(--seal-soft);color:var(--seal);font-size:12px;font-weight:600}
+.pic-why li.ok .pic-trap{background:var(--accent);color:#fff}
+.pic-why-v{flex-basis:100%;color:var(--muted);font-size:14px;line-height:1.6}
+.pic-alt{margin-top:12px;color:var(--muted);font-size:14px;line-height:1.6}
+
+.pic-gram{padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--surface);margin-bottom:10px}
+.pic-gram h3{margin:0 0 6px;font-size:16px}
+.pic-gram p{margin:0 0 8px;color:var(--muted);line-height:1.6;font-size:14px}
+.pic-gram-ex{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;border:1px dashed var(--line-strong);border-radius:12px;background:var(--surface-2)}
+.pic-gram-en{font-weight:600}
+.pic-gram-vi{flex-basis:100%;color:var(--muted);font-size:14px}
+
+@media (max-width:640px){
+  .pic-frame{padding:6px}
+  .pic-opt{padding:10px 11px;gap:9px}
+  .pic-letter{width:30px;height:30px}
+  .pic-opt-t{font-size:15px}
+}
+
 </style>
 </head>
 <body>
@@ -2108,7 +2185,7 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   <header class="nav">
     <div class="nav-in">
       <div class="brand" data-go="about" role="link" tabindex="0" title="Giới thiệu LangLab">
-        <span class="brand-mark"><img src="logo-icon.png?v=260961" alt="LangLab" width="40" height="40"></span>
+        <span class="brand-mark"><img src="logo-icon.png?v=260962" alt="LangLab" width="40" height="40"></span>
         <span class="brand-name"><b>Lang</b><i>Lab</i></span>
       </div>
 
@@ -2126,6 +2203,10 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
         <button class="nav-item nav-sh" id="rdNav" data-go="read" aria-current="false" title="Bài đọc học từ theo ngữ cảnh">
           <svg class="sh-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h7a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H4zM20 5h-7a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h8z"/></svg>
           Bài đọc
+        </button>
+        <button class="nav-item nav-sh" id="pcNav" data-go="pic" aria-current="false" title="Nghe rồi chọn câu đúng với tranh">
+          <svg class="sh-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h13v11H3zM6 13l3-3 2 2 3-4 2 5M19 8v8M22 6v12"/></svg>
+          Nghe &amp; tranh
         </button>
 
         <div class="nav-drop">
@@ -46084,6 +46165,748 @@ if (typeof module !== 'undefined') module.exports = { READINGS };
 </script>
 <script>
 /* ============================================================
+   LangLab — THƯ VIỆN HÌNH VẼ CHO BÀI TẬP NGHE — XEM TRANH
+   ------------------------------------------------------------
+   Vì sao vẽ vector thay vì dùng ảnh chụp: bài nghe xem tranh của
+   JLPT · TOPIK · HSK đều dùng tranh nét đơn giản. Ảnh chụp có quá
+   nhiều chi tiết nên câu hỏi mất tính dứt khoát — người học tranh
+   luận được «cái đó là cốc hay ly», «trời đó sáng hay chiều». Tranh
+   nét thì mỗi chi tiết xuất hiện là có chủ ý, đáp án đúng chỉ một.
+
+   Cách dùng: mỗi tranh chỉ là một bản ghi ngắn, không phải SVG tay.
+
+     SCENE.render({ bg:'room', items:[
+       { p:'table', x:200, y:220 },
+       { p:'cat',   x:200, y:218, pose:'lie' },
+       { p:'clock', x:330, y:70, time:'7:30' }
+     ]})
+
+   Mọi bộ phận vẽ bằng nét, không tô màu đặc, không chuyển sắc. Màu
+   lấy từ biến CSS của app nên tranh tự đổi theo tông từng ngôn ngữ
+   và tự đảo khi sang nền tối (xem .scene trong css/langlab.css).
+
+   Quy ước neo (x, y trong bản ghi trỏ vào đâu của bộ phận):
+     · đồ đứng trên sàn (bàn, ghế, người, cây, con vật) → đáy, giữa
+     · đồ treo hoặc bay (đồng hồ, mây, mặt trời)        → tâm
+     · khung (cửa sổ, cửa, kệ)                          → góc trên bên trái
+   Thêm rep:3 (và gap) để lặp một bộ phận — dùng cho câu nhiễu sai số lượng.
+
+   Nội dung do LangLab tự vẽ, không lấy từ nguồn nào.
+   ============================================================ */
+
+const SCENE = (function(){
+'use strict';
+
+const W = 400, H = 280, FLOOR = 220;
+
+/* ---------- tiện ích ---------- */
+const n2 = v => Math.round(v * 10) / 10;
+const ln = (x1, y1, x2, y2, cls) => `<line${cls ? ` class="${cls}"` : ''} x1="${n2(x1)}" y1="${n2(y1)}" x2="${n2(x2)}" y2="${n2(y2)}"/>`;
+const rc = (x, y, w, h, r, cls) => `<rect${cls ? ` class="${cls}"` : ''} x="${n2(x)}" y="${n2(y)}" width="${n2(w)}" height="${n2(h)}"${r ? ` rx="${r}"` : ''}/>`;
+const ci = (cx, cy, r, cls) => `<circle${cls ? ` class="${cls}"` : ''} cx="${n2(cx)}" cy="${n2(cy)}" r="${n2(r)}"/>`;
+const pa = (d, cls) => `<path${cls ? ` class="${cls}"` : ''} d="${d}"/>`;
+const el = (cx, cy, rx, ry, cls) => `<ellipse${cls ? ` class="${cls}"` : ''} cx="${n2(cx)}" cy="${n2(cy)}" rx="${n2(rx)}" ry="${n2(ry)}"/>`;
+
+/* ---------- nền ---------- */
+const BG = {
+  plain: () => '',
+  /* phòng: chân tường + sàn */
+  room: () => ln(0, FLOOR, W, FLOOR, 'sv-ground') + ln(0, FLOOR - 10, W, FLOOR - 10, 'sv-faint'),
+  /* ngoài trời: đường chân trời thấp */
+  street: () => ln(0, FLOOR, W, FLOOR, 'sv-ground') + ln(0, FLOOR + 26, W, FLOOR + 26, 'sv-faint'),
+  /* trong lớp / phòng có bảng */
+  classroom: () => BG.room() + rc(34, 34, 150, 78, 3, 'sv-fill') + ln(34, 112, 184, 112)
+};
+
+/* ============================================================
+   BỘ PHẬN — mỗi hàm trả về SVG trong hệ toạ độ riêng của nó
+   ============================================================ */
+const P = {};
+
+/* ---------- đồ đạc (neo: đáy, giữa) ---------- */
+P.table = o => {
+  const w = o.w || 120, h = o.h || 62, hw = w / 2, lx = hw - 12;
+  return rc(-hw, -h, w, 9, 2, 'sv-fill') + ln(-lx, -h + 9, -lx, 0) + ln(lx, -h + 9, lx, 0);
+};
+P.chair = o => {
+  const s = o.seat || 46, hs = s / 2;
+  return rc(-hs + 3, -96, s - 6, 48, 3, 'sv-fill')
+    + rc(-hs, -48, s, 9, 2, 'sv-fill')
+    + ln(-hs + 5, -39, -hs + 5, 0) + ln(hs - 5, -39, hs - 5, 0);
+};
+P.bed = o => {
+  const w = o.w || 150, hw = w / 2;
+  return rc(-hw, -40, w, 18, 3, 'sv-fill')                       /* đệm */
+    + rc(-hw, -74, 30, 34, 4, 'sv-soft')                          /* gối */
+    + ln(-hw, -22, -hw, 0) + ln(hw, -22, hw, 0)
+    + pa(`M${n2(hw)} -40 V-70`) + pa(`M${n2(hw - 2)} -70 H${n2(hw)}`);
+};
+P.sofa = o => {
+  const w = o.w || 130, hw = w / 2;
+  return rc(-hw, -46, w, 20, 4, 'sv-fill') + rc(-hw, -80, w, 34, 5, 'sv-fill')
+    + rc(-hw - 12, -74, 14, 48, 4, 'sv-fill') + rc(hw - 2, -74, 14, 48, 4, 'sv-fill')
+    + ln(-hw + 8, -26, -hw + 8, 0) + ln(hw - 8, -26, hw - 8, 0);
+};
+P.desk = o => {
+  const w = o.w || 110, hw = w / 2;
+  return rc(-hw, -66, w, 9, 2, 'sv-fill') + ln(-hw + 8, -57, -hw + 8, 0) + ln(hw - 8, -57, hw - 8, 0)
+    + rc(-hw + 14, -50, 34, 24, 2, 'sv-faint');
+};
+P.fridge = o => {
+  const w = o.w || 58, h = o.h || 124, hw = w / 2;
+  return rc(-hw, -h, w, h, 5, 'sv-fill') + ln(-hw, -h + 44, hw, -h + 44)
+    + ln(hw - 12, -h + 14, hw - 12, -h + 34) + ln(hw - 12, -h + 54, hw - 12, -h + 76);
+};
+P.stove = o => {
+  const w = o.w || 76, hw = w / 2;
+  return rc(-hw, -60, w, 60, 4, 'sv-fill') + ln(-hw, -44, hw, -44)
+    + ci(-hw + 20, -30, 9) + ci(hw - 20, -30, 9) + ci(-hw + 20, -8, 6) + ci(hw - 20, -8, 6);
+};
+P.sink = o => {
+  const w = o.w || 84, hw = w / 2;
+  return rc(-hw, -58, w, 58, 4, 'sv-fill') + el(0, -50, 22, 7)
+    + pa(`M0 -76 V-62 M0 -76 q10 0 10 8`);
+};
+P.tv = o => {
+  const w = o.w || 86, hw = w / 2;
+  return rc(-hw, -66, w, 52, 3, 'sv-fill') + ln(-14, -14, 14, -14) + ln(0, -14, 0, -4) + ln(-16, -4, 16, -4);
+};
+P.plant = () => pa('M0 0 V-18') + pa('M0 -18 q-16 -6 -18 -24 q18 2 18 24')
+  + pa('M0 -22 q16 -6 18 -26 q-18 2 -18 26') + pa('M-11 0 h22 l-4 -14 h-14 z', 'sv-fill');
+P.tree = o => {
+  const h = o.h || 104, t = h * 0.1;
+  return rc(-t / 2, -h * 0.4, t, h * 0.4, 1, 'sv-fill')
+    + ci(-h * 0.17, -h * 0.5, h * 0.17, 'sv-fill') + ci(h * 0.17, -h * 0.5, h * 0.17, 'sv-fill')
+    + ci(0, -h * 0.63, h * 0.25, 'sv-fill');
+};
+
+/* ---------- khung (neo: góc trên bên trái) ---------- */
+P.window = o => {
+  const w = o.w || 92, h = o.h || 82;
+  let s = rc(0, 0, w, h, 2, 'sv-fill') + ln(w / 2, 0, w / 2, h) + ln(0, h / 2, w, h / 2);
+  if (o.view === 'rain') for (let i = 0; i < 6; i++){ const x = 10 + i * (w - 20) / 5; s += ln(x, 10, x - 5, 26, 'sv-faint'); }
+  if (o.view === 'snow') for (let i = 0; i < 6; i++){ const x = 10 + i * (w - 20) / 5; s += ci(x, 14 + (i % 2) * 12, 2.6, 'sv-faint'); }
+  if (o.view === 'sun'){ s += ci(w * 0.28, h * 0.26, 10); for (let i = 0; i < 6; i++){ const a = i * Math.PI / 3; s += ln(w * 0.28 + Math.cos(a) * 14, h * 0.26 + Math.sin(a) * 14, w * 0.28 + Math.cos(a) * 19, h * 0.26 + Math.sin(a) * 19); } }
+  if (o.view === 'night'){ s += pa(`M${n2(w * 0.3)} ${n2(h * 0.18)} a9 9 0 1 0 8 13 a7 7 0 1 1 -8 -13`); }
+  if (o.open) s += ln(w / 2, 0, w / 2 + 16, -8) + ln(w / 2 + 16, -8, w / 2 + 16, h - 8) + ln(w / 2, h, w / 2 + 16, h - 8);
+  return s;
+};
+P.door = o => {
+  const w = o.w || 56, h = o.h || 118;
+  return rc(0, 0, w, h, 2, 'sv-fill') + ci(w - 10, h / 2, 3.4, 'sv-accent');
+};
+P.shelf = o => {
+  const w = o.w || 92, h = o.h || 96, rows = o.rows || 3;
+  let s = rc(0, 0, w, h, 2, 'sv-fill');
+  for (let r = 1; r < rows; r++) s += ln(0, h * r / rows, w, h * r / rows);
+  for (let r = 0; r < rows; r++){
+    const top = h * r / rows + 5, bh = h / rows - 10;
+    for (let b = 0; b < 4; b++) s += rc(7 + b * ((w - 16) / 4), top, (w - 16) / 4 - 3, bh, 1, 'sv-soft');
+  }
+  return s;
+};
+P.board = o => {
+  const w = o.w || 150, h = o.h || 78;
+  return rc(0, 0, w, h, 3, 'sv-fill') + ln(0, h, w, h);
+};
+
+/* ---------- người (neo: đáy, giữa · cao khoảng 112) ---------- */
+P.person = o => {
+  const hair = o.hair === 'long', pose = o.pose || 'stand';
+  const head = ci(0, -96, 13) + (hair ? pa('M-13 -96 q-5 18 2 22 M13 -96 q5 18 -2 22') : '');
+  let body = ln(0, -83, 0, -46), arms = '', legs = '', extra = '';
+
+  if (pose === 'sit'){
+    body = ln(0, -83, 0, -52);
+    legs = pa('M0 -52 h20 M20 -52 V-16');
+    arms = pa('M0 -74 q16 6 20 18');
+  } else if (pose === 'walk'){
+    legs = pa('M0 -46 l-13 46 M0 -46 l15 46');
+    arms = pa('M0 -76 l-16 16 M0 -76 l17 13');
+  } else if (pose === 'run'){
+    legs = pa('M0 -46 l-20 40 M0 -46 l22 30');
+    arms = pa('M0 -76 l-20 8 M0 -76 l20 -12');
+  } else if (pose === 'read'){
+    arms = pa('M0 -76 q14 8 18 16 M0 -76 q-14 8 -18 16');
+    extra = pa('M-20 -58 h40 v14 h-40 z', 'sv-soft') + ln(0, -58, 0, -44);
+    legs = pa('M0 -46 l-10 46 M0 -46 l10 46');
+  } else if (pose === 'eat' || pose === 'drink'){
+    arms = pa('M0 -76 q-16 6 -18 14') + pa('M0 -74 q16 -2 14 -14');
+    extra = pose === 'drink' ? rc(10, -96, 12, 12, 1.5, 'sv-soft') : el(16, -88, 7, 3, 'sv-soft');
+    legs = pa('M0 -46 l-10 46 M0 -46 l10 46');
+  } else if (pose === 'cook'){
+    arms = pa('M0 -74 h24 M0 -74 q-14 8 -16 16');
+    legs = pa('M0 -46 l-10 46 M0 -46 l10 46');
+  } else if (pose === 'point'){
+    arms = pa('M0 -76 l26 -14 M0 -76 q-14 8 -16 16');
+    legs = pa('M0 -46 l-10 46 M0 -46 l10 46');
+  } else if (pose === 'phone'){
+    arms = pa('M0 -74 q14 -4 12 -16 M0 -74 q-15 6 -17 14');
+    extra = rc(8, -96, 9, 14, 2, 'sv-soft');
+    legs = pa('M0 -46 l-10 46 M0 -46 l10 46');
+  } else if (pose === 'carry'){
+    arms = pa('M0 -76 q-18 6 -20 14 M0 -76 q18 6 20 14');
+    extra = rc(14, -62, 20, 22, 2, 'sv-soft');
+    legs = pa('M0 -46 l-10 46 M0 -46 l10 46');
+  } else if (pose === 'wave'){
+    arms = pa('M0 -76 l-22 -16 M0 -76 q16 8 18 16');
+    legs = pa('M0 -46 l-10 46 M0 -46 l10 46');
+  } else if (pose === 'write'){
+    arms = pa('M0 -74 q18 6 22 14 M0 -74 q-16 6 -18 14');
+    legs = pa('M0 -46 h18 M18 -46 V-14');
+    body = ln(0, -83, 0, -50);
+  } else {                                   /* stand */
+    arms = pa('M0 -76 l-16 22 M0 -76 l16 22');
+    legs = pa('M0 -46 l-10 46 M0 -46 l10 46');
+  }
+  return head + body + arms + legs + extra;
+};
+/* người nằm ngủ (neo: đáy, giữa — đặt trên giường) */
+P.sleeper = () => ci(-30, -17, 11, 'sv-fill') + pa('M-19 0 q6 -20 27 -20 q22 0 26 20 z', 'sv-fill') + pa('M-15 -34 l7 -9 M-4 -38 l8 -10', 'sv-faint');
+
+/* ---------- con vật (neo: đáy, giữa) ---------- */
+P.cat = o => {
+  if (o.pose === 'lie'){
+    return pa('M-24 0 q6 -16 24 -16 q18 0 24 16 z', 'sv-fill')
+      + ci(-24, -12, 9) + pa('M-31 -19 l3 -8 l6 6 M-17 -19 l3 -8 l4 7')
+      + pa('M24 -8 q14 -2 12 -16');
+  }
+  return pa('M-14 0 q-2 -26 14 -26 q16 0 14 26 z', 'sv-fill')
+    + ci(0, -36, 11) + pa('M-9 -43 l0 -10 l8 5 M9 -43 l0 -10 l-8 5')
+    + pa('M14 -4 q16 0 14 -20');
+};
+P.dog = () => el(-2, -20, 22, 11, 'sv-fill')
+  + ci(22, -31, 10, 'sv-fill') + pa('M30 -31 l11 3 l-11 4 z', 'sv-fill')
+  + pa('M15 -38 l-3 -11 l9 5 z', 'sv-fill')
+  + ln(-16, -10, -16, 0) + ln(-6, -10, -6, 0) + ln(8, -10, 8, 0) + ln(17, -12, 17, 0)
+  + pa('M-23 -24 q-11 -5 -8 -17') + ci(25, -33, 1.7, 'sv-accent');
+P.bird = () => el(0, -15, 16, 10, 'sv-fill')
+  + ci(14, -26, 7, 'sv-fill') + pa('M21 -26 l9 3 l-9 3 z', 'sv-fill')
+  + pa('M-15 -17 l-13 -7 l2 11 z', 'sv-fill') + pa('M-3 -18 q10 -5 16 3')
+  + ci(15, -28, 1.7, 'sv-accent') + ln(-3, -5, -3, 0) + ln(5, -5, 5, 0);
+P.fish = () => el(0, -8, 16, 9, 'sv-fill') + pa('M16 -8 l12 -8 v16 z') + ci(-7, -10, 2, 'sv-accent');
+
+/* ---------- đồ vật nhỏ (neo: đáy, giữa) ---------- */
+P.cup = () => pa('M-10 -22 h20 l-3 22 h-14 z', 'sv-fill') + pa('M10 -18 q10 2 8 10 q-2 6 -8 6');
+P.glass = () => pa('M-8 -26 h16 l-3 26 h-10 z', 'sv-fill');
+P.bottle = () => pa('M-8 -30 h16 v30 h-16 z', 'sv-fill') + rc(-4, -42, 8, 12, 1);
+P.plate = () => el(0, -7, 25, 10, 'sv-fill') + el(0, -7, 15, 5.5);
+P.bowl = () => pa('M-20 -21 q3 21 20 21 q17 0 20 -21 z', 'sv-fill') + ln(-20, -21, 20, -21);
+P.apple = () => ci(0, -13, 13, 'sv-fill') + ln(0, -26, 0, -31) + pa('M0 -29 q9 -5 12 2 q-8 4 -12 -2 z', 'sv-fill');
+P.banana = () => pa('M-17 -3 Q-14 -32 6 -34 Q20 -35 22 -24 Q14 -23 9 -18 Q0 -9 -10 -3 Z', 'sv-fill') + ln(22, -24, 26, -25);
+P.bread = () => pa('M-18 0 q0 -20 18 -20 q18 0 18 20 z', 'sv-fill') + ln(-8, -18, -8, 0) + ln(8, -18, 8, 0);
+P.cake = () => rc(-16, -18, 32, 18, 2, 'sv-fill') + ln(-16, -10, 16, -10) + ln(0, -26, 0, -18) + ci(0, -28, 2.4, 'sv-accent');
+P.book = o => o.open
+  ? pa('M0 -2 q-20 -12 -22 -2 V-24 q2 -10 22 2 q20 -12 22 -2 V-2 q-2 -10 -22 2 z', 'sv-fill') + ln(0, -2, 0, -22)
+  : rc(-16, -22, 32, 22, 1.5, 'sv-fill') + ln(-11, -22, -11, 0);
+P.bag = () => pa('M-16 -20 h32 l3 20 h-38 z', 'sv-fill') + pa('M-8 -20 q8 -16 16 0');
+P.umbrella = o => o.open
+  ? pa('M-24 -18 q24 -26 48 0 z', 'sv-fill') + ln(0, -18, 0, 0) + pa('M0 0 q8 0 8 -6')
+  : pa('M-4 -34 h8 v34 h-8 z', 'sv-fill') + pa('M0 0 q7 0 7 -6') + ln(0, -40, 0, -34);
+P.phone = () => rc(-9, -18, 18, 18, 2.5, 'sv-fill') + ln(-5, -15, 5, -15);
+P.key = () => ci(-10, -8, 6) + ln(-4, -8, 12, -8) + ln(8, -8, 8, -3) + ln(12, -8, 12, -4);
+P.shoe = () => pa('M-17 0 V-17 q0 -8 8 -8 q6 0 7 7 l2 9 l13 4 q8 2 8 9 V0 z', 'sv-fill')
+  + ln(-17, -5, 21, -5) + pa('M-17 -25 q8 4 15 1') + ln(-12, -19, -5, -16) + ln(-11, -14, -3, -11);
+P.hat = () => el(0, -12, 18, 4.5, 'sv-fill') + pa('M-10 -13 q0 -17 10 -17 q10 0 10 17 z', 'sv-fill') + ln(-10, -16, 10, -16);
+P.glasses = () => ci(-9, -8, 7) + ci(9, -8, 7) + ln(-2, -8, 2, -8);
+P.box = o => { const w = o.w || 30; return rc(-w / 2, -w, w, w, 2, 'sv-fill') + ln(-w / 2, -w * 0.65, w / 2, -w * 0.65); };
+P.basket = () => pa('M-19 -19 l4 19 h30 l4 -19 z', 'sv-fill') + ln(-16, -11, 16, -11) + pa('M-13 -19 q13 -21 26 0');
+P.flower = () => ln(0, 0, 0, -30)
+  + el(0, -48, 7, 10, 'sv-fill') + el(0, -32, 7, 10, 'sv-fill')
+  + el(-10, -40, 10, 7, 'sv-fill') + el(10, -40, 10, 7, 'sv-fill')
+  + ci(0, -40, 5, 'sv-accent') + pa('M0 -16 q-12 -3 -13 -12');
+P.money = () => rc(-18, -12, 36, 12, 1.5, 'sv-fill') + ci(0, -6, 4);
+P.ball = () => ci(0, -13, 13, 'sv-fill') + el(0, -13, 5, 13) + ln(-13, -13, 13, -13);
+P.bicycle = () => ci(-20, -12, 12) + ci(20, -12, 12) + pa('M-20 -12 l10 -18 h20 l10 18') + pa('M-10 -30 h-8') + ln(10, -30, 16, -22);
+
+/* ---------- trên cao (neo: tâm) ---------- */
+P.clock = o => {
+  const r = o.r || 32, t = String(o.time || '12:00').split(':');
+  const hh = (+t[0] || 0) % 12, mm = +t[1] || 0;
+  const ah = (hh * 30 + mm * 0.5 - 90) * Math.PI / 180, am = (mm * 6 - 90) * Math.PI / 180;
+  let s = ci(0, 0, r, 'sv-fill') + ci(0, 0, 2.4, 'sv-accent');
+  for (let i = 0; i < 12; i++){
+    const a = (i * 30 - 90) * Math.PI / 180, o1 = i % 3 === 0 ? r - 7 : r - 4;
+    s += ln(Math.cos(a) * o1, Math.sin(a) * o1, Math.cos(a) * (r - 2), Math.sin(a) * (r - 2), i % 3 === 0 ? '' : 'sv-faint');
+  }
+  s += ln(0, 0, Math.cos(ah) * r * 0.5, Math.sin(ah) * r * 0.5);
+  s += ln(0, 0, Math.cos(am) * r * 0.78, Math.sin(am) * r * 0.78);
+  return s;
+};
+P.sun = o => {
+  const r = o.r || 16;
+  let s = ci(0, 0, r);
+  for (let i = 0; i < 8; i++){ const a = i * Math.PI / 4; s += ln(Math.cos(a) * (r + 5), Math.sin(a) * (r + 5), Math.cos(a) * (r + 11), Math.sin(a) * (r + 11)); }
+  return s;
+};
+P.moon = () => pa('M-2 -14 a14 14 0 1 0 10 25 a11 11 0 1 1 -10 -25');
+P.cloud = o => {
+  const w = o.w || 62;
+  return pa(`M${n2(-w / 2)} 8 q-6 -16 10 -17 q2 -16 18 -13 q12 -9 20 4 q14 -1 12 14 q0 8 -10 12 z`, 'sv-fill');
+};
+P.rain = o => {
+  const nn = o.n || 5; let s = '';
+  for (let i = 0; i < nn; i++){ const x = -22 + i * 11; s += ln(x, 0, x - 4, 13, 'sv-faint'); }
+  return s;
+};
+P.snowfall = o => {
+  const nn = o.n || 6; let s = '';
+  for (let i = 0; i < nn; i++) s += ci(-24 + i * 10, (i % 3) * 9, 2.6, 'sv-faint');
+  return s;
+};
+
+/* ---------- nhãn số / giá (neo: tâm) ---------- */
+P.tag = o => rc(-20, -12, 40, 24, 3, 'sv-fill')
+  + `<text class="sv-text" x="0" y="5" text-anchor="middle">${String(o.text || '').replace(/[<&>]/g, '')}</text>`;
+
+/* ============================================================
+   GHÉP TRANH
+   ============================================================ */
+function part(it){
+  const f = P[it.p];
+  if (!f) return '';
+  const inner = f(it) || '';
+  const s = it.s || 1, fx = it.flip ? -1 : 1;
+  const tr = `translate(${n2(it.x || 0)},${n2(it.y || 0)})`
+    + (s !== 1 || fx !== 1 ? ` scale(${n2(s * fx)},${n2(s)})` : '');
+  return `<g transform="${tr}">${inner}</g>`;
+}
+
+/** Bản ghi tranh -> chuỗi SVG hoàn chỉnh. */
+function render(spec, opts){
+  spec = spec || {};
+  opts = opts || {};
+  const bg = (BG[spec.bg] || BG.plain)();
+  const items = (spec.items || []).map(it => {
+    if (!it.rep || it.rep < 2) return part(it);
+    const gap = it.gap || 28, start = -(it.rep - 1) * gap / 2;
+    let out = '';
+    for (let i = 0; i < it.rep; i++) out += part(Object.assign({}, it, { x: (it.x || 0) + start + i * gap, rep: 0 }));
+    return out;
+  }).join('');
+  const label = opts.label ? ` role="img" aria-label="${String(opts.label).replace(/"/g, '&quot;')}"` : ' role="img" aria-label="Tranh của câu hỏi"';
+  return `<svg class="scene" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"`
+    + ` fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"${label}>`
+    + bg + items + '</svg>';
+}
+
+function partNames(){ return Object.keys(P).sort(); }
+function bgNames(){ return Object.keys(BG); }
+
+return { render, partNames, bgNames, W, H, FLOOR };
+})();
+
+if (typeof window !== 'undefined') window.SCENE = SCENE;
+if (typeof module !== 'undefined' && module.exports) module.exports = { SCENE };
+
+</script>
+<script>
+/* ============================================================
+   LangLab — NGHE & CHỌN CÂU ĐÚNG VỚI TRANH
+   ------------------------------------------------------------
+   Một tranh, bốn câu chỉ đọc lên chứ không hiện chữ. Người học nghe
+   tối đa hai lượt rồi chọn A/B/C/D. Chọn xong mới mở được lời thoại,
+   đáp án, giải thích từng câu nhiễu, chùm từ và điểm ngữ pháp — để
+   một câu hỏi dạy được nhiều thứ chứ không chỉ chấm đúng/sai.
+
+   Câu nhiễu soạn theo nguyên tắc: mỗi câu sai ĐÚNG MỘT chi tiết, và
+   ba câu sai trong cùng một bài phải khác kiểu nhau. Nếu ba câu cùng
+   một kiểu thì người học đoán được mẹo thay vì phải nghe.
+   Các kiểu nhiễu đang dùng:
+     vị trí · số lượng · giờ · gần âm · sai hành động · sai chủ thể ·
+     thêm chi tiết không có trong tranh · sai thì
+
+   Mỗi mục:
+     id · lang · lv · cat · scene (bản ghi tranh, xem js/scene-svg.js)
+     alt   — mô tả tranh cho trình đọc màn hình
+     opts  — 4 câu theo đúng thứ tự A · B · C · D; câu đúng có ok:true,
+             câu sai có why (giải thích bằng tiếng Việt) và trap (tên kiểu)
+     keys  — chùm từ bấm tra được
+     gram  — điểm ngữ pháp rút ra từ chính câu đúng
+
+   Nội dung do LangLab tự biên soạn.
+   ============================================================ */
+
+const LISTEN_PIC = [
+
+/* ---------------- A1 ---------------- */
+{ id:'en-01', lang:'en', lv:'a1', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'window', x:26, y:34, view:'rain' },
+    { p:'clock',  x:334, y:72, time:'7:30' },
+    { p:'table',  x:180, y:220, w:130 },
+    { p:'cat',    x:180, y:218, pose:'lie' },
+    { p:'chair',  x:300, y:220 }
+  ]},
+  alt:'Trong phòng: một con mèo nằm dưới gầm bàn, ghế đứng riêng bên phải, đồng hồ chỉ 7 giờ 30, ngoài cửa sổ trời mưa.',
+  opts:[
+    { t:'The cat is on the table.', why:'Sai vị trí. «on» là ở TRÊN mặt bàn, còn trong tranh con mèo nằm bên dưới.', trap:'vị trí' },
+    { t:'The cat is under the table.', ok:true },
+    { t:'The cat is sleeping next to the chair.', why:'Trong tranh có cái ghế thật, nhưng nó đứng tách hẳn sang bên phải, mèo không nằm cạnh ghế.', trap:'đúng vật, sai quan hệ' },
+    { t:'There are two cats under the table.', why:'Sai số lượng — chỉ có một con mèo.', trap:'số lượng' }
+  ],
+  keys:[
+    { w:'under', r:'/ˈʌndə/', vi:'ở dưới, dưới gầm' },
+    { w:'table', r:'/ˈteɪbl/', vi:'cái bàn' },
+    { w:'chair', r:'/tʃeə/', vi:'cái ghế' },
+    { w:'next to', r:'/nekst tuː/', vi:'bên cạnh' }
+  ],
+  gram:[{ p:'Giới từ chỉ vị trí: in · on · under · next to',
+    vi:'«on» là nằm trên bề mặt, «under» là ở phía dưới, «next to» là ngay bên cạnh. Ba từ này là bẫy quen thuộc của bài nghe xem tranh.',
+    ex:['The cat is under the table.', 'Con mèo nằm dưới gầm bàn.'] }] },
+
+{ id:'en-02', lang:'en', lv:'a1', cat:'Ẩm thực',
+  scene:{ bg:'room', items:[
+    { p:'window', x:286, y:32, view:'sun' },
+    { p:'table',  x:180, y:220, w:160 },
+    { p:'apple',  x:180, y:158, rep:3, gap:36 },
+    { p:'bird',   x:74,  y:218 }
+  ]},
+  alt:'Ba quả táo đặt trên bàn, một con chim đứng dưới sàn bên trái, ngoài cửa sổ trời nắng.',
+  opts:[
+    { t:'There are two apples on the table.', why:'Sai số lượng — trên bàn có ba quả.', trap:'số lượng' },
+    { t:'There is a bird on the table.', why:'Con chim có thật trong tranh nhưng nó đứng dưới sàn, không ở trên bàn.', trap:'đúng vật, sai vị trí' },
+    { t:'There are three apples on the table.', ok:true },
+    { t:'There are three apples under the table.', why:'Sai vị trí — táo nằm trên mặt bàn.', trap:'vị trí' }
+  ],
+  keys:[
+    { w:'apple', r:'/ˈæpl/', vi:'quả táo' },
+    { w:'bird', r:'/bɜːd/', vi:'con chim' },
+    { w:'three', r:'/θriː/', vi:'ba' },
+    { w:'there are', r:'/ðeər ɑː/', vi:'có (số nhiều)' }
+  ],
+  gram:[{ p:'There is / There are',
+    vi:'«There is» đi với danh từ số ít, «There are» đi với số nhiều. Nghe kỹ phần này là biết ngay câu nói về một hay nhiều vật.',
+    ex:['There are three apples on the table.', 'Trên bàn có ba quả táo.'] }] },
+
+{ id:'en-03', lang:'en', lv:'a1', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'fridge', x:52,  y:220 },
+    { p:'table',  x:150, y:220, w:84 },
+    { p:'cup',    x:150, y:158 },
+    { p:'person', x:236, y:220, pose:'cook' },
+    { p:'stove',  x:302, y:220 },
+    { p:'window', x:294, y:26, view:'sun' }
+  ]},
+  alt:'Trong bếp: Nam đứng nấu bên bếp lò, tủ lạnh ở bên trái, một cái cốc đặt trên bàn nhỏ.',
+  opts:[
+    { t:'Nam is cooking at the stove.', ok:true },
+    { t:'Nam is standing next to the fridge.', why:'Tủ lạnh có trong tranh nhưng ở tít bên trái, Nam đứng bên bếp lò.', trap:'đúng vật, sai vị trí' },
+    { t:'Nam is opening the window.', why:'Sai hành động — cửa sổ có thật nhưng Nam không đụng vào nó.', trap:'hành động' },
+    { t:'There is a cat under the table.', why:'Trong tranh không hề có con mèo nào. Câu nghe rất xuôi tai nên dễ gật bừa.', trap:'chi tiết không có' }
+  ],
+  keys:[
+    { w:'cook', r:'/kʊk/', vi:'nấu ăn' },
+    { w:'stove', r:'/stəʊv/', vi:'bếp lò' },
+    { w:'fridge', r:'/frɪdʒ/', vi:'tủ lạnh' },
+    { w:'open', r:'/ˈəʊpən/', vi:'mở' }
+  ],
+  gram:[{ p:'Thì hiện tại tiếp diễn: be + V-ing',
+    vi:'Dùng để tả việc đang xảy ra ngay lúc nhìn vào tranh. Đây là thì chính của mọi bài nghe xem tranh.',
+    ex:['Nam is cooking at the stove.', 'Nam đang nấu ăn bên bếp.'] }] },
+
+{ id:'en-04', lang:'en', lv:'a1', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'clock',  x:200, y:86, time:'8:15', r:40 },
+    { p:'person', x:120, y:220, pose:'walk' },
+    { p:'bag',    x:296, y:220, s:1.3 }
+  ]},
+  alt:'Đồng hồ treo tường chỉ 8 giờ 15, một người đang bước đi, cái túi để dưới sàn bên phải.',
+  opts:[
+    { t:'It is a quarter to eight.', why:'«a quarter TO eight» là 7 giờ 45, tức là còn mười lăm phút nữa mới tới 8 giờ.', trap:'giờ: to / past' },
+    { t:'It is half past eight.', why:'«half past eight» là 8 giờ 30, kim phút phải chỉ số 6.', trap:'giờ: nửa / một phần tư' },
+    { t:'It is a quarter past eight.', ok:true },
+    { t:'It is a quarter past nine.', why:'Đúng «a quarter past» nhưng sai giờ — kim ngắn đang ở số 8.', trap:'giờ: sai giờ' }
+  ],
+  keys:[
+    { w:'quarter', r:'/ˈkwɔːtə/', vi:'một phần tư, mười lăm phút' },
+    { w:'past', r:'/pɑːst/', vi:'hơn (giờ)' },
+    { w:'half', r:'/hɑːf/', vi:'một nửa, ba mươi phút' },
+    { w:'clock', r:'/klɒk/', vi:'đồng hồ treo' }
+  ],
+  gram:[{ p:'Nói giờ: past và to',
+    vi:'Từ phút 1 đến 30 dùng «past» (hơn): 8:15 là a quarter past eight. Từ phút 31 đến 59 dùng «to» (kém): 7:45 là a quarter to eight. Nghe nhầm past thành to là lỗi phổ biến nhất.',
+    ex:['It is a quarter past eight.', 'Bây giờ là tám giờ mười lăm.'] }] },
+
+{ id:'en-05', lang:'en', lv:'a1', cat:'Mua sắm',
+  scene:{ bg:'room', items:[
+    { p:'table', x:170, y:220, w:120 },
+    { p:'book',  x:170, y:158, s:1.4, open:true },
+    { p:'tag',   x:296, y:130, text:'$5' },
+    { p:'shelf', x:24,  y:40, w:76, h:92 }
+  ]},
+  alt:'Một cuốn sách đặt trên bàn, bên cạnh có bảng giá ghi 5 đô la, kệ sách ở góc trái.',
+  opts:[
+    { t:'The book is fifteen dollars.', why:'Bẫy gần âm: fifteen /fɪfˈtiːn/ nhấn ở cuối, còn five /faɪv/ chỉ một âm tiết. Bảng giá ghi 5.', trap:'gần âm: five / fifteen' },
+    { t:'The book is fifty dollars.', why:'Bẫy gần âm khó hơn: fifty /ˈfɪfti/ nhấn ở đầu. Vẫn không phải 5.', trap:'gần âm: five / fifty' },
+    { t:'The books are five dollars.', why:'Đúng giá nhưng sai số — trên bàn chỉ có một cuốn, phải là «the book IS».', trap:'số ít / số nhiều' },
+    { t:'The book is five dollars.', ok:true }
+  ],
+  keys:[
+    { w:'five', r:'/faɪv/', vi:'năm' },
+    { w:'fifteen', r:'/ˌfɪfˈtiːn/', vi:'mười lăm' },
+    { w:'fifty', r:'/ˈfɪfti/', vi:'năm mươi' },
+    { w:'dollar', r:'/ˈdɒlə/', vi:'đô la' }
+  ],
+  gram:[{ p:'Phân biệt -teen và -ty khi nghe',
+    vi:'fifteen nhấn vào âm cuối -TEEN, fifty nhấn vào âm đầu FIF-. Nghe trọng âm rơi ở đâu là biết số nào. Đây là chỗ mất điểm kinh điển trong mọi kỳ thi nghe.',
+    ex:['The book is five dollars.', 'Cuốn sách giá năm đô la.'] }] },
+
+/* ---------------- A2 ---------------- */
+{ id:'en-06', lang:'en', lv:'a2', cat:'Đời sống',
+  scene:{ bg:'street', items:[
+    { p:'cloud',    x:86,  y:48 },
+    { p:'rain',     x:86,  y:68, n:6 },
+    { p:'tree',     x:340, y:220 },
+    { p:'person',   x:176, y:220, pose:'walk' },
+    { p:'umbrella', x:182, y:100, open:true, s:1.3 }
+  ]},
+  alt:'Ngoài phố trời mưa, Lan vừa đi vừa che ô đang mở, bên phải có một cái cây.',
+  opts:[
+    { t:'It is snowing, so Lan is wearing a coat.', why:'Sai thời tiết — trong tranh là những vạch mưa xiên, không phải hạt tuyết tròn.', trap:'thời tiết' },
+    { t:'It is raining, so Lan is using an umbrella.', ok:true },
+    { t:'It is sunny, but Lan is carrying an umbrella.', why:'Nửa sau đúng (Lan có cầm ô) nên rất dễ gật. Nhưng trời đang mưa chứ không nắng.', trap:'đúng một nửa' },
+    { t:'Lan is closing her umbrella because the rain stopped.', why:'Cái ô trong tranh đang bung ra, và mưa vẫn rơi.', trap:'hành động ngược' }
+  ],
+  keys:[
+    { w:'umbrella', r:'/ʌmˈbrelə/', vi:'cái ô' },
+    { w:'rain', r:'/reɪn/', vi:'mưa' },
+    { w:'snow', r:'/snəʊ/', vi:'tuyết' },
+    { w:'so', r:'/səʊ/', vi:'nên, vì vậy' }
+  ],
+  gram:[{ p:'so và but nối hai vế',
+    vi:'«so» nối nguyên nhân với kết quả (trời mưa NÊN che ô). «but» nối hai vế trái ngược. Nghe từ nối là đoán được vế sau đi theo hướng nào.',
+    ex:['It is raining, so Lan is using an umbrella.', 'Trời đang mưa nên Lan che ô.'] }] },
+
+{ id:'en-07', lang:'en', lv:'a2', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'sofa',  x:172, y:220 },
+    { p:'cat',   x:142, y:174, pose:'sit', s:0.8 },
+    { p:'cat',   x:206, y:174, pose:'lie', s:0.8 },
+    { p:'clock', x:336, y:76, time:'3:15' }
+  ]},
+  alt:'Hai con mèo ở trên ghế sofa, một con ngồi và một con nằm, đồng hồ chỉ 3 giờ 15.',
+  opts:[
+    { t:'Two cats are under the sofa.', why:'Sai vị trí — hai con mèo ở trên mặt ghế.', trap:'vị trí' },
+    { t:'Three cats are on the sofa.', why:'Sai số lượng — chỉ có hai con.', trap:'số lượng' },
+    { t:'Two cats are on the sofa.', ok:true },
+    { t:'A cat and a dog are on the sofa.', why:'Sai chủ thể — cả hai con đều là mèo, trong tranh không có con chó nào.', trap:'chủ thể' }
+  ],
+  keys:[
+    { w:'sofa', r:'/ˈsəʊfə/', vi:'ghế sofa' },
+    { w:'dog', r:'/dɒɡ/', vi:'con chó' },
+    { w:'two', r:'/tuː/', vi:'hai' },
+    { w:'on', r:'/ɒn/', vi:'ở trên' }
+  ],
+  gram:[{ p:'Danh từ số nhiều và động từ đi kèm',
+    vi:'«Two cats ARE» — chủ ngữ số nhiều thì động từ to be phải là are. Nếu nghe thấy «is» thì câu đang nói về một vật.',
+    ex:['Two cats are on the sofa.', 'Hai con mèo nằm trên ghế sofa.'] }] },
+
+{ id:'en-08', lang:'en', lv:'a2', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'bed',     x:150, y:220 },
+    { p:'sleeper', x:158, y:180 },
+    { p:'window',  x:206, y:28, view:'night' },
+    { p:'clock',   x:342, y:74, time:'10:45', r:28 },
+    { p:'book',    x:300, y:220 }
+  ]},
+  alt:'Ban đêm: một người đang ngủ trên giường, ngoài cửa sổ có mặt trăng, đồng hồ chỉ 10 giờ 45, một cuốn sách để dưới sàn.',
+  opts:[
+    { t:'It is a quarter to eleven and he is sleeping.', ok:true },
+    { t:'It is a quarter past eleven and he is sleeping.', why:'Vế sau đúng nên rất dễ chọn. Nhưng 10:45 là «a quarter TO eleven», không phải past.', trap:'giờ: to / past' },
+    { t:'It is a quarter to eleven and he is reading.', why:'Cuốn sách có trong tranh nhưng nằm dưới sàn — người trong tranh đang ngủ.', trap:'đúng vật, sai hành động' },
+    { t:'It is a quarter to eleven and he is getting up.', why:'Sai hành động — đây là cảnh đang ngủ, không phải đang ngồi dậy.', trap:'hành động' }
+  ],
+  keys:[
+    { w:'sleep', r:'/sliːp/', vi:'ngủ' },
+    { w:'get up', r:'/ɡet ʌp/', vi:'ngủ dậy, đứng dậy' },
+    { w:'eleven', r:'/ɪˈlevn/', vi:'mười một' },
+    { w:'night', r:'/naɪt/', vi:'ban đêm' }
+  ],
+  gram:[{ p:'Nối hai mệnh đề bằng and',
+    vi:'Câu có hai vế thì phải đúng CẢ HAI. Bẫy hay gặp là để một vế đúng hoàn toàn, chỉ sai vế còn lại — nghe hết câu rồi hãy chọn.',
+    ex:['It is a quarter to eleven and he is sleeping.', 'Bây giờ là mười một giờ kém mười lăm và anh ấy đang ngủ.'] }] },
+
+{ id:'en-09', lang:'en', lv:'a2', cat:'Ẩm thực',
+  scene:{ bg:'room', items:[
+    { p:'table', x:186, y:220, w:170 },
+    { p:'bread', x:140, y:158 },
+    { p:'cup',   x:210, y:158 },
+    { p:'bowl',  x:262, y:158 },
+    { p:'window', x:300, y:30, view:'sun' }
+  ]},
+  alt:'Trên bàn có một ổ bánh mì, một cái cốc và một cái bát.',
+  opts:[
+    { t:'There is some bread and a bowl of soup on the table.', why:'Cái bát có thật trong tranh — nhưng câu bỏ mất cái cốc và nói thành bát súp.', trap:'đúng vật, sai mô tả' },
+    { t:'There are two cups of tea on the table.', why:'Sai số lượng — chỉ có một cái cốc.', trap:'số lượng' },
+    { t:'There is some bread and a cup of tea on the table.', ok:true },
+    { t:'There is some bread under the table.', why:'Sai vị trí — bánh mì nằm trên mặt bàn.', trap:'vị trí' }
+  ],
+  keys:[
+    { w:'bread', r:'/bred/', vi:'bánh mì' },
+    { w:'bowl', r:'/bəʊl/', vi:'cái bát' },
+    { w:'some', r:'/sʌm/', vi:'một ít' },
+    { w:'a cup of', r:'/ə kʌp ɒv/', vi:'một cốc (gì đó)' }
+  ],
+  gram:[{ p:'Danh từ không đếm được: some bread, a cup of tea',
+    vi:'bread và tea không đếm trực tiếp được nên không nói «a bread». Muốn đếm phải mượn vật chứa: a cup of tea, a bowl of soup, hoặc dùng «some».',
+    ex:['There is some bread and a cup of tea on the table.', 'Trên bàn có ít bánh mì và một cốc trà.'] }] },
+
+{ id:'en-10', lang:'en', lv:'a2', cat:'Thể thao',
+  scene:{ bg:'street', items:[
+    { p:'sun',    x:56,  y:48 },
+    { p:'tree',   x:330, y:220 },
+    { p:'person', x:170, y:220, pose:'run' },
+    { p:'ball',   x:250, y:220 },
+    { p:'bird',   x:96,  y:220, s:0.8 }
+  ]},
+  alt:'Ngoài công viên trời nắng: Huy đang chạy, quả bóng nằm trên mặt đất phía sau, có cây và một con chim.',
+  opts:[
+    { t:'Huy is walking in the park.', why:'Sai hành động, và đây là bẫy tinh: hai chân trong tranh dang rộng, thân đổ về trước — đó là chạy chứ không phải đi bộ.', trap:'hành động gần giống' },
+    { t:'Huy is playing with a ball.', why:'Quả bóng có thật nhưng đang nằm yên dưới đất, Huy không chơi với nó.', trap:'đúng vật, sai hành động' },
+    { t:'Huy is running in the park.', ok:true },
+    { t:'Huy is sitting under a tree.', why:'Cái cây có thật nhưng Huy đang chạy, không ngồi.', trap:'đúng vật, sai hành động' }
+  ],
+  keys:[
+    { w:'run', r:'/rʌn/', vi:'chạy' },
+    { w:'walk', r:'/wɔːk/', vi:'đi bộ' },
+    { w:'park', r:'/pɑːk/', vi:'công viên' },
+    { w:'ball', r:'/bɔːl/', vi:'quả bóng' }
+  ],
+  gram:[{ p:'run · walk · sit — chọn đúng động từ chỉ tư thế',
+    vi:'Tranh chỉ khác nhau ở dáng người: chạy thì chân dang rộng và người đổ về trước, đi bộ thì bước ngắn và thân thẳng. Nghe động từ rồi đối chiếu dáng.',
+    ex:['Huy is running in the park.', 'Huy đang chạy trong công viên.'] }] },
+
+/* ---------------- B1 ---------------- */
+{ id:'en-11', lang:'en', lv:'b1', cat:'Học tập',
+  scene:{ bg:'classroom', items:[
+    { p:'person', x:248, y:220, pose:'write' },
+    { p:'desk',   x:238, y:220, w:104 },
+    { p:'shelf',  x:326, y:132, w:62, h:84, rows:3 },
+    { p:'clock',  x:214, y:34, time:'9:00', r:24 }
+  ]},
+  alt:'Trong lớp học có bảng đen: Lan ngồi viết ở bàn, kệ sách ở bên phải, đồng hồ chỉ 9 giờ.',
+  opts:[
+    { t:'Lan is reading a book at her desk.', why:'Trên kệ có sách thật, nhưng Lan đang cầm bút viết chứ không cầm sách đọc.', trap:'đúng vật, sai hành động' },
+    { t:'Lan is writing on the board.', why:'Cái bảng có trong tranh nhưng Lan ngồi ở bàn, không đứng viết bảng.', trap:'đúng hành động, sai vị trí' },
+    { t:'Lan is sitting next to the window.', why:'Trong lớp này không vẽ cửa sổ nào. Câu nghe hợp lý nên dễ chọn bừa.', trap:'chi tiết không có' },
+    { t:'Lan is writing at her desk.', ok:true }
+  ],
+  keys:[
+    { w:'write', r:'/raɪt/', vi:'viết' },
+    { w:'desk', r:'/desk/', vi:'bàn học, bàn làm việc' },
+    { w:'board', r:'/bɔːd/', vi:'cái bảng' },
+    { w:'classroom', r:'/ˈklɑːsruːm/', vi:'lớp học' }
+  ],
+  gram:[{ p:'at · on — cùng là giới từ nhưng khác chỗ',
+    vi:'«at her desk» là ngồi tại bàn, «on the board» là viết lên mặt bảng. Đổi giới từ là đổi hẳn nơi chốn, dù động từ vẫn y nguyên.',
+    ex:['Lan is writing at her desk.', 'Lan đang ngồi viết ở bàn.'] }] },
+
+{ id:'en-12', lang:'en', lv:'b1', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'person', x:126, y:220, pose:'phone' },
+    { p:'person', x:236, y:220, pose:'read' },
+    { p:'plant',  x:338, y:220, s:1.3 },
+    { p:'window', x:286, y:30, view:'sun' }
+  ]},
+  alt:'Hai người trong phòng: người bên trái đang áp điện thoại lên tai, người bên phải cầm sách đọc. Bên phải có chậu cây.',
+  opts:[
+    { t:'Both of them are talking on the phone.', why:'«Both» là cả hai. Chỉ một người cầm điện thoại, người kia cầm sách.', trap:'số lượng: both' },
+    { t:'One of them is talking on the phone and the other is reading.', ok:true },
+    { t:'One of them is reading and the other is sleeping.', why:'Vế đầu đúng nên rất dễ gật. Nhưng không ai đang ngủ cả.', trap:'đúng một nửa' },
+    { t:'Neither of them is reading.', why:'«Neither» là không ai cả. Thực tế có một người đang đọc.', trap:'phủ định: neither' }
+  ],
+  keys:[
+    { w:'both', r:'/bəʊθ/', vi:'cả hai' },
+    { w:'neither', r:'/ˈnaɪðə/', vi:'không ai trong hai' },
+    { w:'the other', r:'/ði ˈʌðə/', vi:'người/cái còn lại' },
+    { w:'talk on the phone', r:'/tɔːk ɒn ðə fəʊn/', vi:'nói chuyện điện thoại' }
+  ],
+  gram:[{ p:'both · neither · one … the other',
+    vi:'Ba cách nói về hai người: «both» là cả hai, «neither» là không ai, «one … the other» là một người thế này, người kia thế kia. Nghe đúng từ đầu câu là loại được ngay hai đáp án.',
+    ex:['One of them is talking on the phone and the other is reading.', 'Một người đang nói điện thoại, người kia đang đọc sách.'] }] },
+
+{ id:'en-13', lang:'en', lv:'b1', cat:'Đời sống',
+  scene:{ bg:'street', items:[
+    { p:'sun',     x:60,  y:46 },
+    { p:'tree',    x:296, y:220 },
+    { p:'bicycle', x:248, y:220 },
+    { p:'person',  x:96,  y:220, pose:'walk' }
+  ]},
+  alt:'Ngoài phố trời nắng: một chiếc xe đạp dựng cạnh cây, một người đang đi bộ ở xa bên trái.',
+  opts:[
+    { t:'It is sunny and there is a bicycle next to the tree.', ok:true },
+    { t:'It is cloudy and there is a bicycle next to the tree.', why:'Vế sau đúng hoàn toàn nên dễ bỏ qua vế đầu. Trên trời là mặt trời có tia, không phải đám mây.', trap:'thời tiết' },
+    { t:'It is sunny and there are two bicycles next to the tree.', why:'Sai số lượng — chỉ có một chiếc xe đạp.', trap:'số lượng' },
+    { t:'It is sunny and there is a bicycle in front of the house.', why:'Trong tranh không có ngôi nhà nào. Chiếc xe đạp dựng cạnh cái cây.', trap:'chi tiết không có' }
+  ],
+  keys:[
+    { w:'sunny', r:'/ˈsʌni/', vi:'trời nắng' },
+    { w:'cloudy', r:'/ˈklaʊdi/', vi:'trời nhiều mây' },
+    { w:'bicycle', r:'/ˈbaɪsɪkl/', vi:'xe đạp' },
+    { w:'in front of', r:'/ɪn frʌnt ɒv/', vi:'phía trước' }
+  ],
+  gram:[{ p:'Tả thời tiết: It is + tính từ đuôi -y',
+    vi:'sun thành sunny, cloud thành cloudy, rain thành rainy, wind thành windy. Chủ ngữ luôn là «It», không nói «The weather is sun».',
+    ex:['It is sunny and there is a bicycle next to the tree.', 'Trời nắng và có một chiếc xe đạp dựng cạnh cây.'] }] },
+
+{ id:'en-14', lang:'en', lv:'b1', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'shelf', x:34,  y:96, w:82, h:110, rows:3 },
+    { p:'plant', x:160, y:220, s:1.5 },
+    { p:'chair', x:330, y:220 },
+    { p:'desk',  x:262, y:220, w:100 }
+  ]},
+  alt:'Trong phòng: kệ sách sát tường bên trái, chậu cây đứng giữa, bàn làm việc và ghế ở bên phải.',
+  opts:[
+    { t:'The plant is behind the desk.', why:'«behind» là ở phía sau. Chậu cây đứng ngang hàng, bên trái cái bàn.', trap:'vị trí' },
+    { t:'The plant is between the desk and the bookshelf.', ok:true },
+    { t:'The plant is in front of the bookshelf.', why:'Kệ sách có thật nhưng chậu cây không che trước nó, nó nằm ở khoảng giữa hai vật.', trap:'vị trí' },
+    { t:'There is no plant in the room.', why:'Phủ định thẳng thừng — nghe qua tưởng loại được ngay, nhưng chậu cây rõ ràng có trong tranh.', trap:'phủ định' }
+  ],
+  keys:[
+    { w:'between', r:'/bɪˈtwiːn/', vi:'ở giữa (hai vật)' },
+    { w:'behind', r:'/bɪˈhaɪnd/', vi:'phía sau' },
+    { w:'in front of', r:'/ɪn frʌnt ɒv/', vi:'phía trước' },
+    { w:'plant', r:'/plɑːnt/', vi:'cây trồng trong chậu' }
+  ],
+  gram:[{ p:'between A and B',
+    vi:'«between» luôn cần hai mốc, nối bằng «and»: between the desk AND the bookshelf. Nếu chỉ có một mốc thì phải dùng next to, behind hoặc in front of.',
+    ex:['The plant is between the desk and the bookshelf.', 'Chậu cây nằm giữa bàn làm việc và kệ sách.'] }] },
+
+{ id:'en-15', lang:'en', lv:'b1', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'window', x:288, y:28, view:'sun' },
+    { p:'clock',  x:64,  y:70, time:'7:00', r:26 },
+    { p:'table',  x:190, y:220, w:120 },
+    { p:'person', x:112, y:220, pose:'drink' },
+    { p:'bread',  x:236, y:158 }
+  ]},
+  alt:'Buổi sáng 7 giờ: một người đang đưa cốc lên uống, trên bàn có ổ bánh mì, ngoài cửa sổ trời nắng.',
+  opts:[
+    { t:'He drinks coffee every morning.', why:'Câu này đúng ngữ pháp và nghe rất hợp cảnh, nhưng nó tả THÓI QUEN. Tranh chỉ cho biết chuyện đang xảy ra lúc này.', trap:'sai thì' },
+    { t:'He is making coffee.', why:'Sai hành động — anh ấy đang đưa cốc lên uống, không phải đang pha.', trap:'hành động' },
+    { t:'He is drinking coffee right now.', ok:true },
+    { t:'He has finished his coffee.', why:'Sai thì và sai trạng thái — cốc đang trên tay, việc uống chưa xong.', trap:'sai thì' }
+  ],
+  keys:[
+    { w:'drink', r:'/drɪŋk/', vi:'uống' },
+    { w:'right now', r:'/raɪt naʊ/', vi:'ngay lúc này' },
+    { w:'every morning', r:'/ˈevri ˈmɔːnɪŋ/', vi:'mỗi sáng' },
+    { w:'finish', r:'/ˈfɪnɪʃ/', vi:'làm xong, kết thúc' }
+  ],
+  gram:[{ p:'Hiện tại tiếp diễn và hiện tại đơn khác nhau ở chỗ nào',
+    vi:'«He is drinking» là đang uống lúc này — đúng với tranh. «He drinks every morning» là thói quen lặp lại, tranh không nói được điều đó. Bài nghe xem tranh luôn hỏi cái ĐANG diễn ra.',
+    ex:['He is drinking coffee right now.', 'Anh ấy đang uống cà phê ngay lúc này.'] }] }
+
+];
+
+if (typeof window !== 'undefined') window.LISTEN_PIC = LISTEN_PIC;
+if (typeof module !== 'undefined' && module.exports) module.exports = { LISTEN_PIC };
+
+</script>
+<script>
+/* ============================================================
    LangLab — logic ứng dụng
    ============================================================ */
 (function(){
@@ -46139,6 +46962,7 @@ const state = {
   labiOpen: false,
   fact: null, factOpen: false, factsLang: null, factsCat: 'all',
   read: { lang:null, idx:null, tr:false, ans:{}, done:false },
+  pic:  { lang:null, idx:null, plays:0, pick:null, show:false },
   assistant: { tab:'chat', messages:[], busy:false,
                audio:{ busy:false, result:null, error:null, name:'', lang:'' } },
   deck: store.get('deck', []),
@@ -46724,6 +47548,69 @@ function sayWeb(text, lang, rate, pick, warn){
   } catch(e){ sayEnd(); }
 }
 sayWeb._warned = {};
+
+/* Đọc LIÊN TIẾP nhiều câu bằng giọng máy, dừng giữa chừng được bằng nút Dừng.
+   onLine(i) báo đang đọc câu thứ mấy để màn hình tô sáng theo. */
+function sayWebSeq(lines, lang, rate, pick, opts){
+  opts = opts || {};
+  const synth = window.speechSynthesis;
+  if (!synth){ toast('Trình duyệt chưa hỗ trợ phát âm'); return false; }
+  const mine = ++shToken;                       // dùng chung mốc dừng với stopAudio()
+  let i = 0;
+  const step = () => {
+    if (mine !== shToken) return;
+    if (i >= lines.length){ sayEnd(); if (opts.onEnd) opts.onEnd(); return; }
+    const idx = i;
+    if (opts.onLine) opts.onLine(idx);
+    const u = new SpeechSynthesisUtterance(String(lines[idx]));
+    u.lang = lang; u.rate = rate || 0.9;
+    const vs = synth.getVoices() || [];
+    const v = vs.find(x => pick.test((x.lang || '') + ' ' + (x.name || '')));
+    if (v) u.voice = v;
+    u.onend   = () => { if (mine !== shToken) return; i++; setTimeout(step, opts.gap || 380); };
+    u.onerror = () => { if (mine !== shToken) return; i++; setTimeout(step, 120); };
+    synth.speak(u);
+  };
+  synth.cancel();
+  sayBegin();
+  const vs = synth.getVoices() || [];
+  if (vs.length) step();
+  else { try { synth.addEventListener('voiceschanged', step, { once:true }); } catch(e){} setTimeout(step, 300); }
+  return true;
+}
+
+/* Giọng theo từng thứ tiếng (là hàm vì tiếng Anh còn tuỳ lựa chọn Anh–Mỹ) */
+const SAY_CFG = {
+  ko: () => ({ lang:'ko-KR', rate:0.86, pick:/^ko\b|ko[-_]|korean|\uD55C\uAD6D/i }),
+  zh: () => ({ lang:'zh-CN', rate:0.82, pick:/^zh\b|zh[-_]|chinese|\u4E2D\u6587/i }),
+  ja: () => ({ lang:'ja-JP', rate:0.85, pick:/^ja\b|ja[-_]|japanese|\u65E5\u672C/i }),
+  ru: () => ({ lang:'ru-RU', rate:0.85, pick:/^ru\b|ru[-_]|russian|\u0440\u0443\u0441\u0441\u043A/i }),
+  en: () => { const w = store.get('enVoice', 'uk');
+    return { lang: w === 'us' ? 'en-US' : 'en-GB', rate:0.9,
+             pick: w === 'us' ? /en[-_]us|american/i : /en[-_]gb|british|united kingdom/i }; }
+};
+
+/* Đọc một loạt câu: ưu tiên mp3 thu sẵn, không có thì dùng giọng máy. */
+function sayLines(lines, code, opts){
+  opts = opts || {};
+  stopAudio();
+  const cfg = (SAY_CFG[code] || SAY_CFG.en)();
+  const fin = () => { sayEnd(); if (opts.onEnd) opts.onEnd(); };
+  /* TTS thử lần lượt nhiều đường dẫn nên onFail có thể bắn vài lần cho cùng một câu;
+     chỉ được nhường cho giọng máy ĐÚNG MỘT lần, không thì câu đầu bị đọc lặp. */
+  let handed = false;
+  sayBegin();
+  TTS.playSeq(lines, {
+    gap: opts.gap || 420,
+    onLine: opts.onLine,
+    onEnd: fin,
+    onFail(){
+      if (handed) return;
+      handed = true;
+      sayWebSeq(lines, cfg.lang, cfg.rate, cfg.pick, { gap:opts.gap || 380, onLine:opts.onLine, onEnd:fin });
+    }
+  });
+}
 
 /* Ưu tiên tệp mp3 thu sẵn bằng giọng neural; giọng máy chỉ là dự phòng. */
 function speak(text, opts){
@@ -47588,6 +48475,191 @@ VIEWS.read = function(){
     <h2>Sau khi đọc</h2>
     <p>${esc(cur.after)}</p>
   </section>`;
+};
+
+/* ============================================================
+   NGHE & CHỌN CÂU ĐÚNG VỚI TRANH
+   Dữ liệu: listen-pic.js (LISTEN_PIC) · hình vẽ: scene-svg.js (SCENE)
+   Bốn đáp án chỉ đọc lên, không hiện chữ. Nghe tối đa hai lượt rồi
+   chọn; chọn xong mới mở được lời thoại, đáp án và phần học thêm.
+   ============================================================ */
+const _PIC = (typeof LISTEN_PIC !== 'undefined') ? LISTEN_PIC : [];
+const PIC_MAX_PLAYS = 2;
+const PIC_PROMPT = {
+  en: 'Look at the picture. Choose the sentence that describes it.',
+  ko: '그림을 보고 알맞은 문장을 고르십시오.',
+  zh: '看图，选出与图片相符的句子。',
+  ja: '絵を見て、合う文を選んでください。',
+  ru: 'Посмотрите на картинку и выберите подходящее предложение.'
+};
+const PIC_LETTERS = ['A', 'B', 'C', 'D'];
+
+function picLang(){
+  const l = state.pic.lang;
+  if (l && RD_LANGS.some(x => x.id === l)) return l;
+  return _PIC.some(q => q.lang === 'en') ? 'en' : (_PIC[0] ? _PIC[0].lang : 'en');
+}
+function picMeta(id){ return RD_LANGS.find(x => x.id === (id || picLang())) || RD_LANGS[4]; }
+function picList(){ return _PIC.filter(q => q.lang === picLang()); }
+function picCur(){ const L = picList(), i = state.pic.idx; return (i != null && L[i]) ? L[i] : null; }
+function picRes(){ return store.get('picRes', {}) || {}; }
+function picSetRes(id, ok){ const r = picRes(); r[id] = !!ok; store.set('picRes', r); }
+/* Các câu sẽ đọc lên: câu dẫn rồi tới A, B, C, D */
+function picLines(q){
+  return [PIC_PROMPT[q.lang] || PIC_PROMPT.en]
+    .concat(q.opts.map((o, i) => PIC_LETTERS[i] + '. ' + o.t));
+}
+function picPlayLabel(){
+  if (state.pic.show) return 'Nghe lại';
+  const left = Math.max(0, PIC_MAX_PLAYS - state.pic.plays);
+  return left ? ('Nghe · còn ' + left + ' lượt') : 'Hết lượt nghe';
+}
+function picPlay(){
+  const q = picCur(); if (!q) return;
+  if (!state.pic.show && state.pic.plays >= PIC_MAX_PLAYS){
+    toast('Đã hết lượt nghe — chọn một đáp án rồi mở lời thoại nhé'); return;
+  }
+  if (!state.pic.show){
+    state.pic.plays++;
+    const b = $('#picPlay'); if (b){ b.textContent = picPlayLabel(); if (state.pic.plays >= PIC_MAX_PLAYS) b.disabled = true; }
+  }
+  const mark = i => {
+    $$('.pic-opt').forEach(el => el.classList.remove('reading'));
+    if (i > 0){ const el = $$('.pic-opt')[i - 1]; if (el) el.classList.add('reading'); }
+  };
+  sayLines(picLines(q), q.lang, { onLine: mark, onEnd(){ $$('.pic-opt').forEach(el => el.classList.remove('reading')); } });
+}
+
+/* Nút nghe và nút tra từ theo đúng thứ tiếng của câu hỏi — thêm ngôn ngữ mới
+   chỉ cần bổ sung dữ liệu, không phải sửa màn hình. */
+function picSpeakBtn(text, cls){
+  const l = picLang();
+  if (l === 'en') return enSpeakBtn(text, cls);
+  if (l === 'ru') return ruSpeakBtn(text, cls);
+  if (l === 'ja') return jaSpeakBtn(text, cls);
+  if (l === 'zh') return `<button class="${cls || 'icon-btn'}" data-zh-speak="${esc(text)}" title="Nghe">${SPK_ICO}</button>`;
+  return `<button class="${cls || 'icon-btn'}" data-say="${esc(text)}" title="Nghe">${SPK_ICO}</button>`;
+}
+function picKeyBtn(k){
+  const l = picLang(), w = esc(k.w);
+  const attr = l === 'en' ? `data-en-word="${esc(String(k.w).toLowerCase())}"`
+             : l === 'ru' ? `data-ruw="${w}"`
+             : l === 'ja' ? `data-jaw="${w}"`
+             : l === 'zh' ? `data-zc="${w}"`
+             : `data-kw="${w}"`;
+  return `<button class="rd-key" ${attr}>
+    <span class="rd-key-w ${picMeta().cls}">${w}</span>
+    ${k.r ? `<span class="rd-key-r">${esc(k.r)}</span>` : ''}
+    <span class="rd-key-vi">${esc(k.vi)}</span>
+  </button>`;
+}
+
+VIEWS.pic = function(){
+  const meta = picMeta(), L = picList(), cur = picCur(), res = picRes();
+  const chips = `<div class="level-strip compact sh-langs">${RD_LANGS.map(l => {
+    const n = _PIC.filter(q => q.lang === l.id).length;
+    return `<button class="level-chip" data-pic-lang="${l.id}"${l.id === picLang() ? ' aria-pressed="true"' : ''}${n ? '' : ' disabled'}>${esc(l.vi)} <span class="sh-chip-n">${n}</span></button>`;
+  }).join('')}</div>`;
+
+  /* ---------- danh sách ---------- */
+  if (!cur){
+    const done = L.filter(q => res[q.id] != null).length, right = L.filter(q => res[q.id]).length;
+    return `
+    <div class="page-head">
+      <span class="eyebrow">Nghe &amp; chọn tranh · ${esc(meta.vi)}</span>
+      <h1>Nghe rồi chọn câu đúng với tranh</h1>
+      <p class="lede">Bốn câu chỉ được đọc lên chứ không hiện chữ, nghe tối đa hai lượt — giống phần nghe của đề thi thật.
+         Chọn xong mới mở lời thoại, đáp án, giải thích từng câu nhiễu và phần từ vựng · ngữ pháp.</p>
+    </div>
+    ${chips}
+    ${L.length ? `<p class="rd-count">${L.length} câu · đã làm ${done} · đúng ${right}</p>` : ''}
+    ${L.length ? `<div class="pic-grid">${L.map((q, i) => {
+      const st = res[q.id];
+      return `<button class="pic-card${st === true ? ' ok' : st === false ? ' no' : ''}" data-pic-open="${i}">
+        <span class="pic-thumb">${SCENE.render(q.scene, { label:q.alt })}</span>
+        <span class="pic-card-meta">
+          <span class="pic-lv">${esc(String(q.lv).toUpperCase())}</span>
+          <span class="pic-cat">${esc(q.cat)}</span>
+          ${st == null ? '' : `<span class="pic-mark">${st ? '✓' : '✗'}</span>`}
+        </span>
+      </button>`;
+    }).join('')}</div>`
+    : `<p class="zh-empty">Thứ tiếng này chưa có câu nào — tiếng Anh đang có ${_PIC.filter(q => q.lang === 'en').length} câu.</p>`}`;
+  }
+
+  /* ---------- một câu ---------- */
+  const picked = state.pic.pick, show = state.pic.show;
+  const ci = cur.opts.findIndex(o => o.ok);
+  const idx = state.pic.idx, last = L.length - 1;
+
+  const opts = cur.opts.map((o, i) => {
+    let cls = 'pic-opt';
+    if (show){
+      if (o.ok) cls += ' right';
+      else if (picked === i) cls += ' wrong';
+    } else if (picked === i) cls += ' picked';
+    return `<button class="${cls}" data-pic-ans="${i}"${show ? ' disabled' : ''}>
+      <span class="pic-letter">${PIC_LETTERS[i]}</span>
+      <span class="pic-opt-body">${show ? `<span class="pic-opt-t">${esc(o.t)}</span>` : '<span class="pic-opt-hidden">nghe rồi chọn</span>'}</span>
+    </button>`;
+  }).join('');
+
+  return `
+  <div class="page-head">
+    <button class="pbtn ghost" data-pic-back="1">← Danh sách câu</button>
+    <span class="eyebrow">Nghe &amp; chọn tranh · ${esc(meta.vi)} · ${esc(String(cur.lv).toUpperCase())}</span>
+    <h1>Câu ${idx + 1} / ${L.length}</h1>
+  </div>
+
+  <section class="zh-sec pic-stage">
+    <div class="pic-frame">${SCENE.render(cur.scene, { label:cur.alt })}</div>
+    <div class="pic-controls">
+      <button class="pbtn primary" id="picPlay" data-pic-play="1"${(!show && state.pic.plays >= PIC_MAX_PLAYS) ? ' disabled' : ''}>${picPlayLabel()}</button>
+      ${show ? '' : '<span class="pic-hint">Bốn câu chỉ được đọc lên, không hiện chữ.</span>'}
+    </div>
+    <div class="pic-opts">${opts}</div>
+    ${!show ? `<div class="pic-actions">
+        <button class="pbtn primary" data-pic-show="1"${picked == null ? ' disabled' : ''}>Xem lời thoại · đáp án</button>
+        ${picked == null ? '<span class="pic-hint">Chọn A, B, C hoặc D trước đã.</span>' : ''}
+      </div>` : ''}
+  </section>
+
+  ${show ? `
+  <section class="zh-sec">
+    <div class="pic-verdict ${picked === ci ? 'ok' : 'no'}">
+      ${picked === ci ? '✓ Đúng rồi.' : `✗ Chưa đúng — đáp án là <b>${PIC_LETTERS[ci]}</b>.`}
+    </div>
+    <h2>Lời thoại và vì sao ba câu kia sai</h2>
+    <ul class="pic-why">
+      ${cur.opts.map((o, i) => o.ok
+        ? `<li class="ok"><b>${PIC_LETTERS[i]}.</b> <span class="pic-why-t">${esc(o.t)}</span> ${picSpeakBtn(o.t, 'icon-btn mini')}<span class="pic-trap">đáp án đúng</span></li>`
+        : `<li><b>${PIC_LETTERS[i]}.</b> <span class="pic-why-t">${esc(o.t)}</span> ${picSpeakBtn(o.t, 'icon-btn mini')}<span class="pic-trap">${esc(o.trap)}</span><span class="pic-why-v">${esc(o.why)}</span></li>`
+      ).join('')}
+    </ul>
+    <p class="pic-alt"><b>Tranh vẽ gì:</b> ${esc(cur.alt)}</p>
+  </section>
+
+  <section class="zh-sec">
+    <h2>Từ trong câu</h2>
+    <div class="rd-keys">${cur.keys.map(k => `<button class="rd-key" data-en-word="${esc(String(k.w).toLowerCase())}">
+      <span class="rd-key-w ${picMeta().cls}">${esc(k.w)}</span>
+      ${k.r ? `<span class="rd-key-r">${esc(k.r)}</span>` : ''}
+      <span class="rd-key-vi">${esc(k.vi)}</span>
+    </button>`).join('')}</div>
+  </section>
+
+  <section class="zh-sec">
+    <h2>Ngữ pháp rút ra</h2>
+    ${cur.gram.map(g => `<div class="pic-gram">
+      <h3>${esc(g.p)}</h3>
+      <p>${esc(g.vi)}</p>
+      <div class="pic-gram-ex"><span class="pic-gram-en">${esc(g.ex[0])}</span> ${picSpeakBtn(g.ex[0], 'icon-btn mini')}<span class="pic-gram-vi">${esc(g.ex[1])}</span></div>
+    </div>`).join('')}
+    <div class="wp-actions" style="padding:10px 0 0">
+      <button class="pbtn" data-pic-retry="1">Làm lại câu này</button>
+      ${idx < last ? '<button class="pbtn primary" data-pic-next="1">Câu tiếp theo →</button>' : '<button class="pbtn" data-pic-back="1">Xong — về danh sách</button>'}
+    </div>
+  </section>` : ''}`;
 };
 
 /* ============================================================
@@ -51137,10 +52209,10 @@ let _histReady = false, _applyingHist = false, _curDesc = null;
 function wordIsOpen(){ return document.body.classList.contains('wp-open'); }
 function histDesc(){
   const tok = (typeof wordState !== 'undefined' && wordState && wordState.token) || null;
-  return { v: state.view, lesson: state.lesson || null, zl: (state.zh && state.zh.lesson) || null, rl: (state.ru && state.ru.lesson) || null, jl: (state.ja && state.ja.lesson) || null, shl: (state.shadow && state.shadow.lang) || 'ko', shp: !!(state.shadow && state.shadow.sents && state.shadow.sents.length), rdl: (state.read && state.read.lang) || null, rdi: (state.read && state.read.idx != null) ? state.read.idx : null, word: wordIsOpen() ? (tok || 1) : null };
+  return { v: state.view, lesson: state.lesson || null, zl: (state.zh && state.zh.lesson) || null, rl: (state.ru && state.ru.lesson) || null, jl: (state.ja && state.ja.lesson) || null, shl: (state.shadow && state.shadow.lang) || 'ko', shp: !!(state.shadow && state.shadow.sents && state.shadow.sents.length), rdl: (state.read && state.read.lang) || null, rdi: (state.read && state.read.idx != null) ? state.read.idx : null, pcl: (state.pic && state.pic.lang) || null, pci: (state.pic && state.pic.idx != null) ? state.pic.idx : null, word: wordIsOpen() ? (tok || 1) : null };
 }
 function descEq(a, b){
-  return !!a && !!b && a.v === b.v && (a.lesson || null) === (b.lesson || null) && (a.zl || null) === (b.zl || null) && (a.rl || null) === (b.rl || null) && (a.jl || null) === (b.jl || null) && (a.shl || 'ko') === (b.shl || 'ko') && !!a.shp === !!b.shp && (a.rdl || null) === (b.rdl || null) && (a.rdi == null ? null : a.rdi) === (b.rdi == null ? null : b.rdi) && !!a.word === !!b.word;
+  return !!a && !!b && a.v === b.v && (a.lesson || null) === (b.lesson || null) && (a.zl || null) === (b.zl || null) && (a.rl || null) === (b.rl || null) && (a.jl || null) === (b.jl || null) && (a.shl || 'ko') === (b.shl || 'ko') && !!a.shp === !!b.shp && (a.rdl || null) === (b.rdl || null) && (a.rdi == null ? null : a.rdi) === (b.rdi == null ? null : b.rdi) && (a.pcl || null) === (b.pcl || null) && (a.pci == null ? null : a.pci) === (b.pci == null ? null : b.pci) && !!a.word === !!b.word;
 }
 function syncHist(){
   if (!_histReady || _applyingHist) return;
@@ -51160,7 +52232,9 @@ function applyHist(s){
   const shChanged = !!sh && ((s.shl || 'ko') !== (sh.lang || 'ko') || !!s.shp !== !!(sh.sents && sh.sents.length));
   const rd = state.read;
   const rdChanged = !!rd && ((s.rdl || null) !== (rd.lang || null) || (s.rdi == null ? null : s.rdi) !== (rd.idx == null ? null : rd.idx));
-  const changed = rdChanged || s.v !== state.view || (s.lesson || null) !== (state.lesson || null) || (s.zl || null) !== ((state.zh && state.zh.lesson) || null) || (s.rl || null) !== ((state.ru && state.ru.lesson) || null) || (s.jl || null) !== ((state.ja && state.ja.lesson) || null) || shChanged;
+  const pc = state.pic;
+  const pcChanged = !!pc && ((s.pcl || null) !== (pc.lang || null) || (s.pci == null ? null : s.pci) !== (pc.idx == null ? null : pc.idx));
+  const changed = pcChanged || rdChanged || s.v !== state.view || (s.lesson || null) !== (state.lesson || null) || (s.zl || null) !== ((state.zh && state.zh.lesson) || null) || (s.rl || null) !== ((state.ru && state.ru.lesson) || null) || (s.jl || null) !== ((state.ja && state.ja.lesson) || null) || shChanged;
   if (changed){
     if (s.v !== state.view) stopAudio();
     state.view = s.v; state.lesson = s.lesson || null;
@@ -51168,6 +52242,7 @@ function applyHist(s){
     if (state.ru) state.ru.lesson = s.rl || null;
     if (state.ja) state.ja.lesson = s.jl || null;
     if (rd && rdChanged){ rd.lang = s.rdl || null; rd.idx = (s.rdi == null) ? null : s.rdi; rd.ans = {}; }
+    if (pc && pcChanged){ pc.lang = s.pcl || null; pc.idx = (s.pci == null) ? null : s.pci; pc.plays = 0; pc.pick = null; pc.show = false; }
     if (sh && shChanged){                       /* lùi/tiến trong màn Luyện shadowing */
       shStop();
       if ((s.shl || 'ko') !== (sh.lang || 'ko')) shSwitchLang(s.shl || 'ko');
@@ -53003,6 +54078,30 @@ document.addEventListener('click', e => {
   const kw = t.closest('[data-kw]');
   if (kw){ hideTip(); openWord(kw.dataset.kw); return; }
 
+  /* ----- nghe & chọn tranh ----- */
+  const pcL = t.closest('[data-pic-lang]');
+  if (pcL){ stopAudio(); state.pic.lang = pcL.dataset.picLang; state.pic.idx = null; render(); syncHist(); return; }
+  const pcO = t.closest('[data-pic-open]');
+  if (pcO){ stopAudio(); state.pic.idx = +pcO.dataset.picOpen; state.pic.plays = 0; state.pic.pick = null; state.pic.show = false; render(); syncHist(); return; }
+  if (t.closest('[data-pic-back]')){ stopAudio(); state.pic.idx = null; render(); syncHist(); return; }
+  if (t.closest('[data-pic-play]')){ picPlay(); return; }
+  const pcA = t.closest('[data-pic-ans]');
+  if (pcA){ if (state.pic.show) return; state.pic.pick = +pcA.dataset.picAns; render(); return; }
+  if (t.closest('[data-pic-show]')){
+    const q = picCur(); if (!q || state.pic.pick == null) return;
+    stopAudio(); state.pic.show = true;
+    picSetRes(q.id, !!(q.opts[state.pic.pick] && q.opts[state.pic.pick].ok));
+    render(); return;
+  }
+  if (t.closest('[data-pic-retry]')){ stopAudio(); state.pic.plays = 0; state.pic.pick = null; state.pic.show = false; render(); return; }
+  if (t.closest('[data-pic-next]')){
+    stopAudio();
+    const L = picList();
+    state.pic.idx = Math.min(L.length - 1, (state.pic.idx || 0) + 1);
+    state.pic.plays = 0; state.pic.pick = null; state.pic.show = false;
+    render(); syncHist(); return;
+  }
+
   /* ----- bài đọc ----- */
   const rdL = t.closest('[data-rd-lang]');
   if (rdL){ state.read.lang = rdL.dataset.rdLang; state.read.idx = null; state.read.ans = {}; render(); syncHist(); return; }
@@ -53456,7 +54555,11 @@ document.addEventListener('click', e => {
   if (hf){ if (exCtx().st.exam){ exCtx().st.exam.filter = hf.dataset.hskFilter; render(); } return; }
 
   const nav = t.closest('[data-go]');
-  if (nav){ go(nav.dataset.go); return; }
+  if (nav){
+    /* bấm mục «Nghe & tranh» trên navbar thì luôn về danh sách câu, không rơi lại câu đang dở */
+    if (nav.dataset.go === 'pic' && state.pic){ stopAudio(); state.pic.idx = null; state.pic.plays = 0; state.pic.pick = null; state.pic.show = false; }
+    go(nav.dataset.go); return;
+  }
 
   const les = t.closest('[data-lesson]');
   if (les){

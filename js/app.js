@@ -54,6 +54,7 @@ const state = {
   labiOpen: false,
   fact: null, factOpen: false, factsLang: null, factsCat: 'all',
   read: { lang:null, idx:null, tr:false, ans:{}, done:false },
+  pic:  { lang:null, idx:null, plays:0, pick:null, show:false },
   assistant: { tab:'chat', messages:[], busy:false,
                audio:{ busy:false, result:null, error:null, name:'', lang:'' } },
   deck: store.get('deck', []),
@@ -639,6 +640,69 @@ function sayWeb(text, lang, rate, pick, warn){
   } catch(e){ sayEnd(); }
 }
 sayWeb._warned = {};
+
+/* Đọc LIÊN TIẾP nhiều câu bằng giọng máy, dừng giữa chừng được bằng nút Dừng.
+   onLine(i) báo đang đọc câu thứ mấy để màn hình tô sáng theo. */
+function sayWebSeq(lines, lang, rate, pick, opts){
+  opts = opts || {};
+  const synth = window.speechSynthesis;
+  if (!synth){ toast('Trình duyệt chưa hỗ trợ phát âm'); return false; }
+  const mine = ++shToken;                       // dùng chung mốc dừng với stopAudio()
+  let i = 0;
+  const step = () => {
+    if (mine !== shToken) return;
+    if (i >= lines.length){ sayEnd(); if (opts.onEnd) opts.onEnd(); return; }
+    const idx = i;
+    if (opts.onLine) opts.onLine(idx);
+    const u = new SpeechSynthesisUtterance(String(lines[idx]));
+    u.lang = lang; u.rate = rate || 0.9;
+    const vs = synth.getVoices() || [];
+    const v = vs.find(x => pick.test((x.lang || '') + ' ' + (x.name || '')));
+    if (v) u.voice = v;
+    u.onend   = () => { if (mine !== shToken) return; i++; setTimeout(step, opts.gap || 380); };
+    u.onerror = () => { if (mine !== shToken) return; i++; setTimeout(step, 120); };
+    synth.speak(u);
+  };
+  synth.cancel();
+  sayBegin();
+  const vs = synth.getVoices() || [];
+  if (vs.length) step();
+  else { try { synth.addEventListener('voiceschanged', step, { once:true }); } catch(e){} setTimeout(step, 300); }
+  return true;
+}
+
+/* Giọng theo từng thứ tiếng (là hàm vì tiếng Anh còn tuỳ lựa chọn Anh–Mỹ) */
+const SAY_CFG = {
+  ko: () => ({ lang:'ko-KR', rate:0.86, pick:/^ko\b|ko[-_]|korean|\uD55C\uAD6D/i }),
+  zh: () => ({ lang:'zh-CN', rate:0.82, pick:/^zh\b|zh[-_]|chinese|\u4E2D\u6587/i }),
+  ja: () => ({ lang:'ja-JP', rate:0.85, pick:/^ja\b|ja[-_]|japanese|\u65E5\u672C/i }),
+  ru: () => ({ lang:'ru-RU', rate:0.85, pick:/^ru\b|ru[-_]|russian|\u0440\u0443\u0441\u0441\u043A/i }),
+  en: () => { const w = store.get('enVoice', 'uk');
+    return { lang: w === 'us' ? 'en-US' : 'en-GB', rate:0.9,
+             pick: w === 'us' ? /en[-_]us|american/i : /en[-_]gb|british|united kingdom/i }; }
+};
+
+/* Đọc một loạt câu: ưu tiên mp3 thu sẵn, không có thì dùng giọng máy. */
+function sayLines(lines, code, opts){
+  opts = opts || {};
+  stopAudio();
+  const cfg = (SAY_CFG[code] || SAY_CFG.en)();
+  const fin = () => { sayEnd(); if (opts.onEnd) opts.onEnd(); };
+  /* TTS thử lần lượt nhiều đường dẫn nên onFail có thể bắn vài lần cho cùng một câu;
+     chỉ được nhường cho giọng máy ĐÚNG MỘT lần, không thì câu đầu bị đọc lặp. */
+  let handed = false;
+  sayBegin();
+  TTS.playSeq(lines, {
+    gap: opts.gap || 420,
+    onLine: opts.onLine,
+    onEnd: fin,
+    onFail(){
+      if (handed) return;
+      handed = true;
+      sayWebSeq(lines, cfg.lang, cfg.rate, cfg.pick, { gap:opts.gap || 380, onLine:opts.onLine, onEnd:fin });
+    }
+  });
+}
 
 /* Ưu tiên tệp mp3 thu sẵn bằng giọng neural; giọng máy chỉ là dự phòng. */
 function speak(text, opts){
@@ -1503,6 +1567,191 @@ VIEWS.read = function(){
     <h2>Sau khi đọc</h2>
     <p>${esc(cur.after)}</p>
   </section>`;
+};
+
+/* ============================================================
+   NGHE & CHỌN CÂU ĐÚNG VỚI TRANH
+   Dữ liệu: listen-pic.js (LISTEN_PIC) · hình vẽ: scene-svg.js (SCENE)
+   Bốn đáp án chỉ đọc lên, không hiện chữ. Nghe tối đa hai lượt rồi
+   chọn; chọn xong mới mở được lời thoại, đáp án và phần học thêm.
+   ============================================================ */
+const _PIC = (typeof LISTEN_PIC !== 'undefined') ? LISTEN_PIC : [];
+const PIC_MAX_PLAYS = 2;
+const PIC_PROMPT = {
+  en: 'Look at the picture. Choose the sentence that describes it.',
+  ko: '그림을 보고 알맞은 문장을 고르십시오.',
+  zh: '看图，选出与图片相符的句子。',
+  ja: '絵を見て、合う文を選んでください。',
+  ru: 'Посмотрите на картинку и выберите подходящее предложение.'
+};
+const PIC_LETTERS = ['A', 'B', 'C', 'D'];
+
+function picLang(){
+  const l = state.pic.lang;
+  if (l && RD_LANGS.some(x => x.id === l)) return l;
+  return _PIC.some(q => q.lang === 'en') ? 'en' : (_PIC[0] ? _PIC[0].lang : 'en');
+}
+function picMeta(id){ return RD_LANGS.find(x => x.id === (id || picLang())) || RD_LANGS[4]; }
+function picList(){ return _PIC.filter(q => q.lang === picLang()); }
+function picCur(){ const L = picList(), i = state.pic.idx; return (i != null && L[i]) ? L[i] : null; }
+function picRes(){ return store.get('picRes', {}) || {}; }
+function picSetRes(id, ok){ const r = picRes(); r[id] = !!ok; store.set('picRes', r); }
+/* Các câu sẽ đọc lên: câu dẫn rồi tới A, B, C, D */
+function picLines(q){
+  return [PIC_PROMPT[q.lang] || PIC_PROMPT.en]
+    .concat(q.opts.map((o, i) => PIC_LETTERS[i] + '. ' + o.t));
+}
+function picPlayLabel(){
+  if (state.pic.show) return 'Nghe lại';
+  const left = Math.max(0, PIC_MAX_PLAYS - state.pic.plays);
+  return left ? ('Nghe · còn ' + left + ' lượt') : 'Hết lượt nghe';
+}
+function picPlay(){
+  const q = picCur(); if (!q) return;
+  if (!state.pic.show && state.pic.plays >= PIC_MAX_PLAYS){
+    toast('Đã hết lượt nghe — chọn một đáp án rồi mở lời thoại nhé'); return;
+  }
+  if (!state.pic.show){
+    state.pic.plays++;
+    const b = $('#picPlay'); if (b){ b.textContent = picPlayLabel(); if (state.pic.plays >= PIC_MAX_PLAYS) b.disabled = true; }
+  }
+  const mark = i => {
+    $$('.pic-opt').forEach(el => el.classList.remove('reading'));
+    if (i > 0){ const el = $$('.pic-opt')[i - 1]; if (el) el.classList.add('reading'); }
+  };
+  sayLines(picLines(q), q.lang, { onLine: mark, onEnd(){ $$('.pic-opt').forEach(el => el.classList.remove('reading')); } });
+}
+
+/* Nút nghe và nút tra từ theo đúng thứ tiếng của câu hỏi — thêm ngôn ngữ mới
+   chỉ cần bổ sung dữ liệu, không phải sửa màn hình. */
+function picSpeakBtn(text, cls){
+  const l = picLang();
+  if (l === 'en') return enSpeakBtn(text, cls);
+  if (l === 'ru') return ruSpeakBtn(text, cls);
+  if (l === 'ja') return jaSpeakBtn(text, cls);
+  if (l === 'zh') return `<button class="${cls || 'icon-btn'}" data-zh-speak="${esc(text)}" title="Nghe">${SPK_ICO}</button>`;
+  return `<button class="${cls || 'icon-btn'}" data-say="${esc(text)}" title="Nghe">${SPK_ICO}</button>`;
+}
+function picKeyBtn(k){
+  const l = picLang(), w = esc(k.w);
+  const attr = l === 'en' ? `data-en-word="${esc(String(k.w).toLowerCase())}"`
+             : l === 'ru' ? `data-ruw="${w}"`
+             : l === 'ja' ? `data-jaw="${w}"`
+             : l === 'zh' ? `data-zc="${w}"`
+             : `data-kw="${w}"`;
+  return `<button class="rd-key" ${attr}>
+    <span class="rd-key-w ${picMeta().cls}">${w}</span>
+    ${k.r ? `<span class="rd-key-r">${esc(k.r)}</span>` : ''}
+    <span class="rd-key-vi">${esc(k.vi)}</span>
+  </button>`;
+}
+
+VIEWS.pic = function(){
+  const meta = picMeta(), L = picList(), cur = picCur(), res = picRes();
+  const chips = `<div class="level-strip compact sh-langs">${RD_LANGS.map(l => {
+    const n = _PIC.filter(q => q.lang === l.id).length;
+    return `<button class="level-chip" data-pic-lang="${l.id}"${l.id === picLang() ? ' aria-pressed="true"' : ''}${n ? '' : ' disabled'}>${esc(l.vi)} <span class="sh-chip-n">${n}</span></button>`;
+  }).join('')}</div>`;
+
+  /* ---------- danh sách ---------- */
+  if (!cur){
+    const done = L.filter(q => res[q.id] != null).length, right = L.filter(q => res[q.id]).length;
+    return `
+    <div class="page-head">
+      <span class="eyebrow">Nghe &amp; chọn tranh · ${esc(meta.vi)}</span>
+      <h1>Nghe rồi chọn câu đúng với tranh</h1>
+      <p class="lede">Bốn câu chỉ được đọc lên chứ không hiện chữ, nghe tối đa hai lượt — giống phần nghe của đề thi thật.
+         Chọn xong mới mở lời thoại, đáp án, giải thích từng câu nhiễu và phần từ vựng · ngữ pháp.</p>
+    </div>
+    ${chips}
+    ${L.length ? `<p class="rd-count">${L.length} câu · đã làm ${done} · đúng ${right}</p>` : ''}
+    ${L.length ? `<div class="pic-grid">${L.map((q, i) => {
+      const st = res[q.id];
+      return `<button class="pic-card${st === true ? ' ok' : st === false ? ' no' : ''}" data-pic-open="${i}">
+        <span class="pic-thumb">${SCENE.render(q.scene, { label:q.alt })}</span>
+        <span class="pic-card-meta">
+          <span class="pic-lv">${esc(String(q.lv).toUpperCase())}</span>
+          <span class="pic-cat">${esc(q.cat)}</span>
+          ${st == null ? '' : `<span class="pic-mark">${st ? '✓' : '✗'}</span>`}
+        </span>
+      </button>`;
+    }).join('')}</div>`
+    : `<p class="zh-empty">Thứ tiếng này chưa có câu nào — tiếng Anh đang có ${_PIC.filter(q => q.lang === 'en').length} câu.</p>`}`;
+  }
+
+  /* ---------- một câu ---------- */
+  const picked = state.pic.pick, show = state.pic.show;
+  const ci = cur.opts.findIndex(o => o.ok);
+  const idx = state.pic.idx, last = L.length - 1;
+
+  const opts = cur.opts.map((o, i) => {
+    let cls = 'pic-opt';
+    if (show){
+      if (o.ok) cls += ' right';
+      else if (picked === i) cls += ' wrong';
+    } else if (picked === i) cls += ' picked';
+    return `<button class="${cls}" data-pic-ans="${i}"${show ? ' disabled' : ''}>
+      <span class="pic-letter">${PIC_LETTERS[i]}</span>
+      <span class="pic-opt-body">${show ? `<span class="pic-opt-t">${esc(o.t)}</span>` : '<span class="pic-opt-hidden">nghe rồi chọn</span>'}</span>
+    </button>`;
+  }).join('');
+
+  return `
+  <div class="page-head">
+    <button class="pbtn ghost" data-pic-back="1">← Danh sách câu</button>
+    <span class="eyebrow">Nghe &amp; chọn tranh · ${esc(meta.vi)} · ${esc(String(cur.lv).toUpperCase())}</span>
+    <h1>Câu ${idx + 1} / ${L.length}</h1>
+  </div>
+
+  <section class="zh-sec pic-stage">
+    <div class="pic-frame">${SCENE.render(cur.scene, { label:cur.alt })}</div>
+    <div class="pic-controls">
+      <button class="pbtn primary" id="picPlay" data-pic-play="1"${(!show && state.pic.plays >= PIC_MAX_PLAYS) ? ' disabled' : ''}>${picPlayLabel()}</button>
+      ${show ? '' : '<span class="pic-hint">Bốn câu chỉ được đọc lên, không hiện chữ.</span>'}
+    </div>
+    <div class="pic-opts">${opts}</div>
+    ${!show ? `<div class="pic-actions">
+        <button class="pbtn primary" data-pic-show="1"${picked == null ? ' disabled' : ''}>Xem lời thoại · đáp án</button>
+        ${picked == null ? '<span class="pic-hint">Chọn A, B, C hoặc D trước đã.</span>' : ''}
+      </div>` : ''}
+  </section>
+
+  ${show ? `
+  <section class="zh-sec">
+    <div class="pic-verdict ${picked === ci ? 'ok' : 'no'}">
+      ${picked === ci ? '✓ Đúng rồi.' : `✗ Chưa đúng — đáp án là <b>${PIC_LETTERS[ci]}</b>.`}
+    </div>
+    <h2>Lời thoại và vì sao ba câu kia sai</h2>
+    <ul class="pic-why">
+      ${cur.opts.map((o, i) => o.ok
+        ? `<li class="ok"><b>${PIC_LETTERS[i]}.</b> <span class="pic-why-t">${esc(o.t)}</span> ${picSpeakBtn(o.t, 'icon-btn mini')}<span class="pic-trap">đáp án đúng</span></li>`
+        : `<li><b>${PIC_LETTERS[i]}.</b> <span class="pic-why-t">${esc(o.t)}</span> ${picSpeakBtn(o.t, 'icon-btn mini')}<span class="pic-trap">${esc(o.trap)}</span><span class="pic-why-v">${esc(o.why)}</span></li>`
+      ).join('')}
+    </ul>
+    <p class="pic-alt"><b>Tranh vẽ gì:</b> ${esc(cur.alt)}</p>
+  </section>
+
+  <section class="zh-sec">
+    <h2>Từ trong câu</h2>
+    <div class="rd-keys">${cur.keys.map(k => `<button class="rd-key" data-en-word="${esc(String(k.w).toLowerCase())}">
+      <span class="rd-key-w ${picMeta().cls}">${esc(k.w)}</span>
+      ${k.r ? `<span class="rd-key-r">${esc(k.r)}</span>` : ''}
+      <span class="rd-key-vi">${esc(k.vi)}</span>
+    </button>`).join('')}</div>
+  </section>
+
+  <section class="zh-sec">
+    <h2>Ngữ pháp rút ra</h2>
+    ${cur.gram.map(g => `<div class="pic-gram">
+      <h3>${esc(g.p)}</h3>
+      <p>${esc(g.vi)}</p>
+      <div class="pic-gram-ex"><span class="pic-gram-en">${esc(g.ex[0])}</span> ${picSpeakBtn(g.ex[0], 'icon-btn mini')}<span class="pic-gram-vi">${esc(g.ex[1])}</span></div>
+    </div>`).join('')}
+    <div class="wp-actions" style="padding:10px 0 0">
+      <button class="pbtn" data-pic-retry="1">Làm lại câu này</button>
+      ${idx < last ? '<button class="pbtn primary" data-pic-next="1">Câu tiếp theo →</button>' : '<button class="pbtn" data-pic-back="1">Xong — về danh sách</button>'}
+    </div>
+  </section>` : ''}`;
 };
 
 /* ============================================================
@@ -5052,10 +5301,10 @@ let _histReady = false, _applyingHist = false, _curDesc = null;
 function wordIsOpen(){ return document.body.classList.contains('wp-open'); }
 function histDesc(){
   const tok = (typeof wordState !== 'undefined' && wordState && wordState.token) || null;
-  return { v: state.view, lesson: state.lesson || null, zl: (state.zh && state.zh.lesson) || null, rl: (state.ru && state.ru.lesson) || null, jl: (state.ja && state.ja.lesson) || null, shl: (state.shadow && state.shadow.lang) || 'ko', shp: !!(state.shadow && state.shadow.sents && state.shadow.sents.length), rdl: (state.read && state.read.lang) || null, rdi: (state.read && state.read.idx != null) ? state.read.idx : null, word: wordIsOpen() ? (tok || 1) : null };
+  return { v: state.view, lesson: state.lesson || null, zl: (state.zh && state.zh.lesson) || null, rl: (state.ru && state.ru.lesson) || null, jl: (state.ja && state.ja.lesson) || null, shl: (state.shadow && state.shadow.lang) || 'ko', shp: !!(state.shadow && state.shadow.sents && state.shadow.sents.length), rdl: (state.read && state.read.lang) || null, rdi: (state.read && state.read.idx != null) ? state.read.idx : null, pcl: (state.pic && state.pic.lang) || null, pci: (state.pic && state.pic.idx != null) ? state.pic.idx : null, word: wordIsOpen() ? (tok || 1) : null };
 }
 function descEq(a, b){
-  return !!a && !!b && a.v === b.v && (a.lesson || null) === (b.lesson || null) && (a.zl || null) === (b.zl || null) && (a.rl || null) === (b.rl || null) && (a.jl || null) === (b.jl || null) && (a.shl || 'ko') === (b.shl || 'ko') && !!a.shp === !!b.shp && (a.rdl || null) === (b.rdl || null) && (a.rdi == null ? null : a.rdi) === (b.rdi == null ? null : b.rdi) && !!a.word === !!b.word;
+  return !!a && !!b && a.v === b.v && (a.lesson || null) === (b.lesson || null) && (a.zl || null) === (b.zl || null) && (a.rl || null) === (b.rl || null) && (a.jl || null) === (b.jl || null) && (a.shl || 'ko') === (b.shl || 'ko') && !!a.shp === !!b.shp && (a.rdl || null) === (b.rdl || null) && (a.rdi == null ? null : a.rdi) === (b.rdi == null ? null : b.rdi) && (a.pcl || null) === (b.pcl || null) && (a.pci == null ? null : a.pci) === (b.pci == null ? null : b.pci) && !!a.word === !!b.word;
 }
 function syncHist(){
   if (!_histReady || _applyingHist) return;
@@ -5075,7 +5324,9 @@ function applyHist(s){
   const shChanged = !!sh && ((s.shl || 'ko') !== (sh.lang || 'ko') || !!s.shp !== !!(sh.sents && sh.sents.length));
   const rd = state.read;
   const rdChanged = !!rd && ((s.rdl || null) !== (rd.lang || null) || (s.rdi == null ? null : s.rdi) !== (rd.idx == null ? null : rd.idx));
-  const changed = rdChanged || s.v !== state.view || (s.lesson || null) !== (state.lesson || null) || (s.zl || null) !== ((state.zh && state.zh.lesson) || null) || (s.rl || null) !== ((state.ru && state.ru.lesson) || null) || (s.jl || null) !== ((state.ja && state.ja.lesson) || null) || shChanged;
+  const pc = state.pic;
+  const pcChanged = !!pc && ((s.pcl || null) !== (pc.lang || null) || (s.pci == null ? null : s.pci) !== (pc.idx == null ? null : pc.idx));
+  const changed = pcChanged || rdChanged || s.v !== state.view || (s.lesson || null) !== (state.lesson || null) || (s.zl || null) !== ((state.zh && state.zh.lesson) || null) || (s.rl || null) !== ((state.ru && state.ru.lesson) || null) || (s.jl || null) !== ((state.ja && state.ja.lesson) || null) || shChanged;
   if (changed){
     if (s.v !== state.view) stopAudio();
     state.view = s.v; state.lesson = s.lesson || null;
@@ -5083,6 +5334,7 @@ function applyHist(s){
     if (state.ru) state.ru.lesson = s.rl || null;
     if (state.ja) state.ja.lesson = s.jl || null;
     if (rd && rdChanged){ rd.lang = s.rdl || null; rd.idx = (s.rdi == null) ? null : s.rdi; rd.ans = {}; }
+    if (pc && pcChanged){ pc.lang = s.pcl || null; pc.idx = (s.pci == null) ? null : s.pci; pc.plays = 0; pc.pick = null; pc.show = false; }
     if (sh && shChanged){                       /* lùi/tiến trong màn Luyện shadowing */
       shStop();
       if ((s.shl || 'ko') !== (sh.lang || 'ko')) shSwitchLang(s.shl || 'ko');
@@ -6918,6 +7170,30 @@ document.addEventListener('click', e => {
   const kw = t.closest('[data-kw]');
   if (kw){ hideTip(); openWord(kw.dataset.kw); return; }
 
+  /* ----- nghe & chọn tranh ----- */
+  const pcL = t.closest('[data-pic-lang]');
+  if (pcL){ stopAudio(); state.pic.lang = pcL.dataset.picLang; state.pic.idx = null; render(); syncHist(); return; }
+  const pcO = t.closest('[data-pic-open]');
+  if (pcO){ stopAudio(); state.pic.idx = +pcO.dataset.picOpen; state.pic.plays = 0; state.pic.pick = null; state.pic.show = false; render(); syncHist(); return; }
+  if (t.closest('[data-pic-back]')){ stopAudio(); state.pic.idx = null; render(); syncHist(); return; }
+  if (t.closest('[data-pic-play]')){ picPlay(); return; }
+  const pcA = t.closest('[data-pic-ans]');
+  if (pcA){ if (state.pic.show) return; state.pic.pick = +pcA.dataset.picAns; render(); return; }
+  if (t.closest('[data-pic-show]')){
+    const q = picCur(); if (!q || state.pic.pick == null) return;
+    stopAudio(); state.pic.show = true;
+    picSetRes(q.id, !!(q.opts[state.pic.pick] && q.opts[state.pic.pick].ok));
+    render(); return;
+  }
+  if (t.closest('[data-pic-retry]')){ stopAudio(); state.pic.plays = 0; state.pic.pick = null; state.pic.show = false; render(); return; }
+  if (t.closest('[data-pic-next]')){
+    stopAudio();
+    const L = picList();
+    state.pic.idx = Math.min(L.length - 1, (state.pic.idx || 0) + 1);
+    state.pic.plays = 0; state.pic.pick = null; state.pic.show = false;
+    render(); syncHist(); return;
+  }
+
   /* ----- bài đọc ----- */
   const rdL = t.closest('[data-rd-lang]');
   if (rdL){ state.read.lang = rdL.dataset.rdLang; state.read.idx = null; state.read.ans = {}; render(); syncHist(); return; }
@@ -7371,7 +7647,11 @@ document.addEventListener('click', e => {
   if (hf){ if (exCtx().st.exam){ exCtx().st.exam.filter = hf.dataset.hskFilter; render(); } return; }
 
   const nav = t.closest('[data-go]');
-  if (nav){ go(nav.dataset.go); return; }
+  if (nav){
+    /* bấm mục «Nghe & tranh» trên navbar thì luôn về danh sách câu, không rơi lại câu đang dở */
+    if (nav.dataset.go === 'pic' && state.pic){ stopAudio(); state.pic.idx = null; state.pic.plays = 0; state.pic.pick = null; state.pic.show = false; }
+    go(nav.dataset.go); return;
+  }
 
   const les = t.closest('[data-lesson]');
   if (les){
