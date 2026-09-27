@@ -294,7 +294,54 @@ const VOCAB_JA = [
   { jp:'一年', kana:'いちねん', romaji:'ichinen', vi:'một năm', pos:'danh từ' },
   { jp:'年前', kana:'ねんまえ', romaji:'nen mae', vi:'… năm trước', pos:'hậu tố' },
   { jp:'毎週', kana:'まいしゅう', romaji:'maishuu', vi:'hằng tuần', pos:'danh từ' },
-  { jp:'出会う', kana:'であう', romaji:'deau', vi:'gặp gỡ, tình cờ gặp', pos:'động từ nhóm I', g:'1' }
+  { jp:'出会う', kana:'であう', romaji:'deau', vi:'gặp gỡ, tình cờ gặp', pos:'động từ nhóm I', g:'1' },
+
+  /* ---------- Bổ sung cho bài tập nghe – xem tranh ---------- */
+  /* Đồ vật */
+  { jp:'ソファ', kana:'ソファ', romaji:'sofa', vi:'ghế sofa', pos:'danh từ' },
+  { jp:'コート', kana:'コート', romaji:'kooto', vi:'áo khoác ngoài', pos:'danh từ' },
+  { jp:'めがね', kana:'めがね', romaji:'megane', vi:'cái kính', pos:'danh từ' },
+  { jp:'びん', kana:'びん', romaji:'bin', vi:'cái chai, lọ', pos:'danh từ' },
+  { jp:'きゅうす', kana:'きゅうす', romaji:'kyuusu', vi:'cái ấm pha trà', pos:'danh từ' },
+  { jp:'うえきばち', kana:'うえきばち', romaji:'uekibachi', vi:'chậu cây cảnh', pos:'danh từ' },
+  { jp:'はしご', kana:'はしご', romaji:'hashigo', vi:'cái thang', pos:'danh từ' },
+
+  /* Động từ và phó từ */
+  { jp:'指す', kana:'さす', romaji:'sasu', vi:'chỉ tay về phía', pos:'động từ nhóm I', g:'1' },
+  { jp:'だれも', kana:'だれも', romaji:'daremo', vi:'không một ai (đi với phủ định)', pos:'đại từ', note:'Luôn kết câu bằng phủ định: だれもいません.' },
+
+  /* Người — cách đếm */
+  { jp:'一人', kana:'ひとり', romaji:'hitori', vi:'một người', pos:'danh từ' },
+  { jp:'二人', kana:'ふたり', romaji:'futari', vi:'hai người', pos:'danh từ' },
+  { jp:'三人', kana:'さんにん', romaji:'sannin', vi:'ba người', pos:'danh từ' },
+
+  /* Số đếm kèm đơn vị hay gặp khi nghe */
+  { jp:'一つ', kana:'ひとつ', romaji:'hitotsu', vi:'một cái', pos:'số từ' },
+  { jp:'二つ', kana:'ふたつ', romaji:'futatsu', vi:'hai cái', pos:'số từ' },
+  { jp:'三つ', kana:'みっつ', romaji:'mittsu', vi:'ba cái', pos:'số từ' },
+  { jp:'四つ', kana:'よっつ', romaji:'yottsu', vi:'bốn cái', pos:'số từ' },
+  { jp:'一台', kana:'いちだい', romaji:'ichidai', vi:'một chiếc (xe, máy)', pos:'số từ' },
+  { jp:'一足', kana:'いっそく', romaji:'issoku', vi:'một đôi (giày, tất)', pos:'số từ' },
+  { jp:'一羽', kana:'いちわ', romaji:'ichiwa', vi:'một con (chim)', pos:'số từ' },
+  { jp:'二枚', kana:'にまい', romaji:'nimai', vi:'hai tấm, hai tờ', pos:'số từ' },
+
+  /* Giờ */
+  { jp:'一時', kana:'いちじ', romaji:'ichiji', vi:'một giờ', pos:'danh từ' },
+  { jp:'二時', kana:'にじ', romaji:'niji', vi:'hai giờ', pos:'danh từ' },
+  { jp:'三時', kana:'さんじ', romaji:'sanji', vi:'ba giờ', pos:'danh từ' },
+  { jp:'四時', kana:'よじ', romaji:'yoji', vi:'bốn giờ', pos:'danh từ', note:'Bắt buộc đọc よじ, không đọc しじ hay よんじ.' },
+  { jp:'五時', kana:'ごじ', romaji:'goji', vi:'năm giờ', pos:'danh từ' },
+  { jp:'七時', kana:'しちじ', romaji:'shichiji', vi:'bảy giờ', pos:'danh từ', note:'Bắt buộc đọc しちじ, không đọc ななじ.' },
+  { jp:'九時', kana:'くじ', romaji:'kuji', vi:'chín giờ', pos:'danh từ', note:'Bắt buộc đọc くじ, không đọc きゅうじ.' },
+  { jp:'十五分', kana:'じゅうごふん', romaji:'juugofun', vi:'mười lăm phút', pos:'danh từ' },
+
+  /* Số lớn */
+  { jp:'十五', kana:'じゅうご', romaji:'juugo', vi:'mười lăm', pos:'số từ' },
+  { jp:'五十', kana:'ごじゅう', romaji:'gojuu', vi:'năm mươi', pos:'số từ' },
+  { jp:'五百', kana:'ごひゃく', romaji:'gohyaku', vi:'năm trăm', pos:'số từ' },
+  { jp:'三百', kana:'さんびゃく', romaji:'sanbyaku', vi:'ba trăm', pos:'số từ' },
+  { jp:'五千', kana:'ごせん', romaji:'gosen', vi:'năm nghìn', pos:'số từ' },
+  { jp:'三千', kana:'さんぜん', romaji:'sanzen', vi:'ba nghìn', pos:'số từ' }
 ];
 
 if (typeof window !== 'undefined') window.VOCAB_JA = VOCAB_JA;
