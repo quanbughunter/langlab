@@ -1650,7 +1650,16 @@ function picSpeakBtn(text, cls){
 }
 function picKeyBtn(k){
   const l = picLang(), w = esc(k.w);
-  const attr = l === 'en' ? `data-en-word="${esc(String(k.w).toLowerCase())}"`
+  /* tiếng Anh: từ khoá có thể là dạng biến đổi (men, taller, closed) — nếu kho từ
+     không có đúng mặt chữ đó thì trỏ về dạng gốc để vẫn mở được mục từ. */
+  const enKey = (function(){
+    const raw = String(k.w).toLowerCase();
+    const L = (typeof EN_LOOKUP !== 'undefined') ? EN_LOOKUP : {};
+    if (L[raw]) return raw;
+    try { const b = enLemma(raw); if (b && L[b]) return b; } catch(e){}
+    return raw;
+  })();
+  const attr = l === 'en' ? `data-en-word="${esc(enKey)}"`
              : l === 'ru' ? `data-ruw="${w}"`
              : l === 'ja' ? `data-jaw="${w}"`
              : l === 'zh' ? `data-zc="${w}"`

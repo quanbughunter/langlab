@@ -885,7 +885,51 @@ const VOCAB_ZH = [
   {zh:'对…不好', pinyin:'duì…bù hǎo', hv:'đối…bất hảo', vi:'không tốt cho…', pos:'cấu trúc'},
   {zh:'从来没…过', pinyin:'cónglái méi…guo', hv:'tòng lai một…quá', vi:'chưa từng… bao giờ', pos:'cấu trúc'},
   {zh:'再也没…过', pinyin:'zài yě méi…guo', hv:'tái dã một…quá', vi:'không bao giờ… nữa', pos:'cấu trúc'},
-  {zh:'照…说的', pinyin:'zhào…shuō de', hv:'chiếu…thuyết đích', vi:'theo lời… nói', pos:'cấu trúc'}
+  {zh:'照…说的', pinyin:'zhào…shuō de', hv:'chiếu…thuyết đích', vi:'theo lời… nói', pos:'cấu trúc'},
+
+  /* ---------- Bổ sung: từ khoá của bài nghe xem tranh ---------- */
+  {zh:'棵', pinyin:'kē', hv:'khoả', vi:'cây (lượng từ cho cây cối)', pos:'lượng từ'},
+  {zh:'没有', pinyin:'méiyǒu', hv:'một hữu', vi:'không có', pos:'động từ'},
+  {zh:'下雪', pinyin:'xià xuě', hv:'hạ tuyết', vi:'trời có tuyết', pos:'cụm động từ'},
+  {zh:'十四', pinyin:'shísì', hv:'thập tứ', vi:'mười bốn', pos:'số từ'},
+  {zh:'四十', pinyin:'sìshí', hv:'tứ thập', vi:'bốn mươi', pos:'số từ'},
+  {zh:'一刻', pinyin:'yí kè', hv:'nhất khắc', vi:'mười lăm phút', pos:'cụm danh từ'},
+  {zh:'差一刻', pinyin:'chà yí kè', hv:'sai nhất khắc', vi:'kém mười lăm phút', pos:'cụm từ'},
+  {zh:'另一', pinyin:'lìng yī', hv:'lánh nhất', vi:'cái còn lại, cái kia', pos:'đại từ'},
+  {zh:'还没', pinyin:'hái méi', hv:'hoàn một', vi:'vẫn chưa', pos:'phó từ'},
+  {zh:'梯子', pinyin:'tīzi', hv:'thê tử', vi:'cái thang', pos:'danh từ'},
+  {zh:'写字', pinyin:'xiě zì', hv:'tả tự', vi:'viết chữ', pos:'cụm động từ'},
+  {zh:'看书', pinyin:'kàn shū', hv:'khán thư', vi:'đọc sách', pos:'cụm động từ'},
+  {zh:'看电视', pinyin:'kàn diànshì', hv:'khán điện thị', vi:'xem tivi', pos:'cụm động từ'},
+  {zh:'天上', pinyin:'tiānshàng', hv:'thiên thượng', vi:'trên trời', pos:'danh từ vị trí'},
+  {zh:'要…了', pinyin:'yào…le', hv:'yếu…liễu', vi:'sắp… rồi', pos:'cấu trúc'},
+
+  /* --- bổ sung cho bài tập nghe – xem tranh (đợt tiếng Trung) --- */
+  {zh:'第三', pinyin:'dì sān', hv:'đệ tam', vi:'thứ ba', pos:'số thứ tự'},
+  {zh:'第四', pinyin:'dì sì', hv:'đệ tứ', vi:'thứ tư', pos:'số thứ tự'},
+  {zh:'走路', pinyin:'zǒu lù', hv:'tẩu lộ', vi:'đi bộ', pos:'cụm động từ'},
+  {zh:'十五', pinyin:'shíwǔ', hv:'thập ngũ', vi:'mười lăm', pos:'số từ'},
+  {zh:'五十', pinyin:'wǔshí', hv:'ngũ thập', vi:'năm mươi', pos:'số từ'},
+  {zh:'十六', pinyin:'shíliù', hv:'thập lục', vi:'mười sáu', pos:'số từ'},
+  {zh:'六十', pinyin:'liùshí', hv:'lục thập', vi:'sáu mươi', pos:'số từ'},
+  {zh:'十七', pinyin:'shíqī', hv:'thập thất', vi:'mười bảy', pos:'số từ'},
+  {zh:'七十', pinyin:'qīshí', hv:'thất thập', vi:'bảy mươi', pos:'số từ'},
+  {zh:'不是', pinyin:'bú shì', hv:'bất thị', vi:'không phải là', pos:'cụm động từ'},
+  {zh:'指', pinyin:'zhǐ', hv:'chỉ', vi:'chỉ tay, trỏ về', pos:'động từ'},
+  {zh:'合', pinyin:'hé', hv:'hợp', vi:'khép lại, đóng lại', pos:'động từ'},
+  {zh:'路牌', pinyin:'lùpái', hv:'lộ bài', vi:'biển chỉ đường', pos:'danh từ'},
+  {zh:'因为', pinyin:'yīnwèi', hv:'nhân vị', vi:'vì, bởi vì', pos:'liên từ'},
+  {zh:'所以', pinyin:'suǒyǐ', hv:'sở dĩ', vi:'cho nên', pos:'liên từ'},
+  {zh:'虽然', pinyin:'suīrán', hv:'tuy nhiên', vi:'tuy, mặc dù', pos:'liên từ'},
+  {zh:'打伞', pinyin:'dǎ sǎn', hv:'đả tán', vi:'che ô, giương ô', pos:'cụm động từ'},
+  {zh:'地上', pinyin:'dìshàng', hv:'địa thượng', vi:'dưới sàn, trên mặt đất', pos:'danh từ vị trí'},
+  {zh:'另一只', pinyin:'lìng yì zhī', hv:'lánh nhất chích', vi:'con còn lại, cái còn lại', pos:'cụm danh từ'},
+  {zh:'没有人', pinyin:'méiyǒu rén', hv:'một hữu nhân', vi:'không có ai', pos:'cụm danh từ'},
+  {zh:'一双', pinyin:'yì shuāng', hv:'nhất song', vi:'một đôi', pos:'cụm lượng từ'},
+  {zh:'打开', pinyin:'dǎkāi', hv:'đả khai', vi:'mở ra', pos:'động từ'},
+  {zh:'起床', pinyin:'qǐchuáng', hv:'khởi sàng', vi:'ngủ dậy', pos:'động từ'},
+  {zh:'矮', pinyin:'ǎi', hv:'ải', vi:'thấp (chiều cao)', pos:'tính từ'},
+  {zh:'只有', pinyin:'zhǐyǒu', hv:'chỉ hữu', vi:'chỉ có', pos:'phó từ'}
 ];
 
 if (typeof window !== 'undefined') window.VOCAB_ZH = VOCAB_ZH;

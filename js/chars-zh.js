@@ -411,7 +411,13 @@ const CHARS_ZH = [
   {zh:'明', pinyin:'míng', hv:'minh', vi:'sáng, rõ; ngày mai (明天)', pos:'chữ Hán'},
   {zh:'于', pinyin:'yú', hv:'vu', vi:'ở, tại, đối với (văn viết)', pos:'chữ Hán'},
   {zh:'住', pinyin:'zhù', hv:'trú', vi:'ở, cư trú; dừng lại', pos:'chữ Hán'},
-  {zh:'同', pinyin:'tóng', hv:'đồng', vi:'giống nhau, cùng', pos:'chữ Hán'}
+  {zh:'同', pinyin:'tóng', hv:'đồng', vi:'giống nhau, cùng', pos:'chữ Hán'},
+  {zh:'帽', pinyin:'mào', hv:'mạo', vi:'mũ (trong 帽子)', pos:'chữ Hán'},
+  {zh:'汽', pinyin:'qì', hv:'khí', vi:'hơi nước (trong 汽车)', pos:'chữ Hán'},
+  {zh:'另', pinyin:'lìng', hv:'lánh', vi:'khác, cái kia', pos:'chữ Hán'},
+  {zh:'筷', pinyin:'kuài', hv:'khoái', vi:'đũa (trong 筷子)', pos:'chữ Hán'},
+  {zh:'套', pinyin:'tào', hv:'sáo', vi:'bộ; bọc ngoài (trong 外套)', pos:'chữ Hán'},
+  {zh:'架', pinyin:'jià', hv:'giá', vi:'cái giá, kệ (trong 书架)', pos:'chữ Hán'}
 ];
 
 if (typeof window !== 'undefined') window.CHARS_ZH = CHARS_ZH;

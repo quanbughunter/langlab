@@ -71,7 +71,12 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
 
   check('nhiễu phải SÁT câu đúng: mỗi câu có ít nhất một nhiễu chỉ lệch ≤2 từ', () => {
     const P = win.eval('LISTEN_PIC');
-    const tok = s => String(s).toLowerCase().replace(/[.,!?]/g, '').split(/\s+/).filter(Boolean);
+    /* zh·ja viết liền không cách, tách theo TỪ là vô nghĩa (cả câu thành 1 token)
+       -> hai thứ tiếng này đếm theo KÝ TỰ, các thứ tiếng còn lại đếm theo từ */
+    const CJK = { zh:1, ja:1 };
+    const tok = (s, lang) => CJK[lang]
+      ? [...String(s).replace(/[。、，！？·]/g, '')]
+      : String(s).toLowerCase().replace(/[.,!?]/g, '').split(/\s+/).filter(Boolean);
     const dist = (a, b) => {                       // Levenshtein đếm theo TỪ
       const m = a.length, n = b.length, d = Array.from({ length:m + 1 }, (_, i) => [i, ...Array(n).fill(0)]);
       for (let j = 0; j <= n; j++) d[0][j] = j;
@@ -79,9 +84,11 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
         d[i][j] = Math.min(d[i-1][j] + 1, d[i][j-1] + 1, d[i-1][j-1] + (a[i-1] === b[j-1] ? 0 : 1));
       return d[m][n];
     };
+    const LIM = { zh:3, ja:3 };                    // ký tự dày hơn từ nên nới 1 nấc
     const far = P.filter(q => {
-      const c = tok(q.opts.find(o => o.ok).t);
-      return Math.min(...q.opts.filter(o => !o.ok).map(o => dist(c, tok(o.t)))) > 2;
+      const c = tok(q.opts.find(o => o.ok).t, q.lang);
+      const lim = LIM[q.lang] || 2;
+      return Math.min(...q.opts.filter(o => !o.ok).map(o => dist(c, tok(o.t, q.lang)))) > lim;
     });
     if (far.length) console.log('   nhiễu còn xa:', far.map(x => x.id).join(' '));
     return far.length === 0;
@@ -111,6 +118,20 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
     return ks.length === 0;
   });
 
+  check('không dùng chữ lạ: mọi chữ Hán trong đáp án đều có trong từ điển tiếng Trung', () => {
+    const P = win.eval('LISTEN_PIC'), L = win.__zhDict.lookup;
+    const bad = {};
+    P.filter(q => q.lang === 'zh').forEach(q => q.opts.forEach(o => {
+      [...String(o.t)].forEach(c => {
+        if (!/[一-鿿]/.test(c) || L[c]) return;
+        (bad[c] = bad[c] || []).push(q.id);
+      });
+    }));
+    const ks = Object.keys(bad);
+    if (ks.length) console.log('   chưa tra được:', ks.map(k => k + ' [' + bad[k][0] + ']').slice(0, 14).join(' '), '(' + ks.length + ' chữ)');
+    return ks.length === 0;
+  });
+
   check('SCENE dựng được SVG hợp lệ cho mọi câu', () => {
     const P = win.eval('LISTEN_PIC'), SC = win.eval('SCENE');
     return P.every(q => {
@@ -124,10 +145,13 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
   check('navbar mở được màn Nghe & tranh, có chip 5 thứ tiếng và lưới câu hỏi', () =>
     n('[data-pic-lang]') === 5 && n('.pic-card') >= 110 && n('.pic-card .scene') >= 110);
 
-  check('thứ tiếng chưa có câu nào thì chip bị khoá', () => {
+  check('chip mở hay khoá đúng theo số câu của từng thứ tiếng', () => {
+    const P = win.eval('LISTEN_PIC');
     const chips = [...d.querySelectorAll('[data-pic-lang]')];
-    const en = chips.find(c => c.dataset.picLang === 'en');
-    return !en.disabled && chips.filter(c => c.disabled).length === 4;
+    return chips.every(c => {
+      const has = P.some(q => q.lang === c.dataset.picLang);
+      return has ? !c.disabled : !!c.disabled;
+    });
   });
 
   /* ---------- mở một câu ---------- */

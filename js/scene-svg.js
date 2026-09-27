@@ -278,6 +278,11 @@ P.cupboard = o => { const w = o.w || 66, h = o.h || 116, hw = w / 2;
     + ci(-6, -h / 2, 2.6, 'sv-accent') + ci(6, -h / 2, 2.6, 'sv-accent'); };
 P.laptop = () => pa('M-20 -12 h40 l4 12 h-48 z', 'sv-fill') + rc(-17, -40, 34, 28, 2, 'sv-fill');
 
+P.chopsticks = () => ln(-5, 0, -1, -34) + ln(5, 0, 2, -34);
+P.teapot = () => pa('M-16 -10 q0 -18 16 -18 q16 0 16 18 z', 'sv-fill')
+  + pa('M16 -18 q12 2 10 10') + pa('M-16 -22 q-10 -2 -8 -8') + ln(0, -28, 0, -34) + ci(0, -35, 3);
+P.hanger = () => pa('M-20 0 h40 l-20 -14 z', 'sv-fill') + pa('M0 -14 v-8 q0 -6 -7 -6');
+
 /* ---------- bổ sung: xe cộ (neo: đáy, giữa) ---------- */
 P.car = o => { const w = o.w || 92, hw = w / 2;
   return pa(`M${n2(-hw)} -14 l8 -16 h${n2(w - 30)} l10 16 z`, 'sv-fill')
