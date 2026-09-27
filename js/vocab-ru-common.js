@@ -1380,7 +1380,39 @@ const VOCAB_RU = [
   {ru:'Са́шенька', vi:'Sashenka — cách gọi âu yếm của Са́ша', pos:'tên riêng'},
   {ru:'Шу́ра', vi:'Shura — một cách gọi thân khác của Алекса́ндр', pos:'tên riêng'},
   {ru:'Санёк', vi:'Sanyok — cách gọi suồng sã của Алекса́ндр', pos:'tên riêng'},
-  {ru:'Ива́новна', vi:'Ivanovna — phụ danh nữ, con gái ông Ива́н', pos:'tên riêng'}
+  {ru:'Ива́новна', vi:'Ivanovna — phụ danh nữ, con gái ông Ива́н', pos:'tên riêng'},
+
+  /* ---------- Bổ sung cho bài tập nghe – xem tranh ---------- */
+  {ru:'стул', vi:'cái ghế (có lưng tựa)', pos:'danh từ giống đực'},
+  {ru:'соба́ка', vi:'con chó', pos:'danh từ giống cái'},
+  {ru:'де́рево', vi:'cái cây; gỗ', pos:'danh từ giống trung'},
+  {ru:'трина́дцать', vi:'mười ba', pos:'số từ'},
+  {ru:'три́ста', vi:'ba trăm', pos:'số từ'},
+  {ru:'пятьсо́т', vi:'năm trăm', pos:'số từ'},
+  {ru:'пятна́дцать', vi:'mười lăm', pos:'số từ'},
+  {ru:'пятьдеся́т', vi:'năm mươi', pos:'số từ'},
+  {ru:'ле́вый', vi:'bên trái', pos:'tính từ'},
+  {ru:'пра́вый', vi:'bên phải', pos:'tính từ'},
+  {ru:'бежа́ть', vi:'chạy (một hướng xác định)', pos:'động từ NSV'},
+  {ru:'пое́сть', vi:'ăn xong, ăn một chút', pos:'động từ СВ'},
+  {ru:'вы́пить', vi:'uống hết, uống xong', pos:'động từ СВ'},
+  {ru:'включи́ть', vi:'bật lên (đèn, máy)', pos:'động từ СВ'},
+  {ru:'вы́ключить', vi:'tắt đi (đèn, máy)', pos:'động từ СВ'},
+  {ru:'поднима́ться', vi:'trèo lên, đi lên', pos:'động từ NSV'},
+  {ru:'пока́зывать', vi:'chỉ ra, cho xem', pos:'động từ NSV'},
+  {ru:'занима́ться', vi:'học bài, làm việc gì đó', pos:'động từ NSV'},
+  {ru:'ле́стница', vi:'cái thang; cầu thang', pos:'danh từ giống cái'},
+  {ru:'по́лка', vi:'cái kệ, cái giá', pos:'danh từ giống cái'},
+  {ru:'ча́йник', vi:'cái ấm đun nước, ấm trà', pos:'danh từ giống đực'},
+  {ru:'буты́лка', vi:'cái chai', pos:'danh từ giống cái'},
+  {ru:'о́бувь', vi:'giày dép (nói chung)', pos:'danh từ giống cái'},
+  {ru:'шля́па', vi:'cái mũ (có vành)', pos:'danh từ giống cái'},
+  {ru:'холоди́льник', vi:'tủ lạnh', pos:'danh từ giống đực'},
+  {ru:'велосипе́д', vi:'xe đạp', pos:'danh từ giống đực'},
+  {ru:'ра́сти', vi:'mọc, lớn lên', pos:'động từ NSV'},
+  {ru:'вме́сте', vi:'cùng nhau', pos:'trạng từ'},
+  {ru:'о́коло', vi:'gần, bên cạnh (+ sinh cách)', pos:'giới từ'},
+  {ru:'ме́жду', vi:'ở giữa (+ công cụ cách)', pos:'giới từ'}
 ];
 
 if (typeof window !== 'undefined') window.VOCAB_RU = VOCAB_RU;

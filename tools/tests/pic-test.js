@@ -59,7 +59,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
       return (q.scene.items || []).some(it => parts.indexOf(it.p) < 0);
     });
     if (bad.length) console.log('   câu lỗi:', bad.map(x => x.id).join(' '));
-    return P.length >= 110 && bad.length === 0;
+    return P.length >= 300 && bad.length === 0;
   });
 
   check('ba câu nhiễu của MỘT bài không được cùng một kiểu bẫy', () => {
