@@ -127,6 +127,12 @@ P.window = o => {
 };
 P.door = o => {
   const w = o.w || 56, h = o.h || 118;
+  if (o.open){                                   // cánh bật ra ngoài, nhìn nghiêng
+    const d = o.flip ? -20 : 20;
+    return rc(0, 0, w, h, 2)
+      + pa(`M${n2(w)} 0 l${n2(d)} -12 v${n2(h + 24)} l${n2(-d)} -12 z`, 'sv-fill')
+      + ci(w + d * 0.45, h / 2, 3.4, 'sv-accent');
+  }
   return rc(0, 0, w, h, 2, 'sv-fill') + ci(w - 10, h / 2, 3.4, 'sv-accent');
 };
 P.shelf = o => {

@@ -934,6 +934,54 @@ const VOCAB_COMMON = [
   {ko:'얇다', rom:'yalda', vi:'mỏng', pos:'tính từ'},
   {ko:'젊다', rom:'jeomda', vi:'trẻ', pos:'tính từ'},
   {ko:'낯설다', rom:'natseolda', vi:'lạ lẫm, không quen', pos:'tính từ'},
-  {ko:'친하다', rom:'chinhada', vi:'thân thiết', pos:'tính từ', hanja:'親—', hv:'thân'}
+  {ko:'친하다', rom:'chinhada', vi:'thân thiết', pos:'tính từ', hanja:'親—', hv:'thân'},
+
+  /* ---------- Bổ sung cho bài tập nghe – xem tranh ---------- */
+  /* Đồ vật trong nhà */
+  {ko:'소파', rom:'sopa', vi:'ghế sofa', pos:'danh từ'},
+  {ko:'탁자', rom:'takja', vi:'cái bàn (bàn thấp, bàn trà)', pos:'danh từ', hanja:'卓子', hv:'trác tử'},
+  {ko:'외투', rom:'oetu', vi:'áo khoác ngoài', pos:'danh từ', hanja:'外套', hv:'ngoại sáo'},
+  {ko:'화분', rom:'hwabun', vi:'chậu cây cảnh', pos:'danh từ', hanja:'花盆', hv:'hoa bồn'},
+  {ko:'주전자', rom:'jujeonja', vi:'cái ấm (đun, rót nước)', pos:'danh từ', hanja:'酒煎子', hv:'tửu tiễn tử'},
+  {ko:'책장', rom:'chaekjang', vi:'kệ sách, giá sách', pos:'danh từ', hanja:'冊欌', hv:'sách tráp'},
+  {ko:'사다리', rom:'sadari', vi:'cái thang', pos:'danh từ'},
+  {ko:'표지판', rom:'pyojipan', vi:'biển báo, biển chỉ đường', pos:'danh từ', hanja:'標識板', hv:'tiêu chí bản'},
+  {ko:'글씨', rom:'geulssi', vi:'chữ viết, nét chữ', pos:'danh từ'},
+
+  /* Đơn vị đếm */
+  {ko:'켤레', rom:'kyeolle', vi:'đôi (đếm giày, tất)', pos:'đơn vị đếm'},
+  {ko:'그루', rom:'geuru', vi:'cây (đếm cây cối)', pos:'đơn vị đếm'},
+  {ko:'대', rom:'dae', vi:'chiếc (đếm xe cộ, máy móc)', pos:'đơn vị đếm', hanja:'臺', hv:'đài'},
+  {ko:'송이', rom:'songi', vi:'bông (đếm hoa)', pos:'đơn vị đếm'},
+
+  /* Số Hán–Hàn hay dùng khi nghe */
+  {ko:'백', rom:'baek', vi:'trăm', pos:'số từ', hanja:'百', hv:'bách'},
+  {ko:'천', rom:'cheon', vi:'nghìn', pos:'số từ', hanja:'千', hv:'thiên'},
+  {ko:'육', rom:'yuk', vi:'sáu', pos:'số từ', hanja:'六', hv:'lục'},
+  {ko:'십삼', rom:'sipsam', vi:'mười ba', pos:'số từ', hanja:'十三', hv:'thập tam'},
+  {ko:'오십', rom:'osip', vi:'năm mươi', pos:'số từ', hanja:'五十', hv:'ngũ thập'},
+  {ko:'오천', rom:'ocheon', vi:'năm nghìn', pos:'số từ', hanja:'五千', hv:'ngũ thiên'},
+  {ko:'삼천', rom:'samcheon', vi:'ba nghìn', pos:'số từ', hanja:'三千', hv:'tam thiên'},
+
+  /* Động từ và trạng thái */
+  {ko:'달리다', rom:'dallida', vi:'chạy', pos:'động từ'},
+  {ko:'공부하다', rom:'gongbuhada', vi:'học bài', pos:'động từ', hanja:'工夫—', hv:'công phu'},
+  {ko:'요리', rom:'yori', vi:'việc nấu ăn; món ăn', pos:'danh từ', hanja:'料理', hv:'liệu lý'},
+  {ko:'설거지', rom:'seolgeoji', vi:'việc rửa bát', pos:'danh từ'},
+  {ko:'가리키다', rom:'garikida', vi:'chỉ tay về phía', pos:'động từ'},
+  {ko:'열리다', rom:'yeollida', vi:'được mở ra', pos:'động từ'},
+  {ko:'닫히다', rom:'dachida', vi:'bị đóng lại', pos:'động từ'},
+  {ko:'켜지다', rom:'kyeojida', vi:'được bật lên', pos:'động từ'},
+  {ko:'꺼지다', rom:'kkeojida', vi:'bị tắt đi', pos:'động từ'},
+  {ko:'놓이다', rom:'nochida', vi:'được đặt, được để', pos:'động từ'},
+  {ko:'걸리다', rom:'geollida', vi:'được treo lên; mất (thời gian)', pos:'động từ'},
+  {ko:'올라가다', rom:'ollagada', vi:'trèo lên, đi lên', pos:'động từ'},
+
+  /* Trợ từ và phó từ hay làm bẫy nghe */
+  {ko:'에', rom:'e', vi:'ở, tại (nơi tồn tại); vào lúc', pos:'trợ từ'},
+  {ko:'에서', rom:'eseo', vi:'ở (nơi diễn ra hành động); từ', pos:'trợ từ'},
+  {ko:'도', rom:'do', vi:'cũng; (đi với phủ định) một… nào', pos:'trợ từ'},
+  {ko:'들', rom:'deul', vi:'đuôi chỉ số nhiều', pos:'đuôi từ'},
+  {ko:'아무도', rom:'amudo', vi:'không một ai (đi với phủ định)', pos:'đại từ'}
 ];
 if (typeof window !== 'undefined') window.VOCAB_COMMON = VOCAB_COMMON;
