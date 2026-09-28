@@ -1,0 +1,30 @@
+# Những gì KHÔNG được đưa lên Cloudflare Worker làm tệp tĩnh.
+# Cú pháp giống .gitignore. Wrangler đọc tệp này ở gốc thư mục assets.
+#
+# Vì sao cần: Worker «langlab» cấu hình assets.directory = "." nên trước đây
+# Wrangler quét cả thư mục gốc và tải LÊN MẠNG cả .git — ai cũng tải được
+# lịch sử repo qua …workers.dev/.git/… Lần build ngày 28/09/2026 mới lộ ra,
+# khi gói .git/objects/pack phồng lên 92,3 MB và vượt hạn 25 MiB mỗi tệp.
+# GitHub Pages không dính vì workflow chỉ đẩy nội dung đã checkout.
+
+# Kho git — tuyệt đối không phục vụ ra ngoài
+.git/
+.github/
+
+# Chỉ dùng lúc phát triển, người học không cần tải
+tools/
+docs/
+worker/
+dist/
+cache/
+*.bat
+*.py
+
+# Audio đĩa CD của giáo trình — CÓ BẢN QUYỀN, không bao giờ được lên mạng.
+# Đã có trong .gitignore nên không nằm trong repo, chặn ở đây là lớp khoá thứ hai.
+audio/ko/
+
+# Ảnh nháp: cũng đã có trong .gitignore, chặn thêm ở đây cho chắc
+logo-b2.png
+logo-goc-co-vien.png
+api-key.txt
