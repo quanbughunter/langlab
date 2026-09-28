@@ -34,7 +34,7 @@ for src in ("js/strokes.js", "js/course-ko.js", "js/vocab-common.js", "js/tts.js
             "js/trki-b1.js", "js/trki-b2.js", "js/trki-c1.js", "js/trki-c2.js",
             "js/morph-ru.js", "js/vocab-ru-common.js", "js/dict-ru.js",
             "js/kana-ja.js", "js/kanji-ja.js", "js/hanzi-data-ja.js", "js/course-ja.js", "js/morph-ja.js", "js/vocab-ja-common.js", "js/dict-ja.js", "js/exercises-ja.js", "js/speak-ja.js", "js/jlpt-exams.js", "js/phon-en.js", "js/course-en.js", "js/examples-en.js", "js/vocab-en-common.js", "js/dict-en.js", "js/idioms-en.js", "js/exercises-en.js", "js/ielts-exams.js", "js/toefl-exams.js", "js/speak-en.js",
-    "js/facts.js", "js/readings.js", "js/readings-zh.js", "js/readings-ko.js", "js/readings-ja.js", "js/readings-ru.js", "js/readings-en.js",
+    "js/facts.js", "js/facts-2.js", "js/readings.js", "js/readings-zh.js", "js/readings-ko.js", "js/readings-ja.js", "js/readings-ru.js", "js/readings-en.js",
     "js/course-fr.js", "js/course-es.js", "js/scene-svg.js", "js/listen-pic.js", "js/listen-pic-en2.js", "js/listen-pic-zh.js", "js/listen-pic-ko.js", "js/listen-pic-ja.js", "js/listen-pic-ru.js",
             "js/app.js"):
     html = re.sub(

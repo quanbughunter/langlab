@@ -37,7 +37,15 @@ let pass=0,fail=0; const check=(name,fn)=>{ try{ const r=fn(); if(r===false) thr
     const F=win.eval('FACTS')||[], A=win.eval('FACT_ART')||{};
     const by={}; F.forEach(f=>by[f.lang]=(by[f.lang]||0)+1);
     const seen=new Set(); const dup=F.filter(f=>{const k=f.lang+'|'+f.title; if(seen.has(k))return true; seen.add(k); return false;});
-    return F.length===320 && ['ko','zh','ru','ja','en'].every(l=>by[l]===64) && dup.length===0 && F.every(f=>!!A[f.art] && f.cat && f.title && f.body && f.extra && f.word && f.word.t && f.word.vi);
+    /* Kho đang được mở rộng dần lên 128 mẩu mỗi tiếng, nên không chốt cứng
+       tổng số nữa — chỉ đòi mỗi thứ tiếng có ÍT NHẤT 64 và mọi mẩu đều đủ trường. */
+    const langs = [...new Set(F.map(f=>f.lang))];
+    const thin = langs.filter(l=>by[l]<64);
+    if (thin.length) console.log('   thứ tiếng chưa đủ 64 mẩu:', thin.join(' '));
+    if (dup.length) console.log('   tiêu đề trùng:', dup.slice(0,3).join(' | '));
+    const bad = F.filter(f=>!(A[f.art] && f.cat && f.title && f.body && f.extra && f.word && f.word.t && f.word.vi));
+    if (bad.length) console.log('   mẩu thiếu trường:', bad.slice(0,3).map(f=>f.title.slice(0,30)).join(' | '));
+    return F.length>=320 && thin.length===0 && dup.length===0 && bad.length===0;
   });
   check('menu mọi ngôn ngữ đều có «Bạn có biết?», mỗi cái mang data-lang riêng', ()=>
     n('[data-go="facts"]')===7 && ['ko','zh','ru','ja','en','fr','es'].every(l=>n(`[data-go="facts"][data-lang="${l}"]`)===1));
