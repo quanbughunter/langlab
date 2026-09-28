@@ -252,12 +252,18 @@ async def synth(voice, items, voice_name, rate, force, jobs):
 
     Mỗi lần gọi edge-tts là một lần bắt tay WebSocket mới, và chính cái bắt tay
     đó chiếm gần hết thời gian chứ không phải việc đọc. Thu tuần tự mất ~6 giây
-    một tệp; thu 6 tệp song song thì còn khoảng 1 giây.
+    một tệp; thu vài tệp song song thì còn khoảng 1–1,5 giây.
+
+    Nhưng gọi dồn quá thì máy chủ chặn bớt và trả về «Access is denied» hàng loạt,
+    nên có chốt: hỏng liên tiếp 4 lần là cả lượt dừng 45 giây cho nó nguôi.
     """
     import edge_tts
     dst_dir = OUT / voice
     dst_dir.mkdir(parents=True, exist_ok=True)
     legacy = OUT                                   # bộ tiếng Hàn thu theo cách cũ
+
+    for junk in dst_dir.glob('*.part'):            # dọn tệp dở của lần chạy bị Ctrl+C
+        junk.unlink()
 
     todo, skipped = [], 0
     for it in items:
@@ -272,30 +278,51 @@ async def synth(voice, items, voice_name, rate, force, jobs):
             continue
         todo.append((it, dst))
 
-    done = failed = 0
+    done = failed = streak = 0
     sem = asyncio.Semaphore(jobs)
     lock = asyncio.Lock()
+    gate = asyncio.Event()                         # mở = được phép gọi mạng
+    gate.set()
+
+    async def cool_down():
+        """Máy chủ Microsoft chặn bớt khi thấy gọi dồn dập — «Access is denied».
+        Cứ lao vào gọi tiếp là hỏng cả loạt, nên dừng hẳn một nhịp cho nó nguôi."""
+        nonlocal streak
+        if not gate.is_set():                      # luồng khác đã dừng rồi thì chờ ké
+            await gate.wait()
+            return
+        gate.clear()
+        print('  … máy chủ đang chặn bớt, nghỉ 45 giây rồi thu tiếp')
+        await asyncio.sleep(45)
+        streak = 0
+        gate.set()
 
     async def one(it, dst):
-        nonlocal done, failed
+        nonlocal done, failed, streak
         tmp = dst.with_name(dst.stem + '.part')
         async with sem:
-            for attempt in range(3):               # rớt mạng thì thử lại, đừng bỏ luôn
+            for attempt in range(5):               # rớt mạng thì thử lại, đừng bỏ luôn
+                await gate.wait()
                 try:
                     await edge_tts.Communicate(it['text'], voice_name, rate=rate).save(str(tmp))
                     if tmp.stat().st_size < MIN_MP3:
                         raise IOError('tệp ra quá nhỏ (%d byte)' % tmp.stat().st_size)
                     tmp.replace(dst)               # đổi tên sau cùng: đứt giữa chừng không để lại tệp dở
+                    streak = 0
                     break
                 except Exception as e:
                     if tmp.exists():
                         tmp.unlink()
-                    if attempt == 2:
+                    streak += 1
+                    if attempt == 4:
                         async with lock:
                             failed += 1
-                            print('  lỗi: %-24s %s' % (it['text'][:22], e))
+                            print('  lỗi: %-24s %s' % (it['text'][:22], str(e)[:70]))
                         return
-                    await asyncio.sleep(1.5 * (attempt + 1))
+                    if streak >= 4:
+                        await cool_down()
+                    else:
+                        await asyncio.sleep(2 ** attempt)   # 1, 2, 4, 8 giây
         async with lock:
             done += 1
             if (done + failed) % 25 == 0 or done + failed == len(todo):
@@ -323,8 +350,8 @@ def main():
     ap.add_argument('--voice', action='append', default=[], metavar='LANG=VOICE',
                     help='đổi giọng, ví dụ --voice ko=ko-KR-InJoonNeural')
     ap.add_argument('--rate', default=None, help='ghi đè tốc độ cho mọi thứ tiếng, ví dụ -15%%')
-    ap.add_argument('--jobs', type=int, default=6, metavar='N',
-                    help='thu song song N tệp một lúc (mặc định 6). Mạng yếu thì hạ xuống 3.')
+    ap.add_argument('--jobs', type=int, default=4, metavar='N',
+                    help='thu song song N tệp một lúc (mặc định 4). Bị chặn nhiều thì hạ xuống 2.')
     ap.add_argument('--force', action='store_true', help='thu lại cả những tệp đã có')
     ap.add_argument('--dry-run', action='store_true')
     ap.add_argument('--dump-hashes', action='store_true',
