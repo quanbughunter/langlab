@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
 <meta name="description" content="Ứng dụng học ngoại ngữ theo bài cho người Việt: tiếng Hàn (TOPIK), tiếng Nhật (JLPT), tiếng Trung (HSK), tiếng Nga (ТРКИ), tiếng Anh (IELTS/TOEFL) — từ vựng, ngữ pháp, hội thoại, tập viết, từ điển, thi thử.">
-<link rel="icon" type="image/png" href="logo-icon.png?v=261130">
-<link rel="manifest" href="manifest.webmanifest?v=261130">
+<link rel="icon" type="image/png" href="logo-icon.png?v=261145">
+<link rel="manifest" href="manifest.webmanifest?v=261145">
 <meta name="theme-color" content="#EAF1FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=261130">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=261145">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="LangLab">
@@ -2258,7 +2258,7 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   <header class="nav">
     <div class="nav-in">
       <div class="brand" data-go="about" role="link" tabindex="0" title="Giới thiệu LangLab">
-        <span class="brand-mark"><img src="logo-icon.png?v=261130" alt="LangLab" width="40" height="40"></span>
+        <span class="brand-mark"><img src="logo-icon.png?v=261145" alt="LangLab" width="40" height="40"></span>
         <span class="brand-name"><b>Lang</b><i>Lab</i></span>
       </div>
 
@@ -8035,6 +8035,8 @@ const PROBE_WORDS = [
   ['Посмотрите на картинку и выберите подходящее предложение.', 'ru'],
   ['Look at the picture. Choose the sentence that describes it.', 'en-gb'],
   ['Look at the picture. Choose the sentence that describes it.', 'en-us'],
+  ['Regardez l’image et choisissez la phrase qui lui correspond.', 'fr'],
+  ['Mire la imagen y elija la frase que le corresponde.', 'es'],
   ['안녕하세요', ''],
   ['도서관', '']
 ];
@@ -55934,7 +55936,9 @@ const PIC_PROMPT = {
   ko: '그림을 보고 알맞은 문장을 고르십시오.',
   zh: '看图，选出与图片相符的句子。',
   ja: '絵を見て、合う文を選んでください。',
-  ru: 'Посмотрите на картинку и выберите подходящее предложение.'
+  ru: 'Посмотрите на картинку и выберите подходящее предложение.',
+  fr: 'Regardez l\u2019image et choisissez la phrase qui lui correspond.',
+  es: 'Mire la imagen y elija la frase que le corresponde.'
 };
 const PIC_LETTERS = ['A', 'B', 'C', 'D'];
 

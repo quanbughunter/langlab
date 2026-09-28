@@ -43,17 +43,21 @@ VOICES = {
     'ru':    'ru-RU-SvetlanaNeural',
     'en-gb': 'en-GB-SoniaNeural',
     'en-us': 'en-US-AriaNeural',
+    'fr':    'fr-FR-DeniseNeural',
+    'es':    'es-ES-ElviraNeural',
 }
 # Tốc độ: khớp với rate trong SAY_CFG của js/app.js, chậm hơn giọng thường một chút
-RATES = {'ko': '-12%', 'zh': '-15%', 'ja': '-10%', 'ru': '-10%', 'en-gb': '-8%', 'en-us': '-8%'}
+RATES = {'ko': '-12%', 'zh': '-15%', 'ja': '-10%', 'ru': '-10%', 'en-gb': '-8%', 'en-us': '-8%',
+         'fr': '-10%', 'es': '-8%'}
 
 # Thay bằng --voice ko=..., ví dụ vài giọng khác hay dùng:
 #   ko-KR-InJoonNeural · zh-CN-YunxiNeural · ja-JP-KeitaNeural
 #   ru-RU-DmitryNeural · en-GB-RyanNeural  · en-US-GuyNeural
 
-LANGS = ['ko', 'zh', 'ja', 'ru', 'en']
+LANGS = ['ko', 'zh', 'ja', 'ru', 'en', 'fr', 'es']
 # một thứ tiếng có thể sinh ra nhiều thư mục giọng
-VOICE_OF = {'ko': ['ko'], 'zh': ['zh'], 'ja': ['ja'], 'ru': ['ru'], 'en': ['en-gb', 'en-us']}
+VOICE_OF = {'ko': ['ko'], 'zh': ['zh'], 'ja': ['ja'], 'ru': ['ru'], 'en': ['en-gb', 'en-us'],
+            'fr': ['fr'], 'es': ['es']}
 
 
 # ── băm: phải khớp tuyệt đối với hàm hash() trong js/tts.js ──────────────
@@ -94,6 +98,8 @@ SCRIPT = {
     'ja': re.compile(r'[぀-ヿ一-鿿]'),
     'ru': re.compile(r'[Ѐ-ӿ]'),
     'en': re.compile(r'[A-Za-z]'),
+    'fr': re.compile(r'[A-Za-z\u00c0-\u00ff]'),
+    'es': re.compile(r'[A-Za-z\u00c0-\u00ff]'),
 }
 # tiếng Anh dùng chung bảng chữ Latin với tiếng Việt nên phải loại thêm
 VI_MARKS = re.compile('[À-ỹ̀-̣]')
@@ -102,7 +108,8 @@ VI_MARKS = re.compile('[À-ỹ̀-̣]')
 def is_lang(t: str, lang: str) -> bool:
     if not SCRIPT[lang].search(t):
         return False
-    if lang == 'en' and VI_MARKS.search(t):
+    # Anh, Pháp, TBN dùng chung bảng Latinh với tiếng Việt nên phải loại thêm
+    if lang in ('en', 'fr', 'es') and VI_MARKS.search(t):
         return False
     return True
 
@@ -115,7 +122,7 @@ def js_strings(src: str, key: str):
         yield m.group(1).replace("\\'", "'").replace('\\\\', '\\')
 
 
-COURSE_FIELD = {'ko': 'ko', 'zh': 'zh', 'ja': 'jp', 'ru': 'ru', 'en': 'en'}
+COURSE_FIELD = {'ko': 'ko', 'zh': 'zh', 'ja': 'jp', 'ru': 'ru', 'en': 'en', 'fr': 'fr', 'es': 'es'}
 LESSON_HDR = re.compile(r"\bno\s*:\s*(\d+)\s*,")
 
 
@@ -138,7 +145,9 @@ PIC_PROMPT = {
     'ko': '그림을 보고 알맞은 문장을 고르십시오.',
     'zh': '看图，选出与图片相符的句子。',
     'ja': '絵を見て、合う文を選んでください。',
-    'ru': 'Посмотрите на картинку и выберите подходящее предложение.'
+    'ru': 'Посмотрите на картинку и выберите подходящее предложение.',
+    'fr': 'Regardez l’image et choisissez la phrase qui lui correspond.',
+    'es': 'Mire la imagen y elija la frase que le corresponde.'
 }
 PIC_LETTERS = ['A', 'B', 'C', 'D']
 
@@ -198,7 +207,7 @@ def from_pic(lang: str):
             yield norm(t.replace("\\'", "'")), 'pic'
 
 
-RD_FIELD = {'ko': 'ko', 'zh': 'zh', 'ja': 'jp', 'ru': 'ru', 'en': 'en'}
+RD_FIELD = {'ko': 'ko', 'zh': 'zh', 'ja': 'jp', 'ru': 'ru', 'en': 'en', 'fr': 'fr', 'es': 'es'}
 
 
 def from_readings(lang: str):

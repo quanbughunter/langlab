@@ -1663,7 +1663,9 @@ const PIC_PROMPT = {
   ko: '그림을 보고 알맞은 문장을 고르십시오.',
   zh: '看图，选出与图片相符的句子。',
   ja: '絵を見て、合う文を選んでください。',
-  ru: 'Посмотрите на картинку и выберите подходящее предложение.'
+  ru: 'Посмотрите на картинку и выберите подходящее предложение.',
+  fr: 'Regardez l\u2019image et choisissez la phrase qui lui correspond.',
+  es: 'Mire la imagen y elija la frase que le corresponde.'
 };
 const PIC_LETTERS = ['A', 'B', 'C', 'D'];
 

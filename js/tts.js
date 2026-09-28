@@ -223,6 +223,8 @@ const PROBE_WORDS = [
   ['Посмотрите на картинку и выберите подходящее предложение.', 'ru'],
   ['Look at the picture. Choose the sentence that describes it.', 'en-gb'],
   ['Look at the picture. Choose the sentence that describes it.', 'en-us'],
+  ['Regardez l’image et choisissez la phrase qui lui correspond.', 'fr'],
+  ['Mire la imagen y elija la frase que le corresponde.', 'es'],
   ['안녕하세요', ''],
   ['도서관', '']
 ];
