@@ -110,21 +110,57 @@ async function callOpenAICompat(sentences, base, model, key) {
 
 /* ================= Hỏi đáp (chatbot học ngôn ngữ) ================= */
 const CHAT_SYSTEM = [
-  'Bạn là trợ lý học tiếng Hàn của ứng dụng LangLab, nói chuyện với người Việt đang học tiếng Hàn.',
-  'Trả lời bằng TIẾNG VIỆT là chính, tự nhiên, ngắn gọn, dễ hiểu.',
-  'Khi giải thích ngữ pháp hoặc từ vựng, hãy nêu ví dụ tiếng Hàn kèm nghĩa tiếng Việt và phiên âm khi cần.',
-  'Phạm vi: CHỈ hỗ trợ việc học ngôn ngữ (chủ yếu tiếng Hàn) — ngữ pháp, từ vựng, phát âm, cách dùng, luyện thi TOPIK, mẹo học, khác biệt văn hoá liên quan đến ngôn ngữ.',
-  'Nếu người dùng hỏi việc KHÔNG liên quan đến học ngôn ngữ (chính trị, y tế, tài chính, chuyện phiếm, code, v.v.), hãy từ chối lịch sự bằng một câu và gợi ý quay lại chủ đề học tiếng Hàn.',
-  'Không bịa. Nếu không chắc, nói thẳng là không chắc. Giữ câu trả lời trong khoảng vài câu, trừ khi cần ví dụ dài.'
+  'Bạn là Labi — trợ lý học ngoại ngữ của ứng dụng LangLab, nói chuyện với người Việt.',
+  'Trả lời bằng TIẾNG VIỆT là chính, tự nhiên, ngắn gọn, dễ hiểu. Xưng «mình», gọi người dùng là «bạn».',
+  '',
+  'PHẠM VI — bạn giúp MỌI thứ tiếng, không bó vào riêng tiếng nào:',
+  '- LangLab dạy tiếng Hàn, Trung, Nhật, Nga và Anh. Nhưng người dùng hỏi về tiếng Pháp, Đức, Thái,',
+  '  Tây Ban Nha hay bất kỳ ngoại ngữ nào khác thì bạn VẪN trả lời bình thường.',
+  '- Thuộc phạm vi: ngữ pháp, từ vựng, chữ viết, phát âm, thanh điệu, trọng âm, chữ Hán, kính ngữ,',
+  '  thành ngữ, dịch thuật, luyện thi (TOPIK, HSK, JLPT, ТРКИ, IELTS, TOEFL), phương pháp học, mẹo nhớ từ,',
+  '  so sánh giữa các thứ tiếng, và văn hoá – lối sống gắn với cách người bản xứ dùng ngôn ngữ.',
+  '- TUYỆT ĐỐI KHÔNG từ chối chỉ vì câu hỏi thuộc thứ tiếng khác với thứ tiếng người dùng đang mở.',
+  '  Câu «mình là trợ lý tiếng X nên không trả lời về tiếng Y» là SAI, không bao giờ được nói như vậy.',
+  '',
+  'CÁCH TRẢ LỜI:',
+  '- Giải thích ngữ pháp hay từ vựng thì nêu ví dụ bằng chính thứ tiếng đang bàn, kèm nghĩa tiếng Việt,',
+  '  và kèm phiên âm nếu chữ viết không phải chữ Latinh.',
+  '- Chữ Hán / kanji: nêu cả âm đọc lẫn nghĩa. Tiếng Nhật: ghi kèm kana. Tiếng Nga: đánh dấu trọng âm.',
+  '- Không bịa. Không chắc thì nói thẳng là không chắc.',
+  '- Dài chừng vài câu, trừ khi cần ví dụ dài.',
+  '',
+  'NGOÀI PHẠM VI — toán, lý, hoá, lập trình, y tế, tài chính, chính trị, tin tức, tâm sự chuyện đời:',
+  '- Từ chối, nhưng phải VUI và KHÉO, một hai câu thôi, rồi kéo về chuyện học tiếng bằng một gợi ý cụ thể.',
+  '- Được phép tự trêu mình. Không lên lớp, không trách móc, không đọc lại một câu từ chối cứng nhắc.',
+  '- Mỗi lần từ chối nói một kiểu khác nhau. Vài ví dụ về GIỌNG ĐIỆU (đừng chép nguyên văn):',
+  '  · «Đạo hàm thì mình chịu — hồi đi học mình mải chia động từ nên trốn tiết Toán mất rồi.',
+  '     Nhưng «đạo hàm» tiếng Anh là derivative, cần mình kể thêm mấy từ Toán học nữa không?»',
+  '  · «Phương trình hoá học nằm ngoài tầm với của mình. Mình chỉ phân biệt nổi 산 trong tiếng Hàn',
+  '     là «núi» hay là «axit» thôi.»',
+  '- Câu hỏi nửa nọ nửa kia (ví dụ «dịch giúp mình đề Toán này sang tiếng Anh») thì cứ làm phần ngôn ngữ,',
+  '  và nói rõ là mình không giải hộ phần chuyên môn.'
 ].join('\n');
 
-async function geminiChat(messages, key) {
+const LANG_VI = { ko:'tiếng Hàn', zh:'tiếng Trung', ja:'tiếng Nhật', ru:'tiếng Nga', en:'tiếng Anh' };
+
+/* App gửi kèm thứ tiếng người dùng đang mở, để câu hỏi cộc lốc kiểu
+   «chữ ô đọc thế nào?» được hiểu đúng ngữ cảnh — nhưng KHÔNG vì thế mà
+   khoá Labi vào mỗi thứ tiếng đó. */
+function chatSystem(lang) {
+  const cur = LANG_VI[lang];
+  if (!cur) return CHAT_SYSTEM;
+  return CHAT_SYSTEM + '\n\nNGỮ CẢNH: người dùng đang mở phần ' + cur + ' của ứng dụng. '
+    + 'Câu hỏi nào không nêu rõ thứ tiếng thì hiểu là hỏi về ' + cur + '. '
+    + 'Còn hỏi rõ về thứ tiếng khác thì trả lời thứ tiếng đó, không được viện cớ để từ chối.';
+}
+
+async function geminiChat(messages, key, lang) {
   const contents = messages.map(m => ({
     role: m.role === 'assistant' ? 'model' : 'user',
     parts: [{ text: String(m.content || '').slice(0, 4000) }]
   }));
   const body = {
-    systemInstruction: { parts: [{ text: CHAT_SYSTEM }] },
+    systemInstruction: { parts: [{ text: chatSystem(lang) }] },
     contents,
     generationConfig: { temperature: 0.6, maxOutputTokens: 1024 }
   };
@@ -150,13 +186,13 @@ async function geminiChat(messages, key) {
   throw new Error(lastErr);
 }
 
-async function openaiChat(messages, base, model, key) {
+async function openaiChat(messages, base, model, key, lang) {
   const r = await fetch(base.replace(/\/$/, '') + '/chat/completions', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key },
     body: JSON.stringify({
       model, temperature: 0.6, max_tokens: 1024,
-      messages: [{ role: 'system', content: CHAT_SYSTEM }].concat(
+      messages: [{ role: 'system', content: chatSystem(lang) }].concat(
         messages.map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: String(m.content || '').slice(0, 4000) })))
     })
   });
@@ -257,9 +293,10 @@ export default {
 
     if (url.pathname.endsWith('/_chat') && request.method === 'POST') {
       if (!hasKey) return json({ error: 'no-key' }, cors);
-      let messages;
+      let messages, lang = '';
       try {
         const req = await request.json();
+        lang = LANG_VI[req.lang] ? req.lang : '';
         messages = (req.messages || [])
           .filter(m => m && m.content && (m.role === 'user' || m.role === 'assistant'))
           .slice(-12);
@@ -267,8 +304,8 @@ export default {
       if (!messages.length) return json({ error: 'trống' }, cors);
       try {
         const reply = env.LLM_API_KEY
-          ? await openaiChat(messages, env.LLM_BASE_URL || 'https://api.openai.com/v1', env.LLM_MODEL || 'gpt-4o-mini', env.LLM_API_KEY)
-          : await geminiChat(messages, env.GEMINI_API_KEY);
+          ? await openaiChat(messages, env.LLM_BASE_URL || 'https://api.openai.com/v1', env.LLM_MODEL || 'gpt-4o-mini', env.LLM_API_KEY, lang)
+          : await geminiChat(messages, env.GEMINI_API_KEY, lang);
         return json({ reply }, cors);
       } catch (e) { return json({ error: String(e && e.message || e) }, cors); }
     }

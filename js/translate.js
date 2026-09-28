@@ -109,7 +109,9 @@ function post(path, payload, cb){
 }
 
 /** Hỏi đáp: messages = [{role:'user'|'assistant', content}] → cb(reply, err) */
-function chat(messages, cb){ post('/_chat', { messages: messages }, (j, err) => cb((j && j.reply) || '', err)); }
+/* lang = thứ tiếng người dùng đang mở, để Labi hiểu câu hỏi cộc lốc cho đúng
+   ngữ cảnh. Nó KHÔNG giới hạn Labi trong thứ tiếng đó. */
+function chat(messages, cb, lang){ post('/_chat', { messages: messages, lang: lang || '' }, (j, err) => cb((j && j.reply) || '', err)); }
 
 /** Phân tích âm thanh: audio base64 + mime → cb(result, err) */
 function analyzeAudio(audio, mime, cb){ post('/_audio', { audio: audio, mime: mime }, cb); }

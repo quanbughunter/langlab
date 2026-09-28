@@ -6,10 +6,12 @@ let pass=0, fail=0;
 const ok=(n,c)=>{ (c?pass++:fail++); console.log((c?'ok   ':'FAIL ')+n); };
 
 // mock Gemini
-let nextText='';
+let nextText='', lastBody=null;
 globalThis.fetch = async (url, opts) => {
+  try { lastBody = JSON.parse(opts && opts.body || '{}'); } catch(e){ lastBody = null; }
   return new Response(JSON.stringify({ candidates:[{content:{parts:[{text: nextText}]}}] }), { status:200, headers:{'Content-Type':'application/json'} });
 };
+const sysText = () => (lastBody && lastBody.systemInstruction && lastBody.systemInstruction.parts[0].text) || '';
 const req = (path, body, method='POST') => new Request('https://w.example'+path, { method, headers:{'Content-Type':'application/json'}, body: body?JSON.stringify(body):undefined });
 const envKey = { GEMINI_API_KEY:'test' };
 
@@ -52,6 +54,30 @@ nextText = JSON.stringify(['Xin chào.']);
 r = await worker.fetch(req('/_translate', { sentences:['안녕하세요.'] }), envKey);
 j = await r.json();
 ok('translate cũ vẫn hoạt động', j.translations && Object.keys(j.translations).length===1);
+
+/* 8. Labi phải mở cho MỌI ngoại ngữ — từng có lỗi «mình là trợ lý tiếng Hàn
+      nên không trả lời câu hỏi tiếng Nhật». */
+nextText = 'Chữ お đọc là «o».';
+r = await worker.fetch(req('/_chat', { messages:[{role:'user',content:'chữ ô trong tiếng Nhật là gì'}], lang:'ko' }), envKey);
+await r.json();
+const S = sysText();
+ok('Labi: prompt không tự nhận là trợ lý của riêng một thứ tiếng',
+   !/trợ lý học tiếng Hàn/.test(S) && /MỌI thứ tiếng/.test(S));
+ok('Labi: cấm hẳn việc từ chối vì câu hỏi thuộc thứ tiếng khác',
+   /KHÔNG từ chối chỉ vì câu hỏi thuộc thứ tiếng khác/.test(S));
+ok('Labi: có dặn từ chối chuyện ngoài ngôn ngữ một cách vui và khéo',
+   /toán, lý, hoá/.test(S) && /VUI và KHÉO/.test(S));
+ok('Labi: biết người dùng đang mở phần tiếng Hàn, nhưng chỉ để hiểu ngữ cảnh',
+   /đang mở phần tiếng Hàn/.test(S) && /không được viện cớ để từ chối/.test(S));
+
+nextText = 'x';
+r = await worker.fetch(req('/_chat', { messages:[{role:'user',content:'hi'}], lang:'ru' }), envKey);
+await r.json();
+ok('Labi: đổi màn tiếng Nga thì ngữ cảnh đổi theo', /đang mở phần tiếng Nga/.test(sysText()));
+
+r = await worker.fetch(req('/_chat', { messages:[{role:'user',content:'hi'}], lang:'xx' }), envKey);
+await r.json();
+ok('Labi: mã ngôn ngữ lạ thì bỏ qua, không chèn ngữ cảnh bậy', !/NGỮ CẢNH/.test(sysText()));
 
 console.log('\n'+pass+' đạt / '+fail+' lỗi');
 process.exit(fail?1:0);

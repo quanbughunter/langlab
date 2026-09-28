@@ -2058,7 +2058,10 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 .fact-bubble-tx{display:flex;flex-direction:column;gap:2px;min-width:0}
 .fact-bubble-tx b{font-size:13px;color:var(--accent);letter-spacing:.02em}
 .fact-bubble-tx i{font-style:normal;font-size:13.5px;color:var(--muted);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.fact-bubble-x{border:0;background:none;color:var(--faint);cursor:pointer;padding:0 11px;font-size:14px;align-self:stretch}
+.fact-bubble-x{border:0;background:none;color:var(--faint);cursor:pointer;padding:0 11px;align-self:stretch;
+  display:flex;align-items:center}
+.fact-bubble-x svg{width:14px;height:14px;display:block;
+  fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round}
 .fact-bubble-x:hover{color:var(--accent);background:var(--surface-2)}
 @media (max-width:640px){ .fact-bubble{left:12px;right:12px;bottom:12px;max-width:none} }
 

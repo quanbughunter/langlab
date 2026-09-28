@@ -30,6 +30,26 @@ const BOOK_ICO = '<svg class="ln-ico" viewBox="0 0 24 24" aria-hidden="true" foc
   + '<path d="M20.4 5h-4.4a4 4 0 0 0-4 4v9.6a3 3 0 0 1 3-3h5.4z"/></svg>';
 const CLOCK_ICO = '<svg class="ln-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
   + '<circle cx="12" cy="12" r="8.2"/><path d="M12 7.2V12l3.2 2"/></svg>';
+/* Xúc xắc — «xem một mẩu ngẫu nhiên» */
+const DICE_ICO = '<svg class="ln-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+  + '<rect x="3.8" y="3.8" width="16.4" height="16.4" rx="3.4"/>'
+  + '<circle cx="8.6" cy="8.6" r="1.25" fill="currentColor" stroke="none"/>'
+  + '<circle cx="15.4" cy="15.4" r="1.25" fill="currentColor" stroke="none"/>'
+  + '<circle cx="12" cy="12" r="1.25" fill="currentColor" stroke="none"/></svg>';
+/* Chuông đang rung — bong bóng đang bật */
+const BELL_ICO = '<svg class="ln-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+  + '<path d="M6.4 16.4V11a5.6 5.6 0 0 1 11.2 0v5.4l1.5 2.1H4.9z"/>'
+  + '<path d="M10.2 19.5a1.9 1.9 0 0 0 3.6 0"/></svg>';
+/* Chuông gạch chéo — bong bóng đang tắt */
+const BELL_OFF_ICO = '<svg class="ln-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+  + '<path d="M8.1 6.3A5.6 5.6 0 0 1 17.6 11v5.4l1 1.4"/>'
+  + '<path d="M16 19.5H4.9l1.5-2.1V11c0-.5.06-1 .18-1.5"/>'
+  + '<path d="M10.2 19.5a1.9 1.9 0 0 0 3.6 0"/>'
+  + '<path d="M3.6 3.6 20.4 20.4"/></svg>';
+/* Mũi tên vòng lại — trả bong bóng về góc cũ */
+const UNDO_ICO = '<svg class="ln-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+  + '<path d="M4.4 10.2h6.2M4.4 10.2V4.6"/>'
+  + '<path d="M6.3 15.4a7.4 7.4 0 1 0 .6-7.6"/></svg>';
 
 /* ---------- lưu trạng thái nhẹ ---------- */
 const store = {
@@ -2090,7 +2110,7 @@ function asstSend(text){
     A.busy = false;
     A.messages.push({ role:'assistant', content: err ? ('Xin lỗi, mình chưa trả lời được. ' + asstErrMsg(err)) : (reply || '(không có nội dung)') });
     if (state.labiOpen) labiRender();
-  });
+  }, document.documentElement.getAttribute('data-lang') || '');
 }
 
 function asstHandleFile(file){
@@ -7104,7 +7124,7 @@ function factShowBubble(f){
       <span class="fact-bubble-ic">${BULB_ICO}</span>
       <span class="fact-bubble-tx"><b>Bạn có biết?</b><i>${esc(f.title)}</i></span>
     </button>
-    <button class="fact-bubble-x" data-fact-hide="1" title="Ẩn">✕</button>`;
+    <button class="fact-bubble-x" data-fact-hide="1" title="Ẩn" aria-label="Ẩn bong bóng"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>`;
   el.classList.add('show');
   factApplyPos(el);
   state.fact = f;
@@ -7210,9 +7230,9 @@ function factOpen(f){
       </div>
       ${factCardHTML(f)}
       <div class="fact-actions">
-        <button class="pbtn primary" data-fact-next="1">🎲 Fact khác</button>
+        <button class="pbtn primary" data-fact-next="1">${DICE_ICO} Mẩu khác</button>
         <button class="pbtn" data-go="facts" data-fact-close="1">Xem tất cả</button>
-        <button class="pbtn ghost" data-fact-off="1">🔕 Tắt bong bóng</button>
+        <button class="pbtn ghost" data-fact-off="1">${BELL_OFF_ICO} Tắt bong bóng</button>
       </div>
     </div>`;
   el.classList.add('open');
@@ -7242,7 +7262,7 @@ VIEWS.facts = function(){
   </div>
   <div class="level-strip compact"><button class="level-chip" data-facts-cat="all"${cat === 'all' ? ' aria-pressed="true"' : ''}>Tất cả</button>${cats.map(c => `<button class="level-chip" data-facts-cat="${esc(c)}"${cat === c ? ' aria-pressed="true"' : ''}>${esc(c)}</button>`).join('')}</div>
   <div class="fact-grid">${list.map((f, i) => `<button class="fact-card" data-fact-idx="${_FA.indexOf(f)}">${factCardHTML(f)}</button>`).join('')}</div>
-  <div class="wp-actions" style="padding:10px 0 0">${factsOn() ? `<button class="pbtn" data-fact-off="1">🔕 Tắt bong bóng «Bạn có biết?»</button>` : `<button class="pbtn primary" data-fact-on="1">🔔 Bật lại bong bóng «Bạn có biết?»</button>`}<button class="pbtn" data-fact-next="1">🎲 Xem một mẩu ngẫu nhiên</button><button class="pbtn ghost" data-fact-pos-reset="1">↩︎ Trả bong bóng về góc cũ</button></div>
+  <div class="wp-actions" style="padding:10px 0 0">${factsOn() ? `<button class="pbtn" data-fact-off="1">${BELL_OFF_ICO} Tắt bong bóng «Bạn có biết?»</button>` : `<button class="pbtn primary" data-fact-on="1">${BELL_ICO} Bật lại bong bóng «Bạn có biết?»</button>`}<button class="pbtn" data-fact-next="1">${DICE_ICO} Xem một mẩu ngẫu nhiên</button><button class="pbtn ghost" data-fact-pos-reset="1">${UNDO_ICO} Trả bong bóng về góc cũ</button></div>
   <p class="tk-note-small">Mẹo: bong bóng kéo rê được — giữ chuột (hoặc chạm giữ) rồi kéo đặt ở bất kỳ chỗ nào trên màn hình, vị trí sẽ được nhớ lại.</p>
   <p class="tk-note-small">Nội dung do LangLab biên soạn cho người học, có thể lược giản so với tài liệu chuyên khảo. Hình minh hoạ vẽ bằng SVG, không dùng ảnh của bên thứ ba.</p>`;
 };
