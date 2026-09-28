@@ -66,7 +66,7 @@ const check = (name, cond) => { if (cond){ pass++; console.log('ok   ' + name); 
   }
 
   /* Luyện shadowing: bấm «Dùng đoạn mẫu» rồi Back phải quay về ô soạn đoạn */
-  click(d.querySelector('#shNav'));
+  click(d.querySelector('[data-go="shadow"][data-lang="ko"]'));
   check('mở Luyện shadowing từ navbar', !!d.querySelector('#shInput'));
   click(d.querySelector('#shSample'));
   check('đoạn mẫu tách thành câu', d.querySelectorAll('.sh-row').length > 0 && !d.querySelector('#shInput'));
@@ -77,12 +77,12 @@ const check = (name, cond) => { if (cond){ pass++; console.log('ok   ' + name); 
   check('back lần nữa mới rời Shadowing', !d.querySelector('#shInput') && !d.querySelector('.sh-row'));
 
   /* đổi ngôn ngữ shadowing cũng lùi lại được */
-  click(d.querySelector('#shNav'));
-  click(d.querySelector('[data-sh-lang="en"]'));
-  const enOn = d.querySelector('[data-sh-lang="en"]').getAttribute('aria-pressed') === 'true';
+  click(d.querySelector('[data-go="shadow"][data-lang="ko"]'));
+  click(d.querySelector('[data-go="shadow"][data-lang="en"]'));
+  const enOn = d.documentElement.getAttribute('data-lang') === 'en';
   await back();
   check('back sau khi đổi ngôn ngữ → về ngôn ngữ trước',
-        enOn && d.querySelector('[data-sh-lang="ko"]').getAttribute('aria-pressed') === 'true');
+        enOn && d.documentElement.getAttribute('data-lang') === 'ko');
 
   console.log('\n' + pass + ' đạt / ' + fail + ' lỗi');
   process.exit(fail ? 1 : 0);

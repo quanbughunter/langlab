@@ -41,14 +41,15 @@ setTimeout(()=>{
     return R.length >= 20 && ['ko','zh','ru','ja','en'].every(l => by[l] >= 3) && by.en >= 8 && bad.length === 0;
   });
 
-  click('#rdNav');
-  check('Bài đọc là mục cấp 1 trên navbar, mở ra danh sách thẻ', ()=>
-    !!$('.nav-main > #rdNav') && n('[data-rd-lang]') === 5 && n('.rd-card') > 0);
+  click('[data-go="read"][data-lang="ko"]');
+  check('Bài đọc nằm trong menu từng ngôn ngữ, mở ra danh sách thẻ', ()=>
+    !!$('.nav-menu [data-go="read"][data-lang="ko"]') && !$('.nav-main > [data-go="read"]')
+    && !n('[data-rd-lang]') && n('.rd-card') > 0);
 
   const LANGS = [['ko','ko'],['zh','zh'],['ja','ja'],['ru','ru'],['en','en']];
   LANGS.forEach(([id,cls])=>{
     check('tiếng «'+id+'»: mở được bài, có từ bấm tra, tông màu đúng', ()=>{
-      click(`[data-rd-lang="${id}"]`);
+      click(`[data-go="read"][data-lang="${id}"]`);
       const cards = n('.rd-card');
       click('.rd-card');
       const paras = n('.rd-para');
@@ -61,7 +62,7 @@ setTimeout(()=>{
   });
 
   check('bản dịch bật/tắt được theo từng đoạn', ()=>{
-    click('[data-rd-lang="en"]'); click('.rd-card');
+    click('[data-go="read"][data-lang="en"]'); click('.rd-card');
     const off = n('.rd-para-vi') === 0;
     click('[data-rd-tr]');
     const on = n('.rd-para-vi') === n('.rd-para');
@@ -86,7 +87,7 @@ setTimeout(()=>{
   });
 
   check('nút nghe dùng đúng giọng của ngôn ngữ đang đọc', ()=>{
-    click('[data-rd-back]'); click('[data-rd-lang="ru"]'); click('.rd-card');
+    click('[data-rd-back]'); click('[data-go="read"][data-lang="ru"]'); click('.rd-card');
     spoken.length = 0;
     const b = $('.rd-para-x .icon-btn, .rd-para-x .mini, .sh-bar .pbtn[data-ru-speak]');
     if (b) click(b);
@@ -95,7 +96,7 @@ setTimeout(()=>{
 
   check('back quay lại danh sách rồi mới rời màn Bài đọc', ()=>{
     click('[data-rd-back]');
-    click('[data-rd-lang="en"]'); click('.rd-card');
+    click('[data-go="read"][data-lang="en"]'); click('.rd-card');
     const inArticle = n('.rd-para') > 0;
     win.history.back();
     return inArticle;
@@ -104,7 +105,7 @@ setTimeout(()=>{
   setTimeout(()=>{
     check('sau khi lùi lịch sử thì về danh sách bài đọc', ()=> n('.rd-card') > 0 && n('.rd-para') === 0);
     check('trả lời câu hỏi và bật bản dịch thì trang đứng yên, không nhảy lên đầu', ()=>{
-    click('#rdNav'); click('[data-rd-open="0"]');
+    click('[data-go="read"][data-lang="ko"]'); click('[data-rd-open="0"]');
     Object.defineProperty(win,'scrollY',{value:720,configurable:true});
     win.__scrolls.length=0; click('[data-rd-tr]');
     const a = win.__scrolls[win.__scrolls.length-1];

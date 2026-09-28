@@ -37,7 +37,11 @@ let pass=0,fail=0; const check=(name,fn)=>{ try{ const r=fn(); if(r===false) thr
   if (errors.length) console.log('BOOT ERRORS:', errors.slice(0,3).join(' | '));
 
   /* ---------- kiến trúc ---------- */
-  check('menu Tiếng Anh có đủ 9 mục', ()=>{ const m=d.querySelector('#enDrop'); if(!m) throw new Error('không có #enDrop'); return d.querySelectorAll('#enDrop + .nav-menu .nav-mi').length===9; });
+  check('menu Tiếng Anh: 9 mục học + nhóm 3 mục luyện kỹ năng', ()=>{
+    const m=d.querySelector('#enDrop'); if(!m) throw new Error('không có #enDrop');
+    return d.querySelectorAll('#enDrop + .nav-menu .nav-mi').length===12
+        && d.querySelectorAll('#enDrop + .nav-menu .nav-mi[data-lang="en"]').length===3
+        && d.querySelectorAll('#enDrop + .nav-menu .nav-sep').length===1; });
   check('vào Khoá học tiếng Anh → data-lang="en"', ()=>{ click('[data-go="en_home"]'); return lang()==='en'; });
   check('theme-color đổi theo tiếng Anh', ()=>{ const m=[...d.querySelectorAll('meta[name="theme-color"]')].map(x=>x.getAttribute('content')); return m.includes('#F6F4EC') && m.includes('#0C1512'); });
   check('breadcrumb tiếng Anh', ()=> /Tiếng Anh/.test(d.getElementById('crumb').textContent));

@@ -34,7 +34,12 @@ let pass=0,fail=0; const check=(name,fn)=>{ try{ const r=fn(); if(r===false) thr
   await new Promise(r=>setTimeout(r,120));
   if (errors.length) console.log('BOOT ERRORS:', errors.slice(0,4).join(' | '));
   check('boot không lỗi', ()=>errors.length===0);
-  check('menu Tiếng Nhật: 10 mục (có «Bạn có biết?») + badge N5–N2', ()=> n('#jaDrop')===1 && n('.nav-menu[aria-label="Tiếng Nhật"] .nav-mi')===10 && n('.nav-menu[aria-label="Tiếng Nhật"] [data-go="facts"]')===1 && /N5/.test(d.querySelector('[data-go="ja_home"] .mi-count').textContent));
+  check('menu Tiếng Nhật: 10 mục học + nhóm 3 mục luyện kỹ năng, có badge N5', ()=>
+    n('#jaDrop')===1 && n('.nav-menu[aria-label="Tiếng Nhật"] .nav-mi')===13
+    && n('.nav-menu[aria-label="Tiếng Nhật"] [data-go="facts"]')===1
+    && n('.nav-menu[aria-label="Tiếng Nhật"] .nav-mi[data-lang="ja"]')===3
+    && n('.nav-menu[aria-label="Tiếng Nhật"] .nav-sep')===1
+    && /N5/.test(d.querySelector('[data-go="ja_home"] .mi-count').textContent));
   click('[data-go="ja_home"]');
   check('Khoá học Nhật: data-lang=ja, 4 thẻ nền tảng, 4 chip cấp (4 active), 20 bài N5', ()=> d.documentElement.getAttribute('data-lang')==='ja' && n('.zh-found-card')===4 && n('.level-chip[data-ja-level]')===4 && n('.level-chip[data-ja-level]:not([disabled])')===4 && n('[data-ja-lesson]')===20 && d.getElementById('crumb').textContent.includes('Tiếng Nhật'));
   check('theme-color đổi sang đỏ–trắng Nhật', ()=> d.querySelector('meta[name="theme-color"]').getAttribute('content')==='#FFF4F4');

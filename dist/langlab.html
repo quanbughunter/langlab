@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
 <meta name="description" content="Ứng dụng học ngoại ngữ theo bài cho người Việt: tiếng Hàn (TOPIK), tiếng Nhật (JLPT), tiếng Trung (HSK), tiếng Nga (ТРКИ), tiếng Anh (IELTS/TOEFL) — từ vựng, ngữ pháp, hội thoại, tập viết, từ điển, thi thử.">
-<link rel="icon" type="image/png" href="logo-icon.png?v=261040">
-<link rel="manifest" href="manifest.webmanifest?v=261040">
+<link rel="icon" type="image/png" href="logo-icon.png?v=261060">
+<link rel="manifest" href="manifest.webmanifest?v=261060">
 <meta name="theme-color" content="#EAF1FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=261040">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=261060">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="LangLab">
@@ -151,6 +151,14 @@ a{color:var(--accent)}
 }
 .nav-drop:hover .nav-menu,
 .nav-drop.open .nav-menu{display:flex}
+/* Vừa chọn xong một mục: chuột vẫn còn nằm trong vùng menu nên :hover bật lại
+   ngay, trông như menu không chịu đóng. Khoá lại cho tới khi chuột rời đi
+   (trên điện thoại thì :hover còn dính dai hơn nữa sau khi chạm).           */
+.nav-drop.just-picked:hover .nav-menu{display:none}
+.nav-drop.just-picked:hover .nav-drop-btn .caret{transform:none}
+/* Ngăn phần học nền tảng với phần luyện kỹ năng (Bài đọc · Shadowing ·
+   Nghe & chọn tranh) — ba mục này dùng chung khung cho cả 5 thứ tiếng. */
+.nav-sep{height:1px;background:var(--line);margin:5px 7px}
 .nav-mi{
   appearance:none;background:none;border:none;border-radius:8px;cursor:pointer;font:inherit;
   font-size:13.5px;color:var(--muted);text-align:left;padding:8px 11px;
@@ -2185,7 +2193,7 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   <header class="nav">
     <div class="nav-in">
       <div class="brand" data-go="about" role="link" tabindex="0" title="Giới thiệu LangLab">
-        <span class="brand-mark"><img src="logo-icon.png?v=261040" alt="LangLab" width="40" height="40"></span>
+        <span class="brand-mark"><img src="logo-icon.png?v=261060" alt="LangLab" width="40" height="40"></span>
         <span class="brand-name"><b>Lang</b><i>Lab</i></span>
       </div>
 
@@ -2196,19 +2204,6 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 
       <nav class="nav-main" id="navMain" aria-label="Điều hướng chính">
         <button class="nav-item" data-go="about">Giới thiệu</button>
-        <button class="nav-item nav-sh" id="shNav" data-go="shadow" aria-current="false" title="Luyện shadowing cho mọi thứ tiếng">
-          <svg class="sh-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M8 7v10M16 7v10M4 10v4M20 10v4"/></svg>
-          Shadowing
-        </button>
-        <button class="nav-item nav-sh" id="rdNav" data-go="read" aria-current="false" title="Bài đọc học từ theo ngữ cảnh">
-          <svg class="sh-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h7a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H4zM20 5h-7a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h8z"/></svg>
-          Bài đọc
-        </button>
-        <button class="nav-item nav-sh" id="pcNav" data-go="pic" aria-current="false" title="Nghe rồi chọn câu đúng với tranh">
-          <svg class="sh-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h13v11H3zM6 13l3-3 2 2 3-4 2 5M19 8v8M22 6v12"/></svg>
-          Nghe &amp; tranh
-        </button>
-
         <div class="nav-drop">
           <button class="nav-item nav-drop-btn" id="koDrop" aria-haspopup="true" aria-expanded="false">
             Tiếng Hàn
@@ -2223,6 +2218,10 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
             <button class="nav-mi" data-go="numbers" role="menuitem">Số đếm</button>
             <button class="nav-mi" data-go="topik"   role="menuitem">Thi thử TOPIK</button>
             <button class="nav-mi" data-go="facts" role="menuitem">Bạn có biết?</button>
+            <div class="nav-sep" role="separator" aria-label="Luyện kỹ năng"></div>
+            <button class="nav-mi" data-go="read"   data-lang="ko" role="menuitem">Bài đọc</button>
+            <button class="nav-mi" data-go="shadow" data-lang="ko" role="menuitem">Shadowing</button>
+            <button class="nav-mi" data-go="pic"    data-lang="ko" role="menuitem">Nghe &amp; chọn tranh</button>
           </div>
         </div>
 
@@ -2241,6 +2240,10 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
             <button class="nav-mi" data-go="en_speak" role="menuitem">Luyện nói</button>
             <button class="nav-mi" data-go="en_exam"  role="menuitem">Thi thử IELTS / TOEFL</button>
             <button class="nav-mi" data-go="facts" role="menuitem">Bạn có biết?</button>
+            <div class="nav-sep" role="separator" aria-label="Luyện kỹ năng"></div>
+            <button class="nav-mi" data-go="read"   data-lang="en" role="menuitem">Bài đọc</button>
+            <button class="nav-mi" data-go="shadow" data-lang="en" role="menuitem">Shadowing</button>
+            <button class="nav-mi" data-go="pic"    data-lang="en" role="menuitem">Nghe &amp; chọn tranh</button>
           </div>
         </div>
 
@@ -2260,6 +2263,10 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
             <button class="nav-mi" data-go="ja_speak"  role="menuitem">Luyện nói</button>
             <button class="nav-mi" data-go="ja_exam"   role="menuitem">Thi thử JLPT</button>
             <button class="nav-mi" data-go="facts" role="menuitem">Bạn có biết?</button>
+            <div class="nav-sep" role="separator" aria-label="Luyện kỹ năng"></div>
+            <button class="nav-mi" data-go="read"   data-lang="ja" role="menuitem">Bài đọc</button>
+            <button class="nav-mi" data-go="shadow" data-lang="ja" role="menuitem">Shadowing</button>
+            <button class="nav-mi" data-go="pic"    data-lang="ja" role="menuitem">Nghe &amp; chọn tranh</button>
           </div>
         </div>
 
@@ -2280,6 +2287,10 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
             <button class="nav-mi" data-go="zh_quiz"     role="menuitem">Bài tập</button>
             <button class="nav-mi" data-go="zh_exam"     role="menuitem">Thi thử HSK</button>
             <button class="nav-mi" data-go="facts" role="menuitem">Bạn có biết?</button>
+            <div class="nav-sep" role="separator" aria-label="Luyện kỹ năng"></div>
+            <button class="nav-mi" data-go="read"   data-lang="zh" role="menuitem">Bài đọc</button>
+            <button class="nav-mi" data-go="shadow" data-lang="zh" role="menuitem">Shadowing</button>
+            <button class="nav-mi" data-go="pic"    data-lang="zh" role="menuitem">Nghe &amp; chọn tranh</button>
           </div>
         </div>
 
@@ -2299,6 +2310,10 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
             <button class="nav-mi" data-go="ru_speak"     role="menuitem">Luyện nói</button>
             <button class="nav-mi" data-go="ru_exam"      role="menuitem">Thi thử ТРКИ</button>
             <button class="nav-mi" data-go="facts" role="menuitem">Bạn có biết?</button>
+            <div class="nav-sep" role="separator" aria-label="Luyện kỹ năng"></div>
+            <button class="nav-mi" data-go="read"   data-lang="ru" role="menuitem">Bài đọc</button>
+            <button class="nav-mi" data-go="shadow" data-lang="ru" role="menuitem">Shadowing</button>
+            <button class="nav-mi" data-go="pic"    data-lang="ru" role="menuitem">Nghe &amp; chọn tranh</button>
           </div>
         </div>
 
@@ -7754,6 +7769,11 @@ const file = (s, k) => ROOTS[(k || 0) % ROOTS.length] + hash(s) + '.mp3';
    2. máy chủ cục bộ /_tts?text=…       — đọc được MỌI văn bản, tự lưu vào tầng 1
    3. giọng máy của trình duyệt         — chỉ khi hai tầng trên đều không có     */
 
+/* PROBE_MS: chờ bấy nhiêu mà im re, KHÔNG có cả loadstart lẫn error, thì coi
+   như môi trường không báo lỗi tệp. LOAD_MAX: đã bắt đầu nạp rồi thì cho hẳn
+   ngần này, đủ cho mạng di động chậm tải một tệp vài chục KB.               */
+const PROBE_MS = 900, LOAD_MAX = 8000;
+
 let el = null, root = 0, tried = 0, missing = {};
 let currentRate = 1;
 let server = null;                 // null = chưa dò, false = không có, true = có
@@ -7791,24 +7811,37 @@ function play(text, opts){
   tried = 0;
   let guard = null;
   const unguard = () => { if (guard){ clearTimeout(guard); guard = null; } };
+
+  /* Hai tình huống rất khác nhau mà nếu chỉ đo thời gian thì trông y hệt:
+       · môi trường không báo lỗi tệp (jsdom, vài WebView) — dò tiếp là vô ích
+       · mạng chậm, tệp CÓ thật nhưng nạp lâu — chờ thêm là nghe được
+     Phân biệt bằng loadstart: trình duyệt thật hễ nhận src là bắn sự kiện này,
+     nên thấy nó tức là môi trường bình thường, chỉ đường truyền chậm thôi.
+     Trước đây gộp làm một, mốc 0,7 giây trên mạng 3G bị hiểu thành «không có
+     tệp» rồi tắt hẳn tầng mp3 cho cả phiên — nghe được một câu rồi im.        */
+  let reports = false;                      // môi trường có bắn sự kiện media không
+  a.onloadstart = () => {
+    reports = true;
+    unguard();
+    guard = setTimeout(() => { guard = null; fail(false); }, LOAD_MAX);
+  };
   a.onplaying = unguard;
+
   const start = src => {
     unguard();
     a.src = src;
     a.playbackRate = currentRate;
-    /* jsdom và vài WebView không ném lỗi mà cũng không phát: không có chốt
-       thời gian thì cả chuỗi đứng im và người học chờ mãi không nghe gì. */
-    guard = setTimeout(() => { guard = null; fail(true); }, 700);
+    guard = setTimeout(() => { guard = null; fail(!reports); }, PROBE_MS);
     try {
       const p = a.play();
       if (p && p.catch) p.catch(a.onerror);
     } catch (e){ setTimeout(a.onerror, 0); }
   };
-  const fail = mute => {
+  const fail = dead => {
     unguard();
-    /* Chốt thời gian nổ = môi trường này không báo lỗi tệp. Dò tiếp cũng vô ích,
-       nên bỏ hẳn tầng tệp tĩnh cho cả phiên thay vì chờ từng thư mục một. */
-    if (mute){ probed = false; missing[key] = 1; fromServer(text, opts); return; }
+    /* Im lặng mà chưa từng bắn loadstart = môi trường không báo lỗi tệp.
+       Dò tiếp cũng vô ích nên bỏ hẳn tầng tệp tĩnh cho cả phiên. */
+    if (dead){ probed = false; missing[key] = 1; fromServer(text, opts); return; }
     if (tried < cands.length){ start(cands[tried++] + h + '.mp3'); return; }
     missing[key] = 1;                       // lần sau khỏi dò lại cho nhanh
     fromServer(text, opts);
@@ -7875,10 +7908,13 @@ function playSeq(lines, opts){
       voice: opts.voice,
       rate: opts.rate || 1,
       onEnd(){ if (mine !== seqToken) return; i++; setTimeout(step, opts.gap || 550); },
+      /* Nhường cho giọng máy TỪ CÂU HỎNG TRỞ ĐI, kèm số thứ tự để bên gọi biết
+         đọc tiếp từ đâu. Trước đây câu thiếu ở giữa bị nhảy qua trong im lặng —
+         bộ audio thu thiếu vài tệp là người học mất hẳn mấy câu mà không hay. */
       onFail(){
         if (mine !== seqToken) return;
-        if (idx === 0){ opts.onFail && opts.onFail(); return; }   // chưa thu → nhường cho giọng máy
-        i++; setTimeout(step, 120);
+        seqToken++;                                   // cắt chuỗi, bên gọi tiếp quản
+        opts.onFail && opts.onFail(idx);
       }
     });
   };
@@ -53972,10 +54008,14 @@ function sayLines(lines, code, opts){
     gap: opts.gap || 420,
     onLine: opts.onLine,
     onEnd: fin,
-    onFail(){
+    /* from = câu đầu tiên không có mp3. Đọc tiếp TỪ ĐÓ bằng giọng máy chứ không
+       quay lại từ đầu, và cũng không bỏ qua — thu thiếu vài tệp thì vẫn nghe đủ. */
+    onFail(from){
       if (handed) return;
       handed = true;
-      sayWebSeq(lines, cfg.lang, cfg.rate, cfg.pick, { gap:opts.gap || 380, onLine:opts.onLine, onEnd:fin });
+      const i0 = from || 0;
+      sayWebSeq(lines.slice(i0), cfg.lang, cfg.rate, cfg.pick,
+        { gap:opts.gap || 380, onLine: opts.onLine ? k => opts.onLine(k + i0) : null, onEnd:fin });
     }
   });
 }
@@ -54445,10 +54485,9 @@ dict(){
 /* ---------------- Luyện shadowing (dùng cho cả năm thứ tiếng) ---------------- */
 shadow(){
   const sh = state.shadow, meta = shMeta();
-  const chips = `<div class="level-strip compact sh-langs">${SH_LANGS.map(l => {
-      const has = l.id === shLang() ? sh.sents.length : ((sh.docs && sh.docs[l.id] && sh.docs[l.id].sents) || []).length;
-      return `<button class="level-chip" data-sh-lang="${l.id}"${l.id === shLang() ? ' aria-pressed="true"' : ''}>${esc(l.vi)}${has ? ` <span class="sh-chip-n">${has}</span>` : ''}</button>`;
-    }).join('')}</div>`;
+  /* Ngôn ngữ giờ chọn từ menu của chính ngôn ngữ đó, nên bỏ hàng chip ở đây:
+     đang ở tông màu tiếng Nga mà bấm chip nhảy sang tiếng Hàn thì rối. */
+  const chips = '';
 
   if (!sh.sents.length){
     return `
@@ -54772,8 +54811,9 @@ function rdScore(){
 }
 VIEWS.read = function(){
   const meta = rdMeta(), L = rdList(), cur = rdCur();
-  const chips = `<div class="level-strip compact sh-langs">${RD_LANGS.map(l =>
-    `<button class="level-chip" data-rd-lang="${l.id}"${l.id === rdLang() ? ' aria-pressed="true"' : ''}>${esc(l.vi)} <span class="sh-chip-n">${_RD.filter(r => r.lang === l.id).length}</span></button>`).join('')}</div>`;
+  /* Ngôn ngữ giờ chọn từ menu của chính ngôn ngữ đó, nên bỏ hàng chip ở đây:
+     đang ở tông màu tiếng Nga mà bấm chip nhảy sang tiếng Hàn thì rối. */
+  const chips = '';
 
   if (!cur){
     return `
@@ -54952,10 +54992,9 @@ try { window.__pic = { opts: picOpts, lines: picLines }; } catch(e){}
 
 VIEWS.pic = function(){
   const meta = picMeta(), L = picList(), cur = picCur(), res = picRes();
-  const chips = `<div class="level-strip compact sh-langs">${RD_LANGS.map(l => {
-    const n = _PIC.filter(q => q.lang === l.id).length;
-    return `<button class="level-chip" data-pic-lang="${l.id}"${l.id === picLang() ? ' aria-pressed="true"' : ''}${n ? '' : ' disabled'}>${esc(l.vi)} <span class="sh-chip-n">${n}</span></button>`;
-  }).join('')}</div>`;
+  /* Ngôn ngữ giờ chọn từ menu của chính ngôn ngữ đó, nên bỏ hàng chip ở đây:
+     đang ở tông màu tiếng Nga mà bấm chip nhảy sang tiếng Hàn thì rối. */
+  const chips = '';
 
   /* ---------- danh sách ---------- */
   if (!cur){
@@ -55582,8 +55621,34 @@ function quizSummary(){
 const CRUMBS = {
   home:'Khoá học', lesson:'Bài học', write:'Tập viết',
   srs:'Ôn tập', dict:'Từ điển', quiz:'Bài tập', shadow:'Luyện shadowing',
-  numbers:'Số đếm', topik:'Thi thử TOPIK', about:'Giới thiệu', facts:'Bạn có biết?', read:'Bài đọc'
+  numbers:'Số đếm', topik:'Thi thử TOPIK', about:'Giới thiệu', facts:'Bạn có biết?', read:'Bài đọc', pic:'Nghe & chọn tranh'
 };
+
+
+/* Ba màn Bài đọc · Shadowing · Nghe & chọn tranh dùng chung cho cả 5 thứ tiếng,
+   nên breadcrumb phải tự nêu đang ở thứ tiếng nào và quay về được khoá học của
+   chính thứ tiếng đó — trước đây viết cứng «Tiếng Hàn» rồi tra CRUMBS[view],
+   mà CRUMBS lại không có khoá 'pic' nên ra «Tiếng Hàn › undefined».          */
+const LANG_HOME = { ko:'home', zh:'zh_home', ja:'ja_home', ru:'ru_home', en:'en_home' };
+function langName(id){ const m = RD_LANGS.find(x => x.id === id); return m ? m.vi : 'Tiếng Hàn'; }
+function skillCrumb(lang, kind){
+  const head = `<button class="crumb-link" data-go="${LANG_HOME[lang] || 'home'}">${esc(langName(lang))}</button> <span>›</span> `;
+  if (kind === 'read'){
+    const c = rdCur();
+    return head + (c
+      ? `<button class="crumb-link" data-rd-back="1">Bài đọc</button> <span>›</span> <b>${esc(c.title)}</b>`
+      : `<b>Bài đọc</b>`);
+  }
+  if (kind === 'shadow'){
+    return head + (state.shadow.sents.length
+      ? `<button class="crumb-link" id="shBack">Shadowing</button> <span>›</span> <b>${state.shadow.sents.length} câu</b>`
+      : `<b>Shadowing</b>`);
+  }
+  const q = picCur(), L = picList();
+  return head + (q
+    ? `<button class="crumb-link" data-pic-back="1">Nghe &amp; chọn tranh</button> <span>›</span> <b>Câu ${state.pic.idx + 1}/${L.length} · ${esc(q.cat)}</b>`
+    : `<b>Nghe &amp; chọn tranh</b> <span>·</span> ${L.length} câu`);
+}
 
 /* Vẽ lại mà GIỮ NGUYÊN chỗ đang đứng — dùng cho các bộ chọn nằm giữa trang
    (ví dụ bộ ghép âm pinyin): đổi lựa chọn thì nội dung dưới thay đổi, nhưng
@@ -55600,27 +55665,35 @@ function render(){
   const KO_VIEWS = ['home','lesson','write','srs','dict','quiz','numbers','topik'];
   const isSh = state.view === 'shadow';
   const isRd = state.view === 'read';
+  const isPc = state.view === 'pic';
+  const isZh = state.view.indexOf('zh_') === 0, isRu = state.view.indexOf('ru_') === 0,
+        isJa = state.view.indexOf('ja_') === 0, isEn = state.view.indexOf('en_') === 0;
+
+  /* Ba màn luyện kỹ năng dùng chung cho cả 5 thứ tiếng nên thứ tiếng đang xem
+     nằm trong state chứ không đọc ra được từ tên màn. */
+  const curLang = isRd ? rdLang() : isSh ? shLang() : isPc ? picLang()
+                : isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : isEn ? 'en' : 'ko';
+  document.documentElement.setAttribute('data-lang', curLang);      // tông màu theo ngôn ngữ
+  if (typeof syncThemeColor === 'function') syncThemeColor();
+
+  /* Menu ngôn ngữ nào đang sáng: kể cả khi đang ở Bài đọc / Shadowing /
+     Nghe & tranh của thứ tiếng đó, vì ba màn này giờ nằm trong menu. */
+  const SKILL = isRd || isSh || isPc;
+  const lit = { ko: SKILL ? curLang === 'ko' : KO_VIEWS.includes(state.view),
+                zh: SKILL ? curLang === 'zh' : isZh,
+                ru: SKILL ? curLang === 'ru' : isRu,
+                ja: SKILL ? curLang === 'ja' : isJa,
+                en: SKILL ? curLang === 'en' : isEn };
+  ['ko','zh','ru','ja','en'].forEach(id => {
+    const b = $('#' + id + 'Drop');
+    if (b) b.classList.toggle('active', !!lit[id]);
+  });
   $$('.nav-main [data-go]').forEach(b => {
-    const on = b.dataset.go === state.view || (state.view === 'lesson' && b.dataset.go === 'home');
+    const g = b.dataset.go, bl = b.dataset.lang;
+    const on = bl ? (g === state.view && bl === curLang)
+                  : (g === state.view || (state.view === 'lesson' && g === 'home'));
     b.setAttribute('aria-current', on ? 'page' : 'false');
   });
-  const isZh = state.view.indexOf('zh_') === 0, isRu = state.view.indexOf('ru_') === 0, isJa = state.view.indexOf('ja_') === 0, isEn = state.view.indexOf('en_') === 0;
-  document.documentElement.setAttribute('data-lang', isRd ? rdLang() : isSh ? shLang() : isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : isEn ? 'en' : 'ko');   // tông màu theo ngôn ngữ
-  if (typeof syncThemeColor === 'function') syncThemeColor();
-  const koDrop = $('#koDrop');
-  if (koDrop) koDrop.classList.toggle('active', KO_VIEWS.includes(state.view));
-  const zhDrop = $('#zhDrop');
-  if (zhDrop) zhDrop.classList.toggle('active', isZh);
-  const ruDrop = $('#ruDrop');
-  if (ruDrop) ruDrop.classList.toggle('active', isRu);
-  const jaDrop = $('#jaDrop');
-  if (jaDrop) jaDrop.classList.toggle('active', isJa);
-  const enDrop = $('#enDrop');
-  if (enDrop) enDrop.classList.toggle('active', isEn);
-  const shNav = $('#shNav');
-  if (shNav) shNav.setAttribute('aria-current', isSh ? 'page' : 'false');
-  const rdNav = $('#rdNav');
-  if (rdNav) rdNav.setAttribute('aria-current', isRd ? 'page' : 'false');
   const tq = $('#topq');
   const tqLang = isRd ? rdLang() : isSh ? shLang() : isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : isEn ? 'en' : 'ko';
   if (tq) tq.placeholder = (tqLang === 'zh') ? 'Tra nhanh tiếng Trung (chữ Hán / pinyin / nghĩa)…' : (tqLang === 'ru') ? 'Tra nhanh tiếng Nga (không cần dấu trọng âm)…' : (tqLang === 'ja') ? 'Tra nhanh tiếng Nhật (kana / kanji / romaji / nghĩa)…' : (tqLang === 'en') ? 'Tra nhanh tiếng Anh (từ / phiên âm / nghĩa)…' : state.view === 'about' ? 'Tra nhanh: 한국어 · 中文 · русский · tiếng Việt…' : 'Tra nhanh tiếng Hàn (Hangul / romaja / nghĩa)…';
@@ -55639,14 +55712,8 @@ function render(){
     ? jaCrumb()
     : isEn
     ? enCrumb()
-    : isRd
-    ? (rdCur()
-        ? `<button class="crumb-link" data-rd-back="1">Bài đọc</button> <span>›</span> <b>${esc(rdMeta().vi)} · ${esc(rdCur().title)}</b>`
-        : `<b>Bài đọc</b> <span>·</span> ${esc(rdMeta().vi)}`)
-    : isSh
-    ? (state.shadow.sents.length
-        ? `<button class="crumb-link" id="shBack">Luyện shadowing</button> <span>›</span> <b>${esc(shMeta().vi)} · ${state.shadow.sents.length} câu</b>`
-        : `<b>Luyện shadowing</b> <span>·</span> ${esc(shMeta().vi)}`)
+    : (isRd || isSh || isPc)
+    ? skillCrumb(curLang, isRd ? 'read' : isSh ? 'shadow' : 'pic')
     : state.view === 'about'
     ? `<b>Giới thiệu LangLab</b>`
     : state.view === 'lesson' && l
@@ -58515,6 +58582,8 @@ function navSetCollapsed(on){
   store.set('navCollapsed', !!on);
 }
 function navInit(){
+  /* Chuột rời khỏi menu thì mở khoá, lần sau di vào lại mới bung ra như cũ */
+  $$('.nav-drop').forEach(d => d.addEventListener('mouseleave', () => d.classList.remove('just-picked')));
   navSetCollapsed(store.get('navCollapsed', false));
   const b = $('#navToggle');
   if (b) b.addEventListener('click', () => navSetCollapsed(!document.body.classList.contains('nav-collapsed')));
@@ -60960,9 +61029,29 @@ document.addEventListener('click', e => {
 
   const nav = t.closest('[data-go]');
   if (nav){
-    /* bấm mục «Nghe & tranh» trên navbar thì luôn về danh sách câu, không rơi lại câu đang dở */
-    if (nav.dataset.go === 'pic' && state.pic){ stopAudio(); state.pic.idx = null; state.pic.plays = 0; state.pic.pick = null; state.pic.show = false; }
-    go(nav.dataset.go); return;
+    /* Chọn xong thì đóng menu lại — xem chú thích .just-picked trong CSS */
+    const mi = nav.closest('.nav-drop');
+    if (mi){ mi.classList.remove('open'); mi.classList.add('just-picked'); }
+    const v = nav.dataset.go, lng = nav.dataset.lang;
+    /* Ba màn luyện kỹ năng dùng chung một khung cho cả 5 thứ tiếng, nên vào từ
+       menu nào thì đặt luôn thứ tiếng đó — và luôn về danh sách, không rơi lại
+       bài đang dở của lần trước. */
+    if (lng){
+      if (v === 'read'  ){ stopAudio(); state.read.lang = lng; state.read.idx = null; }
+      /* Shadowing giữ đoạn văn riêng cho từng thứ tiếng nên phải đi qua
+         shSwitchLang, đặt mỗi state.shadow.lang là mất đoạn đang làm dở. */
+      if (v === 'shadow'){
+        stopAudio();
+        const box = $('#shInput');
+        if (box && !state.shadow.sents.length) state.shadow.raw = box.value;
+        shSwitchLang(lng);
+      }
+      if (v === 'pic'   ){ stopAudio(); state.pic.lang = lng; state.pic.idx = null;
+                           state.pic.plays = 0; state.pic.pick = null; state.pic.show = false; }
+    } else if (v === 'pic' && state.pic){
+      stopAudio(); state.pic.idx = null; state.pic.plays = 0; state.pic.pick = null; state.pic.show = false;
+    }
+    go(v); return;
   }
 
   const les = t.closest('[data-lesson]');
@@ -60999,11 +61088,12 @@ document.addEventListener('click', e => {
       voice: 'ko',
       onLine: hi,
       onEnd: clear,
-      onFail(){                                  // chưa thu sẵn → dùng giọng máy
+      onFail(from){                              // chưa thu sẵn → đọc tiếp từ đó bằng giọng máy
         if (!Speech.supported){ toast('Trình duyệt này chưa hỗ trợ phát âm'); return; }
+        const i0 = from || 0;
         Speech.onReady(() => {
           if (!ensureVoice()) return;
-          Speech.speakLines(lines, { onChunk: c => hi(c.line), onEnd: clear });
+          Speech.speakLines(lines.slice(i0), { onChunk: c => hi(c.line + i0), onEnd: clear });
         });
       }
     });

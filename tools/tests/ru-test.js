@@ -34,7 +34,12 @@ let pass=0,fail=0; const check=(name,fn)=>{ try{ const r=fn(); if(r===false) thr
   await new Promise(r=>setTimeout(r,120));
   if (errors.length) console.log('BOOT ERRORS:', errors.slice(0,4).join(' | '));
   check('boot không lỗi', ()=>errors.length===0);
-  check('menu Tiếng Nga: 10 mục (có «Bạn có biết?») + badge', ()=> n('#ruDrop')===1 && n('.nav-menu[aria-label="Tiếng Nga"] .nav-mi')===10 && n('.nav-menu[aria-label="Tiếng Nga"] [data-go="facts"]')===1 && /A1/.test(d.querySelector('[data-go="ru_home"] .mi-count').textContent));
+  check('menu Tiếng Nga: 10 mục học + nhóm 3 mục luyện kỹ năng, có badge', ()=>
+    n('#ruDrop')===1 && n('.nav-menu[aria-label="Tiếng Nga"] .nav-mi')===13
+    && n('.nav-menu[aria-label="Tiếng Nga"] [data-go="facts"]')===1
+    && n('.nav-menu[aria-label="Tiếng Nga"] .nav-mi[data-lang="ru"]')===3
+    && n('.nav-menu[aria-label="Tiếng Nga"] .nav-sep')===1
+    && /A1/.test(d.querySelector('[data-go="ru_home"] .mi-count').textContent));
   click('[data-go="ru_home"]');
   check('Khoá học Nga: data-lang=ru, 4 thẻ nền tảng, chip cấp, 15 bài A1', ()=> d.documentElement.getAttribute('data-lang')==='ru' && n('.zh-found-card')===4 && n('.level-chip[data-ru-level]')===6 && n('[data-ru-lesson]')===15 && d.getElementById('crumb').textContent.includes('Tiếng Nga'));
   check('B1 & B2: mỗi cấp 15 bài; B1 bài 2 có причастие, B2 bài 10 có thành ngữ', ()=>{ click('.level-chip[data-ru-level="b1"]'); const b1=n('[data-ru-lesson]')===15; click('[data-ru-lesson="2"]'); const p=body().includes('сидя́щий'); click('[data-go="ru_home"]'); click('.level-chip[data-ru-level="b2"]'); const b2=n('[data-ru-lesson]')===15; click('[data-ru-lesson="10"]'); const f=body().includes('баклу́ши'); click('[data-go="ru_home"]'); click('.level-chip[data-ru-level="a1"]'); return b1&&p&&b2&&f; });

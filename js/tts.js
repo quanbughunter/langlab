@@ -56,6 +56,11 @@ const file = (s, k) => ROOTS[(k || 0) % ROOTS.length] + hash(s) + '.mp3';
    2. máy chủ cục bộ /_tts?text=…       — đọc được MỌI văn bản, tự lưu vào tầng 1
    3. giọng máy của trình duyệt         — chỉ khi hai tầng trên đều không có     */
 
+/* PROBE_MS: chờ bấy nhiêu mà im re, KHÔNG có cả loadstart lẫn error, thì coi
+   như môi trường không báo lỗi tệp. LOAD_MAX: đã bắt đầu nạp rồi thì cho hẳn
+   ngần này, đủ cho mạng di động chậm tải một tệp vài chục KB.               */
+const PROBE_MS = 900, LOAD_MAX = 8000;
+
 let el = null, root = 0, tried = 0, missing = {};
 let currentRate = 1;
 let server = null;                 // null = chưa dò, false = không có, true = có
@@ -93,24 +98,37 @@ function play(text, opts){
   tried = 0;
   let guard = null;
   const unguard = () => { if (guard){ clearTimeout(guard); guard = null; } };
+
+  /* Hai tình huống rất khác nhau mà nếu chỉ đo thời gian thì trông y hệt:
+       · môi trường không báo lỗi tệp (jsdom, vài WebView) — dò tiếp là vô ích
+       · mạng chậm, tệp CÓ thật nhưng nạp lâu — chờ thêm là nghe được
+     Phân biệt bằng loadstart: trình duyệt thật hễ nhận src là bắn sự kiện này,
+     nên thấy nó tức là môi trường bình thường, chỉ đường truyền chậm thôi.
+     Trước đây gộp làm một, mốc 0,7 giây trên mạng 3G bị hiểu thành «không có
+     tệp» rồi tắt hẳn tầng mp3 cho cả phiên — nghe được một câu rồi im.        */
+  let reports = false;                      // môi trường có bắn sự kiện media không
+  a.onloadstart = () => {
+    reports = true;
+    unguard();
+    guard = setTimeout(() => { guard = null; fail(false); }, LOAD_MAX);
+  };
   a.onplaying = unguard;
+
   const start = src => {
     unguard();
     a.src = src;
     a.playbackRate = currentRate;
-    /* jsdom và vài WebView không ném lỗi mà cũng không phát: không có chốt
-       thời gian thì cả chuỗi đứng im và người học chờ mãi không nghe gì. */
-    guard = setTimeout(() => { guard = null; fail(true); }, 700);
+    guard = setTimeout(() => { guard = null; fail(!reports); }, PROBE_MS);
     try {
       const p = a.play();
       if (p && p.catch) p.catch(a.onerror);
     } catch (e){ setTimeout(a.onerror, 0); }
   };
-  const fail = mute => {
+  const fail = dead => {
     unguard();
-    /* Chốt thời gian nổ = môi trường này không báo lỗi tệp. Dò tiếp cũng vô ích,
-       nên bỏ hẳn tầng tệp tĩnh cho cả phiên thay vì chờ từng thư mục một. */
-    if (mute){ probed = false; missing[key] = 1; fromServer(text, opts); return; }
+    /* Im lặng mà chưa từng bắn loadstart = môi trường không báo lỗi tệp.
+       Dò tiếp cũng vô ích nên bỏ hẳn tầng tệp tĩnh cho cả phiên. */
+    if (dead){ probed = false; missing[key] = 1; fromServer(text, opts); return; }
     if (tried < cands.length){ start(cands[tried++] + h + '.mp3'); return; }
     missing[key] = 1;                       // lần sau khỏi dò lại cho nhanh
     fromServer(text, opts);
@@ -177,10 +195,13 @@ function playSeq(lines, opts){
       voice: opts.voice,
       rate: opts.rate || 1,
       onEnd(){ if (mine !== seqToken) return; i++; setTimeout(step, opts.gap || 550); },
+      /* Nhường cho giọng máy TỪ CÂU HỎNG TRỞ ĐI, kèm số thứ tự để bên gọi biết
+         đọc tiếp từ đâu. Trước đây câu thiếu ở giữa bị nhảy qua trong im lặng —
+         bộ audio thu thiếu vài tệp là người học mất hẳn mấy câu mà không hay. */
       onFail(){
         if (mine !== seqToken) return;
-        if (idx === 0){ opts.onFail && opts.onFail(); return; }   // chưa thu → nhường cho giọng máy
-        i++; setTimeout(step, 120);
+        seqToken++;                                   // cắt chuỗi, bên gọi tiếp quản
+        opts.onFail && opts.onFail(idx);
       }
     });
   };

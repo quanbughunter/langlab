@@ -38,13 +38,14 @@ const check = (name, fn) => {
 };
 
 setTimeout(() => {
-  click('#shNav');
+  click('[data-go="shadow"][data-lang="ko"]');
 
-  check('Shadowing là mục cấp 1 trên navbar, mở được', () =>
-    !!$('.nav-main > #shNav') && !$('.nav-menu [data-go="shadow"]') && !!$('#shInput'));
+  check('Shadowing nằm trong menu từng ngôn ngữ, mở được', () =>
+    !!$('.nav-menu [data-go="shadow"][data-lang="ko"]') && !$('.nav-main > [data-go="shadow"]') && !!$('#shInput'));
 
-  check('có đủ 5 chip ngôn ngữ, mặc định tiếng Hàn', () =>
-    n('[data-sh-lang]') === 5 && $('[data-sh-lang="ko"]').getAttribute('aria-pressed') === 'true');
+  check('vào từ menu tiếng Hàn thì đang ở tiếng Hàn, không còn hàng chip trong trang', () =>
+    !n('[data-sh-lang]') && d.documentElement.getAttribute('data-lang') === 'ko'
+    && $('[data-go="shadow"][data-lang="ko"]').getAttribute('aria-current') === 'page');
 
   const LANGS = [
     ['ko', 'ko', /한국|저는|공부/],
@@ -55,7 +56,7 @@ setTimeout(() => {
   ];
   LANGS.forEach(([id, cls, re]) => {
     check('tiếng «' + id + '»: đoạn mẫu tách câu, tông màu và lớp chữ đúng', () => {
-      click(`[data-sh-lang="${id}"]`);
+      click(`[data-go="shadow"][data-lang="${id}"]`);
       click('#shSample');
       const rows = n('.sh-row');
       const first = $('.sh-text');
@@ -71,19 +72,22 @@ setTimeout(() => {
   });
 
   check('mỗi ngôn ngữ giữ đoạn riêng, đổi qua lại không mất bài', () => {
-    click('[data-sh-lang="zh"]');
+    click('[data-go="shadow"][data-lang="zh"]');
     const zh = n('.sh-row');
-    click('[data-sh-lang="ru"]');
+    click('[data-go="shadow"][data-lang="ru"]');
     const ru = n('.sh-row');
-    click('[data-sh-lang="zh"]');
+    click('[data-go="shadow"][data-lang="zh"]');
     return zh > 0 && ru > 0 && n('.sh-row') === zh;
   });
 
-  check('chip ngôn ngữ hiện số câu đang có', () =>
-    n('.sh-chip-n') >= 5 && /\d/.test($('.sh-chip-n').textContent));
+  check('menu sáng đúng thứ tiếng đang shadowing', () => {
+    click('[data-go="shadow"][data-lang="ja"]');
+    return !!$('#jaDrop.active') && !$('#koDrop.active')
+        && $('[data-go="shadow"][data-lang="ja"]').getAttribute('aria-current') === 'page';
+  });
 
   check('nghe một câu dùng đúng mã ngôn ngữ của giọng đọc', () => {
-    click('[data-sh-lang="en"]');
+    click('[data-go="shadow"][data-lang="en"]');
     spoken.length = 0;
     click('[data-sh-play="0"]');
     return spoken.length === 1 && spoken[0].lang === 'en-GB';
@@ -94,7 +98,7 @@ setTimeout(() => {
     return spoken.length === 1 && spoken[0].rate === 0.7;
   });
   check('đổi sang tiếng Nga thì giọng đọc đổi theo', () => {
-    click('[data-sh-lang="ru"]');
+    click('[data-go="shadow"][data-lang="ru"]');
     spoken.length = 0;
     click('[data-sh-play="0"]');
     return spoken.length === 1 && spoken[0].lang === 'ru-RU';
@@ -116,8 +120,12 @@ setTimeout(() => {
     return !!box && !!box.value && n('.sh-row') === 0;
   });
 
-  check('crumb chỉ rõ đang shadowing thứ tiếng nào', () =>
-    /Luyện shadowing/.test($('#crumb').textContent) && /Nga/.test($('#crumb').textContent));
+  check('crumb chỉ rõ đang shadowing thứ tiếng nào và quay về được khoá học', () => {
+    const c = $('#crumb');
+    return /Shadowing/.test(c.textContent) && /Nga/.test(c.textContent)
+        && !/undefined/.test(c.textContent)
+        && !!c.querySelector('[data-go="ru_home"]');
+  });
 
   check('không có lỗi console', () => { if (errors.length) console.log('   ' + errors.slice(0,2).join(' | ')); return errors.length === 0; });
 

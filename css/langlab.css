@@ -131,6 +131,14 @@ a{color:var(--accent)}
 }
 .nav-drop:hover .nav-menu,
 .nav-drop.open .nav-menu{display:flex}
+/* Vừa chọn xong một mục: chuột vẫn còn nằm trong vùng menu nên :hover bật lại
+   ngay, trông như menu không chịu đóng. Khoá lại cho tới khi chuột rời đi
+   (trên điện thoại thì :hover còn dính dai hơn nữa sau khi chạm).           */
+.nav-drop.just-picked:hover .nav-menu{display:none}
+.nav-drop.just-picked:hover .nav-drop-btn .caret{transform:none}
+/* Ngăn phần học nền tảng với phần luyện kỹ năng (Bài đọc · Shadowing ·
+   Nghe & chọn tranh) — ba mục này dùng chung khung cho cả 5 thứ tiếng. */
+.nav-sep{height:1px;background:var(--line);margin:5px 7px}
 .nav-mi{
   appearance:none;background:none;border:none;border-radius:8px;cursor:pointer;font:inherit;
   font-size:13.5px;color:var(--muted);text-align:left;padding:8px 11px;

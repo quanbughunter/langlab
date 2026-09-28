@@ -520,9 +520,34 @@ speechChecks().then(shadowChecks).then(rest).then(() => {
     if (d.querySelectorAll('.about-feats li').length) throw new Error('vẫn còn danh sách tính năng');
     if (!v.includes('CC BY-SA')) throw new Error('mất dòng ghi công giấy phép');
   });
-  check('navbar: Shadowing là mục cấp 1, không nằm trong menu Tiếng Hàn', () => {
-    if (!d.querySelector('.nav-main > #shNav[data-go="shadow"]')) throw new Error('thiếu mục Shadowing cấp 1');
-    if (d.querySelector('.nav-menu [data-go="shadow"]')) throw new Error('vẫn còn Shadowing trong menu thả xuống');
+  check('navbar: Bài đọc · Shadowing · Nghe & tranh nằm trong menu TỪNG ngôn ngữ, không phải mục cấp 1', () => {
+    ['shadow','read','pic'].forEach(v => {
+      if (d.querySelector('.nav-main > [data-go="' + v + '"]'))
+        throw new Error('«' + v + '» vẫn còn là mục cấp 1');
+    });
+    ['ko','en','ja','zh','ru'].forEach(lg => {
+      ['read','shadow','pic'].forEach(v => {
+        if (!d.querySelector('.nav-menu [data-go="' + v + '"][data-lang="' + lg + '"]'))
+          throw new Error('menu ' + lg + ' thiếu mục ' + v);
+      });
+    });
+    if (d.querySelectorAll('.nav-menu .nav-sep').length !== 5)
+      throw new Error('thiếu đường kẻ ngăn nhóm luyện kỹ năng');
+  });
+  check('navbar: vào Nghe & tranh từ menu tiếng Nga thì đúng tiếng Nga, tông màu và breadcrumb theo đó', () => {
+    click(d.querySelector('.nav-menu [data-go="pic"][data-lang="ru"]'));
+    if (d.documentElement.getAttribute('data-lang') !== 'ru') throw new Error('tông màu không đổi sang tiếng Nga');
+    const cr = d.getElementById('crumb').textContent;
+    if (!/Tiếng Nga/.test(cr)) throw new Error('breadcrumb không nêu tiếng Nga: ' + cr);
+    if (/undefined/.test(cr)) throw new Error('breadcrumb ra undefined: ' + cr);
+    if (!d.querySelector('#ruDrop.active')) throw new Error('menu Tiếng Nga không sáng lên');
+  });
+  check('navbar: chọn một mục thì menu tự đóng lại', () => {
+    const drop = d.querySelector('#koDrop').closest('.nav-drop');
+    drop.classList.add('open');
+    click(d.querySelector('.nav-menu [data-go="read"][data-lang="ko"]'));
+    if (drop.classList.contains('open')) throw new Error('menu vẫn mở');
+    if (!drop.classList.contains('just-picked')) throw new Error('thiếu khoá chống :hover bật lại');
   });
   check('navbar: thu gọn / mở rộng được, Labi và nút giao diện vẫn còn', () => {
     const tg = d.querySelector('#navToggle');

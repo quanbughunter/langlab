@@ -141,18 +141,24 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
   });
 
   /* ---------- màn danh sách ---------- */
-  click('#pcNav');
-  check('navbar mở được màn Nghe & tranh, có chip 5 thứ tiếng và lưới câu hỏi', () =>
-    n('[data-pic-lang]') === 5 && n('.pic-card') >= 110 && n('.pic-card .scene') >= 110);
-
-  check('chip mở hay khoá đúng theo số câu của từng thứ tiếng', () => {
+  click('[data-go="pic"][data-lang="ko"]');
+  check('vào từ menu tiếng Hàn: ra lưới câu hỏi TIẾNG HÀN, không phải tiếng Anh', () => {
     const P = win.eval('LISTEN_PIC');
-    const chips = [...d.querySelectorAll('[data-pic-lang]')];
-    return chips.every(c => {
-      const has = P.some(q => q.lang === c.dataset.picLang);
-      return has ? !c.disabled : !!c.disabled;
+    const nKo = P.filter(q => q.lang === 'ko').length;
+    return n('.pic-card') === nKo && n('.pic-card .scene') === nKo
+        && d.documentElement.getAttribute('data-lang') === 'ko';
+  });
+
+  check('mỗi thứ tiếng vào bằng menu riêng, không còn hàng chip trong trang', () => {
+    if (n('[data-pic-lang]')) return false;                 // chip cũ phải biến mất
+    const P = win.eval('LISTEN_PIC');
+    return ['zh','ja','ru','en'].every(lg => {
+      click(`[data-go="pic"][data-lang="${lg}"]`);
+      return n('.pic-card') === P.filter(q => q.lang === lg).length
+          && d.documentElement.getAttribute('data-lang') === lg;
     });
   });
+  click('[data-go="pic"][data-lang="en"]');                 // phần sau soạn theo tiếng Anh
 
   /* ---------- mở một câu ---------- */
   click('[data-pic-open="0"]');
@@ -201,7 +207,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
   check('sau khi đặt lại thì nghe lại được thật', () => spoken.length >= 5);
 
   check('chưa nghe lượt nào thì chưa hiện nút đặt lại', () => {
-    click('#pcNav'); click('[data-pic-open="0"]');
+    click('[data-go="pic"][data-lang="en"]'); click('[data-pic-open="0"]');
     return !d.querySelector('[data-pic-reset]');
   });
   click('#picPlay'); await wait(600);
@@ -293,7 +299,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
   });
 
   /* ---------- điều hướng ---------- */
-  click('#pcNav'); click('[data-pic-open="1"]');
+  click('[data-go="pic"][data-lang="en"]'); click('[data-pic-open="1"]');
   check('mở câu khác thì lượt nghe được đặt lại', () =>
     /còn 2 lượt/.test($('#picPlay').textContent) && n('.pic-opt-t') === 0);
 
