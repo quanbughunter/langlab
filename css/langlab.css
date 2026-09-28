@@ -121,7 +121,6 @@ a{color:var(--accent)}
 /* dropdown Tiếng Hàn */
 .nav-drop{position:relative}
 .nav-drop-btn .caret{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin-right:-3px}
-.nav-drop:hover .nav-drop-btn .caret,
 .nav-drop.open .nav-drop-btn .caret{transform:rotate(180deg)}
 .nav-drop-btn.active{background:var(--accent-soft);color:var(--accent);font-weight:500;border-color:color-mix(in srgb,var(--accent) 22%,transparent)}
 .nav-menu{
@@ -129,13 +128,20 @@ a{color:var(--accent)}
   background:var(--surface);border:1px solid var(--line);border-radius:14px;
   box-shadow:var(--shadow);padding:6px;display:none;flex-direction:column;gap:1px;
 }
-.nav-drop:hover .nav-menu,
 .nav-drop.open .nav-menu{display:flex}
-/* Vừa chọn xong một mục: chuột vẫn còn nằm trong vùng menu nên :hover bật lại
-   ngay, trông như menu không chịu đóng. Khoá lại cho tới khi chuột rời đi
-   (trên điện thoại thì :hover còn dính dai hơn nữa sau khi chạm).           */
-.nav-drop.just-picked:hover .nav-menu{display:none}
-.nav-drop.just-picked:hover .nav-drop-btn .caret{transform:none}
+
+/* Mở bằng rê chuột CHỈ dành cho máy thật sự có con trỏ. Trên cảm ứng, một cú
+   chạm để lại trạng thái :hover dính rất dai, mà mouseleave thì không bao giờ
+   xảy ra — hậu quả là menu vừa chọn xong không mở lại được, còn menu của thứ
+   tiếng khác thì bung ra cùng lúc. Điện thoại chỉ đi theo class .open.      */
+@media (hover:hover) and (pointer:fine){
+  .nav-drop:hover .nav-menu{display:flex}
+  .nav-drop:hover .nav-drop-btn .caret{transform:rotate(180deg)}
+  /* Vừa chọn xong: chuột còn nằm trong vùng menu nên :hover bật lại ngay,
+     trông như menu không chịu đóng. Khoá tới khi chuột rời đi. */
+  .nav-drop.just-picked:hover .nav-menu{display:none}
+  .nav-drop.just-picked:hover .nav-drop-btn .caret{transform:none}
+}
 /* Ngăn phần học nền tảng với phần luyện kỹ năng (Bài đọc · Shadowing ·
    Nghe & chọn tranh) — ba mục này dùng chung khung cho cả 5 thứ tiếng. */
 .nav-sep{height:1px;background:var(--line);margin:5px 7px}

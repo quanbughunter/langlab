@@ -37,7 +37,7 @@ let pass=0,fail=0; const check=(name,fn)=>{ try{ const r=fn(); if(r===false) thr
   check('menu Tiếng Nga: 10 mục học + nhóm 3 mục luyện kỹ năng, có badge', ()=>
     n('#ruDrop')===1 && n('.nav-menu[aria-label="Tiếng Nga"] .nav-mi')===13
     && n('.nav-menu[aria-label="Tiếng Nga"] [data-go="facts"]')===1
-    && n('.nav-menu[aria-label="Tiếng Nga"] .nav-mi[data-lang="ru"]')===3
+    && n('.nav-menu[aria-label="Tiếng Nga"] .nav-mi[data-lang="ru"]')===4
     && n('.nav-menu[aria-label="Tiếng Nga"] .nav-sep')===1
     && /A1/.test(d.querySelector('[data-go="ru_home"] .mi-count').textContent));
   click('[data-go="ru_home"]');

@@ -2381,6 +2381,7 @@ function skillCrumb(lang, kind){
       ? `<button class="crumb-link" id="shBack">Shadowing</button> <span>›</span> <b>${state.shadow.sents.length} câu</b>`
       : `<b>Shadowing</b>`);
   }
+  if (kind === 'facts') return head + `<b>Bạn có biết?</b> <span>·</span> ${factPool(lang).length} mẩu`;
   const q = picCur(), L = picList();
   return head + (q
     ? `<button class="crumb-link" data-pic-back="1">Nghe &amp; chọn tranh</button> <span>›</span> <b>Câu ${state.pic.idx + 1}/${L.length} · ${esc(q.cat)}</b>`
@@ -2403,19 +2404,21 @@ function render(){
   const isSh = state.view === 'shadow';
   const isRd = state.view === 'read';
   const isPc = state.view === 'pic';
+  const isFa = state.view === 'facts';
   const isZh = state.view.indexOf('zh_') === 0, isRu = state.view.indexOf('ru_') === 0,
         isJa = state.view.indexOf('ja_') === 0, isEn = state.view.indexOf('en_') === 0;
 
   /* Ba màn luyện kỹ năng dùng chung cho cả 5 thứ tiếng nên thứ tiếng đang xem
      nằm trong state chứ không đọc ra được từ tên màn. */
   const curLang = isRd ? rdLang() : isSh ? shLang() : isPc ? picLang()
+                : isFa ? (state.factsLang || factLang() || 'ko')
                 : isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : isEn ? 'en' : 'ko';
   document.documentElement.setAttribute('data-lang', curLang);      // tông màu theo ngôn ngữ
   if (typeof syncThemeColor === 'function') syncThemeColor();
 
   /* Menu ngôn ngữ nào đang sáng: kể cả khi đang ở Bài đọc / Shadowing /
      Nghe & tranh của thứ tiếng đó, vì ba màn này giờ nằm trong menu. */
-  const SKILL = isRd || isSh || isPc;
+  const SKILL = isRd || isSh || isPc || isFa;
   const lit = { ko: SKILL ? curLang === 'ko' : KO_VIEWS.includes(state.view),
                 zh: SKILL ? curLang === 'zh' : isZh,
                 ru: SKILL ? curLang === 'ru' : isRu,
@@ -2449,8 +2452,8 @@ function render(){
     ? jaCrumb()
     : isEn
     ? enCrumb()
-    : (isRd || isSh || isPc)
-    ? skillCrumb(curLang, isRd ? 'read' : isSh ? 'shadow' : 'pic')
+    : (isRd || isSh || isPc || isFa)
+    ? skillCrumb(curLang, isRd ? 'read' : isSh ? 'shadow' : isPc ? 'pic' : 'facts')
     : state.view === 'about'
     ? `<b>Giới thiệu LangLab</b>`
     : state.view === 'lesson' && l
@@ -7231,15 +7234,13 @@ VIEWS.facts = function(){
   const cats = [...new Set(pool.map(f => f.cat))];
   const cat = cats.indexOf(state.factsCat) >= 0 ? state.factsCat : 'all';
   const list = cat === 'all' ? pool : pool.filter(f => f.cat === cat);
-  const langs = ['ko','zh','ru','ja','en'].filter(l => factPool(l).length);
   return `
   <div class="page-head">
     <span class="eyebrow">Bạn có biết?</span>
     <h1>Văn hoá ${esc(FACT_LANG_NAME[lang] || '')} qua ${pool.length} mẩu chuyện</h1>
     <p>Ẩm thực, lễ hội, thói quen, ngôn ngữ, con người và động vật — mỗi mẩu kèm một từ khoá bản ngữ để nhớ luôn. Trong lúc học, bong bóng «Bạn có biết?» sẽ thỉnh thoảng hiện lên ở góc màn hình với một mẩu ngẫu nhiên của ngôn ngữ bạn đang học.</p>
   </div>
-  <div class="level-strip compact">${langs.map(l => `<button class="level-chip" data-facts-lang="${l}"${l === lang ? ' aria-pressed="true"' : ''}>${esc(FACT_LANG_NAME[l])}</button>`).join('')}</div>
-  <div class="level-strip compact" style="margin-top:8px"><button class="level-chip" data-facts-cat="all"${cat === 'all' ? ' aria-pressed="true"' : ''}>Tất cả</button>${cats.map(c => `<button class="level-chip" data-facts-cat="${esc(c)}"${cat === c ? ' aria-pressed="true"' : ''}>${esc(c)}</button>`).join('')}</div>
+  <div class="level-strip compact"><button class="level-chip" data-facts-cat="all"${cat === 'all' ? ' aria-pressed="true"' : ''}>Tất cả</button>${cats.map(c => `<button class="level-chip" data-facts-cat="${esc(c)}"${cat === c ? ' aria-pressed="true"' : ''}>${esc(c)}</button>`).join('')}</div>
   <div class="fact-grid">${list.map((f, i) => `<button class="fact-card" data-fact-idx="${_FA.indexOf(f)}">${factCardHTML(f)}</button>`).join('')}</div>
   <div class="wp-actions" style="padding:10px 0 0">${factsOn() ? `<button class="pbtn" data-fact-off="1">🔕 Tắt bong bóng «Bạn có biết?»</button>` : `<button class="pbtn primary" data-fact-on="1">🔔 Bật lại bong bóng «Bạn có biết?»</button>`}<button class="pbtn" data-fact-next="1">🎲 Xem một mẩu ngẫu nhiên</button><button class="pbtn ghost" data-fact-pos-reset="1">↩︎ Trả bong bóng về góc cũ</button></div>
   <p class="tk-note-small">Mẹo: bong bóng kéo rê được — giữ chuột (hoặc chạm giữ) rồi kéo đặt ở bất kỳ chỗ nào trên màn hình, vị trí sẽ được nhớ lại.</p>
@@ -7276,8 +7277,16 @@ document.addEventListener('click', e => {
   const drpBtn = t.closest('.nav-drop-btn');
   if (drpBtn){
     const d = drpBtn.closest('.nav-drop');
-    const open = d.classList.toggle('open');
-    drpBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    const wasOpen = d.classList.contains('open');
+    /* Đóng hết trước đã — kể cả menu của thứ tiếng khác đang mở, không thì trên
+       điện thoại hai menu bung ra cùng lúc. Gỡ luôn .just-picked, vì bấm lại
+       vào tên thứ tiếng là người dùng CỐ Ý mở lại. */
+    $$('.nav-drop').forEach(x => {
+      x.classList.remove('open', 'just-picked');
+      const b = x.querySelector('.nav-drop-btn');
+      if (b) b.setAttribute('aria-expanded', 'false');
+    });
+    if (!wasOpen){ d.classList.add('open'); drpBtn.setAttribute('aria-expanded', 'true'); }
     return;
   }
 
@@ -7785,6 +7794,7 @@ document.addEventListener('click', e => {
       }
       if (v === 'pic'   ){ stopAudio(); state.pic.lang = lng; state.pic.idx = null;
                            state.pic.plays = 0; state.pic.pick = null; state.pic.show = false; }
+      if (v === 'facts' ){ state.factsLang = lng; state.factsCat = 'all'; }
     } else if (v === 'pic' && state.pic){
       stopAudio(); state.pic.idx = null; state.pic.plays = 0; state.pic.pick = null; state.pic.show = false;
     }

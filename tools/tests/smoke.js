@@ -549,6 +549,35 @@ speechChecks().then(shadowChecks).then(rest).then(() => {
     if (drop.classList.contains('open')) throw new Error('menu vẫn mở');
     if (!drop.classList.contains('just-picked')) throw new Error('thiếu khoá chống :hover bật lại');
   });
+  /* Trên cảm ứng KHÔNG có mouseleave, nên khoá .just-picked phải được gỡ khi
+     người dùng chạm lại vào tên thứ tiếng — nếu không thì menu vừa chọn xong
+     không mở lại được nữa, và menu thứ tiếng khác lại bung ra cùng lúc. */
+  check('navbar cảm ứng: chạm lại vào tên thứ tiếng thì menu mở lại được', () => {
+    const ko = d.querySelector('#koDrop').closest('.nav-drop');
+    click(d.querySelector('.nav-menu [data-go="read"][data-lang="ko"]'));   // chọn -> đóng + khoá
+    click(d.querySelector('#koDrop'));                                      // chạm lại
+    if (!ko.classList.contains('open')) throw new Error('menu không mở lại được');
+    if (ko.classList.contains('just-picked')) throw new Error('khoá :hover còn sót, cảm ứng sẽ kẹt');
+  });
+  check('navbar cảm ứng: mở menu thứ tiếng khác thì menu cũ phải đóng, không bung cả hai', () => {
+    click(d.querySelector('#koDrop'));
+    const ko = d.querySelector('#koDrop').closest('.nav-drop');
+    click(d.querySelector('#zhDrop'));
+    const zh = d.querySelector('#zhDrop').closest('.nav-drop');
+    if (!zh.classList.contains('open')) throw new Error('menu mới không mở');
+    if (ko.classList.contains('open')) throw new Error('menu cũ vẫn mở — bung cả hai');
+    if (d.querySelectorAll('.nav-drop.open').length !== 1) throw new Error('có hơn một menu đang mở');
+    click(d.querySelector('#zhDrop'));
+  });
+  check('navbar: mở bằng rê chuột chỉ áp dụng cho máy có con trỏ thật', () => {
+    const css = [...d.querySelectorAll('style')].map(s => s.textContent).join('\n');
+    const i = css.indexOf('.nav-drop:hover .nav-menu');
+    if (i < 0) throw new Error('mất hẳn phần mở bằng rê chuột');
+    const before = css.slice(0, i);
+    const mq = before.lastIndexOf('@media (hover:hover) and (pointer:fine)');
+    if (mq < 0 || before.indexOf('}', mq) > -1 && before.slice(mq).split('{').length - 1 < 2)
+      throw new Error(':hover chưa được bọc trong @media (hover:hover)');
+  });
   check('navbar: thu gọn / mở rộng được, Labi và nút giao diện vẫn còn', () => {
     const tg = d.querySelector('#navToggle');
     if (!tg) throw new Error('thiếu nút thu gọn');

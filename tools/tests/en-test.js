@@ -40,7 +40,7 @@ let pass=0,fail=0; const check=(name,fn)=>{ try{ const r=fn(); if(r===false) thr
   check('menu Tiếng Anh: 9 mục học + nhóm 3 mục luyện kỹ năng', ()=>{
     const m=d.querySelector('#enDrop'); if(!m) throw new Error('không có #enDrop');
     return d.querySelectorAll('#enDrop + .nav-menu .nav-mi').length===12
-        && d.querySelectorAll('#enDrop + .nav-menu .nav-mi[data-lang="en"]').length===3
+        && d.querySelectorAll('#enDrop + .nav-menu .nav-mi[data-lang="en"]').length===4
         && d.querySelectorAll('#enDrop + .nav-menu .nav-sep').length===1; });
   check('vào Khoá học tiếng Anh → data-lang="en"', ()=>{ click('[data-go="en_home"]'); return lang()==='en'; });
   check('theme-color đổi theo tiếng Anh', ()=>{ const m=[...d.querySelectorAll('meta[name="theme-color"]')].map(x=>x.getAttribute('content')); return m.includes('#F6F4EC') && m.includes('#0C1512'); });
