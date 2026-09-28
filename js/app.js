@@ -699,7 +699,9 @@ const SAY_CFG = {
   ru: () => ({ lang:'ru-RU', rate:0.85, pick:/^ru\b|ru[-_]|russian|\u0440\u0443\u0441\u0441\u043A/i }),
   en: () => { const w = store.get('enVoice', 'uk');
     return { lang: w === 'us' ? 'en-US' : 'en-GB', rate:0.9,
-             pick: w === 'us' ? /en[-_]us|american/i : /en[-_]gb|british|united kingdom/i }; }
+             pick: w === 'us' ? /en[-_]us|american/i : /en[-_]gb|british|united kingdom/i }; },
+  fr: () => ({ lang:'fr-FR', rate:0.88, pick:/^fr\b|fr[-_]|french|français/i }),
+  es: () => ({ lang:'es-ES', rate:0.90, pick:/^es\b|es[-_]|spanish|español|castellano/i })
 };
 
 /* Chuẩn hoá câu TRƯỚC khi tra mp3 và trước khi đọc. tools/make_audio.py phải
@@ -709,7 +711,11 @@ const SAY_PLAIN = {
   zh: s => String(s),
   ja: s => jaPlain(s).replace(/[「」『』]/g, ''),
   ru: s => ruPlain(s),
-  en: s => String(s).replace(/[‘’]/g, "'").replace(/[“”]/g, '"')
+  en: s => String(s).replace(/[‘’]/g, "'").replace(/[“”]/g, '"'),
+  /* Pháp và Tây Ban Nha giữ nguyên chữ có dấu — é, ñ, ç là một phần của từ,
+     bỏ đi là sai chính tả. Chỉ nắn nháy cong cho khớp với dữ liệu. */
+  fr: s => String(s).replace(/[‘’]/g, "'").replace(/[“”]/g, '"'),
+  es: s => String(s).replace(/[‘’]/g, "'").replace(/[“”]/g, '"')
 };
 function sayPlain(text, code){
   return (SAY_PLAIN[code] || SAY_PLAIN.en)(text == null ? '' : text).trim();
@@ -1513,7 +1519,8 @@ const _RD = (typeof READINGS !== 'undefined') ? READINGS : [];
 const RD_LANGS = [
   { id:'ko', vi:'Tiếng Hàn',   cls:'ko' }, { id:'zh', vi:'Tiếng Trung', cls:'zh' },
   { id:'ja', vi:'Tiếng Nhật',  cls:'ja' }, { id:'ru', vi:'Tiếng Nga',   cls:'ru' },
-  { id:'en', vi:'Tiếng Anh',   cls:'en' }
+  { id:'en', vi:'Tiếng Anh',   cls:'en' },
+  { id:'fr', vi:'Tiếng Pháp',  cls:'fr' }, { id:'es', vi:'Tiếng Tây Ban Nha', cls:'es' }
 ];
 function rdLang(){
   const l = state.read.lang;
@@ -2386,8 +2393,20 @@ const CRUMBS = {
    nên breadcrumb phải tự nêu đang ở thứ tiếng nào và quay về được khoá học của
    chính thứ tiếng đó — trước đây viết cứng «Tiếng Hàn» rồi tra CRUMBS[view],
    mà CRUMBS lại không có khoá 'pic' nên ra «Tiếng Hàn › undefined».          */
-const LANG_HOME = { ko:'home', zh:'zh_home', ja:'ja_home', ru:'ru_home', en:'en_home' };
+const LANG_HOME = { ko:'home', zh:'zh_home', ja:'ja_home', ru:'ru_home', en:'en_home',
+                    fr:'fr_home', es:'es_home' };
 function langName(id){ const m = RD_LANGS.find(x => x.id === id); return m ? m.vi : 'Tiếng Hàn'; }
+/* Breadcrumb cho tiếng Pháp / Tây Ban Nha */
+function latCrumb(id){
+  const c = latCfg(id), st = latSt(id);
+  const head = `<button class="crumb-link" data-go="${id}_home">${esc(c.vi)}</button> <span>\u203a</span> `;
+  if (state.view === id + '_dict') return head + '<b>T\u1eeb \u0111i\u1ec3n</b>';
+  if (state.view === id + '_phon') return head + `<b>${esc(c.phonTitle)}</b>`;
+  const l = latLesson(id);
+  if (l) return head + `<button class="crumb-link" data-go="${id}_home" data-lat-home="${id}">${esc(latLevel(id).vi)}</button> <span>\u203a</span> <b>B\u00e0i ${String(l.no).padStart(2,'0')} \u00b7 ${esc(l.vi)}</b>`;
+  return head + `<b>Kho\u00e1 h\u1ecdc</b> <span>\u00b7</span> ${esc(latLevel(id).vi)}`;
+}
+
 function skillCrumb(lang, kind){
   const head = `<button class="crumb-link" data-go="${LANG_HOME[lang] || 'home'}">${esc(langName(lang))}</button> <span>›</span> `;
   if (kind === 'read'){
@@ -2426,13 +2445,15 @@ function render(){
   const isPc = state.view === 'pic';
   const isFa = state.view === 'facts';
   const isZh = state.view.indexOf('zh_') === 0, isRu = state.view.indexOf('ru_') === 0,
-        isJa = state.view.indexOf('ja_') === 0, isEn = state.view.indexOf('en_') === 0;
+        isJa = state.view.indexOf('ja_') === 0, isEn = state.view.indexOf('en_') === 0,
+        isFr = state.view.indexOf('fr_') === 0, isEs = state.view.indexOf('es_') === 0;
 
   /* Ba màn luyện kỹ năng dùng chung cho cả 5 thứ tiếng nên thứ tiếng đang xem
      nằm trong state chứ không đọc ra được từ tên màn. */
   const curLang = isRd ? rdLang() : isSh ? shLang() : isPc ? picLang()
                 : isFa ? (state.factsLang || factLang() || 'ko')
-                : isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : isEn ? 'en' : 'ko';
+                : isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : isEn ? 'en'
+                : isFr ? 'fr' : isEs ? 'es' : 'ko';
   document.documentElement.setAttribute('data-lang', curLang);      // tông màu theo ngôn ngữ
   if (typeof syncThemeColor === 'function') syncThemeColor();
 
@@ -2443,8 +2464,10 @@ function render(){
                 zh: SKILL ? curLang === 'zh' : isZh,
                 ru: SKILL ? curLang === 'ru' : isRu,
                 ja: SKILL ? curLang === 'ja' : isJa,
-                en: SKILL ? curLang === 'en' : isEn };
-  ['ko','zh','ru','ja','en'].forEach(id => {
+                en: SKILL ? curLang === 'en' : isEn,
+                fr: SKILL ? curLang === 'fr' : isFr,
+                es: SKILL ? curLang === 'es' : isEs };
+  ['ko','zh','ru','ja','en','fr','es'].forEach(id => {
     const b = $('#' + id + 'Drop');
     if (b) b.classList.toggle('active', !!lit[id]);
   });
@@ -2472,6 +2495,8 @@ function render(){
     ? jaCrumb()
     : isEn
     ? enCrumb()
+    : (isFr || isEs)
+    ? latCrumb(isFr ? 'fr' : 'es')
     : (isRd || isSh || isPc || isFa)
     ? skillCrumb(curLang, isRd ? 'read' : isSh ? 'shadow' : isPc ? 'pic' : 'facts')
     : state.view === 'about'
@@ -5684,7 +5709,11 @@ const SH_LANGS = [
   { id:'ru', vi:'Tiếng Nga',   nat:'русский', code:'ru-RU', cls:'ru',
     ph:'Dán đoạn tiếng Nga vào đây…',   hint:'bài khoá ТРКИ, truyện ngắn, bản tin…' },
   { id:'en', vi:'Tiếng Anh',   nat:'English', code:'en-GB', cls:'en',
-    ph:'Dán đoạn tiếng Anh vào đây…',   hint:'bài đọc IELTS, podcast, phụ đề phim…' }
+    ph:'Dán đoạn tiếng Anh vào đây…',   hint:'bài đọc IELTS, podcast, phụ đề phim…' },
+  { id:'fr', vi:'Tiếng Pháp',  nat:'Français', code:'fr-FR', cls:'fr',
+    ph:'Dán đoạn tiếng Pháp vào đây…',  hint:'bài báo Le Monde, lời bài hát, hội thoại trong sách…' },
+  { id:'es', vi:'Tiếng Tây Ban Nha', nat:'Español', code:'es-ES', cls:'es',
+    ph:'Dán đoạn tiếng Tây Ban Nha vào đây…', hint:'bài báo El País, lời bài hát, phụ đề phim…' }
 ];
 function shLang(){ const l = state.shadow.lang; return SH_LANGS.some(x => x.id === l) ? l : 'ko'; }
 function shMeta(id){ return SH_LANGS.find(x => x.id === (id || shLang())) || SH_LANGS[0]; }
@@ -7046,13 +7075,306 @@ function enSpStart(sec){
 
 
 /* ============================================================
+   TIẾNG PHÁP & TÂY BAN NHA — một bộ màn hình dùng chung
+   ------------------------------------------------------------
+   Năm thứ tiếng cũ mỗi thứ có một bộ màn riêng, vì chúng khác nhau tận
+   gốc: tiếng Trung cần thứ tự nét, tiếng Nhật cần kana, tiếng Nga cần
+   engine biến cách, tiếng Hàn cần gỡ đuôi. Pháp và Tây Ban Nha thì
+   không — cùng chữ Latinh, cùng kiểu từ điển, cùng kiểu bài học. Chép
+   làm hai bản sẽ thành hơn 400 dòng gần giống hệt nhau, sửa một chỗ
+   phải nhớ sửa cả chỗ kia. Nên ở đây chỉ có MỘT bộ hàm, nhận mã ngôn
+   ngữ làm tham số.
+
+   Thêm thứ tiếng Latinh thứ ba (Ý, Bồ…) chỉ cần thêm một mục vào LAT
+   và một tệp course-<mã>.js, không phải động vào màn hình.
+   ============================================================ */
+const LAT = {
+  fr: {
+    id:'fr', vi:'Tiếng Pháp', nat:'Français',
+    course: (typeof COURSE_FR !== 'undefined') ? COURSE_FR : { levels:[], lessons:[] },
+    title:'Tiếng Pháp từ A1 tới B2',
+    blurb:'Học theo khung <em>CEFR</em>: mỗi bài có mục tiêu giao tiếp, ngữ pháp giải thích bằng tiếng Việt, từ vựng kèm phiên âm IPA và <b>giống của danh từ</b>, cụm hay đi với nhau, và hội thoại. Mọi từ trong bài đều bấm được để tra nghĩa.',
+    phonTitle:'Phát âm tiếng Pháp',
+    phonLead:'Tiếng Pháp viết một đằng đọc một nẻo, nhưng có quy luật. Nắm mấy điểm dưới đây là đọc được phần lớn từ mới mà không cần tra.',
+    phon:[
+      { k:'Phụ âm cuối thường CÂM', v:'petit đọc «pơ-ti», grand đọc «gờ-răng». Bốn chữ hay đọc lên là C, R, F, L — mẹo nhớ: các chữ trong từ tiếng Anh «CaReFuL».', ex:['petit','grand','parler','avec'] },
+      { k:'Nguyên âm mũi', v:'an/en → ɑ̃, on → ɔ̃, in/ain → ɛ̃, un → œ̃. Hơi thoát qua mũi, không có âm «n» ở cuối.', ex:['bonjour','pain','enfant','un'] },
+      { k:'Nối âm (liaison)', v:'Phụ âm câm cuối từ được đọc lên khi từ sau bắt đầu bằng nguyên âm. «les amis» đọc «lê-za-mi».', ex:['les amis','vous êtes','un enfant'] },
+      { k:'u và ou khác nhau', v:'«ou» là «u» tiếng Việt. Còn «u» thì tròn môi như huýt sáo mà lưỡi ở vị trí «i» — tiếng Việt không có âm này.', ex:['tout','tu','vous','rue'] },
+      { k:'R đặt ở cổ họng', v:'Không rung đầu lưỡi như «r» tiếng Việt, mà ma sát ở cuống lưỡi, gần giống «kh» nhẹ.', ex:['rue','Paris','merci','bonjour'] },
+      { k:'é · è · ê', v:'«é» miệng khép, gần «ê» tiếng Việt. «è» và «ê» miệng mở hơn, gần «e» tiếng Việt.', ex:['café','père','être','élève'] },
+      { k:'ch đọc là «s»', v:'Không đọc «ch» như tiếng Anh. «chat» là «sa» chứ không phải «chát».', ex:['chat','chercher','chaud'] },
+      { k:'Trọng âm luôn ở cuối', v:'Khác tiếng Anh, tiếng Pháp nhấn vào âm tiết cuối của cụm từ, đều đặn và nhẹ.', ex:['restaurant','important','université'] }
+    ],
+    alphaTitle:'Bảng chữ cái và dấu',
+    alpha:[
+      ['A a','a'],['B b','bé'],['C c','xê'],['D d','đê'],['E e','ơ'],['F f','ép'],['G g','giê'],
+      ['H h','át (luôn câm)'],['I i','i'],['J j','gi'],['K k','ca'],['L l','en-lơ'],['M m','em-mơ'],
+      ['N n','en-nơ'],['O o','ô'],['P p','pê'],['Q q','quy'],['R r','e-rơ'],['S s','ét-xơ'],
+      ['T t','tê'],['U u','uy'],['V v','vê'],['W w','vê kép'],['X x','ích-xơ'],['Y y','i cờ-rếch'],['Z z','dét']
+    ],
+    marks:[
+      ['é','accent aigu — chỉ đứng trên chữ e, đọc khép miệng'],
+      ['è ê','accent grave / circonflexe — mở miệng hơn'],
+      ['ç','cédille — ép chữ c đọc thành «s» trước a, o, u: français'],
+      ['ï ë','tréma — báo hai nguyên âm đọc tách nhau: Noël'],
+      ['œ','e dính o — cœur, sœur, œuf']
+    ]
+  },
+  es: {
+    id:'es', vi:'Tiếng Tây Ban Nha', nat:'Español',
+    course: (typeof COURSE_ES !== 'undefined') ? COURSE_ES : { levels:[], lessons:[] },
+    title:'Tiếng Tây Ban Nha từ A1 tới B2',
+    blurb:'Học theo khung <em>CEFR</em>. Tin mừng: tiếng Tây Ban Nha <b>đọc đúng như viết</b> — thuộc bảng chữ cái là đọc được mọi từ, kể cả từ chưa gặp bao giờ. Phần khó nằm ở chia động từ, nên mỗi bài đều có bảng chia đầy đủ.',
+    phonTitle:'Phát âm tiếng Tây Ban Nha',
+    phonLead:'Chỉ có 5 nguyên âm, đọc ngắn và rõ, không bao giờ đổi. Học một lần là dùng mãi.',
+    phon:[
+      { k:'Năm nguyên âm bất biến', v:'a e i o u đọc đúng như tiếng Việt, không kéo dài, không biến thành âm đôi như tiếng Anh.', ex:['casa','mesa','vino','todo','mucho'] },
+      { k:'h luôn câm', v:'hola đọc «ô-la», hijo đọc «i-khô». Không bao giờ phát âm chữ h.', ex:['hola','hijo','hora','hermano'] },
+      { k:'j và g (trước e, i) đọc như «kh»', v:'Âm ma sát ở cổ họng, mạnh hơn «h» tiếng Việt.', ex:['jamón','hijo','gente','girar'] },
+      { k:'ñ là «nh» tiếng Việt', v:'España đọc «ét-xpa-nha». Thiếu dấu ngã là thành chữ khác hẳn.', ex:['año','España','señor','mañana'] },
+      { k:'ll và y', v:'Đa số vùng đọc cả hai như «i» dài hoặc «gi». calle ≈ «ca-giê».', ex:['calle','llamar','yo','ella'] },
+      { k:'rr rung lưỡi', v:'Một «r» thì rung nhẹ, «rr» rung mạnh và lâu. perro (con chó) khác pero (nhưng) chỉ ở chỗ này.', ex:['perro','pero','rojo','carro'] },
+      { k:'z và c (trước e, i) — hai lối đọc', v:'Ở Tây Ban Nha đọc như «th» tiếng Anh (gracias ≈ «gra-thi-át»). Ở Mỹ Latinh đọc là «s». Cả hai đều đúng.', ex:['gracias','cinco','zapato','cerveza'] },
+      { k:'Trọng âm có quy tắc', v:'Tận cùng bằng nguyên âm, n hoặc s thì nhấn áp chót; còn lại nhấn âm cuối. Trái quy tắc thì có dấu sắc báo: café, adiós.', ex:['casa','hablan','hotel','café'] }
+    ],
+    alphaTitle:'Bảng chữ cái',
+    alpha:[
+      ['A a','a'],['B b','bê'],['C c','xê'],['D d','đê'],['E e','ê'],['F f','ê-phê'],['G g','khê'],
+      ['H h','a-chê (câm)'],['I i','i'],['J j','khô-ta'],['K k','ca'],['L l','ê-lê'],['M m','ê-mê'],
+      ['N n','ê-nê'],['Ñ ñ','ê-nhê'],['O o','ô'],['P p','pê'],['Q q','cu'],['R r','ê-rê'],
+      ['S s','ê-xê'],['T t','tê'],['U u','u'],['V v','u-vê'],['W w','u-vê kép'],['X x','ê-kít'],
+      ['Y y','i gờ-ri-ê-ga'],['Z z','thê-ta']
+    ],
+    marks:[
+      ['á é í ó ú','dấu sắc — chỉ báo trọng âm rơi trái quy tắc, không đổi cách đọc nguyên âm'],
+      ['ñ','chữ riêng, đứng sau n trong bảng chữ cái, đọc là «nh»'],
+      ['ü','báo chữ u phải đọc lên trong güe, güi: pingüino'],
+      ['¿ ¡','dấu ngược mở đầu câu hỏi và câu cảm thán']
+    ]
+  }
+};
+
+function latCfg(id){ return LAT[id] || LAT.fr; }
+/* Trạng thái tạo khi cần, khỏi phải nhét sẵn vào state cho mỗi thứ tiếng mới */
+function latSt(id){
+  if (!state[id]) state[id] = { level:'a1', lesson:null, tab:'vocab', entry:null, q:'' };
+  return state[id];
+}
+function latLevel(id){
+  const c = latCfg(id), st = latSt(id);
+  return c.course.levels.find(x => x.id === st.level) || c.course.levels[0] || { id:'a1', vi:'A1', lessons:0 };
+}
+function latLessons(id){ return latCfg(id).course.lessons.filter(l => l.level === latSt(id).level); }
+function latLesson(id){ const st = latSt(id); return latCfg(id).course.lessons.find(l => l.level === st.level && l.no === st.lesson) || null; }
+
+/* Kho từ gộp từ mọi bài — dùng cho từ điển và cho việc bấm vào từ trong câu */
+const _latLookup = {};
+function latLookup(id){
+  if (_latLookup[id]) return _latLookup[id];
+  const m = {};
+  latCfg(id).course.lessons.forEach(l => (l.vocab || []).forEach(w => {
+    const k = String(w[id] || '').toLowerCase();
+    if (!k) return;
+    if (!m[k]) m[k] = Object.assign({ key:k, refs:[] }, w);
+    m[k].refs.push({ level:l.level, no:l.no });
+  }));
+  _latLookup[id] = m;
+  return m;
+}
+
+/* Tách câu thành từ bấm được. Chữ Latinh có dấu nên không dùng \w được:
+   \w bỏ sót é, ñ, ç… và sẽ cắt «français» thành «fran» + «ais». */
+const LAT_WORD = /[A-Za-zÀ-ÖØ-öø-ÿ'’-]+/g;
+function latTokens(text, id){
+  const L = latLookup(id);
+  return String(text || '').replace(/[&<>]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[c]))
+    .replace(LAT_WORD, w => {
+      const k = w.toLowerCase().replace(/[’']$/, '');
+      return L[k] ? `<span class="zc" data-latw="${id}:${esc(k)}">${w}</span>` : w;
+    });
+}
+function latSpeakBtn(text, id, cls){
+  return `<button class="${cls || 'icon-btn'}" data-lat-speak="${id}:${esc(text)}" title="Nghe">${SPK_ICO}</button>`;
+}
+function latGender(w){
+  if (!w.g) return '';
+  return `<span class="lat-g lat-g-${w.g}" title="${w.g === 'm' ? 'giống đực' : 'giống cái'}">${w.g === 'm' ? 'đực' : 'cái'}</span>`;
+}
+
+/* ---------------- Màn khoá học ---------------- */
+function latHome(id){
+  const c = latCfg(id), lv = latLevel(id), L = latLessons(id), total = lv.lessons || 0;
+  const cards = [
+    [id + '_phon', c.phonTitle, 'Bảng chữ cái, quy tắc đọc, dấu', '/a/'],
+    [id + '_dict', 'Từ điển', 'Mọi từ trong khoá, có giống và phiên âm', BOOK_ICO]
+  ];
+  return `
+  <div class="page-head">
+    <span class="eyebrow">Khoá ${esc(c.vi.toLowerCase())} · ${esc(lv[id] || lv.vi)}</span>
+    <h1>${esc(c.title)}</h1>
+    <p>${c.blurb} Hiện có ${L.length}/${total || '—'} bài của ${esc(lv.vi)}.</p>
+  </div>
+  <div class="zh-found">
+    ${cards.map(x => `<button class="zh-found-card" data-go="${x[0]}"><span class="zh-found-ico ${id}">${x[3]}</span><span class="zh-found-tx"><b>${esc(x[1])}</b><i>${esc(x[2])}</i></span></button>`).join('')}
+  </div>
+  <div class="level-strip">
+    ${c.course.levels.map(v => {
+      const on = v.status === 'active';
+      return `<button class="level-chip" data-lat-level="${id}:${v.id}"${latSt(id).level === v.id ? ' aria-pressed="true"' : ''}${on ? '' : ' disabled'} title="${on ? '' : 'Đang biên soạn'}">${esc(v.vi)} <span class="lv-ko">${esc(v[id] || '')}</span>${on ? '' : ' <span class="lv-soon">sắp có</span>'}</button>`;
+    }).join('')}
+  </div>
+  ${L.length ? `<div class="lesson-grid">
+    ${L.map(l => `
+      <button class="lesson-card" data-lat-lesson="${id}:${l.no}">
+        <span class="lesson-no"><i></i> BÀI ${String(l.no).padStart(2,'0')}</span>
+        <h3 class="${id}">${esc(l[id])}</h3>
+        <p class="vi">${esc(l.vi)}</p>
+        <span class="lesson-meta">${(l.vocab||[]).length} từ · ${(l.grammar||[]).length} ngữ pháp · ${(l.dialogue||[]).length} câu hội thoại</span>
+      </button>`).join('')}
+  </div>` : `<p class="tk-note-small">Cấp này đang được biên soạn.</p>`}`;
+}
+
+/* ---------------- Màn một bài học ---------------- */
+function latLessonView(id){
+  const c = latCfg(id), l = latLesson(id), st = latSt(id);
+  if (!l) return latHome(id);
+  const tabs = [['vocab','Từ vựng'],['grammar','Ngữ pháp'],['colloc','Cụm từ'],['dialogue','Hội thoại']];
+  const tab = tabs.some(t => t[0] === st.tab) ? st.tab : 'vocab';
+  let body = '';
+
+  if (tab === 'vocab'){
+    body = `<div class="zh-word-grid">${(l.vocab || []).map(w => `
+      <div class="zh-word">
+        <div class="zh-word-top">
+          <span class="zh-word-hz ${id}">${esc(w[id])}</span>
+          ${latSpeakBtn(w[id], id, 'icon-btn mini')}
+          ${latGender(w)}
+        </div>
+        <div class="zh-word-py ipa">/${esc(w.ipa || '')}/</div>
+        <div class="zh-word-vi">${esc(w.vi)}</div>
+        <div class="zh-word-pos">${esc(w.pos || '')}</div>
+        ${w.note ? `<div class="zh-word-note">${esc(w.note)}</div>` : ''}
+      </div>`).join('')}</div>`;
+  } else if (tab === 'grammar'){
+    body = (l.grammar || []).map(g => `
+      <div class="zh-gram">
+        <div class="zh-gram-form ${id}">${esc(g.form)}</div>
+        <p class="zh-gram-vi">${esc(g.vi)}</p>
+        ${g.note ? `<p class="zh-gram-note">${esc(g.note)}</p>` : ''}
+        ${g.ex ? `<div class="zh-gram-ex"><span class="${id}">${latTokens(g.ex[id], id)}</span> ${latSpeakBtn(g.ex[id], id, 'icon-btn mini')}<i>${esc(g.ex.vi)}</i></div>` : ''}
+      </div>`).join('');
+  } else if (tab === 'colloc'){
+    body = (l.colloc || []).map(p => `
+      <div class="zh-gram">
+        <div class="zh-gram-form ${id}">${latTokens(p.p, id)} ${latSpeakBtn(p.p, id, 'icon-btn mini')}</div>
+        <p class="zh-gram-vi">${esc(p.vi)}</p>
+        ${p.ex ? `<div class="zh-gram-ex"><span class="${id}">${latTokens(p.ex, id)}</span> ${latSpeakBtn(p.ex, id, 'icon-btn mini')}</div>` : ''}
+      </div>`).join('');
+  } else {
+    body = `<div class="dlg">${(l.dialogue || []).map(d => `
+      <div class="dlg-row">
+        <span class="dlg-sp">${esc(d.sp)}</span>
+        <span class="dlg-tx"><span class="${id}">${latTokens(d[id], id)}</span> ${latSpeakBtn(d[id], id, 'icon-btn mini')}<i>${esc(d.vi)}</i></span>
+      </div>`).join('')}</div>
+      <div class="stage-ctrl"><button class="pbtn" data-lat-say-all="${id}">${SPK_ICO} Nghe cả hội thoại</button></div>`;
+  }
+
+  return `
+  <div class="page-head">
+    <span class="eyebrow">${esc(c.vi)} · ${esc(latLevel(id).vi)} · bài ${String(l.no).padStart(2,'0')}</span>
+    <h1 class="${id}">${esc(l[id])}</h1>
+    <p>${esc(l.vi)}${l.skill ? ' · ' + esc(l.skill) : ''}</p>
+  </div>
+  <div class="level-strip compact">
+    ${tabs.map(t => `<button class="level-chip" data-lat-tab="${id}:${t[0]}"${tab === t[0] ? ' aria-pressed="true"' : ''}>${t[1]}</button>`).join('')}
+  </div>
+  ${body}`;
+}
+
+/* ---------------- Từ điển ---------------- */
+function latDict(id){
+  const c = latCfg(id), st = latSt(id), L = latLookup(id);
+  const q = String(st.q || '').trim().toLowerCase();
+  const all = Object.keys(L).sort((a, b) => a.localeCompare(b, id));
+  const hits = q ? all.filter(k => k.indexOf(q) >= 0 || String(L[k].vi).toLowerCase().indexOf(q) >= 0) : all;
+  const cur = st.entry && L[st.entry] ? L[st.entry] : null;
+  return `
+  <div class="page-head">
+    <span class="eyebrow">${esc(c.vi)}</span>
+    <h1>Từ điển ${esc(c.vi.toLowerCase())}</h1>
+    <p>${all.length} từ gom từ mọi bài trong khoá, có phiên âm IPA và giống của danh từ. Gõ bằng ${esc(c.nat)} hoặc bằng tiếng Việt đều tra được.</p>
+  </div>
+  <input class="dict-search" id="latSearch" data-lat-q="${id}" placeholder="Tra ${esc(c.nat)} hoặc tiếng Việt…" value="${esc(st.q || '')}" autocomplete="off">
+  ${cur ? `
+  <div class="zh-entry" id="latEntry">
+    <div class="zh-entry-top">
+      <span class="zh-entry-hz ${id}">${esc(cur[id])}</span>
+      ${latSpeakBtn(cur[id], id, 'icon-btn')}
+      ${latGender(cur)}
+    </div>
+    <div class="zh-entry-py ipa">/${esc(cur.ipa || '')}/</div>
+    <div class="zh-entry-vi">${esc(cur.vi)}</div>
+    <div class="zh-entry-meta">${esc(cur.pos || '')}</div>
+    ${cur.note ? `<p class="zh-gram-note">${esc(cur.note)}</p>` : ''}
+    <div class="zh-entry-refs">${cur.refs.map(r => `<button class="zh-ref" data-lat-lesson="${id}:${r.no}">Bài ${r.no}</button>`).join(' ')}</div>
+  </div>` : ''}
+  <div class="zh-res-list">
+    ${hits.slice(0, 300).map(k => {
+      const w = L[k];
+      return `<button class="zh-res" data-lat-entry="${id}:${esc(k)}">
+        <span class="zh-res-hz ${id}">${esc(w[id])}</span>
+        <span class="zh-res-py ipa">/${esc(w.ipa || '')}/</span>
+        <span class="zh-res-vi">${esc(w.vi)}</span>
+      </button>`;
+    }).join('')}
+  </div>
+  ${hits.length ? '' : '<p class="tk-note-small">Không tìm thấy từ nào khớp.</p>'}`;
+}
+
+/* ---------------- Bảng chữ cái & phát âm ---------------- */
+function latPhon(id){
+  const c = latCfg(id);
+  return `
+  <div class="page-head">
+    <span class="eyebrow">${esc(c.vi)}</span>
+    <h1>${esc(c.phonTitle)}</h1>
+    <p>${esc(c.phonLead)}</p>
+  </div>
+  <h2 class="sec-h">${esc(c.alphaTitle)}</h2>
+  <div class="ru-letters">
+    ${c.alpha.map(a => `<div class="ru-letter"><span class="ru-letter-ch ${id}">${esc(a[0])}</span><span class="ru-letter-nm">${esc(a[1])}</span></div>`).join('')}
+  </div>
+  <h2 class="sec-h">Dấu phụ</h2>
+  <div class="zh-word-grid">
+    ${c.marks.map(m => `<div class="zh-word"><div class="zh-word-top"><span class="zh-word-hz ${id}">${esc(m[0])}</span></div><div class="zh-word-vi">${esc(m[1])}</div></div>`).join('')}
+  </div>
+  <h2 class="sec-h">Quy tắc đọc</h2>
+  ${c.phon.map(p => `
+    <div class="zh-gram">
+      <div class="zh-gram-form">${esc(p.k)}</div>
+      <p class="zh-gram-vi">${esc(p.v)}</p>
+      <div class="zh-gram-ex">${p.ex.map(e => `<span class="${id}">${esc(e)}</span> ${latSpeakBtn(e, id, 'icon-btn mini')}`).join(' · ')}</div>
+    </div>`).join('')}`;
+}
+
+/* Đăng ký màn hình cho từng thứ tiếng — thêm ngôn ngữ mới chỉ cần thêm mã vào đây */
+Object.keys(LAT).forEach(id => {
+  VIEWS[id + '_home']   = () => latSt(id).lesson ? latLessonView(id) : latHome(id);
+  VIEWS[id + '_dict']   = () => latDict(id);
+  VIEWS[id + '_phon']   = () => latPhon(id);
+});
+
+
+/* ============================================================
    «BẠN CÓ BIẾT?» — bong bóng fact văn hoá theo ngôn ngữ đang học
    Dữ liệu: facts.js (FACTS + FACT_ART). Bong bóng tự hiện sau một lúc học,
    bấm vào mở bảng chi tiết có hình minh hoạ; xem tất cả ở màn «Bạn có biết?».
    ============================================================ */
 const _FA = (typeof FACTS !== 'undefined') ? FACTS : [];
 const _FART = (typeof FACT_ART !== 'undefined') ? FACT_ART : {};
-const FACT_LANG_NAME = { ko:'Hàn Quốc', zh:'Trung Quốc', ru:'Nga', ja:'Nhật Bản', en:'Anh – Mỹ' };
+const FACT_LANG_NAME = { ko:'Hàn Quốc', zh:'Trung Quốc', ru:'Nga', ja:'Nhật Bản', en:'Anh – Mỹ',
+                         fr:'Pháp', es:'Tây Ban Nha' };
 let _factTimer = null;
 
 function factsOn(){ return store.get('factsOn', true) !== false; }
@@ -7314,6 +7636,43 @@ document.addEventListener('click', e => {
   // gồm cả span .kw trong câu và ô .tok trong bảng tra câu
   const kw = t.closest('[data-kw]');
   if (kw){ hideTip(); openWord(kw.dataset.kw); return; }
+
+  /* ----- tiếng Pháp & Tây Ban Nha (dùng chung một bộ xử lý) ----- */
+  const latL = t.closest('[data-lat-level]');
+  if (latL){ const [id, lv] = latL.dataset.latLevel.split(':'); latSt(id).level = lv; latSt(id).lesson = null; render(); syncHist(); return; }
+  const latLs = t.closest('[data-lat-lesson]');
+  if (latLs){
+    const [id, no] = latLs.dataset.latLesson.split(':');
+    const st = latSt(id);
+    /* Từ điển cho phép nhảy thẳng vào bài, mà bài đó có thể nằm ở cấp khác */
+    const les = latCfg(id).course.lessons.find(l => String(l.no) === no && l.level === st.level)
+             || latCfg(id).course.lessons.find(l => String(l.no) === no);
+    if (les){ st.level = les.level; st.lesson = les.no; st.tab = 'vocab'; }
+    if (state.view !== id + '_home') go(id + '_home'); else { render(); syncHist(); }
+    return;
+  }
+  const latT = t.closest('[data-lat-tab]');
+  if (latT){ const [id, tab] = latT.dataset.latTab.split(':'); latSt(id).tab = tab; renderKeep(); return; }
+  const latE = t.closest('[data-lat-entry]');
+  if (latE){ const i = latE.dataset.latEntry.indexOf(':'); const id = latE.dataset.latEntry.slice(0, i);
+    latSt(id).entry = latE.dataset.latEntry.slice(i + 1);
+    if (state.view !== id + '_dict') go(id + '_dict'); else renderKeep();
+    return; }
+  const latW = t.closest('[data-latw]');
+  if (latW){ const i = latW.dataset.latw.indexOf(':'); const id = latW.dataset.latw.slice(0, i);
+    latSt(id).entry = latW.dataset.latw.slice(i + 1); latSt(id).q = '';
+    go(id + '_dict'); return; }
+  const latSp = t.closest('[data-lat-speak]');
+  if (latSp){ const i = latSp.dataset.latSpeak.indexOf(':'); const id = latSp.dataset.latSpeak.slice(0, i);
+    sayVia(latSp.dataset.latSpeak.slice(i + 1), id,
+      'Máy chưa có giọng đọc ' + latCfg(id).vi.toLowerCase() + ' — cài gói giọng '
+      + (id === 'fr' ? 'fr-FR (Français)' : 'es-ES (Español)') + ' trong hệ điều hành.');
+    return; }
+  const latAll = t.closest('[data-lat-say-all]');
+  if (latAll){
+    const id = latAll.dataset.latSayAll, l = latLesson(id);
+    if (l) sayLines((l.dialogue || []).map(d => d[id]), id, {});
+    return; }
 
   /* ----- nghe & chọn tranh ----- */
   const pcL = t.closest('[data-pic-lang]');
@@ -8065,6 +8424,10 @@ document.addEventListener('change', e => {
 
 /* tìm nhanh trên thanh trên cùng + ô chuyển số */
 document.addEventListener('input', e => {
+  const latQ = e.target.closest ? e.target.closest('[data-lat-q]') : null;
+  if (latQ){ const id = latQ.dataset.latQ; latSt(id).q = latQ.value; latSt(id).entry = null; renderKeep();
+    const box = $('#latSearch'); if (box){ box.focus(); box.setSelectionRange(box.value.length, box.value.length); } return; }
+
   if (e.target && e.target.id === 'enidq'){ state.en.idiomQ = e.target.value; const el = document.getElementById('view'); if (el){ el.innerHTML = VIEWS.en_idiom(); const q = document.getElementById('enidq'); if (q){ q.value = state.en.idiomQ; q.focus(); q.setSelectionRange(q.value.length, q.value.length); } } return; }
   if (e.target && e.target.id === 'enq'){ state.en.dictQ = e.target.value; state.en.entry = enLemma(e.target.value) || null; const el = document.getElementById('view'); if (el){ el.innerHTML = VIEWS.en_dict(); const q = document.getElementById('enq'); if (q){ q.value = state.en.dictQ; q.focus(); q.setSelectionRange(q.value.length, q.value.length); } } return; }
   if (e.target.id === 'numInput'){

@@ -40,7 +40,7 @@ let pass=0,fail=0; const check=(name,fn)=>{ try{ const r=fn(); if(r===false) thr
     return F.length===320 && ['ko','zh','ru','ja','en'].every(l=>by[l]===64) && dup.length===0 && F.every(f=>!!A[f.art] && f.cat && f.title && f.body && f.extra && f.word && f.word.t && f.word.vi);
   });
   check('menu mọi ngôn ngữ đều có «Bạn có biết?», mỗi cái mang data-lang riêng', ()=>
-    n('[data-go="facts"]')===5 && ['ko','zh','ru','ja','en'].every(l=>n(`[data-go="facts"][data-lang="${l}"]`)===1));
+    n('[data-go="facts"]')===7 && ['ko','zh','ru','ja','en','fr','es'].every(l=>n(`[data-go="facts"][data-lang="${l}"]`)===1));
   click('[data-go="facts"][data-lang="ko"]');
   check('vào từ menu tiếng Hàn: 64 mẩu Hàn Quốc, tông màu ko, không còn chip chọn nước', ()=>
     !n('[data-facts-lang]') && n('[data-facts-cat]')>=7 && n('.fact-card')===64

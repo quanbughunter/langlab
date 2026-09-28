@@ -1752,12 +1752,68 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   --seal:#F0A0A8; --seal-soft:#3A2126;
   --logo-bg:#EDF3EC;
 }
+/* ===== TÔNG MÀU TIẾNG PHÁP — lam cobalt / xám ngọc trai (data-lang="fr") =====
+   sáng: accent #2F5AA8 trên trắng 6.1:1, trên nền 5.6:1 · tối: accent #8FB4F5 trên #101724 9.6:1 */
+:root[data-lang="fr"]{
+  --ground:#F3F4F8; --surface:#FFFFFF; --surface-2:#E8EBF3;
+  --ink:#171C26; --muted:#57607A; --faint:#727C94;
+  --line:#DCE1EC; --line-strong:#BCC6DB;
+  --accent:#2F5AA8; --accent-2:#3E71C8; --accent-soft:#E3EAF7;
+  --seal:#A32A3C; --seal-soft:#F7E3E6;
+}
+@media (prefers-color-scheme: dark){
+  :root[data-lang="fr"]:not([data-theme="light"]){
+    --ground:#0B1018; --surface:#101724; --surface-2:#182132;
+    --ink:#E8ECF4; --muted:#AAB5CA; --faint:#7F8BA4;
+    --line:#26314A; --line-strong:#374766;
+    --accent:#8FB4F5; --accent-2:#B6CEFA; --accent-soft:#1B2942;
+    --seal:#F0A3AE; --seal-soft:#3A2028;
+    --logo-bg:#EBEEF5;
+  }
+}
+:root[data-lang="fr"][data-theme="dark"]{
+  --ground:#0B1018; --surface:#101724; --surface-2:#182132;
+  --ink:#E8ECF4; --muted:#AAB5CA; --faint:#7F8BA4;
+  --line:#26314A; --line-strong:#374766;
+  --accent:#8FB4F5; --accent-2:#B6CEFA; --accent-soft:#1B2942;
+  --seal:#F0A3AE; --seal-soft:#3A2028;
+  --logo-bg:#EBEEF5;
+}
+
+/* ===== TÔNG MÀU TIẾNG TÂY BAN NHA — đỏ son đất / vàng cát (data-lang="es") =====
+   sáng: accent #B03A1E trên trắng 5.6:1, trên nền 5.1:1 · tối: accent #F09A72 trên #1A1210 9.1:1 */
+:root[data-lang="es"]{
+  --ground:#FBF4EC; --surface:#FFFFFF; --surface-2:#F5E8DA;
+  --ink:#24170F; --muted:#6B5341; --faint:#886C56;
+  --line:#EBDCCB; --line-strong:#D6BEA4;
+  --accent:#B03A1E; --accent-2:#C7512F; --accent-soft:#F8E4DB;
+  --seal:#8A6A1F; --seal-soft:#F6EEDA;
+}
+@media (prefers-color-scheme: dark){
+  :root[data-lang="es"]:not([data-theme="light"]){
+    --ground:#130D0A; --surface:#1A1210; --surface-2:#251A15;
+    --ink:#F4E9E1; --muted:#C4A896; --faint:#9A806D;
+    --line:#38271F; --line-strong:#4F372B;
+    --accent:#F09A72; --accent-2:#F7BC9E; --accent-soft:#3A2218;
+    --seal:#E3C56A; --seal-soft:#332B14;
+    --logo-bg:#F5EDE4;
+  }
+}
+:root[data-lang="es"][data-theme="dark"]{
+  --ground:#130D0A; --surface:#1A1210; --surface-2:#251A15;
+  --ink:#F4E9E1; --muted:#C4A896; --faint:#9A806D;
+  --line:#38271F; --line-strong:#4F372B;
+  --accent:#F09A72; --accent-2:#F7BC9E; --accent-soft:#3A2218;
+  --seal:#E3C56A; --seal-soft:#332B14;
+  --logo-bg:#F5EDE4;
+}
+
 /* Chữ tiếng Anh + phiên âm IPA */
-.en,.lesson-card h3.en,.zh-les-title.en,.zh-gram-form.en,.zh-word-hz.en,.zh-line-zh.en,.zh-card-front.en,.qz-hz.en,.qz-opt.en,.zh-res-hz.en,.tk-passage.en{font-family:"Lexend","Segoe UI",system-ui,sans-serif;letter-spacing:0}
+.fr,.es,.lesson-card h3.fr,.lesson-card h3.es,.lesson-card h3.en,.zh-les-title.en,.zh-gram-form.en,.zh-word-hz.en,.zh-line-zh.en,.zh-card-front.en,.qz-hz.en,.qz-opt.en,.zh-res-hz.en,.tk-passage.en{font-family:"Lexend","Segoe UI",system-ui,sans-serif;letter-spacing:0}
 .ipa{font-family:"Charis SIL","Doulos SIL","Gentium Plus","Segoe UI","DejaVu Sans",serif;color:var(--accent-2);font-size:.94em;letter-spacing:.01em;white-space:nowrap}
 .ipa.big{font-size:1.15em;font-weight:500}
-.en .zc{text-decoration:underline dotted;text-decoration-color:color-mix(in srgb,var(--accent) 55%,transparent);text-underline-offset:4px;text-decoration-thickness:1.5px;padding:0 1px;border-radius:3px;transition:background .12s,color .12s}
-.en .zc:hover{background:var(--accent-soft);color:var(--accent);cursor:pointer}
+.fr .zc,.es .zc,.en .zc{text-decoration:underline dotted;text-decoration-color:color-mix(in srgb,var(--accent) 55%,transparent);text-underline-offset:4px;text-decoration-thickness:1.5px;padding:0 1px;border-radius:3px;transition:background .12s,color .12s}
+.fr .zc:hover,.es .zc:hover,.en .zc:hover{background:var(--accent-soft);color:var(--accent);cursor:pointer}
 /* Bảng âm vị */
 .ph-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px;margin-top:12px}
 .ph-cell{text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 11px;cursor:pointer;color:var(--ink);font:inherit;transition:border-color .15s,transform .12s,box-shadow .15s}

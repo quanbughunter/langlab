@@ -525,13 +525,13 @@ speechChecks().then(shadowChecks).then(rest).then(() => {
       if (d.querySelector('.nav-main > [data-go="' + v + '"]'))
         throw new Error('«' + v + '» vẫn còn là mục cấp 1');
     });
-    ['ko','en','ja','zh','ru'].forEach(lg => {
+    ['ko','en','ja','zh','ru','fr','es'].forEach(lg => {
       ['read','shadow','pic'].forEach(v => {
         if (!d.querySelector('.nav-menu [data-go="' + v + '"][data-lang="' + lg + '"]'))
           throw new Error('menu ' + lg + ' thiếu mục ' + v);
       });
     });
-    if (d.querySelectorAll('.nav-menu .nav-sep').length !== 5)
+    if (d.querySelectorAll('.nav-menu .nav-sep').length !== 7)
       throw new Error('thiếu đường kẻ ngăn nhóm luyện kỹ năng');
   });
   check('navbar: vào Nghe & tranh từ menu tiếng Nga thì đúng tiếng Nga, tông màu và breadcrumb theo đó', () => {
