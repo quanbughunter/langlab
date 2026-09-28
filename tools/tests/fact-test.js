@@ -47,21 +47,22 @@ let pass=0,fail=0; const check=(name,fn)=>{ try{ const r=fn(); if(r===false) thr
     if (bad.length) console.log('   mẩu thiếu trường:', bad.slice(0,3).map(f=>f.title.slice(0,30)).join(' | '));
     return F.length>=320 && thin.length===0 && dup.length===0 && bad.length===0;
   });
+  const nOf = lg => win.eval('FACTS').filter(f=>f.lang===lg).length;
   check('menu mọi ngôn ngữ đều có «Bạn có biết?», mỗi cái mang data-lang riêng', ()=>
     n('[data-go="facts"]')===7 && ['ko','zh','ru','ja','en','fr','es'].every(l=>n(`[data-go="facts"][data-lang="${l}"]`)===1));
   click('[data-go="facts"][data-lang="ko"]');
-  check('vào từ menu tiếng Hàn: 64 mẩu Hàn Quốc, tông màu ko, không còn chip chọn nước', ()=>
-    !n('[data-facts-lang]') && n('[data-facts-cat]')>=7 && n('.fact-card')===64
-    && n('.fact-card .fact-art')===64 && d.documentElement.getAttribute('data-lang')==='ko'
+  check('vào từ menu tiếng Hàn: đủ mẩu Hàn Quốc, tông màu ko, không còn chip chọn nước', ()=>
+    !n('[data-facts-lang]') && n('[data-facts-cat]')>=7 && n('.fact-card')===nOf('ko')
+    && n('.fact-card .fact-art')===nOf('ko') && d.documentElement.getAttribute('data-lang')==='ko'
     && /Hàn Quốc/.test(body()));
   check('lọc theo chủ đề: chọn «Ẩm thực» còn ít thẻ hơn', ()=>{ const all=n('.fact-card'); const cat=[...d.querySelectorAll('[data-facts-cat]')].find(b=>/Ẩm thực/.test(b.textContent)); click(cat); const few=n('.fact-card'); return few>0 && few<all; });
-  check('vào từ menu tiếng Nhật: 64 mẩu Nhật Bản, tông màu và menu sáng theo', ()=>{
+  check('vào từ menu tiếng Nhật: đủ mẩu Nhật Bản, tông màu và menu sáng theo', ()=>{
     click('[data-go="facts"][data-lang="ja"]');
-    return n('.fact-card')===64 && /Nhật Bản/.test(body())
+    return n('.fact-card')===nOf('ja') && /Nhật Bản/.test(body())
       && d.documentElement.getAttribute('data-lang')==='ja' && !!d.querySelector('#jaDrop.active')
       && !/undefined/.test(d.getElementById('crumb').textContent)
       && /Tiếng Nhật/.test(d.getElementById('crumb').textContent); });
-  check('có kho fact tiếng Anh, nút nghe dùng giọng en', ()=>{ click('[data-go="facts"][data-lang="en"]'); const ok = n('.fact-card')===64 && /Anh – Mỹ/.test(body()); spoken.length=0; click('.fact-card'); const b=d.querySelector('#factModal .fact-word .icon-btn'); if(b) click(b); const voice = spoken.length===1 && /^en/.test(spoken[0][0]); click('#factModal [data-fact-close]'); click('[data-go="facts"][data-lang="ja"]'); return ok && voice; });
+  check('có kho fact tiếng Anh, nút nghe dùng giọng en', ()=>{ click('[data-go="facts"][data-lang="en"]'); const ok = n('.fact-card')===nOf('en') && /Anh – Mỹ/.test(body()); spoken.length=0; click('.fact-card'); const b=d.querySelector('#factModal .fact-word .icon-btn'); if(b) click(b); const voice = spoken.length===1 && /^en/.test(spoken[0][0]); click('#factModal [data-fact-close]'); click('[data-go="facts"][data-lang="ja"]'); return ok && voice; });
   check('mở thẻ → bảng chi tiết có hình, nội dung, «Thú vị hơn nữa», từ khoá', ()=>{ click('.fact-card'); const m=d.querySelector('#factModal.open'); return !!m && n('#factModal .fact-art')===1 && /Thú vị hơn nữa/.test(m.textContent) && n('#factModal .fact-word')===1 && n('#factModal [data-fact-next]')===1; });
   check('nút nghe trong bảng dùng đúng giọng của ngôn ngữ', ()=>{ spoken.length=0; const b=d.querySelector('#factModal .fact-word .icon-btn'); if(!b) return false; click(b); return spoken.length===1 && spoken[0][0]==='ja-JP'; });
   check('«Fact khác» đổi sang mẩu khác', ()=>{ const t1=d.querySelector('#factModal h3').textContent; click('#factModal [data-fact-next]'); const t2=d.querySelector('#factModal h3').textContent; return t1!==t2; });
