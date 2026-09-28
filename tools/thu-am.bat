@@ -1,18 +1,22 @@
 @echo off
 chcp 65001 >nul
-title LangLab - thu am giong neural tieng Han
+title LangLab - thu am giong neural 5 thu tieng
 cd /d "%~dp0.."
 
 echo.
 echo ============================================================
-echo   LangLab - thu san giong doc tieng Han
+echo   LangLab - thu san giong doc 5 thu tieng
 echo ============================================================
 echo.
-echo   Se thu 298 tu va cau thanh mp3 bang giong neural cua
-echo   Microsoft (ko-KR-SunHiNeural), luu vao audio\tts\
+echo   Se thu cau hoi bai nghe - xem tranh cua ca 5 thu tieng
+echo   (Han, Trung, Nhat, Nga, Anh) thanh mp3 bang giong neural
+echo   cua Microsoft, luu vao audio\tts\<thu tieng>\
 echo.
-echo   Can mang. Mat khoang 2 phut, tong dung luong ~5 MB.
+echo   Can mang. Khoang 3300 tep, ~30 MB, mat chung 20-30 phut.
 echo   Chay lai lan sau chi thu phan con thieu.
+echo.
+echo   Muon thu them tu vung va hoi thoai cua giao trinh:
+echo     python tools\make_audio.py --with-course
 echo.
 
 where python >nul 2>nul
@@ -43,7 +47,7 @@ if errorlevel 1 (
   echo         Da co san.
 )
 
-echo   [2/3] Doc danh sach tu va cau tu giao trinh...
+echo   [2/3] Doc danh sach cau tu du lieu bai hoc...
 echo   [3/3] Bat dau thu am...
 echo.
 
@@ -56,11 +60,13 @@ if %RC% NEQ 0 (
 ) else (
   echo ============================================================
   echo   XONG. Gio mo index.html va tai lai trang.
-  echo   Bam vao bat ky tu tieng Han nao - se nghe giong neural,
-  echo   khong con giong may cua Windows nua.
+  echo   Bam nghe o bat ky thu tieng nao - se ra giong neural,
+  echo   khong con phu thuoc giong cai san trong Windows nua.
   echo.
-  echo   Muon giong nam thay giong nu, chay lai bang dong lenh:
-  echo     python tools\make_audio.py --voice ko-KR-InJoonNeural --force
+  echo   Doi sang giong nam, chay lai bang dong lenh:
+  echo     python tools\make_audio.py --voice ko=ko-KR-InJoonNeural --force
+  echo   Thu them giao trinh va bai doc:
+  echo     python tools\make_audio.py --with-course --with-readings
   echo ============================================================
 )
 echo.

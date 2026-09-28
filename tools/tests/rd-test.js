@@ -6,6 +6,13 @@ const vc = new VirtualConsole(); vc.on('jsdomError', e => errors.push(e.message)
 const spoken = [];
 const html = fs.readFileSync('/sessions/serene-blissful-faraday/mnt/N1.NGOAI NGU/langlab/dist/langlab.html','utf8');
 const dom = new JSDOM(html,{runScripts:'dangerously',pretendToBeVisual:true,virtualConsole:vc,url:'http://localhost:9999/',beforeParse(w){
+  /* Máy chưa thu mp3 nào: Audio báo lỗi ngay, y như trình duyệt gặp 404.
+     jsdom để nguyên thì play() không phát mà cũng không báo lỗi, TTS đứng chờ. */
+  w.Audio = function(){
+    const h = {};
+    return { preload:'', src:'', playbackRate:1, pause(){}, play(){ (this.onerror||function(){})(); (h.error||[]).forEach(f=>f()); },
+      addEventListener(k,f){ (h[k]=h[k]||[]).push(f); }, removeEventListener(){} };
+  };
  w.Element.prototype.getBBox=()=>({x:0,y:0,width:100,height:100}); w.Element.prototype.scrollIntoView=function(){};
  w.Element.prototype.getBoundingClientRect=()=>({left:0,top:0,width:300,height:300,right:300,bottom:300});
  w.HTMLCanvasElement.prototype.getContext=()=>new Proxy({},{get:()=>()=>{}});

@@ -19,6 +19,18 @@ const TTS = (function(){
 
 const ROOTS = ['audio/tts/', '../audio/tts/'];
 
+/* Mỗi thứ tiếng một thư mục con — 本 tiếng Trung và 本 tiếng Nhật là cùng một
+   chuỗi ký tự nhưng đọc khác hẳn nhau, để chung một rổ là phát nhầm tiếng.
+   Thư mục gốc vẫn được dò sau cùng, để bộ audio tiếng Hàn thu từ trước
+   (nằm thẳng trong audio/tts/) vẫn dùng được, khỏi phải thu lại.            */
+function dirs(voice){
+  const order = ROOTS.slice(root).concat(ROOTS.slice(0, root));
+  const out = [];
+  if (voice) order.forEach(r => out.push(r + voice + '/'));
+  order.forEach(r => out.push(r));
+  return out;
+}
+
 /** Chuẩn hoá trước khi băm — phải giống hệt hàm norm() trong make_audio.py */
 function norm(s){
   return String(s).replace(/\s+/g, ' ').trim();
@@ -63,7 +75,10 @@ function ensure(){
  */
 function play(text, opts){
   opts = opts || {};
-  const key = hash(text);
+  const voice = opts.voice || '';
+  const h = hash(text);
+  const key = voice + '|' + h;
+  const cands = dirs(voice);
   const a = ensure();
   a.pause();
   currentRate = opts.rate || 1;
@@ -72,20 +87,36 @@ function play(text, opts){
   // đã biết không có tệp tĩnh: đi thẳng máy chủ, hoặc nhường cho giọng máy
   if (missing[key]) return fromServer(text, opts);
 
+  // chưa hề thu tệp nào: khỏi dò từng thư mục cho mất công
+  if (probed === false){ missing[key] = 1; return fromServer(text, opts); }
+
   tried = 0;
+  let guard = null;
+  const unguard = () => { if (guard){ clearTimeout(guard); guard = null; } };
+  a.onplaying = unguard;
   const start = src => {
+    unguard();
     a.src = src;
     a.playbackRate = currentRate;
-    const p = a.play();
-    if (p && p.catch) p.catch(a.onerror);
+    /* jsdom và vài WebView không ném lỗi mà cũng không phát: không có chốt
+       thời gian thì cả chuỗi đứng im và người học chờ mãi không nghe gì. */
+    guard = setTimeout(() => { guard = null; fail(true); }, 700);
+    try {
+      const p = a.play();
+      if (p && p.catch) p.catch(a.onerror);
+    } catch (e){ setTimeout(a.onerror, 0); }
   };
-  const fail = () => {
-    if (tried < ROOTS.length - 1){ tried++; root = (root + 1) % ROOTS.length; start(file(text, root)); return; }
+  const fail = mute => {
+    unguard();
+    /* Chốt thời gian nổ = môi trường này không báo lỗi tệp. Dò tiếp cũng vô ích,
+       nên bỏ hẳn tầng tệp tĩnh cho cả phiên thay vì chờ từng thư mục một. */
+    if (mute){ probed = false; missing[key] = 1; fromServer(text, opts); return; }
+    if (tried < cands.length){ start(cands[tried++] + h + '.mp3'); return; }
     missing[key] = 1;                       // lần sau khỏi dò lại cho nhanh
     fromServer(text, opts);
   };
-  a.onerror = fail;
-  start(file(text, root));
+  a.onerror = () => fail(false);
+  fail(false);                              // lượt gọi đầu chính là lần thử đầu tiên
   return true;
 }
 
@@ -93,12 +124,23 @@ function play(text, opts){
 function fromServer(text, opts){
   if (server === false){ opts.onFail && opts.onFail(); return false; }
   const a = ensure();
-  a.onerror = () => { server = false; opts.onFail && opts.onFail(); };
+  let g = null, done = false;
+  const give = () => {
+    if (done) return; done = true;
+    if (g){ clearTimeout(g); g = null; }
+    server = false;
+    opts.onFail && opts.onFail();
+  };
+  a.onerror = give;
+  a.onplaying = () => { if (g){ clearTimeout(g); g = null; } done = true; };
   a.onended = () => { opts.onEnd && opts.onEnd(); };
   a.src = serverUrl(text);
   a.playbackRate = opts.rate || 1;
-  const p = a.play();
-  if (p && p.catch) p.catch(() => { server = false; opts.onFail && opts.onFail(); });
+  g = setTimeout(give, 700);                 // chốt thời gian, xem chú thích ở play()
+  try {
+    const p = a.play();
+    if (p && p.catch) p.catch(give);
+  } catch (e){ give(); }
   return true;
 }
 
@@ -132,6 +174,7 @@ function playSeq(lines, opts){
     const idx = i;
     opts.onLine && opts.onLine(idx);
     play(lines[idx], {
+      voice: opts.voice,
       rate: opts.rate || 1,
       onEnd(){ if (mine !== seqToken) return; i++; setTimeout(step, opts.gap || 550); },
       onFail(){
@@ -148,15 +191,29 @@ function playSeq(lines, opts){
 /* ---------- dò xem đang có nguồn nào ---------- */
 let probed = null;
 const PROBE = '안녕하세요';
-/* Dò bằng nhiều từ, vì chỉ cần một tệp lẻ bị thiếu là kết luận sai toàn bộ. */
-const PROBE_WORDS = ['도서관', '학교', '친구', '안녕하세요'];
+/* Dò bằng nhiều câu, vì chỉ cần một tệp lẻ bị thiếu là kết luận sai toàn bộ.
+   Mỗi thứ tiếng lấy đúng câu dẫn của bài tập nghe–xem tranh: câu đó chắc chắn
+   nằm trong danh sách thu, nên có tệp là dò ra. Hai từ tiếng Hàn cuối là để
+   nhận ra bộ audio thu theo cách cũ (nằm thẳng trong audio/tts/).           */
+const PROBE_WORDS = [
+  ['그림을 보고 알맞은 문장을 고르십시오.', 'ko'],
+  ['看图，选出与图片相符的句子。', 'zh'],
+  ['絵を見て、合う文を選んでください。', 'ja'],
+  ['Посмотрите на картинку и выберите подходящее предложение.', 'ru'],
+  ['Look at the picture. Choose the sentence that describes it.', 'en-gb'],
+  ['Look at the picture. Choose the sentence that describes it.', 'en-us'],
+  ['안녕하세요', ''],
+  ['도서관', '']
+];
 
 /** Dò tệp tĩnh (không cần mạng, không cần fetch — dùng chính thẻ audio). */
 function probeStatic(cb){
   if (probed !== null){ cb(probed); return; }
 
   const queue = [];
-  ROOTS.forEach((_, k) => PROBE_WORDS.forEach(w => queue.push([w, k])));
+  PROBE_WORDS.forEach(([w, v]) => {
+    ROOTS.forEach((r, k) => queue.push([w, (v ? r + v + '/' : r), k]));
+  });
 
   let i = 0, settled = false;
   const a = new Audio();
@@ -164,9 +221,9 @@ function probeStatic(cb){
   const done = v => { if (settled) return; settled = true; probed = v; cb(v); };
   const next = () => {
     if (i >= queue.length){ done(false); return; }
-    const [w, k] = queue[i++];
-    root = k;
-    a.src = file(w, k);
+    const [w, dir, k] = queue[i++];
+    root = k;                                 // nhớ gốc vừa thử, lần phát sau đi thẳng
+    a.src = dir + hash(w) + '.mp3';
   };
   a.addEventListener('loadedmetadata', () => done(true));
   a.addEventListener('error', next);
@@ -198,6 +255,6 @@ function probe(cb){
 function ready(){ return probed === true || server === true; }
 function hasServer(){ return server === true; }
 
-return { hash, file, play, playSeq, speakText, stop, ready, probe, hasServer, norm, roots: ROOTS };
+return { hash, file, dirs, play, playSeq, speakText, stop, ready, probe, hasServer, norm, roots: ROOTS };
 })();
 if (typeof window !== 'undefined') window.TTS = TTS;

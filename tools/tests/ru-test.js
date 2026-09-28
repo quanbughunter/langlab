@@ -13,6 +13,13 @@ const dom = new JSDOM(html, { runScripts:'dangerously', pretendToBeVisual:true, 
   window.Element.prototype.getBoundingClientRect = () => ({left:0,top:0,width:300,height:300,right:300,bottom:300});
   window.Element.prototype.scrollIntoView = function(){};
   window.HTMLCanvasElement.prototype.getContext = () => new Proxy({}, {get:()=>()=>{}});
+  /* Máy chưa thu mp3 nào: Audio báo lỗi ngay, y như trình duyệt gặp 404.
+     jsdom để nguyên thì play() không phát mà cũng không báo lỗi, TTS đứng chờ. */
+  window.Audio = function(){
+    const h = {};
+    return { preload:'', src:'', playbackRate:1, pause(){}, play(){ (this.onerror||function(){})(); (h.error||[]).forEach(f=>f()); },
+      addEventListener(k,f){ (h[k]=h[k]||[]).push(f); }, removeEventListener(){} };
+  };
   window.scrollTo=()=>{}; window.confirm=()=>true;
   window.matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){},addListener(){},removeListener(){}});
   window.fetch=()=>Promise.reject(new Error('no server'));

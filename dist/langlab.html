@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
 <meta name="description" content="Ứng dụng học ngoại ngữ theo bài cho người Việt: tiếng Hàn (TOPIK), tiếng Nhật (JLPT), tiếng Trung (HSK), tiếng Nga (ТРКИ), tiếng Anh (IELTS/TOEFL) — từ vựng, ngữ pháp, hội thoại, tập viết, từ điển, thi thử.">
-<link rel="icon" type="image/png" href="logo-icon.png?v=261025">
-<link rel="manifest" href="manifest.webmanifest?v=261025">
+<link rel="icon" type="image/png" href="logo-icon.png?v=261040">
+<link rel="manifest" href="manifest.webmanifest?v=261040">
 <meta name="theme-color" content="#EAF1FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=261025">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=261040">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="LangLab">
@@ -2185,7 +2185,7 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   <header class="nav">
     <div class="nav-in">
       <div class="brand" data-go="about" role="link" tabindex="0" title="Giới thiệu LangLab">
-        <span class="brand-mark"><img src="logo-icon.png?v=261025" alt="LangLab" width="40" height="40"></span>
+        <span class="brand-mark"><img src="logo-icon.png?v=261040" alt="LangLab" width="40" height="40"></span>
         <span class="brand-name"><b>Lang</b><i>Lab</i></span>
       </div>
 
@@ -7717,6 +7717,18 @@ const TTS = (function(){
 
 const ROOTS = ['audio/tts/', '../audio/tts/'];
 
+/* Mỗi thứ tiếng một thư mục con — 本 tiếng Trung và 本 tiếng Nhật là cùng một
+   chuỗi ký tự nhưng đọc khác hẳn nhau, để chung một rổ là phát nhầm tiếng.
+   Thư mục gốc vẫn được dò sau cùng, để bộ audio tiếng Hàn thu từ trước
+   (nằm thẳng trong audio/tts/) vẫn dùng được, khỏi phải thu lại.            */
+function dirs(voice){
+  const order = ROOTS.slice(root).concat(ROOTS.slice(0, root));
+  const out = [];
+  if (voice) order.forEach(r => out.push(r + voice + '/'));
+  order.forEach(r => out.push(r));
+  return out;
+}
+
 /** Chuẩn hoá trước khi băm — phải giống hệt hàm norm() trong make_audio.py */
 function norm(s){
   return String(s).replace(/\s+/g, ' ').trim();
@@ -7761,7 +7773,10 @@ function ensure(){
  */
 function play(text, opts){
   opts = opts || {};
-  const key = hash(text);
+  const voice = opts.voice || '';
+  const h = hash(text);
+  const key = voice + '|' + h;
+  const cands = dirs(voice);
   const a = ensure();
   a.pause();
   currentRate = opts.rate || 1;
@@ -7770,20 +7785,36 @@ function play(text, opts){
   // đã biết không có tệp tĩnh: đi thẳng máy chủ, hoặc nhường cho giọng máy
   if (missing[key]) return fromServer(text, opts);
 
+  // chưa hề thu tệp nào: khỏi dò từng thư mục cho mất công
+  if (probed === false){ missing[key] = 1; return fromServer(text, opts); }
+
   tried = 0;
+  let guard = null;
+  const unguard = () => { if (guard){ clearTimeout(guard); guard = null; } };
+  a.onplaying = unguard;
   const start = src => {
+    unguard();
     a.src = src;
     a.playbackRate = currentRate;
-    const p = a.play();
-    if (p && p.catch) p.catch(a.onerror);
+    /* jsdom và vài WebView không ném lỗi mà cũng không phát: không có chốt
+       thời gian thì cả chuỗi đứng im và người học chờ mãi không nghe gì. */
+    guard = setTimeout(() => { guard = null; fail(true); }, 700);
+    try {
+      const p = a.play();
+      if (p && p.catch) p.catch(a.onerror);
+    } catch (e){ setTimeout(a.onerror, 0); }
   };
-  const fail = () => {
-    if (tried < ROOTS.length - 1){ tried++; root = (root + 1) % ROOTS.length; start(file(text, root)); return; }
+  const fail = mute => {
+    unguard();
+    /* Chốt thời gian nổ = môi trường này không báo lỗi tệp. Dò tiếp cũng vô ích,
+       nên bỏ hẳn tầng tệp tĩnh cho cả phiên thay vì chờ từng thư mục một. */
+    if (mute){ probed = false; missing[key] = 1; fromServer(text, opts); return; }
+    if (tried < cands.length){ start(cands[tried++] + h + '.mp3'); return; }
     missing[key] = 1;                       // lần sau khỏi dò lại cho nhanh
     fromServer(text, opts);
   };
-  a.onerror = fail;
-  start(file(text, root));
+  a.onerror = () => fail(false);
+  fail(false);                              // lượt gọi đầu chính là lần thử đầu tiên
   return true;
 }
 
@@ -7791,12 +7822,23 @@ function play(text, opts){
 function fromServer(text, opts){
   if (server === false){ opts.onFail && opts.onFail(); return false; }
   const a = ensure();
-  a.onerror = () => { server = false; opts.onFail && opts.onFail(); };
+  let g = null, done = false;
+  const give = () => {
+    if (done) return; done = true;
+    if (g){ clearTimeout(g); g = null; }
+    server = false;
+    opts.onFail && opts.onFail();
+  };
+  a.onerror = give;
+  a.onplaying = () => { if (g){ clearTimeout(g); g = null; } done = true; };
   a.onended = () => { opts.onEnd && opts.onEnd(); };
   a.src = serverUrl(text);
   a.playbackRate = opts.rate || 1;
-  const p = a.play();
-  if (p && p.catch) p.catch(() => { server = false; opts.onFail && opts.onFail(); });
+  g = setTimeout(give, 700);                 // chốt thời gian, xem chú thích ở play()
+  try {
+    const p = a.play();
+    if (p && p.catch) p.catch(give);
+  } catch (e){ give(); }
   return true;
 }
 
@@ -7830,6 +7872,7 @@ function playSeq(lines, opts){
     const idx = i;
     opts.onLine && opts.onLine(idx);
     play(lines[idx], {
+      voice: opts.voice,
       rate: opts.rate || 1,
       onEnd(){ if (mine !== seqToken) return; i++; setTimeout(step, opts.gap || 550); },
       onFail(){
@@ -7846,15 +7889,29 @@ function playSeq(lines, opts){
 /* ---------- dò xem đang có nguồn nào ---------- */
 let probed = null;
 const PROBE = '안녕하세요';
-/* Dò bằng nhiều từ, vì chỉ cần một tệp lẻ bị thiếu là kết luận sai toàn bộ. */
-const PROBE_WORDS = ['도서관', '학교', '친구', '안녕하세요'];
+/* Dò bằng nhiều câu, vì chỉ cần một tệp lẻ bị thiếu là kết luận sai toàn bộ.
+   Mỗi thứ tiếng lấy đúng câu dẫn của bài tập nghe–xem tranh: câu đó chắc chắn
+   nằm trong danh sách thu, nên có tệp là dò ra. Hai từ tiếng Hàn cuối là để
+   nhận ra bộ audio thu theo cách cũ (nằm thẳng trong audio/tts/).           */
+const PROBE_WORDS = [
+  ['그림을 보고 알맞은 문장을 고르십시오.', 'ko'],
+  ['看图，选出与图片相符的句子。', 'zh'],
+  ['絵を見て、合う文を選んでください。', 'ja'],
+  ['Посмотрите на картинку и выберите подходящее предложение.', 'ru'],
+  ['Look at the picture. Choose the sentence that describes it.', 'en-gb'],
+  ['Look at the picture. Choose the sentence that describes it.', 'en-us'],
+  ['안녕하세요', ''],
+  ['도서관', '']
+];
 
 /** Dò tệp tĩnh (không cần mạng, không cần fetch — dùng chính thẻ audio). */
 function probeStatic(cb){
   if (probed !== null){ cb(probed); return; }
 
   const queue = [];
-  ROOTS.forEach((_, k) => PROBE_WORDS.forEach(w => queue.push([w, k])));
+  PROBE_WORDS.forEach(([w, v]) => {
+    ROOTS.forEach((r, k) => queue.push([w, (v ? r + v + '/' : r), k]));
+  });
 
   let i = 0, settled = false;
   const a = new Audio();
@@ -7862,9 +7919,9 @@ function probeStatic(cb){
   const done = v => { if (settled) return; settled = true; probed = v; cb(v); };
   const next = () => {
     if (i >= queue.length){ done(false); return; }
-    const [w, k] = queue[i++];
-    root = k;
-    a.src = file(w, k);
+    const [w, dir, k] = queue[i++];
+    root = k;                                 // nhớ gốc vừa thử, lần phát sau đi thẳng
+    a.src = dir + hash(w) + '.mp3';
   };
   a.addEventListener('loadedmetadata', () => done(true));
   a.addEventListener('error', next);
@@ -7896,7 +7953,7 @@ function probe(cb){
 function ready(){ return probed === true || server === true; }
 function hasServer(){ return server === true; }
 
-return { hash, file, play, playSeq, speakText, stop, ready, probe, hasServer, norm, roots: ROOTS };
+return { hash, file, dirs, play, playSeq, speakText, stop, ready, probe, hasServer, norm, roots: ROOTS };
 })();
 if (typeof window !== 'undefined') window.TTS = TTS;
 
@@ -53844,18 +53901,66 @@ function sayWebSeq(lines, lang, rate, pick, opts){
 /* Giọng theo từng thứ tiếng (là hàm vì tiếng Anh còn tuỳ lựa chọn Anh–Mỹ) */
 const SAY_CFG = {
   ko: () => ({ lang:'ko-KR', rate:0.86, pick:/^ko\b|ko[-_]|korean|\uD55C\uAD6D/i }),
-  zh: () => ({ lang:'zh-CN', rate:0.82, pick:/^zh\b|zh[-_]|chinese|\u4E2D\u6587/i }),
-  ja: () => ({ lang:'ja-JP', rate:0.85, pick:/^ja\b|ja[-_]|japanese|\u65E5\u672C/i }),
+  zh: () => ({ lang:'zh-CN', rate:0.82, pick:/^zh\b|zh[-_]|chinese|mandarin|\u4E2D\u6587|\u666E\u901A\u8BDD/i }),
+  ja: () => ({ lang:'ja-JP', rate:0.85, pick:/^ja\b|ja[-_]|japan|\u65E5\u672C/i }),
   ru: () => ({ lang:'ru-RU', rate:0.85, pick:/^ru\b|ru[-_]|russian|\u0440\u0443\u0441\u0441\u043A/i }),
   en: () => { const w = store.get('enVoice', 'uk');
     return { lang: w === 'us' ? 'en-US' : 'en-GB', rate:0.9,
              pick: w === 'us' ? /en[-_]us|american/i : /en[-_]gb|british|united kingdom/i }; }
 };
 
+/* Chuẩn hoá câu TRƯỚC khi tra mp3 và trước khi đọc. tools/make_audio.py phải
+   làm y hệt, nếu không tên tệp hai bên sẽ lệch và mp3 thu ra không ai dùng. */
+const SAY_PLAIN = {
+  ko: s => String(s),
+  zh: s => String(s),
+  ja: s => jaPlain(s).replace(/[「」『』]/g, ''),
+  ru: s => ruPlain(s),
+  en: s => String(s).replace(/[‘’]/g, "'").replace(/[“”]/g, '"')
+};
+function sayPlain(text, code){
+  return (SAY_PLAIN[code] || SAY_PLAIN.en)(text == null ? '' : text).trim();
+}
+/* Để tools/tests/audio-test.js đối chiếu được với tools/make_audio.py */
+try { window.__say = { plain: sayPlain, voice: code => sayVoice(code) }; } catch(e){}
+
+/* Thư mục audio của từng thứ tiếng. Tiếng Anh tách hai giọng Anh–Anh và
+   Anh–Mỹ vì cùng một câu mà hai cách đọc khác nhau. */
+function sayVoice(code){
+  if (code === 'en') return store.get('enVoice', 'uk') === 'us' ? 'en-us' : 'en-gb';
+  return SAY_CFG[code] ? code : 'en-gb';
+}
+
+/* Đọc MỘT câu theo đúng thứ tiếng: ưu tiên mp3 thu sẵn, hết mới tới giọng máy. */
+function sayVia(text, code, warn, opts){
+  opts = opts || {};
+  const plain = sayPlain(text, code);
+  if (!plain) return;
+  const cfg = (SAY_CFG[code] || SAY_CFG.en)();
+  const lang = opts.lang || cfg.lang, pick = opts.pick || cfg.pick;
+  const rate = opts.slow ? Math.max(.45, cfg.rate - .3) : cfg.rate;
+  stopAudio();
+  let handed = false;
+  sayBegin();
+  TTS.play(plain, {
+    voice: opts.voice || sayVoice(code),
+    rate: opts.slow ? .72 : 1,
+    onEnd(){ sayEnd(); if (opts.onEnd) opts.onEnd(); },
+    onFail(){
+      if (handed) return;
+      handed = true;
+      sayEnd();
+      sayWeb(plain, lang, rate, pick, warn);
+      if (opts.onEnd) opts.onEnd();
+    }
+  });
+}
+
 /* Đọc một loạt câu: ưu tiên mp3 thu sẵn, không có thì dùng giọng máy. */
 function sayLines(lines, code, opts){
   opts = opts || {};
   stopAudio();
+  lines = lines.map(l => sayPlain(l, code));
   const cfg = (SAY_CFG[code] || SAY_CFG.en)();
   const fin = () => { sayEnd(); if (opts.onEnd) opts.onEnd(); };
   /* TTS thử lần lượt nhiều đường dẫn nên onFail có thể bắn vài lần cho cùng một câu;
@@ -53863,6 +53968,7 @@ function sayLines(lines, code, opts){
   let handed = false;
   sayBegin();
   TTS.playSeq(lines, {
+    voice: sayVoice(code),
     gap: opts.gap || 420,
     onLine: opts.onLine,
     onEnd: fin,
@@ -53881,6 +53987,7 @@ function speak(text, opts){
   const fin = () => { sayEnd(); if (opts.onEnd) opts.onEnd(); };
   sayBegin();
   TTS.play(text, {
+    voice: 'ko',                                /* speak() là nút nghe của khoá tiếng Hàn */
     rate: opts.slow ? .72 : 1,
     onEnd: fin,
     onFail(){
@@ -55907,7 +56014,7 @@ function zhLoadChar(c){
     .then(d => { D[c] = d; return d; });
 }
 function zhSpeak(text){
-  sayWeb(text, 'zh-CN', 0.8, /(^zh\b|zh[-_]|chinese|\u4e2d\u6587|\u666e\u901a\u8bdd|mandarin)/i,
+  sayVia(text, 'zh',
     'M\u00e1y ch\u01b0a c\u00f3 gi\u1ecdng \u0111\u1ecdc ti\u1ebfng Trung \u2014 c\u00e0i g\u00f3i gi\u1ecdng zh-CN \u0111\u1ec3 nghe r\u00f5 thanh \u0111i\u1ec7u.');
 }
 function zhLevel(){ return _ZC.levels.find(x => x.id === state.zh.level) || _ZC.levels[0] || { vi:'HSK 1', zh:'HSK 1' }; }
@@ -56519,15 +56626,15 @@ function ruOpenWord(tok){
 
 /* ---- Phát âm tiếng Anh (dùng giọng en-GB nếu có, không thì en-US) ---- */
 function enSpeak(text, variant){
-  const plain = String(text || '').replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"').trim();
   const want = variant || store.get('enVoice', 'uk');
   const pref = want === 'us' ? /en[-_]us|american/i : /en[-_]gb|british|united kingdom/i;
-  sayWeb(plain, want === 'us' ? 'en-US' : 'en-GB', 0.9, pref,
-    'M\u00e1y ch\u01b0a c\u00f3 gi\u1ecdng \u0111\u1ecdc ti\u1ebfng Anh \u2014 c\u00e0i g\u00f3i gi\u1ecdng en-GB ho\u1eb7c en-US trong h\u1ec7 \u0111i\u1ec1u h\u00e0nh.');
+  sayVia(text, 'en',
+    'M\u00e1y ch\u01b0a c\u00f3 gi\u1ecdng \u0111\u1ecdc ti\u1ebfng Anh \u2014 c\u00e0i g\u00f3i gi\u1ecdng en-GB ho\u1eb7c en-US trong h\u1ec7 \u0111i\u1ec1u h\u00e0nh.',
+    { lang: want === 'us' ? 'en-US' : 'en-GB', pick: pref, voice: want === 'us' ? 'en-us' : 'en-gb' });
 }
 function enSpeakBtn(text, cls){ return `<button class="${cls || 'icon-btn'}" data-en-speak="${esc(text)}" title="Nghe">${SPK_ICO}</button>`; }
 function ruSpeak(text){
-  sayWeb(ruPlain(text), 'ru-RU', 0.85, /^ru\b|ru[-_]|russian|\u0440\u0443\u0441\u0441\u043a/i,
+  sayVia(text, 'ru',
     'M\u00e1y ch\u01b0a c\u00f3 gi\u1ecdng \u0111\u1ecdc ti\u1ebfng Nga \u2014 c\u00e0i g\u00f3i gi\u1ecdng ru-RU (\u0420\u0443\u0441\u0441\u043a\u0438\u0439) trong h\u1ec7 \u0111i\u1ec1u h\u00e0nh.');
 }
 /* Lời đọc bài nghe ТРКИ: bỏ nhãn người nói, gạch đầu dòng */
@@ -57244,7 +57351,7 @@ function jaTokens(str){
 }
 function jaRuby(str){ return String(str || '').split(/\s+/).filter(Boolean).map(jaRubyTok).join(''); }
 function jaSpeak(text){
-  sayWeb(jaPlain(text).replace(/[\u300c\u300d\u300e\u300f]/g, ''), 'ja-JP', 0.9, /^ja\b|ja[-_]|japan|\u65e5\u672c/i,
+  sayVia(text, 'ja',
     'M\u00e1y ch\u01b0a c\u00f3 gi\u1ecdng \u0111\u1ecdc ti\u1ebfng Nh\u1eadt \u2014 c\u00e0i g\u00f3i gi\u1ecdng ja-JP (\u65e5\u672c\u8a9e) trong h\u1ec7 \u0111i\u1ec1u h\u00e0nh.');
 }
 function jaSpeech(a){ return jaPlain(String(a || '')).replace(/(男|女|男の人|女の人|先生|学生|店員|客|母|父|アナウンス|A|B)\s*[:：]\s*/g, '').replace(/(^|\s)[—–-]\s*/g, '$1'); }
@@ -58881,6 +58988,7 @@ function sayOne(text, opts){
   Speech.stop();
   const fin = () => { try { opts.onEnd && opts.onEnd(); } catch(e){} };
   TTS.play(text, {
+    voice: 'ko',                                /* nhánh này chỉ chạy khi shadowing đang ở tiếng Hàn */
     rate: opts.slow ? .7 : 1,
     onEnd: fin,
     onFail(){
@@ -60888,6 +60996,7 @@ document.addEventListener('click', e => {
 
     Speech.stop();
     TTS.playSeq(lines, {
+      voice: 'ko',
       onLine: hi,
       onEnd: clear,
       onFail(){                                  // chưa thu sẵn → dùng giọng máy

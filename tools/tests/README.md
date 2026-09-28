@@ -6,7 +6,7 @@ Chạy từ **thư mục gốc của repo** (`langlab/`), sau khi đã `python3 
 ```bash
 python3 build.py
 npm i jsdom          # chỉ cần một lần
-for t in smoke zh-test hsk-test ru-test ja-test en-test fact-test sh-test rd-test hist-test asst-flow; do
+for t in smoke zh-test hsk-test ru-test ja-test en-test fact-test sh-test rd-test hist-test asst-flow pic-test say-test dict-cover audio-test; do
   printf "%-12s " $t; node tools/tests/$t.js | tail -1
 done
 node tools/tests/morph-nouns.js && node tools/tests/morph-verbs.js && node tools/tests/morph-adj.js
@@ -26,6 +26,10 @@ node tools/tests/worker-test.mjs
 | `rd-test.js` | màn Bài đọc |
 | `hist-test.js` | nút Back / History API |
 | `asst-flow.js` | Labi: hỏi đáp + phân tích âm thanh |
+| `pic-test.js` | Nghe & chọn tranh: dữ liệu, độ sát nhiễu, tranh, luồng làm bài |
+| `say-test.js` | Nút dừng đọc, chọn đúng giọng từng thứ tiếng |
+| `dict-cover.js` | Độ phủ từ điển cho từ khoá và thân bài đọc |
+| `audio-test.js` | `tools/make_audio.py` và app phải băm ra cùng tên tệp mp3 |
 | `morph-*.js` | engine hình thái tiếng Nga (chạy bằng node thuần) |
 | `worker-test.mjs` | Cloudflare Worker dịch |
 

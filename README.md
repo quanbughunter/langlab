@@ -216,29 +216,43 @@ Bộ nhận diện ngữ pháp ([`js/words.js`](js/words.js)) không suy ra từ
 ### Audio thu sẵn — nguồn phát âm chính
 
 Giọng đọc của trình duyệt lấy từ giọng cài trên máy. Trên Windows thường chỉ có
-Microsoft Heami — giọng ghép mẫu từ thời Windows 8, nghe rất máy. Không có cách nào
-sửa được bằng code, vì vấn đề nằm ở engine.
+sẵn tiếng Anh: tiếng Hàn là Microsoft Heami — giọng ghép mẫu từ thời Windows 8,
+nghe rất máy — còn tiếng Trung, Nhật, Nga thì nhiều máy **không có giọng nào**,
+bấm nghe là im lặng. Không có cách nào sửa được bằng code, vì vấn đề nằm ở engine.
 
 Cách dứt điểm: thu sẵn từng từ và từng câu bằng giọng neural, rồi app chỉ việc phát tệp.
 
 ```bash
 pip install edge-tts
-python tools/make_audio.py                      # giọng nữ ko-KR-SunHiNeural
-python tools/make_audio.py --voice ko-KR-InJoonNeural   # giọng nam
-python tools/make_audio.py --dry-run            # xem trước sẽ thu những gì
+python tools/make_audio.py                     # cả 5 thứ tiếng, bài nghe – xem tranh
+python tools/make_audio.py --lang zh ja        # chỉ Trung và Nhật
+python tools/make_audio.py --with-course       # thu thêm từ vựng, hội thoại của giáo trình
+python tools/make_audio.py --with-readings     # thu thêm 50 bài đọc mỗi thứ tiếng
+python tools/make_audio.py --voice ko=ko-KR-InJoonNeural   # đổi sang giọng nam
+python tools/make_audio.py --dry-run           # xem trước sẽ thu những gì, cỡ bao nhiêu MB
 ```
 
 Trên Windows có thể bấm đúp [`tools/thu-am.bat`](tools/thu-am.bat) thay cho hai dòng trên —
 nó tự kiểm tra Python, tự cài `edge-tts` rồi chạy. Script chỉ cần Python, không cần Node.js.
 
-Sinh 298 tệp (~5 MB) vào `audio/tts/`. Xong thì tải lại trang — mọi thao tác nghe
-trong app tự chuyển sang tệp thu sẵn, giọng máy chỉ còn là dự phòng. Kết quả:
-chất lượng như nhau trên mọi máy và mọi trình duyệt, chạy offline, bấm là kêu ngay
-không phải chờ engine khởi động. Nút loa ở thanh trên hiển thị đang dùng nguồn nào.
+**Mỗi thứ tiếng một thư mục**: `audio/tts/ko/`, `/zh/`, `/ja/`, `/ru/`, `/en-gb/`, `/en-us/`.
+Phải tách ra vì 本 tiếng Trung và 本 tiếng Nhật là cùng một chuỗi ký tự nhưng đọc khác
+hẳn nhau — để chung một rổ là phát nhầm tiếng. Bộ audio tiếng Hàn thu theo cách cũ
+(nằm thẳng trong `audio/tts/`) vẫn dùng được, app dò cả hai chỗ.
 
-Tên tệp là băm FNV-1a 32 bit của câu đã chuẩn hoá, tính giống nhau ở
-[`js/tts.js`](js/tts.js) và [`tools/make_audio.py`](tools/make_audio.py) nên hai bên
-luôn khớp — có bài kiểm thử đối chiếu trong `smoke.js`.
+Mặc định thu phần bài nghe – xem tranh: 3 310 tệp, chừng 30 MB. Thêm `--with-course`
+và `--with-readings` thì lên khoảng 23 000 tệp (~180 MB) nên cân nhắc trước khi chạy.
+Xong thì tải lại trang — mọi thao tác nghe trong app tự chuyển sang tệp thu sẵn, giọng
+máy chỉ còn là dự phòng. Kết quả: chất lượng như nhau trên mọi máy và mọi trình duyệt,
+chạy offline, bấm là kêu ngay không phải chờ engine khởi động. Nút loa ở thanh trên
+hiển thị đang dùng nguồn nào.
+
+Tên tệp là băm FNV-1a 32 bit của câu đã chuẩn hoá. Cả phép băm lẫn phép chuẩn hoá
+(bỏ furigana tiếng Nhật, bỏ dấu trọng âm tiếng Nga, nắn nháy cong tiếng Anh) đều phải
+giống hệt nhau ở [`js/app.js`](js/app.js), [`js/tts.js`](js/tts.js) và
+[`tools/make_audio.py`](tools/make_audio.py) — lệch một chỗ là thu cả nghìn mp3 xong
+không ai dùng mà chẳng ai hay. `tools/tests/audio-test.js` chặn đúng chuyện đó: nó lấy
+chính những câu app sẽ đòi khi bấm Nghe rồi đối chiếu với danh sách Python sinh ra.
 
 `edge-tts` dùng endpoint đọc-to nội bộ của Microsoft Edge: miễn phí, không cần khoá API,
 nhưng không phải API công khai — dùng để tự học thì không sao, đừng đưa vào sản phẩm

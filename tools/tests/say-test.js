@@ -1,7 +1,15 @@
 /* Kiểm nút dừng đọc: thanh nổi hiện khi phát, stopAudio cắt được Web Speech */
 const fs=require('fs'), {JSDOM}=require('jsdom');
 const html=fs.readFileSync('/sessions/serene-blissful-faraday/mnt/N1.NGOAI NGU/langlab/dist/langlab.html','utf8');
-const dom=new JSDOM(html,{runScripts:'dangerously',pretendToBeVisual:true,url:'https://x/'});
+const dom=new JSDOM(html,{runScripts:'dangerously',pretendToBeVisual:true,url:'https://x/',beforeParse(window){
+  /* Máy chưa thu mp3 nào: Audio báo lỗi ngay, y như trình duyệt gặp 404.
+     jsdom để nguyên thì play() không phát mà cũng không báo lỗi, TTS đứng chờ. */
+  window.Audio = function(){
+    const h = {};
+    return { preload:'', src:'', playbackRate:1, pause(){}, play(){ (this.onerror||function(){})(); (h.error||[]).forEach(f=>f()); },
+      addEventListener(k,f){ (h[k]=h[k]||[]).push(f); }, removeEventListener(){} };
+  };
+}});
 const win=dom.window,d=win.document;
 let cancelled=0, spoken=[];
 win.speechSynthesis={

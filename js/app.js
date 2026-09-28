@@ -674,18 +674,66 @@ function sayWebSeq(lines, lang, rate, pick, opts){
 /* Giọng theo từng thứ tiếng (là hàm vì tiếng Anh còn tuỳ lựa chọn Anh–Mỹ) */
 const SAY_CFG = {
   ko: () => ({ lang:'ko-KR', rate:0.86, pick:/^ko\b|ko[-_]|korean|\uD55C\uAD6D/i }),
-  zh: () => ({ lang:'zh-CN', rate:0.82, pick:/^zh\b|zh[-_]|chinese|\u4E2D\u6587/i }),
-  ja: () => ({ lang:'ja-JP', rate:0.85, pick:/^ja\b|ja[-_]|japanese|\u65E5\u672C/i }),
+  zh: () => ({ lang:'zh-CN', rate:0.82, pick:/^zh\b|zh[-_]|chinese|mandarin|\u4E2D\u6587|\u666E\u901A\u8BDD/i }),
+  ja: () => ({ lang:'ja-JP', rate:0.85, pick:/^ja\b|ja[-_]|japan|\u65E5\u672C/i }),
   ru: () => ({ lang:'ru-RU', rate:0.85, pick:/^ru\b|ru[-_]|russian|\u0440\u0443\u0441\u0441\u043A/i }),
   en: () => { const w = store.get('enVoice', 'uk');
     return { lang: w === 'us' ? 'en-US' : 'en-GB', rate:0.9,
              pick: w === 'us' ? /en[-_]us|american/i : /en[-_]gb|british|united kingdom/i }; }
 };
 
+/* Chuẩn hoá câu TRƯỚC khi tra mp3 và trước khi đọc. tools/make_audio.py phải
+   làm y hệt, nếu không tên tệp hai bên sẽ lệch và mp3 thu ra không ai dùng. */
+const SAY_PLAIN = {
+  ko: s => String(s),
+  zh: s => String(s),
+  ja: s => jaPlain(s).replace(/[「」『』]/g, ''),
+  ru: s => ruPlain(s),
+  en: s => String(s).replace(/[‘’]/g, "'").replace(/[“”]/g, '"')
+};
+function sayPlain(text, code){
+  return (SAY_PLAIN[code] || SAY_PLAIN.en)(text == null ? '' : text).trim();
+}
+/* Để tools/tests/audio-test.js đối chiếu được với tools/make_audio.py */
+try { window.__say = { plain: sayPlain, voice: code => sayVoice(code) }; } catch(e){}
+
+/* Thư mục audio của từng thứ tiếng. Tiếng Anh tách hai giọng Anh–Anh và
+   Anh–Mỹ vì cùng một câu mà hai cách đọc khác nhau. */
+function sayVoice(code){
+  if (code === 'en') return store.get('enVoice', 'uk') === 'us' ? 'en-us' : 'en-gb';
+  return SAY_CFG[code] ? code : 'en-gb';
+}
+
+/* Đọc MỘT câu theo đúng thứ tiếng: ưu tiên mp3 thu sẵn, hết mới tới giọng máy. */
+function sayVia(text, code, warn, opts){
+  opts = opts || {};
+  const plain = sayPlain(text, code);
+  if (!plain) return;
+  const cfg = (SAY_CFG[code] || SAY_CFG.en)();
+  const lang = opts.lang || cfg.lang, pick = opts.pick || cfg.pick;
+  const rate = opts.slow ? Math.max(.45, cfg.rate - .3) : cfg.rate;
+  stopAudio();
+  let handed = false;
+  sayBegin();
+  TTS.play(plain, {
+    voice: opts.voice || sayVoice(code),
+    rate: opts.slow ? .72 : 1,
+    onEnd(){ sayEnd(); if (opts.onEnd) opts.onEnd(); },
+    onFail(){
+      if (handed) return;
+      handed = true;
+      sayEnd();
+      sayWeb(plain, lang, rate, pick, warn);
+      if (opts.onEnd) opts.onEnd();
+    }
+  });
+}
+
 /* Đọc một loạt câu: ưu tiên mp3 thu sẵn, không có thì dùng giọng máy. */
 function sayLines(lines, code, opts){
   opts = opts || {};
   stopAudio();
+  lines = lines.map(l => sayPlain(l, code));
   const cfg = (SAY_CFG[code] || SAY_CFG.en)();
   const fin = () => { sayEnd(); if (opts.onEnd) opts.onEnd(); };
   /* TTS thử lần lượt nhiều đường dẫn nên onFail có thể bắn vài lần cho cùng một câu;
@@ -693,6 +741,7 @@ function sayLines(lines, code, opts){
   let handed = false;
   sayBegin();
   TTS.playSeq(lines, {
+    voice: sayVoice(code),
     gap: opts.gap || 420,
     onLine: opts.onLine,
     onEnd: fin,
@@ -711,6 +760,7 @@ function speak(text, opts){
   const fin = () => { sayEnd(); if (opts.onEnd) opts.onEnd(); };
   sayBegin();
   TTS.play(text, {
+    voice: 'ko',                                /* speak() là nút nghe của khoá tiếng Hàn */
     rate: opts.slow ? .72 : 1,
     onEnd: fin,
     onFail(){
@@ -2737,7 +2787,7 @@ function zhLoadChar(c){
     .then(d => { D[c] = d; return d; });
 }
 function zhSpeak(text){
-  sayWeb(text, 'zh-CN', 0.8, /(^zh\b|zh[-_]|chinese|\u4e2d\u6587|\u666e\u901a\u8bdd|mandarin)/i,
+  sayVia(text, 'zh',
     'M\u00e1y ch\u01b0a c\u00f3 gi\u1ecdng \u0111\u1ecdc ti\u1ebfng Trung \u2014 c\u00e0i g\u00f3i gi\u1ecdng zh-CN \u0111\u1ec3 nghe r\u00f5 thanh \u0111i\u1ec7u.');
 }
 function zhLevel(){ return _ZC.levels.find(x => x.id === state.zh.level) || _ZC.levels[0] || { vi:'HSK 1', zh:'HSK 1' }; }
@@ -3349,15 +3399,15 @@ function ruOpenWord(tok){
 
 /* ---- Phát âm tiếng Anh (dùng giọng en-GB nếu có, không thì en-US) ---- */
 function enSpeak(text, variant){
-  const plain = String(text || '').replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"').trim();
   const want = variant || store.get('enVoice', 'uk');
   const pref = want === 'us' ? /en[-_]us|american/i : /en[-_]gb|british|united kingdom/i;
-  sayWeb(plain, want === 'us' ? 'en-US' : 'en-GB', 0.9, pref,
-    'M\u00e1y ch\u01b0a c\u00f3 gi\u1ecdng \u0111\u1ecdc ti\u1ebfng Anh \u2014 c\u00e0i g\u00f3i gi\u1ecdng en-GB ho\u1eb7c en-US trong h\u1ec7 \u0111i\u1ec1u h\u00e0nh.');
+  sayVia(text, 'en',
+    'M\u00e1y ch\u01b0a c\u00f3 gi\u1ecdng \u0111\u1ecdc ti\u1ebfng Anh \u2014 c\u00e0i g\u00f3i gi\u1ecdng en-GB ho\u1eb7c en-US trong h\u1ec7 \u0111i\u1ec1u h\u00e0nh.',
+    { lang: want === 'us' ? 'en-US' : 'en-GB', pick: pref, voice: want === 'us' ? 'en-us' : 'en-gb' });
 }
 function enSpeakBtn(text, cls){ return `<button class="${cls || 'icon-btn'}" data-en-speak="${esc(text)}" title="Nghe">${SPK_ICO}</button>`; }
 function ruSpeak(text){
-  sayWeb(ruPlain(text), 'ru-RU', 0.85, /^ru\b|ru[-_]|russian|\u0440\u0443\u0441\u0441\u043a/i,
+  sayVia(text, 'ru',
     'M\u00e1y ch\u01b0a c\u00f3 gi\u1ecdng \u0111\u1ecdc ti\u1ebfng Nga \u2014 c\u00e0i g\u00f3i gi\u1ecdng ru-RU (\u0420\u0443\u0441\u0441\u043a\u0438\u0439) trong h\u1ec7 \u0111i\u1ec1u h\u00e0nh.');
 }
 /* Lời đọc bài nghe ТРКИ: bỏ nhãn người nói, gạch đầu dòng */
@@ -4074,7 +4124,7 @@ function jaTokens(str){
 }
 function jaRuby(str){ return String(str || '').split(/\s+/).filter(Boolean).map(jaRubyTok).join(''); }
 function jaSpeak(text){
-  sayWeb(jaPlain(text).replace(/[\u300c\u300d\u300e\u300f]/g, ''), 'ja-JP', 0.9, /^ja\b|ja[-_]|japan|\u65e5\u672c/i,
+  sayVia(text, 'ja',
     'M\u00e1y ch\u01b0a c\u00f3 gi\u1ecdng \u0111\u1ecdc ti\u1ebfng Nh\u1eadt \u2014 c\u00e0i g\u00f3i gi\u1ecdng ja-JP (\u65e5\u672c\u8a9e) trong h\u1ec7 \u0111i\u1ec1u h\u00e0nh.');
 }
 function jaSpeech(a){ return jaPlain(String(a || '')).replace(/(男|女|男の人|女の人|先生|学生|店員|客|母|父|アナウンス|A|B)\s*[:：]\s*/g, '').replace(/(^|\s)[—–-]\s*/g, '$1'); }
@@ -5711,6 +5761,7 @@ function sayOne(text, opts){
   Speech.stop();
   const fin = () => { try { opts.onEnd && opts.onEnd(); } catch(e){} };
   TTS.play(text, {
+    voice: 'ko',                                /* nhánh này chỉ chạy khi shadowing đang ở tiếng Hàn */
     rate: opts.slow ? .7 : 1,
     onEnd: fin,
     onFail(){
@@ -7718,6 +7769,7 @@ document.addEventListener('click', e => {
 
     Speech.stop();
     TTS.playSeq(lines, {
+      voice: 'ko',
       onLine: hi,
       onEnd: clear,
       onFail(){                                  // chưa thu sẵn → dùng giọng máy

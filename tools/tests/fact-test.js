@@ -7,6 +7,13 @@ const vc = new VirtualConsole();
 vc.on('jsdomError', e => { if (!/Not implemented/.test(e.message)) errors.push('jsdomError: ' + e.message); });
 vc.on('error', (...a) => errors.push('console.error: ' + a.join(' ')));
 const dom = new JSDOM(html, { runScripts:'dangerously', pretendToBeVisual:true, virtualConsole:vc, url:'http://localhost:9999/', beforeParse(window){
+  /* Máy chưa thu mp3 nào: Audio báo lỗi ngay, y như trình duyệt gặp 404.
+     jsdom để nguyên thì play() không phát mà cũng không báo lỗi, TTS đứng chờ. */
+  window.Audio = function(){
+    const h = {};
+    return { preload:'', src:'', playbackRate:1, pause(){}, play(){ (this.onerror||function(){})(); (h.error||[]).forEach(f=>f()); },
+      addEventListener(k,f){ (h[k]=h[k]||[]).push(f); }, removeEventListener(){} };
+  };
   window.Element.prototype.getTotalLength = () => 60; window.Element.prototype.getPointAtLength = () => ({x:20,y:20});
   Object.defineProperty(window.Element.prototype,'transform',{get(){return{baseVal:{consolidate(){return null;}}};},configurable:true});
   window.Element.prototype.getBBox = () => ({x:0,y:0,width:100,height:100});
