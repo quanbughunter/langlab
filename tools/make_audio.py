@@ -86,7 +86,9 @@ def plain(text: str, lang: str) -> str:
         s = RU_STRESS.sub('', s)
     elif lang == 'ja':
         s = JA_BRACK.sub('', re.sub(r'\s+', '', JA_FURI.sub(r'\1', s)))
-    elif lang == 'en':
+    elif lang in ('en', 'fr', 'es'):
+        # SAY_PLAIN trong js/app.js nắn nháy cong cho cả ba thứ tiếng này.
+        # Bỏ sót một thứ tiếng là tên tệp hai bên lệch nhau, thu xong không ai dùng.
         s = s.translate(EN_QUOTE)
     return s.strip()
 
@@ -101,15 +103,21 @@ SCRIPT = {
     'fr': re.compile(r'[A-Za-z\u00c0-\u00ff]'),
     'es': re.compile(r'[A-Za-z\u00c0-\u00ff]'),
 }
-# tiếng Anh dùng chung bảng chữ Latin với tiếng Việt nên phải loại thêm
+# Tiếng Anh không có dấu, nên hễ thấy chữ có dấu là tiếng Việt lẫn vào.
 VI_MARKS = re.compile('[À-ỹ̀-̣]')
+# Pháp và Tây Ban Nha thì KHÔNG dùng được phép thử trên: é, à, ç, ñ, ü nằm
+# gọn trong khoảng À-ỹ, lấy nó mà loại thì gạt luôn gần hết câu tiếng Pháp
+# và tiếng Tây Ban Nha — thu xong sẽ thiếu hàng loạt mà không ai biết.
+# Chỉ loại theo những chữ CHỈ tiếng Việt mới có.
+VI_ONLY = re.compile('[ăĂơƠưƯđĐẠ-ỹ̀-̣]')
 
 
 def is_lang(t: str, lang: str) -> bool:
     if not SCRIPT[lang].search(t):
         return False
-    # Anh, Pháp, TBN dùng chung bảng Latinh với tiếng Việt nên phải loại thêm
-    if lang in ('en', 'fr', 'es') and VI_MARKS.search(t):
+    if lang == 'en' and VI_MARKS.search(t):
+        return False
+    if lang in ('fr', 'es') and VI_ONLY.search(t):
         return False
     return True
 

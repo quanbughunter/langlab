@@ -526,6 +526,468 @@
   ],
   gram:[{ p:'taza · vaso · copa', vi:'Ba thứ khác nhau: taza là tách có tay cầm để uống nóng, vaso là ly thẳng để uống nước, copa là ly có chân để uống rượu. Gọi sai thì người phục vụ mang sai.',
     ex:['una taza de café, un vaso de agua, una copa de vino', 'một tách cà phê, một ly nước, một ly rượu'] }] }
+,
 
+/* ========== ĐỒ VẬT TRONG NHÀ ========== */
+{ id:'es-26', lang:'es', lv:'a1', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'fridge', x:130, y:220 }, { p:'stove', x:250, y:220 }, { p:'sink', x:340, y:220 }
+  ]},
+  alt:'Trong bếp có tủ lạnh, bếp nấu và bồn rửa xếp thành một hàng.',
+  opts:[
+    { t:'La nevera está a la izquierda de la cocina.', ok:true },
+    { t:'La nevera está a la derecha de la cocina.', why:'izquierda là bên trái, derecha là bên phải. Tủ lạnh đứng bên TRÁI.', trap:'trái / phải' },
+    { t:'La nevera está a la izquierda del fregadero.', why:'Cái đứng ngay bên phải tủ lạnh là bếp nấu, bồn rửa thì ở xa hơn.', trap:'đúng vật, sai mốc' },
+    { t:'La nevera es a la izquierda de la cocina.', why:'Vị trí thì luôn dùng estar, không dùng ser.', trap:'ser / estar' }
+  ],
+  keys:[
+    { w:'la nevera', r:'ne.βe.ɾa', vi:'tủ lạnh' }, { w:'la cocina', r:'ko.θi.na', vi:'bếp nấu; nhà bếp' },
+    { w:'a la izquierda', r:'a la iθ.kjeɾ.ða', vi:'bên trái' }, { w:'a la derecha', r:'a la ðe.ɾe.tʃa', vi:'bên phải' }
+  ],
+  gram:[{ p:'la cocina có hai nghĩa', vi:'Vừa là cái bếp nấu, vừa là cả gian bếp. Muốn nói rõ cái bếp nấu thì dùng la cocina de gas hoặc los fogones. Ngữ cảnh quyết định.',
+    ex:['Estoy en la cocina.', 'Tôi đang ở trong bếp.'] }] },
+
+{ id:'es-27', lang:'es', lv:'a1', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'table', x:190, y:220, w:140 }, { p:'bowl', x:165, y:158 }, { p:'plate', x:220, y:158 }
+  ]},
+  alt:'Trên bàn có một cái bát và một cái đĩa đặt cạnh nhau.',
+  opts:[
+    { t:'El cuenco está a la izquierda del plato.', ok:true },
+    { t:'El cuenco está a la derecha del plato.', why:'Cái bát nằm bên TRÁI cái đĩa.', trap:'trái / phải' },
+    { t:'El cuenco está dentro del plato.', why:'Hai vật đặt cạnh nhau trên mặt bàn.', trap:'bên cạnh / bên trong' },
+    { t:'El plato está a la izquierda del cuenco.', why:'Câu này đảo ngược hai vật.', trap:'đảo vai' }
+  ],
+  keys:[
+    { w:'el cuenco', r:'kwen.ko', vi:'cái bát' }, { w:'el plato', r:'pla.to', vi:'cái đĩa' },
+    { w:'del', r:'del', vi:'của (de + el)' }, { w:'dentro de', r:'den.tɾo ðe', vi:'bên trong' }
+  ],
+  gram:[{ p:'a la izquierda DE', vi:'Cụm này luôn cần de, và de gặp el thì thành del: a la izquierda del plato, a la derecha de la mesa. Nghe del hay de la là biết giống của vật mốc.',
+    ex:['a la derecha del sofá', 'bên phải ghế sofa'] }] },
+
+{ id:'es-28', lang:'es', lv:'a2', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'bed', x:160, y:220 }, { p:'sleeper', x:160, y:186 },
+    { p:'window', x:300, y:34, view:'night' }
+  ]},
+  alt:'Một người đang ngủ trên giường, ngoài cửa sổ là trời đêm có trăng.',
+  opts:[
+    { t:'Está durmiendo porque es de noche.', ok:true },
+    { t:'Está durmiendo porque es de día.', why:'de día là ban ngày. Ngoài cửa sổ có mặt trăng.', trap:'ngày / đêm' },
+    { t:'Se está levantando porque es de noche.', why:'levantarse là thức dậy. Người này vẫn đang nằm.', trap:'ngủ / dậy' },
+    { t:'Está durmiendo porque está de noche.', why:'Nói «trời đang là đêm» thì dùng ser: es de noche. Đây là một trong ít chỗ thời gian dùng ser.', trap:'ser / estar' }
+  ],
+  keys:[
+    { w:'dormir', r:'doɾ.miɾ', vi:'ngủ' }, { w:'es de noche', r:'es ðe no.tʃe', vi:'trời tối' },
+    { w:'levantarse', r:'le.βan.taɾ.se', vi:'thức dậy' }, { w:'porque', r:'poɾ.ke', vi:'bởi vì' }
+  ],
+  gram:[{ p:'giờ giấc dùng SER', vi:'Vị trí thì estar, nhưng thời gian thì lại ser: es la una, son las tres, es de noche, es lunes. Đây là ngoại lệ phải nhớ riêng.',
+    ex:['Es lunes y son las ocho.', 'Hôm nay thứ Hai và bây giờ là 8 giờ.'] }] },
+
+{ id:'es-29', lang:'es', lv:'a1', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'table', x:180, y:220, w:130 }, { p:'phone', x:180, y:158 },
+    { p:'sofa', x:310, y:220 }
+  ]},
+  alt:'Cái điện thoại nằm trên bàn, bên phải là ghế sofa.',
+  opts:[
+    { t:'El móvil está sobre la mesa.', ok:true },
+    { t:'El móvil está sobre el sofá.', why:'Ghế sofa có thật nhưng điện thoại nằm trên bàn.', trap:'đúng vật, sai mốc' },
+    { t:'El móvil está debajo de la mesa.', why:'Điện thoại nằm trên mặt bàn.', trap:'trên / dưới' },
+    { t:'Los móviles están sobre la mesa.', why:'Chỉ có MỘT cái. Số nhiều móviles nghe rõ chữ -es.', trap:'số ít / số nhiều' }
+  ],
+  keys:[
+    { w:'el móvil', r:'mo.βil', vi:'điện thoại di động' }, { w:'el celular', r:'θe.lu.laɾ', vi:'điện thoại (Mỹ Latinh)' },
+    { w:'el sofá', r:'so.fa', vi:'ghế sofa' }, { w:'sobre', r:'so.βɾe', vi:'trên' }
+  ],
+  gram:[{ p:'móvil hay celular?', vi:'Ở Tây Ban Nha gọi là el móvil, ở Mỹ Latinh gọi là el celular. Cả hai đều đúng, chỉ khác vùng — giống chuyện coche với carro.',
+    ex:['Mi móvil no funciona.', 'Điện thoại của tôi không chạy.'] }] },
+
+{ id:'es-30', lang:'es', lv:'a2', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'table', x:190, y:220, w:140 }, { p:'laptop', x:190, y:158 },
+    { p:'chair', x:300, y:220 }
+  ]},
+  alt:'Cái máy tính xách tay mở trên bàn, bên phải có một cái ghế trống.',
+  opts:[
+    { t:'No hay nadie delante del ordenador.', ok:true },
+    { t:'No hay nada delante del ordenador.', why:'nada là không có VẬT gì, nadie là không có AI. Câu đúng nói về người.', trap:'nada / nadie' },
+    { t:'Hay alguien delante del ordenador.', why:'Cái ghế trong tranh để trống.', trap:'có / không có' },
+    { t:'No hay nadie detrás del ordenador.', why:'Cái ghế đặt ở PHÍA TRƯỚC máy tính.', trap:'trước / sau' }
+  ],
+  keys:[
+    { w:'el ordenador', r:'oɾ.ðe.na.ðoɾ', vi:'máy tính' }, { w:'nadie', r:'na.ðje', vi:'không ai' },
+    { w:'nada', r:'na.ða', vi:'không gì' }, { w:'alguien', r:'al.ɣjen', vi:'ai đó' }
+  ],
+  gram:[{ p:'phủ định kép là bắt buộc', vi:'Tiếng Tây Ban Nha giữ cả hai từ phủ định: «no hay nadie», «no veo nada». Bỏ chữ no đi thì câu thành sai, khác hẳn tiếng Anh vốn cấm phủ định kép.',
+    ex:['No tengo nada.', 'Tôi chẳng có gì.'] }] },
+
+/* ========== NGOÀI ĐƯỜNG ========== */
+{ id:'es-31', lang:'es', lv:'a1', cat:'Đường phố',
+  scene:{ bg:'street', items:[
+    { p:'car', x:130, y:220 }, { p:'car', x:250, y:220 }, { p:'tree', x:340, y:220 }
+  ]},
+  alt:'Hai chiếc ô tô đỗ cạnh nhau trên phố, bên phải có một cái cây.',
+  opts:[
+    { t:'Hay dos coches en la calle.', ok:true },
+    { t:'Hay doce coches en la calle.', why:'dos là hai, doce là mười hai.', trap:'hai / mười hai' },
+    { t:'Hay dos coches en el jardín.', why:'Cảnh trong tranh là mặt phố, không phải khu vườn.', trap:'bối cảnh' },
+    { t:'No hay coches en la calle.', why:'Trong tranh rõ ràng có xe.', trap:'có / không có' }
+  ],
+  keys:[
+    { w:'la calle', r:'ka.ʎe', vi:'con phố' }, { w:'el coche', r:'ko.tʃe', vi:'xe ô tô' },
+    { w:'dos', r:'dos', vi:'hai' }, { w:'el jardín', r:'xaɾ.ðin', vi:'khu vườn' }
+  ],
+  gram:[{ p:'hai chữ ll', vi:'calle, llave, llover, lluvia — tổ hợp ll ở Tây Ban Nha đọc gần như «y» trong tiếng Việt. Ở Argentina thì lại đọc thành «sh», nghe rất khác.',
+    ex:['la calle, la llave', 'con phố, chìa khoá'] }] },
+
+{ id:'es-32', lang:'es', lv:'a2', cat:'Đường phố',
+  scene:{ bg:'street', items:[
+    { p:'person', x:150, y:220, pose:'wave' }, { p:'person', x:260, y:220, pose:'walk', hair:'long' }
+  ]},
+  alt:'Một người đứng giơ tay vẫy, người kia đang bước đi.',
+  opts:[
+    { t:'Le dice adiós.', ok:true },
+    { t:'Le dice hola.', why:'Người kia đang bước đi xa dần, nên đây là lời tạm biệt.', trap:'chào / tạm biệt' },
+    { t:'Les dice adiós.', why:'le là cho MỘT người, les là cho NHIỀU người. Chỉ có một người đang đi.', trap:'le / les' },
+    { t:'Le dijo adiós.', why:'dijo là thời quá khứ. Việc đang diễn ra trước mắt.', trap:'hiện tại / quá khứ' }
+  ],
+  keys:[
+    { w:'adiós', r:'a.ðjos', vi:'tạm biệt' }, { w:'hola', r:'o.la', vi:'xin chào' },
+    { w:'le', r:'le', vi:'cho anh/chị ấy' }, { w:'decir', r:'de.θiɾ', vi:'nói' }
+  ],
+  gram:[{ p:'le và les', vi:'Đại từ tân ngữ gián tiếp, thay cho «a + người»: le digo a María → le digo. Nó đứng TRƯỚC động từ chia, hoặc dính vào sau động từ nguyên thể: voy a decirle.',
+    ex:['Le doy el libro. Les doy el libro.', 'Tôi đưa sách cho anh ấy. Tôi đưa sách cho họ.'] }] },
+
+{ id:'es-33', lang:'es', lv:'a1', cat:'Đường phố',
+  scene:{ bg:'street', items:[
+    { p:'bus', x:180, y:220 }, { p:'person', x:310, y:220, pose:'stand' }
+  ]},
+  alt:'Chiếc xe buýt bên trái, một người đứng đợi bên phải.',
+  opts:[
+    { t:'Está esperando el autobús.', ok:true },
+    { t:'Está esperando el tren.', why:'el tren là tàu hoả. Phương tiện trong tranh có bánh và cửa bên hông.', trap:'vật khác' },
+    { t:'Está cogiendo el autobús.', why:'coger el autobús là lên xe. Người này còn đứng ngoài.', trap:'đợi / lên xe' },
+    { t:'Están esperando el autobús.', why:'Chỉ có MỘT người. está và están khác nhau ở chữ -n cuối.', trap:'số ít / số nhiều' }
+  ],
+  keys:[
+    { w:'esperar', r:'es.pe.ɾaɾ', vi:'đợi' }, { w:'el autobús', r:'au̯.to.βus', vi:'xe buýt' },
+    { w:'el tren', r:'tɾen', vi:'tàu hoả' }, { w:'coger', r:'ko.xeɾ', vi:'bắt, lấy (xe)' }
+  ],
+  gram:[{ p:'coger — cẩn thận khi sang Mỹ Latinh', vi:'Ở Tây Ban Nha coger el autobús là chuyện bình thường. Ở Mexico và Argentina thì từ này thô tục. Dùng tomar el autobús thì đi đâu cũng an toàn.',
+    ex:['Voy a tomar el autobús.', 'Tôi sẽ bắt xe buýt.'] }] },
+
+{ id:'es-34', lang:'es', lv:'a2', cat:'Đường phố',
+  scene:{ bg:'street', items:[
+    { p:'person', x:140, y:220, pose:'run' }, { p:'bicycle', x:290, y:220 }
+  ]},
+  alt:'Một người đang chạy, chiếc xe đạp dựng ở bên phải.',
+  opts:[
+    { t:'Corre hacia su bicicleta.', ok:true },
+    { t:'Va en bicicleta.', why:'ir en bicicleta là đi bằng xe đạp. Người này vẫn đang chạy bộ.', trap:'chạy bộ / đi xe' },
+    { t:'Corre hacia su coche.', why:'Vật bên phải có hai bánh và bàn đạp.', trap:'vật khác' },
+    { t:'Ha corrido hacia su bicicleta.', why:'ha corrido là đã chạy xong. Trong tranh việc đang diễn ra.', trap:'đang làm / đã làm' }
+  ],
+  keys:[
+    { w:'correr', r:'ko.reɾ', vi:'chạy' }, { w:'hacia', r:'a.θja', vi:'về phía' },
+    { w:'la bicicleta', r:'bi.θi.kle.ta', vi:'xe đạp' }, { w:'su', r:'su', vi:'của anh/chị ấy' }
+  ],
+  gram:[{ p:'su không đổi theo giống người', vi:'su bicicleta, su coche — chữ su chỉ hợp SỐ với vật sở hữu (sus libros), không hợp giống, và không cho biết chủ là nam hay nữ. Muốn rõ thì thêm: la bicicleta de ella.',
+    ex:['su libro, sus libros', 'sách của anh ấy, những quyển sách của anh ấy'] }] },
+
+{ id:'es-35', lang:'es', lv:'a1', cat:'Đường phố',
+  scene:{ bg:'street', items:[
+    { p:'tree', x:110, y:220 }, { p:'tree', x:200, y:220 }, { p:'tree', x:290, y:220 }
+  ]},
+  alt:'Ba cái cây trồng thành hàng dọc phố.',
+  opts:[
+    { t:'Hay tres árboles en la calle.', ok:true },
+    { t:'Hay trece árboles en la calle.', why:'tres là ba, trece là mười ba.', trap:'ba / mười ba' },
+    { t:'Hay tres flores en la calle.', why:'la flor là bông hoa. Trong tranh là cây có thân và tán lá.', trap:'vật khác' },
+    { t:'Hay tres árboles en el jardín.', why:'Cảnh trong tranh là mặt phố.', trap:'bối cảnh' }
+  ],
+  keys:[
+    { w:'el árbol', r:'aɾ.βol', vi:'cái cây' }, { w:'los árboles', r:'aɾ.βo.les', vi:'những cái cây' },
+    { w:'la flor', r:'floɾ', vi:'bông hoa' }, { w:'tres', r:'tɾes', vi:'ba' }
+  ],
+  gram:[{ p:'árbol → árboles, trọng âm không đổi', vi:'Dấu sắc trong árbol biến mất ở số nhiều (árboles) vì trọng âm vẫn rơi đúng chỗ theo quy tắc mặc định. Chữ viết đổi nhưng cách đọc phần gốc thì không.',
+    ex:['el árbol, los árboles', 'cái cây, những cái cây'] }] },
+
+/* ========== LỚP HỌC ========== */
+{ id:'es-36', lang:'es', lv:'a1', cat:'Học tập',
+  scene:{ bg:'classroom', items:[
+    { p:'desk', x:160, y:220 }, { p:'book', x:160, y:162 }, { p:'bag', x:280, y:220 }
+  ]},
+  alt:'Quyển sách nằm trên bàn học, cái cặp để dưới sàn bên phải.',
+  opts:[
+    { t:'El libro está sobre la mesa y la mochila en el suelo.', ok:true },
+    { t:'El libro está en el suelo y la mochila sobre la mesa.', why:'Câu này đảo ngược hai vật.', trap:'đảo vai' },
+    { t:'El libro está debajo de la mesa y la mochila en el suelo.', why:'Quyển sách nằm TRÊN mặt bàn.', trap:'trên / dưới' },
+    { t:'Los libros están sobre la mesa y la mochila en el suelo.', why:'Chỉ có MỘT quyển sách.', trap:'số ít / số nhiều' }
+  ],
+  keys:[
+    { w:'el suelo', r:'swe.lo', vi:'sàn nhà' }, { w:'la mochila', r:'mo.tʃi.la', vi:'cái cặp sách' },
+    { w:'el libro', r:'li.βɾo', vi:'quyển sách' }, { w:'sobre', r:'so.βɾe', vi:'trên' }
+  ],
+  gram:[{ p:'en el suelo, không phải «sobre el suelo»', vi:'Vật để dưới sàn thì nói en el suelo. Cũng vậy: en la mesa được dùng nhiều hơn sobre la mesa trong đời thường, dù cả hai đều đúng.',
+    ex:['Las llaves están en el suelo.', 'Chìa khoá rơi dưới sàn.'] }] },
+
+{ id:'es-37', lang:'es', lv:'a2', cat:'Học tập',
+  scene:{ bg:'classroom', items:[
+    { p:'person', x:120, y:220, pose:'point' }, { p:'desk', x:260, y:220 }, { p:'person', x:260, y:216, pose:'write' }
+  ]},
+  alt:'Một người đứng chỉ tay về phía bảng, người kia ngồi viết ở bàn.',
+  opts:[
+    { t:'El profesor explica y el alumno escribe.', ok:true },
+    { t:'El profesor escribe y el alumno explica.', why:'Câu này đảo ngược hai vai.', trap:'đảo vai' },
+    { t:'El profesor explica y el alumno lee.', why:'leer là đọc. Người ngồi ở bàn đang cầm bút.', trap:'đọc / viết' },
+    { t:'Los profesores explican y el alumno escribe.', why:'Chỉ có MỘT người đứng giảng. explica và explican khác nhau ở chữ -n cuối.', trap:'số ít / số nhiều' }
+  ],
+  keys:[
+    { w:'el profesor', r:'pɾo.fe.soɾ', vi:'giáo viên' }, { w:'el alumno', r:'a.lum.no', vi:'học sinh' },
+    { w:'explicar', r:'eks.pli.kaɾ', vi:'giảng giải' }, { w:'escribir', r:'es.kɾi.βiɾ', vi:'viết' }
+  ],
+  gram:[{ p:'chữ -n cuối cho biết số nhiều', vi:'explica / explican, escribe / escriben, lee / leen. Chữ -n này phát âm rõ ràng, nên khác tiếng Pháp, ở đây nghe được số ngay ở động từ.',
+    ex:['El alumno escribe. Los alumnos escriben.', 'Học sinh viết. Các học sinh viết.'] }] },
+
+{ id:'es-38', lang:'es', lv:'a1', cat:'Học tập',
+  scene:{ bg:'classroom', items:[
+    { p:'desk', x:150, y:220 }, { p:'desk', x:280, y:220 }
+  ]},
+  alt:'Hai cái bàn học đứng cách nhau trong lớp, cả hai đều trống.',
+  opts:[
+    { t:'Las dos mesas están vacías.', ok:true },
+    { t:'Las dos mesas están llenas.', why:'lleno là đầy, vacío là trống. Trên cả hai bàn không có gì.', trap:'đầy / trống' },
+    { t:'La mesa está vacía.', why:'Trong tranh có HAI cái bàn.', trap:'số ít / số nhiều' },
+    { t:'Las dos sillas están vacías.', why:'Trong tranh là hai cái bàn, không phải ghế.', trap:'vật khác' }
+  ],
+  keys:[
+    { w:'vacío / vacía', r:'ba.θi.o', vi:'trống' }, { w:'lleno / llena', r:'ʎe.no', vi:'đầy' },
+    { w:'la mesa', r:'me.sa', vi:'cái bàn' }, { w:'dos', r:'dos', vi:'hai' }
+  ],
+  gram:[{ p:'tính từ hợp cả giống lẫn số', vi:'vacío → vacía → vacíos → vacías. Bốn dạng, và cả bốn đều nghe được rõ. Tiếng Tây Ban Nha để lộ giống và số nhiều hơn hẳn tiếng Pháp.',
+    ex:['Las mesas están vacías.', 'Mấy cái bàn đều trống.'] }] },
+
+{ id:'es-39', lang:'es', lv:'a2', cat:'Học tập',
+  scene:{ bg:'classroom', items:[
+    { p:'desk', x:170, y:220 }, { p:'laptop', x:170, y:162 }, { p:'person', x:290, y:220, pose:'stand' }
+  ]},
+  alt:'Máy tính xách tay mở trên bàn, một người đứng bên cạnh.',
+  opts:[
+    { t:'El ordenador está encendido.', ok:true },
+    { t:'El ordenador está apagado.', why:'apagado là đã tắt. Màn hình trong tranh đang mở và sáng.', trap:'bật / tắt' },
+    { t:'El ordenador está encendida.', why:'ordenador là giống đực nên phải là encendido. Chữ -a cuối nghe rất rõ, đây là lỗi nghe được.', trap:'hợp giống' },
+    { t:'Los ordenadores están encendidos.', why:'Chỉ có MỘT máy.', trap:'số ít / số nhiều' }
+  ],
+  keys:[
+    { w:'encendido', r:'en.θen.di.ðo', vi:'đang bật' }, { w:'apagado', r:'a.pa.ɣa.ðo', vi:'đã tắt' },
+    { w:'el ordenador', r:'oɾ.ðe.na.ðoɾ', vi:'máy tính' }, { w:'la pantalla', r:'pan.ta.ʎa', vi:'màn hình' }
+  ],
+  gram:[{ p:'encender và apagar', vi:'Dùng cho đèn, máy, bếp: enciende la luz (bật đèn), apaga la tele (tắt tivi). Ở dạng trạng thái thì đi với estar: está encendido, está apagado.',
+    ex:['Apaga la luz, por favor.', 'Tắt đèn giúp tôi.'] }] },
+
+{ id:'es-40', lang:'es', lv:'a1', cat:'Học tập',
+  scene:{ bg:'classroom', items:[
+    { p:'clock', x:320, y:70, time:'8:00' }, { p:'desk', x:150, y:220 }, { p:'person', x:150, y:216, pose:'sit' }
+  ]},
+  alt:'Đồng hồ chỉ đúng 8 giờ, một người đang ngồi ở bàn học.',
+  opts:[
+    { t:'La clase empieza a las ocho.', ok:true },
+    { t:'La clase empieza a las dos.', why:'ocho là tám, dos là hai. Kim ngắn đang ở số 8.', trap:'số giờ' },
+    { t:'La clase termina a las ocho.', why:'terminar là kết thúc, empezar là bắt đầu. Học sinh vừa ngồi vào bàn.', trap:'bắt đầu / kết thúc' },
+    { t:'Las clases empiezan a las ocho.', why:'Câu đúng nói về MỘT tiết. empieza và empiezan khác nhau ở chữ -n cuối.', trap:'số ít / số nhiều' }
+  ],
+  keys:[
+    { w:'la clase', r:'kla.se', vi:'tiết học, lớp học' }, { w:'empezar', r:'em.pe.θaɾ', vi:'bắt đầu' },
+    { w:'terminar', r:'teɾ.mi.naɾ', vi:'kết thúc' }, { w:'a las ocho', r:'a las o.tʃo', vi:'lúc tám giờ' }
+  ],
+  gram:[{ p:'empezar đổi gốc: e → ie', vi:'empiezo, empiezas, empieza… nhưng empezamos (chúng tôi) thì giữ nguyên e. Nhóm động từ đổi gốc rất đông: querer/quiero, poder/puedo, dormir/duermo.',
+    ex:['Empiezo a las nueve.', 'Tôi bắt đầu lúc chín giờ.'] }] },
+
+/* ========== THỜI TIẾT VÀ THỜI GIAN ========== */
+{ id:'es-41', lang:'es', lv:'a1', cat:'Đời sống',
+  scene:{ bg:'street', items:[
+    { p:'sun', x:320, y:60 }, { p:'person', x:160, y:220, pose:'walk' }
+  ]},
+  alt:'Trời nắng, một người đi bộ trên phố.',
+  opts:[
+    { t:'Hoy hace buen tiempo.', ok:true },
+    { t:'Hoy hace mal tiempo.', why:'mal tiempo là thời tiết xấu. Trong tranh mặt trời đang chiếu.', trap:'đẹp / xấu trời' },
+    { t:'Hoy hace frío.', why:'frío là lạnh. Người trong tranh không mặc áo khoác dày.', trap:'nóng / lạnh' },
+    { t:'Ayer hizo buen tiempo.', why:'ayer và hizo là quá khứ. Tranh nói về hôm nay.', trap:'hiện tại / quá khứ' }
+  ],
+  keys:[
+    { w:'hace buen tiempo', r:'a.θe βwen tjem.po', vi:'trời đẹp' }, { w:'hace frío', r:'a.θe fɾi.o', vi:'trời lạnh' },
+    { w:'hoy', r:'oi', vi:'hôm nay' }, { w:'ayer', r:'a.ʝeɾ', vi:'hôm qua' }
+  ],
+  gram:[{ p:'thời tiết dùng HACER', vi:'hace frío, hace calor, hace sol, hace viento. Nhưng mưa và tuyết có động từ riêng: llueve, nieva. Không nói «hace lluvia».',
+    ex:['Hace calor y llueve.', 'Trời nóng và đang mưa.'] }] },
+
+{ id:'es-42', lang:'es', lv:'a2', cat:'Đời sống',
+  scene:{ bg:'street', items:[
+    { p:'snowfall', x:200, y:24, n:8 }, { p:'person', x:150, y:220, pose:'walk' }, { p:'tree', x:320, y:220 }
+  ]},
+  alt:'Tuyết rơi, một người đi bộ trên phố, bên phải có một cái cây.',
+  opts:[
+    { t:'En invierno nieva mucho aquí.', ok:true },
+    { t:'En verano nieva mucho aquí.', why:'el verano là mùa hè. Trong tranh có tuyết đang rơi.', trap:'mùa' },
+    { t:'En invierno llueve mucho aquí.', why:'llover là mưa. Những chấm tròn rơi trong tranh là tuyết.', trap:'mưa / tuyết' },
+    { t:'En invierno nieva muy aquí.', why:'muy chỉ đi trước tính từ. Với động từ phải dùng mucho.', trap:'muy / mucho' }
+  ],
+  keys:[
+    { w:'el invierno', r:'im.bjeɾ.no', vi:'mùa đông' }, { w:'el verano', r:'be.ɾa.no', vi:'mùa hè' },
+    { w:'nevar', r:'ne.βaɾ', vi:'có tuyết' }, { w:'aquí', r:'a.ki', vi:'ở đây' }
+  ],
+  gram:[{ p:'nevar cũng đổi gốc', vi:'nevar → nieva, llover → llueve. Hai động từ thời tiết này chỉ dùng ở ngôi thứ ba số ít, không có chủ ngữ thật.',
+    ex:['Nieva. Llueve.', 'Trời có tuyết. Trời mưa.'] }] },
+
+{ id:'es-43', lang:'es', lv:'a1', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'calendar', x:290, y:60, text:'12' }, { p:'table', x:160, y:220, w:120 }
+  ]},
+  alt:'Tờ lịch treo tường chỉ ngày 12, bên trái là cái bàn.',
+  opts:[
+    { t:'Hoy es doce.', ok:true },
+    { t:'Hoy es dos.', why:'doce là mười hai, dos là hai. Trên lịch ghi số 12.', trap:'hai / mười hai' },
+    { t:'Son las doce.', why:'Câu này nói về GIỜ, không phải ngày. Tranh là tờ lịch, không phải đồng hồ.', trap:'giờ / ngày' },
+    { t:'Hoy está doce.', why:'Ngày tháng thì dùng ser, không dùng estar.', trap:'ser / estar' }
+  ],
+  keys:[
+    { w:'el calendario', r:'ka.len.da.ɾjo', vi:'tờ lịch' }, { w:'doce', r:'do.θe', vi:'mười hai' },
+    { w:'hoy', r:'oi', vi:'hôm nay' }, { w:'el día', r:'di.a', vi:'ngày' }
+  ],
+  gram:[{ p:'el día là giống ĐỰC dù kết thúc bằng -a', vi:'Một nhóm từ gốc Hy Lạp kết thúc bằng -a nhưng là giống đực: el día, el problema, el tema, el mapa, el idioma. Phải nhớ riêng từng từ.',
+    ex:['el problema, el mapa', 'vấn đề, tấm bản đồ'] }] },
+
+{ id:'es-44', lang:'es', lv:'a2', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'suitcase', x:170, y:220 }, { p:'coat', x:300, y:180 }, { p:'hanger', x:300, y:150 }
+  ]},
+  alt:'Cái vali để dưới sàn, áo khoác treo trên móc bên phải.',
+  opts:[
+    { t:'Va a salir de viaje.', ok:true },
+    { t:'Ha salido de viaje.', why:'ha salido là đã đi rồi. Vali vẫn còn ở nhà.', trap:'sắp đi / đã đi' },
+    { t:'Está saliendo de viaje.', why:'está saliendo là đang ra khỏi cửa. Vali còn để giữa phòng, áo còn treo.', trap:'sắp / đang' },
+    { t:'Va a salir de casa.', why:'salir de viaje là đi xa, salir de casa chỉ là ra khỏi nhà. Cái vali cho biết đây là chuyến đi xa.', trap:'cụm gần nghĩa' }
+  ],
+  keys:[
+    { w:'salir de viaje', r:'sa.liɾ ðe βja.xe', vi:'đi xa, lên đường' }, { w:'la maleta', r:'ma.le.ta', vi:'cái vali' },
+    { w:'el abrigo', r:'a.βɾi.ɣo', vi:'áo khoác' }, { w:'la casa', r:'ka.sa', vi:'ngôi nhà' }
+  ],
+  gram:[{ p:'ir a + động từ nguyên thể', vi:'Đây là cách nói tương lai gần, giống aller trong tiếng Pháp và be going to trong tiếng Anh: voy a comer, vas a salir. Rất hay dùng, hơn cả thì tương lai chính thức.',
+    ex:['Voy a estudiar esta noche.', 'Tối nay tôi sẽ học.'] }] },
+
+{ id:'es-45', lang:'es', lv:'a1', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'table', x:190, y:220, w:150 }, { p:'cake', x:165, y:158 }, { p:'cup', x:225, y:158 }
+  ]},
+  alt:'Trên bàn có một miếng bánh ngọt và một cái tách.',
+  opts:[
+    { t:'Hay un pastel y una taza sobre la mesa.', ok:true },
+    { t:'Hay un pastel y un vaso sobre la mesa.', why:'una taza là cái tách có tay cầm, un vaso là ly thẳng.', trap:'vật khác' },
+    { t:'Hay una pastel y una taza sobre la mesa.', why:'pastel là giống đực nên phải là UN pastel.', trap:'giống' },
+    { t:'Hay unos pasteles y una taza sobre la mesa.', why:'Chỉ có MỘT miếng bánh.', trap:'số ít / số nhiều' }
+  ],
+  keys:[
+    { w:'el pastel', r:'pas.tel', vi:'bánh ngọt' }, { w:'la taza', r:'ta.θa', vi:'cái tách' },
+    { w:'el vaso', r:'ba.so', vi:'cái ly' }, { w:'y', r:'i', vi:'và' }
+  ],
+  gram:[{ p:'y đổi thành e trước i-', vi:'Chữ «và» là y, nhưng nếu từ sau bắt đầu bằng âm i thì đổi thành e: padre e hijo, España e Italia. Cũng vậy, o (hoặc) đổi thành u trước âm o: siete u ocho.',
+    ex:['padre e hijo, siete u ocho', 'cha và con trai, bảy hoặc tám'] }] },
+
+/* ========== TRẠNG THÁI VÀ SỐ LƯỢNG ========== */
+{ id:'es-46', lang:'es', lv:'a2', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'bin', x:150, y:220 }, { p:'box', x:280, y:220 }
+  ]},
+  alt:'Thùng rác bên trái, cái hộp giấy bên phải, cả hai đều đặt dưới sàn.',
+  opts:[
+    { t:'La papelera está a la izquierda de la caja.', ok:true },
+    { t:'La papelera está a la derecha de la caja.', why:'Thùng rác đứng bên TRÁI.', trap:'trái / phải' },
+    { t:'La papelera está dentro de la caja.', why:'Hai vật đứng riêng trên sàn.', trap:'bên cạnh / bên trong' },
+    { t:'La caja está a la izquierda de la papelera.', why:'Câu này đảo ngược hai vật.', trap:'đảo vai' }
+  ],
+  keys:[
+    { w:'la papelera', r:'pa.pe.le.ɾa', vi:'thùng rác giấy' }, { w:'la caja', r:'ka.xa', vi:'cái hộp' },
+    { w:'la basura', r:'ba.su.ɾa', vi:'rác' }, { w:'dentro de', r:'den.tɾo ðe', vi:'bên trong' }
+  ],
+  gram:[{ p:'papelera và cubo de basura', vi:'la papelera là sọt giấy trong phòng, el cubo de basura là thùng rác trong bếp. Đồ vật giống nhau nhưng tên khác theo chỗ đặt.',
+    ex:['Tira el papel a la papelera.', 'Vứt tờ giấy vào sọt.'] }] },
+
+{ id:'es-47', lang:'es', lv:'a1', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'table', x:190, y:220, w:150 }, { p:'apple', x:160, y:158 }, { p:'apple', x:195, y:158 },
+    { p:'banana', x:235, y:158 }
+  ]},
+  alt:'Trên bàn có hai quả táo và một quả chuối.',
+  opts:[
+    { t:'Hay dos manzanas y un plátano.', ok:true },
+    { t:'Hay una manzana y dos plátanos.', why:'Câu này đảo ngược số lượng: có hai quả táo và một quả chuối.', trap:'đảo số lượng' },
+    { t:'Hay doce manzanas y un plátano.', why:'dos là hai, doce là mười hai.', trap:'hai / mười hai' },
+    { t:'Hay dos peras y un plátano.', why:'la pera là quả lê. Quả trong tranh tròn và có cuống ngắn.', trap:'vật khác' }
+  ],
+  keys:[
+    { w:'la manzana', r:'man.θa.na', vi:'quả táo' }, { w:'el plátano', r:'pla.ta.no', vi:'quả chuối' },
+    { w:'la pera', r:'pe.ɾa', vi:'quả lê' }, { w:'dos', r:'dos', vi:'hai' }
+  ],
+  gram:[{ p:'plátano hay banana?', vi:'Ở Tây Ban Nha là el plátano, ở nhiều nước Mỹ Latinh là la banana hoặc el banano. Tên trái cây là chỗ khác biệt vùng miền nhiều nhất trong tiếng Tây Ban Nha.',
+    ex:['un plátano, dos plátanos', 'một quả chuối, hai quả chuối'] }] },
+
+{ id:'es-48', lang:'es', lv:'a2', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'sofa', x:180, y:220 }, { p:'person', x:180, y:216, pose:'phone' }, { p:'tv', x:320, y:220 }
+  ]},
+  alt:'Một người ngồi trên sofa nghe điện thoại, tivi tắt ở bên phải.',
+  opts:[
+    { t:'Está hablando por teléfono.', ok:true },
+    { t:'Está viendo la tele.', why:'Cái tivi trong tranh đang tắt, và người này áp điện thoại vào tai.', trap:'đúng vật, sai việc' },
+    { t:'Estaba hablando por teléfono.', why:'estaba là quá khứ. Việc đang diễn ra trước mắt.', trap:'hiện tại / quá khứ' },
+    { t:'Está hablando para teléfono.', why:'Phương tiện liên lạc dùng por: por teléfono, por correo. Không dùng para.', trap:'por / para' }
+  ],
+  keys:[
+    { w:'hablar por teléfono', r:'a.βlaɾ poɾ te.le.fo.no', vi:'nói chuyện điện thoại' },
+    { w:'ver la tele', r:'beɾ la te.le', vi:'xem tivi' }, { w:'estaba', r:'es.ta.βa', vi:'đã đang (quá khứ)' },
+    { w:'por', r:'poɾ', vi:'bằng, qua' }
+  ],
+  gram:[{ p:'por chỉ phương tiện', vi:'por teléfono, por correo, por internet — chữ por dùng cho cách thức và đường truyền. Còn para thì cho người nhận: una carta para ti.',
+    ex:['Te llamo por teléfono.', 'Tôi sẽ gọi điện cho bạn.'] }] },
+
+{ id:'es-49', lang:'es', lv:'a1', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'cupboard', x:150, y:220 }, { p:'cat', x:270, y:220, pose:'sit' }, { p:'bowl', x:330, y:220 }
+  ]},
+  alt:'Con mèo ngồi giữa cái tủ và cái bát thức ăn.',
+  opts:[
+    { t:'El gato está entre el armario y el cuenco.', ok:true },
+    { t:'El gato está dentro del armario.', why:'Con mèo ngồi bên ngoài, trên sàn.', trap:'giữa / bên trong' },
+    { t:'El gato está detrás del cuenco.', why:'Con mèo ngồi bên cạnh, cùng một hàng với cái bát.', trap:'giữa / phía sau' },
+    { t:'El perro está entre el armario y el cuenco.', why:'Con vật trong tranh có tai nhọn và đuôi cong — đó là con mèo.', trap:'chủ thể' }
+  ],
+  keys:[
+    { w:'el gato', r:'ɡa.to', vi:'con mèo' }, { w:'el armario', r:'aɾ.ma.ɾjo', vi:'cái tủ' },
+    { w:'el cuenco', r:'kwen.ko', vi:'cái bát' }, { w:'entre', r:'en.tɾe', vi:'giữa' }
+  ],
+  gram:[{ p:'entre không rút với el', vi:'Chỉ a và de mới rút: al, del. entre el armario giữ nguyên hai từ, không có dạng «entrel».',
+    ex:['entre la cama y la ventana', 'giữa giường và cửa sổ'] }] },
+
+{ id:'es-50', lang:'es', lv:'a2', cat:'Đời sống',
+  scene:{ bg:'room', items:[
+    { p:'table', x:180, y:220, w:140 }, { p:'glasses', x:180, y:158 },
+    { p:'book', x:290, y:220 }
+  ]},
+  alt:'Cặp kính đặt trên bàn, quyển sách nằm dưới sàn bên phải.',
+  opts:[
+    { t:'Las gafas están sobre la mesa.', ok:true },
+    { t:'La gafa está sobre la mesa.', why:'gafas chỉ dùng ở số nhiều khi nói về cặp kính.', trap:'luôn số nhiều' },
+    { t:'Las gafas están en el suelo.', why:'Quyển sách nằm dưới sàn, còn cặp kính thì trên bàn.', trap:'đảo vai' },
+    { t:'Las gafas están debajo de la mesa.', why:'Cặp kính nằm TRÊN mặt bàn.', trap:'trên / dưới' }
+  ],
+  keys:[
+    { w:'las gafas', r:'ɡa.fas', vi:'cặp kính (luôn số nhiều)' },
+    { w:'los anteojos', r:'an.te.o.xos', vi:'cặp kính (Mỹ Latinh)' },
+    { w:'el suelo', r:'swe.lo', vi:'sàn nhà' }, { w:'la mesa', r:'me.sa', vi:'cái bàn' }
+  ],
+  gram:[{ p:'từ chỉ dùng ở số nhiều', vi:'las gafas (kính), las tijeras (kéo), los pantalones (quần), las vacaciones (kỳ nghỉ). Một vật nhưng luôn nói số nhiều, vì nó gồm hai phần giống nhau.',
+    ex:['Las vacaciones empiezan mañana.', 'Kỳ nghỉ bắt đầu từ mai.'] }] }
   );
 })();
