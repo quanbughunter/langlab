@@ -7413,7 +7413,14 @@ function factArt(id){
 function factSpeakBtn(f){
   const t = f.word && f.word.t;
   if (!t) return '';
-  const attr = f.lang === 'zh' ? `data-zh-speak="${esc(t)}"` : f.lang === 'ru' ? `data-ru-speak="${esc(t)}"` : f.lang === 'ja' ? `data-ja-speak="${esc(t)}"` : f.lang === 'en' ? `data-en-speak="${esc(t)}"` : `data-speak="${esc(t)}"`;
+  /* data-speak là đường của tiếng Hàn. Pháp và Tây Ban Nha đi qua data-lat-speak
+     của khối LAT, nếu không sẽ bị đọc bằng giọng Hàn. */
+  const attr = f.lang === 'zh' ? `data-zh-speak="${esc(t)}"`
+    : f.lang === 'ru' ? `data-ru-speak="${esc(t)}"`
+    : f.lang === 'ja' ? `data-ja-speak="${esc(t)}"`
+    : f.lang === 'en' ? `data-en-speak="${esc(t)}"`
+    : (f.lang === 'fr' || f.lang === 'es') ? `data-lat-speak="${esc(f.lang)}:${esc(t)}"`
+    : `data-speak="${esc(t)}"`;
   return `<button class="icon-btn" ${attr} title="Nghe">${SPK_ICO}</button>`;
 }
 function factCardHTML(f){

@@ -33,23 +33,31 @@ let pass=0,fail=0; const check=(name,fn)=>{ try{ const r=fn(); if(r===false) thr
 (async()=>{
   await new Promise(r=>setTimeout(r,150));
   if (errors.length) console.log('BOOT ERRORS:', errors.slice(0,3).join(' | '));
-  check('kho fact: 320 mẩu, 64 mỗi ngôn ngữ, đủ hình minh hoạ, không trùng tiêu đề', ()=>{
+  const LANGS = ['ko','zh','ru','ja','en','fr','es'];
+  check('kho fact: 896 mẩu, 128 mỗi ngôn ngữ, đủ hình minh hoạ, không trùng tiêu đề', ()=>{
     const F=win.eval('FACTS')||[], A=win.eval('FACT_ART')||{};
     const by={}; F.forEach(f=>by[f.lang]=(by[f.lang]||0)+1);
     const seen=new Set(); const dup=F.filter(f=>{const k=f.lang+'|'+f.title; if(seen.has(k))return true; seen.add(k); return false;});
-    /* Kho đang được mở rộng dần lên 128 mẩu mỗi tiếng, nên không chốt cứng
-       tổng số nữa — chỉ đòi mỗi thứ tiếng có ÍT NHẤT 64 và mọi mẩu đều đủ trường. */
-    const langs = [...new Set(F.map(f=>f.lang))];
-    const thin = langs.filter(l=>by[l]<64);
-    if (thin.length) console.log('   thứ tiếng chưa đủ 64 mẩu:', thin.join(' '));
+    const thin = LANGS.filter(l=>by[l]!==128);
+    const stray = Object.keys(by).filter(l=>!LANGS.includes(l));
+    if (thin.length) console.log('   không đúng 128 mẩu:', thin.map(l=>l+'='+(by[l]||0)).join(' '));
+    if (stray.length) console.log('   mã ngôn ngữ lạ:', stray.join(' '));
     if (dup.length) console.log('   tiêu đề trùng:', dup.slice(0,3).join(' | '));
     const bad = F.filter(f=>!(A[f.art] && f.cat && f.title && f.body && f.extra && f.word && f.word.t && f.word.vi));
     if (bad.length) console.log('   mẩu thiếu trường:', bad.slice(0,3).map(f=>f.title.slice(0,30)).join(' | '));
-    return F.length>=320 && thin.length===0 && dup.length===0 && bad.length===0;
+    return F.length===896 && thin.length===0 && stray.length===0 && dup.length===0 && bad.length===0;
+  });
+  check('mỗi ngôn ngữ có ít nhất 8 chủ đề, không chủ đề nào chỉ có 1 mẩu', ()=>{
+    const F=win.eval('FACTS')||[]; let bad=[];
+    LANGS.forEach(l=>{ const c={}; F.filter(f=>f.lang===l).forEach(f=>c[f.cat]=(c[f.cat]||0)+1);
+      const keys=Object.keys(c); if (keys.length<8) bad.push(l+': chỉ '+keys.length+' chủ đề');
+      keys.filter(k=>c[k]<2).forEach(k=>bad.push(l+'/'+k+' lẻ 1 mẩu')); });
+    if (bad.length) console.log('   ', bad.slice(0,4).join(' | '));
+    return bad.length===0;
   });
   const nOf = lg => win.eval('FACTS').filter(f=>f.lang===lg).length;
   check('menu mọi ngôn ngữ đều có «Bạn có biết?», mỗi cái mang data-lang riêng', ()=>
-    n('[data-go="facts"]')===7 && ['ko','zh','ru','ja','en','fr','es'].every(l=>n(`[data-go="facts"][data-lang="${l}"]`)===1));
+    n('[data-go="facts"]')===7 && LANGS.every(l=>n(`[data-go="facts"][data-lang="${l}"]`)===1));
   click('[data-go="facts"][data-lang="ko"]');
   check('vào từ menu tiếng Hàn: đủ mẩu Hàn Quốc, tông màu ko, không còn chip chọn nước', ()=>
     !n('[data-facts-lang]') && n('[data-facts-cat]')>=7 && n('.fact-card')===nOf('ko')
@@ -63,6 +71,26 @@ let pass=0,fail=0; const check=(name,fn)=>{ try{ const r=fn(); if(r===false) thr
       && !/undefined/.test(d.getElementById('crumb').textContent)
       && /Tiếng Nhật/.test(d.getElementById('crumb').textContent); });
   check('có kho fact tiếng Anh, nút nghe dùng giọng en', ()=>{ click('[data-go="facts"][data-lang="en"]'); const ok = n('.fact-card')===nOf('en') && /Anh – Mỹ/.test(body()); spoken.length=0; click('.fact-card'); const b=d.querySelector('#factModal .fact-word .icon-btn'); if(b) click(b); const voice = spoken.length===1 && /^en/.test(spoken[0][0]); click('#factModal [data-fact-close]'); click('[data-go="facts"][data-lang="ja"]'); return ok && voice; });
+  check('có kho fact tiếng Pháp, tông màu fr, nút nghe dùng giọng fr', ()=>{
+    click('[data-go="facts"][data-lang="fr"]');
+    const ok = n('.fact-card')===nOf('fr') && d.documentElement.getAttribute('data-lang')==='fr'
+      && /Tiếng Pháp/.test(d.getElementById('crumb').textContent)
+      && !/undefined/.test(d.getElementById('crumb').textContent);
+    spoken.length=0; click('.fact-card');
+    const b=d.querySelector('#factModal .fact-word .icon-btn'); if(b) click(b);
+    const voice = spoken.length===1 && /^fr/.test(spoken[0][0]);
+    click('#factModal [data-fact-close]');
+    return ok && voice; });
+  check('có kho fact tiếng Tây Ban Nha, tông màu es, nút nghe dùng giọng es', ()=>{
+    click('[data-go="facts"][data-lang="es"]');
+    const ok = n('.fact-card')===nOf('es') && d.documentElement.getAttribute('data-lang')==='es'
+      && /Tây Ban Nha/.test(d.getElementById('crumb').textContent);
+    spoken.length=0; click('.fact-card');
+    const b=d.querySelector('#factModal .fact-word .icon-btn'); if(b) click(b);
+    const voice = spoken.length===1 && /^es/.test(spoken[0][0]);
+    click('#factModal [data-fact-close]');
+    click('[data-go="facts"][data-lang="ja"]');
+    return ok && voice; });
   check('mở thẻ → bảng chi tiết có hình, nội dung, «Thú vị hơn nữa», từ khoá', ()=>{ click('.fact-card'); const m=d.querySelector('#factModal.open'); return !!m && n('#factModal .fact-art')===1 && /Thú vị hơn nữa/.test(m.textContent) && n('#factModal .fact-word')===1 && n('#factModal [data-fact-next]')===1; });
   check('nút nghe trong bảng dùng đúng giọng của ngôn ngữ', ()=>{ spoken.length=0; const b=d.querySelector('#factModal .fact-word .icon-btn'); if(!b) return false; click(b); return spoken.length===1 && spoken[0][0]==='ja-JP'; });
   check('«Fact khác» đổi sang mẩu khác', ()=>{ const t1=d.querySelector('#factModal h3').textContent; click('#factModal [data-fact-next]'); const t2=d.querySelector('#factModal h3').textContent; return t1!==t2; });
