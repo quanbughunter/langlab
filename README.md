@@ -241,7 +241,7 @@ Phải tách ra vì 本 tiếng Trung và 本 tiếng Nhật là cùng một chu
 hẳn nhau — để chung một rổ là phát nhầm tiếng. Bộ audio tiếng Hàn thu theo cách cũ
 (nằm thẳng trong `audio/tts/`) vẫn dùng được, app dò cả hai chỗ.
 
-Mặc định thu phần bài nghe – xem tranh: 3 310 tệp, chừng 30 MB. Mỗi lần gọi
+Mặc định thu phần bài nghe – xem tranh: 3 310 tệp, chừng 64 MB. Mỗi lần gọi
 `edge-tts` là một lần bắt tay WebSocket mới, và chính cái bắt tay đó chiếm gần hết
 thời gian chứ không phải việc đọc — thu tuần tự mất ~6 giây một tệp, nên script thu
 song song 6 tệp một lúc (`--jobs`), còn chừng 1 giây một tệp. Thêm `--with-course`

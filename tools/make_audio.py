@@ -384,20 +384,32 @@ def main():
     MANIFEST.parent.mkdir(parents=True, exist_ok=True)
     MANIFEST.write_text(json.dumps(groups, ensure_ascii=False, indent=1), encoding='utf-8')
 
-    # Ước lượng: mp3 24 kbps, một từ ~1,5 giây, một câu ~4 giây tiếng nói.
-    # Thời gian chạy tính theo ~0,8 giây mỗi tệp (gọi mạng là chính, không phải đọc).
-    secs = sum(1.5 if len(x['text']) < 12 else 4.0
-               for items in groups.values() for x in items)
-    # ~6 giây mỗi tệp nếu thu tuần tự, chia cho số luồng chạy song song
-    print('Sẽ thu %d tệp, phần: %s — cỡ %.0f MB, chạy chừng %.0f phút với %d luồng'
-          % (total, ', '.join(parts), secs * 3 / 1024, total * 6.0 / max(1, a.jobs) / 60, a.jobs))
+    # Đếm phần CÒN THIẾU, vì chạy lại lần hai thì hầu hết đã có sẵn.
+    def missing_of(v):
+        d = OUT / v
+        out = []
+        for x in groups[v]:
+            f = d / (x['hash'] + '.mp3')
+            if not (f.exists() and f.stat().st_size >= MIN_MP3):
+                out.append(x)
+        return out
+    left = {v: missing_of(v) for v in groups}
+    n_left = sum(len(x) for x in left.values())
+
+    # Ước lượng: mp3 ~48 kbps (6 KB mỗi giây), một từ ~1,5 giây, một câu ~4 giây.
+    # Thời gian chạy: ~6 giây mỗi tệp nếu tuần tự, chia cho số luồng song song.
+    secs = sum(1.5 if len(x['text']) < 12 else 4.0 for v in left for x in left[v])
+    print('Cần thu %d tệp (cả bộ %d, đã có %d) — phần: %s'
+          % (n_left, total, total - n_left, ', '.join(parts)))
+    print('Thêm chừng %.0f MB, chạy chừng %.0f phút với %d luồng'
+          % (secs * 6 / 1024, n_left * 6.0 / max(1, a.jobs) / 60, a.jobs))
     for v in sorted(groups):
         kinds = {}
-        for it in groups[v]:
+        for it in left[v]:
             kinds[it['kind']] = kinds.get(it['kind'], 0) + 1
-        print('  %-6s %4d câu  (%s)  giọng %s · tốc độ %s'
-              % (v, len(groups[v]), ', '.join('%s %d' % kv for kv in sorted(kinds.items())),
-                 voices[v], a.rate or RATES[v]))
+        state = ('thiếu %d/%d (%s)' % (len(left[v]), len(groups[v]),
+                 ', '.join('%s %d' % kv for kv in sorted(kinds.items())))) if left[v] else 'đã đủ'
+        print('  %-6s %-30s giọng %s · tốc độ %s' % (v, state, voices[v], a.rate or RATES[v]))
     print('Ra thư mục: %s/<giọng>/' % OUT)
 
     if a.dry_run:
