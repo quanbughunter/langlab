@@ -242,36 +242,70 @@ def build(langs, parts):
 
 
 # ── thu ──────────────────────────────────────────────────────────────────
-async def synth(voice, items, voice_name, rate, force):
+# Tệp dưới ngưỡng này không thể là audio thật (mp3 24 kbps: 700 byte ~ 0,25 giây,
+# ngắn hơn mọi từ có thật) nên coi như hỏng và thu lại.
+MIN_MP3 = 700
+
+
+async def synth(voice, items, voice_name, rate, force, jobs):
+    """Thu song song `jobs` tệp một lúc.
+
+    Mỗi lần gọi edge-tts là một lần bắt tay WebSocket mới, và chính cái bắt tay
+    đó chiếm gần hết thời gian chứ không phải việc đọc. Thu tuần tự mất ~6 giây
+    một tệp; thu 6 tệp song song thì còn khoảng 1 giây.
+    """
     import edge_tts
     dst_dir = OUT / voice
     dst_dir.mkdir(parents=True, exist_ok=True)
     legacy = OUT                                   # bộ tiếng Hàn thu theo cách cũ
-    done = skipped = failed = 0
-    for i, it in enumerate(items, 1):
+
+    todo, skipped = [], 0
+    for it in items:
         dst = dst_dir / (it['hash'] + '.mp3')
-        # Tệp dưới 1.5 KB không thể là audio thật (một giây tiếng nói đã ~4 KB)
-        # nên coi như hỏng và thu lại.
-        if dst.exists() and dst.stat().st_size >= 1500 and not force:
+        if dst.exists() and dst.stat().st_size >= MIN_MP3 and not force:
             skipped += 1
             continue
         old = legacy / (it['hash'] + '.mp3')
-        if voice == 'ko' and old.exists() and old.stat().st_size >= 1500 and not force:
+        if voice == 'ko' and old.exists() and old.stat().st_size >= MIN_MP3 and not force:
             dst.write_bytes(old.read_bytes())      # đã có sẵn thì chép sang, khỏi thu lại
             skipped += 1
             continue
-        try:
-            comm = edge_tts.Communicate(it['text'], voice_name, rate=rate)
-            await comm.save(str(dst))
+        todo.append((it, dst))
+
+    done = failed = 0
+    sem = asyncio.Semaphore(jobs)
+    lock = asyncio.Lock()
+
+    async def one(it, dst):
+        nonlocal done, failed
+        tmp = dst.with_name(dst.stem + '.part')
+        async with sem:
+            for attempt in range(3):               # rớt mạng thì thử lại, đừng bỏ luôn
+                try:
+                    await edge_tts.Communicate(it['text'], voice_name, rate=rate).save(str(tmp))
+                    if tmp.stat().st_size < MIN_MP3:
+                        raise IOError('tệp ra quá nhỏ (%d byte)' % tmp.stat().st_size)
+                    tmp.replace(dst)               # đổi tên sau cùng: đứt giữa chừng không để lại tệp dở
+                    break
+                except Exception as e:
+                    if tmp.exists():
+                        tmp.unlink()
+                    if attempt == 2:
+                        async with lock:
+                            failed += 1
+                            print('  lỗi: %-24s %s' % (it['text'][:22], e))
+                        return
+                    await asyncio.sleep(1.5 * (attempt + 1))
+        async with lock:
             done += 1
-        except Exception as e:
-            failed += 1
-            print('  lỗi: %-24s %s' % (it['text'][:22], e))
-            if dst.exists():
-                dst.unlink()
-        if i % 50 == 0 or i == len(items):
-            print('  %-6s %4d/%d  thu %d · bỏ qua %d · lỗi %d'
-                  % (voice, i, len(items), done, skipped, failed))
+            if (done + failed) % 25 == 0 or done + failed == len(todo):
+                print('  %-6s %4d/%d  thu %d · bỏ qua %d · lỗi %d'
+                      % (voice, done + failed, len(todo), done, skipped, failed))
+
+    if todo:
+        await asyncio.gather(*(one(it, dst) for it, dst in todo))
+    else:
+        print('  %-6s đã đủ, bỏ qua %d' % (voice, skipped))
     return done, skipped, failed
 
 
@@ -289,6 +323,8 @@ def main():
     ap.add_argument('--voice', action='append', default=[], metavar='LANG=VOICE',
                     help='đổi giọng, ví dụ --voice ko=ko-KR-InJoonNeural')
     ap.add_argument('--rate', default=None, help='ghi đè tốc độ cho mọi thứ tiếng, ví dụ -15%%')
+    ap.add_argument('--jobs', type=int, default=6, metavar='N',
+                    help='thu song song N tệp một lúc (mặc định 6). Mạng yếu thì hạ xuống 3.')
     ap.add_argument('--force', action='store_true', help='thu lại cả những tệp đã có')
     ap.add_argument('--dry-run', action='store_true')
     ap.add_argument('--dump-hashes', action='store_true',
@@ -325,8 +361,9 @@ def main():
     # Thời gian chạy tính theo ~0,8 giây mỗi tệp (gọi mạng là chính, không phải đọc).
     secs = sum(1.5 if len(x['text']) < 12 else 4.0
                for items in groups.values() for x in items)
-    print('Sẽ thu %d tệp, phần: %s — cỡ %.0f MB, chạy chừng %.0f phút'
-          % (total, ', '.join(parts), secs * 3 / 1024, total * 0.8 / 60))
+    # ~6 giây mỗi tệp nếu thu tuần tự, chia cho số luồng chạy song song
+    print('Sẽ thu %d tệp, phần: %s — cỡ %.0f MB, chạy chừng %.0f phút với %d luồng'
+          % (total, ', '.join(parts), secs * 3 / 1024, total * 6.0 / max(1, a.jobs) / 60, a.jobs))
     for v in sorted(groups):
         kinds = {}
         for it in groups[v]:
@@ -352,7 +389,7 @@ def main():
 
     D = S = F = 0
     for v in sorted(groups):
-        d, s, f = asyncio.run(synth(v, groups[v], voices[v], a.rate or RATES[v], a.force))
+        d, s, f = asyncio.run(synth(v, groups[v], voices[v], a.rate or RATES[v], a.force, a.jobs))
         D, S, F = D + d, S + s, F + f
 
     files = list(OUT.rglob('*.mp3'))

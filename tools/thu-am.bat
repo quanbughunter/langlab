@@ -12,7 +12,7 @@ echo   Se thu cau hoi bai nghe - xem tranh cua ca 5 thu tieng
 echo   (Han, Trung, Nhat, Nga, Anh) thanh mp3 bang giong neural
 echo   cua Microsoft, luu vao audio\tts\<thu tieng>\
 echo.
-echo   Can mang. Khoang 3300 tep, ~30 MB, mat chung 20-30 phut.
+echo   Can mang. Khoang 3300 tep, ~30 MB, mat chung 45-60 phut.
 echo   Chay lai lan sau chi thu phan con thieu.
 echo.
 echo   Muon thu them tu vung va hoi thoai cua giao trinh:

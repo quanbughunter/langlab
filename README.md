@@ -229,6 +229,7 @@ python tools/make_audio.py --lang zh ja        # chỉ Trung và Nhật
 python tools/make_audio.py --with-course       # thu thêm từ vựng, hội thoại của giáo trình
 python tools/make_audio.py --with-readings     # thu thêm 50 bài đọc mỗi thứ tiếng
 python tools/make_audio.py --voice ko=ko-KR-InJoonNeural   # đổi sang giọng nam
+python tools/make_audio.py --jobs 3             # mạng yếu thì hạ số luồng xuống
 python tools/make_audio.py --dry-run           # xem trước sẽ thu những gì, cỡ bao nhiêu MB
 ```
 
@@ -240,7 +241,10 @@ Phải tách ra vì 本 tiếng Trung và 本 tiếng Nhật là cùng một chu
 hẳn nhau — để chung một rổ là phát nhầm tiếng. Bộ audio tiếng Hàn thu theo cách cũ
 (nằm thẳng trong `audio/tts/`) vẫn dùng được, app dò cả hai chỗ.
 
-Mặc định thu phần bài nghe – xem tranh: 3 310 tệp, chừng 30 MB và 45 phút chạy. Thêm `--with-course`
+Mặc định thu phần bài nghe – xem tranh: 3 310 tệp, chừng 30 MB. Mỗi lần gọi
+`edge-tts` là một lần bắt tay WebSocket mới, và chính cái bắt tay đó chiếm gần hết
+thời gian chứ không phải việc đọc — thu tuần tự mất ~6 giây một tệp, nên script thu
+song song 6 tệp một lúc (`--jobs`), còn chừng 1 giây một tệp. Thêm `--with-course`
 và `--with-readings` thì lên khoảng 23 000 tệp (~180 MB) nên cân nhắc trước khi chạy.
 Xong thì tải lại trang — mọi thao tác nghe trong app tự chuyển sang tệp thu sẵn, giọng
 máy chỉ còn là dự phòng. Kết quả: chất lượng như nhau trên mọi máy và mọi trình duyệt,

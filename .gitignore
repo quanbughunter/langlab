@@ -19,6 +19,7 @@ audio/ko/
 # mỗi thứ tiếng một thư mục con: audio/tts/ko/, /zh/, /ja/, /ru/, /en-gb/, /en-us/
 !audio/tts/*/
 !audio/tts/*/*.mp3
+*.part
 
 # Ảnh logo bản nháp — chỉ để trên máy, KHÔNG đưa lên repo
 logo-b2.png
