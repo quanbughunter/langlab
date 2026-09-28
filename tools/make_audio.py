@@ -321,11 +321,12 @@ def main():
     MANIFEST.parent.mkdir(parents=True, exist_ok=True)
     MANIFEST.write_text(json.dumps(groups, ensure_ascii=False, indent=1), encoding='utf-8')
 
-    # Ước lượng dung lượng: mp3 24 kbps, một từ ~1,5 s, một câu ~4 s.
+    # Ước lượng: mp3 24 kbps, một từ ~1,5 giây, một câu ~4 giây tiếng nói.
+    # Thời gian chạy tính theo ~0,8 giây mỗi tệp (gọi mạng là chính, không phải đọc).
     secs = sum(1.5 if len(x['text']) < 12 else 4.0
                for items in groups.values() for x in items)
-    print('Sẽ thu %d tệp, phần: %s — cỡ %.0f MB, chừng %.0f phút tải về'
-          % (total, ', '.join(parts), secs * 3 / 1024, secs / 60))
+    print('Sẽ thu %d tệp, phần: %s — cỡ %.0f MB, chạy chừng %.0f phút'
+          % (total, ', '.join(parts), secs * 3 / 1024, total * 0.8 / 60))
     for v in sorted(groups):
         kinds = {}
         for it in groups[v]:

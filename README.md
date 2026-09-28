@@ -240,7 +240,7 @@ Phải tách ra vì 本 tiếng Trung và 本 tiếng Nhật là cùng một chu
 hẳn nhau — để chung một rổ là phát nhầm tiếng. Bộ audio tiếng Hàn thu theo cách cũ
 (nằm thẳng trong `audio/tts/`) vẫn dùng được, app dò cả hai chỗ.
 
-Mặc định thu phần bài nghe – xem tranh: 3 310 tệp, chừng 30 MB. Thêm `--with-course`
+Mặc định thu phần bài nghe – xem tranh: 3 310 tệp, chừng 30 MB và 45 phút chạy. Thêm `--with-course`
 và `--with-readings` thì lên khoảng 23 000 tệp (~180 MB) nên cân nhắc trước khi chạy.
 Xong thì tải lại trang — mọi thao tác nghe trong app tự chuyển sang tệp thu sẵn, giọng
 máy chỉ còn là dự phòng. Kết quả: chất lượng như nhau trên mọi máy và mọi trình duyệt,
