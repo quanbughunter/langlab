@@ -2402,8 +2402,11 @@ function langName(id){ const m = RD_LANGS.find(x => x.id === id); return m ? m.v
 function latCrumb(id){
   const c = latCfg(id), st = latSt(id);
   const head = `<button class="crumb-link" data-go="${id}_home">${esc(c.vi)}</button> <span>\u203a</span> `;
-  if (state.view === id + '_dict') return head + '<b>T\u1eeb \u0111i\u1ec3n</b>';
-  if (state.view === id + '_phon') return head + `<b>${esc(c.phonTitle)}</b>`;
+  if (state.view === id + '_dict')  return head + '<b>T\u1eeb \u0111i\u1ec3n</b>';
+  if (state.view === id + '_phon')  return head + `<b>${esc(c.phonTitle)}</b>`;
+  if (state.view === id + '_srs')   return head + '<b>\u00d4n t\u1eadp</b>';
+  if (state.view === id + '_quiz')  return head + '<b>B\u00e0i t\u1eadp</b>';
+  if (state.view === id + '_speak') return head + '<b>Luy\u1ec7n n\u00f3i</b>';
   const l = latLesson(id);
   if (l) return head + `<button class="crumb-link" data-go="${id}_home" data-lat-home="${id}">${esc(latLevel(id).vi)}</button> <span>\u203a</span> <b>B\u00e0i ${String(l.no).padStart(2,'0')} \u00b7 ${esc(l.vi)}</b>`;
   return head + `<b>Kho\u00e1 h\u1ecdc</b> <span>\u00b7</span> ${esc(latLevel(id).vi)}`;
@@ -7263,8 +7266,11 @@ function latGender(w){
 function latHome(id){
   const c = latCfg(id), lv = latLevel(id), L = latLessons(id), total = lv.lessons || 0;
   const cards = [
-    [id + '_phon', c.phonTitle, 'Bảng chữ cái, quy tắc đọc, dấu', '/a/'],
-    [id + '_dict', 'Từ điển', 'Mọi từ trong khoá, có giống và phiên âm', BOOK_ICO]
+    [id + '_phon',  c.phonTitle, 'Bảng chữ cái, quy tắc đọc, dấu', '/a/'],
+    [id + '_dict',  'Từ điển', 'Tra được cả dạng đã chia, có bảng chia động từ', BOOK_ICO],
+    [id + '_srs',   'Ôn tập', 'Thẻ ghi nhớ, đổi được chiều Việt ↔ ' + c.nat, DICE_ICO],
+    [id + '_quiz',  'Bài tập', 'Sáu dạng, đề sinh từ chính nội dung khoá', PEN_ICO],
+    [id + '_speak', 'Luyện nói', 'Nhìn nghĩa Việt, tự bật ra câu', SPK_ICO]
   ];
   return `
   <div class="page-head">
@@ -7498,12 +7504,385 @@ function latPhon(id){
 /* Đăng ký màn hình cho từng thứ tiếng — thêm ngôn ngữ mới chỉ cần thêm mã vào đây */
 /* Mở ra cho bộ kiểm thử soi: tools/tests/dict-cover.js đối chiếu từ khoá
    bài đọc với từ điển này. */
-try { window.__lat = { lookup: latLookup, cfg: latCfg }; } catch(e){}
+/* ============================================================
+   BA MÀN LUYỆN TẬP CHO TIẾNG PHÁP VÀ TIẾNG TÂY BAN NHA
+   ------------------------------------------------------------
+   Ôn tập (thẻ ghi nhớ) · Bài tập (trắc nghiệm) · Luyện nói.
+
+   Câu hỏi được SINH RA từ chính dữ liệu khoá học và bộ hình thái,
+   không gõ tay từng câu. Nhờ vậy khoá lớn lên bao nhiêu bài thì kho
+   câu hỏi tự lớn theo bấy nhiêu, không phải soạn lại.
+
+   Sáu dạng, mỗi dạng đánh đúng một lỗi mà người Việt hay mắc:
+     nghia   — thấy từ, chọn nghĩa
+     tu      — thấy nghĩa, chọn từ
+     giong   — giống của danh từ (un/une · el/la) — lỗi nặng nhất
+     chia    — chia động từ theo ngôi và thì
+     hop     — hợp giống số của tính từ
+     dien    — điền từ vào câu thật lấy từ hội thoại
+   ============================================================ */
+
+/* Bộ sinh số giả ngẫu nhiên có hạt giống: cùng một lượt luyện thì
+   cùng một đề, nên bấm «xem lại» không bị đổi câu dưới chân. */
+function latRnd(seed){
+  let s = seed >>> 0 || 1;
+  return () => { s ^= s << 13; s >>>= 0; s ^= s >> 17; s ^= s << 5; s >>>= 0; return s / 4294967296; };
+}
+function latShuffle(arr, rnd){
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+function latPick(arr, n, rnd){ return latShuffle(arr, rnd).slice(0, n); }
+
+/* Kho từ để ra đề: mọi từ của cấp đang chọn. */
+function latPool(id, level){
+  const c = latCfg(id);
+  return c.course.lessons
+    .filter(l => level === 'all' || l.level === level)
+    .flatMap(l => (l.vocab || []).map(w => Object.assign({ _no:l.no, _lv:l.level }, w)));
+}
+
+/* Mạo từ xác định đúng chính tả. Nếu bỏ qua bước này thì phần giải thích
+   dạy sai ngay trong lúc chữa bài: «la exposition» (phải là l’exposition)
+   và «la agua» (phải là el agua). */
+const ES_EL_FEM = new Set(['agua','aula','área','alma','hambre','águila','aula','ala','arma','hacha']);
+function latArt(id, w, g, def){
+  const x = String(w || '').toLowerCase();
+  if (id === 'fr'){
+    if (def) return /^[aeiouâàéèêîïôûùyh]/.test(x) ? 'l’' + w : (g === 'm' ? 'le ' : 'la ') + w;
+    return (g === 'm' ? 'un ' : 'une ') + w;
+  }
+  /* Danh từ giống cái bắt đầu bằng a- có trọng âm lấy mạo từ el/un cho dễ đọc,
+     nhưng vẫn là giống cái: el agua fría. */
+  const swap = g === 'f' && ES_EL_FEM.has(x);
+  if (def) return (g === 'm' || swap ? 'el ' : 'la ') + w;
+  return (g === 'm' || swap ? 'un ' : 'una ') + w;
+}
+
+const LAT_QZ_TYPE = {
+  nghia: 'Nghĩa của từ',
+  tu:    'Từ nào đúng',
+  giong: 'Giống của danh từ',
+  chia:  'Chia động từ',
+  hop:   'Hợp giống tính từ',
+  dien:  'Điền vào câu'
+};
+
+const LAT_PERS = {
+  fr: [['je',0],['tu',1],['il',2],['nous',3],['vous',4],['ils',5]],
+  es: [['yo',0],['tú',1],['él',2],['nosotros',3],['vosotros',4],['ellos',5]]
+};
+const LAT_TENSE_VI = {
+  pres:'hiện tại', pc:'quá khứ kép', perf:'hiện tại hoàn thành',
+  pret:'quá khứ đơn', imp:'quá khứ chưa hoàn thành', fut:'tương lai', cond:'điều kiện'
+};
+
+/** Sinh một lượt đề. Trả về mảng câu hỏi đã trộn đáp án. */
+function latMakeQuiz(id, level, type, n, seed){
+  const rnd = latRnd(seed);
+  const M = (typeof LAT_MORPH !== 'undefined') ? LAT_MORPH : null;
+  const pool = latPool(id, level);
+  if (!pool.length) return [];
+  const c = latCfg(id);
+  const nouns = pool.filter(w => /^danh từ$/.test(w.pos || '') && /^[mf]$/.test(w.g || ''));
+  const adjs  = pool.filter(w => /tính từ/.test(w.pos || ''));
+  const verbs = pool.filter(w => /động từ/.test(w.pos || '') && M && M.table(id, M.stripLead(id, w[id])));
+  const lines = c.course.lessons
+    .filter(l => level === 'all' || l.level === level)
+    .flatMap(l => (l.dialogue || []).map(d => ({ t:d[id], vi:d.vi, no:l.no })))
+    .filter(d => d.t && String(d.t).split(/\s+/).length >= 4);
+
+  const out = [];
+  const want = t => type === 'all' || type === t;
+
+  /* --- nghĩa của từ --- */
+  if (want('nghia')) latPick(pool, 40, rnd).forEach(w => {
+    const others = latPick(pool.filter(x => x.vi !== w.vi && x.pos === w.pos), 3, rnd);
+    if (others.length < 3) return;
+    out.push({ type:'nghia', tag:'Bài ' + w._no, q:w[id], sub:w.ipa ? '/' + w.ipa + '/' : '',
+      o:[w.vi].concat(others.map(x => x.vi)), c:0, say:w[id],
+      e:'«' + w[id] + '» nghĩa là ' + w.vi + (w.note ? '. ' + w.note : '.') });
+  });
+
+  /* --- từ nào đúng (nghĩa Việt → từ) --- */
+  if (want('tu')) latPick(pool, 40, rnd).forEach(w => {
+    const others = latPick(pool.filter(x => x[id] !== w[id] && x.pos === w.pos), 3, rnd);
+    if (others.length < 3) return;
+    out.push({ type:'tu', tag:'Bài ' + w._no, q:w.vi, sub:w.pos || '',
+      o:[w[id]].concat(others.map(x => x[id])), c:0, foreign:true, say:w[id],
+      e:'«' + w.vi + '» là ' + w[id] + (w.g ? ' (' + (w.g === 'm' ? 'giống đực' : 'giống cái') + ')' : '') + '.' });
+  });
+
+  /* --- giống của danh từ --- */
+  if (want('giong')) latPick(nouns, 40, rnd).forEach(w => {
+    const mine = latArt(id, w[id], w.g, false);
+    const other = latArt(id, w[id], w.g === 'm' ? 'f' : 'm', false);
+    if (mine === other) return;                     // el/un agua — hai lựa chọn trùng nhau
+    out.push({ type:'giong', tag:'Bài ' + w._no,
+      q:'___ ' + w[id], sub:w.vi,
+      o:[mine, other], c:0, foreign:true, say:mine,
+      e:w[id] + ' là danh từ ' + (w.g === 'm' ? 'giống đực' : 'giống cái')
+        + ' → ' + mine + ' · ' + latArt(id, w[id], w.g, true)
+        + (w.note ? '. ' + w.note : '.') });
+  });
+
+  /* --- chia động từ --- */
+  if (want('chia') && M) latPick(verbs, 40, rnd).forEach(w => {
+    const inf = M.stripLead(id, w[id]);
+    const t = M.table(id, inf);
+    if (!t) return;
+    const usable = t.tenses.filter(x => LAT_TENSE_VI[x.id] && x.forms.filter(Boolean).length >= 4);
+    if (!usable.length) return;
+    const tense = usable[Math.floor(rnd() * usable.length)];
+    const slots = tense.forms.map((f, i) => [f, i]).filter(([f]) => f);
+    const [right, pi] = slots[Math.floor(rnd() * slots.length)];
+    const wrong = tense.forms.filter((f, i) => f && i !== pi && f !== right);
+    const other = latPick(Array.from(new Set(wrong)), 3, rnd);
+    if (other.length < 3) return;
+    const pron = (LAT_PERS[id][pi] || ['', pi])[0];
+    out.push({ type:'chia', tag:inf + ' · ' + LAT_TENSE_VI[tense.id],
+      q:pron + ' ___', sub:'(' + inf + ' · ' + tense.vi.toLowerCase() + ')',
+      o:[right].concat(other), c:0, foreign:true, say:pron + ' ' + right,
+      e:inf + ' ở ' + tense.vi.toLowerCase() + ' (' + tense.nat + '), ngôi ' + pron
+        + ' → ' + right + '. Cả thì: ' + tense.forms.filter(Boolean).join(' · ') + '.' });
+  });
+
+  /* --- hợp giống tính từ --- */
+  /* Hỏi thẳng về DẠNG, không ghép tính từ với một danh từ lấy ngẫu nhiên.
+     Ghép bừa thì ra những cụm vô nghĩa kiểu «una carne calurosa» (miếng thịt
+     nóng bức) — người học đang tập hợp giống lại phải đoán xem câu có nghĩa
+     gì, mà nghĩa thì không có. */
+  if (want('hop') && M) latPick(adjs, 30, rnd).forEach(w => {
+    const base = M.stripLead(id, w[id]);
+    const fem = id === 'fr' ? M.frFem(base) : M.esFem(base);
+    const plu = id === 'fr' ? M.frPlural : M.esPlural;
+    const all = [base, fem, plu(base), plu(fem)];
+    const opts = Array.from(new Set(all));
+    if (opts.length < 3) return;                    // tính từ không đổi dạng
+    const SLOT = [['giống đực số ít', 0], ['giống cái số ít', 1],
+                  ['giống đực số nhiều', 2], ['giống cái số nhiều', 3]];
+    const [slotVi, si] = SLOT[Math.floor(rnd() * SLOT.length)];
+    const right = all[si];
+    const wrong = opts.filter(x => x !== right).slice(0, 3);
+    if (wrong.length < 2) return;
+    out.push({ type:'hop', tag:'Bài ' + w._no,
+      q:base + ' → ' + slotVi, sub:w.vi,
+      o:[right].concat(wrong), c:0, foreign:true, say:right,
+      e:'Bốn dạng của ' + base + ': ' + base + ' (đực ít) · ' + fem + ' (cái ít) · '
+        + plu(base) + ' (đực nhiều) · ' + plu(fem) + ' (cái nhiều). '
+        + 'Ô hỏi là ' + slotVi + ' → ' + right + '.' });
+  });
+
+  /* --- điền vào câu thật --- */
+  if (want('dien')) latPick(lines, 30, rnd).forEach(d => {
+    const toks = String(d.t).split(/(\s+)/);
+    const idx = toks.map((t, i) => [t, i]).filter(([t]) => /^[A-Za-zÀ-ÿ’']{4,}$/.test(t));
+    if (!idx.length) return;
+    const [word, wi] = idx[Math.floor(rnd() * idx.length)];
+    const key = word.toLowerCase().replace(/[.,!?;:«»¿¡]/g, '');
+    /* Nhiễu phải NHÌN ĐƯỢC vào chỗ trống mới là bài tập. Lấy bừa cả cụm hai ba
+       chữ hay từ dài gấp đôi thì người học loại trừ bằng mắt, không cần hiểu
+       câu. Nên chỉ lấy từ đơn, và ưu tiên từ dài xấp xỉ từ bị khoét. */
+    const cands = pool
+      .filter(x => {
+        const v = String(x[id] || '');
+        return v && v.indexOf(' ') < 0 && v.toLowerCase() !== key;
+      })
+      .map(x => ({ w:x[id], d:Math.abs(String(x[id]).length - key.length) }))
+      .sort((a, b) => a.d - b.d)
+      .slice(0, 24);
+    const others = latPick(cands, 3, rnd).map(x => ({ [id]:x.w }));
+    if (others.length < 3) return;
+    const blanked = toks.map((t, i) => i === wi ? '_____' : t).join('');
+    out.push({ type:'dien', tag:'Bài ' + d.no, q:blanked, sub:d.vi,
+      o:[word.replace(/[.,!?;:«»]/g, '')].concat(others.map(x => x[id])), c:0, foreign:true,
+      say:d.t, e:'Câu đầy đủ: «' + d.t + '» — ' + d.vi });
+  });
+
+  /* Trộn đáp án của từng câu, rồi trộn thứ tự câu và cắt lấy n câu. */
+  const mixed = out.map(q => {
+    const order = latShuffle(q.o.map((_, i) => i), rnd);
+    return Object.assign({}, q, { o:order.map(i => q.o[i]), c:order.indexOf(q.c) });
+  });
+  return latPick(mixed, n, rnd);
+}
+
+/* ---------------- Màn ÔN TẬP: thẻ ghi nhớ ---------------- */
+function latSrsView(id){
+  const c = latCfg(id), st = latSt(id);
+  if (!st.srs) st.srs = { lv:'all', i:0, show:false, dir:'f2v' };
+  const S = st.srs;
+  const deck = latPool(id, S.lv);
+  if (!deck.length) return `<div class="page-head"><h1>Ôn tập</h1><p>Chưa có từ nào ở cấp này.</p></div>`;
+  const w = deck[S.i % deck.length];
+  const f2v = S.dir === 'f2v';
+  const front = f2v ? (w[id] || '') : w.vi;
+  const back  = f2v ? w.vi : (w[id] || '');
+  return `
+  <div class="page-head">
+    <span class="eyebrow">${esc(c.vi)} · Luyện tập</span>
+    <h1>Ôn tập từ vựng</h1>
+    <p>Thẻ ghi nhớ ${deck.length} từ. Nhìn mặt trước, tự nhớ lấy rồi lật thẻ đối chiếu.
+       Đổi chiều thẻ để luyện nhớ theo hướng khó hơn: từ tiếng Việt bật ra được ${esc(c.nat)}.</p>
+  </div>
+  ${latLevelStrip(id, S.lv, 'data-lat-srslv')}
+  <div class="level-strip compact" style="margin-top:8px">
+    <button class="level-chip" data-lat-srsdir="f2v"${f2v ? ' aria-pressed="true"' : ''}>${esc(c.nat)} → Việt</button>
+    <button class="level-chip" data-lat-srsdir="v2f"${f2v ? '' : ' aria-pressed="true"'}>Việt → ${esc(c.nat)}</button>
+  </div>
+  <div class="zh-srs">
+    <div class="zh-card ${S.show ? 'open' : ''}" data-lat-flip="${id}">
+      <div class="zh-card-front ${f2v ? id : ''}">${esc(front)}</div>
+      <div class="zh-card-back">
+        ${f2v && w.ipa ? `<div class="py ipa">/${esc(w.ipa)}/</div>` : ''}
+        <div class="zh-card-vi ${f2v ? '' : id}">${esc(back)}</div>
+        <div class="zh-card-hv">${esc(w.pos || '')}${w.g ? ' · ' + (w.g === 'm' ? 'giống đực' : 'giống cái') : ''} · bài ${w._no}</div>
+      </div>
+    </div>
+    <div class="zh-srs-ctrl">
+      ${latSpeakBtn(w[id], id, 'pbtn')}
+      <button class="pbtn primary" data-lat-flip="${id}">${S.show ? 'Ẩn đáp án' : 'Lật thẻ'}</button>
+      <button class="pbtn" data-lat-srsnext="${id}">Thẻ sau →</button>
+    </div>
+    <p class="tk-note-small">Thẻ ${(S.i % deck.length) + 1} / ${deck.length}</p>
+  </div>`;
+}
+
+function latLevelStrip(id, cur, attr){
+  const c = latCfg(id);
+  const lv = [['all', 'Tất cả']].concat(
+    c.course.levels.filter(v => v.status === 'active').map(v => [v.id, v.vi]));
+  return `<div class="level-strip compact">${lv.map(([k, v]) =>
+    `<button class="level-chip" ${attr}="${id}:${k}"${cur === k ? ' aria-pressed="true"' : ''}>${esc(v)}</button>`).join('')}</div>`;
+}
+
+/* ---------------- Màn BÀI TẬP ---------------- */
+function latQuizView(id){
+  const c = latCfg(id), st = latSt(id);
+  if (!st.quiz) st.quiz = { lv:'all', type:'all', qs:[], picked:[], done:false };
+  const Q = st.quiz;
+  const head = `
+  <div class="page-head">
+    <span class="eyebrow">${esc(c.vi)} · Luyện tập</span>
+    <h1>Bài tập ${esc(c.vi.toLowerCase())}</h1>
+    <p>Đề được sinh ra từ chính từ vựng, ngữ pháp và hội thoại của khoá, nên học tới đâu ra đề tới đó.
+       Sáu dạng, trong đó ba dạng đánh vào những chỗ người Việt hay sai nhất:
+       <b>giống của danh từ</b>, <b>chia động từ</b> và <b>hợp giống tính từ</b>.
+       Mỗi câu sai đều có lời giải thích kèm cả bảng chia hoặc cả bốn dạng của tính từ.</p>
+  </div>`;
+
+  if (!Q.qs.length){
+    const n = latMakeQuiz(id, Q.lv, Q.type, 999, 1).length;
+    return head
+      + latLevelStrip(id, Q.lv, 'data-lat-qzlv')
+      + `<div class="level-strip compact" style="margin-top:8px">
+        ${[['all', 'Tất cả dạng']].concat(Object.keys(LAT_QZ_TYPE).map(k => [k, LAT_QZ_TYPE[k]]))
+          .map(([k, v]) => `<button class="level-chip" data-lat-qztype="${id}:${k}"${Q.type === k ? ' aria-pressed="true"' : ''}>${esc(v)}</button>`).join('')}
+      </div>
+      <div class="qz-start">
+        <p>Bộ lọc hiện tại ra được <b>${n}</b> câu. Mỗi lượt lấy ngẫu nhiên tối đa 15 câu.</p>
+        <button class="pbtn primary" data-lat-qzstart="${id}"${n ? '' : ' disabled'}>Bắt đầu luyện</button>
+      </div>`;
+  }
+
+  if (Q.done){
+    const right = Q.qs.filter((q, i) => Q.picked[i] === q.c).length;
+    return head + `
+    <div class="qz-result">
+      <h2>${right}/${Q.qs.length} câu đúng</h2>
+      <p>${right === Q.qs.length ? 'Đúng hết. Thử đổi sang dạng khó hơn xem sao.'
+          : right >= Q.qs.length * 0.7 ? 'Khá tốt. Đọc kỹ mấy câu sai bên dưới.'
+          : 'Còn chệch nhiều — phần giải thích bên dưới có cả bảng chia, đọc lại rồi làm lượt nữa.'}</p>
+      <div class="fact-actions">
+        <button class="pbtn primary" data-lat-qzstart="${id}">Luyện lượt mới</button>
+        <button class="pbtn" data-lat-qzexit="${id}">Đổi bộ lọc</button>
+      </div>
+    </div>
+    <div class="qz-review">${Q.qs.map((q, i) => {
+      const ok = Q.picked[i] === q.c;
+      return `<div class="qz-rev ${ok ? 'ok' : 'no'}">
+        <span>${ok ? '✓' : '✗'}</span>
+        <i class="qz-tag">${esc(LAT_QZ_TYPE[q.type] || q.type)} · ${esc(q.tag)}</i>
+        <div><b class="${q.foreign ? id : ''}">${esc(q.q)}</b>${q.sub ? ` <i>${esc(q.sub)}</i>` : ''}</div>
+        ${ok ? '' : `<div class="qz-mine">Bạn chọn: <b>${esc(Q.picked[i] != null ? q.o[Q.picked[i]] : '(bỏ trống)')}</b></div>`}
+        <div class="qz-ans">Đáp án: <b class="${q.foreign ? id : ''}">${esc(q.o[q.c])}</b></div>
+        <p class="qz-exp">${esc(q.e)}</p>
+      </div>`;
+    }).join('')}</div>`;
+  }
+
+  const i = Q.picked.length;
+  const q = Q.qs[i];
+  return head + `
+  <div class="qz-run">
+    <div class="qz-prog"><span style="width:${Math.round(i / Q.qs.length * 100)}%"></span></div>
+    <div class="qz-meta">Câu ${i + 1} / ${Q.qs.length} · ${esc(LAT_QZ_TYPE[q.type] || q.type)} · ${esc(q.tag)}</div>
+    <div class="qz-q"><b class="${q.foreign ? id : ''}">${esc(q.q)}</b>${q.sub ? `<i>${esc(q.sub)}</i>` : ''}</div>
+    <div class="qz-opts">
+      ${q.o.map((o, k) => `<button class="qz-opt ${q.foreign ? id : ''}" data-lat-qzpick="${id}:${k}">${esc(o)}</button>`).join('')}
+    </div>
+  </div>`;
+}
+
+/* ---------------- Màn LUYỆN NÓI ---------------- */
+/* Khác shadowing ở chỗ: shadowing là nghe rồi nhại theo, còn ở đây là
+   NHÌN TIẾNG VIỆT rồi tự bật ra câu — tức là tập sản sinh, không phải
+   tập bắt chước. Đây mới là thứ khó và là thứ thi nói kiểm tra. */
+function latSpeakView(id){
+  const c = latCfg(id), st = latSt(id);
+  if (!st.sp) st.sp = { lv:'all', i:0, show:false };
+  const S = st.sp;
+  const bank = c.course.lessons
+    .filter(l => S.lv === 'all' || l.level === S.lv)
+    .flatMap(l => []
+      .concat((l.dialogue || []).map(d => ({ t:d[id], vi:d.vi, no:l.no, kind:'Hội thoại · bài ' + l.no })))
+      .concat((l.colloc || []).map(p => ({ t:p.ex || p.p, vi:p.vi, no:l.no, kind:'Cụm thường dùng · bài ' + l.no })))
+      .concat((l.grammar || []).map(g => g.ex ? ({ t:g.ex[id], vi:g.ex.vi, no:l.no, kind:'Mẫu ngữ pháp · bài ' + l.no }) : null))
+      .filter(Boolean))
+    .filter(x => x.t && x.vi);
+  if (!bank.length) return `<div class="page-head"><h1>Luyện nói</h1><p>Chưa có câu mẫu nào ở cấp này.</p></div>`;
+  const cur = bank[S.i % bank.length];
+  return `
+  <div class="page-head">
+    <span class="eyebrow">${esc(c.vi)} · Luyện tập</span>
+    <h1>Luyện nói</h1>
+    <p>Màn này đi ngược với shadowing: ở đây <b>chỉ hiện nghĩa tiếng Việt</b>, bạn tự bật ra câu
+       ${esc(c.nat)} rồi mới mở đáp án để đối chiếu. Nói thành tiếng, đừng nói thầm — cơ miệng
+       phải quen thì lúc cần mới ra được. Kho có ${bank.length} câu lấy từ hội thoại, cụm thường
+       dùng và mẫu ngữ pháp của khoá.</p>
+  </div>
+  ${latLevelStrip(id, S.lv, 'data-lat-splv')}
+  <div class="sp-drill">
+    <div class="sp-prompt">
+      <span class="sp-kind">${esc(cur.kind)}</span>
+      <p class="sp-vi">${esc(cur.vi)}</p>
+    </div>
+    ${S.show ? `
+    <div class="sp-answer">
+      <p class="${id}">${esc(cur.t)}</p>
+      <div class="sp-acts">
+        ${latSpeakBtn(cur.t, id, 'pbtn')}
+        <button class="pbtn" data-lat-spslow="${id}">Nghe chậm</button>
+      </div>
+    </div>` : `<button class="pbtn primary sp-reveal" data-lat-spshow="${id}">Nói xong rồi — mở đáp án</button>`}
+    <div class="sp-nav">
+      <button class="pbtn" data-lat-spnext="${id}:-1">← Câu trước</button>
+      <span class="tk-note-small">Câu ${(S.i % bank.length) + 1} / ${bank.length}</span>
+      <button class="pbtn" data-lat-spnext="${id}:1">Câu sau →</button>
+    </div>
+  </div>`;
+}
+
+try { window.__lat = { lookup: latLookup, cfg: latCfg, quiz: latMakeQuiz, pool: latPool, types: LAT_QZ_TYPE }; } catch(e){}
 
 Object.keys(LAT).forEach(id => {
   VIEWS[id + '_home']   = () => latSt(id).lesson ? latLessonView(id) : latHome(id);
   VIEWS[id + '_dict']   = () => latDict(id);
   VIEWS[id + '_phon']   = () => latPhon(id);
+  VIEWS[id + '_srs']    = () => latSrsView(id);
+  VIEWS[id + '_quiz']   = () => latQuizView(id);
+  VIEWS[id + '_speak']  = () => latSpeakView(id);
 });
 
 
@@ -7816,6 +8195,58 @@ document.addEventListener('click', e => {
       'Máy chưa có giọng đọc ' + latCfg(id).vi.toLowerCase() + ' — cài gói giọng '
       + (id === 'fr' ? 'fr-FR (Français)' : 'es-ES (Español)') + ' trong hệ điều hành.');
     return; }
+  /* ----- ba màn luyện tập của tiếng Pháp / Tây Ban Nha ----- */
+  const two = el => { const v = el.split(':'); return [v[0], v.slice(1).join(':')]; };
+
+  const lsLv = t.closest('[data-lat-srslv]');
+  if (lsLv){ const [id, lv] = two(lsLv.dataset.latSrslv);
+    const S = latSt(id).srs; S.lv = lv; S.i = 0; S.show = false; render(); return; }
+  const lsDir = t.closest('[data-lat-srsdir]');
+  if (lsDir){ const id = state.view.slice(0, 2);
+    const S = latSt(id).srs; S.dir = lsDir.dataset.latSrsdir; S.show = false; render(); return; }
+  const lsFlip = t.closest('[data-lat-flip]');
+  if (lsFlip){ const id = lsFlip.dataset.latFlip;
+    const S = latSt(id).srs; S.show = !S.show; render(); return; }
+  const lsNext = t.closest('[data-lat-srsnext]');
+  if (lsNext){ const id = lsNext.dataset.latSrsnext;
+    const S = latSt(id).srs; S.i++; S.show = false; render(); return; }
+
+  const qzLv = t.closest('[data-lat-qzlv]');
+  if (qzLv){ const [id, lv] = two(qzLv.dataset.latQzlv); latSt(id).quiz.lv = lv; render(); return; }
+  const qzTy = t.closest('[data-lat-qztype]');
+  if (qzTy){ const [id, ty] = two(qzTy.dataset.latQztype); latSt(id).quiz.type = ty; render(); return; }
+  const qzGo = t.closest('[data-lat-qzstart]');
+  if (qzGo){ const id = qzGo.dataset.latQzstart, Q = latSt(id).quiz;
+    Q.qs = latMakeQuiz(id, Q.lv, Q.type, 15, (Date.now() & 0x7fffffff) || 1);
+    Q.picked = []; Q.done = false; render(); return; }
+  const qzPk = t.closest('[data-lat-qzpick]');
+  if (qzPk){ const [id, k] = two(qzPk.dataset.latQzpick), Q = latSt(id).quiz;
+    Q.picked.push(+k);
+    if (Q.picked.length >= Q.qs.length) Q.done = true;
+    render(); return; }
+  const qzEx = t.closest('[data-lat-qzexit]');
+  if (qzEx){ const id = qzEx.dataset.latQzexit, Q = latSt(id).quiz;
+    Q.qs = []; Q.picked = []; Q.done = false; render(); return; }
+
+  const spLv = t.closest('[data-lat-splv]');
+  if (spLv){ const [id, lv] = two(spLv.dataset.latSplv);
+    const S = latSt(id).sp; S.lv = lv; S.i = 0; S.show = false; render(); return; }
+  const spSh = t.closest('[data-lat-spshow]');
+  if (spSh){ const id = spSh.dataset.latSpshow; latSt(id).sp.show = true; render(); return; }
+  const spNx = t.closest('[data-lat-spnext]');
+  if (spNx){ const [id, d] = two(spNx.dataset.latSpnext);
+    const S = latSt(id).sp; S.i = Math.max(0, S.i + (+d)); S.show = false; render(); return; }
+  const spSl = t.closest('[data-lat-spslow]');
+  if (spSl){ const id = spSl.dataset.latSpslow, S = latSt(id).sp;
+    const c = latCfg(id);
+    const bank = c.course.lessons.filter(l => S.lv === 'all' || l.level === S.lv)
+      .flatMap(l => [].concat((l.dialogue || []).map(d => d[id]),
+                              (l.colloc || []).map(x => x.ex || x.p),
+                              (l.grammar || []).map(g => g.ex && g.ex[id]))).filter(Boolean);
+    const line = bank[S.i % bank.length];
+    if (line) sayVia(line, id, null, { slow:true });
+    return; }
+
   const latAll = t.closest('[data-lat-say-all]');
   if (latAll){
     const id = latAll.dataset.latSayAll, l = latLesson(id);

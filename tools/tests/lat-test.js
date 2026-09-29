@@ -210,6 +210,75 @@ const LANGS = [
     });
   });
 
+  /* ---------- ba màn luyện tập ---------- */
+  LANGS.forEach(L => {
+    check(L.vi + ' — màn Ôn tập lật được thẻ và đổi được chiều', () => {
+      click('[data-go="' + L.id + '_srs"]');
+      if (!d.querySelector('.zh-card')) return 'không thấy thẻ';
+      const front = d.querySelector('.zh-card-front').textContent.trim();
+      if (!front) return 'mặt trước trống';
+      click('[data-lat-flip="' + L.id + '"]');
+      if (!d.querySelector('.zh-card.open')) return 'bấm lật mà thẻ không mở';
+      click('[data-lat-srsnext="' + L.id + '"]');
+      if (d.querySelector('.zh-card.open')) return 'sang thẻ mới mà vẫn để lộ đáp án';
+      click('[data-lat-srsdir="v2f"]');
+      const f2 = d.querySelector('.zh-card-front').textContent.trim();
+      return f2 !== front || 'đổi chiều mà mặt trước không đổi';
+    });
+
+    check(L.vi + ' — màn Bài tập chạy hết một lượt và chấm đúng', () => {
+      click('[data-go="' + L.id + '_quiz"]');
+      const start = d.querySelector('[data-lat-qzstart="' + L.id + '"]');
+      if (!start) return 'không thấy nút bắt đầu';
+      click(start);
+      let n = 0;
+      while (d.querySelector('[data-lat-qzpick]') && n < 30){
+        click(d.querySelector('[data-lat-qzpick]')); n++;
+      }
+      if (!n) return 'không có câu nào';
+      const t = body();
+      if (!/câu đúng/.test(t)) return 'làm hết mà không ra kết quả';
+      return n === 15 || ('ra ' + n + ' câu, cần 15');
+    });
+
+    check(L.vi + ' — đề sinh ra đủ sáu dạng và câu nào cũng đúng khuôn', () => {
+      const Q = win.__lat && win.__lat.quiz;
+      if (!Q) return 'app chưa mở latMakeQuiz ra ngoài';
+      const bad = [];
+      Object.keys(win.__lat.types).forEach(ty => {
+        const qs = Q(L.id, 'all', ty, 8, 3);
+        if (!qs.length){ bad.push(ty + ': không ra câu nào'); return; }
+        qs.forEach(q => {
+          if (!q.q || !q.e) bad.push(ty + ': thiếu đề hoặc lời giải');
+          if (!Array.isArray(q.o) || q.o.length < 2) bad.push(ty + ': dưới 2 lựa chọn');
+          if (q.c == null || q.c < 0 || q.c >= q.o.length) bad.push(ty + ': đáp án trỏ sai ô');
+          if (new Set(q.o).size !== q.o.length) bad.push(ty + ': có hai lựa chọn trùng nhau «' + q.o.join('/') + '»');
+        });
+      });
+      return bad.length ? Array.from(new Set(bad)).slice(0, 4).join(' | ') : true;
+    });
+
+    /* Bẫy dễ mắc nhất khi sinh đề: quên chính tả của mạo từ. */
+    check(L.vi + ' — phần giải thích không viết sai mạo từ', () => {
+      const Q = win.__lat.quiz;
+      const es = Q(L.id, 'all', 'giong', 60, 5).map(q => q.e).join(' ');
+      const bad = L.id === 'fr'
+        ? (es.match(/\b(le|la) [aeiouâàéèêîïôûùy]\w+/gi) || [])
+        : (es.match(/\bla (agua|aula|área|alma|hambre)\b/gi) || []);
+      return bad.length ? 'viết sai: ' + Array.from(new Set(bad)).slice(0, 3).join(' · ') : true;
+    });
+
+    check(L.vi + ' — màn Luyện nói giấu đáp án cho tới khi bấm mở', () => {
+      click('[data-go="' + L.id + '_speak"]');
+      if (!d.querySelector('.sp-vi')) return 'không thấy câu gợi ý tiếng Việt';
+      if (d.querySelector('.sp-answer')) return 'đáp án hiện sẵn — mất hết tác dụng của bài';
+      click('[data-lat-spshow="' + L.id + '"]');
+      if (!d.querySelector('.sp-answer')) return 'bấm mở mà không hiện đáp án';
+      click('[data-lat-spnext="' + L.id + ':1"]');
+      return !d.querySelector('.sp-answer') || 'sang câu mới mà vẫn để lộ đáp án';
+    });
+  });
+
   check('hai thứ tiếng không dùng chung state — đổi qua lại vẫn đúng tiếng', () => {
     click('[data-go="fr_home"]');
     const a = d.documentElement.getAttribute('data-lang');

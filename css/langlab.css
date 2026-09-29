@@ -1789,6 +1789,26 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   .lat-conj-tb th,.lat-conj-tb td{padding:6px 8px}
 }
 
+/* ===== LUYỆN NÓI PHÁP / TÂY BAN NHA ===== */
+.sp-drill{max-width:620px;margin:18px 0}
+.sp-prompt{padding:22px 20px;border:1px solid var(--line);border-radius:14px;
+  background:var(--surface);text-align:center}
+.sp-kind{display:inline-block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:10px}
+.sp-vi{margin:0;font-size:20px;line-height:1.45;color:var(--ink)}
+.sp-reveal{width:100%;margin-top:12px}
+.sp-answer{margin-top:12px;padding:18px 20px;border:1px solid var(--accent);
+  border-radius:14px;background:var(--accent-soft)}
+.sp-answer p{margin:0 0 12px;font-size:19px;line-height:1.5;color:var(--ink)}
+.sp-acts{display:flex;flex-wrap:wrap;gap:8px}
+.sp-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}
+.sp-nav .tk-note-small{margin:0;white-space:nowrap}
+@media (max-width:480px){
+  .sp-vi{font-size:18px}
+  .sp-answer p{font-size:17px}
+  .sp-nav{flex-wrap:wrap;justify-content:center}
+}
+
 /* ===== TÔNG MÀU TIẾNG PHÁP — hồng pastel / tro hồng (data-lang="fr") =====
    Nền phớt hồng rất nhạt cho êm mắt, nhưng chữ nhấn phải đủ đậm mới đọc được:
    sáng: accent #B0446A trên trắng 5,4:1 · trên nền 5,1:1
