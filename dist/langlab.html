@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LangLab</title>
 <meta name="description" content="Ứng dụng học ngoại ngữ theo bài cho người Việt: tiếng Hàn (TOPIK), tiếng Nhật (JLPT), tiếng Trung (HSK), tiếng Nga (ТРКИ), tiếng Anh (IELTS/TOEFL) — từ vựng, ngữ pháp, hội thoại, tập viết, từ điển, thi thử.">
-<link rel="icon" type="image/png" href="logo-icon.png?v=2901281">
-<link rel="manifest" href="manifest.webmanifest?v=2901281">
+<link rel="icon" type="image/png" href="logo-icon.png?v=2911222">
+<link rel="manifest" href="manifest.webmanifest?v=2911222">
 <meta name="theme-color" content="#EAF1FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=2901281">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=2911222">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="LangLab">
@@ -2258,7 +2258,7 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   <header class="nav">
     <div class="nav-in">
       <div class="brand" data-go="about" role="link" tabindex="0" title="Giới thiệu LangLab">
-        <span class="brand-mark"><img src="logo-icon.png?v=2901281" alt="LangLab" width="40" height="40"></span>
+        <span class="brand-mark"><img src="logo-icon.png?v=2911222" alt="LangLab" width="40" height="40"></span>
         <span class="brand-name"><b>Lang</b><i>Lab</i></span>
       </div>
 
@@ -51663,7 +51663,537 @@ const COURSE_FR = {
       { sp:'Quan', fr:'Merci beaucoup, madame !', vi:'Cảm ơn bà nhiều ạ!' },
       { sp:'Dame', fr:'Je vous en prie. Bonne journée !', vi:'Không có gì. Chúc anh một ngày tốt lành!' }
     ] }
+,
 
+{ level:'a1', no:6, fr:'Le logement', vi:'Nhà cửa và đồ đạc', skill:'Từ vựng',
+  grammar:[
+    { form:'Giới từ chỉ vị trí', vi:'sur (trên) · sous (dưới) · dans (trong) · devant (trước) · derrière (sau) · entre (giữa) · à côté de (bên cạnh) · en face de (đối diện).',
+      note:'Nhóm có «de» ở cuối thì de gặp le thành du: à côté DU lit, en face DU parc.',
+      ex:{ fr:'La lampe est à côté du lit.', vi:'Cái đèn ở bên cạnh giường.' } },
+    { form:'c’est và il est', vi:'c’est + danh từ (c’est une chambre), il est + tính từ hoặc nghề nghiệp (il est petit, il est étudiant).',
+      note:'Người Việt hay nói «il est un étudiant» — sai. Nghề nghiệp đi sau être thì KHÔNG có mạo từ.',
+      ex:{ fr:'C’est un appartement. Il est clair.', vi:'Đây là một căn hộ. Nó sáng sủa.' } },
+    { form:'Tính từ hợp giống và số', vi:'petit → petite → petits → petites. Thêm -e cho giống cái, thêm -s cho số nhiều.',
+      note:'Chữ -e làm phụ âm trước nó BẬT ra: petit đọc «pơ-ti», petite đọc «pơ-tít». Đây là chỗ nghe được giống.',
+      ex:{ fr:'Une grande chambre et un petit salon.', vi:'Một phòng ngủ rộng và một phòng khách nhỏ.' } },
+    { form:'Vị trí của tính từ', vi:'Phần lớn tính từ đứng SAU danh từ: une chambre claire. Nhưng một nhóm nhỏ đứng trước: grand, petit, beau, joli, vieux, nouveau, bon, mauvais, jeune.',
+      note:'Nhớ theo nghĩa: nhóm đứng trước nói về kích cỡ, tuổi, cái đẹp và cái tốt.',
+      ex:{ fr:'Un vieux immeuble avec une belle cour.', vi:'Một toà nhà cũ có cái sân đẹp.' } }
+  ],
+  vocab:[
+    { fr:'appartement', ipa:'a.paʁ.tə.mɑ̃', vi:'căn hộ', pos:'danh từ', g:'m' },
+    { fr:'immeuble', ipa:'i.mœbl', vi:'toà nhà chung cư', pos:'danh từ', g:'m' },
+    { fr:'chambre', ipa:'ʃɑ̃bʁ', vi:'phòng ngủ', pos:'danh từ', g:'f' },
+    { fr:'salon', ipa:'sa.lɔ̃', vi:'phòng khách', pos:'danh từ', g:'m' },
+    { fr:'cuisine', ipa:'kɥi.zin', vi:'nhà bếp', pos:'danh từ', g:'f' },
+    { fr:'salle de bains', ipa:'sal də bɛ̃', vi:'phòng tắm', pos:'danh từ', g:'f' },
+    { fr:'lit', ipa:'li', vi:'cái giường', pos:'danh từ', g:'m' },
+    { fr:'canapé', ipa:'ka.na.pe', vi:'ghế sofa', pos:'danh từ', g:'m' },
+    { fr:'tapis', ipa:'ta.pi', vi:'tấm thảm', pos:'danh từ', g:'m' },
+    { fr:'armoire', ipa:'aʁ.mwaʁ', vi:'cái tủ quần áo', pos:'danh từ', g:'f', note:'Bắt đầu bằng nguyên âm nên viết l’armoire — dấu nháy giấu mất giống.' },
+    { fr:'étagère', ipa:'e.ta.ʒɛʁ', vi:'cái giá sách', pos:'danh từ', g:'f' },
+    { fr:'fenêtre', ipa:'fə.nɛtʁ', vi:'cửa sổ', pos:'danh từ', g:'f' },
+    { fr:'porte', ipa:'pɔʁt', vi:'cửa ra vào', pos:'danh từ', g:'f' },
+    { fr:'mur', ipa:'myʁ', vi:'bức tường', pos:'danh từ', g:'m' },
+    { fr:'loyer', ipa:'lwa.je', vi:'tiền thuê nhà', pos:'danh từ', g:'m' },
+    { fr:'clair', ipa:'klɛʁ', vi:'sáng sủa', pos:'tính từ', g:'' },
+    { fr:'sombre', ipa:'sɔ̃bʁ', vi:'tối', pos:'tính từ', g:'' },
+    { fr:'cher', ipa:'ʃɛʁ', vi:'đắt', pos:'tính từ', g:'', note:'Giống cái là chère, đọc y hệt. Còn nghĩa nữa là «thân mến»: cher ami.' },
+    { fr:'meublé', ipa:'mœ.ble', vi:'có sẵn đồ đạc', pos:'tính từ', g:'' },
+    { fr:'louer', ipa:'lwe', vi:'thuê; cho thuê', pos:'động từ', g:'', note:'Một từ mà hai chiều: je loue un studio (tôi thuê) và il loue son studio (anh ấy cho thuê).' }
+  ],
+  colloc:[
+    { p:'à louer', vi:'cho thuê — dòng chữ trên tờ rao vặt.', ex:'Studio meublé à louer, 450 euros.' },
+    { p:'donner sur', vi:'nhìn ra (hướng nào).', ex:'La fenêtre donne sur la cour.' },
+    { p:'bien situé', vi:'ở vị trí thuận tiện.', ex:'L’appartement est petit mais bien situé.' }
+  ],
+  dialogue:[
+    { sp:'Quan', fr:'Bonjour, je téléphone pour le studio à louer.', vi:'Chào chị, tôi gọi về căn studio cho thuê ạ.' },
+    { sp:'Agence', fr:'Oui, il est toujours libre. Il fait vingt-cinq mètres carrés.', vi:'Vâng, vẫn còn trống. Rộng hai mươi lăm mét vuông.' },
+    { sp:'Quan', fr:'Il est meublé ?', vi:'Có sẵn đồ đạc không ạ?' },
+    { sp:'Agence', fr:'Oui : un lit, une table, deux chaises et une armoire.', vi:'Có: một giường, một bàn, hai ghế và một tủ.' },
+    { sp:'Quan', fr:'Et le loyer, c’est combien ?', vi:'Thế tiền thuê bao nhiêu ạ?' },
+    { sp:'Agence', fr:'Quatre cent cinquante euros, charges comprises.', vi:'Bốn trăm năm mươi euro, đã gồm phí dịch vụ.' },
+    { sp:'Quan', fr:'La fenêtre donne sur la rue ?', vi:'Cửa sổ nhìn ra phố ạ?' },
+    { sp:'Agence', fr:'Non, sur une cour. C’est plus calme.', vi:'Không, nhìn ra sân trong. Yên tĩnh hơn.' }
+  ] },
+
+{ level:'a1', no:7, fr:'Faire les courses', vi:'Đi chợ và mua sắm', skill:'Giao tiếp',
+  grammar:[
+    { form:'Số lượng: un kilo de, beaucoup de', vi:'Sau từ chỉ lượng thì luôn là DE trần, không có mạo từ: un kilo de pommes, beaucoup de monde, un peu de sucre, trop de sel.',
+      note:'Đây là lỗi dai dẳng: nói «beaucoup des pommes» là sai. Chỉ «de» thôi.',
+      ex:{ fr:'Je voudrais un kilo de tomates.', vi:'Cho tôi một cân cà chua.' } },
+    { form:'combien — bao nhiêu', vi:'C’est combien ? (bao nhiêu tiền) · Combien de … ? (bao nhiêu cái).',
+      note:'Combien de đi thẳng với danh từ, không thêm mạo từ: combien de frères ?',
+      ex:{ fr:'Combien de pommes voulez-vous ?', vi:'Anh muốn mấy quả táo?' } },
+    { form:'So sánh: plus / moins / aussi … que', vi:'plus cher que (đắt hơn) · moins cher que (rẻ hơn) · aussi cher que (đắt bằng).',
+      note:'bon có dạng so sánh riêng: meilleur, không nói «plus bon». Giống good → better trong tiếng Anh.',
+      ex:{ fr:'Le marché est moins cher que le supermarché.', vi:'Chợ rẻ hơn siêu thị.' } },
+    { form:'Động từ prendre', vi:'je prends · tu prends · il prend · nous prenons · vous prenez · ils prennent.',
+      note:'Dùng rất rộng: prendre le bus (đi xe buýt), prendre un café (uống cà phê), prendre une photo (chụp ảnh).',
+      ex:{ fr:'Je prends deux baguettes, s’il vous plaît.', vi:'Cho tôi hai ổ bánh mì.' } }
+  ],
+  vocab:[
+    { fr:'supermarché', ipa:'sy.pɛʁ.maʁ.ʃe', vi:'siêu thị', pos:'danh từ', g:'m' },
+    { fr:'boucherie', ipa:'bu.ʃʁi', vi:'hàng thịt', pos:'danh từ', g:'f' },
+    { fr:'épicerie', ipa:'e.pis.ʁi', vi:'cửa hàng tạp hoá', pos:'danh từ', g:'f' },
+    { fr:'monnaie', ipa:'mɔ.nɛ', vi:'tiền lẻ, tiền thối lại', pos:'danh từ', g:'f', note:'Khác argent (tiền nói chung). «Vous avez la monnaie ?» là hỏi tiền lẻ.' },
+    { fr:'caisse', ipa:'kɛs', vi:'quầy thu ngân', pos:'danh từ', g:'f' },
+    { fr:'prix', ipa:'pʁi', vi:'giá', pos:'danh từ', g:'m' },
+    { fr:'kilo', ipa:'ki.lo', vi:'cân, ki-lô', pos:'danh từ', g:'m' },
+    { fr:'pomme', ipa:'pɔm', vi:'quả táo', pos:'danh từ', g:'f' },
+    { fr:'tomate', ipa:'tɔ.mat', vi:'quả cà chua', pos:'danh từ', g:'f' },
+    { fr:'oeuf', ipa:'œf', vi:'quả trứng', pos:'danh từ', g:'m', note:'Số ít đọc «ớp», số nhiều des oeufs đọc «đê-zơ» — chữ f biến mất hẳn.' },
+    { fr:'fromage', ipa:'fʁɔ.maʒ', vi:'phô mai', pos:'danh từ', g:'m' },
+    { fr:'viande', ipa:'vjɑ̃d', vi:'thịt', pos:'danh từ', g:'f' },
+    { fr:'poisson', ipa:'pwa.sɔ̃', vi:'cá', pos:'danh từ', g:'m' },
+    { fr:'légume', ipa:'le.ɡym', vi:'rau củ', pos:'danh từ', g:'m' },
+    { fr:'fruit', ipa:'fʁɥi', vi:'quả, trái cây', pos:'danh từ', g:'m' },
+    { fr:'sac', ipa:'sak', vi:'cái túi', pos:'danh từ', g:'m' },
+    { fr:'gratuit', ipa:'ɡʁa.tɥi', vi:'miễn phí', pos:'tính từ', g:'' },
+    { fr:'frais', ipa:'fʁɛ', vi:'tươi', pos:'tính từ', g:'', note:'Giống cái là fraîche — nghe rõ chữ «sơ» ở cuối.' },
+    { fr:'coûter', ipa:'ku.te', vi:'có giá', pos:'động từ', g:'' },
+    { fr:'payer', ipa:'pe.je', vi:'trả tiền', pos:'động từ', g:'' }
+  ],
+  colloc:[
+    { p:'C’est combien ?', vi:'Bao nhiêu tiền? — câu hỏi giá thông dụng nhất.', ex:'C’est combien, le kilo de pommes ?' },
+    { p:'Et avec ceci ?', vi:'Anh chị dùng thêm gì nữa ạ? — câu người bán luôn hỏi.', ex:'— Et avec ceci ? — Ce sera tout, merci.' },
+    { p:'payer par carte', vi:'trả bằng thẻ. Trả tiền mặt là «payer en espèces».', ex:'Je peux payer par carte ?' }
+  ],
+  dialogue:[
+    { sp:'Vendeur', fr:'Bonjour ! Vous désirez ?', vi:'Chào anh! Anh cần gì ạ?' },
+    { sp:'Quan', fr:'Un kilo de pommes, s’il vous plaît.', vi:'Cho tôi một cân táo ạ.' },
+    { sp:'Vendeur', fr:'Voilà. Et avec ceci ?', vi:'Đây ạ. Anh dùng thêm gì nữa không?' },
+    { sp:'Quan', fr:'Un peu de fromage. C’est combien, celui-là ?', vi:'Một ít phô mai. Loại kia bao nhiêu ạ?' },
+    { sp:'Vendeur', fr:'Vingt-deux euros le kilo. Il est très frais.', vi:'Hai mươi hai euro một cân. Tươi lắm.' },
+    { sp:'Quan', fr:'Deux cents grammes alors.', vi:'Vậy cho tôi hai trăm gam.' },
+    { sp:'Vendeur', fr:'Ça fait neuf euros quarante en tout.', vi:'Tất cả là chín euro bốn mươi.' },
+    { sp:'Quan', fr:'Je peux payer par carte ?', vi:'Tôi trả bằng thẻ được không ạ?' }
+  ] },
+
+{ level:'a1', no:8, fr:'Une journée ordinaire', vi:'Một ngày bình thường', skill:'Từ vựng',
+  grammar:[
+    { form:'Động từ phản thân', vi:'se lever, se laver, s’habiller, se coucher. Chia: je me lève · tu te lèves · il se lève · nous nous levons · vous vous levez · ils se lèvent.',
+      note:'Đại từ me/te/se đứng TRƯỚC động từ. Phủ định thì ne bọc cả cụm: je ne me lève pas.',
+      ex:{ fr:'Je me lève à six heures et demie.', vi:'Tôi dậy lúc sáu rưỡi.' } },
+    { form:'Trạng từ tần suất', vi:'toujours (luôn) · souvent (thường) · quelquefois (thỉnh thoảng) · rarement (hiếm khi) · jamais (không bao giờ).',
+      note:'jamais luôn đi với ne: je ne bois jamais de café. Không có ne thì nghĩa đảo ngược.',
+      ex:{ fr:'Je prends souvent le métro.', vi:'Tôi hay đi tàu điện ngầm.' } },
+    { form:'Vị trí của trạng từ', vi:'Trạng từ ngắn đứng NGAY SAU động từ chia: je mange souvent ici. Không đứng giữa chủ ngữ và động từ như tiếng Anh.',
+      note:'Nói «je souvent mange» là sai, dù tiếng Anh cho phép «I often eat».',
+      ex:{ fr:'Il arrive toujours en retard.', vi:'Anh ấy lúc nào cũng đến muộn.' } },
+    { form:'Động từ faire', vi:'je fais · tu fais · il fait · nous faisons · vous faites · ils font.',
+      note:'vous faites và ils font là hai dạng bất quy tắc phải nhớ riêng. faire dùng cho việc nhà và thời tiết.',
+      ex:{ fr:'Le soir, je fais la vaisselle.', vi:'Buổi tối tôi rửa bát.' } }
+  ],
+  vocab:[
+    { fr:'journée', ipa:'ʒuʁ.ne', vi:'ngày (khoảng thời gian)', pos:'danh từ', g:'f', note:'jour là ngày như một đơn vị, journée là cả khoảng ngày đó. «Bonne journée!» chúc một ngày tốt lành.' },
+    { fr:'matin', ipa:'ma.tɛ̃', vi:'buổi sáng', pos:'danh từ', g:'m' },
+    { fr:'après-midi', ipa:'a.pʁɛ.mi.di', vi:'buổi chiều', pos:'danh từ', g:'m' },
+    { fr:'soir', ipa:'swaʁ', vi:'buổi tối', pos:'danh từ', g:'m' },
+    { fr:'nuit', ipa:'nɥi', vi:'đêm', pos:'danh từ', g:'f' },
+    { fr:'réveil', ipa:'ʁe.vɛj', vi:'đồng hồ báo thức', pos:'danh từ', g:'m' },
+    { fr:'douche', ipa:'duʃ', vi:'vòi sen, việc tắm', pos:'danh từ', g:'f' },
+    { fr:'petit-déjeuner', ipa:'pə.ti.de.ʒø.ne', vi:'bữa sáng', pos:'danh từ', g:'m' },
+    { fr:'déjeuner', ipa:'de.ʒø.ne', vi:'bữa trưa', pos:'danh từ', g:'m' },
+    { fr:'dîner', ipa:'di.ne', vi:'bữa tối', pos:'danh từ', g:'m' },
+    { fr:'travail', ipa:'tʁa.vaj', vi:'công việc', pos:'danh từ', g:'m' },
+    { fr:'se lever', ipa:'sə lə.ve', vi:'thức dậy', pos:'động từ', g:'' },
+    { fr:'se coucher', ipa:'sə ku.ʃe', vi:'đi ngủ', pos:'động từ', g:'' },
+    { fr:'s’habiller', ipa:'sa.bi.je', vi:'mặc quần áo', pos:'động từ', g:'' },
+    { fr:'commencer', ipa:'kɔ.mɑ̃.se', vi:'bắt đầu', pos:'động từ', g:'' },
+    { fr:'finir', ipa:'fi.niʁ', vi:'kết thúc', pos:'động từ', g:'', note:'Nhóm -ir: je finis, nous finissons. Phần -iss- xuất hiện ở số nhiều.' },
+    { fr:'rentrer', ipa:'ʁɑ̃.tʁe', vi:'về nhà', pos:'động từ', g:'' },
+    { fr:'toujours', ipa:'tu.ʒuʁ', vi:'luôn luôn', pos:'trạng từ', g:'' },
+    { fr:'souvent', ipa:'su.vɑ̃', vi:'thường xuyên', pos:'trạng từ', g:'' },
+    { fr:'jamais', ipa:'ʒa.mɛ', vi:'không bao giờ', pos:'trạng từ', g:'' }
+  ],
+  colloc:[
+    { p:'de bonne heure', vi:'sớm — trang trọng hơn «tôt».', ex:'Je me lève de bonne heure.' },
+    { p:'être en retard', vi:'bị muộn. Đúng giờ là «être à l’heure».', ex:'Désolé, je suis en retard.' },
+    { p:'faire la grasse matinée', vi:'ngủ nướng — nghĩa đen là «làm một buổi sáng béo».', ex:'Le dimanche, je fais la grasse matinée.' }
+  ],
+  dialogue:[
+    { sp:'Léa', fr:'Tu te lèves à quelle heure, toi ?', vi:'Cậu dậy lúc mấy giờ?' },
+    { sp:'Quan', fr:'À six heures et demie, en semaine.', vi:'Sáu rưỡi, ngày thường.' },
+    { sp:'Léa', fr:'Si tôt ? Moi, jamais avant huit heures.', vi:'Sớm thế? Tớ thì không bao giờ trước tám giờ.' },
+    { sp:'Quan', fr:'Mon cours commence à huit heures quinze.', vi:'Tiết học của tớ bắt đầu lúc tám giờ mười lăm.' },
+    { sp:'Léa', fr:'Et tu rentres quand ?', vi:'Thế mấy giờ cậu về?' },
+    { sp:'Quan', fr:'Vers dix-huit heures. Après, je fais la cuisine.', vi:'Khoảng sáu giờ chiều. Xong về nấu ăn.' },
+    { sp:'Léa', fr:'Tu te couches tôt alors ?', vi:'Vậy cậu ngủ sớm nhỉ?' },
+    { sp:'Quan', fr:'Vers vingt-trois heures. Le week-end, je fais la grasse matinée.', vi:'Khoảng mười một giờ đêm. Cuối tuần thì tớ ngủ nướng.' }
+  ] },
+
+{ level:'a1', no:9, fr:'Le temps et les saisons', vi:'Thời tiết và bốn mùa', skill:'Từ vựng',
+  grammar:[
+    { form:'Thời tiết với il fait', vi:'il fait beau · il fait chaud · il fait froid · il fait du vent · il fait du soleil.',
+      note:'Chữ «il» ở đây không chỉ ai cả, chỉ là chủ ngữ hình thức. Nghe «il fait froid» đừng hiểu là «anh ấy».',
+      ex:{ fr:'Aujourd’hui il fait froid et il pleut.', vi:'Hôm nay trời lạnh và đang mưa.' } },
+    { form:'Mưa và tuyết có động từ riêng', vi:'il pleut (trời mưa) · il neige (trời có tuyết). Không nói «il fait pluie».',
+      note:'Danh từ tương ứng là la pluie và la neige, dùng khi nói về hiện tượng chứ không phải trạng thái lúc này.',
+      ex:{ fr:'Il neige depuis ce matin.', vi:'Trời có tuyết từ sáng.' } },
+    { form:'Mùa: en hiver nhưng au printemps', vi:'en hiver · en été · en automne — nhưng au printemps.',
+      note:'Ba mùa kia bắt đầu bằng nguyên âm nên dùng en; printemps bắt đầu bằng phụ âm nên dùng au.',
+      ex:{ fr:'Au printemps, il fait doux.', vi:'Mùa xuân trời dịu mát.' } },
+    { form:'Ngày và tháng', vi:'lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche. Tháng: janvier … décembre. Tất cả viết thường.',
+      note:'«le lundi» có mạo từ nghĩa là thứ Hai nào cũng thế; «lundi» trần là thứ Hai tuần này.',
+      ex:{ fr:'Le lundi, j’ai cours. Lundi, je vais à Paris.', vi:'Thứ Hai nào tôi cũng có học. Thứ Hai này tôi đi Paris.' } }
+  ],
+  vocab:[
+    { fr:'temps', ipa:'tɑ̃', vi:'thời tiết; thời gian', pos:'danh từ', g:'m', note:'Một từ hai nghĩa: «Quel temps fait-il ?» hỏi thời tiết, «Je n’ai pas le temps» là không có thời gian.' },
+    { fr:'saison', ipa:'sɛ.zɔ̃', vi:'mùa', pos:'danh từ', g:'f' },
+    { fr:'printemps', ipa:'pʁɛ̃.tɑ̃', vi:'mùa xuân', pos:'danh từ', g:'m' },
+    { fr:'été', ipa:'e.te', vi:'mùa hè', pos:'danh từ', g:'m' },
+    { fr:'automne', ipa:'ɔ.tɔn', vi:'mùa thu', pos:'danh từ', g:'m' },
+    { fr:'hiver', ipa:'i.vɛʁ', vi:'mùa đông', pos:'danh từ', g:'m' },
+    { fr:'pluie', ipa:'plɥi', vi:'mưa', pos:'danh từ', g:'f' },
+    { fr:'neige', ipa:'nɛʒ', vi:'tuyết', pos:'danh từ', g:'f' },
+    { fr:'vent', ipa:'vɑ̃', vi:'gió', pos:'danh từ', g:'m' },
+    { fr:'soleil', ipa:'sɔ.lɛj', vi:'mặt trời', pos:'danh từ', g:'m' },
+    { fr:'nuage', ipa:'nɥaʒ', vi:'đám mây', pos:'danh từ', g:'m' },
+    { fr:'ciel', ipa:'sjɛl', vi:'bầu trời', pos:'danh từ', g:'m' },
+    { fr:'parapluie', ipa:'pa.ʁa.plɥi', vi:'cái dù', pos:'danh từ', g:'m' },
+    { fr:'degré', ipa:'də.ɡʁe', vi:'độ (nhiệt độ)', pos:'danh từ', g:'m' },
+    { fr:'orage', ipa:'ɔ.ʁaʒ', vi:'cơn giông', pos:'danh từ', g:'m' },
+    { fr:'brouillard', ipa:'bʁu.jaʁ', vi:'sương mù', pos:'danh từ', g:'m' },
+    { fr:'doux', ipa:'du', vi:'dịu, ôn hoà', pos:'tính từ', g:'', note:'Giống cái là douce. Cũng dùng cho vị ngọt nhẹ và tính cách hiền.' },
+    { fr:'humide', ipa:'y.mid', vi:'ẩm', pos:'tính từ', g:'' },
+    { fr:'pleuvoir', ipa:'plø.vwaʁ', vi:'mưa', pos:'động từ', g:'' },
+    { fr:'neiger', ipa:'nɛ.ʒe', vi:'có tuyết', pos:'động từ', g:'' }
+  ],
+  colloc:[
+    { p:'Quel temps fait-il ?', vi:'Thời tiết thế nào? — câu hỏi chuẩn.', ex:'— Quel temps fait-il ? — Il fait gris.' },
+    { p:'il fait un temps de chien', vi:'thời tiết chó má — trời xấu kinh khủng.', ex:'Ne sors pas, il fait un temps de chien.' },
+    { p:'sous la pluie', vi:'dưới trời mưa.', ex:'Il a marché une heure sous la pluie.' }
+  ],
+  dialogue:[
+    { sp:'Léa', fr:'Tu sors ce week-end ?', vi:'Cuối tuần cậu có đi đâu không?' },
+    { sp:'Quan', fr:'Ça dépend du temps. Il fait quoi samedi ?', vi:'Còn tuỳ thời tiết. Thứ Bảy trời thế nào?' },
+    { sp:'Léa', fr:'Il va pleuvoir le matin, puis il fera beau.', vi:'Buổi sáng sẽ mưa, rồi trời sẽ đẹp.' },
+    { sp:'Quan', fr:'Il fait combien de degrés ?', vi:'Bao nhiêu độ vậy?' },
+    { sp:'Léa', fr:'Douze le matin, dix-huit l’après-midi.', vi:'Sáng mười hai, chiều mười tám.' },
+    { sp:'Quan', fr:'C’est doux pour un mois de mars.', vi:'Vậy là dịu, so với tháng Ba.' },
+    { sp:'Léa', fr:'Oui. En hiver, ici, il fait moins cinq.', vi:'Ừ. Mùa đông ở đây âm năm độ.' },
+    { sp:'Quan', fr:'Alors je prends quand même mon parapluie.', vi:'Thế thì tớ vẫn cứ mang dù.' }
+  ] },
+
+{ level:'a1', no:10, fr:'Les vêtements et les couleurs', vi:'Quần áo và màu sắc', skill:'Từ vựng',
+  grammar:[
+    { form:'Tính từ chỉ định: ce / cet / cette / ces', vi:'ce pull (đực) · cet homme (đực, trước nguyên âm) · cette veste (cái) · ces chaussures (số nhiều).',
+      note:'cet chỉ dùng trước nguyên âm hoặc h câm, để khỏi phải đọc hai nguyên âm liền nhau.',
+      ex:{ fr:'Ce manteau est trop grand.', vi:'Cái áo khoác này rộng quá.' } },
+    { form:'Màu sắc hợp giống và số', vi:'un pull vert → une veste verte · un pantalon noir → une jupe noire.',
+      note:'Một số màu KHÔNG đổi: marron, orange, và các màu ghép như bleu clair, vert foncé.',
+      ex:{ fr:'Une chemise blanche et un pantalon noir.', vi:'Một cái áo sơ mi trắng và một cái quần đen.' } },
+    { form:'trop và très', vi:'très là rất (khen), trop là quá (chê, vượt mức).',
+      note:'Người học hay nhầm hai từ này. «C’est très cher» là đắt thật đấy; «c’est trop cher» là đắt quá, tôi không mua.',
+      ex:{ fr:'Elle est très belle mais trop chère.', vi:'Nó đẹp lắm nhưng đắt quá.' } },
+    { form:'Động từ mettre', vi:'je mets · tu mets · il met · nous mettons · vous mettez · ils mettent.',
+      note:'mettre là mặc vào, đặt vào; porter là đang mặc trên người. Hai việc khác nhau.',
+      ex:{ fr:'Je mets un manteau parce qu’il fait froid.', vi:'Tôi mặc áo khoác vì trời lạnh.' } }
+  ],
+  vocab:[
+    { fr:'vêtement', ipa:'vɛt.mɑ̃', vi:'quần áo', pos:'danh từ', g:'m' },
+    { fr:'chemise', ipa:'ʃə.miz', vi:'áo sơ mi', pos:'danh từ', g:'f' },
+    { fr:'pull', ipa:'pyl', vi:'áo len', pos:'danh từ', g:'m' },
+    { fr:'veste', ipa:'vɛst', vi:'áo vest, áo khoác nhẹ', pos:'danh từ', g:'f' },
+    { fr:'manteau', ipa:'mɑ̃.to', vi:'áo khoác dày', pos:'danh từ', g:'m' },
+    { fr:'pantalon', ipa:'pɑ̃.ta.lɔ̃', vi:'cái quần', pos:'danh từ', g:'m', note:'Khác tiếng Anh, tiếng Pháp dùng SỐ ÍT: un pantalon, chứ không phải «trousers».' },
+    { fr:'jupe', ipa:'ʒyp', vi:'cái váy', pos:'danh từ', g:'f' },
+    { fr:'robe', ipa:'ʁɔb', vi:'áo đầm', pos:'danh từ', g:'f' },
+    { fr:'chaussure', ipa:'ʃo.syʁ', vi:'cái giày', pos:'danh từ', g:'f' },
+    { fr:'chaussette', ipa:'ʃo.sɛt', vi:'cái tất', pos:'danh từ', g:'f' },
+    { fr:'taille', ipa:'taj', vi:'cỡ, kích cỡ', pos:'danh từ', g:'f' },
+    { fr:'couleur', ipa:'ku.lœʁ', vi:'màu sắc', pos:'danh từ', g:'f' },
+    { fr:'blanc', ipa:'blɑ̃', vi:'trắng', pos:'tính từ', g:'', note:'Giống cái là blanche — nghe rõ chữ «sơ» ở cuối.' },
+    { fr:'noir', ipa:'nwaʁ', vi:'đen', pos:'tính từ', g:'' },
+    { fr:'rouge', ipa:'ʁuʒ', vi:'đỏ', pos:'tính từ', g:'' },
+    { fr:'bleu', ipa:'blø', vi:'xanh lam', pos:'tính từ', g:'' },
+    { fr:'vert', ipa:'vɛʁ', vi:'xanh lá', pos:'tính từ', g:'', note:'Đọc y hệt verre (cái ly), vers (về phía) và ver (con giun). Phải dựa vào cả câu.' },
+    { fr:'marron', ipa:'ma.ʁɔ̃', vi:'nâu', pos:'tính từ', g:'', note:'Không bao giờ đổi theo giống hay số: des chaussures marron.' },
+    { fr:'porter', ipa:'pɔʁ.te', vi:'mặc, mang trên người', pos:'động từ', g:'' },
+    { fr:'essayer', ipa:'e.sɛ.je', vi:'thử', pos:'động từ', g:'' }
+  ],
+  colloc:[
+    { p:'faire du 40', vi:'mặc cỡ 40 — cách nói cỡ quần áo và giày.', ex:'Je fais du quarante en chaussures.' },
+    { p:'la cabine d’essayage', vi:'phòng thử đồ.', ex:'La cabine d’essayage est au fond à droite.' },
+    { p:'ça te va bien', vi:'cái này hợp với bạn.', ex:'Ce pull vert te va très bien.' }
+  ],
+  dialogue:[
+    { sp:'Vendeuse', fr:'Bonjour, je peux vous aider ?', vi:'Chào anh, tôi giúp được gì ạ?' },
+    { sp:'Quan', fr:'Je cherche un manteau pour l’hiver.', vi:'Tôi tìm một cái áo khoác mùa đông.' },
+    { sp:'Vendeuse', fr:'Vous faites quelle taille ?', vi:'Anh mặc cỡ nào ạ?' },
+    { sp:'Quan', fr:'Du M, je crois. Je peux essayer celui-ci ?', vi:'Chắc là M. Tôi thử cái này được không?' },
+    { sp:'Vendeuse', fr:'Bien sûr. La cabine est au fond.', vi:'Tất nhiên rồi. Phòng thử ở phía trong.' },
+    { sp:'Quan', fr:'Il est un peu trop grand. Vous l’avez en noir ?', vi:'Hơi rộng một chút. Chị có màu đen không?' },
+    { sp:'Vendeuse', fr:'En noir, seulement en L. Mais ce bleu foncé vous va bien.', vi:'Màu đen chỉ còn cỡ L. Nhưng màu xanh đậm này hợp với anh đấy.' },
+    { sp:'Quan', fr:'D’accord, je le prends.', vi:'Vâng, tôi lấy cái này.' }
+  ] },
+
+{ level:'a1', no:11, fr:'Chez le médecin', vi:'Đi khám bệnh', skill:'Giao tiếp',
+  grammar:[
+    { form:'avoir mal à', vi:'j’ai mal à la tête · au ventre · aux dents · à la gorge.',
+      note:'à + le = au, à + les = aux. Nên «au ventre» chứ không phải «à le ventre».',
+      ex:{ fr:'J’ai mal à la gorge depuis hier.', vi:'Tôi đau họng từ hôm qua.' } },
+    { form:'Mệnh lệnh thức', vi:'Bỏ chủ ngữ đi là thành câu sai khiến: Buvez de l’eau ! Reposez-vous ! Ne sortez pas !',
+      note:'Động từ nhóm -er mất chữ -s ở ngôi tu: tu manges → Mange !',
+      ex:{ fr:'Prenez ce médicament deux fois par jour.', vi:'Uống thuốc này ngày hai lần.' } },
+    { form:'depuis — từ bao giờ', vi:'depuis + mốc thời gian (depuis lundi) hoặc + khoảng thời gian (depuis trois jours).',
+      note:'Câu dùng depuis thì động từ ở HIỆN TẠI, không ở quá khứ như tiếng Việt hay nghĩ: «j’habite ici depuis un an».',
+      ex:{ fr:'Je tousse depuis une semaine.', vi:'Tôi ho đã một tuần rồi.' } },
+    { form:'Động từ pouvoir và devoir', vi:'pouvoir (có thể): je peux · tu peux · il peut · nous pouvons · ils peuvent. devoir (phải): je dois · tu dois · il doit · nous devons · ils doivent.',
+      note:'Cả hai đi thẳng với động từ nguyên thể: je peux venir, je dois partir.',
+      ex:{ fr:'Vous devez vous reposer deux jours.', vi:'Anh phải nghỉ hai ngày.' } }
+  ],
+  vocab:[
+    { fr:'médecin', ipa:'med.sɛ̃', vi:'bác sĩ', pos:'danh từ', g:'m', note:'Luôn giống đực dù bác sĩ là nữ. Muốn rõ thì nói «une femme médecin».' },
+    { fr:'infirmière', ipa:'ɛ̃.fiʁ.mjɛʁ', vi:'y tá (nữ)', pos:'danh từ', g:'f' },
+    { fr:'ordonnance', ipa:'ɔʁ.dɔ.nɑ̃s', vi:'đơn thuốc', pos:'danh từ', g:'f' },
+    { fr:'médicament', ipa:'me.di.ka.mɑ̃', vi:'thuốc', pos:'danh từ', g:'m' },
+    { fr:'tête', ipa:'tɛt', vi:'cái đầu', pos:'danh từ', g:'f' },
+    { fr:'ventre', ipa:'vɑ̃tʁ', vi:'cái bụng', pos:'danh từ', g:'m' },
+    { fr:'gorge', ipa:'ɡɔʁʒ', vi:'cổ họng', pos:'danh từ', g:'f' },
+    { fr:'dent', ipa:'dɑ̃', vi:'cái răng', pos:'danh từ', g:'f' },
+    { fr:'dos', ipa:'do', vi:'cái lưng', pos:'danh từ', g:'m' },
+    { fr:'fièvre', ipa:'fjɛvʁ', vi:'cơn sốt', pos:'danh từ', g:'f' },
+    { fr:'rhume', ipa:'ʁym', vi:'cảm lạnh', pos:'danh từ', g:'m' },
+    { fr:'rendez-vous', ipa:'ʁɑ̃.de.vu', vi:'cuộc hẹn', pos:'danh từ', g:'m' },
+    { fr:'santé', ipa:'sɑ̃.te', vi:'sức khoẻ', pos:'danh từ', g:'f' },
+    { fr:'malade', ipa:'ma.lad', vi:'ốm', pos:'tính từ', g:'' },
+    { fr:'fatigué', ipa:'fa.ti.ɡe', vi:'mệt', pos:'tính từ', g:'' },
+    { fr:'grave', ipa:'ɡʁav', vi:'nặng, nghiêm trọng', pos:'tính từ', g:'' },
+    { fr:'tousser', ipa:'tu.se', vi:'ho', pos:'động từ', g:'' },
+    { fr:'se reposer', ipa:'sə ʁə.po.ze', vi:'nghỉ ngơi', pos:'động từ', g:'' },
+    { fr:'guérir', ipa:'ɡe.ʁiʁ', vi:'khỏi bệnh', pos:'động từ', g:'' },
+    { fr:'dormir', ipa:'dɔʁ.miʁ', vi:'ngủ', pos:'động từ', g:'' }
+  ],
+  colloc:[
+    { p:'prendre rendez-vous', vi:'đặt lịch hẹn.', ex:'Je voudrais prendre rendez-vous avec le docteur.' },
+    { p:'Ce n’est pas grave.', vi:'Không sao đâu. Dùng cả khi an ủi người khác.', ex:'— Je suis désolé. — Ce n’est pas grave.' },
+    { p:'être en forme', vi:'khoẻ, sung sức.', ex:'Après une semaine de repos, il est de nouveau en forme.' }
+  ],
+  dialogue:[
+    { sp:'Médecin', fr:'Bonjour. Qu’est-ce qui ne va pas ?', vi:'Chào anh. Anh thấy trong người thế nào?' },
+    { sp:'Quan', fr:'J’ai mal à la gorge depuis trois jours.', vi:'Tôi đau họng ba hôm nay rồi ạ.' },
+    { sp:'Médecin', fr:'Vous avez de la fièvre ?', vi:'Anh có sốt không?' },
+    { sp:'Quan', fr:'Un peu, trente-huit ce matin. Et je tousse la nuit.', vi:'Hơi sốt, sáng nay ba mươi tám độ. Ban đêm thì tôi ho.' },
+    { sp:'Médecin', fr:'Ouvrez la bouche… Ce n’est pas grave, c’est un gros rhume.', vi:'Há miệng ra nào… Không nặng đâu, cảm lạnh thôi.' },
+    { sp:'Quan', fr:'Je peux aller en cours demain ?', vi:'Mai tôi đi học được không ạ?' },
+    { sp:'Médecin', fr:'Reposez-vous deux jours. Buvez beaucoup d’eau.', vi:'Nghỉ hai ngày đi. Uống nhiều nước vào.' },
+    { sp:'Quan', fr:'D’accord. Merci, docteur.', vi:'Vâng ạ. Cảm ơn bác sĩ.' }
+  ] },
+
+{ level:'a1', no:12, fr:'Hier, qu’est-ce que tu as fait ?', vi:'Kể lại chuyện hôm qua', skill:'Ngữ pháp',
+  grammar:[
+    { form:'Passé composé với avoir', vi:'avoir chia ở hiện tại + quá khứ phân từ: j’ai mangé · tu as fini · il a pris.',
+      note:'Quá khứ phân từ: nhóm -er thành -é (manger → mangé), nhóm -ir thành -i (finir → fini), còn lại phải học thuộc.',
+      ex:{ fr:'Hier, j’ai mangé au restaurant.', vi:'Hôm qua tôi ăn ở nhà hàng.' } },
+    { form:'Passé composé với être', vi:'Nhóm động từ di chuyển và đổi trạng thái: aller, venir, partir, arriver, entrer, sortir, monter, descendre, rester, tomber, naître, mourir, devenir.',
+      note:'Khi đi với être thì quá khứ phân từ HỢP GIỐNG với chủ ngữ: elle est allée, ils sont allés, elles sont allées.',
+      ex:{ fr:'Elle est arrivée à midi.', vi:'Cô ấy đến lúc trưa.' } },
+    { form:'Phủ định ở quá khứ', vi:'ne và pas bọc lấy phần CHIA, không bọc cả cụm: je n’ai pas mangé, il n’est pas venu.',
+      note:'Nói «je n’ai mangé pas» là sai. Quá khứ phân từ luôn nằm ngoài, sau pas.',
+      ex:{ fr:'Je n’ai pas compris la question.', vi:'Tôi không hiểu câu hỏi.' } },
+    { form:'Quá khứ phân từ bất quy tắc hay gặp', vi:'être → été · avoir → eu · faire → fait · prendre → pris · voir → vu · dire → dit · écrire → écrit · lire → lu · vouloir → voulu · pouvoir → pu.',
+      note:'Học thuộc mười từ này là xử lý được phần lớn câu kể chuyện hằng ngày.',
+      ex:{ fr:'J’ai vu un film et j’ai pris le métro.', vi:'Tôi xem một bộ phim rồi đi tàu điện ngầm.' } }
+  ],
+  vocab:[
+    { fr:'hier', ipa:'jɛʁ', vi:'hôm qua', pos:'trạng từ', g:'' },
+    { fr:'avant-hier', ipa:'a.vɑ̃.tjɛʁ', vi:'hôm kia', pos:'trạng từ', g:'' },
+    { fr:'ce matin', ipa:'sə ma.tɛ̃', vi:'sáng nay', pos:'trạng từ', g:'' },
+    { fr:'déjà', ipa:'de.ʒa', vi:'đã… rồi', pos:'trạng từ', g:'' },
+    { fr:'ensuite', ipa:'ɑ̃.sɥit', vi:'sau đó', pos:'trạng từ', g:'' },
+    { fr:'enfin', ipa:'ɑ̃.fɛ̃', vi:'cuối cùng', pos:'trạng từ', g:'' },
+    { fr:'semaine dernière', ipa:'sə.mɛn dɛʁ.njɛʁ', vi:'tuần trước', pos:'danh từ', g:'f' },
+    { fr:'film', ipa:'film', vi:'bộ phim', pos:'danh từ', g:'m' },
+    { fr:'concert', ipa:'kɔ̃.sɛʁ', vi:'buổi hoà nhạc', pos:'danh từ', g:'m' },
+    { fr:'musée', ipa:'my.ze', vi:'bảo tàng', pos:'danh từ', g:'m', note:'Kết thúc bằng -ée nhưng lại là giống ĐỰC. Ngoại lệ cùng nhóm: lycée.' },
+    { fr:'exposition', ipa:'ɛks.po.zi.sjɔ̃', vi:'cuộc triển lãm', pos:'danh từ', g:'f' },
+    { fr:'sortie', ipa:'sɔʁ.ti', vi:'buổi đi chơi; lối ra', pos:'danh từ', g:'f' },
+    { fr:'voir', ipa:'vwaʁ', vi:'nhìn, xem', pos:'động từ', g:'' },
+    { fr:'dire', ipa:'diʁ', vi:'nói', pos:'động từ', g:'' },
+    { fr:'écrire', ipa:'e.kʁiʁ', vi:'viết', pos:'động từ', g:'' },
+    { fr:'lire', ipa:'liʁ', vi:'đọc', pos:'động từ', g:'' },
+    { fr:'partir', ipa:'paʁ.tiʁ', vi:'ra đi, khởi hành', pos:'động từ', g:'' },
+    { fr:'arriver', ipa:'a.ʁi.ve', vi:'đến nơi', pos:'động từ', g:'' },
+    { fr:'rester', ipa:'ʁɛs.te', vi:'ở lại', pos:'động từ', g:'' },
+    { fr:'oublier', ipa:'u.bli.je', vi:'quên', pos:'động từ', g:'' }
+  ],
+  colloc:[
+    { p:'Qu’est-ce que tu as fait ?', vi:'Cậu đã làm gì? — câu mở đầu quen thuộc nhất khi kể chuyện.', ex:'Alors, qu’est-ce que tu as fait ce week-end ?' },
+    { p:'ça s’est bien passé', vi:'mọi chuyện ổn cả.', ex:'L’examen s’est bien passé.' },
+    { p:'d’abord … ensuite … enfin', vi:'trước hết… sau đó… cuối cùng — bộ khung kể chuyện.', ex:'D’abord j’ai mangé, ensuite j’ai travaillé, enfin j’ai dormi.' }
+  ],
+  dialogue:[
+    { sp:'Léa', fr:'Alors, qu’est-ce que tu as fait hier ?', vi:'Thế hôm qua cậu làm gì?' },
+    { sp:'Quan', fr:'Je suis allé au musée avec Marc.', vi:'Tớ đi bảo tàng với Marc.' },
+    { sp:'Léa', fr:'Ah oui ? Vous êtes restés longtemps ?', vi:'Thế à? Hai đứa ở đó lâu không?' },
+    { sp:'Quan', fr:'Trois heures. Après, on a pris un café.', vi:'Ba tiếng. Sau đó bọn tớ đi uống cà phê.' },
+    { sp:'Léa', fr:'Tu as vu l’exposition sur Hanoï ?', vi:'Cậu có xem triển lãm về Hà Nội không?' },
+    { sp:'Quan', fr:'Non, je ne l’ai pas vue. Elle commence samedi.', vi:'Không, tớ chưa xem. Thứ Bảy mới mở.' },
+    { sp:'Léa', fr:'On y va ensemble alors ?', vi:'Thế đi cùng nhau nhé?' },
+    { sp:'Quan', fr:'Avec plaisir. J’ai déjà noté la date.', vi:'Rất sẵn lòng. Tớ ghi ngày rồi.' }
+  ] },
+
+{ level:'a1', no:13, fr:'Les transports', vi:'Tàu xe và đi lại', skill:'Giao tiếp',
+  grammar:[
+    { form:'Tương lai gần: aller + nguyên thể', vi:'je vais partir · tu vas prendre · il va arriver.',
+      note:'Đây là cách nói tương lai thông dụng nhất trong hội thoại, dùng nhiều hơn cả thì tương lai chính thức.',
+      ex:{ fr:'Je vais prendre le train de neuf heures.', vi:'Tôi sẽ đi chuyến tàu chín giờ.' } },
+    { form:'en / à với phương tiện', vi:'en voiture · en train · en bus · en avion — nhưng à pied · à vélo · à moto.',
+      note:'Mẹo: ngồi BÊN TRONG thì dùng en, ngồi LÊN TRÊN thì dùng à.',
+      ex:{ fr:'Je vais à la fac à vélo.', vi:'Tôi đi xe đạp tới trường.' } },
+    { form:'Đại từ y', vi:'y thay cho một NƠI CHỐN đã nhắc tới: — Tu vas à Paris ? — Oui, j’y vais demain.',
+      note:'y đứng trước động từ chia. Trong tương lai gần thì đứng trước nguyên thể: je vais y aller.',
+      ex:{ fr:'— Tu es allé à la gare ? — Oui, j’y suis allé.', vi:'— Cậu ra ga chưa? — Rồi, tớ ra rồi.' } },
+    { form:'Hỏi bằng est-ce que', vi:'Est-ce que tu viens ? — cách hỏi trung tính, dùng được ở mọi tình huống.',
+      note:'Ba cách hỏi cùng nghĩa: Tu viens ? (thân mật) · Est-ce que tu viens ? (trung tính) · Viens-tu ? (trang trọng, viết).',
+      ex:{ fr:'Est-ce que le train part à l’heure ?', vi:'Tàu có chạy đúng giờ không ạ?' } }
+  ],
+  vocab:[
+    { fr:'avion', ipa:'a.vjɔ̃', vi:'máy bay', pos:'danh từ', g:'m' },
+    { fr:'gare routière', ipa:'ɡaʁ ʁu.tjɛʁ', vi:'bến xe khách', pos:'danh từ', g:'f' },
+    { fr:'tramway', ipa:'tʁam.wɛ', vi:'tàu điện mặt đất', pos:'danh từ', g:'m' },
+    { fr:'horaire', ipa:'ɔ.ʁɛʁ', vi:'giờ chạy, lịch trình', pos:'danh từ', g:'m' },
+    { fr:'quai', ipa:'kɛ', vi:'sân ga', pos:'danh từ', g:'m' },
+    { fr:'voie', ipa:'vwa', vi:'đường ray', pos:'danh từ', g:'f' },
+    { fr:'arrêt', ipa:'a.ʁɛ', vi:'bến, trạm dừng', pos:'danh từ', g:'m' },
+    { fr:'correspondance', ipa:'kɔ.ʁɛs.pɔ̃.dɑ̃s', vi:'chỗ đổi tuyến', pos:'danh từ', g:'f' },
+    { fr:'retard', ipa:'ʁə.taʁ', vi:'sự chậm trễ', pos:'danh từ', g:'m' },
+    { fr:'aller-retour', ipa:'a.le.ʁə.tuʁ', vi:'vé khứ hồi', pos:'danh từ', g:'m' },
+    { fr:'valise', ipa:'va.liz', vi:'cái vali', pos:'danh từ', g:'f' },
+    { fr:'conducteur', ipa:'kɔ̃.dyk.tœʁ', vi:'người lái', pos:'danh từ', g:'m' },
+    { fr:'direct', ipa:'di.ʁɛkt', vi:'đi thẳng, không đổi tuyến', pos:'tính từ', g:'' },
+    { fr:'complet', ipa:'kɔ̃.plɛ', vi:'hết chỗ', pos:'tính từ', g:'', note:'Giống cái là complète. Thấy chữ COMPLET trên bảng nghĩa là hết vé.' },
+    { fr:'monter', ipa:'mɔ̃.te', vi:'lên (xe, tàu)', pos:'động từ', g:'' },
+    { fr:'descendre', ipa:'de.sɑ̃dʁ', vi:'xuống (xe, tàu)', pos:'động từ', g:'' },
+    { fr:'changer', ipa:'ʃɑ̃.ʒe', vi:'đổi (tuyến)', pos:'động từ', g:'' },
+    { fr:'composter', ipa:'kɔ̃.pɔs.te', vi:'dập vé', pos:'động từ', g:'', note:'Vé chưa dập thì coi như không có vé, dù đã mua. Đây là chỗ khách nước ngoài hay bị phạt.' },
+    { fr:'réserver', ipa:'ʁe.zɛʁ.ve', vi:'đặt trước', pos:'động từ', g:'' },
+    { fr:'durer', ipa:'dy.ʁe', vi:'kéo dài', pos:'động từ', g:'' }
+  ],
+  colloc:[
+    { p:'un aller simple', vi:'vé một chiều. Khứ hồi là «un aller-retour».', ex:'Un aller simple pour Lyon, s’il vous plaît.' },
+    { p:'être en retard', vi:'bị muộn — dùng cho cả người và phương tiện.', ex:'Le train a vingt minutes de retard.' },
+    { p:'changer à', vi:'đổi tuyến tại đâu.', ex:'Vous changez à Châtelet.' }
+  ],
+  dialogue:[
+    { sp:'Quan', fr:'Bonjour, un aller-retour pour Marseille, s’il vous plaît.', vi:'Chào chị, cho tôi một vé khứ hồi đi Marseille ạ.' },
+    { sp:'Guichet', fr:'Pour quand ?', vi:'Đi hôm nào ạ?' },
+    { sp:'Quan', fr:'Vendredi matin, retour dimanche soir.', vi:'Sáng thứ Sáu, về tối Chủ nhật.' },
+    { sp:'Guichet', fr:'Le train de huit heures est complet. Celui de neuf heures ?', vi:'Chuyến tám giờ hết chỗ rồi. Chuyến chín giờ được không ạ?' },
+    { sp:'Quan', fr:'D’accord. C’est direct ?', vi:'Vâng. Có phải đổi tàu không ạ?' },
+    { sp:'Guichet', fr:'Non, vous changez à Lyon. Le trajet dure quatre heures.', vi:'Có, anh đổi ở Lyon. Cả chặng bốn tiếng.' },
+    { sp:'Quan', fr:'Très bien. Je dois composter le billet ?', vi:'Được ạ. Tôi có phải dập vé không?' },
+    { sp:'Guichet', fr:'Non, il est électronique. Mais gardez-le sur votre téléphone.', vi:'Không, vé điện tử. Nhưng anh giữ trong điện thoại nhé.' }
+  ] },
+
+{ level:'a1', no:14, fr:'Au restaurant', vi:'Ở nhà hàng', skill:'Giao tiếp',
+  grammar:[
+    { form:'Đại từ tân ngữ trực tiếp: le / la / les', vi:'— Tu prends le poisson ? — Oui, je le prends. — Tu aimes la tarte ? — Oui, je l’aime.',
+      note:'Đại từ đứng TRƯỚC động từ, ngược hẳn tiếng Việt. le và la rút thành l’ trước nguyên âm.',
+      ex:{ fr:'Cette soupe, je la trouve excellente.', vi:'Món xúp này tôi thấy ngon tuyệt.' } },
+    { form:'Đại từ gián tiếp: lui / leur', vi:'Thay cho «à + người»: je parle à Marie → je lui parle. Số nhiều là leur.',
+      note:'lui dùng cho cả nam lẫn nữ. Đừng nhầm với «lui» nghĩa là «anh ấy» sau giới từ.',
+      ex:{ fr:'Le serveur lui apporte l’addition.', vi:'Người phục vụ mang hoá đơn cho anh ấy.' } },
+    { form:'Điều kiện lịch sự: je voudrais', vi:'je voudrais là dạng lịch sự của je veux. Dùng khi gọi món, khi hỏi mua, khi nhờ vả.',
+      note:'Nói thẳng «je veux» nghe như ra lệnh. Trong nhà hàng luôn dùng je voudrais hoặc je vais prendre.',
+      ex:{ fr:'Je voudrais réserver une table pour deux.', vi:'Tôi muốn đặt một bàn hai người.' } },
+    { form:'Hỏi ý kiến: Comment tu trouves… ?', vi:'trouver ở đây nghĩa là «thấy thế nào», không phải «tìm thấy».',
+      note:'Trả lời bằng: je trouve ça bon / délicieux / un peu salé.',
+      ex:{ fr:'Comment tu trouves le dessert ?', vi:'Cậu thấy món tráng miệng thế nào?' } }
+  ],
+  vocab:[
+    { fr:'restaurant', ipa:'ʁɛs.to.ʁɑ̃', vi:'nhà hàng', pos:'danh từ', g:'m' },
+    { fr:'couteau', ipa:'ku.to', vi:'con dao', pos:'danh từ', g:'m' },
+    { fr:'carte', ipa:'kaʁt', vi:'thực đơn; tấm thẻ', pos:'danh từ', g:'f', note:'la carte là thực đơn đầy đủ, le menu là suất cố định nhiều món. Ngược với tiếng Anh.' },
+    { fr:'entrée', ipa:'ɑ̃.tʁe', vi:'món khai vị; lối vào', pos:'danh từ', g:'f' },
+    { fr:'plat', ipa:'pla', vi:'món chính', pos:'danh từ', g:'m' },
+    { fr:'dessert', ipa:'de.sɛʁ', vi:'món tráng miệng', pos:'danh từ', g:'m' },
+    { fr:'nappe', ipa:'nap', vi:'khăn trải bàn', pos:'danh từ', g:'f' },
+    { fr:'pourboire', ipa:'puʁ.bwaʁ', vi:'tiền boa', pos:'danh từ', g:'m', note:'Không bắt buộc: giá đã gồm phục vụ. Để lại vài đồng lẻ là thể hiện hài lòng.' },
+    { fr:'soupe', ipa:'sup', vi:'món xúp', pos:'danh từ', g:'f' },
+    { fr:'salade', ipa:'sa.lad', vi:'món rau trộn', pos:'danh từ', g:'f' },
+    { fr:'poulet', ipa:'pu.lɛ', vi:'thịt gà', pos:'danh từ', g:'m' },
+    { fr:'riz', ipa:'ʁi', vi:'cơm, gạo', pos:'danh từ', g:'m' },
+    { fr:'sel', ipa:'sɛl', vi:'muối', pos:'danh từ', g:'m' },
+    { fr:'poivre', ipa:'pwavʁ', vi:'hạt tiêu', pos:'danh từ', g:'m' },
+    { fr:'délicieux', ipa:'de.li.sjø', vi:'ngon tuyệt', pos:'tính từ', g:'', note:'Giống cái là délicieuse, nghe rõ chữ «zơ» ở cuối.' },
+    { fr:'salé', ipa:'sa.le', vi:'mặn', pos:'tính từ', g:'' },
+    { fr:'sucré', ipa:'sy.kʁe', vi:'ngọt', pos:'tính từ', g:'' },
+    { fr:'goûter', ipa:'ɡu.te', vi:'nếm thử', pos:'động từ', g:'' },
+    { fr:'servir', ipa:'sɛʁ.viʁ', vi:'phục vụ, dọn ra', pos:'động từ', g:'' },
+    { fr:'trouver', ipa:'tʁu.ve', vi:'thấy, cho rằng; tìm thấy', pos:'động từ', g:'' }
+  ],
+  colloc:[
+    { p:'L’addition, s’il vous plaît.', vi:'Cho tôi xin hoá đơn. — câu kết thúc bữa ăn.', ex:'On peut avoir l’addition, s’il vous plaît ?' },
+    { p:'à point', vi:'thịt chín vừa. Tái là «saignant», chín kỹ là «bien cuit».', ex:'Un steak à point, s’il vous plaît.' },
+    { p:'C’est offert.', vi:'Cái này quán mời. — nghe câu này là không phải trả tiền món đó.', ex:'Le café, c’est offert.' }
+  ],
+  dialogue:[
+    { sp:'Serveur', fr:'Bonsoir. Vous avez choisi ?', vi:'Chào anh chị. Đã chọn món chưa ạ?' },
+    { sp:'Quan', fr:'Oui. Je voudrais la soupe en entrée.', vi:'Rồi ạ. Khai vị cho tôi món xúp.' },
+    { sp:'Serveur', fr:'Et comme plat ?', vi:'Món chính thì sao ạ?' },
+    { sp:'Quan', fr:'Le poulet avec du riz. Il est épicé ?', vi:'Thịt gà với cơm. Món đó có cay không ạ?' },
+    { sp:'Serveur', fr:'Non, pas du tout. Et comme boisson ?', vi:'Không hề ạ. Đồ uống thì sao ạ?' },
+    { sp:'Quan', fr:'Juste une carafe d’eau, merci.', vi:'Một bình nước lọc thôi, cảm ơn anh.' },
+    { sp:'Serveur', fr:'Très bien. Je vous apporte ça tout de suite.', vi:'Vâng ạ. Tôi mang lên ngay.' },
+    { sp:'Quan', fr:'Merci. Et l’addition après, s’il vous plaît.', vi:'Cảm ơn anh. Lát nữa cho tôi xin hoá đơn nhé.' }
+  ] },
+
+{ level:'a1', no:15, fr:'Écrire et téléphoner', vi:'Viết thư và gọi điện', skill:'Giao tiếp',
+  grammar:[
+    { form:'Thì imparfait — bước đầu', vi:'Lấy gốc ngôi nous ở hiện tại rồi thêm đuôi: nous parlons → je parlais · tu parlais · il parlait · nous parlions · ils parlaient.',
+      note:'imparfait tả khung cảnh và thói quen cũ; passé composé kể sự việc xảy ra một lần. «Il pleuvait quand je suis sorti.»',
+      ex:{ fr:'Quand j’étais petit, j’habitais à Hanoï.', vi:'Hồi nhỏ tôi sống ở Hà Nội.' } },
+    { form:'Mở và đóng một lá thư', vi:'Thân mật: Salut … Bises. Trang trọng: Madame, Monsieur … Cordialement / Je vous prie d’agréer mes salutations distinguées.',
+      note:'Thư hành chính Pháp có công thức kết rất dài. Học thuộc một câu là đủ dùng cả đời.',
+      ex:{ fr:'Cordialement, Nguyen Dinh Quan.', vi:'Trân trọng, Nguyễn Đình Quân.' } },
+    { form:'Gọi điện', vi:'Allô ? · C’est de la part de qui ? · Ne quittez pas. · Vous pouvez répéter, s’il vous plaît ?',
+      note:'«Ne quittez pas» nghĩa đen là «đừng rời đi», tức là giữ máy.',
+      ex:{ fr:'Allô ? Bonjour, je suis bien chez Madame Petit ?', vi:'A lô? Chào bà, đây có phải nhà bà Petit không ạ?' } },
+    { form:'Xin nhắc lại cho rõ', vi:'Pardon ? · Vous pouvez parler plus lentement ? · Comment ça s’écrit ?',
+      note:'Đây là ba câu quan trọng nhất của người mới học. Dùng chúng thoải mái, không có gì đáng ngại.',
+      ex:{ fr:'Comment ça s’écrit, s’il vous plaît ?', vi:'Cái đó viết thế nào ạ?' } }
+  ],
+  vocab:[
+    { fr:'lettre', ipa:'lɛtʁ', vi:'lá thư; chữ cái', pos:'danh từ', g:'f' },
+    { fr:'courriel', ipa:'ku.ʁjɛl', vi:'thư điện tử', pos:'danh từ', g:'m', note:'Từ chính thức do Québec đặt ra. Trong đời thường người Pháp vẫn hay nói «un mail».' },
+    { fr:'enveloppe', ipa:'ɑ̃v.lɔp', vi:'phong bì', pos:'danh từ', g:'f' },
+    { fr:'timbre', ipa:'tɛ̃bʁ', vi:'con tem', pos:'danh từ', g:'m' },
+    { fr:'poste', ipa:'pɔst', vi:'bưu điện', pos:'danh từ', g:'f', note:'la poste là bưu điện, còn le poste là cái máy hoặc chức vụ. Đổi giống là đổi nghĩa.' },
+    { fr:'colis', ipa:'kɔ.li', vi:'kiện hàng', pos:'danh từ', g:'m' },
+    { fr:'numéro', ipa:'ny.me.ʁo', vi:'con số, số điện thoại', pos:'danh từ', g:'m' },
+    { fr:'message', ipa:'me.saʒ', vi:'tin nhắn', pos:'danh từ', g:'m' },
+    { fr:'appel', ipa:'a.pɛl', vi:'cuộc gọi', pos:'danh từ', g:'m' },
+    { fr:'réponse', ipa:'ʁe.pɔ̃s', vi:'câu trả lời', pos:'danh từ', g:'f' },
+    { fr:'signature', ipa:'si.ɲa.tyʁ', vi:'chữ ký', pos:'danh từ', g:'f' },
+    { fr:'rendez-vous manqué', ipa:'ʁɑ̃.de.vu mɑ̃.ke', vi:'cuộc hẹn bị lỡ', pos:'danh từ', g:'m' },
+    { fr:'appeler', ipa:'ap.le', vi:'gọi điện', pos:'động từ', g:'' },
+    { fr:'répondre', ipa:'ʁe.pɔ̃dʁ', vi:'trả lời', pos:'động từ', g:'' },
+    { fr:'envoyer', ipa:'ɑ̃.vwa.je', vi:'gửi', pos:'động từ', g:'' },
+    { fr:'recevoir', ipa:'ʁə.sə.vwaʁ', vi:'nhận', pos:'động từ', g:'' },
+    { fr:'signer', ipa:'si.ɲe', vi:'ký', pos:'động từ', g:'' },
+    { fr:'rappeler', ipa:'ʁap.le', vi:'gọi lại', pos:'động từ', g:'' },
+    { fr:'expliquer', ipa:'ɛks.pli.ke', vi:'giải thích', pos:'động từ', g:'' },
+    { fr:'lentement', ipa:'lɑ̃t.mɑ̃', vi:'chậm rãi', pos:'trạng từ', g:'' }
+  ],
+  colloc:[
+    { p:'Ne quittez pas.', vi:'Xin giữ máy.', ex:'Ne quittez pas, je vous le passe.' },
+    { p:'C’est de la part de qui ?', vi:'Ai đang gọi đấy ạ? — câu hỏi chuẩn khi nghe máy hộ.', ex:'— Je voudrais parler à Monsieur Petit. — C’est de la part de qui ?' },
+    { p:'Je vous rappelle.', vi:'Tôi sẽ gọi lại cho anh chị.', ex:'Je suis en réunion, je vous rappelle dans une heure.' }
+  ],
+  dialogue:[
+    { sp:'Secrétaire', fr:'Cabinet du docteur Roux, bonjour.', vi:'Phòng khám bác sĩ Roux xin nghe.' },
+    { sp:'Quan', fr:'Bonjour. Je voudrais prendre rendez-vous.', vi:'Chào chị. Tôi muốn đặt lịch khám ạ.' },
+    { sp:'Secrétaire', fr:'Oui. C’est de la part de qui ?', vi:'Vâng. Anh tên là gì ạ?' },
+    { sp:'Quan', fr:'Nguyen Dinh Quan. Vous pouvez répéter plus lentement ?', vi:'Nguyễn Đình Quân. Chị nói chậm lại giúp tôi được không ạ?' },
+    { sp:'Secrétaire', fr:'Bien sûr. Comment ça s’écrit, votre nom ?', vi:'Tất nhiên rồi. Tên anh viết thế nào ạ?' },
+    { sp:'Quan', fr:'N comme Nicolas, G, U, Y, E, N.', vi:'N như Nicolas, G, U, Y, E, N.' },
+    { sp:'Secrétaire', fr:'Merci. Jeudi quinze heures, ça vous convient ?', vi:'Cảm ơn anh. Thứ Năm ba giờ chiều được không ạ?' },
+    { sp:'Quan', fr:'C’est parfait. Merci beaucoup, au revoir.', vi:'Vâng, tốt quá ạ. Cảm ơn chị nhiều, chào chị.' }
+  ] }
   ]
 };
 
@@ -51924,7 +52454,537 @@ const COURSE_ES = {
       { sp:'Quan', es:'Muchas gracias, señora.', vi:'Cảm ơn bà nhiều ạ.' },
       { sp:'Señora', es:'De nada. ¡Buen viaje!', vi:'Không có gì. Chúc cháu đi đường bình an!' }
     ] }
+,
 
+{ level:'a1', no:6, es:'La casa', vi:'Nhà cửa và đồ đạc', skill:'Từ vựng',
+  grammar:[
+    { form:'hay và está', vi:'hay giới thiệu cái CHƯA biết: «Hay una mesa». está nói vị trí cái ĐÃ biết: «La mesa está aquí».',
+      note:'Sau hay không bao giờ có el/la. Nói «hay la mesa» là sai; phải là «está la mesa».',
+      ex:{ es:'Hay un armario y está a la derecha.', vi:'Có một cái tủ, và nó ở bên phải.' } },
+    { form:'Giới từ chỉ vị trí', vi:'en (trong, trên) · sobre (trên) · debajo de (dưới) · delante de (trước) · detrás de (sau) · entre (giữa) · al lado de (bên cạnh).',
+      note:'Nhóm có de thì de gặp el thành del: al lado DEL sofá. Riêng entre và en không cần de.',
+      ex:{ es:'La lámpara está al lado del sofá.', vi:'Cái đèn ở bên cạnh ghế sofa.' } },
+    { form:'Tính từ hợp giống và số', vi:'pequeño → pequeña → pequeños → pequeñas. Tính từ kết thúc bằng -e hoặc phụ âm thì không đổi theo giống: grande, azul.',
+      note:'Khác tiếng Pháp, ở đây đuôi -o và -a nghe rõ mồn một, nên sai là lộ ngay.',
+      ex:{ es:'Una habitación pequeña y un salón grande.', vi:'Một phòng ngủ nhỏ và một phòng khách rộng.' } },
+    { form:'Vị trí của tính từ', vi:'Tính từ đứng SAU danh từ: una casa blanca. Đứng trước thì mang sắc thái nhấn mạnh hoặc văn chương.',
+      note:'Vài tính từ đổi nghĩa theo vị trí: un hombre grande là người to lớn, un gran hombre là một vĩ nhân.',
+      ex:{ es:'Es un piso viejo pero cómodo.', vi:'Đó là một căn hộ cũ nhưng dễ chịu.' } }
+  ],
+  vocab:[
+    { es:'piso', ipa:'ˈpi.so', vi:'căn hộ; tầng', pos:'danh từ', g:'m', note:'Ở Mỹ Latinh thường gọi là el departamento hoặc el apartamento.' },
+    { es:'edificio', ipa:'e.ði.ˈfi.θjo', vi:'toà nhà', pos:'danh từ', g:'m' },
+    { es:'habitación', ipa:'a.βi.ta.ˈθjon', vi:'phòng ngủ', pos:'danh từ', g:'f' },
+    { es:'salón', ipa:'sa.ˈlon', vi:'phòng khách', pos:'danh từ', g:'m' },
+    { es:'baño', ipa:'ˈba.ɲo', vi:'phòng tắm', pos:'danh từ', g:'m' },
+    { es:'cama', ipa:'ˈka.ma', vi:'cái giường', pos:'danh từ', g:'f' },
+    { es:'armario', ipa:'aɾ.ˈma.ɾjo', vi:'cái tủ quần áo', pos:'danh từ', g:'m' },
+    { es:'estantería', ipa:'es.tan.te.ˈɾi.a', vi:'cái giá sách', pos:'danh từ', g:'f' },
+    { es:'sofá', ipa:'so.ˈfa', vi:'ghế sofa', pos:'danh từ', g:'m', note:'Kết thúc bằng -á nhưng là giống ĐỰC: el sofá. Ngoại lệ phải nhớ.' },
+    { es:'lámpara', ipa:'ˈlam.pa.ɾa', vi:'cái đèn', pos:'danh từ', g:'f' },
+    { es:'ventana', ipa:'ben.ˈta.na', vi:'cửa sổ', pos:'danh từ', g:'f' },
+    { es:'puerta', ipa:'ˈpweɾ.ta', vi:'cửa ra vào', pos:'danh từ', g:'f' },
+    { es:'pared', ipa:'pa.ˈɾeð', vi:'bức tường', pos:'danh từ', g:'f' },
+    { es:'alquiler', ipa:'al.ki.ˈleɾ', vi:'tiền thuê nhà', pos:'danh từ', g:'m' },
+    { es:'vecino', ipa:'be.ˈθi.no', vi:'hàng xóm', pos:'danh từ', g:'m' },
+    { es:'cómodo', ipa:'ˈko.mo.ðo', vi:'dễ chịu, tiện nghi', pos:'tính từ', g:'' },
+    { es:'luminoso', ipa:'lu.mi.ˈno.so', vi:'sáng sủa', pos:'tính từ', g:'' },
+    { es:'ruidoso', ipa:'rwi.ˈðo.so', vi:'ồn ào', pos:'tính từ', g:'' },
+    { es:'amueblado', ipa:'a.mwe.ˈβla.ðo', vi:'có sẵn đồ đạc', pos:'tính từ', g:'' },
+    { es:'alquilar', ipa:'al.ki.ˈlaɾ', vi:'thuê; cho thuê', pos:'động từ', g:'', note:'Một từ hai chiều, giống louer trong tiếng Pháp. Ngữ cảnh quyết định ai thuê của ai.' }
+  ],
+  colloc:[
+    { p:'se alquila', vi:'cho thuê — dòng chữ trên biển rao.', ex:'Se alquila piso amueblado, 600 euros.' },
+    { p:'dar a', vi:'nhìn ra (hướng nào).', ex:'La ventana da a un patio interior.' },
+    { p:'bien comunicado', vi:'đi lại thuận tiện — cụm bất động sản nào cũng dùng.', ex:'El piso es pequeño pero está bien comunicado.' }
+  ],
+  dialogue:[
+    { sp:'Quan', es:'Buenos días, llamo por el piso que se alquila.', vi:'Chào chị, tôi gọi về căn hộ cho thuê ạ.' },
+    { sp:'Agente', es:'Sí, todavía está libre. Son treinta metros cuadrados.', vi:'Vâng, vẫn còn trống. Ba mươi mét vuông.' },
+    { sp:'Quan', es:'¿Está amueblado?', vi:'Có sẵn đồ đạc không ạ?' },
+    { sp:'Agente', es:'Sí: cama, mesa, dos sillas y un armario grande.', vi:'Có: giường, bàn, hai ghế và một cái tủ lớn.' },
+    { sp:'Quan', es:'¿Y el alquiler?', vi:'Thế tiền thuê bao nhiêu ạ?' },
+    { sp:'Agente', es:'Seiscientos euros, gastos incluidos.', vi:'Sáu trăm euro, đã gồm phí dịch vụ.' },
+    { sp:'Quan', es:'¿La ventana da a la calle?', vi:'Cửa sổ nhìn ra phố ạ?' },
+    { sp:'Agente', es:'No, da a un patio. Es más tranquilo.', vi:'Không, nhìn ra sân trong. Yên tĩnh hơn.' }
+  ] },
+
+{ level:'a1', no:7, es:'Hacer la compra', vi:'Đi chợ và mua sắm', skill:'Giao tiếp',
+  grammar:[
+    { form:'Số lượng: un kilo de, mucho', vi:'un kilo de tomates · un poco de azúcar · demasiada sal. Sau từ chỉ lượng thì dùng de trần.',
+      note:'Nhưng mucho, poco, demasiado là TÍNH TỪ và phải hợp giống số: mucha agua, muchos libros.',
+      ex:{ es:'Quiero medio kilo de queso.', vi:'Cho tôi nửa cân phô mai.' } },
+    { form:'muy và mucho', vi:'muy + tính từ hoặc trạng từ: muy caro, muy rápido. mucho + động từ hoặc danh từ: cuesta mucho, mucha gente.',
+      note:'Nói «muy gusta» hay «mucho caro» đều sai. Đây là lỗi phổ biến nhất của người mới học.',
+      ex:{ es:'Es muy caro y hay mucha gente.', vi:'Đắt lắm mà lại đông người.' } },
+    { form:'So sánh: más / menos … que', vi:'más caro que · menos caro que · tan caro como (đắt bằng).',
+      note:'Bốn từ có dạng so sánh riêng: bueno → mejor, malo → peor, grande → mayor, pequeño → menor.',
+      ex:{ es:'El mercado es más barato que el supermercado.', vi:'Chợ rẻ hơn siêu thị.' } },
+    { form:'Động từ querer (e → ie)', vi:'quiero · quieres · quiere · queremos · queréis · quieren.',
+      note:'Ngôi nosotros và vosotros giữ nguyên chữ e. Cùng nhóm: poder (puedo), empezar (empiezo), preferir (prefiero).',
+      ex:{ es:'¿Qué quieres tomar?', vi:'Cậu muốn uống gì?' } }
+  ],
+  vocab:[
+    { es:'supermercado', ipa:'su.peɾ.meɾ.ˈka.ðo', vi:'siêu thị', pos:'danh từ', g:'m' },
+    { es:'panadería', ipa:'pa.na.ðe.ˈɾi.a', vi:'tiệm bánh mì', pos:'danh từ', g:'f' },
+    { es:'carnicería', ipa:'kaɾ.ni.θe.ˈɾi.a', vi:'hàng thịt', pos:'danh từ', g:'f' },
+    { es:'frutería', ipa:'fɾu.te.ˈɾi.a', vi:'hàng hoa quả', pos:'danh từ', g:'f' },
+    { es:'caja', ipa:'ˈka.xa', vi:'quầy thu ngân; cái hộp', pos:'danh từ', g:'f' },
+    { es:'precio', ipa:'ˈpɾe.θjo', vi:'giá', pos:'danh từ', g:'m' },
+    { es:'kilo', ipa:'ˈki.lo', vi:'cân, ki-lô', pos:'danh từ', g:'m' },
+    { es:'manzana', ipa:'man.ˈθa.na', vi:'quả táo; ô phố', pos:'danh từ', g:'f' },
+    { es:'tomate', ipa:'to.ˈma.te', vi:'quả cà chua', pos:'danh từ', g:'m', note:'Từ này gốc Nahuatl ở Mexico, người Tây Ban Nha mang về rồi cả thế giới dùng theo.' },
+    { es:'aceite', ipa:'a.ˈθei̯.te', vi:'dầu ăn', pos:'danh từ', g:'m', note:'Gốc Ả Rập, như rất nhiều từ tiếng Tây Ban Nha bắt đầu bằng a-.' },
+    { es:'carne', ipa:'ˈkaɾ.ne', vi:'thịt', pos:'danh từ', g:'f' },
+    { es:'pescado', ipa:'pes.ˈka.ðo', vi:'cá (để ăn)', pos:'danh từ', g:'m', note:'Cá còn bơi là el pez; lên đĩa rồi mới là el pescado.' },
+    { es:'verdura', ipa:'beɾ.ˈðu.ɾa', vi:'rau', pos:'danh từ', g:'f' },
+    { es:'fruta', ipa:'ˈfɾu.ta', vi:'trái cây', pos:'danh từ', g:'f' },
+    { es:'bolsa', ipa:'ˈbol.sa', vi:'cái túi', pos:'danh từ', g:'f' },
+    { es:'gratis', ipa:'ˈɡɾa.tis', vi:'miễn phí', pos:'tính từ', g:'', note:'Không bao giờ đổi theo giống số: entradas gratis.' },
+    { es:'fresco', ipa:'ˈfɾes.ko', vi:'tươi; mát', pos:'tính từ', g:'' },
+    { es:'barato', ipa:'ba.ˈɾa.to', vi:'rẻ', pos:'tính từ', g:'' },
+    { es:'costar', ipa:'kos.ˈtaɾ', vi:'có giá; khó nhọc', pos:'động từ', g:'', note:'Đổi gốc o → ue: cuesta. «Me cuesta hablar» là tôi thấy khó nói.' },
+    { es:'pagar', ipa:'pa.ˈɣaɾ', vi:'trả tiền', pos:'động từ', g:'' }
+  ],
+  colloc:[
+    { p:'¿Cuánto cuesta?', vi:'Bao nhiêu tiền? — hỏi giá một món.', ex:'¿Cuánto cuesta el kilo de naranjas?' },
+    { p:'¿Algo más?', vi:'Anh chị dùng thêm gì nữa ạ?', ex:'— ¿Algo más? — No, nada más, gracias.' },
+    { p:'pagar con tarjeta', vi:'trả bằng thẻ. Tiền mặt là «en efectivo».', ex:'¿Puedo pagar con tarjeta?' }
+  ],
+  dialogue:[
+    { sp:'Vendedor', es:'¡Buenos días! ¿Qué le pongo?', vi:'Chào anh! Anh lấy gì ạ?' },
+    { sp:'Quan', es:'Un kilo de manzanas, por favor.', vi:'Cho tôi một cân táo ạ.' },
+    { sp:'Vendedor', es:'Aquí tiene. ¿Algo más?', vi:'Của anh đây. Thêm gì nữa không ạ?' },
+    { sp:'Quan', es:'Un poco de queso. ¿Cuánto cuesta ése?', vi:'Một ít phô mai. Loại kia bao nhiêu ạ?' },
+    { sp:'Vendedor', es:'Veinte euros el kilo. Está muy bueno.', vi:'Hai mươi euro một cân. Ngon lắm.' },
+    { sp:'Quan', es:'Entonces doscientos gramos.', vi:'Vậy cho tôi hai trăm gam.' },
+    { sp:'Vendedor', es:'Son ocho euros con cincuenta en total.', vi:'Tất cả là tám euro năm mươi.' },
+    { sp:'Quan', es:'¿Puedo pagar con tarjeta?', vi:'Tôi trả bằng thẻ được không ạ?' }
+  ] },
+
+{ level:'a1', no:8, es:'Un día normal', vi:'Một ngày bình thường', skill:'Từ vựng',
+  grammar:[
+    { form:'Động từ phản thân', vi:'levantarse, ducharse, vestirse, acostarse. Chia: me levanto · te levantas · se levanta · nos levantamos · os levantáis · se levantan.',
+      note:'Đại từ đứng trước động từ chia, nhưng DÍNH VÀO SAU động từ nguyên thể: voy a levantarme.',
+      ex:{ es:'Me levanto a las seis y media.', vi:'Tôi dậy lúc sáu rưỡi.' } },
+    { form:'Động từ đổi gốc o → ue', vi:'dormir → duermo · poder → puedo · volver → vuelvo · acostarse → me acuesto.',
+      note:'Ngôi nosotros và vosotros giữ nguyên: dormimos, volvemos. Đây là chỗ hay sai nhất.',
+      ex:{ es:'Duermo ocho horas pero dormimos poco en época de exámenes.', vi:'Tôi ngủ tám tiếng nhưng mùa thi thì chúng tôi ngủ ít.' } },
+    { form:'Trạng từ tần suất', vi:'siempre (luôn) · a menudo (thường) · a veces (thỉnh thoảng) · casi nunca (hầu như không) · nunca (không bao giờ).',
+      note:'nunca đứng đầu câu thì không cần no: «Nunca como carne». Đứng sau động từ thì phải có no: «No como carne nunca».',
+      ex:{ es:'A veces desayuno en la cafetería.', vi:'Thỉnh thoảng tôi ăn sáng ở quán.' } },
+    { form:'Động từ ir và hacer', vi:'ir: voy · vas · va · vamos · vais · van. hacer: hago · haces · hace · hacemos · hacéis · hacen.',
+      note:'Ngôi yo của hacer là hago, có chữ g xen vào. Cùng kiểu: tener → tengo, poner → pongo, salir → salgo.',
+      ex:{ es:'Por la tarde hago la compra y voy al gimnasio.', vi:'Buổi chiều tôi đi chợ rồi tới phòng tập.' } }
+  ],
+  vocab:[
+    { es:'madrugada', ipa:'ma.ðɾu.ˈɣa.ða', vi:'rạng sáng, lúc tờ mờ', pos:'danh từ', g:'f', note:'Từ nửa đêm tới khoảng sáu giờ sáng. Người Tây Ban Nha ra về lúc «las tres de la madrugada» là chuyện thường.' },
+    { es:'tarde', ipa:'ˈtaɾ.ðe', vi:'buổi chiều; muộn', pos:'danh từ', g:'f' },
+    { es:'horario', ipa:'o.ˈɾa.ɾjo', vi:'thời khoá biểu, giờ giấc', pos:'danh từ', g:'m' },
+    { es:'despertador', ipa:'des.peɾ.ta.ˈðoɾ', vi:'đồng hồ báo thức', pos:'danh từ', g:'m' },
+    { es:'ducha', ipa:'ˈdu.tʃa', vi:'vòi sen, việc tắm', pos:'danh từ', g:'f' },
+    { es:'desayuno', ipa:'de.sa.ˈʝu.no', vi:'bữa sáng', pos:'danh từ', g:'m' },
+    { es:'comida', ipa:'ko.ˈmi.ða', vi:'bữa trưa; đồ ăn', pos:'danh từ', g:'f', note:'Ở Tây Ban Nha la comida là bữa TRƯA, không phải bữa tối. Bữa tối là la cena.' },
+    { es:'cena', ipa:'ˈθe.na', vi:'bữa tối', pos:'danh từ', g:'f' },
+    { es:'siesta', ipa:'ˈsjes.ta', vi:'giấc nghỉ trưa', pos:'danh từ', g:'f' },
+    { es:'trabajo', ipa:'tɾa.ˈβa.xo', vi:'công việc', pos:'danh từ', g:'m' },
+    { es:'gimnasio', ipa:'xim.ˈna.sjo', vi:'phòng tập', pos:'danh từ', g:'m' },
+    { es:'levantarse', ipa:'le.βan.ˈtaɾ.se', vi:'thức dậy', pos:'động từ', g:'' },
+    { es:'acostarse', ipa:'a.kos.ˈtaɾ.se', vi:'đi ngủ', pos:'động từ', g:'' },
+    { es:'ducharse', ipa:'du.ˈtʃaɾ.se', vi:'tắm', pos:'động từ', g:'' },
+    { es:'empezar', ipa:'em.pe.ˈθaɾ', vi:'bắt đầu', pos:'động từ', g:'' },
+    { es:'terminar', ipa:'teɾ.mi.ˈnaɾ', vi:'kết thúc', pos:'động từ', g:'' },
+    { es:'volver', ipa:'bol.ˈβeɾ', vi:'trở về', pos:'động từ', g:'' },
+    { es:'siempre', ipa:'ˈsjem.pɾe', vi:'luôn luôn', pos:'trạng từ', g:'' },
+    { es:'a veces', ipa:'a ˈbe.θes', vi:'thỉnh thoảng', pos:'trạng từ', g:'' },
+    { es:'nunca', ipa:'ˈnuŋ.ka', vi:'không bao giờ', pos:'trạng từ', g:'' }
+  ],
+  colloc:[
+    { p:'temprano', vi:'sớm. Ngược lại là «tarde».', ex:'Me levanto temprano entre semana.' },
+    { p:'llegar tarde', vi:'đến muộn. Đúng giờ là «llegar a tiempo».', ex:'Perdona, he llegado tarde.' },
+    { p:'echarse la siesta', vi:'ngủ trưa một giấc.', ex:'Los domingos me echo la siesta.' }
+  ],
+  dialogue:[
+    { sp:'Lucía', es:'¿A qué hora te levantas tú?', vi:'Cậu dậy lúc mấy giờ?' },
+    { sp:'Quan', es:'A las seis y media entre semana.', vi:'Sáu rưỡi, ngày thường.' },
+    { sp:'Lucía', es:'¿Tan temprano? Yo nunca antes de las ocho.', vi:'Sớm thế? Tớ thì không bao giờ trước tám giờ.' },
+    { sp:'Quan', es:'Mi clase empieza a las ocho y cuarto.', vi:'Lớp tớ bắt đầu lúc tám giờ mười lăm.' },
+    { sp:'Lucía', es:'¿Y a qué hora vuelves?', vi:'Thế mấy giờ cậu về?' },
+    { sp:'Quan', es:'Sobre las seis. Luego hago la cena.', vi:'Khoảng sáu giờ. Về rồi tớ nấu bữa tối.' },
+    { sp:'Lucía', es:'¿Te acuestas pronto entonces?', vi:'Vậy cậu ngủ sớm nhỉ?' },
+    { sp:'Quan', es:'Sobre las once. Los domingos me echo la siesta.', vi:'Khoảng mười một giờ. Chủ nhật thì tớ ngủ trưa.' }
+  ] },
+
+{ level:'a1', no:9, es:'El tiempo y las estaciones', vi:'Thời tiết và bốn mùa', skill:'Từ vựng',
+  grammar:[
+    { form:'Thời tiết với hacer', vi:'hace calor · hace frío · hace sol · hace viento · hace buen tiempo.',
+      note:'Chữ hace ở đây không có chủ ngữ thật. Đừng dịch là «nó làm».',
+      ex:{ es:'Hoy hace frío y viento.', vi:'Hôm nay trời lạnh và có gió.' } },
+    { form:'Mưa và tuyết có động từ riêng', vi:'llover → llueve (trời mưa) · nevar → nieva (trời có tuyết).',
+      note:'Cả hai đổi gốc và chỉ dùng ở ngôi thứ ba số ít. Không nói «hace lluvia».',
+      ex:{ es:'Llueve desde esta mañana.', vi:'Trời mưa từ sáng.' } },
+    { form:'Mùa và tháng', vi:'la primavera · el verano · el otoño · el invierno. Tháng: enero … diciembre, viết thường.',
+      note:'Mùa đi với en: en verano, en invierno. Tháng cũng vậy: en marzo.',
+      ex:{ es:'En verano hace mucho calor aquí.', vi:'Mùa hè ở đây rất nóng.' } },
+    { form:'Ngày trong tuần', vi:'lunes, martes, miércoles, jueves, viernes, sábado, domingo — viết thường.',
+      note:'«el lunes» là thứ Hai này; «los lunes» là thứ Hai nào cũng thế. Năm ngày đầu có dạng số nhiều giống hệt số ít.',
+      ex:{ es:'Los lunes tengo clase; el lunes voy a Madrid.', vi:'Thứ Hai nào tôi cũng có học; thứ Hai này tôi đi Madrid.' } }
+  ],
+  vocab:[
+    { es:'tiempo', ipa:'ˈtjem.po', vi:'thời tiết; thời gian', pos:'danh từ', g:'m', note:'Hỏi thời tiết: «¿Qué tiempo hace?». Nói không có thời gian: «No tengo tiempo».' },
+    { es:'temporada', ipa:'tem.po.ˈɾa.ða', vi:'mùa vụ, thời kỳ', pos:'danh từ', g:'f', note:'Khác estación (mùa trong năm): temporada là mùa của một việc — temporada alta là mùa cao điểm du lịch.' },
+    { es:'primavera', ipa:'pɾi.ma.ˈβe.ɾa', vi:'mùa xuân', pos:'danh từ', g:'f' },
+    { es:'verano', ipa:'be.ˈɾa.no', vi:'mùa hè', pos:'danh từ', g:'m' },
+    { es:'otoño', ipa:'o.ˈto.ɲo', vi:'mùa thu', pos:'danh từ', g:'m' },
+    { es:'invierno', ipa:'im.ˈbjeɾ.no', vi:'mùa đông', pos:'danh từ', g:'m' },
+    { es:'lluvia', ipa:'ˈʎu.βja', vi:'mưa', pos:'danh từ', g:'f' },
+    { es:'nieve', ipa:'ˈnje.βe', vi:'tuyết', pos:'danh từ', g:'f' },
+    { es:'viento', ipa:'ˈbjen.to', vi:'gió', pos:'danh từ', g:'m' },
+    { es:'sol', ipa:'sol', vi:'mặt trời', pos:'danh từ', g:'m' },
+    { es:'nube', ipa:'ˈnu.βe', vi:'đám mây', pos:'danh từ', g:'f' },
+    { es:'cielo', ipa:'ˈθje.lo', vi:'bầu trời', pos:'danh từ', g:'m' },
+    { es:'paraguas', ipa:'pa.ˈɾa.ɣwas', vi:'cái dù', pos:'danh từ', g:'m', note:'Luôn có -s ở cuối kể cả số ít: el paraguas, los paraguas.' },
+    { es:'grado', ipa:'ˈɡɾa.ðo', vi:'độ (nhiệt độ)', pos:'danh từ', g:'m' },
+    { es:'tormenta', ipa:'toɾ.ˈmen.ta', vi:'cơn giông', pos:'danh từ', g:'f' },
+    { es:'niebla', ipa:'ˈnje.βla', vi:'sương mù', pos:'danh từ', g:'f' },
+    { es:'caluroso', ipa:'ka.lu.ˈɾo.so', vi:'nóng bức', pos:'tính từ', g:'' },
+    { es:'húmedo', ipa:'ˈu.me.ðo', vi:'ẩm', pos:'tính từ', g:'' },
+    { es:'llover', ipa:'ʎo.ˈβeɾ', vi:'mưa', pos:'động từ', g:'' },
+    { es:'nevar', ipa:'ne.ˈβaɾ', vi:'có tuyết', pos:'động từ', g:'' }
+  ],
+  colloc:[
+    { p:'¿Qué tiempo hace?', vi:'Thời tiết thế nào? — câu hỏi chuẩn.', ex:'— ¿Qué tiempo hace? — Está nublado.' },
+    { p:'hace un tiempo de perros', vi:'thời tiết chó má — trời xấu kinh khủng.', ex:'No salgas, hace un tiempo de perros.' },
+    { p:'estar nublado', vi:'trời nhiều mây. Dùng estar chứ không dùng hacer.', ex:'Hoy está nublado todo el día.' }
+  ],
+  dialogue:[
+    { sp:'Lucía', es:'¿Sales este fin de semana?', vi:'Cuối tuần cậu có đi đâu không?' },
+    { sp:'Quan', es:'Depende del tiempo. ¿Qué dan para el sábado?', vi:'Còn tuỳ thời tiết. Thứ Bảy dự báo thế nào?' },
+    { sp:'Lucía', es:'Lluvia por la mañana y sol por la tarde.', vi:'Sáng mưa, chiều nắng.' },
+    { sp:'Quan', es:'¿Cuántos grados hace?', vi:'Bao nhiêu độ vậy?' },
+    { sp:'Lucía', es:'Doce por la mañana, dieciocho por la tarde.', vi:'Sáng mười hai, chiều mười tám.' },
+    { sp:'Quan', es:'No está mal para marzo.', vi:'Vậy là không tệ, so với tháng Ba.' },
+    { sp:'Lucía', es:'No. En invierno aquí llega a cero.', vi:'Không tệ. Mùa đông ở đây xuống tới không độ.' },
+    { sp:'Quan', es:'Pues me llevo el paraguas igualmente.', vi:'Thế thì tớ vẫn cứ mang dù.' }
+  ] },
+
+{ level:'a1', no:10, es:'La ropa y los colores', vi:'Quần áo và màu sắc', skill:'Từ vựng',
+  grammar:[
+    { form:'Tính từ chỉ định: este / ese / aquel', vi:'este (này, gần người nói) · ese (đó, gần người nghe) · aquel (kia, xa cả hai).',
+      note:'Tiếng Tây Ban Nha có BA bậc khoảng cách, tiếng Anh và tiếng Pháp chỉ có hai. Hợp giống số: esta falda, estos zapatos.',
+      ex:{ es:'Este jersey es más caro que aquel.', vi:'Cái áo len này đắt hơn cái kia.' } },
+    { form:'Màu sắc hợp giống và số', vi:'un jersey rojo → una falda roja · un pantalón negro → unas botas negras.',
+      note:'Màu kết thúc bằng -e hoặc phụ âm thì không đổi theo giống: verde, azul, gris, marrón — chỉ thêm -s ở số nhiều.',
+      ex:{ es:'Una camisa blanca y unos zapatos negros.', vi:'Một cái áo sơ mi trắng và một đôi giày đen.' } },
+    { form:'quedar bien — hợp với ai', vi:'Cấu trúc giống gustar: «Te queda bien» nghĩa là cái đó hợp với bạn.',
+      note:'Chủ ngữ ngữ pháp là món đồ, không phải người: «Estos zapatos te quedan bien» — động từ ở số nhiều.',
+      ex:{ es:'Ese color te queda muy bien.', vi:'Màu đó hợp với cậu lắm.' } },
+    { form:'Động từ ponerse và llevar', vi:'ponerse là mặc vào (hành động): me pongo el abrigo. llevar là đang mặc (trạng thái): lleva una camisa azul.',
+      note:'ponerse có ngôi yo bất quy tắc: me pongo. Đừng nhầm với «poner» trần là đặt, để.',
+      ex:{ es:'Hace frío: ponte el abrigo.', vi:'Trời lạnh đấy: mặc áo khoác vào đi.' } }
+  ],
+  vocab:[
+    { es:'ropa', ipa:'ˈro.pa', vi:'quần áo', pos:'danh từ', g:'f', note:'Luôn số ít dù chỉ nhiều món: «mucha ropa», không nói «muchas ropas».' },
+    { es:'camisa', ipa:'ka.ˈmi.sa', vi:'áo sơ mi', pos:'danh từ', g:'f' },
+    { es:'camiseta', ipa:'ka.mi.ˈse.ta', vi:'áo phông', pos:'danh từ', g:'f' },
+    { es:'jersey', ipa:'xeɾ.ˈsei', vi:'áo len', pos:'danh từ', g:'m' },
+    { es:'abrigo', ipa:'a.ˈβɾi.ɣo', vi:'áo khoác dày', pos:'danh từ', g:'m' },
+    { es:'pantalones', ipa:'pan.ta.ˈlo.nes', vi:'cái quần', pos:'danh từ số nhiều', g:'m', note:'Luôn dùng số nhiều, như tiếng Anh. Khác tiếng Pháp vốn dùng số ít.' },
+    { es:'falda', ipa:'ˈfal.da', vi:'cái váy', pos:'danh từ', g:'f' },
+    { es:'vestido', ipa:'bes.ˈti.ðo', vi:'áo đầm', pos:'danh từ', g:'m' },
+    { es:'zapato', ipa:'θa.ˈpa.to', vi:'cái giày', pos:'danh từ', g:'m' },
+    { es:'calcetín', ipa:'kal.θe.ˈtin', vi:'cái tất', pos:'danh từ', g:'m' },
+    { es:'talla', ipa:'ˈta.ʎa', vi:'cỡ quần áo', pos:'danh từ', g:'f', note:'Cỡ giày thì gọi riêng là «el número».' },
+    { es:'color', ipa:'ko.ˈloɾ', vi:'màu sắc', pos:'danh từ', g:'m' },
+    { es:'blanco', ipa:'ˈblaŋ.ko', vi:'trắng', pos:'tính từ', g:'' },
+    { es:'negro', ipa:'ˈne.ɣɾo', vi:'đen', pos:'tính từ', g:'' },
+    { es:'rojo', ipa:'ˈro.xo', vi:'đỏ', pos:'tính từ', g:'' },
+    { es:'azul', ipa:'a.ˈθul', vi:'xanh lam', pos:'tính từ', g:'' },
+    { es:'verde', ipa:'ˈbeɾ.ðe', vi:'xanh lá', pos:'tính từ', g:'' },
+    { es:'marrón', ipa:'ma.ˈron', vi:'nâu', pos:'tính từ', g:'' },
+    { es:'llevar', ipa:'ʎe.ˈβaɾ', vi:'mặc; mang theo', pos:'động từ', g:'' },
+    { es:'probarse', ipa:'pɾo.ˈβaɾ.se', vi:'thử (quần áo)', pos:'động từ', g:'', note:'Đổi gốc o → ue: me pruebo. Không có «se» thì probar là nếm thử đồ ăn.' }
+  ],
+  colloc:[
+    { p:'el probador', vi:'phòng thử đồ.', ex:'El probador está al fondo a la derecha.' },
+    { p:'¿Qué talla usa?', vi:'Anh chị mặc cỡ nào ạ?', ex:'— ¿Qué talla usa? — La M, creo.' },
+    { p:'me queda grande', vi:'cái này rộng quá so với tôi. Chật là «me queda pequeño».', ex:'Este abrigo me queda grande.' }
+  ],
+  dialogue:[
+    { sp:'Dependienta', es:'Hola, ¿le ayudo en algo?', vi:'Chào anh, tôi giúp được gì ạ?' },
+    { sp:'Quan', es:'Busco un abrigo para el invierno.', vi:'Tôi tìm một cái áo khoác mùa đông.' },
+    { sp:'Dependienta', es:'¿Qué talla usa?', vi:'Anh mặc cỡ nào ạ?' },
+    { sp:'Quan', es:'La M, creo. ¿Puedo probarme éste?', vi:'Chắc là M. Tôi thử cái này được không ạ?' },
+    { sp:'Dependienta', es:'Claro. El probador está al fondo.', vi:'Được chứ. Phòng thử ở phía trong.' },
+    { sp:'Quan', es:'Me queda un poco grande. ¿Lo tiene en negro?', vi:'Hơi rộng một chút. Chị có màu đen không?' },
+    { sp:'Dependienta', es:'En negro sólo en L. Pero este azul le queda muy bien.', vi:'Màu đen chỉ còn cỡ L. Nhưng màu xanh này hợp với anh lắm.' },
+    { sp:'Quan', es:'Vale, me lo llevo.', vi:'Vâng, tôi lấy cái này.' }
+  ] },
+
+{ level:'a1', no:11, es:'En el médico', vi:'Đi khám bệnh', skill:'Giao tiếp',
+  grammar:[
+    { form:'doler — cấu trúc ngược', vi:'me duele la cabeza · te duelen los pies. Chủ ngữ ngữ pháp là BỘ PHẬN đau, không phải người.',
+      note:'Nên động từ theo số của bộ phận: duele (một chỗ), duelen (nhiều chỗ). Cùng nhóm với gustar.',
+      ex:{ es:'Me duele la garganta desde ayer.', vi:'Tôi đau họng từ hôm qua.' } },
+    { form:'Mệnh lệnh thức', vi:'Ngôi tú: habla, come, bebe. Ngôi usted: hable, coma, beba — đảo nguyên âm đuôi.',
+      note:'Phủ định của ngôi tú lại dùng dạng usted có thêm -s: no hables, no comas. Đây là chỗ rất dễ sai.',
+      ex:{ es:'Tome esta pastilla dos veces al día.', vi:'Uống viên này ngày hai lần.' } },
+    { form:'desde hace — đã bao lâu rồi', vi:'desde hace tres días (đã ba ngày) · desde el lunes (từ thứ Hai).',
+      note:'Câu dùng desde hace thì động từ ở HIỆN TẠI: «vivo aquí desde hace un año», không dùng quá khứ.',
+      ex:{ es:'Toso desde hace una semana.', vi:'Tôi ho đã một tuần rồi.' } },
+    { form:'tener que và hay que', vi:'tener que + nguyên thể là ai đó phải làm: tengo que descansar. hay que là nói chung ai cũng phải: hay que beber agua.',
+      note:'hay que không có chủ ngữ, dùng cho lời khuyên chung chung.',
+      ex:{ es:'Tiene que descansar dos días.', vi:'Anh phải nghỉ hai ngày.' } }
+  ],
+  vocab:[
+    { es:'médico', ipa:'ˈme.ði.ko', vi:'bác sĩ', pos:'danh từ', g:'m' },
+    { es:'enfermera', ipa:'em.feɾ.ˈme.ɾa', vi:'y tá (nữ)', pos:'danh từ', g:'f' },
+    { es:'jarabe', ipa:'xa.ˈɾa.βe', vi:'thuốc si-rô', pos:'danh từ', g:'m' },
+    { es:'receta', ipa:'re.ˈθe.ta', vi:'đơn thuốc; công thức nấu ăn', pos:'danh từ', g:'f', note:'Một từ hai nghĩa: bác sĩ kê receta, đầu bếp cũng có receta.' },
+    { es:'pastilla', ipa:'pas.ˈti.ʎa', vi:'viên thuốc', pos:'danh từ', g:'f' },
+    { es:'cabeza', ipa:'ka.ˈβe.θa', vi:'cái đầu', pos:'danh từ', g:'f' },
+    { es:'estómago', ipa:'es.ˈto.ma.ɣo', vi:'cái dạ dày, bụng', pos:'danh từ', g:'m' },
+    { es:'garganta', ipa:'ɡaɾ.ˈɣan.ta', vi:'cổ họng', pos:'danh từ', g:'f' },
+    { es:'muela', ipa:'ˈmwe.la', vi:'cái răng hàm', pos:'danh từ', g:'f', note:'diente là răng cửa, muela là răng hàm. Đau răng hàm thì nói «me duele una muela».' },
+    { es:'espalda', ipa:'es.ˈpal.da', vi:'cái lưng', pos:'danh từ', g:'f' },
+    { es:'fiebre', ipa:'ˈfje.βɾe', vi:'cơn sốt', pos:'danh từ', g:'f' },
+    { es:'resfriado', ipa:'res.ˈfɾja.ðo', vi:'bệnh cảm lạnh', pos:'danh từ', g:'m' },
+    { es:'salud', ipa:'sa.ˈluð', vi:'sức khoẻ', pos:'danh từ', g:'f', note:'Cũng là câu chúc khi nâng cốc, và câu nói khi ai đó hắt hơi.' },
+    { es:'enfermo', ipa:'em.ˈfeɾ.mo', vi:'ốm', pos:'tính từ', g:'' },
+    { es:'cansado', ipa:'kan.ˈsa.ðo', vi:'mệt', pos:'tính từ', g:'' },
+    { es:'toser', ipa:'to.ˈseɾ', vi:'ho', pos:'động từ', g:'' },
+    { es:'descansar', ipa:'des.kan.ˈsaɾ', vi:'nghỉ ngơi', pos:'động từ', g:'' },
+    { es:'curarse', ipa:'ku.ˈɾaɾ.se', vi:'khỏi bệnh', pos:'động từ', g:'' },
+    { es:'doler', ipa:'do.ˈleɾ', vi:'đau', pos:'động từ', g:'' },
+    { es:'recetar', ipa:'re.θe.ˈtaɾ', vi:'kê đơn', pos:'động từ', g:'' }
+  ],
+  colloc:[
+    { p:'pedir cita', vi:'đặt lịch hẹn khám.', ex:'Quiero pedir cita con el doctor Ruiz.' },
+    { p:'No es nada grave.', vi:'Không có gì nghiêm trọng đâu.', ex:'Tranquilo, no es nada grave.' },
+    { p:'ponerse bueno', vi:'khỏi bệnh, khoẻ lại. Câu chúc: «¡Que te pongas bueno!»', ex:'Con estas pastillas te pondrás bueno enseguida.' }
+  ],
+  dialogue:[
+    { sp:'Médica', es:'Buenos días. ¿Qué le pasa?', vi:'Chào anh. Anh thấy thế nào ạ?' },
+    { sp:'Quan', es:'Me duele la garganta desde hace tres días.', vi:'Tôi đau họng ba hôm nay rồi ạ.' },
+    { sp:'Médica', es:'¿Tiene fiebre?', vi:'Anh có sốt không?' },
+    { sp:'Quan', es:'Un poco, treinta y ocho esta mañana. Y toso por la noche.', vi:'Hơi sốt, sáng nay ba mươi tám độ. Ban đêm thì tôi ho.' },
+    { sp:'Médica', es:'Abra la boca… No es nada grave, es un resfriado fuerte.', vi:'Há miệng ra nào… Không nặng đâu, cảm lạnh nặng thôi.' },
+    { sp:'Quan', es:'¿Puedo ir a clase mañana?', vi:'Mai tôi đi học được không ạ?' },
+    { sp:'Médica', es:'Tiene que descansar dos días. Y beba mucha agua.', vi:'Anh phải nghỉ hai ngày. Với lại uống nhiều nước vào.' },
+    { sp:'Quan', es:'De acuerdo. Muchas gracias, doctora.', vi:'Vâng ạ. Cảm ơn bác sĩ nhiều.' }
+  ] },
+
+{ level:'a1', no:12, es:'¿Qué has hecho hoy?', vi:'Kể lại chuyện hôm nay', skill:'Ngữ pháp',
+  grammar:[
+    { form:'Pretérito perfecto: haber + quá khứ phân từ', vi:'he comido · has ido · ha hecho · hemos visto · habéis dicho · han vuelto.',
+      note:'Luôn dùng haber, không bao giờ dùng ser hay estar. Quá khứ phân từ KHÔNG đổi theo giống ở thời này.',
+      ex:{ es:'Hoy he comido en casa.', vi:'Hôm nay tôi ăn ở nhà.' } },
+    { form:'Quá khứ phân từ bất quy tắc', vi:'hacer → hecho · ver → visto · decir → dicho · escribir → escrito · volver → vuelto · abrir → abierto · poner → puesto · romper → roto.',
+      note:'Tám từ này gom lại học một lần là xong phần lớn câu kể chuyện hằng ngày.',
+      ex:{ es:'He visto una película y he escrito un correo.', vi:'Tôi xem một bộ phim và viết một cái thư.' } },
+    { form:'Khi nào dùng pretérito perfecto', vi:'Dùng cho khoảng thời gian CHƯA khép lại: hoy, esta semana, este año, últimamente.',
+      note:'Nếu khoảng thời gian đã khép (ayer, la semana pasada) thì dùng thì khác — pretérito indefinido, học ở A2.',
+      ex:{ es:'Esta semana he trabajado mucho.', vi:'Tuần này tôi làm việc nhiều.' } },
+    { form:'ya và todavía no', vi:'ya là đã… rồi; todavía no là vẫn chưa.',
+      note:'Cả hai thường đi với pretérito perfecto: «¿Ya has comido?» — «Todavía no he comido.»',
+      ex:{ es:'Ya he terminado, pero todavía no he enviado el correo.', vi:'Tôi xong rồi, nhưng vẫn chưa gửi thư.' } }
+  ],
+  vocab:[
+    { es:'hoy', ipa:'oi', vi:'hôm nay', pos:'trạng từ', g:'' },
+    { es:'ayer', ipa:'a.ˈʝeɾ', vi:'hôm qua', pos:'trạng từ', g:'' },
+    { es:'anteayer', ipa:'an.te.a.ˈʝeɾ', vi:'hôm kia', pos:'trạng từ', g:'' },
+    { es:'ya', ipa:'ʝa', vi:'đã… rồi', pos:'trạng từ', g:'' },
+    { es:'todavía', ipa:'to.ða.ˈβi.a', vi:'vẫn, còn', pos:'trạng từ', g:'' },
+    { es:'luego', ipa:'ˈlwe.ɣo', vi:'sau đó', pos:'trạng từ', g:'' },
+    { es:'por fin', ipa:'poɾ fin', vi:'cuối cùng thì', pos:'trạng từ', g:'' },
+    { es:'película', ipa:'pe.ˈli.ku.la', vi:'bộ phim', pos:'danh từ', g:'f' },
+    { es:'concierto', ipa:'kon.ˈθjeɾ.to', vi:'buổi hoà nhạc', pos:'danh từ', g:'m' },
+    { es:'obra de teatro', ipa:'ˈo.βɾa de te.ˈa.tɾo', vi:'vở kịch', pos:'danh từ', g:'f' },
+    { es:'exposición', ipa:'eks.po.si.ˈθjon', vi:'cuộc triển lãm', pos:'danh từ', g:'f' },
+    { es:'entrada', ipa:'en.ˈtɾa.ða', vi:'vé vào cửa; lối vào; món khai vị', pos:'danh từ', g:'f' },
+    { es:'ver', ipa:'beɾ', vi:'nhìn, xem', pos:'động từ', g:'' },
+    { es:'decir', ipa:'de.ˈθiɾ', vi:'nói', pos:'động từ', g:'' },
+    { es:'escribir', ipa:'es.kɾi.ˈβiɾ', vi:'viết', pos:'động từ', g:'' },
+    { es:'leer', ipa:'le.ˈeɾ', vi:'đọc', pos:'động từ', g:'' },
+    { es:'salir', ipa:'sa.ˈliɾ', vi:'ra ngoài, đi chơi', pos:'động từ', g:'', note:'«Salir con alguien» còn nghĩa là hẹn hò với ai đó.' },
+    { es:'llegar', ipa:'ʎe.ˈɣaɾ', vi:'đến nơi', pos:'động từ', g:'' },
+    { es:'quedarse', ipa:'ke.ˈðaɾ.se', vi:'ở lại', pos:'động từ', g:'' },
+    { es:'olvidar', ipa:'ol.βi.ˈðaɾ', vi:'quên', pos:'động từ', g:'' }
+  ],
+  colloc:[
+    { p:'¿Qué has hecho?', vi:'Cậu đã làm gì? — câu mở đầu kể chuyện.', ex:'¿Qué has hecho este fin de semana?' },
+    { p:'me lo he pasado bien', vi:'tớ chơi vui lắm.', ex:'Me lo he pasado muy bien en el concierto.' },
+    { p:'primero … luego … por fin', vi:'trước hết… sau đó… cuối cùng — bộ khung kể chuyện.', ex:'Primero he comido, luego he estudiado y por fin he dormido.' }
+  ],
+  dialogue:[
+    { sp:'Lucía', es:'Bueno, ¿qué has hecho hoy?', vi:'Thế hôm nay cậu làm gì?' },
+    { sp:'Quan', es:'He ido al museo con Marc.', vi:'Tớ đi bảo tàng với Marc.' },
+    { sp:'Lucía', es:'¿Ah, sí? ¿Os habéis quedado mucho rato?', vi:'Thế à? Hai đứa ở đó lâu không?' },
+    { sp:'Quan', es:'Tres horas. Luego hemos tomado un café.', vi:'Ba tiếng. Sau đó bọn tớ đi uống cà phê.' },
+    { sp:'Lucía', es:'¿Has visto la exposición sobre Hanói?', vi:'Cậu có xem triển lãm về Hà Nội không?' },
+    { sp:'Quan', es:'No, todavía no la he visto. Empieza el sábado.', vi:'Chưa, tớ chưa xem. Thứ Bảy mới mở.' },
+    { sp:'Lucía', es:'¿Vamos juntos entonces?', vi:'Thế đi cùng nhau nhé?' },
+    { sp:'Quan', es:'Vale. Ya he apuntado la fecha.', vi:'Ừ. Tớ ghi ngày rồi.' }
+  ] },
+
+{ level:'a1', no:13, es:'Los transportes', vi:'Tàu xe và đi lại', skill:'Giao tiếp',
+  grammar:[
+    { form:'Tương lai gần: ir a + nguyên thể', vi:'voy a salir · vas a coger · va a llegar.',
+      note:'Đây là cách nói tương lai thông dụng nhất trong hội thoại, dùng nhiều hơn thì tương lai chính thức.',
+      ex:{ es:'Voy a coger el tren de las nueve.', vi:'Tôi sẽ đi chuyến tàu chín giờ.' } },
+    { form:'en và a với phương tiện', vi:'en coche · en tren · en autobús · en avión — nhưng a pie và a caballo.',
+      note:'Chỉ hai trường hợp dùng a: đi bộ và cưỡi ngựa. Còn lại đều là en.',
+      ex:{ es:'Voy a la facultad en bicicleta.', vi:'Tôi đạp xe tới trường.' } },
+    { form:'Số thứ tự', vi:'primero, segundo, tercero, cuarto, quinto… Hợp giống số: la primera parada, el tercer andén.',
+      note:'primero và tercero rụng chữ -o khi đứng trước danh từ giống đực: el primer día, el tercer vagón.',
+      ex:{ es:'Baje en la segunda parada.', vi:'Anh xuống ở bến thứ hai.' } },
+    { form:'Hỏi đường và chỉ dẫn', vi:'¿Cómo se va a…? · ¿Cuánto se tarda? · Tiene que cambiar en…',
+      note:'«se va» và «se tarda» là dạng vô nhân xưng — không nói ai đi, ai mất bao lâu, mà nói chung chung.',
+      ex:{ es:'¿Cuánto se tarda hasta el centro?', vi:'Vào trung tâm mất bao lâu ạ?' } }
+  ],
+  vocab:[
+    { es:'avión', ipa:'a.ˈβjon', vi:'máy bay', pos:'danh từ', g:'m' },
+    { es:'estación de autobuses', ipa:'es.ta.ˈθjon de au̯.to.ˈβu.ses', vi:'bến xe khách', pos:'danh từ', g:'f' },
+    { es:'tranvía', ipa:'tɾam.ˈbi.a', vi:'tàu điện mặt đất', pos:'danh từ', g:'m' },
+    { es:'horario de salidas', ipa:'o.ˈɾa.ɾjo de sa.ˈli.ðas', vi:'bảng giờ khởi hành', pos:'danh từ', g:'m' },
+    { es:'andén', ipa:'an.ˈden', vi:'sân ga', pos:'danh từ', g:'m' },
+    { es:'vía', ipa:'ˈbi.a', vi:'đường ray', pos:'danh từ', g:'f' },
+    { es:'parada', ipa:'pa.ˈɾa.ða', vi:'bến, trạm dừng', pos:'danh từ', g:'f' },
+    { es:'transbordo', ipa:'tɾanz.ˈβoɾ.ðo', vi:'chỗ đổi tuyến', pos:'danh từ', g:'m' },
+    { es:'retraso', ipa:'re.ˈtɾa.so', vi:'sự chậm trễ', pos:'danh từ', g:'m' },
+    { es:'ida y vuelta', ipa:'ˈi.ða i ˈbwel.ta', vi:'vé khứ hồi', pos:'danh từ', g:'f' },
+    { es:'maleta', ipa:'ma.ˈle.ta', vi:'cái vali', pos:'danh từ', g:'f' },
+    { es:'conductor', ipa:'kon.duk.ˈtoɾ', vi:'người lái', pos:'danh từ', g:'m' },
+    { es:'directo', ipa:'di.ˈɾek.to', vi:'đi thẳng, không đổi tuyến', pos:'tính từ', g:'' },
+    { es:'completo', ipa:'kom.ˈple.to', vi:'hết chỗ', pos:'tính từ', g:'' },
+    { es:'subir', ipa:'su.ˈβiɾ', vi:'lên (xe, tàu)', pos:'động từ', g:'' },
+    { es:'bajar', ipa:'ba.ˈxaɾ', vi:'xuống (xe, tàu)', pos:'động từ', g:'' },
+    { es:'cambiar', ipa:'kam.ˈbjaɾ', vi:'đổi (tuyến)', pos:'động từ', g:'' },
+    { es:'reservar', ipa:'re.seɾ.ˈβaɾ', vi:'đặt trước', pos:'động từ', g:'' },
+    { es:'tardar', ipa:'taɾ.ˈðaɾ', vi:'mất (bao lâu)', pos:'động từ', g:'' },
+    { es:'perder', ipa:'peɾ.ˈðeɾ', vi:'lỡ; làm mất', pos:'động từ', g:'', note:'«Perder el tren» là lỡ tàu. Đổi gốc e → ie: pierdo.' }
+  ],
+  colloc:[
+    { p:'un billete de ida', vi:'vé một chiều. Khứ hồi là «de ida y vuelta».', ex:'Un billete de ida para Sevilla, por favor.' },
+    { p:'llevar retraso', vi:'bị chậm giờ.', ex:'El tren lleva veinte minutos de retraso.' },
+    { p:'hacer transbordo', vi:'đổi tuyến.', ex:'Tiene que hacer transbordo en Sol.' }
+  ],
+  dialogue:[
+    { sp:'Quan', es:'Buenos días, un billete de ida y vuelta a Sevilla.', vi:'Chào chị, cho tôi một vé khứ hồi đi Sevilla ạ.' },
+    { sp:'Taquilla', es:'¿Para cuándo?', vi:'Đi hôm nào ạ?' },
+    { sp:'Quan', es:'El viernes por la mañana, vuelta el domingo por la tarde.', vi:'Sáng thứ Sáu, về chiều Chủ nhật.' },
+    { sp:'Taquilla', es:'El de las ocho está completo. ¿El de las nueve?', vi:'Chuyến tám giờ hết chỗ rồi. Chuyến chín giờ được không ạ?' },
+    { sp:'Quan', es:'Vale. ¿Es directo?', vi:'Vâng. Có phải đổi tàu không ạ?' },
+    { sp:'Taquilla', es:'No, hace transbordo en Córdoba. Se tarda cuatro horas.', vi:'Có, đổi ở Córdoba. Cả chặng mất bốn tiếng.' },
+    { sp:'Quan', es:'Muy bien. ¿Tengo que imprimir el billete?', vi:'Được ạ. Tôi có phải in vé ra không?' },
+    { sp:'Taquilla', es:'No hace falta, se lo mando al móvil.', vi:'Không cần, tôi gửi vào điện thoại anh.' }
+  ] },
+
+{ level:'a1', no:14, es:'En el restaurante', vi:'Ở nhà hàng', skill:'Giao tiếp',
+  grammar:[
+    { form:'Đại từ tân ngữ trực tiếp: lo / la / los / las', vi:'— ¿Tomas el pescado? — Sí, lo tomo. — ¿Quieres la tarta? — Sí, la quiero.',
+      note:'Đại từ đứng TRƯỚC động từ chia, hoặc dính vào sau nguyên thể: voy a tomarlo.',
+      ex:{ es:'Esta sopa la encuentro buenísima.', vi:'Món xúp này tôi thấy ngon tuyệt.' } },
+    { form:'Đại từ gián tiếp: le / les', vi:'Thay cho «a + người»: le traigo la cuenta (tôi mang hoá đơn cho anh ấy).',
+      note:'Khi le đứng cạnh lo/la thì le đổi thành se: «se lo traigo», không nói «le lo traigo».',
+      ex:{ es:'El camarero le trae la cuenta.', vi:'Người phục vụ mang hoá đơn cho anh ấy.' } },
+    { form:'Cách gọi món lịch sự', vi:'Para mí… · Yo voy a tomar… · ¿Me trae…? — cả ba đều tự nhiên và lịch sự.',
+      note:'Nói trống «quiero» nghe hơi cộc. Thêm «por favor» hoặc dùng «me pone» là ổn.',
+      ex:{ es:'Para mí, la sopa y el pollo, por favor.', vi:'Cho tôi món xúp và thịt gà ạ.' } },
+    { form:'Hỏi ý kiến: ¿Qué tal está?', vi:'¿Qué tal está la sopa? — Está buenísima.',
+      note:'Nhận xét món ăn thì dùng ESTAR: está bueno (hôm nay ngon). Dùng ser là nói về bản chất món đó.',
+      ex:{ es:'¿Qué tal está el postre?', vi:'Món tráng miệng thế nào?' } }
+  ],
+  vocab:[
+    { es:'restaurante', ipa:'res.tau̯.ˈɾan.te', vi:'nhà hàng', pos:'danh từ', g:'m' },
+    { es:'cuchillo', ipa:'ku.ˈtʃi.ʎo', vi:'con dao', pos:'danh từ', g:'m' },
+    { es:'carta', ipa:'ˈkaɾ.ta', vi:'thực đơn; lá thư', pos:'danh từ', g:'f' },
+    { es:'primer plato', ipa:'pɾi.ˈmeɾ ˈpla.to', vi:'món thứ nhất', pos:'danh từ', g:'m' },
+    { es:'segundo plato', ipa:'se.ˈɣun.do ˈpla.to', vi:'món thứ hai', pos:'danh từ', g:'m' },
+    { es:'postre', ipa:'ˈpos.tɾe', vi:'món tráng miệng', pos:'danh từ', g:'m' },
+    { es:'mantel', ipa:'man.ˈtel', vi:'khăn trải bàn', pos:'danh từ', g:'m' },
+    { es:'propina', ipa:'pɾo.ˈpi.na', vi:'tiền boa', pos:'danh từ', g:'f', note:'Không bắt buộc: giá đã gồm phục vụ. Để lại tiền lẻ là thể hiện hài lòng.' },
+    { es:'sopa', ipa:'ˈso.pa', vi:'món xúp', pos:'danh từ', g:'f' },
+    { es:'ensalada', ipa:'en.sa.ˈla.ða', vi:'món rau trộn', pos:'danh từ', g:'f' },
+    { es:'pollo', ipa:'ˈpo.ʎo', vi:'thịt gà', pos:'danh từ', g:'m' },
+    { es:'arroz', ipa:'a.ˈroθ', vi:'cơm, gạo', pos:'danh từ', g:'m' },
+    { es:'sal', ipa:'sal', vi:'muối', pos:'danh từ', g:'f' },
+    { es:'servilleta', ipa:'seɾ.βi.ˈʎe.ta', vi:'khăn ăn', pos:'danh từ', g:'f' },
+    { es:'picante', ipa:'pi.ˈkan.te', vi:'cay', pos:'tính từ', g:'' },
+    { es:'salado', ipa:'sa.ˈla.ðo', vi:'mặn', pos:'tính từ', g:'' },
+    { es:'dulce', ipa:'ˈdul.θe', vi:'ngọt', pos:'tính từ', g:'' },
+    { es:'probar', ipa:'pɾo.ˈβaɾ', vi:'nếm thử', pos:'động từ', g:'' },
+    { es:'traer', ipa:'tɾa.ˈeɾ', vi:'mang đến', pos:'động từ', g:'', note:'Ngôi yo bất quy tắc: traigo. Cùng kiểu với caer → caigo.' },
+    { es:'recomendar', ipa:'re.ko.men.ˈdaɾ', vi:'gợi ý, giới thiệu', pos:'động từ', g:'' }
+  ],
+  colloc:[
+    { p:'La cuenta, por favor.', vi:'Cho tôi xin hoá đơn.', ex:'¿Nos trae la cuenta, por favor?' },
+    { p:'el menú del día', vi:'thực đơn trong ngày — bữa trưa nhiều món giá cố định.', ex:'¿Tienen menú del día?' },
+    { p:'¿Qué me recomienda?', vi:'Anh gợi ý món nào ạ? — câu rất nên dùng khi chưa biết gọi gì.', ex:'No conozco la carta, ¿qué me recomienda?' }
+  ],
+  dialogue:[
+    { sp:'Camarero', es:'Buenas noches. ¿Han elegido ya?', vi:'Chào anh chị. Đã chọn món chưa ạ?' },
+    { sp:'Quan', es:'Sí. De primero, la sopa.', vi:'Rồi ạ. Món thứ nhất cho tôi món xúp.' },
+    { sp:'Camarero', es:'¿Y de segundo?', vi:'Món thứ hai thì sao ạ?' },
+    { sp:'Quan', es:'El pollo con arroz. ¿Está picante?', vi:'Thịt gà với cơm. Món đó có cay không ạ?' },
+    { sp:'Camarero', es:'No, para nada. ¿Y para beber?', vi:'Không hề ạ. Đồ uống thì sao ạ?' },
+    { sp:'Quan', es:'Sólo agua, gracias.', vi:'Nước lọc thôi, cảm ơn anh.' },
+    { sp:'Camarero', es:'Muy bien. Se lo traigo enseguida.', vi:'Vâng ạ. Tôi mang lên ngay.' },
+    { sp:'Quan', es:'Gracias. Y luego la cuenta, por favor.', vi:'Cảm ơn anh. Lát nữa cho tôi xin hoá đơn nhé.' }
+  ] },
+
+{ level:'a1', no:15, es:'Escribir y llamar', vi:'Viết thư và gọi điện', skill:'Giao tiếp',
+  grammar:[
+    { form:'Thì pretérito imperfecto — bước đầu', vi:'Nhóm -ar: hablaba, hablabas, hablaba… Nhóm -er/-ir: comía, comías, comía…',
+      note:'Chỉ ba động từ bất quy tắc: ser → era, ir → iba, ver → veía. Imperfecto tả khung cảnh và thói quen cũ.',
+      ex:{ es:'Cuando era pequeño, vivía en Hanói.', vi:'Hồi nhỏ tôi sống ở Hà Nội.' } },
+    { form:'Mở và đóng một lá thư', vi:'Thân mật: Hola… Un abrazo. Trang trọng: Estimado señor… Atentamente / Le saluda atentamente.',
+      note:'«Un abrazo» nghĩa đen là một cái ôm, nhưng dùng cả với người chỉ quen biết vừa phải.',
+      ex:{ es:'Atentamente, Nguyen Dinh Quan.', vi:'Trân trọng, Nguyễn Đình Quân.' } },
+    { form:'Gọi điện', vi:'¿Dígame? · ¿De parte de quién? · No cuelgue, por favor. · ¿Puede repetir?',
+      note:'Người Tây Ban Nha bắt máy bằng «¿Dígame?» hoặc «¿Sí?», không nói «hola» như khi gặp mặt.',
+      ex:{ es:'¿Dígame? Buenos días, ¿está el señor Ruiz?', vi:'A lô? Chào anh, ông Ruiz có ở đó không ạ?' } },
+    { form:'Xin nhắc lại cho rõ', vi:'¿Cómo dice? · ¿Puede hablar más despacio? · ¿Cómo se escribe?',
+      note:'Ba câu quan trọng nhất của người mới học. Dùng thoải mái, không có gì đáng ngại.',
+      ex:{ es:'¿Cómo se escribe su apellido, por favor?', vi:'Họ của anh viết thế nào ạ?' } }
+  ],
+  vocab:[
+    { es:'sobre', ipa:'ˈso.βɾe', vi:'phong bì; về (chủ đề)', pos:'danh từ', g:'m', note:'Một từ ba vai: danh từ là phong bì, giới từ là «trên» và «về».' },
+    { es:'sello', ipa:'ˈse.ʎo', vi:'con tem; con dấu', pos:'danh từ', g:'m' },
+    { es:'correo', ipa:'ko.ˈre.o', vi:'thư; thư điện tử', pos:'danh từ', g:'m' },
+    { es:'buzón', ipa:'bu.ˈθon', vi:'hòm thư', pos:'danh từ', g:'m' },
+    { es:'paquete', ipa:'pa.ˈke.te', vi:'kiện hàng', pos:'danh từ', g:'m' },
+    { es:'número', ipa:'ˈnu.me.ɾo', vi:'con số; cỡ giày', pos:'danh từ', g:'m' },
+    { es:'mensaje', ipa:'men.ˈsa.xe', vi:'tin nhắn', pos:'danh từ', g:'m' },
+    { es:'llamada', ipa:'ʎa.ˈma.ða', vi:'cuộc gọi', pos:'danh từ', g:'f' },
+    { es:'respuesta', ipa:'res.ˈpwes.ta', vi:'câu trả lời', pos:'danh từ', g:'f' },
+    { es:'firma', ipa:'ˈfiɾ.ma', vi:'chữ ký', pos:'danh từ', g:'f' },
+    { es:'destinatario', ipa:'des.ti.na.ˈta.ɾjo', vi:'người nhận', pos:'danh từ', g:'m' },
+    { es:'remitente', ipa:'re.mi.ˈten.te', vi:'người gửi', pos:'danh từ', g:'m' },
+    { es:'llamar', ipa:'ʎa.ˈmaɾ', vi:'gọi điện; gọi tên', pos:'động từ', g:'' },
+    { es:'contestar', ipa:'kon.tes.ˈtaɾ', vi:'trả lời', pos:'động từ', g:'' },
+    { es:'mandar', ipa:'man.ˈdaɾ', vi:'gửi; ra lệnh', pos:'động từ', g:'' },
+    { es:'recibir', ipa:'re.θi.ˈβiɾ', vi:'nhận', pos:'động từ', g:'' },
+    { es:'firmar', ipa:'fiɾ.ˈmaɾ', vi:'ký', pos:'động từ', g:'' },
+    { es:'colgar', ipa:'kol.ˈɣaɾ', vi:'cúp máy; treo lên', pos:'động từ', g:'' },
+    { es:'repetir', ipa:'re.pe.ˈtiɾ', vi:'nhắc lại', pos:'động từ', g:'' },
+    { es:'despacio', ipa:'des.ˈpa.θjo', vi:'chậm rãi', pos:'trạng từ', g:'' }
+  ],
+  colloc:[
+    { p:'No cuelgue.', vi:'Xin giữ máy.', ex:'No cuelgue, ahora le paso.' },
+    { p:'¿De parte de quién?', vi:'Ai đang gọi đấy ạ?', ex:'— Quería hablar con el señor Ruiz. — ¿De parte de quién?' },
+    { p:'Le vuelvo a llamar.', vi:'Tôi sẽ gọi lại cho anh chị.', ex:'Estoy en una reunión, le vuelvo a llamar en una hora.' }
+  ],
+  dialogue:[
+    { sp:'Recepción', es:'Consulta del doctor Ruiz, buenos días.', vi:'Phòng khám bác sĩ Ruiz xin nghe.' },
+    { sp:'Quan', es:'Buenos días. Quería pedir cita.', vi:'Chào chị. Tôi muốn đặt lịch khám ạ.' },
+    { sp:'Recepción', es:'Sí. ¿De parte de quién?', vi:'Vâng. Anh tên là gì ạ?' },
+    { sp:'Quan', es:'Nguyen Dinh Quan. ¿Puede hablar un poco más despacio?', vi:'Nguyễn Đình Quân. Chị nói chậm lại giúp tôi được không ạ?' },
+    { sp:'Recepción', es:'Claro. ¿Cómo se escribe su apellido?', vi:'Tất nhiên rồi. Họ của anh viết thế nào ạ?' },
+    { sp:'Quan', es:'Ene, ge, u, i griega, e, ene.', vi:'N, G, U, Y, E, N.' },
+    { sp:'Recepción', es:'Gracias. ¿Le viene bien el jueves a las tres?', vi:'Cảm ơn anh. Thứ Năm ba giờ chiều được không ạ?' },
+    { sp:'Quan', es:'Perfecto. Muchas gracias, hasta luego.', vi:'Vâng, tốt quá ạ. Cảm ơn chị nhiều, chào chị.' }
+  ] }
   ]
 };
 
@@ -67459,6 +68519,20 @@ function latLookup(id){
     if (!m[k]) m[k] = Object.assign({ key:k, refs:[] }, w);
     m[k].refs.push({ level:l.level, no:l.no });
   }));
+  /* Bài đọc dùng nhiều từ ngoài khoá. Tiếng Trung, Hàn, Nhật, Nga, Anh có từ
+     điển hình thái riêng nên tra được; hai thứ tiếng này thì từ điển CHÍNH LÀ
+     danh sách từ của khoá. Không gộp từ khoá của bài đọc vào đây thì người học
+     bấm vào một từ trong bài đọc sẽ không ra gì. */
+  if (typeof READINGS !== 'undefined') READINGS.forEach(r => {
+    if (r.lang !== id) return;
+    (r.keys || []).forEach(w => {
+      const raw = String(w.w || '');
+      const k = raw.toLowerCase();
+      if (!k || m[k]) return;
+      m[k] = { key:k, [id]:raw, ipa:String(w.r || '').replace(/^\/|\/$/g, ''),
+               vi:w.vi, pos:'', g:'', refs:[], from:r.title };
+    });
+  });
   _latLookup[id] = m;
   return m;
 }
@@ -67597,10 +68671,12 @@ function latDict(id){
     <div class="zh-entry-vi">${esc(cur.vi)}</div>
     <div class="zh-entry-meta">${esc(cur.pos || '')}</div>
     ${cur.note ? `<p class="zh-gram-note">${esc(cur.note)}</p>` : ''}
-    <div class="zh-entry-refs">${cur.refs.map(r => `<button class="zh-ref" data-lat-lesson="${id}:${r.no}">Bài ${r.no}</button>`).join(' ')}</div>
+    <div class="zh-entry-refs">${cur.refs.length
+      ? cur.refs.map(r => `<button class="zh-ref" data-lat-lesson="${id}:${r.no}">Bài ${r.no}</button>`).join(' ')
+      : `<span class="zh-dict-tag">Từ của bài đọc${cur.from ? ' «' + esc(cur.from) + '»' : ''} — chưa nằm trong bài học nào</span>`}</div>
   </div>` : ''}
   <div class="zh-res-list">
-    ${hits.slice(0, 300).map(k => {
+    ${hits.slice(0, 600).map(k => {
       const w = L[k];
       return `<button class="zh-res" data-lat-entry="${id}:${esc(k)}">
         <span class="zh-res-hz ${id}">${esc(w[id])}</span>
@@ -67639,6 +68715,10 @@ function latPhon(id){
 }
 
 /* Đăng ký màn hình cho từng thứ tiếng — thêm ngôn ngữ mới chỉ cần thêm mã vào đây */
+/* Mở ra cho bộ kiểm thử soi: tools/tests/dict-cover.js đối chiếu từ khoá
+   bài đọc với từ điển này. */
+try { window.__lat = { lookup: latLookup, cfg: latCfg }; } catch(e){}
+
 Object.keys(LAT).forEach(id => {
   VIEWS[id + '_home']   = () => latSt(id).lesson ? latLessonView(id) : latHome(id);
   VIEWS[id + '_dict']   = () => latDict(id);

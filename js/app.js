@@ -7181,6 +7181,20 @@ function latLookup(id){
     if (!m[k]) m[k] = Object.assign({ key:k, refs:[] }, w);
     m[k].refs.push({ level:l.level, no:l.no });
   }));
+  /* Bài đọc dùng nhiều từ ngoài khoá. Tiếng Trung, Hàn, Nhật, Nga, Anh có từ
+     điển hình thái riêng nên tra được; hai thứ tiếng này thì từ điển CHÍNH LÀ
+     danh sách từ của khoá. Không gộp từ khoá của bài đọc vào đây thì người học
+     bấm vào một từ trong bài đọc sẽ không ra gì. */
+  if (typeof READINGS !== 'undefined') READINGS.forEach(r => {
+    if (r.lang !== id) return;
+    (r.keys || []).forEach(w => {
+      const raw = String(w.w || '');
+      const k = raw.toLowerCase();
+      if (!k || m[k]) return;
+      m[k] = { key:k, [id]:raw, ipa:String(w.r || '').replace(/^\/|\/$/g, ''),
+               vi:w.vi, pos:'', g:'', refs:[], from:r.title };
+    });
+  });
   _latLookup[id] = m;
   return m;
 }
@@ -7319,10 +7333,12 @@ function latDict(id){
     <div class="zh-entry-vi">${esc(cur.vi)}</div>
     <div class="zh-entry-meta">${esc(cur.pos || '')}</div>
     ${cur.note ? `<p class="zh-gram-note">${esc(cur.note)}</p>` : ''}
-    <div class="zh-entry-refs">${cur.refs.map(r => `<button class="zh-ref" data-lat-lesson="${id}:${r.no}">Bài ${r.no}</button>`).join(' ')}</div>
+    <div class="zh-entry-refs">${cur.refs.length
+      ? cur.refs.map(r => `<button class="zh-ref" data-lat-lesson="${id}:${r.no}">Bài ${r.no}</button>`).join(' ')
+      : `<span class="zh-dict-tag">Từ của bài đọc${cur.from ? ' «' + esc(cur.from) + '»' : ''} — chưa nằm trong bài học nào</span>`}</div>
   </div>` : ''}
   <div class="zh-res-list">
-    ${hits.slice(0, 300).map(k => {
+    ${hits.slice(0, 600).map(k => {
       const w = L[k];
       return `<button class="zh-res" data-lat-entry="${id}:${esc(k)}">
         <span class="zh-res-hz ${id}">${esc(w[id])}</span>
@@ -7361,6 +7377,10 @@ function latPhon(id){
 }
 
 /* Đăng ký màn hình cho từng thứ tiếng — thêm ngôn ngữ mới chỉ cần thêm mã vào đây */
+/* Mở ra cho bộ kiểm thử soi: tools/tests/dict-cover.js đối chiếu từ khoá
+   bài đọc với từ điển này. */
+try { window.__lat = { lookup: latLookup, cfg: latCfg }; } catch(e){}
+
 Object.keys(LAT).forEach(id => {
   VIEWS[id + '_home']   = () => latSt(id).lesson ? latLessonView(id) : latHome(id);
   VIEWS[id + '_dict']   = () => latDict(id);

@@ -45,12 +45,33 @@ setTimeout(() => {
   };
 
   /* ---- 1. từ khoá ---- */
+  /* Năm thứ tiếng này có từ điển hình thái riêng nên đòi tra được 100%.
+     Tiếng Pháp và Tây Ban Nha đi đường khác — từ điển của chúng là danh sách
+     từ của khoá CỘNG từ khoá của bài đọc (xem latLookup trong js/app.js) —
+     nên kiểm riêng ở mục 3 bên dưới, chứ không chạy qua hitKey. */
+  const MORPH = ['zh', 'ko', 'ja', 'ru', 'en'];
   const missKeys = { ko:[], zh:[], ja:[], ru:[], en:[] };
-  for (const r of R) for (const k of (r.keys || [])) if (!hitKey(r.lang, String(k.w))) missKeys[r.lang].push(k.w + ' [' + r.title + ']');
-  for (const l of ['zh','ko','ja','ru','en']){
+  for (const r of R){
+    if (MORPH.indexOf(r.lang) < 0) continue;
+    for (const k of (r.keys || [])) if (!hitKey(r.lang, String(k.w))) missKeys[r.lang].push(k.w + ' [' + r.title + ']');
+  }
+  for (const l of MORPH){
     check('từ khoá bài đọc ' + l + ': mục nào cũng tra được', () => {
       if (missKeys[l].length) console.log('   thiếu:', missKeys[l].slice(0, 8).join(' · '), '(' + missKeys[l].length + ')');
       return missKeys[l].length === 0;
+    });
+  }
+
+  /* ---- 3. tiếng Pháp và Tây Ban Nha: từ điển phải nuốt hết từ khoá bài đọc ---- */
+  for (const l of ['fr', 'es']){
+    check('từ khoá bài đọc ' + l + ': đều có trong từ điển của khoá', () => {
+      const L = win.eval('__lat && __lat.lookup ? __lat.lookup("' + l + '") : null');
+      if (!L) return 'app chưa mở __lat.lookup ra ngoài';
+      const miss = R.filter(r => r.lang === l)
+        .flatMap(r => (r.keys || []).map(k => ({ w:String(k.w), t:r.title })))
+        .filter(x => !L[x.w.toLowerCase()]);
+      if (miss.length) console.log('   thiếu:', miss.slice(0, 8).map(x => x.w + ' [' + x.t + ']').join(' · '), '(' + miss.length + ')');
+      return miss.length === 0;
     });
   }
 
