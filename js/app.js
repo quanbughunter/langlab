@@ -7199,6 +7199,47 @@ function latLookup(id){
   return m;
 }
 
+/* Bảng tra ngược: mọi DẠNG BIẾN ĐỔI → khoá của từ gốc.
+   «vais» → aller · «allée» → aller · «fuimos» → ir · «pequeñas» → pequeño.
+   Sinh ra từ chính danh sách từ gốc ở trên, nên không bao giờ trả về một
+   gốc không có thật. Từ gốc tự nó cũng nằm trong bảng. */
+/* Một dạng có thể thuộc về nhiều từ gốc — «fuimos» là quá khứ của CẢ ser lẫn ir.
+   Giấu bớt đi là dạy sai, nên giữ lại danh sách để nói rõ với người học. */
+const latAlso = {};
+const _latForms = {};
+function latForms(id){
+  if (_latForms[id]) return _latForms[id];
+  const L = latLookup(id), m = {};
+  const M = (typeof LAT_MORPH !== 'undefined') ? LAT_MORPH : null;
+  Object.keys(L).forEach(k => {
+    const w = L[k];
+    const list = M ? M.forms(id, w[id] || k, w.pos || '') : [k];
+    list.forEach(f => {
+      if (!f || f === k) return;
+      (m[f] = m[f] || []);
+      if (m[f].indexOf(k) < 0) m[f].push(k);
+    });
+  });
+  _latForms[id] = m;
+  return m;
+}
+
+/* Tra một chuỗi bất kỳ: trả về {key, via} — via là dạng người dùng đã gõ
+   khi nó không phải dạng từ điển. Không có thì trả null, KHÔNG đoán. */
+function latResolve(id, raw){
+  const L = latLookup(id);
+  const M = (typeof LAT_MORPH !== 'undefined') ? LAT_MORPH : null;
+  const w = String(raw || '').toLowerCase().trim();
+  if (!w) return null;
+  if (L[w]) return { key:w, via:null };
+  const bare = M ? M.stripLead(id, w) : w;
+  if (L[bare]) return { key:bare, via:null };
+  const F = latForms(id);
+  const hit = F[w] || F[bare];
+  if (hit && hit.length) return { key:hit[0], via:w, also:hit.slice(1) };
+  return null;
+}
+
 /* Tách câu thành từ bấm được. Chữ Latinh có dấu nên không dùng \w được:
    \w bỏ sót é, ñ, ç… và sẽ cắt «français» thành «fran» + «ais». */
 const LAT_WORD = /[A-Za-zÀ-ÖØ-öø-ÿ'’-]+/g;
@@ -7309,45 +7350,123 @@ function latLessonView(id){
 }
 
 /* ---------------- Từ điển ---------------- */
+/* Bảng chia của một động từ, bày ngay trong mục từ. Sáu ngôi trên một hàng,
+   mỗi thì một hàng — đọc dọc là thấy ngay chỗ nào đổi gốc. */
+function latConjHTML(id, inf){
+  const M = (typeof LAT_MORPH !== 'undefined') ? LAT_MORPH : null;
+  const t = M && M.table(id, inf);
+  if (!t) return '';
+  const head = t.pron.map(p => `<th>${esc(p)}</th>`).join('');
+  const rows = t.tenses.filter(x => x.forms.some(Boolean)).map(x => `
+    <tr>
+      <th class="lat-tense"><b>${esc(x.vi)}</b><i>${esc(x.nat)}${x.lead ? ' · sau «' + esc(x.lead.trim()) + '»' : ''}</i></th>
+      ${x.forms.map(f => `<td class="${id}">${f ? esc(f) : '—'}</td>`).join('')}
+    </tr>`).join('');
+  const imp = t.imper && t.imper.some(Boolean) ? `
+    <div class="lat-imper">
+      <b>Mệnh lệnh</b>
+      ${t.imper.map((f, i) => f ? `<span><i>${esc(t.imperPron[i] || '')}</i> <span class="${id}">${esc(f)}</span></span>` : '').join('')}
+    </div>` : '';
+  const extra = id === 'fr'
+    ? `<div class="lat-conj-note">Quá khứ phân từ <b class="fr">${esc(t.pp || '')}</b> · phân từ hiện tại <b class="fr">${esc(t.ppr || '')}</b> · thì kép đi với <b>${esc(t.aux)}</b></div>`
+    : `<div class="lat-conj-note">Phân từ <b class="es">${esc(t.part || '')}</b> · gerundio <b class="es">${esc(t.ger || '')}</b>${t.refl ? ' · động từ phản thân' : ''}</div>`;
+  return `
+  <div class="lat-conj">
+    <div class="lat-conj-head"><h3>Bảng chia</h3><span class="zh-dict-tag">${esc(t.group)}</span></div>
+    <div class="lat-conj-wrap">
+      <table class="lat-conj-tb"><thead><tr><th></th>${head}</tr></thead><tbody>${rows}</tbody></table>
+    </div>
+    ${imp}
+    ${extra}
+  </div>`;
+}
+
+function latEntryHTML(id, key, via){
+  const L = latLookup(id), cur = L[key];
+  if (!cur) return '';
+  const M = (typeof LAT_MORPH !== 'undefined') ? LAT_MORPH : null;
+  const isVerb = /động từ/.test(cur.pos || '') && M && M.table(id, M.stripLead(id, cur[id] || key));
+  return `
+  <div class="zh-entry" id="latEntry">
+    ${via ? `<div class="lat-via">Bạn gõ <b class="${id}">${esc(via)}</b> — đây là một dạng của từ dưới đây.${
+      (latAlso[id] && latAlso[id].length)
+        ? ' Dạng này còn thuộc cả ' + latAlso[id].map(k => `<button class="lat-alt ${id}" data-lat-entry="${id}:${esc(k)}">${esc((latLookup(id)[k] || {})[id] || k)}</button>`).join(', ') + '.'
+        : ''}</div>` : ''}
+    <div class="zh-entry-top">
+      <span class="zh-entry-hz ${id}">${esc(cur[id] || key)}</span>
+      ${latSpeakBtn(cur[id] || key, id, 'icon-btn')}
+      ${latGender(cur)}
+    </div>
+    ${cur.ipa ? `<div class="zh-entry-py ipa">/${esc(cur.ipa)}/</div>` : ''}
+    <div class="zh-entry-vi">${esc(cur.vi)}</div>
+    ${cur.pos ? `<div class="zh-entry-meta">${esc(cur.pos)}</div>` : ''}
+    ${cur.note ? `<p class="zh-gram-note">${esc(cur.note)}</p>` : ''}
+    ${isVerb ? latConjHTML(id, M.stripLead(id, cur[id] || key)) : latAgreeHTML(id, cur, key)}
+    <div class="zh-entry-refs">${cur.refs && cur.refs.length
+      ? cur.refs.map(r => `<button class="zh-ref" data-lat-lesson="${id}:${r.no}">Bài ${r.no}</button>`).join(' ')
+      : `<span class="zh-dict-tag">Từ của bài đọc${cur.from ? ' «' + esc(cur.from) + '»' : ''} — chưa nằm trong bài học nào</span>`}</div>
+  </div>`;
+}
+
+/* Danh từ và tính từ: bày luôn các dạng hợp giống số, vì đó chính là thứ
+   người học gặp trong câu mà không nhận ra là cùng một từ. */
+function latAgreeHTML(id, w, key){
+  const M = (typeof LAT_MORPH !== 'undefined') ? LAT_MORPH : null;
+  if (!M) return '';
+  const base = M.stripLead(id, w[id] || key);
+  const pos = String(w.pos || '');
+  if (!/danh từ|tính từ/.test(pos)) return '';
+  const fem = id === 'fr' ? M.frFem : M.esFem;
+  const plu = id === 'fr' ? M.frPlural : M.esPlural;
+  const cells = /tính từ/.test(pos)
+    ? [['giống đực số ít', base], ['giống cái số ít', fem(base)],
+       ['giống đực số nhiều', plu(base)], ['giống cái số nhiều', plu(fem(base))]]
+    : [['số ít', base], ['số nhiều', plu(base)]];
+  return `
+  <div class="lat-agree">
+    <b>Các dạng</b>
+    ${cells.map(([k, v]) => `<span><i>${esc(k)}</i> <span class="${id}">${esc(v)}</span></span>`).join('')}
+  </div>`;
+}
+
 function latDict(id){
   const c = latCfg(id), st = latSt(id), L = latLookup(id);
   const q = String(st.q || '').trim().toLowerCase();
   const all = Object.keys(L).sort((a, b) => a.localeCompare(b, id));
   const hits = q ? all.filter(k => k.indexOf(q) >= 0 || String(L[k].vi).toLowerCase().indexOf(q) >= 0) : all;
-  const cur = st.entry && L[st.entry] ? L[st.entry] : null;
+  /* Gõ một dạng biến đổi thì danh sách trên rỗng — lúc đó mới đi tra ngược. */
+  const res = (q && !hits.length) ? latResolve(id, q) : null;
+  latAlso[id] = res ? (res.also || []) : [];
+  const curKey = res ? res.key : (st.entry && L[st.entry] ? st.entry : null);
+  const nVerb = all.filter(k => /động từ/.test(L[k].pos || '')).length;
   return `
   <div class="page-head">
     <span class="eyebrow">${esc(c.vi)}</span>
     <h1>Từ điển ${esc(c.vi.toLowerCase())}</h1>
-    <p>${all.length} từ gom từ mọi bài trong khoá, có phiên âm IPA và giống của danh từ. Gõ bằng ${esc(c.nat)} hoặc bằng tiếng Việt đều tra được.</p>
+    <p>${all.length} mục từ gom từ mọi bài trong khoá và mọi bài đọc, có phiên âm IPA và giống của danh từ.
+       Gõ bằng ${esc(c.nat)} hoặc bằng tiếng Việt đều tra được, và <b>gõ dạng đã biến đổi cũng ra</b> —
+       ${id === 'fr' ? '«vais», «allé», «petites»' : '«voy», «fuimos», «pequeñas»'} đều dẫn về từ gốc.
+       ${nVerb} động từ có bảng chia đầy đủ.</p>
   </div>
-  <input class="dict-search" id="latSearch" data-lat-q="${id}" placeholder="Tra ${esc(c.nat)} hoặc tiếng Việt…" value="${esc(st.q || '')}" autocomplete="off">
-  ${cur ? `
-  <div class="zh-entry" id="latEntry">
-    <div class="zh-entry-top">
-      <span class="zh-entry-hz ${id}">${esc(cur[id])}</span>
-      ${latSpeakBtn(cur[id], id, 'icon-btn')}
-      ${latGender(cur)}
-    </div>
-    <div class="zh-entry-py ipa">/${esc(cur.ipa || '')}/</div>
-    <div class="zh-entry-vi">${esc(cur.vi)}</div>
-    <div class="zh-entry-meta">${esc(cur.pos || '')}</div>
-    ${cur.note ? `<p class="zh-gram-note">${esc(cur.note)}</p>` : ''}
-    <div class="zh-entry-refs">${cur.refs.length
-      ? cur.refs.map(r => `<button class="zh-ref" data-lat-lesson="${id}:${r.no}">Bài ${r.no}</button>`).join(' ')
-      : `<span class="zh-dict-tag">Từ của bài đọc${cur.from ? ' «' + esc(cur.from) + '»' : ''} — chưa nằm trong bài học nào</span>`}</div>
-  </div>` : ''}
+  <div class="zh-dict-search">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    <input id="latSearch" type="search" data-lat-q="${id}" value="${esc(st.q || '')}"
+           placeholder="${id === 'fr' ? 'bonjour / aller / xin chào…' : 'hola / ir / xin chào…'}" autocomplete="off">
+  </div>
+  ${curKey ? latEntryHTML(id, curKey, res ? res.via : null) : ''}
   <div class="zh-res-list">
     ${hits.slice(0, 600).map(k => {
       const w = L[k];
       return `<button class="zh-res" data-lat-entry="${id}:${esc(k)}">
-        <span class="zh-res-hz ${id}">${esc(w[id])}</span>
-        <span class="zh-res-py ipa">/${esc(w.ipa || '')}/</span>
+        <span class="zh-res-hz ${id}">${esc(w[id] || k)}</span>
+        <span class="zh-res-py ipa">${w.ipa ? '/' + esc(w.ipa) + '/' : ''}</span>
         <span class="zh-res-vi">${esc(w.vi)}</span>
       </button>`;
     }).join('')}
   </div>
-  ${hits.length ? '' : '<p class="tk-note-small">Không tìm thấy từ nào khớp.</p>'}`;
+  ${hits.length || res ? '' : q
+    ? '<p class="tk-note-small">Không có mục từ nào khớp, kể cả khi tra theo dạng biến đổi. Từ này chưa nằm trong khoá.</p>'
+    : ''}`;
 }
 
 /* ---------------- Bảng chữ cái & phát âm ---------------- */

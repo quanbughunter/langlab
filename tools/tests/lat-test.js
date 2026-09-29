@@ -162,6 +162,47 @@ const LANGS = [
       return body().includes(w.vi) || 'tra «' + w[L.key] + '» không ra nghĩa';
     });
 
+    /* Thứ làm từ điển dùng được thật khi đọc bài: gõ dạng đã chia cũng ra. */
+    check(L.vi + ' — tra được dạng đã biến đổi, không chỉ dạng từ điển', () => {
+      const CASES = L.id === 'fr'
+        ? [['vais','aller'], ['allée','aller'], ['sommes','être'], ['petites','petit'], ['mangeons','manger']]
+        : [['voy','ir'], ['estoy','estar'], ['pequeñas','pequeño'], ['tienes','tener'], ['comimos','comer']];
+      const bad = [];
+      for (const [typed, want] of CASES){
+        click('[data-go="' + L.id + '_dict"]');
+        const box = d.querySelector('#latSearch');
+        box.value = typed;
+        box.dispatchEvent(new win.Event('input', { bubbles:true }));
+        const hz = (d.querySelector('#latEntry .zh-entry-hz') || {}).textContent || '';
+        if (hz.trim().toLowerCase().indexOf(want) < 0) bad.push(typed + ' → «' + hz.trim() + '», cần ' + want);
+      }
+      return bad.length ? bad.join(' | ') : true;
+    });
+
+    check(L.vi + ' — mục từ động từ có bảng chia đủ các thì', () => {
+      click('[data-go="' + L.id + '_dict"]');
+      const box = d.querySelector('#latSearch');
+      const verb = L.id === 'fr' ? 'aller' : 'ir';
+      box.value = verb;
+      box.dispatchEvent(new win.Event('input', { bubbles:true }));
+      const btn = [...d.querySelectorAll('[data-lat-entry]')]
+        .find(b => b.textContent.trim().toLowerCase().indexOf(verb) === 0);
+      if (btn) click(btn);
+      const rows = d.querySelectorAll('.lat-conj-tb tbody tr').length;
+      if (rows < 6) return 'chỉ có ' + rows + ' hàng thì, cần ít nhất 6';
+      const cells = d.querySelectorAll('.lat-conj-tb tbody td').length;
+      if (cells < 36) return 'chỉ có ' + cells + ' ô';
+      return !!d.querySelector('.lat-imper') || 'thiếu phần mệnh lệnh';
+    });
+
+    check(L.vi + ' — thanh tra từ dùng đúng kiểu của các tiếng khác', () => {
+      click('[data-go="' + L.id + '_dict"]');
+      const wrap = d.querySelector('.zh-dict-search');
+      if (!wrap) return 'thiếu khung .zh-dict-search';
+      if (!wrap.querySelector('svg')) return 'thiếu biểu tượng kính lúp';
+      return !!wrap.querySelector('#latSearch') || 'ô tra không nằm trong khung';
+    });
+
     check(L.vi + ' — màn phát âm mở được và có nội dung', () => {
       click('[data-go="' + L.id + '_phon"]');
       const t = body();

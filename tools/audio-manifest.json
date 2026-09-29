@@ -141262,6 +141262,3954 @@
    "lang": "fr",
    "voice": "fr",
    "hash": "6613fc8c"
+  },
+  {
+   "text": "Le logement",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e025ef87"
+  },
+  {
+   "text": "La lampe est à côté du lit.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "5057d9f8"
+  },
+  {
+   "text": "C'est un appartement. Il est clair.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "44b22439"
+  },
+  {
+   "text": "Une grande chambre et un petit salon.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "215b5c77"
+  },
+  {
+   "text": "Un vieux immeuble avec une belle cour.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "db4e3187"
+  },
+  {
+   "text": "appartement",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "0d353a80"
+  },
+  {
+   "text": "immeuble",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ce668501"
+  },
+  {
+   "text": "chambre",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2310efab"
+  },
+  {
+   "text": "salon",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "6983e42a"
+  },
+  {
+   "text": "cuisine",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "75d152b1"
+  },
+  {
+   "text": "salle de bains",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "a1727080"
+  },
+  {
+   "text": "lit",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "404cd5b6"
+  },
+  {
+   "text": "canapé",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "49aba0f4"
+  },
+  {
+   "text": "tapis",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "01a8eac6"
+  },
+  {
+   "text": "armoire",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "7f0dab50"
+  },
+  {
+   "text": "étagère",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "7bdfecbd"
+  },
+  {
+   "text": "fenêtre",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "33a6600c"
+  },
+  {
+   "text": "porte",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "cb0988f9"
+  },
+  {
+   "text": "mur",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d584cadf"
+  },
+  {
+   "text": "loyer",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "27a129c4"
+  },
+  {
+   "text": "clair",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b2247f1e"
+  },
+  {
+   "text": "sombre",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2a458fe5"
+  },
+  {
+   "text": "cher",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9042e2f9"
+  },
+  {
+   "text": "meublé",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e1a16b40"
+  },
+  {
+   "text": "louer",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d2135f38"
+  },
+  {
+   "text": "Bonjour, je téléphone pour le studio à louer.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "02db2628"
+  },
+  {
+   "text": "Oui, il est toujours libre. Il fait vingt-cinq mètres carrés.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "14bf5656"
+  },
+  {
+   "text": "Il est meublé ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "5aef3d8e"
+  },
+  {
+   "text": "Oui : un lit, une table, deux chaises et une armoire.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "20f2a16c"
+  },
+  {
+   "text": "Et le loyer, c'est combien ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "7fc1e544"
+  },
+  {
+   "text": "Quatre cent cinquante euros, charges comprises.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "8d8a8c59"
+  },
+  {
+   "text": "La fenêtre donne sur la rue ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "7c940bd1"
+  },
+  {
+   "text": "Non, sur une cour. C'est plus calme.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "65ee93df"
+  },
+  {
+   "text": "Faire les courses",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "a403e0c4"
+  },
+  {
+   "text": "Je voudrais un kilo de tomates.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "72939477"
+  },
+  {
+   "text": "Combien de pommes voulez-vous ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3d54ff30"
+  },
+  {
+   "text": "Le marché est moins cher que le supermarché.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "4c26b25d"
+  },
+  {
+   "text": "Je prends deux baguettes, s'il vous plaît.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3b46d678"
+  },
+  {
+   "text": "supermarché",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "785b52ff"
+  },
+  {
+   "text": "boucherie",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "8b46a08b"
+  },
+  {
+   "text": "épicerie",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "05b4df5e"
+  },
+  {
+   "text": "monnaie",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "323e4186"
+  },
+  {
+   "text": "caisse",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "828e6651"
+  },
+  {
+   "text": "prix",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d54d1636"
+  },
+  {
+   "text": "kilo",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "c20f40e0"
+  },
+  {
+   "text": "pomme",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "bc9d3b71"
+  },
+  {
+   "text": "tomate",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3fa2f581"
+  },
+  {
+   "text": "oeuf",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "613902ae"
+  },
+  {
+   "text": "fromage",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "79cabbec"
+  },
+  {
+   "text": "viande",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "c663d4b4"
+  },
+  {
+   "text": "poisson",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "eea7e9cc"
+  },
+  {
+   "text": "légume",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "a6b62805"
+  },
+  {
+   "text": "fruit",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d76a9191"
+  },
+  {
+   "text": "sac",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e31ca74e"
+  },
+  {
+   "text": "gratuit",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1cce2729"
+  },
+  {
+   "text": "frais",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ec01a038"
+  },
+  {
+   "text": "coûter",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "54696230"
+  },
+  {
+   "text": "payer",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "386e0242"
+  },
+  {
+   "text": "Un kilo de pommes, s'il vous plaît.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "4e5e83b9"
+  },
+  {
+   "text": "Voilà. Et avec ceci ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ffe363c3"
+  },
+  {
+   "text": "Un peu de fromage. C'est combien, celui-là ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "866c4830"
+  },
+  {
+   "text": "Vingt-deux euros le kilo. Il est très frais.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b436a154"
+  },
+  {
+   "text": "Deux cents grammes alors.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "8438709b"
+  },
+  {
+   "text": "Ça fait neuf euros quarante en tout.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "38ede4b8"
+  },
+  {
+   "text": "Je peux payer par carte ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "7e0af5e4"
+  },
+  {
+   "text": "Une journée ordinaire",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "cab6aacd"
+  },
+  {
+   "text": "Je me lève à six heures et demie.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "7a07bdcc"
+  },
+  {
+   "text": "Je prends souvent le métro.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3a05f401"
+  },
+  {
+   "text": "Il arrive toujours en retard.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "4f266759"
+  },
+  {
+   "text": "Le soir, je fais la vaisselle.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "19713a8c"
+  },
+  {
+   "text": "journée",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9079c9b4"
+  },
+  {
+   "text": "matin",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "80069ad6"
+  },
+  {
+   "text": "après-midi",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "c6f2b930"
+  },
+  {
+   "text": "soir",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "fc6a24f8"
+  },
+  {
+   "text": "nuit",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9512b3d1"
+  },
+  {
+   "text": "réveil",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "7c9daf25"
+  },
+  {
+   "text": "douche",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "121e4e57"
+  },
+  {
+   "text": "petit-déjeuner",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1f76e233"
+  },
+  {
+   "text": "déjeuner",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e331e1aa"
+  },
+  {
+   "text": "dîner",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d1506cab"
+  },
+  {
+   "text": "travail",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "8dc57d96"
+  },
+  {
+   "text": "se coucher",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "447dc674"
+  },
+  {
+   "text": "s'habiller",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "565744c2"
+  },
+  {
+   "text": "rentrer",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "0d3f2f7f"
+  },
+  {
+   "text": "toujours",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "8d462c28"
+  },
+  {
+   "text": "jamais",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "fcbe6b42"
+  },
+  {
+   "text": "Tu te lèves à quelle heure, toi ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "c4c6623b"
+  },
+  {
+   "text": "À six heures et demie, en semaine.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "017606ea"
+  },
+  {
+   "text": "Si tôt ? Moi, jamais avant huit heures.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9d716b69"
+  },
+  {
+   "text": "Mon cours commence à huit heures quinze.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d3da5ee1"
+  },
+  {
+   "text": "Et tu rentres quand ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "16dc4f56"
+  },
+  {
+   "text": "Vers dix-huit heures. Après, je fais la cuisine.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e379fc8f"
+  },
+  {
+   "text": "Tu te couches tôt alors ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "034606d4"
+  },
+  {
+   "text": "Vers vingt-trois heures. Le week-end, je fais la grasse matinée.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "5c0f5488"
+  },
+  {
+   "text": "Le temps et les saisons",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3da3bbc4"
+  },
+  {
+   "text": "Aujourd'hui il fait froid et il pleut.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1969b1f3"
+  },
+  {
+   "text": "Il neige depuis ce matin.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "41c0183d"
+  },
+  {
+   "text": "Au printemps, il fait doux.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1c814e78"
+  },
+  {
+   "text": "Le lundi, j'ai cours. Lundi, je vais à Paris.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f0eae483"
+  },
+  {
+   "text": "temps",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1faec85c"
+  },
+  {
+   "text": "saison",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "41302304"
+  },
+  {
+   "text": "printemps",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d8e9238b"
+  },
+  {
+   "text": "été",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ffb58817"
+  },
+  {
+   "text": "automne",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "25415028"
+  },
+  {
+   "text": "hiver",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "a0dbe953"
+  },
+  {
+   "text": "pluie",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b176cc96"
+  },
+  {
+   "text": "neige",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "da4672a7"
+  },
+  {
+   "text": "vent",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f8173f5e"
+  },
+  {
+   "text": "soleil",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f40808e9"
+  },
+  {
+   "text": "nuage",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "c9a287ef"
+  },
+  {
+   "text": "ciel",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f49978e0"
+  },
+  {
+   "text": "parapluie",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d3651e08"
+  },
+  {
+   "text": "degré",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "df4d598f"
+  },
+  {
+   "text": "orage",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "7b51fa57"
+  },
+  {
+   "text": "brouillard",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "72b1e885"
+  },
+  {
+   "text": "doux",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2bb51f91"
+  },
+  {
+   "text": "humide",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "aec15ef3"
+  },
+  {
+   "text": "pleuvoir",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "43db5e2b"
+  },
+  {
+   "text": "Tu sors ce week-end ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e6265ed2"
+  },
+  {
+   "text": "Ça dépend du temps. Il fait quoi samedi ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "400da2f8"
+  },
+  {
+   "text": "Il va pleuvoir le matin, puis il fera beau.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "c5de427a"
+  },
+  {
+   "text": "Il fait combien de degrés ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1896eb98"
+  },
+  {
+   "text": "Douze le matin, dix-huit l'après-midi.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "00722ed8"
+  },
+  {
+   "text": "C'est doux pour un mois de mars.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "87e45510"
+  },
+  {
+   "text": "Oui. En hiver, ici, il fait moins cinq.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "45436aca"
+  },
+  {
+   "text": "Alors je prends quand même mon parapluie.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d6da6573"
+  },
+  {
+   "text": "Les vêtements et les couleurs",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "c6a50ef5"
+  },
+  {
+   "text": "Ce manteau est trop grand.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "52eaccdb"
+  },
+  {
+   "text": "Une chemise blanche et un pantalon noir.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "07107fbf"
+  },
+  {
+   "text": "Elle est très belle mais trop chère.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "c936da0b"
+  },
+  {
+   "text": "Je mets un manteau parce qu'il fait froid.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2edca03c"
+  },
+  {
+   "text": "vêtement",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f3bad60b"
+  },
+  {
+   "text": "chemise",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "fba957fb"
+  },
+  {
+   "text": "pull",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "812d107e"
+  },
+  {
+   "text": "veste",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3f5012e2"
+  },
+  {
+   "text": "manteau",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ac89c6a6"
+  },
+  {
+   "text": "pantalon",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "6eb0b5b0"
+  },
+  {
+   "text": "jupe",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ae1f1367"
+  },
+  {
+   "text": "robe",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "0c18c3b3"
+  },
+  {
+   "text": "chaussure",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d96acd2c"
+  },
+  {
+   "text": "chaussette",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d2230054"
+  },
+  {
+   "text": "taille",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9ddba368"
+  },
+  {
+   "text": "couleur",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2524aafa"
+  },
+  {
+   "text": "blanc",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "666f1129"
+  },
+  {
+   "text": "noir",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9ca55681"
+  },
+  {
+   "text": "rouge",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "41f60775"
+  },
+  {
+   "text": "bleu",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "72d4cd2d"
+  },
+  {
+   "text": "vert",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e8353b42"
+  },
+  {
+   "text": "marron",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "5b23a0d6"
+  },
+  {
+   "text": "porter",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2b01f2d1"
+  },
+  {
+   "text": "essayer",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2ef4951b"
+  },
+  {
+   "text": "Bonjour, je peux vous aider ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3655a2ec"
+  },
+  {
+   "text": "Je cherche un manteau pour l'hiver.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "5f2b41fd"
+  },
+  {
+   "text": "Vous faites quelle taille ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d43c3bca"
+  },
+  {
+   "text": "Du M, je crois. Je peux essayer celui-ci ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "4a927193"
+  },
+  {
+   "text": "Bien sûr. La cabine est au fond.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "51434a84"
+  },
+  {
+   "text": "Il est un peu trop grand. Vous l'avez en noir ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ae045cce"
+  },
+  {
+   "text": "En noir, seulement en L. Mais ce bleu foncé vous va bien.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f91a2807"
+  },
+  {
+   "text": "D'accord, je le prends.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3b4adb46"
+  },
+  {
+   "text": "Chez le médecin",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "a8a36a1e"
+  },
+  {
+   "text": "J'ai mal à la gorge depuis hier.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "050dee9e"
+  },
+  {
+   "text": "Prenez ce médicament deux fois par jour.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3e64fa79"
+  },
+  {
+   "text": "Je tousse depuis une semaine.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "8c260711"
+  },
+  {
+   "text": "Vous devez vous reposer deux jours.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "377d639c"
+  },
+  {
+   "text": "médecin",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1afd949f"
+  },
+  {
+   "text": "infirmière",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2f222a6f"
+  },
+  {
+   "text": "ordonnance",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "73cadf6e"
+  },
+  {
+   "text": "médicament",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "076b6ebb"
+  },
+  {
+   "text": "tête",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "020e1181"
+  },
+  {
+   "text": "ventre",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b8fba9f3"
+  },
+  {
+   "text": "gorge",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "c1675923"
+  },
+  {
+   "text": "dent",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "93f64ef0"
+  },
+  {
+   "text": "dos",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "da68aa25"
+  },
+  {
+   "text": "fièvre",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2f30af16"
+  },
+  {
+   "text": "rhume",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ff5350ac"
+  },
+  {
+   "text": "rendez-vous",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "6ef3b5a7"
+  },
+  {
+   "text": "santé",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3b40e17b"
+  },
+  {
+   "text": "malade",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "10ede7f7"
+  },
+  {
+   "text": "fatigué",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "83bc0777"
+  },
+  {
+   "text": "grave",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9068bb32"
+  },
+  {
+   "text": "tousser",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ddea55b2"
+  },
+  {
+   "text": "se reposer",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "6ce8038b"
+  },
+  {
+   "text": "guérir",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3c383a42"
+  },
+  {
+   "text": "Bonjour. Qu'est-ce qui ne va pas ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "19789998"
+  },
+  {
+   "text": "J'ai mal à la gorge depuis trois jours.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1cf32fe8"
+  },
+  {
+   "text": "Vous avez de la fièvre ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "57919764"
+  },
+  {
+   "text": "Un peu, trente-huit ce matin. Et je tousse la nuit.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "59daa65e"
+  },
+  {
+   "text": "Ouvrez la bouche… Ce n'est pas grave, c'est un gros rhume.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "bb65aa64"
+  },
+  {
+   "text": "Je peux aller en cours demain ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "6c0dd882"
+  },
+  {
+   "text": "Reposez-vous deux jours. Buvez beaucoup d'eau.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "59b1caee"
+  },
+  {
+   "text": "D'accord. Merci, docteur.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "41fefd6e"
+  },
+  {
+   "text": "Hier, qu'est-ce que tu as fait ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "13249f2c"
+  },
+  {
+   "text": "Hier, j'ai mangé au restaurant.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2b4c457a"
+  },
+  {
+   "text": "Elle est arrivée à midi.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "8dbd0b04"
+  },
+  {
+   "text": "Je n'ai pas compris la question.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "580b2137"
+  },
+  {
+   "text": "J'ai vu un film et j'ai pris le métro.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "72055b61"
+  },
+  {
+   "text": "avant-hier",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "47145d4a"
+  },
+  {
+   "text": "ce matin",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "05a9a730"
+  },
+  {
+   "text": "ensuite",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "92c2f236"
+  },
+  {
+   "text": "enfin",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3b0caf7b"
+  },
+  {
+   "text": "semaine dernière",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "483596bf"
+  },
+  {
+   "text": "film",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b2ea63db"
+  },
+  {
+   "text": "concert",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b733df61"
+  },
+  {
+   "text": "musée",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1cc606bb"
+  },
+  {
+   "text": "exposition",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "29767ffb"
+  },
+  {
+   "text": "sortie",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9a0d3db7"
+  },
+  {
+   "text": "voir",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "56b58869"
+  },
+  {
+   "text": "dire",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "575e1e63"
+  },
+  {
+   "text": "arriver",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "5f6e7a44"
+  },
+  {
+   "text": "rester",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "6d0708cc"
+  },
+  {
+   "text": "oublier",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "82582a75"
+  },
+  {
+   "text": "Alors, qu'est-ce que tu as fait hier ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "c447ec0b"
+  },
+  {
+   "text": "Je suis allé au musée avec Marc.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "cf1e50d7"
+  },
+  {
+   "text": "Ah oui ? Vous êtes restés longtemps ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "26cf3725"
+  },
+  {
+   "text": "Trois heures. Après, on a pris un café.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "7357c73e"
+  },
+  {
+   "text": "Tu as vu l'exposition sur Hanoï ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "07b5f203"
+  },
+  {
+   "text": "Non, je ne l'ai pas vue. Elle commence samedi.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "95031d35"
+  },
+  {
+   "text": "On y va ensemble alors ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1c92d3a7"
+  },
+  {
+   "text": "Avec plaisir. J'ai déjà noté la date.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2e3ae974"
+  },
+  {
+   "text": "Les transports",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "24e3b42f"
+  },
+  {
+   "text": "Je vais prendre le train de neuf heures.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "548472b5"
+  },
+  {
+   "text": "Je vais à la fac à vélo.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ad643d87"
+  },
+  {
+   "text": "— Tu es allé à la gare ? — Oui, j'y suis allé.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "6fa04a17"
+  },
+  {
+   "text": "Est-ce que le train part à l'heure ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "4e865f01"
+  },
+  {
+   "text": "avion",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d2b8ff50"
+  },
+  {
+   "text": "gare routière",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "a038353f"
+  },
+  {
+   "text": "tramway",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "80997bf0"
+  },
+  {
+   "text": "horaire",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "afbb9d9d"
+  },
+  {
+   "text": "quai",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "649b3c95"
+  },
+  {
+   "text": "voie",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "47b570cc"
+  },
+  {
+   "text": "arrêt",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ca3f47df"
+  },
+  {
+   "text": "correspondance",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e47cce4f"
+  },
+  {
+   "text": "retard",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "948002a1"
+  },
+  {
+   "text": "aller-retour",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "65fc3a55"
+  },
+  {
+   "text": "valise",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "51cf5e83"
+  },
+  {
+   "text": "conducteur",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "049d72b9"
+  },
+  {
+   "text": "direct",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "5fe7049c"
+  },
+  {
+   "text": "complet",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "7e2c55d3"
+  },
+  {
+   "text": "monter",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "271eff24"
+  },
+  {
+   "text": "descendre",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "86bd6490"
+  },
+  {
+   "text": "changer",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3c29d8dd"
+  },
+  {
+   "text": "composter",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "6f227ee7"
+  },
+  {
+   "text": "réserver",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "04d64316"
+  },
+  {
+   "text": "durer",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "89f19ef7"
+  },
+  {
+   "text": "Bonjour, un aller-retour pour Marseille, s'il vous plaît.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2d151caf"
+  },
+  {
+   "text": "Pour quand ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3fcc6ab1"
+  },
+  {
+   "text": "Vendredi matin, retour dimanche soir.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3c6b1f5e"
+  },
+  {
+   "text": "Le train de huit heures est complet. Celui de neuf heures ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "c2d207b1"
+  },
+  {
+   "text": "D'accord. C'est direct ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3c5aecbc"
+  },
+  {
+   "text": "Non, vous changez à Lyon. Le trajet dure quatre heures.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1792bc83"
+  },
+  {
+   "text": "Très bien. Je dois composter le billet ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "49a5ba7f"
+  },
+  {
+   "text": "Non, il est électronique. Mais gardez-le sur votre téléphone.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f2ef2093"
+  },
+  {
+   "text": "Au restaurant",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "82929b8a"
+  },
+  {
+   "text": "Cette soupe, je la trouve excellente.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9110e020"
+  },
+  {
+   "text": "Le serveur lui apporte l'addition.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "aa5c70fc"
+  },
+  {
+   "text": "Je voudrais réserver une table pour deux.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "83f22dbe"
+  },
+  {
+   "text": "Comment tu trouves le dessert ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9c547f57"
+  },
+  {
+   "text": "restaurant",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "97487236"
+  },
+  {
+   "text": "couteau",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1ed72987"
+  },
+  {
+   "text": "carte",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "7019e65e"
+  },
+  {
+   "text": "entrée",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e3d2d387"
+  },
+  {
+   "text": "plat",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "cdcbe9b4"
+  },
+  {
+   "text": "dessert",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b75b8129"
+  },
+  {
+   "text": "nappe",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9b961bef"
+  },
+  {
+   "text": "pourboire",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b7f3724a"
+  },
+  {
+   "text": "soupe",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e3317725"
+  },
+  {
+   "text": "salade",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "5e256e5d"
+  },
+  {
+   "text": "poulet",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "22e8bea0"
+  },
+  {
+   "text": "riz",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3f1292ca"
+  },
+  {
+   "text": "sel",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "be26fa6b"
+  },
+  {
+   "text": "poivre",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f928bdfe"
+  },
+  {
+   "text": "délicieux",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "154d5d0e"
+  },
+  {
+   "text": "salé",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2e2cec97"
+  },
+  {
+   "text": "sucré",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "99d1c9c0"
+  },
+  {
+   "text": "goûter",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "c633a74c"
+  },
+  {
+   "text": "servir",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "388e1c26"
+  },
+  {
+   "text": "trouver",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "cafba444"
+  },
+  {
+   "text": "Bonsoir. Vous avez choisi ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "c55035c2"
+  },
+  {
+   "text": "Oui. Je voudrais la soupe en entrée.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1f816eac"
+  },
+  {
+   "text": "Et comme plat ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "bcb559ed"
+  },
+  {
+   "text": "Le poulet avec du riz. Il est épicé ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1c40b2c2"
+  },
+  {
+   "text": "Non, pas du tout. Et comme boisson ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "4c3e0209"
+  },
+  {
+   "text": "Juste une carafe d'eau, merci.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1af5f20c"
+  },
+  {
+   "text": "Très bien. Je vous apporte ça tout de suite.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "bd551584"
+  },
+  {
+   "text": "Merci. Et l'addition après, s'il vous plaît.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "034a919e"
+  },
+  {
+   "text": "Écrire et téléphoner",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3fb76917"
+  },
+  {
+   "text": "Quand j'étais petit, j'habitais à Hanoï.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "0d6244b1"
+  },
+  {
+   "text": "Cordialement, Nguyen Dinh Quan.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d8223d56"
+  },
+  {
+   "text": "Allô ? Bonjour, je suis bien chez Madame Petit ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "0e499630"
+  },
+  {
+   "text": "Comment ça s'écrit, s'il vous plaît ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "5f7ec452"
+  },
+  {
+   "text": "lettre",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f27a5e77"
+  },
+  {
+   "text": "courriel",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9645d238"
+  },
+  {
+   "text": "enveloppe",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "bc032919"
+  },
+  {
+   "text": "timbre",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "7f968234"
+  },
+  {
+   "text": "poste",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3a2ec386"
+  },
+  {
+   "text": "colis",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3e6f5961"
+  },
+  {
+   "text": "numéro",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "dc08c58c"
+  },
+  {
+   "text": "message",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "24f208e4"
+  },
+  {
+   "text": "appel",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1dd20585"
+  },
+  {
+   "text": "réponse",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "7af8d246"
+  },
+  {
+   "text": "signature",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "5fab696d"
+  },
+  {
+   "text": "rendez-vous manqué",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9a671f29"
+  },
+  {
+   "text": "appeler",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "cfb17796"
+  },
+  {
+   "text": "répondre",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9f7410b3"
+  },
+  {
+   "text": "envoyer",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e5c5a81f"
+  },
+  {
+   "text": "recevoir",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f37b0ccc"
+  },
+  {
+   "text": "signer",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9f70fd73"
+  },
+  {
+   "text": "rappeler",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d27fbda6"
+  },
+  {
+   "text": "lentement",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f59b281b"
+  },
+  {
+   "text": "Cabinet du docteur Roux, bonjour.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "49ad1b9d"
+  },
+  {
+   "text": "Bonjour. Je voudrais prendre rendez-vous.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2f643346"
+  },
+  {
+   "text": "Oui. C'est de la part de qui ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "0e6e752a"
+  },
+  {
+   "text": "Nguyen Dinh Quan. Vous pouvez répéter plus lentement ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "403c03a5"
+  },
+  {
+   "text": "Bien sûr. Comment ça s'écrit, votre nom ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "352e6f05"
+  },
+  {
+   "text": "N comme Nicolas, G, U, Y, E, N.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "8a3b8075"
+  },
+  {
+   "text": "Merci. Jeudi quinze heures, ça vous convient ?",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f37268d7"
+  },
+  {
+   "text": "C'est parfait. Merci beaucoup, au revoir.",
+   "kind": "course",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "31ab47bb"
+  },
+  {
+   "text": "Quân arrive à Lyon un mardi. Il ouvre la fenêtre à sept heures.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "96e56607"
+  },
+  {
+   "text": "Il fait froid. La rue est calme. Une boulangerie ouvre en face.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "23f21bed"
+  },
+  {
+   "text": "Il achète une baguette et un café. Le vendeur parle vite.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "6c08484b"
+  },
+  {
+   "text": "Quân ne comprend pas tout, mais il sourit. Il comprend le mot «merci».",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b060d1b0"
+  },
+  {
+   "text": "Quân arrive à Lyon un mardi. Il ouvre la fenêtre à sept heures. Il fait froid. La rue est calme. Une boulangerie ouvre en face. Il achète une baguette et un café. Le vendeur parle vite. Quân ne comprend pas tout, mais il sourit. Il comprend le mot «merci».",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "c5c23e8e"
+  },
+  {
+   "text": "Le samedi, il y a un marché sur la place.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b5e80606"
+  },
+  {
+   "text": "Quân achète des tomates, deux kilos de pommes et un peu de fromage.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "c2cf17a3"
+  },
+  {
+   "text": "Il demande : «C'est combien, s'il vous plaît ?»",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "614028ba"
+  },
+  {
+   "text": "La marchande répond : «Six euros cinquante.» Elle ajoute une pomme pour lui.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "410fb7a2"
+  },
+  {
+   "text": "Le samedi, il y a un marché sur la place. Quân achète des tomates, deux kilos de pommes et un peu de fromage. Il demande : «C'est combien, s'il vous plaît ?» La marchande répond : «Six euros cinquante.» Elle ajoute une pomme pour lui.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "4a5b51c8"
+  },
+  {
+   "text": "Dans la classe, il y a douze étudiants et une professeure.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "a790b771"
+  },
+  {
+   "text": "Chacun se présente. «Je m'appelle Quân. Je suis vietnamien. J'ai vingt et un ans.»",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "49de1541"
+  },
+  {
+   "text": "Une fille dit : «Moi, je suis brésilienne. J'habite ici depuis trois mois.»",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2d62e9db"
+  },
+  {
+   "text": "La professeure écrit au tableau : «Bienvenue.» Tout le monde répète le mot.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "299ea3db"
+  },
+  {
+   "text": "Dans la classe, il y a douze étudiants et une professeure. Chacun se présente. «Je m'appelle Quân. Je suis vietnamien. J'ai vingt et un ans.» Une fille dit : «Moi, je suis brésilienne. J'habite ici depuis trois mois.» La professeure écrit au tableau : «Bienvenue.» Tout le monde répète le mot.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2750f9d3"
+  },
+  {
+   "text": "La chambre est petite mais claire. Il y a un lit, une table et une chaise.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d7c48e0e"
+  },
+  {
+   "text": "L'armoire est à gauche de la porte. La fenêtre donne sur une cour.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "24beab7c"
+  },
+  {
+   "text": "Sur la table, il y a un ordinateur et trois livres.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b0eef230"
+  },
+  {
+   "text": "Sous le lit, Quân range sa valise. Il n'a pas beaucoup de choses.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "664144d6"
+  },
+  {
+   "text": "La chambre est petite mais claire. Il y a un lit, une table et une chaise. L'armoire est à gauche de la porte. La fenêtre donne sur une cour. Sur la table, il y a un ordinateur et trois livres. Sous le lit, Quân range sa valise. Il n'a pas beaucoup de choses.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "4922a113"
+  },
+  {
+   "text": "Quân cherche la gare. Il demande à une dame.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e1a7c2a9"
+  },
+  {
+   "text": "«Pardon, madame, où est la gare, s'il vous plaît ?»",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "39eabcac"
+  },
+  {
+   "text": "«Allez tout droit, puis tournez à droite après la pharmacie.»",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e8d365b3"
+  },
+  {
+   "text": "«C'est loin ?» «Non, dix minutes à pied.» Quân la remercie et part.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "5555b85e"
+  },
+  {
+   "text": "Quân cherche la gare. Il demande à une dame. «Pardon, madame, où est la gare, s'il vous plaît ?» «Allez tout droit, puis tournez à droite après la pharmacie.» «C'est loin ?» «Non, dix minutes à pied.» Quân la remercie et part.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ed7db10b"
+  },
+  {
+   "text": "Quân est arrivé à huit heures. Il y avait déjà trente personnes devant la porte.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ce4fa98f"
+  },
+  {
+   "text": "Il a pris un ticket et il a attendu deux heures.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9a2ff64c"
+  },
+  {
+   "text": "Au guichet, l'employée a demandé son passeport, une photo et un justificatif de domicile.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "5be449bd"
+  },
+  {
+   "text": "Il avait oublié le justificatif. Il doit revenir la semaine prochaine.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "23730c22"
+  },
+  {
+   "text": "En sortant, il a écrit la liste sur son téléphone. Cette fois, il n'oubliera rien.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e5147130"
+  },
+  {
+   "text": "Quân est arrivé à huit heures. Il y avait déjà trente personnes devant la porte. Il a pris un ticket et il a attendu deux heures. Au guichet, l'employée a demandé son passeport, une photo et un justificatif de domicile. Il avait oublié le justificatif. Il doit revenir la semaine prochaine. En sortant, il a écrit la liste sur son téléphone. Cette fois, il n'oubliera rien.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "a58560ac"
+  },
+  {
+   "text": "Quân a visité trois appartements en une semaine.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "8a409558"
+  },
+  {
+   "text": "Le premier était grand mais très cher. Le deuxième était moins cher, mais loin du centre.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3e49d00d"
+  },
+  {
+   "text": "Le troisième est plus petit que les autres, pourtant il est clair et bien situé.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "0865090d"
+  },
+  {
+   "text": "Le propriétaire a demandé un garant. Un ami de Quân a accepté de signer.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "6375861d"
+  },
+  {
+   "text": "Maintenant Quân a les clés. Il range ses affaires et il respire.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "13633f3c"
+  },
+  {
+   "text": "Quân a visité trois appartements en une semaine. Le premier était grand mais très cher. Le deuxième était moins cher, mais loin du centre. Le troisième est plus petit que les autres, pourtant il est clair et bien situé. Le propriétaire a demandé un garant. Un ami de Quân a accepté de signer. Maintenant Quân a les clés. Il range ses affaires et il respire.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3a04d4f3"
+  },
+  {
+   "text": "Le train pour Paris part à dix-huit heures douze, voie sept.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "4472b695"
+  },
+  {
+   "text": "Quân va composter son billet, puis il monte dans la voiture douze.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2a505f2c"
+  },
+  {
+   "text": "Une annonce dit que le train aura dix minutes de retard.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "059c4f60"
+  },
+  {
+   "text": "Personne ne s'énerve. Les gens ouvrent un livre ou ferment les yeux.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "a78758f5"
+  },
+  {
+   "text": "À l'arrivée, il fait déjà nuit. La gare sent le café et le pain chaud.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e1745d06"
+  },
+  {
+   "text": "Le train pour Paris part à dix-huit heures douze, voie sept. Quân va composter son billet, puis il monte dans la voiture douze. Une annonce dit que le train aura dix minutes de retard. Personne ne s'énerve. Les gens ouvrent un livre ou ferment les yeux. À l'arrivée, il fait déjà nuit. La gare sent le café et le pain chaud.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ae7d8b04"
+  },
+  {
+   "text": "À midi, Quân entre dans un petit restaurant près de la fac.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "939f2834"
+  },
+  {
+   "text": "Il prend le menu du jour : une entrée, un plat et un dessert.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "c0d2fe88"
+  },
+  {
+   "text": "Il commande de la soupe, du poulet avec des haricots verts, et une tarte aux pommes.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "42921686"
+  },
+  {
+   "text": "Le serveur apporte aussi du pain et une carafe d'eau, sans rien demander.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1ae4f14b"
+  },
+  {
+   "text": "Quân comprend enfin pourquoi le déjeuner dure une heure ici.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b77d8728"
+  },
+  {
+   "text": "À midi, Quân entre dans un petit restaurant près de la fac. Il prend le menu du jour : une entrée, un plat et un dessert. Il commande de la soupe, du poulet avec des haricots verts, et une tarte aux pommes. Le serveur apporte aussi du pain et une carafe d'eau, sans rien demander. Quân comprend enfin pourquoi le déjeuner dure une heure ici.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "497d7295"
+  },
+  {
+   "text": "Une lettre est arrivée. Quân l'ouvre lentement.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f2c1709d"
+  },
+  {
+   "text": "La banque lui demande de confirmer son adresse avant la fin du mois.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "01c21222"
+  },
+  {
+   "text": "Il ne connaît pas tous les mots, alors il cherche les plus importants.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "da207e10"
+  },
+  {
+   "text": "Il écrit une réponse courte, il la relit deux fois, puis il l'envoie.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f576898b"
+  },
+  {
+   "text": "Trois jours après, la banque lui répond : «Dossier complet.» Il est content.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "38a35249"
+  },
+  {
+   "text": "Une lettre est arrivée. Quân l'ouvre lentement. La banque lui demande de confirmer son adresse avant la fin du mois. Il ne connaît pas tous les mots, alors il cherche les plus importants. Il écrit une réponse courte, il la relit deux fois, puis il l'envoie. Trois jours après, la banque lui répond : «Dossier complet.» Il est content.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9f1fcd69"
+  },
+  {
+   "text": "Le dimanche, presque tout est fermé. Quân l'a appris le premier week-end.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "4858836b"
+  },
+  {
+   "text": "Avant, il faisait ses courses n'importe quand. Maintenant il pense au samedi soir.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1539b1db"
+  },
+  {
+   "text": "Les gens marchent lentement, s'arrêtent, discutent au milieu du trottoir.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9b7ff34f"
+  },
+  {
+   "text": "Dans le parc, trois hommes jouent à la pétanque depuis deux heures.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "4f67bb8b"
+  },
+  {
+   "text": "Quân s'assoit sur un banc et ne fait rien. C'est plus difficile qu'il ne croyait.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "a6cbc4c1"
+  },
+  {
+   "text": "Le dimanche, presque tout est fermé. Quân l'a appris le premier week-end. Avant, il faisait ses courses n'importe quand. Maintenant il pense au samedi soir. Les gens marchent lentement, s'arrêtent, discutent au milieu du trottoir. Dans le parc, trois hommes jouent à la pétanque depuis deux heures. Quân s'assoit sur un banc et ne fait rien. C'est plus difficile qu'il ne croyait.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "a31bc365"
+  },
+  {
+   "text": "Quân a mal à la gorge depuis trois jours. Il prend rendez-vous en ligne.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d7ea76a3"
+  },
+  {
+   "text": "Le médecin l'écoute, regarde sa gorge et prend sa température.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "64a16b20"
+  },
+  {
+   "text": "«Ce n'est pas grave. Buvez beaucoup d'eau et reposez-vous.»",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "57e2aafe"
+  },
+  {
+   "text": "Il écrit une ordonnance pour deux médicaments et un arrêt de deux jours.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f80be334"
+  },
+  {
+   "text": "À la pharmacie, on lui explique comment les prendre. Il note tout.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ab3f3e8f"
+  },
+  {
+   "text": "Quân a mal à la gorge depuis trois jours. Il prend rendez-vous en ligne. Le médecin l'écoute, regarde sa gorge et prend sa température. «Ce n'est pas grave. Buvez beaucoup d'eau et reposez-vous.» Il écrit une ordonnance pour deux médicaments et un arrêt de deux jours. À la pharmacie, on lui explique comment les prendre. Il note tout.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "cd99b8b2"
+  },
+  {
+   "text": "Quân doit présenter un exposé de dix minutes devant vingt personnes.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "5dda03ed"
+  },
+  {
+   "text": "La veille, il répète trois fois à voix haute, seul dans sa chambre.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "542cd0eb"
+  },
+  {
+   "text": "Le jour venu, sa voix tremble au début, puis se stabilise.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1be1ec6d"
+  },
+  {
+   "text": "Il avait préparé trop de texte, alors il saute deux diapositives et personne ne le remarque.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "88a315bb"
+  },
+  {
+   "text": "À la fin, une étudiante lui pose une question qu'il n'avait pas prévue.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b7559d47"
+  },
+  {
+   "text": "Il répond honnêtement : «Je ne sais pas, mais je vais chercher.» La professeure approuve.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "5ab94f8e"
+  },
+  {
+   "text": "Quân doit présenter un exposé de dix minutes devant vingt personnes. La veille, il répète trois fois à voix haute, seul dans sa chambre. Le jour venu, sa voix tremble au début, puis se stabilise. Il avait préparé trop de texte, alors il saute deux diapositives et personne ne le remarque. À la fin, une étudiante lui pose une question qu'il n'avait pas prévue. Il répond honnêtement : «Je ne sais pas, mais je vais chercher.» La professeure approuve.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ef428dc2"
+  },
+  {
+   "text": "Au dîner, quelqu'un lance un sujet politique. Le ton monte très vite.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "749f660c"
+  },
+  {
+   "text": "Deux amis se coupent la parole, rient, puis recommencent.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "30b51ad6"
+  },
+  {
+   "text": "Quân se tait. Chez lui, une discussion pareille serait un conflit.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "49f785d6"
+  },
+  {
+   "text": "Mais dix minutes plus tard, les mêmes personnes partagent un dessert et parlent de vélo.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "32a154d6"
+  },
+  {
+   "text": "Il comprend alors que le désaccord, ici, n'abîme pas la relation.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "090b93a1"
+  },
+  {
+   "text": "Il ose donner son avis. On l'écoute, on le contredit, et on lui ressert du vin.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "a9751980"
+  },
+  {
+   "text": "Au dîner, quelqu'un lance un sujet politique. Le ton monte très vite. Deux amis se coupent la parole, rient, puis recommencent. Quân se tait. Chez lui, une discussion pareille serait un conflit. Mais dix minutes plus tard, les mêmes personnes partagent un dessert et parlent de vélo. Il comprend alors que le désaccord, ici, n'abîme pas la relation. Il ose donner son avis. On l'écoute, on le contredit, et on lui ressert du vin.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "486c13e6"
+  },
+  {
+   "text": "Quân travaille quinze heures par semaine dans une librairie.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "02a5a860"
+  },
+  {
+   "text": "Il range les rayons, encaisse, et répond aux clients qui cherchent un titre.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b905a22e"
+  },
+  {
+   "text": "Le premier mois a été dur : il confondait les rayons et parlait trop lentement.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "64cfbef9"
+  },
+  {
+   "text": "Maintenant, il connaît la boutique par cœur et conseille même des romans.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "62c59af0"
+  },
+  {
+   "text": "Le salaire couvre le loyer et une partie des courses.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "cb6a9205"
+  },
+  {
+   "text": "Ce qui le surprend le plus, c'est que son français a plus progressé ici qu'en classe.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2c25ea64"
+  },
+  {
+   "text": "Quân travaille quinze heures par semaine dans une librairie. Il range les rayons, encaisse, et répond aux clients qui cherchent un titre. Le premier mois a été dur : il confondait les rayons et parlait trop lentement. Maintenant, il connaît la boutique par cœur et conseille même des romans. Le salaire couvre le loyer et une partie des courses. Ce qui le surprend le plus, c'est que son français a plus progressé ici qu'en classe.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f6756f85"
+  },
+  {
+   "text": "Ils sont partis à six heures, sac au dos, pour trois jours de marche.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9360b5fd"
+  },
+  {
+   "text": "Le premier jour, le ciel était clair et le chemin facile.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "a1decd5d"
+  },
+  {
+   "text": "Le deuxième, le brouillard est tombé en vingt minutes. On ne voyait plus le sentier.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "4bfa08f6"
+  },
+  {
+   "text": "Le guide a décidé de redescendre. Personne n'a discuté.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "60ae9bdc"
+  },
+  {
+   "text": "Le soir, au refuge, quelqu'un a dit : «En montagne, renoncer, c'est aussi savoir.»",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "5e19ed73"
+  },
+  {
+   "text": "Quân a noté la phrase. Elle lui a servi bien après, loin des montagnes.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e2e6b96f"
+  },
+  {
+   "text": "Ils sont partis à six heures, sac au dos, pour trois jours de marche. Le premier jour, le ciel était clair et le chemin facile. Le deuxième, le brouillard est tombé en vingt minutes. On ne voyait plus le sentier. Le guide a décidé de redescendre. Personne n'a discuté. Le soir, au refuge, quelqu'un a dit : «En montagne, renoncer, c'est aussi savoir.» Quân a noté la phrase. Elle lui a servi bien après, loin des montagnes.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9a63060f"
+  },
+  {
+   "text": "Au début, Quân traduisait chaque phrase dans sa tête.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d6d59fd1"
+  },
+  {
+   "text": "Puis il a rencontré des mots qui résistaient : «voilà», «quand même», «bof».",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "aaed584c"
+  },
+  {
+   "text": "Aucune traduction ne marchait vraiment. Il fallait deviner par l'usage.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e443d9c1"
+  },
+  {
+   "text": "Un jour, il a dit «bof» sans y penser, et ses amis ont ri de surprise.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "7db33e8b"
+  },
+  {
+   "text": "Ce jour-là, il a senti qu'il avait cessé de traduire.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "5a6e0a0c"
+  },
+  {
+   "text": "La langue n'était plus un mur ; elle était devenue une pièce où il pouvait s'asseoir.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b67dccf9"
+  },
+  {
+   "text": "Au début, Quân traduisait chaque phrase dans sa tête. Puis il a rencontré des mots qui résistaient : «voilà», «quand même», «bof». Aucune traduction ne marchait vraiment. Il fallait deviner par l'usage. Un jour, il a dit «bof» sans y penser, et ses amis ont ri de surprise. Ce jour-là, il a senti qu'il avait cessé de traduire. La langue n'était plus un mur ; elle était devenue une pièce où il pouvait s'asseoir.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "81e0f9db"
+  },
+  {
+   "text": "La famille de Quân a envoyé un colis depuis Hanoï. Il est parti il y a un mois.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e231e4c6"
+  },
+  {
+   "text": "Le site dit «en transit» pendant deux semaines, puis plus rien.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "bc16b056"
+  },
+  {
+   "text": "Quân va à la poste avec son avis de passage et sa carte d'identité.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "7061aa31"
+  },
+  {
+   "text": "L'employé cherche, disparaît cinq minutes, et revient avec une boîte cabossée.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "6adfe685"
+  },
+  {
+   "text": "Dedans : du thé, des photos, et une lettre de sa mère. Rien n'est cassé.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "10ba6106"
+  },
+  {
+   "text": "La famille de Quân a envoyé un colis depuis Hanoï. Il est parti il y a un mois. Le site dit «en transit» pendant deux semaines, puis plus rien. Quân va à la poste avec son avis de passage et sa carte d'identité. L'employé cherche, disparaît cinq minutes, et revient avec une boîte cabossée. Dedans : du thé, des photos, et une lettre de sa mère. Rien n'est cassé.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "de9eefde"
+  },
+  {
+   "text": "Quân est monté dans le tram en retard, sans valider son ticket.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "05ad655e"
+  },
+  {
+   "text": "Deux contrôleurs sont montés à l'arrêt suivant.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2283f4de"
+  },
+  {
+   "text": "Il a expliqué, en cherchant ses mots, qu'il avait bien un ticket mais qu'il ne l'avait pas composté.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "8fe71d00"
+  },
+  {
+   "text": "Un contrôleur a répondu : «Un ticket non validé ne compte pas, monsieur.»",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "a5f0ad4f"
+  },
+  {
+   "text": "L'amende était de cinquante euros. Depuis, Quân valide avant même de s'asseoir.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "a89505f4"
+  },
+  {
+   "text": "Quân est monté dans le tram en retard, sans valider son ticket. Deux contrôleurs sont montés à l'arrêt suivant. Il a expliqué, en cherchant ses mots, qu'il avait bien un ticket mais qu'il ne l'avait pas composté. Un contrôleur a répondu : «Un ticket non validé ne compte pas, monsieur.» L'amende était de cinquante euros. Depuis, Quân valide avant même de s'asseoir.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "733c658b"
+  },
+  {
+   "text": "Il y a un an, Quân comptait les jours. Maintenant il ne les compte plus.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "6e3e8738"
+  },
+  {
+   "text": "Avant, il préparait chaque phrase avant de parler. Aujourd'hui, il parle d'abord et se corrige après.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "981f0240"
+  },
+  {
+   "text": "Il connaît le nom de la boulangère, le jour du marché, et l'heure du dernier bus.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2f6b20eb"
+  },
+  {
+   "text": "Il sait aussi ce qui lui manque : une table où dix personnes mangent trop et parlent en même temps.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "471d9157"
+  },
+  {
+   "text": "Sa mère lui demande au téléphone s'il rentre bientôt. Il répond : «Bientôt.»",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d4266b29"
+  },
+  {
+   "text": "Puis il raccroche et ouvre son cahier. Demain, il a un exposé à préparer.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "90cf63d0"
+  },
+  {
+   "text": "Il y a un an, Quân comptait les jours. Maintenant il ne les compte plus. Avant, il préparait chaque phrase avant de parler. Aujourd'hui, il parle d'abord et se corrige après. Il connaît le nom de la boulangère, le jour du marché, et l'heure du dernier bus. Il sait aussi ce qui lui manque : une table où dix personnes mangent trop et parlent en même temps. Sa mère lui demande au téléphone s'il rentre bientôt. Il répond : «Bientôt.» Puis il raccroche et ouvre son cahier. Demain, il a un exposé à préparer.",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "86a92f62"
+  },
+  {
+   "text": "le matin",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "40b3863b"
+  },
+  {
+   "text": "la boulangerie",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d701d819"
+  },
+  {
+   "text": "comprendre",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "cdb7cf98"
+  },
+  {
+   "text": "vite",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e9c9dbdb"
+  },
+  {
+   "text": "le marché",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "0630e7c9"
+  },
+  {
+   "text": "la place",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9e837685"
+  },
+  {
+   "text": "la tomate",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "45cf9042"
+  },
+  {
+   "text": "le fromage",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "df66a355"
+  },
+  {
+   "text": "un peu de",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b2c9aee3"
+  },
+  {
+   "text": "la marchande",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "af865065"
+  },
+  {
+   "text": "l'étudiant",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "105b3a41"
+  },
+  {
+   "text": "se présenter",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "0df41e38"
+  },
+  {
+   "text": "habiter",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "06bda83e"
+  },
+  {
+   "text": "depuis",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "88e63f59"
+  },
+  {
+   "text": "répéter",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "74d2916e"
+  },
+  {
+   "text": "la chambre",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f276404e"
+  },
+  {
+   "text": "la cour",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "709765db"
+  },
+  {
+   "text": "ranger",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "8867dfe0"
+  },
+  {
+   "text": "beaucoup de",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ead97d68"
+  },
+  {
+   "text": "la gare",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "01ff389f"
+  },
+  {
+   "text": "la pharmacie",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "014a7496"
+  },
+  {
+   "text": "à pied",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "88387994"
+  },
+  {
+   "text": "remercier",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "4f9b4b3b"
+  },
+  {
+   "text": "la préfecture",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "6527faa4"
+  },
+  {
+   "text": "le guichet",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3a9a0f53"
+  },
+  {
+   "text": "le passeport",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f038ba99"
+  },
+  {
+   "text": "le justificatif",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "bb0aaa75"
+  },
+  {
+   "text": "le domicile",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b9ccb6ba"
+  },
+  {
+   "text": "revenir",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "bc3dec9e"
+  },
+  {
+   "text": "la semaine prochaine",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b5242331"
+  },
+  {
+   "text": "le logement",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b6270c67"
+  },
+  {
+   "text": "l'appartement",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2487ceef"
+  },
+  {
+   "text": "le centre",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "8c6dc5a5"
+  },
+  {
+   "text": "le propriétaire",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2669b3b5"
+  },
+  {
+   "text": "le garant",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "da5ee785"
+  },
+  {
+   "text": "les affaires",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "063ffaac"
+  },
+  {
+   "text": "la voie",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "a88abc17"
+  },
+  {
+   "text": "le billet",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "4bd06156"
+  },
+  {
+   "text": "l'annonce",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "9ff941d2"
+  },
+  {
+   "text": "le retard",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "376c67da"
+  },
+  {
+   "text": "s'énerver",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b126a06d"
+  },
+  {
+   "text": "l'arrivée",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "6c7e8e2b"
+  },
+  {
+   "text": "le repas",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "0c516701"
+  },
+  {
+   "text": "le menu du jour",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "0a47c280"
+  },
+  {
+   "text": "l'entrée",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "133a4ce8"
+  },
+  {
+   "text": "le plat",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d1301287"
+  },
+  {
+   "text": "le dessert",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "8a9888f0"
+  },
+  {
+   "text": "commander",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "0ef77b05"
+  },
+  {
+   "text": "le serveur",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "7ba03f7a"
+  },
+  {
+   "text": "la carafe",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "25f21dca"
+  },
+  {
+   "text": "la lettre",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "c9583c00"
+  },
+  {
+   "text": "la banque",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ab601bf8"
+  },
+  {
+   "text": "confirmer",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "05a02e04"
+  },
+  {
+   "text": "l'adresse",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b977b555"
+  },
+  {
+   "text": "chercher",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1e12b4c5"
+  },
+  {
+   "text": "relire",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "dbd0631e"
+  },
+  {
+   "text": "le dossier",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "c7d8e477"
+  },
+  {
+   "text": "le dimanche",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "53a85a93"
+  },
+  {
+   "text": "fermé",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "41468659"
+  },
+  {
+   "text": "les courses",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "dab701dd"
+  },
+  {
+   "text": "le trottoir",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "61f60be1"
+  },
+  {
+   "text": "le parc",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ff2a7e6e"
+  },
+  {
+   "text": "le banc",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1c59e4d0"
+  },
+  {
+   "text": "croire",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "7894e65d"
+  },
+  {
+   "text": "avoir mal à",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "43e1b961"
+  },
+  {
+   "text": "la gorge",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "0bb6709a"
+  },
+  {
+   "text": "le rendez-vous",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d16b63c2"
+  },
+  {
+   "text": "le médecin",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2a4e4a10"
+  },
+  {
+   "text": "l'ordonnance",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e7b25ddf"
+  },
+  {
+   "text": "le médicament",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "586c32a2"
+  },
+  {
+   "text": "l'exposé",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "bb29c861"
+  },
+  {
+   "text": "la veille",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e3100001"
+  },
+  {
+   "text": "à voix haute",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e269ea25"
+  },
+  {
+   "text": "trembler",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "54a1ac00"
+  },
+  {
+   "text": "la diapositive",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b822546b"
+  },
+  {
+   "text": "remarquer",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "bae7fab5"
+  },
+  {
+   "text": "prévoir",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "d2af5317"
+  },
+  {
+   "text": "approuver",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "32b28adf"
+  },
+  {
+   "text": "le sujet",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "31230f25"
+  },
+  {
+   "text": "couper la parole",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3f530a8f"
+  },
+  {
+   "text": "se taire",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2f9a62aa"
+  },
+  {
+   "text": "le conflit",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f6e372ed"
+  },
+  {
+   "text": "le désaccord",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "52984e6f"
+  },
+  {
+   "text": "abîmer",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "67c02941"
+  },
+  {
+   "text": "oser",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "50fd724c"
+  },
+  {
+   "text": "contredire",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "8dfa43fe"
+  },
+  {
+   "text": "le petit boulot",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "271d4567"
+  },
+  {
+   "text": "la librairie",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e08bad29"
+  },
+  {
+   "text": "le rayon",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "815dc20b"
+  },
+  {
+   "text": "encaisser",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "21c38df0"
+  },
+  {
+   "text": "confondre",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "3647ce4f"
+  },
+  {
+   "text": "par cœur",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "1ef6978e"
+  },
+  {
+   "text": "le loyer",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "c2e970d1"
+  },
+  {
+   "text": "progresser",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "5beb3b71"
+  },
+  {
+   "text": "la montagne",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "fc05bc5d"
+  },
+  {
+   "text": "le sac à dos",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "65a23150"
+  },
+  {
+   "text": "le brouillard",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "682a9a92"
+  },
+  {
+   "text": "le sentier",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "6da6669c"
+  },
+  {
+   "text": "le guide",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "201fb2e6"
+  },
+  {
+   "text": "redescendre",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "22af123b"
+  },
+  {
+   "text": "le refuge",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "60d0424a"
+  },
+  {
+   "text": "renoncer",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b0dddd67"
+  },
+  {
+   "text": "traduire",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b8b7e989"
+  },
+  {
+   "text": "la tête",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "0bfa56a0"
+  },
+  {
+   "text": "résister",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ea3d230d"
+  },
+  {
+   "text": "deviner",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "f19218f0"
+  },
+  {
+   "text": "l'usage",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "185cdc6b"
+  },
+  {
+   "text": "la surprise",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "61bd34d5"
+  },
+  {
+   "text": "cesser",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "24f172b0"
+  },
+  {
+   "text": "le colis",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "e41a8d54"
+  },
+  {
+   "text": "la poste",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "0b08894b"
+  },
+  {
+   "text": "l'avis de passage",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "a9ab02e6"
+  },
+  {
+   "text": "la carte d'identité",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "7f4f405b"
+  },
+  {
+   "text": "cassé",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "2bb6f33f"
+  },
+  {
+   "text": "il y a un mois",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "da8d0c41"
+  },
+  {
+   "text": "le tramway",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "70ded2dd"
+  },
+  {
+   "text": "valider",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "93f0dd0a"
+  },
+  {
+   "text": "le contrôleur",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ca6d177b"
+  },
+  {
+   "text": "l'arrêt",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "6e2e0d6a"
+  },
+  {
+   "text": "l'amende",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "184b4702"
+  },
+  {
+   "text": "compter",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "cb0af9ed"
+  },
+  {
+   "text": "se corriger",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "a96d831e"
+  },
+  {
+   "text": "le dernier bus",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "30f57fbd"
+  },
+  {
+   "text": "manquer",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "b654a5ae"
+  },
+  {
+   "text": "en même temps",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "ac3f9c75"
+  },
+  {
+   "text": "raccrocher",
+   "kind": "reading",
+   "lang": "fr",
+   "voice": "fr",
+   "hash": "6ac9feb9"
   }
  ],
  "es": [
@@ -146584,6 +150532,3947 @@
    "lang": "es",
    "voice": "es",
    "hash": "631499c7"
+  },
+  {
+   "text": "La casa",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "17fe3292"
+  },
+  {
+   "text": "Hay un armario y está a la derecha.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "94c8ed4e"
+  },
+  {
+   "text": "La lámpara está al lado del sofá.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "cd6df0f7"
+  },
+  {
+   "text": "Una habitación pequeña y un salón grande.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "adfffd86"
+  },
+  {
+   "text": "Es un piso viejo pero cómodo.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "633b4ec6"
+  },
+  {
+   "text": "piso",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "1e1b1734"
+  },
+  {
+   "text": "edificio",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "c97d8bc7"
+  },
+  {
+   "text": "habitación",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d7503864"
+  },
+  {
+   "text": "salón",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a9d110e1"
+  },
+  {
+   "text": "baño",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "1947f3b1"
+  },
+  {
+   "text": "cama",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "9aef1eb7"
+  },
+  {
+   "text": "armario",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "317758c2"
+  },
+  {
+   "text": "estantería",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "9f9f70c6"
+  },
+  {
+   "text": "sofá",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "fafa5ad3"
+  },
+  {
+   "text": "lámpara",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "2c9d84cc"
+  },
+  {
+   "text": "ventana",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "e7d880c8"
+  },
+  {
+   "text": "puerta",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "cdcd5942"
+  },
+  {
+   "text": "pared",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "671757e9"
+  },
+  {
+   "text": "alquiler",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "3b1b2c5c"
+  },
+  {
+   "text": "vecino",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "83629203"
+  },
+  {
+   "text": "cómodo",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "e9820f61"
+  },
+  {
+   "text": "luminoso",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "83528f9d"
+  },
+  {
+   "text": "ruidoso",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "c4141610"
+  },
+  {
+   "text": "amueblado",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f7d5f1c3"
+  },
+  {
+   "text": "alquilar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "3325ad20"
+  },
+  {
+   "text": "Buenos días, llamo por el piso que se alquila.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "c0af96cb"
+  },
+  {
+   "text": "Sí, todavía está libre. Son treinta metros cuadrados.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "1511b9f8"
+  },
+  {
+   "text": "¿Está amueblado?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b16ab86b"
+  },
+  {
+   "text": "Sí: cama, mesa, dos sillas y un armario grande.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "177a3830"
+  },
+  {
+   "text": "¿Y el alquiler?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "50939f28"
+  },
+  {
+   "text": "Seiscientos euros, gastos incluidos.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "70ede3c7"
+  },
+  {
+   "text": "¿La ventana da a la calle?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "860e227b"
+  },
+  {
+   "text": "No, da a un patio. Es más tranquilo.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "4c8c5f7d"
+  },
+  {
+   "text": "Hacer la compra",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "3066a463"
+  },
+  {
+   "text": "Quiero medio kilo de queso.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "7c911277"
+  },
+  {
+   "text": "Es muy caro y hay mucha gente.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "96274723"
+  },
+  {
+   "text": "El mercado es más barato que el supermercado.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "631c4ba2"
+  },
+  {
+   "text": "¿Qué quieres tomar?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "c6952e0a"
+  },
+  {
+   "text": "supermercado",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "aea0f8f9"
+  },
+  {
+   "text": "panadería",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "cc208cc1"
+  },
+  {
+   "text": "carnicería",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "bc35878d"
+  },
+  {
+   "text": "frutería",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "6edfe16e"
+  },
+  {
+   "text": "caja",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b2ed05e8"
+  },
+  {
+   "text": "precio",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0c5ed097"
+  },
+  {
+   "text": "kilo",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "c20f40e0"
+  },
+  {
+   "text": "manzana",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "9d12ab97"
+  },
+  {
+   "text": "tomate",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "3fa2f581"
+  },
+  {
+   "text": "aceite",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "41f61c00"
+  },
+  {
+   "text": "carne",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "8c0b07e8"
+  },
+  {
+   "text": "pescado",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0b7fa9e2"
+  },
+  {
+   "text": "verdura",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "64a468fc"
+  },
+  {
+   "text": "fruta",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "be99c86b"
+  },
+  {
+   "text": "bolsa",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "8e852bba"
+  },
+  {
+   "text": "gratis",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "6eef45e9"
+  },
+  {
+   "text": "fresco",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f7447c6f"
+  },
+  {
+   "text": "barato",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "24815760"
+  },
+  {
+   "text": "costar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "28fbf44b"
+  },
+  {
+   "text": "pagar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a2fb1510"
+  },
+  {
+   "text": "¡Buenos días! ¿Qué le pongo?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "cad30f59"
+  },
+  {
+   "text": "Un kilo de manzanas, por favor.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d37622aa"
+  },
+  {
+   "text": "Aquí tiene. ¿Algo más?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a12a4616"
+  },
+  {
+   "text": "Un poco de queso. ¿Cuánto cuesta ése?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "41da2da9"
+  },
+  {
+   "text": "Veinte euros el kilo. Está muy bueno.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b5bfbe82"
+  },
+  {
+   "text": "Entonces doscientos gramos.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0f6cbf44"
+  },
+  {
+   "text": "Son ocho euros con cincuenta en total.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d178735b"
+  },
+  {
+   "text": "¿Puedo pagar con tarjeta?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "8d8da898"
+  },
+  {
+   "text": "Un día normal",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "6e9c4640"
+  },
+  {
+   "text": "Me levanto a las seis y media.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b1eb4b2a"
+  },
+  {
+   "text": "Duermo ocho horas pero dormimos poco en época de exámenes.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "5e533682"
+  },
+  {
+   "text": "A veces desayuno en la cafetería.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "be511075"
+  },
+  {
+   "text": "Por la tarde hago la compra y voy al gimnasio.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "360e8952"
+  },
+  {
+   "text": "madrugada",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b56404c3"
+  },
+  {
+   "text": "tarde",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "287d6e57"
+  },
+  {
+   "text": "horario",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a4a7d0e9"
+  },
+  {
+   "text": "despertador",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "44c37afe"
+  },
+  {
+   "text": "ducha",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b90ea5f0"
+  },
+  {
+   "text": "desayuno",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "c27d70c7"
+  },
+  {
+   "text": "comida",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d93015a6"
+  },
+  {
+   "text": "cena",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "37e25fc0"
+  },
+  {
+   "text": "siesta",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f079521e"
+  },
+  {
+   "text": "trabajo",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "7a3fbb18"
+  },
+  {
+   "text": "gimnasio",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "78f6be46"
+  },
+  {
+   "text": "acostarse",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "9add655e"
+  },
+  {
+   "text": "ducharse",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "7944a21e"
+  },
+  {
+   "text": "volver",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d7e45753"
+  },
+  {
+   "text": "siempre",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "279ad7cc"
+  },
+  {
+   "text": "a veces",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "c6bff416"
+  },
+  {
+   "text": "nunca",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "328ad8fa"
+  },
+  {
+   "text": "¿A qué hora te levantas tú?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "475fca54"
+  },
+  {
+   "text": "A las seis y media entre semana.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "678a7720"
+  },
+  {
+   "text": "¿Tan temprano? Yo nunca antes de las ocho.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "64cfe968"
+  },
+  {
+   "text": "Mi clase empieza a las ocho y cuarto.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "4282e431"
+  },
+  {
+   "text": "¿Y a qué hora vuelves?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "80bfb797"
+  },
+  {
+   "text": "Sobre las seis. Luego hago la cena.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "fde17e7d"
+  },
+  {
+   "text": "¿Te acuestas pronto entonces?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "90436896"
+  },
+  {
+   "text": "Sobre las once. Los domingos me echo la siesta.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "14b0d0f6"
+  },
+  {
+   "text": "El tiempo y las estaciones",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "449dce93"
+  },
+  {
+   "text": "Hoy hace frío y viento.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "73bbaebb"
+  },
+  {
+   "text": "Llueve desde esta mañana.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "42c61bfe"
+  },
+  {
+   "text": "En verano hace mucho calor aquí.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "51bffd50"
+  },
+  {
+   "text": "Los lunes tengo clase; el lunes voy a Madrid.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "3a4ac5bc"
+  },
+  {
+   "text": "tiempo",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "cda2ba89"
+  },
+  {
+   "text": "temporada",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "2e80621e"
+  },
+  {
+   "text": "primavera",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "8d8c1cc8"
+  },
+  {
+   "text": "verano",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "8c23d08e"
+  },
+  {
+   "text": "otoño",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "e23871c4"
+  },
+  {
+   "text": "invierno",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "debc2ebf"
+  },
+  {
+   "text": "lluvia",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "2a3f8920"
+  },
+  {
+   "text": "nieve",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0c8d77e2"
+  },
+  {
+   "text": "viento",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "00f3456e"
+  },
+  {
+   "text": "sol",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "e2363da1"
+  },
+  {
+   "text": "nube",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "8429f25d"
+  },
+  {
+   "text": "cielo",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "9c98c91d"
+  },
+  {
+   "text": "paraguas",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "947d276f"
+  },
+  {
+   "text": "grado",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b64664c2"
+  },
+  {
+   "text": "tormenta",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "15dd9fe9"
+  },
+  {
+   "text": "niebla",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f393f5c8"
+  },
+  {
+   "text": "caluroso",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "5a7d984b"
+  },
+  {
+   "text": "húmedo",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f6dab761"
+  },
+  {
+   "text": "¿Sales este fin de semana?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a534e347"
+  },
+  {
+   "text": "Depende del tiempo. ¿Qué dan para el sábado?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "13879660"
+  },
+  {
+   "text": "Lluvia por la mañana y sol por la tarde.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "aab01d27"
+  },
+  {
+   "text": "¿Cuántos grados hace?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ea5caaa0"
+  },
+  {
+   "text": "Doce por la mañana, dieciocho por la tarde.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "31d4c657"
+  },
+  {
+   "text": "No está mal para marzo.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "e598d725"
+  },
+  {
+   "text": "No. En invierno aquí llega a cero.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "8aac000d"
+  },
+  {
+   "text": "Pues me llevo el paraguas igualmente.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "e4f25e80"
+  },
+  {
+   "text": "La ropa y los colores",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "cc000378"
+  },
+  {
+   "text": "Este jersey es más caro que aquel.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "877f68b2"
+  },
+  {
+   "text": "Una camisa blanca y unos zapatos negros.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "99021af6"
+  },
+  {
+   "text": "Ese color te queda muy bien.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f10a59c1"
+  },
+  {
+   "text": "Hace frío: ponte el abrigo.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "46454584"
+  },
+  {
+   "text": "ropa",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "3c449be1"
+  },
+  {
+   "text": "camisa",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "c0ae9eff"
+  },
+  {
+   "text": "camiseta",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "32f94bac"
+  },
+  {
+   "text": "jersey",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "dc3905ad"
+  },
+  {
+   "text": "abrigo",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "18b81849"
+  },
+  {
+   "text": "pantalones",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "93cbf874"
+  },
+  {
+   "text": "falda",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "26ccd9db"
+  },
+  {
+   "text": "vestido",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "897af7c3"
+  },
+  {
+   "text": "zapato",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "6bed91f2"
+  },
+  {
+   "text": "calcetín",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "87ead269"
+  },
+  {
+   "text": "talla",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "00a491d5"
+  },
+  {
+   "text": "color",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "3d7e6258"
+  },
+  {
+   "text": "blanco",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "86d83132"
+  },
+  {
+   "text": "negro",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "41ecf2d2"
+  },
+  {
+   "text": "rojo",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "1603b8b9"
+  },
+  {
+   "text": "azul",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "49019a1b"
+  },
+  {
+   "text": "verde",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d2a54155"
+  },
+  {
+   "text": "marrón",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f2521bbd"
+  },
+  {
+   "text": "llevar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "82c5f1b1"
+  },
+  {
+   "text": "probarse",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b13a8d5d"
+  },
+  {
+   "text": "Hola, ¿le ayudo en algo?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "2bfab996"
+  },
+  {
+   "text": "Busco un abrigo para el invierno.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "8f0b8b31"
+  },
+  {
+   "text": "¿Qué talla usa?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "7e5e157e"
+  },
+  {
+   "text": "La M, creo. ¿Puedo probarme éste?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b5b8557d"
+  },
+  {
+   "text": "Claro. El probador está al fondo.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "7e7aaecf"
+  },
+  {
+   "text": "Me queda un poco grande. ¿Lo tiene en negro?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "2f283fc0"
+  },
+  {
+   "text": "En negro sólo en L. Pero este azul le queda muy bien.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "cbfbbe03"
+  },
+  {
+   "text": "Vale, me lo llevo.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a0c9420c"
+  },
+  {
+   "text": "En el médico",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ce8ddd09"
+  },
+  {
+   "text": "Me duele la garganta desde ayer.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "abfa80d6"
+  },
+  {
+   "text": "Tome esta pastilla dos veces al día.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "7d5ee319"
+  },
+  {
+   "text": "Toso desde hace una semana.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "37a07f09"
+  },
+  {
+   "text": "Tiene que descansar dos días.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f01069e7"
+  },
+  {
+   "text": "médico",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "50574bd9"
+  },
+  {
+   "text": "enfermera",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "28e1d0c4"
+  },
+  {
+   "text": "jarabe",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "be3a73fc"
+  },
+  {
+   "text": "receta",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "03e40e63"
+  },
+  {
+   "text": "pastilla",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "17b1a08f"
+  },
+  {
+   "text": "cabeza",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "3440eb29"
+  },
+  {
+   "text": "estómago",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "632e39c9"
+  },
+  {
+   "text": "garganta",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "9413cf6a"
+  },
+  {
+   "text": "muela",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "765501fd"
+  },
+  {
+   "text": "espalda",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "203ae3e5"
+  },
+  {
+   "text": "fiebre",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "63cff54e"
+  },
+  {
+   "text": "resfriado",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "82bbf132"
+  },
+  {
+   "text": "salud",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "73c3083e"
+  },
+  {
+   "text": "enfermo",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "bbd152af"
+  },
+  {
+   "text": "cansado",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d5658758"
+  },
+  {
+   "text": "toser",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ff10d766"
+  },
+  {
+   "text": "descansar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ca1f696f"
+  },
+  {
+   "text": "curarse",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "c4d609fa"
+  },
+  {
+   "text": "doler",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "80bd1c5f"
+  },
+  {
+   "text": "recetar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "310224c3"
+  },
+  {
+   "text": "Buenos días. ¿Qué le pasa?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d854e511"
+  },
+  {
+   "text": "Me duele la garganta desde hace tres días.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "cfa2822a"
+  },
+  {
+   "text": "¿Tiene fiebre?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "89cb4929"
+  },
+  {
+   "text": "Un poco, treinta y ocho esta mañana. Y toso por la noche.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "07829b98"
+  },
+  {
+   "text": "Abra la boca… No es nada grave, es un resfriado fuerte.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "5e242bc4"
+  },
+  {
+   "text": "¿Puedo ir a clase mañana?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "26774736"
+  },
+  {
+   "text": "Tiene que descansar dos días. Y beba mucha agua.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "75c83ef0"
+  },
+  {
+   "text": "De acuerdo. Muchas gracias, doctora.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "cd96be74"
+  },
+  {
+   "text": "¿Qué has hecho hoy?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "67ea9cda"
+  },
+  {
+   "text": "Hoy he comido en casa.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "02ef00e0"
+  },
+  {
+   "text": "He visto una película y he escrito un correo.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "1d7541e7"
+  },
+  {
+   "text": "Esta semana he trabajado mucho.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "e139e4b0"
+  },
+  {
+   "text": "Ya he terminado, pero todavía no he enviado el correo.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "901a768d"
+  },
+  {
+   "text": "anteayer",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "aa99bf90"
+  },
+  {
+   "text": "todavía",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "fef2c0ae"
+  },
+  {
+   "text": "luego",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "9a9794c3"
+  },
+  {
+   "text": "por fin",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "376ddb03"
+  },
+  {
+   "text": "película",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "fff62415"
+  },
+  {
+   "text": "concierto",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "23e90269"
+  },
+  {
+   "text": "obra de teatro",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ce79f1c9"
+  },
+  {
+   "text": "exposición",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "7d1377ef"
+  },
+  {
+   "text": "entrada",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "dc9115a4"
+  },
+  {
+   "text": "ver",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "82306882"
+  },
+  {
+   "text": "salir",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "6d916200"
+  },
+  {
+   "text": "llegar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "2560df1a"
+  },
+  {
+   "text": "quedarse",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d8f7a941"
+  },
+  {
+   "text": "olvidar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "e83e5892"
+  },
+  {
+   "text": "Bueno, ¿qué has hecho hoy?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "2335b715"
+  },
+  {
+   "text": "He ido al museo con Marc.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "bb17a44b"
+  },
+  {
+   "text": "¿Ah, sí? ¿Os habéis quedado mucho rato?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "4549b4e5"
+  },
+  {
+   "text": "Tres horas. Luego hemos tomado un café.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "eb8368b7"
+  },
+  {
+   "text": "¿Has visto la exposición sobre Hanói?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a28c8ee4"
+  },
+  {
+   "text": "No, todavía no la he visto. Empieza el sábado.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "4b1f0f3e"
+  },
+  {
+   "text": "¿Vamos juntos entonces?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "7745ae8b"
+  },
+  {
+   "text": "Vale. Ya he apuntado la fecha.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "e9999c1e"
+  },
+  {
+   "text": "Los transportes",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "aefcb470"
+  },
+  {
+   "text": "Voy a coger el tren de las nueve.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "5e623a60"
+  },
+  {
+   "text": "Voy a la facultad en bicicleta.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "126e6f12"
+  },
+  {
+   "text": "Baje en la segunda parada.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d89415b7"
+  },
+  {
+   "text": "¿Cuánto se tarda hasta el centro?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "5de745e7"
+  },
+  {
+   "text": "avión",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "19a05f07"
+  },
+  {
+   "text": "estación de autobuses",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "95eccf8a"
+  },
+  {
+   "text": "tranvía",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "8a6affa9"
+  },
+  {
+   "text": "horario de salidas",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "73e1a681"
+  },
+  {
+   "text": "andén",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "53433be4"
+  },
+  {
+   "text": "vía",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f5b16418"
+  },
+  {
+   "text": "parada",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "47756a74"
+  },
+  {
+   "text": "transbordo",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0caff519"
+  },
+  {
+   "text": "retraso",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b26d74db"
+  },
+  {
+   "text": "ida y vuelta",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b164ff63"
+  },
+  {
+   "text": "maleta",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "6002d637"
+  },
+  {
+   "text": "conductor",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "bc6fde56"
+  },
+  {
+   "text": "directo",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ebacca89"
+  },
+  {
+   "text": "completo",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "5bcaf6f4"
+  },
+  {
+   "text": "subir",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "9072c832"
+  },
+  {
+   "text": "bajar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "6b26fbe1"
+  },
+  {
+   "text": "cambiar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "08e3d56e"
+  },
+  {
+   "text": "reservar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d6c05b7f"
+  },
+  {
+   "text": "tardar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ea6b767b"
+  },
+  {
+   "text": "perder",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "297cf437"
+  },
+  {
+   "text": "Buenos días, un billete de ida y vuelta a Sevilla.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a167a5a9"
+  },
+  {
+   "text": "¿Para cuándo?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "943683f4"
+  },
+  {
+   "text": "El viernes por la mañana, vuelta el domingo por la tarde.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "585cbdfb"
+  },
+  {
+   "text": "El de las ocho está completo. ¿El de las nueve?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "22a0c520"
+  },
+  {
+   "text": "Vale. ¿Es directo?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "36e81e99"
+  },
+  {
+   "text": "No, hace transbordo en Córdoba. Se tarda cuatro horas.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "cc147e24"
+  },
+  {
+   "text": "Muy bien. ¿Tengo que imprimir el billete?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ad722f17"
+  },
+  {
+   "text": "No hace falta, se lo mando al móvil.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "cb5fcfa6"
+  },
+  {
+   "text": "En el restaurante",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "22501f99"
+  },
+  {
+   "text": "Esta sopa la encuentro buenísima.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "cf46b873"
+  },
+  {
+   "text": "El camarero le trae la cuenta.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f2b1377e"
+  },
+  {
+   "text": "Para mí, la sopa y el pollo, por favor.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "036a348f"
+  },
+  {
+   "text": "¿Qué tal está el postre?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "535cd0b2"
+  },
+  {
+   "text": "restaurante",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "7a0bf8a9"
+  },
+  {
+   "text": "cuchillo",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "324f813e"
+  },
+  {
+   "text": "carta",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "7419ecaa"
+  },
+  {
+   "text": "primer plato",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0931240c"
+  },
+  {
+   "text": "segundo plato",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "50f6b916"
+  },
+  {
+   "text": "postre",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "8acc42be"
+  },
+  {
+   "text": "mantel",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "6e574a80"
+  },
+  {
+   "text": "propina",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "8c86cf82"
+  },
+  {
+   "text": "sopa",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "e331a50c"
+  },
+  {
+   "text": "ensalada",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "8d13ef56"
+  },
+  {
+   "text": "pollo",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "65b8a0f5"
+  },
+  {
+   "text": "arroz",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "91543afd"
+  },
+  {
+   "text": "sal",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "de1c9f6f"
+  },
+  {
+   "text": "servilleta",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "790a2288"
+  },
+  {
+   "text": "picante",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "8ffe05d3"
+  },
+  {
+   "text": "salado",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "54255e9f"
+  },
+  {
+   "text": "dulce",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "594e785a"
+  },
+  {
+   "text": "probar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "06e0aa1d"
+  },
+  {
+   "text": "traer",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "6c38d771"
+  },
+  {
+   "text": "recomendar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "007a3aa1"
+  },
+  {
+   "text": "Buenas noches. ¿Han elegido ya?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "87297f25"
+  },
+  {
+   "text": "Sí. De primero, la sopa.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "bd77be71"
+  },
+  {
+   "text": "¿Y de segundo?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b5a85190"
+  },
+  {
+   "text": "El pollo con arroz. ¿Está picante?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0dad63dc"
+  },
+  {
+   "text": "No, para nada. ¿Y para beber?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "5095f1b7"
+  },
+  {
+   "text": "Sólo agua, gracias.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "85879bc7"
+  },
+  {
+   "text": "Muy bien. Se lo traigo enseguida.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "3e68d95c"
+  },
+  {
+   "text": "Gracias. Y luego la cuenta, por favor.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "808cc538"
+  },
+  {
+   "text": "Escribir y llamar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f2dd8f70"
+  },
+  {
+   "text": "Cuando era pequeño, vivía en Hanói.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "126a9733"
+  },
+  {
+   "text": "Atentamente, Nguyen Dinh Quan.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "25ef3c7b"
+  },
+  {
+   "text": "¿Dígame? Buenos días, ¿está el señor Ruiz?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "689d79a1"
+  },
+  {
+   "text": "¿Cómo se escribe su apellido, por favor?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a71035aa"
+  },
+  {
+   "text": "sello",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f43281de"
+  },
+  {
+   "text": "correo",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "09d2d9eb"
+  },
+  {
+   "text": "buzón",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b61757b6"
+  },
+  {
+   "text": "paquete",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "40db9908"
+  },
+  {
+   "text": "número",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f7df5185"
+  },
+  {
+   "text": "mensaje",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "53b483e2"
+  },
+  {
+   "text": "llamada",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "507f2db5"
+  },
+  {
+   "text": "respuesta",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "4b5a3331"
+  },
+  {
+   "text": "firma",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "3f683230"
+  },
+  {
+   "text": "destinatario",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "47f0d568"
+  },
+  {
+   "text": "remitente",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "29001bf6"
+  },
+  {
+   "text": "llamar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ca70aaec"
+  },
+  {
+   "text": "contestar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "7b8deaf8"
+  },
+  {
+   "text": "mandar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a4a622c6"
+  },
+  {
+   "text": "recibir",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "13b4cdfd"
+  },
+  {
+   "text": "firmar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "13071de6"
+  },
+  {
+   "text": "colgar",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "92ed9ed1"
+  },
+  {
+   "text": "repetir",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d27b9a8e"
+  },
+  {
+   "text": "despacio",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f6dc9335"
+  },
+  {
+   "text": "Consulta del doctor Ruiz, buenos días.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "7d356292"
+  },
+  {
+   "text": "Buenos días. Quería pedir cita.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "50a27ccc"
+  },
+  {
+   "text": "Sí. ¿De parte de quién?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ee882f31"
+  },
+  {
+   "text": "Nguyen Dinh Quan. ¿Puede hablar un poco más despacio?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "aea4522c"
+  },
+  {
+   "text": "Claro. ¿Cómo se escribe su apellido?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "e197c932"
+  },
+  {
+   "text": "Ene, ge, u, i griega, e, ene.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "624121f1"
+  },
+  {
+   "text": "Gracias. ¿Le viene bien el jueves a las tres?",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0102698f"
+  },
+  {
+   "text": "Perfecto. Muchas gracias, hasta luego.",
+   "kind": "course",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a395d693"
+  },
+  {
+   "text": "Quân llega a Valencia un martes por la tarde. Hace calor.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "9450acd8"
+  },
+  {
+   "text": "A las nueve de la noche las calles están llenas de gente.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "08724a1d"
+  },
+  {
+   "text": "Él tiene hambre, pero los restaurantes abren tarde.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "3b248b08"
+  },
+  {
+   "text": "Una vecina le dice: «Aquí se cena a las diez.» Quân sonríe y espera.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "9ef45b2b"
+  },
+  {
+   "text": "Quân llega a Valencia un martes por la tarde. Hace calor. A las nueve de la noche las calles están llenas de gente. Él tiene hambre, pero los restaurantes abren tarde. Una vecina le dice: «Aquí se cena a las diez.» Quân sonríe y espera.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "edc2c7d5"
+  },
+  {
+   "text": "El mercado abre a las ocho. Hay naranjas, tomates y pescado fresco.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "8545bb3c"
+  },
+  {
+   "text": "Quân compra un kilo de naranjas y medio kilo de tomates.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "44655e3f"
+  },
+  {
+   "text": "«¿Cuánto es?», pregunta. «Tres euros con veinte», responde la señora.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "fda34d6a"
+  },
+  {
+   "text": "Ella le da una naranja más. «Para probar», dice, y sonríe.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "6a07acf1"
+  },
+  {
+   "text": "El mercado abre a las ocho. Hay naranjas, tomates y pescado fresco. Quân compra un kilo de naranjas y medio kilo de tomates. «¿Cuánto es?», pregunta. «Tres euros con veinte», responde la señora. Ella le da una naranja más. «Para probar», dice, y sonríe.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "3237b739"
+  },
+  {
+   "text": "En la clase hay quince estudiantes de ocho países.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "9f6a7525"
+  },
+  {
+   "text": "Quân se presenta: «Me llamo Quân. Soy vietnamita. Tengo veintiún años.»",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a8cbf615"
+  },
+  {
+   "text": "Una chica dice: «Yo soy italiana y estudio arquitectura.»",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "1d4c90dc"
+  },
+  {
+   "text": "La profesora escribe en la pizarra: «Bienvenidos.» Todos repiten la palabra.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f02363c3"
+  },
+  {
+   "text": "En la clase hay quince estudiantes de ocho países. Quân se presenta: «Me llamo Quân. Soy vietnamita. Tengo veintiún años.» Una chica dice: «Yo soy italiana y estudio arquitectura.» La profesora escribe en la pizarra: «Bienvenidos.» Todos repiten la palabra.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "15e6497e"
+  },
+  {
+   "text": "El piso es pequeño pero tiene mucha luz.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "1889cc76"
+  },
+  {
+   "text": "Hay una cama, una mesa y dos sillas. El armario está a la derecha de la puerta.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "4daa71f3"
+  },
+  {
+   "text": "La ventana da a un patio con dos árboles.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ec25f2ae"
+  },
+  {
+   "text": "Debajo de la cama Quân guarda la maleta. No tiene muchas cosas.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f68fdd3c"
+  },
+  {
+   "text": "El piso es pequeño pero tiene mucha luz. Hay una cama, una mesa y dos sillas. El armario está a la derecha de la puerta. La ventana da a un patio con dos árboles. Debajo de la cama Quân guarda la maleta. No tiene muchas cosas.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "276bcbb0"
+  },
+  {
+   "text": "Quân busca la estación. Pregunta a un señor mayor.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d48efce7"
+  },
+  {
+   "text": "«Perdone, ¿dónde está la estación, por favor?»",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "e0ce07a0"
+  },
+  {
+   "text": "«Siga todo recto y gire a la izquierda después de la farmacia.»",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "95325f38"
+  },
+  {
+   "text": "«¿Está lejos?» «No, diez minutos andando.» Quân le da las gracias.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "fdb4e4b2"
+  },
+  {
+   "text": "Quân busca la estación. Pregunta a un señor mayor. «Perdone, ¿dónde está la estación, por favor?» «Siga todo recto y gire a la izquierda después de la farmacia.» «¿Está lejos?» «No, diez minutos andando.» Quân le da las gracias.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "9a72459c"
+  },
+  {
+   "text": "Quân pidió cita por internet y esperó tres semanas.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "36d9c0af"
+  },
+  {
+   "text": "El día de la cita llegó media hora antes. Ya había mucha gente.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0a662280"
+  },
+  {
+   "text": "En la ventanilla le pidieron el pasaporte, una foto y el empadronamiento.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "626c73d9"
+  },
+  {
+   "text": "Se le había olvidado el empadronamiento. Tiene que volver otro día.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "763ba087"
+  },
+  {
+   "text": "Al salir apuntó la lista en el móvil. Esta vez no olvidará nada.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "30aa6acf"
+  },
+  {
+   "text": "Quân pidió cita por internet y esperó tres semanas. El día de la cita llegó media hora antes. Ya había mucha gente. En la ventanilla le pidieron el pasaporte, una foto y el empadronamiento. Se le había olvidado el empadronamiento. Tiene que volver otro día. Al salir apuntó la lista en el móvil. Esta vez no olvidará nada.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0d2ecdd2"
+  },
+  {
+   "text": "Quân vio tres pisos en una semana.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "58c07488"
+  },
+  {
+   "text": "El primero era grande pero carísimo. El segundo era más barato, aunque estaba lejos del centro.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "020354cc"
+  },
+  {
+   "text": "El tercero es más pequeño que los otros, sin embargo tiene luz y está bien comunicado.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "dab7a40f"
+  },
+  {
+   "text": "El dueño pidió una nómina o un aval. Un compañero de clase firmó por él.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "49cd1efd"
+  },
+  {
+   "text": "Ahora Quân tiene las llaves. Coloca sus cosas y por fin respira.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d26e05db"
+  },
+  {
+   "text": "Quân vio tres pisos en una semana. El primero era grande pero carísimo. El segundo era más barato, aunque estaba lejos del centro. El tercero es más pequeño que los otros, sin embargo tiene luz y está bien comunicado. El dueño pidió una nómina o un aval. Un compañero de clase firmó por él. Ahora Quân tiene las llaves. Coloca sus cosas y por fin respira.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "31498ba5"
+  },
+  {
+   "text": "El tren a Madrid sale a las dieciocho y cinco, vía cuatro.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "451b0832"
+  },
+  {
+   "text": "Quân pasa el control de equipajes y sube al vagón siete.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "393d010a"
+  },
+  {
+   "text": "Por megafonía anuncian diez minutos de retraso.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b88e58d7"
+  },
+  {
+   "text": "Nadie se enfada. La gente abre un libro o cierra los ojos.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "be501336"
+  },
+  {
+   "text": "Al llegar ya es de noche. La estación huele a café y a pan caliente.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "be82182f"
+  },
+  {
+   "text": "El tren a Madrid sale a las dieciocho y cinco, vía cuatro. Quân pasa el control de equipajes y sube al vagón siete. Por megafonía anuncian diez minutos de retraso. Nadie se enfada. La gente abre un libro o cierra los ojos. Al llegar ya es de noche. La estación huele a café y a pan caliente.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d101a62e"
+  },
+  {
+   "text": "Sus compañeros lo invitan a salir de tapas el jueves.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "59721fb4"
+  },
+  {
+   "text": "En el primer bar piden unas bravas y una tortilla. Les traen las cañas primero.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "23699ab7"
+  },
+  {
+   "text": "No se sientan: comen de pie, en la barra, y hablan muy alto.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "60c2c03d"
+  },
+  {
+   "text": "Después van a otro bar, y luego a un tercero. En cada uno comen una cosa distinta.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "617c39bf"
+  },
+  {
+   "text": "Quân entiende que la cena no es un sitio, sino un recorrido.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "73224be2"
+  },
+  {
+   "text": "Sus compañeros lo invitan a salir de tapas el jueves. En el primer bar piden unas bravas y una tortilla. Les traen las cañas primero. No se sientan: comen de pie, en la barra, y hablan muy alto. Después van a otro bar, y luego a un tercero. En cada uno comen una cosa distinta. Quân entiende que la cena no es un sitio, sino un recorrido.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ea2196cb"
+  },
+  {
+   "text": "Llega una carta. Quân la abre despacio.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "eca52745"
+  },
+  {
+   "text": "El banco le pide confirmar su dirección antes de fin de mes.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a4ecd073"
+  },
+  {
+   "text": "No conoce todas las palabras, así que busca solo las importantes.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "130ca492"
+  },
+  {
+   "text": "Escribe una respuesta corta, la relee dos veces y la envía.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a171b237"
+  },
+  {
+   "text": "Tres días después el banco le contesta: «Expediente completo.» Quân respira.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d0c50408"
+  },
+  {
+   "text": "Llega una carta. Quân la abre despacio. El banco le pide confirmar su dirección antes de fin de mes. No conoce todas las palabras, así que busca solo las importantes. Escribe una respuesta corta, la relee dos veces y la envía. Tres días después el banco le contesta: «Expediente completo.» Quân respira.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "608da751"
+  },
+  {
+   "text": "Los domingos casi todo está cerrado. Quân lo aprendió el primer fin de semana.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "79823a99"
+  },
+  {
+   "text": "Antes compraba a cualquier hora. Ahora piensa en el sábado por la tarde.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "4cf3ef25"
+  },
+  {
+   "text": "La gente camina despacio, se para y habla en medio de la acera.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "fde51fde"
+  },
+  {
+   "text": "En la plaza, unos niños juegan al fútbol y unos abuelos miran sin decir nada.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "620082a7"
+  },
+  {
+   "text": "Quân se sienta en un banco y no hace nada. Le cuesta más de lo que creía.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "e4808e50"
+  },
+  {
+   "text": "Los domingos casi todo está cerrado. Quân lo aprendió el primer fin de semana. Antes compraba a cualquier hora. Ahora piensa en el sábado por la tarde. La gente camina despacio, se para y habla en medio de la acera. En la plaza, unos niños juegan al fútbol y unos abuelos miran sin decir nada. Quân se sienta en un banco y no hace nada. Le cuesta más de lo que creía.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a877539b"
+  },
+  {
+   "text": "A Quân le duele la garganta desde hace tres días. Pide cita por teléfono.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "eae790ac"
+  },
+  {
+   "text": "La médica lo escucha, le mira la garganta y le toma la temperatura.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ccfd328b"
+  },
+  {
+   "text": "«No es grave. Bebe mucha agua y descansa.»",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ddfede3e"
+  },
+  {
+   "text": "Le receta dos medicamentos y le da la baja por dos días.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0892403c"
+  },
+  {
+   "text": "En la farmacia le explican cómo tomarlos. Él lo apunta todo.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "385fccca"
+  },
+  {
+   "text": "A Quân le duele la garganta desde hace tres días. Pide cita por teléfono. La médica lo escucha, le mira la garganta y le toma la temperatura. «No es grave. Bebe mucha agua y descansa.» Le receta dos medicamentos y le da la baja por dos días. En la farmacia le explican cómo tomarlos. Él lo apunta todo.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "22047775"
+  },
+  {
+   "text": "Quân tiene que exponer diez minutos delante de veinte personas.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "6b37082a"
+  },
+  {
+   "text": "La víspera ensaya tres veces en voz alta, solo en su cuarto.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "3d51ed94"
+  },
+  {
+   "text": "El día llega. Al principio le tiembla la voz, luego se estabiliza.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "3760f3d9"
+  },
+  {
+   "text": "Había preparado demasiado texto, así que se salta dos diapositivas y nadie se da cuenta.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "46e89917"
+  },
+  {
+   "text": "Al final, una compañera le hace una pregunta que no había previsto.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "75181df8"
+  },
+  {
+   "text": "Él responde con sinceridad: «No lo sé, pero lo voy a mirar.» La profesora asiente.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "2b92557a"
+  },
+  {
+   "text": "Quân tiene que exponer diez minutos delante de veinte personas. La víspera ensaya tres veces en voz alta, solo en su cuarto. El día llega. Al principio le tiembla la voz, luego se estabiliza. Había preparado demasiado texto, así que se salta dos diapositivas y nadie se da cuenta. Al final, una compañera le hace una pregunta que no había previsto. Él responde con sinceridad: «No lo sé, pero lo voy a mirar.» La profesora asiente.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "3d52e58b"
+  },
+  {
+   "text": "La primera vez que cenó en casa de un amigo, Quân pensó que discutían.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "11e1b4a9"
+  },
+  {
+   "text": "Seis personas hablaban a la vez y nadie parecía escuchar.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ffac7b04"
+  },
+  {
+   "text": "Pero se reían, se interrumpían y seguían comiendo tranquilamente.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f97e8444"
+  },
+  {
+   "text": "Después entendió que interrumpir, allí, significa que te interesa lo que dicen.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "03b938bc"
+  },
+  {
+   "text": "El silencio, en cambio, puede parecer frialdad o enfado.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "31389870"
+  },
+  {
+   "text": "Aquella noche habló más alto que nunca, y por primera vez no se sintió invitado sino parte de la mesa.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f2b73a30"
+  },
+  {
+   "text": "La primera vez que cenó en casa de un amigo, Quân pensó que discutían. Seis personas hablaban a la vez y nadie parecía escuchar. Pero se reían, se interrumpían y seguían comiendo tranquilamente. Después entendió que interrumpir, allí, significa que te interesa lo que dicen. El silencio, en cambio, puede parecer frialdad o enfado. Aquella noche habló más alto que nunca, y por primera vez no se sintió invitado sino parte de la mesa.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "df285906"
+  },
+  {
+   "text": "Quân trabaja doce horas a la semana en una librería del centro.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "888fb81c"
+  },
+  {
+   "text": "Coloca los libros, cobra y atiende a quien busca un título.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "374345eb"
+  },
+  {
+   "text": "El primer mes fue duro: confundía las secciones y hablaba demasiado despacio.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "41181b79"
+  },
+  {
+   "text": "Ahora se sabe la tienda de memoria e incluso recomienda novelas.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "7e17fd09"
+  },
+  {
+   "text": "El sueldo cubre el alquiler y parte de la compra.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d723731c"
+  },
+  {
+   "text": "Lo que más le sorprende es que su español ha mejorado más aquí que en clase.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0f9d7c7a"
+  },
+  {
+   "text": "Quân trabaja doce horas a la semana en una librería del centro. Coloca los libros, cobra y atiende a quien busca un título. El primer mes fue duro: confundía las secciones y hablaba demasiado despacio. Ahora se sabe la tienda de memoria e incluso recomienda novelas. El sueldo cubre el alquiler y parte de la compra. Lo que más le sorprende es que su español ha mejorado más aquí que en clase.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "5421b770"
+  },
+  {
+   "text": "Salieron a las seis con la mochila al hombro, para tres días de marcha.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a819041c"
+  },
+  {
+   "text": "El primer día el cielo estaba despejado y el camino era fácil.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "452de75d"
+  },
+  {
+   "text": "El segundo, la niebla bajó en veinte minutos. Ya no se veía el sendero.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d3725ee7"
+  },
+  {
+   "text": "El guía decidió volver. Nadie discutió.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "bbe3fb87"
+  },
+  {
+   "text": "Por la noche, en el refugio, alguien dijo: «En la montaña, saber renunciar también es saber.»",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d0581fcc"
+  },
+  {
+   "text": "Quân apuntó la frase. Le sirvió mucho después, lejos de cualquier montaña.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "36c7da25"
+  },
+  {
+   "text": "Salieron a las seis con la mochila al hombro, para tres días de marcha. El primer día el cielo estaba despejado y el camino era fácil. El segundo, la niebla bajó en veinte minutos. Ya no se veía el sendero. El guía decidió volver. Nadie discutió. Por la noche, en el refugio, alguien dijo: «En la montaña, saber renunciar también es saber.» Quân apuntó la frase. Le sirvió mucho después, lejos de cualquier montaña.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "db4be453"
+  },
+  {
+   "text": "Al principio Quân traducía cada frase en la cabeza.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "97f6867e"
+  },
+  {
+   "text": "Luego se topó con palabras que se resistían: «vale», «venga», «hombre».",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "9b2cf132"
+  },
+  {
+   "text": "Ninguna traducción funcionaba del todo. Había que adivinarlas por el uso.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0a5e4533"
+  },
+  {
+   "text": "Un día dijo «venga» sin pensarlo, y sus amigos se rieron de la sorpresa.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d71d4d86"
+  },
+  {
+   "text": "Ese día sintió que había dejado de traducir.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "bc671a8d"
+  },
+  {
+   "text": "El idioma ya no era un muro; se había vuelto una habitación donde podía sentarse.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "14f989be"
+  },
+  {
+   "text": "Al principio Quân traducía cada frase en la cabeza. Luego se topó con palabras que se resistían: «vale», «venga», «hombre». Ninguna traducción funcionaba del todo. Había que adivinarlas por el uso. Un día dijo «venga» sin pensarlo, y sus amigos se rieron de la sorpresa. Ese día sintió que había dejado de traducir. El idioma ya no era un muro; se había vuelto una habitación donde podía sentarse.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "805fb19f"
+  },
+  {
+   "text": "La familia de Quân le mandó un paquete desde Hanói. Salió hace un mes.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "6d1b6d87"
+  },
+  {
+   "text": "La web dijo «en tránsito» durante dos semanas y luego nada más.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "6245a718"
+  },
+  {
+   "text": "Quân va a Correos con el aviso y el carné de identidad.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "4fd963d7"
+  },
+  {
+   "text": "El empleado busca, desaparece cinco minutos y vuelve con una caja abollada.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "2a19b280"
+  },
+  {
+   "text": "Dentro hay té, fotos y una carta de su madre. No se ha roto nada.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a6e6e846"
+  },
+  {
+   "text": "La familia de Quân le mandó un paquete desde Hanói. Salió hace un mes. La web dijo «en tránsito» durante dos semanas y luego nada más. Quân va a Correos con el aviso y el carné de identidad. El empleado busca, desaparece cinco minutos y vuelve con una caja abollada. Dentro hay té, fotos y una carta de su madre. No se ha roto nada.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "3e68960a"
+  },
+  {
+   "text": "Quân entró en el metro con prisa y pasó detrás de otra persona.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "142bc2df"
+  },
+  {
+   "text": "Dos revisores lo pararon en el andén siguiente.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ec09e1c3"
+  },
+  {
+   "text": "Él explicó, buscando las palabras, que tenía abono pero se lo había dejado en casa.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a269d6ea"
+  },
+  {
+   "text": "Un revisor contestó: «Sin abono, no puedo hacer nada.»",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "4d5e2b1e"
+  },
+  {
+   "text": "La multa fue de cincuenta euros. Desde entonces, Quân lleva el abono en el bolsillo del abrigo.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "8e62293e"
+  },
+  {
+   "text": "Quân entró en el metro con prisa y pasó detrás de otra persona. Dos revisores lo pararon en el andén siguiente. Él explicó, buscando las palabras, que tenía abono pero se lo había dejado en casa. Un revisor contestó: «Sin abono, no puedo hacer nada.» La multa fue de cincuenta euros. Desde entonces, Quân lleva el abono en el bolsillo del abrigo.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b489c132"
+  },
+  {
+   "text": "Hace un año Quân contaba los días. Ahora ya no los cuenta.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "84b30584"
+  },
+  {
+   "text": "Antes preparaba cada frase antes de hablar. Hoy habla primero y se corrige después.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "24450c0a"
+  },
+  {
+   "text": "Sabe el nombre de la panadera, el día del mercado y la hora del último metro.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "4606bf50"
+  },
+  {
+   "text": "También sabe lo que le falta: una mesa donde diez personas comen demasiado y hablan a la vez.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "1c9b6852"
+  },
+  {
+   "text": "Su madre le pregunta por teléfono si vuelve pronto. Él responde: «Pronto.»",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "52876bf4"
+  },
+  {
+   "text": "Luego cuelga y abre el cuaderno. Mañana tiene una exposición que preparar.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "2e3e31c2"
+  },
+  {
+   "text": "Hace un año Quân contaba los días. Ahora ya no los cuenta. Antes preparaba cada frase antes de hablar. Hoy habla primero y se corrige después. Sabe el nombre de la panadera, el día del mercado y la hora del último metro. También sabe lo que le falta: una mesa donde diez personas comen demasiado y hablan a la vez. Su madre le pregunta por teléfono si vuelve pronto. Él responde: «Pronto.» Luego cuelga y abre el cuaderno. Mañana tiene una exposición que preparar.",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "e813cb2b"
+  },
+  {
+   "text": "la tarde",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "dcff2c86"
+  },
+  {
+   "text": "hace calor",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "1cddb03f"
+  },
+  {
+   "text": "la gente",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0f599113"
+  },
+  {
+   "text": "tener hambre",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "e3edc88c"
+  },
+  {
+   "text": "cenar",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ab5ca536"
+  },
+  {
+   "text": "el mercado",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "2ddc1681"
+  },
+  {
+   "text": "la naranja",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "fcc7f5a9"
+  },
+  {
+   "text": "el pescado",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "fa4d9ca1"
+  },
+  {
+   "text": "comprar",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "34fa3bfb"
+  },
+  {
+   "text": "el kilo",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "60ee7415"
+  },
+  {
+   "text": "¿cuánto es?",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "317486f8"
+  },
+  {
+   "text": "el estudiante",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "cb7bd2c0"
+  },
+  {
+   "text": "el país",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "64b58448"
+  },
+  {
+   "text": "presentarse",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "cd8a26f3"
+  },
+  {
+   "text": "estudiar",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "cee30802"
+  },
+  {
+   "text": "bienvenido",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "dcb07602"
+  },
+  {
+   "text": "el piso",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "7f35aee9"
+  },
+  {
+   "text": "la luz",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "845c6b7d"
+  },
+  {
+   "text": "el patio",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "e30ebbd5"
+  },
+  {
+   "text": "guardar",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0f40763d"
+  },
+  {
+   "text": "las cosas",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a42f5ecc"
+  },
+  {
+   "text": "la estación",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a380826f"
+  },
+  {
+   "text": "todo recto",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "05086d12"
+  },
+  {
+   "text": "la farmacia",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "9a1bb828"
+  },
+  {
+   "text": "andando",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b8d39f60"
+  },
+  {
+   "text": "dar las gracias",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "071b84b4"
+  },
+  {
+   "text": "la cita",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "80666f65"
+  },
+  {
+   "text": "la extranjería",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "9f91183e"
+  },
+  {
+   "text": "la ventanilla",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "77a7c7d0"
+  },
+  {
+   "text": "el pasaporte",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0050a307"
+  },
+  {
+   "text": "el empadronamiento",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "7e2542f5"
+  },
+  {
+   "text": "apuntar",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "110ade1e"
+  },
+  {
+   "text": "el dueño",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "95aef46f"
+  },
+  {
+   "text": "caro",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "9127678a"
+  },
+  {
+   "text": "el centro",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ab59d25d"
+  },
+  {
+   "text": "la nómina",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d53ee5dd"
+  },
+  {
+   "text": "el aval",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "a276df0e"
+  },
+  {
+   "text": "la vía",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "01f1f65b"
+  },
+  {
+   "text": "el equipaje",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d06ead72"
+  },
+  {
+   "text": "el vagón",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0595fee6"
+  },
+  {
+   "text": "el retraso",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "1fd6f668"
+  },
+  {
+   "text": "enfadarse",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "7b573eee"
+  },
+  {
+   "text": "oler a",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "45319c56"
+  },
+  {
+   "text": "la tapa",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "64f56256"
+  },
+  {
+   "text": "invitar",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "35fd4d6a"
+  },
+  {
+   "text": "la caña",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "16c72dc9"
+  },
+  {
+   "text": "la barra",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "1bc3625e"
+  },
+  {
+   "text": "distinto",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "30147fcf"
+  },
+  {
+   "text": "el recorrido",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "2e50e107"
+  },
+  {
+   "text": "entender",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "35ee18fc"
+  },
+  {
+   "text": "la carta",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "2b65b193"
+  },
+  {
+   "text": "el banco",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0f00f67f"
+  },
+  {
+   "text": "confirmar",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "fda91bc8"
+  },
+  {
+   "text": "la dirección",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "4e016f3b"
+  },
+  {
+   "text": "la palabra",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "4da84ff1"
+  },
+  {
+   "text": "releer",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b9460a60"
+  },
+  {
+   "text": "enviar",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "532b6b80"
+  },
+  {
+   "text": "el expediente",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "679263c1"
+  },
+  {
+   "text": "el domingo",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "dbf348fd"
+  },
+  {
+   "text": "cerrado",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "cd9a6be5"
+  },
+  {
+   "text": "el fin de semana",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "42f00c13"
+  },
+  {
+   "text": "la acera",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b70bf490"
+  },
+  {
+   "text": "la plaza",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ce7278f4"
+  },
+  {
+   "text": "la garganta",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "63d35f15"
+  },
+  {
+   "text": "el médico",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "fb655736"
+  },
+  {
+   "text": "grave",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "9068bb32"
+  },
+  {
+   "text": "la baja",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "1d7af0f6"
+  },
+  {
+   "text": "exponer",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "e97617ca"
+  },
+  {
+   "text": "la víspera",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "2a864843"
+  },
+  {
+   "text": "ensayar",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "6ff4d6ca"
+  },
+  {
+   "text": "en voz alta",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "1b9358d1"
+  },
+  {
+   "text": "temblar",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "be8933dc"
+  },
+  {
+   "text": "saltarse",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "abc841ee"
+  },
+  {
+   "text": "prever",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d8090c07"
+  },
+  {
+   "text": "asentir",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0ad8ae59"
+  },
+  {
+   "text": "discutir",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "489dba2a"
+  },
+  {
+   "text": "a la vez",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "007c069e"
+  },
+  {
+   "text": "interrumpir",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f6d2ec76"
+  },
+  {
+   "text": "tranquilamente",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "9666999d"
+  },
+  {
+   "text": "el silencio",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "bd52456c"
+  },
+  {
+   "text": "la frialdad",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "277f8db5"
+  },
+  {
+   "text": "el enfado",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f127dea3"
+  },
+  {
+   "text": "sentirse",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "cbc15a54"
+  },
+  {
+   "text": "la librería",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "012fbe39"
+  },
+  {
+   "text": "colocar",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "fea24834"
+  },
+  {
+   "text": "cobrar",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "59e8d4f0"
+  },
+  {
+   "text": "atender",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ef9ac5be"
+  },
+  {
+   "text": "confundir",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "7b3b0d2f"
+  },
+  {
+   "text": "de memoria",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b0cd26d0"
+  },
+  {
+   "text": "el sueldo",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "820bcf10"
+  },
+  {
+   "text": "mejorar",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "f424ebdd"
+  },
+  {
+   "text": "la sierra",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "06eba708"
+  },
+  {
+   "text": "despejado",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ba4b45c0"
+  },
+  {
+   "text": "la niebla",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d4ce87eb"
+  },
+  {
+   "text": "el sendero",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ad1bd0fe"
+  },
+  {
+   "text": "el guía",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "2617c6e3"
+  },
+  {
+   "text": "el refugio",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "66df4fc5"
+  },
+  {
+   "text": "renunciar",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "08a1a94a"
+  },
+  {
+   "text": "traducir",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ebde4aa5"
+  },
+  {
+   "text": "la cabeza",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "05d5415e"
+  },
+  {
+   "text": "toparse con",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "19259c67"
+  },
+  {
+   "text": "resistirse",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "1d17b3dc"
+  },
+  {
+   "text": "adivinar",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "bb6954c7"
+  },
+  {
+   "text": "el uso",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "e6bd31d5"
+  },
+  {
+   "text": "dejar de",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "d73b6cfe"
+  },
+  {
+   "text": "el muro",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "61a88bfd"
+  },
+  {
+   "text": "el paquete",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "2f194683"
+  },
+  {
+   "text": "Correos",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "264a43e8"
+  },
+  {
+   "text": "el aviso",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "88d2d018"
+  },
+  {
+   "text": "el carné de identidad",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "145693d5"
+  },
+  {
+   "text": "romperse",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "34179d0c"
+  },
+  {
+   "text": "hace un mes",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "4247188e"
+  },
+  {
+   "text": "la multa",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "28d279c3"
+  },
+  {
+   "text": "con prisa",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "5e6af0f2"
+  },
+  {
+   "text": "el revisor",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "1ee7f1b8"
+  },
+  {
+   "text": "el andén",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "af0d6655"
+  },
+  {
+   "text": "el abono",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "b7d336df"
+  },
+  {
+   "text": "dejarse",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "09374ad7"
+  },
+  {
+   "text": "desde entonces",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "0dd48145"
+  },
+  {
+   "text": "el bolsillo",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "9b0d7bde"
+  },
+  {
+   "text": "contar",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "afc27be2"
+  },
+  {
+   "text": "corregirse",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "2532bc20"
+  },
+  {
+   "text": "la panadera",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "ef2ae736"
+  },
+  {
+   "text": "faltar",
+   "kind": "reading",
+   "lang": "es",
+   "voice": "es",
+   "hash": "8d22dbdb"
   }
  ]
 }

@@ -1752,63 +1752,106 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   --seal:#F0A0A8; --seal-soft:#3A2126;
   --logo-bg:#EDF3EC;
 }
-/* ===== TÔNG MÀU TIẾNG PHÁP — lam cobalt / xám ngọc trai (data-lang="fr") =====
-   sáng: accent #2F5AA8 trên trắng 6.1:1, trên nền 5.6:1 · tối: accent #8FB4F5 trên #101724 9.6:1 */
+/* ===== TỪ ĐIỂN PHÁP / TÂY BAN NHA — bảng chia và các dạng hợp giống ===== */
+.lat-via{margin:-2px 0 12px;padding:8px 12px;border-radius:9px;background:var(--accent-soft);
+  color:var(--ink);font-size:13.5px;border:1px solid var(--line)}
+.lat-via b{font-weight:600}
+.lat-alt{border:none;background:none;padding:0;font:inherit;color:var(--accent);
+  font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+
+.lat-conj{margin:16px 0 4px;border-top:1px solid var(--line);padding-top:14px}
+.lat-conj-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.lat-conj-head h3{margin:0;font-size:15px;font-weight:600;color:var(--ink)}
+/* Bảng rộng hơn màn hình điện thoại là chuyện bình thường — cho cuộn ngang
+   trong khung riêng, đừng để nó đẩy cả trang. */
+.lat-conj-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -2px;padding:0 2px}
+.lat-conj-tb{border-collapse:collapse;width:100%;min-width:560px;font-size:13.5px}
+.lat-conj-tb th,.lat-conj-tb td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line)}
+.lat-conj-tb thead th{font-size:11.5px;font-weight:500;color:var(--faint);
+  text-transform:lowercase;letter-spacing:.02em;border-bottom:1px solid var(--line-strong)}
+.lat-conj-tb td{color:var(--ink);white-space:nowrap}
+.lat-conj-tb tbody tr:last-child th,.lat-conj-tb tbody tr:last-child td{border-bottom:none}
+.lat-tense{white-space:nowrap;padding-right:16px!important}
+.lat-tense b{display:block;font-size:12.5px;font-weight:600;color:var(--ink)}
+.lat-tense i{display:block;font-style:normal;font-size:11px;color:var(--faint)}
+
+.lat-imper,.lat-agree{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;
+  margin-top:12px;padding:10px 12px;border-radius:9px;background:var(--surface-2);font-size:13.5px}
+.lat-imper>b,.lat-agree>b{font-size:12px;font-weight:600;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.04em;margin-right:2px}
+.lat-imper span,.lat-agree span{display:inline-flex;align-items:baseline;gap:5px}
+.lat-imper i,.lat-agree i{font-style:normal;font-size:11.5px;color:var(--faint)}
+.lat-conj-note{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.lat-conj-note b{font-weight:600;color:var(--ink)}
+
+@media (max-width:560px){
+  .lat-conj-tb{font-size:12.5px;min-width:520px}
+  .lat-conj-tb th,.lat-conj-tb td{padding:6px 8px}
+}
+
+/* ===== TÔNG MÀU TIẾNG PHÁP — hồng pastel / tro hồng (data-lang="fr") =====
+   Nền phớt hồng rất nhạt cho êm mắt, nhưng chữ nhấn phải đủ đậm mới đọc được:
+   sáng: accent #B0446A trên trắng 5,4:1 · trên nền 5,1:1
+   tối:  accent #F2A8C0 trên #1B1317 9,7:1
+   Dấu triện lấy lam tro làm điểm nghỉ mắt, nhắc màu xanh của nước Pháp. */
 :root[data-lang="fr"]{
-  --ground:#F3F4F8; --surface:#FFFFFF; --surface-2:#E8EBF3;
-  --ink:#171C26; --muted:#57607A; --faint:#727C94;
-  --line:#DCE1EC; --line-strong:#BCC6DB;
-  --accent:#2F5AA8; --accent-2:#3E71C8; --accent-soft:#E3EAF7;
-  --seal:#A32A3C; --seal-soft:#F7E3E6;
+  --ground:#FDF6F8; --surface:#FFFFFF; --surface-2:#F9E9EE;
+  --ink:#241A1E; --muted:#6A5158; --faint:#8B6E77;
+  --line:#F0DDE4; --line-strong:#DFC2CD;
+  --accent:#B0446A; --accent-2:#C75C82; --accent-soft:#FBE7EE;
+  --seal:#5566A8; --seal-soft:#E8EAF6;
 }
 @media (prefers-color-scheme: dark){
   :root[data-lang="fr"]:not([data-theme="light"]){
-    --ground:#0B1018; --surface:#101724; --surface-2:#182132;
-    --ink:#E8ECF4; --muted:#AAB5CA; --faint:#7F8BA4;
-    --line:#26314A; --line-strong:#374766;
-    --accent:#8FB4F5; --accent-2:#B6CEFA; --accent-soft:#1B2942;
-    --seal:#F0A3AE; --seal-soft:#3A2028;
-    --logo-bg:#EBEEF5;
+    --ground:#140E11; --surface:#1B1317; --surface-2:#251A20;
+    --ink:#F3E7EC; --muted:#C7A9B4; --faint:#9C7E8A;
+    --line:#3A2831; --line-strong:#52363F;
+    --accent:#F2A8C0; --accent-2:#F8C6D6; --accent-soft:#3B2029;
+    --seal:#A9B4E8; --seal-soft:#23273F;
+    --logo-bg:#F6EBEF;
   }
 }
 :root[data-lang="fr"][data-theme="dark"]{
-  --ground:#0B1018; --surface:#101724; --surface-2:#182132;
-  --ink:#E8ECF4; --muted:#AAB5CA; --faint:#7F8BA4;
-  --line:#26314A; --line-strong:#374766;
-  --accent:#8FB4F5; --accent-2:#B6CEFA; --accent-soft:#1B2942;
-  --seal:#F0A3AE; --seal-soft:#3A2028;
-  --logo-bg:#EBEEF5;
+  --ground:#140E11; --surface:#1B1317; --surface-2:#251A20;
+  --ink:#F3E7EC; --muted:#C7A9B4; --faint:#9C7E8A;
+  --line:#3A2831; --line-strong:#52363F;
+  --accent:#F2A8C0; --accent-2:#F8C6D6; --accent-soft:#3B2029;
+  --seal:#A9B4E8; --seal-soft:#23273F;
+  --logo-bg:#F6EBEF;
 }
 
-/* ===== TÔNG MÀU TIẾNG TÂY BAN NHA — đỏ son đất / vàng cát (data-lang="es") =====
-   sáng: accent #B03A1E trên trắng 5.6:1, trên nền 5.1:1 · tối: accent #F09A72 trên #1A1210 9.1:1 */
+/* ===== TÔNG MÀU TIẾNG TÂY BAN NHA — đỏ cờ / vàng nghệ (data-lang="es") =====
+   Lấy đúng hai màu quốc kỳ: đỏ làm màu nhấn, vàng làm dấu triện.
+   Vàng cờ #F1BF00 đặt trên nền trắng chỉ được 1,9:1 nên không dùng làm chữ được;
+   bản sáng hạ xuống #8A6800 (5,2:1), bản tối mới trả lại đúng sắc vàng.
+   sáng: accent #A5121A trên trắng 7,8:1 · trên nền 7,2:1
+   tối:  accent #EF8079 trên #1A100E 7,0:1 */
 :root[data-lang="es"]{
-  --ground:#FBF4EC; --surface:#FFFFFF; --surface-2:#F5E8DA;
-  --ink:#24170F; --muted:#6B5341; --faint:#886C56;
-  --line:#EBDCCB; --line-strong:#D6BEA4;
-  --accent:#B03A1E; --accent-2:#C7512F; --accent-soft:#F8E4DB;
-  --seal:#8A6A1F; --seal-soft:#F6EEDA;
+  --ground:#FCF6EC; --surface:#FFFFFF; --surface-2:#F7E9D2;
+  --ink:#241310; --muted:#6B4640; --faint:#8A5C53;
+  --line:#EEDCC5; --line-strong:#DCC09C;
+  --accent:#A5121A; --accent-2:#C4262C; --accent-soft:#F9E2E0;
+  --seal:#8A6800; --seal-soft:#FBF0CE;
 }
 @media (prefers-color-scheme: dark){
   :root[data-lang="es"]:not([data-theme="light"]){
-    --ground:#130D0A; --surface:#1A1210; --surface-2:#251A15;
-    --ink:#F4E9E1; --muted:#C4A896; --faint:#9A806D;
-    --line:#38271F; --line-strong:#4F372B;
-    --accent:#F09A72; --accent-2:#F7BC9E; --accent-soft:#3A2218;
-    --seal:#E3C56A; --seal-soft:#332B14;
-    --logo-bg:#F5EDE4;
+    --ground:#120A09; --surface:#1A100E; --surface-2:#261714;
+    --ink:#F6E7E2; --muted:#C9A196; --faint:#A07A6E;
+    --line:#3A231E; --line-strong:#543129;
+    --accent:#EF8079; --accent-2:#F6ABA4; --accent-soft:#3B1D18;
+    --seal:#F0C860; --seal-soft:#382C10;
+    --logo-bg:#F7EFE6;
   }
 }
 :root[data-lang="es"][data-theme="dark"]{
-  --ground:#130D0A; --surface:#1A1210; --surface-2:#251A15;
-  --ink:#F4E9E1; --muted:#C4A896; --faint:#9A806D;
-  --line:#38271F; --line-strong:#4F372B;
-  --accent:#F09A72; --accent-2:#F7BC9E; --accent-soft:#3A2218;
-  --seal:#E3C56A; --seal-soft:#332B14;
-  --logo-bg:#F5EDE4;
+  --ground:#120A09; --surface:#1A100E; --surface-2:#261714;
+  --ink:#F6E7E2; --muted:#C9A196; --faint:#A07A6E;
+  --line:#3A231E; --line-strong:#543129;
+  --accent:#EF8079; --accent-2:#F6ABA4; --accent-soft:#3B1D18;
+  --seal:#F0C860; --seal-soft:#382C10;
+  --logo-bg:#F7EFE6;
 }
 
-/* Chữ tiếng Anh + phiên âm IPA */
 .fr,.es,.lesson-card h3.fr,.lesson-card h3.es,.lesson-card h3.en,.zh-les-title.en,.zh-gram-form.en,.zh-word-hz.en,.zh-line-zh.en,.zh-card-front.en,.qz-hz.en,.qz-opt.en,.zh-res-hz.en,.tk-passage.en{font-family:"Lexend","Segoe UI",system-ui,sans-serif;letter-spacing:0}
 .ipa{font-family:"Charis SIL","Doulos SIL","Gentium Plus","Segoe UI","DejaVu Sans",serif;color:var(--accent-2);font-size:.94em;letter-spacing:.01em;white-space:nowrap}
 .ipa.big{font-size:1.15em;font-weight:500}
