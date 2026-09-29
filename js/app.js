@@ -7593,11 +7593,18 @@ function latMakeQuiz(id, level, type, n, seed){
     .flatMap(l => (l.dialogue || []).map(d => ({ t:d[id], vi:d.vi, no:l.no })))
     .filter(d => d.t && String(d.t).split(/\s+/).length >= 4);
 
+  /* Trần số câu mỗi dạng. Khoá lên tới 2.000 từ nên lấy hết thì mỗi lần mở
+     màn là dựng vài nghìn câu, chậm mà vô ích vì một lượt chỉ dùng 15 câu.
+     Nhưng trần cứng 40 như trước lại hẹp quá khi kho từ đã lớn: mỗi lượt
+     dùng một seed mới nên 40 câu ấy rút lại từ đầu, chỉ là vùng rút quá bé.
+     Lấy theo tỷ lệ kho từ, chặn trên ở 200, là vừa nhanh vừa đủ rộng. */
+  const cap = k => Math.max(20, Math.min(200, Math.round(k * 0.35)));
+
   const out = [];
   const want = t => type === 'all' || type === t;
 
   /* --- nghĩa của từ --- */
-  if (want('nghia')) latPick(pool, 40, rnd).forEach(w => {
+  if (want('nghia')) latPick(pool, cap(pool.length), rnd).forEach(w => {
     const others = latPick(pool.filter(x => x.vi !== w.vi && x.pos === w.pos), 3, rnd);
     if (others.length < 3) return;
     out.push({ type:'nghia', tag:'Bài ' + w._no, q:w[id], sub:w.ipa ? '/' + w.ipa + '/' : '',
@@ -7606,7 +7613,7 @@ function latMakeQuiz(id, level, type, n, seed){
   });
 
   /* --- từ nào đúng (nghĩa Việt → từ) --- */
-  if (want('tu')) latPick(pool, 40, rnd).forEach(w => {
+  if (want('tu')) latPick(pool, cap(pool.length), rnd).forEach(w => {
     const others = latPick(pool.filter(x => x[id] !== w[id] && x.pos === w.pos), 3, rnd);
     if (others.length < 3) return;
     out.push({ type:'tu', tag:'Bài ' + w._no, q:w.vi, sub:w.pos || '',
@@ -7615,7 +7622,7 @@ function latMakeQuiz(id, level, type, n, seed){
   });
 
   /* --- giống của danh từ --- */
-  if (want('giong')) latPick(nouns, 40, rnd).forEach(w => {
+  if (want('giong')) latPick(nouns, cap(nouns.length), rnd).forEach(w => {
     const mine = latArt(id, w[id], w.g, false);
     const other = latArt(id, w[id], w.g === 'm' ? 'f' : 'm', false);
     if (mine === other) return;                     // el/un agua — hai lựa chọn trùng nhau
@@ -7628,7 +7635,7 @@ function latMakeQuiz(id, level, type, n, seed){
   });
 
   /* --- chia động từ --- */
-  if (want('chia') && M) latPick(verbs, 40, rnd).forEach(w => {
+  if (want('chia') && M) latPick(verbs, cap(verbs.length), rnd).forEach(w => {
     const inf = M.stripLead(id, w[id]);
     const t = M.table(id, inf);
     if (!t) return;
@@ -7653,7 +7660,7 @@ function latMakeQuiz(id, level, type, n, seed){
      Ghép bừa thì ra những cụm vô nghĩa kiểu «una carne calurosa» (miếng thịt
      nóng bức) — người học đang tập hợp giống lại phải đoán xem câu có nghĩa
      gì, mà nghĩa thì không có. */
-  if (want('hop') && M) latPick(adjs, 30, rnd).forEach(w => {
+  if (want('hop') && M) latPick(adjs, cap(adjs.length), rnd).forEach(w => {
     const base = M.stripLead(id, w[id]);
     const fem = id === 'fr' ? M.frFem(base) : M.esFem(base);
     const plu = id === 'fr' ? M.frPlural : M.esPlural;
@@ -7675,7 +7682,7 @@ function latMakeQuiz(id, level, type, n, seed){
   });
 
   /* --- điền vào câu thật --- */
-  if (want('dien')) latPick(lines, 30, rnd).forEach(d => {
+  if (want('dien')) latPick(lines, cap(lines.length), rnd).forEach(d => {
     const toks = String(d.t).split(/(\s+)/);
     const idx = toks.map((t, i) => [t, i]).filter(([t]) => /^[A-Za-zÀ-ÿ’']{4,}$/.test(t));
     if (!idx.length) return;
@@ -7781,7 +7788,7 @@ function latQuizView(id){
           .map(([k, v]) => `<button class="level-chip" data-lat-qztype="${id}:${k}"${Q.type === k ? ' aria-pressed="true"' : ''}>${esc(v)}</button>`).join('')}
       </div>
       <div class="qz-start">
-        <p>Bộ lọc hiện tại ra được <b>${n}</b> câu. Mỗi lượt lấy ngẫu nhiên tối đa 15 câu.</p>
+        <p>Bộ lọc hiện tại ra được <b>${n}</b> câu, dựng từ ${latPool(id, Q.lv).length} từ của khoá. Mỗi lượt rút ngẫu nhiên tối đa 15 câu, và rút lại từ đầu mỗi lượt nên gần như không lặp.</p>
         <button class="pbtn primary" data-lat-qzstart="${id}"${n ? '' : ' disabled'}>Bắt đầu luyện</button>
       </div>`;
   }
@@ -8165,6 +8172,12 @@ document.addEventListener('click', e => {
   if (kw){ hideTip(); openWord(kw.dataset.kw); return; }
 
   /* ----- tiếng Pháp & Tây Ban Nha (dùng chung một bộ xử lý) ----- */
+  /* Breadcrumb «Tiếng Pháp A1 › Bài 07» trong một bài học: bấm vào cấp phải
+     QUAY RA danh sách bài. Trước đây nó chỉ có data-go="fr_home", mà màn
+     fr_home lại tự chọn bài học khi state còn nhớ bài đang mở — nên bấm vào
+     không có gì xảy ra, người học bị kẹt trong bài. */
+  const latHomeBtn = t.closest('[data-lat-home]');
+  if (latHomeBtn){ const id = latHomeBtn.dataset.latHome; latSt(id).lesson = null; go(id + '_home'); return; }
   const latL = t.closest('[data-lat-level]');
   if (latL){ const [id, lv] = latL.dataset.latLevel.split(':'); latSt(id).level = lv; latSt(id).lesson = null; render(); syncHist(); return; }
   const latLs = t.closest('[data-lat-lesson]');

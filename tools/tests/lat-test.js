@@ -59,24 +59,43 @@ const LANGS = [
 
   /* ---------- dữ liệu khoá học ---------- */
   LANGS.forEach(L => {
-    check(L.vi + ' — khoá A1 đủ 15 bài, mỗi bài đủ trường', () => {
+    check(L.vi + ' — A1 và A2 mỗi cấp đủ 50 bài, đủ trường, số liền mạch', () => {
       const C = win.eval(L.course);
       if (!C) return 'không nạp được ' + L.course;
-      const a1 = C.lessons.filter(l => l.level === 'a1');
-      if (a1.length !== 15) return 'có ' + a1.length + ' bài A1, cần 15';
-      const nos = a1.map(l => l.no).sort((x, y) => x - y).join(',');
-      if (nos !== '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15') return 'số bài lệch: ' + nos;
-      const bad = a1.filter(l =>
-        !(l[L.key] && l.vi && l.skill)
-        || !Array.isArray(l.grammar) || l.grammar.length < 4
-        || l.grammar.some(g => !g.form || !g.vi || !g.note || !g.ex || !g.ex[L.key] || !g.ex.vi)
-        || !Array.isArray(l.vocab) || l.vocab.length < 20
-        || !Array.isArray(l.colloc) || l.colloc.length < 3
-        || l.colloc.some(c => !c.p || !c.vi || !c.ex)
-        || !Array.isArray(l.dialogue) || l.dialogue.length < 6
-        || l.dialogue.some(x => !x.sp || !x[L.key] || !x.vi));
-      if (bad.length) return 'bài thiếu trường: ' + bad.map(l => l.no).join(' ');
+      for (const lv of ['a1', 'a2']){
+        const set = C.lessons.filter(l => l.level === lv);
+        if (set.length !== 50) return lv.toUpperCase() + ' có ' + set.length + ' bài, cần 50';
+        const nos = set.map(l => l.no).sort((x, y) => x - y);
+        const want = set.map((_, i) => i + 1).join(',');
+        if (nos.join(',') !== want) return lv + ': số bài không liền mạch: ' + nos.join(',');
+        const bad = set.filter(l =>
+          !(l[L.key] && l.vi && l.skill)
+          || !Array.isArray(l.grammar) || l.grammar.length < 4
+          || l.grammar.some(g => !g.form || !g.vi || !g.note || !g.ex || !g.ex[L.key] || !g.ex.vi)
+          || !Array.isArray(l.vocab) || l.vocab.length < 20
+          || !Array.isArray(l.colloc) || l.colloc.length < 3
+          || l.colloc.some(c => !c.p || !c.vi || !c.ex)
+          || !Array.isArray(l.dialogue) || l.dialogue.length < 6
+          || l.dialogue.some(x => !x.sp || !x[L.key] || !x.vi));
+        if (bad.length) return lv + ': bài thiếu trường: ' + bad.map(l => l.no).join(' ');
+      }
       return true;
+    });
+
+    /* Ràng buộc dễ vỡ nhất của khoá: 2.000 từ mà không từ nào lặp. Soát ở đây
+       để một lần ghép sai không lọt qua mà phải chờ tới lúc người học gặp. */
+    check(L.vi + ' — 2.000 từ, không từ nào lặp giữa các bài', () => {
+      const C = win.eval(L.course);
+      const seen = {}, dup = [];
+      C.lessons.forEach(l => (l.vocab || []).forEach(v => {
+        const k = String(v[L.key] || '').toLowerCase();
+        if (!k) return;
+        if (seen[k]) dup.push(k + ' (' + seen[k] + ' và ' + l.level + '#' + l.no + ')');
+        else seen[k] = l.level + '#' + l.no;
+      }));
+      if (dup.length) return dup.length + ' từ lặp: ' + dup.slice(0, 5).join(', ');
+      const n = Object.keys(seen).length;
+      return n === 2000 || 'có ' + n + ' từ, cần 2000';
     });
 
     /* Giống của danh từ là thứ không được quên: học từ mà không học giống
@@ -126,11 +145,32 @@ const LANGS = [
       return d.documentElement.getAttribute('data-lang') === L.id || 'data-lang không đổi';
     });
 
-    check(L.vi + ' — trang chủ khoá liệt kê đủ 15 bài A1', () => {
+    check(L.vi + ' — trang chủ khoá liệt kê đủ số bài A1', () => {
       const C = win.eval(L.course);
       const a1 = C.lessons.filter(l => l.level === 'a1').length;
       const cards = n('[data-lat-lesson]');
       return cards === a1 || 'hiện ' + cards + ' thẻ, dữ liệu có ' + a1;
+    });
+
+    /* Cấp A2 phải BẤM ĐƯỢC, không còn khoá «sắp có», và phải ra đủ 50 thẻ.
+       Quên bật status:'active' là lỗi im lặng: nội dung có mà không ai vào được. */
+    check(L.vi + ' — chip A2 mở được và liệt kê đủ 50 bài', () => {
+      const chip = d.querySelector('[data-lat-level="' + L.id + ':a2"]');
+      if (!chip) return 'không thấy chip A2';
+      if (chip.disabled) return 'chip A2 vẫn bị khoá (status chưa active)';
+      click(chip);
+      const cards = n('[data-lat-lesson]');
+      if (cards !== 50) return 'A2 hiện ' + cards + ' thẻ, cần 50';
+      const cards50 = d.querySelectorAll('[data-lat-lesson]');
+      click(cards50[cards50.length - 1]);
+      const t = body();
+      if (!/Ngữ pháp/.test(t) || !/Hội thoại/.test(t)) return 'bài A2 cuối thiếu mục';
+      /* Trả màn hình về đúng chỗ các phép thử sau đang chờ: danh sách bài, cấp A1.
+         Đi bằng đúng nút người dùng bấm — breadcrumb — chứ không chọc vào state. */
+      click('[data-lat-home="' + L.id + '"]');
+      if (!n('[data-lat-lesson]')) return 'breadcrumb không trở lại được danh sách bài';
+      click('[data-lat-level="' + L.id + ':a1"]');
+      return n('[data-lat-lesson]') === 50 || 'không trở lại được danh sách bài A1';
     });
 
     check(L.vi + ' — mở bài 1: có ngữ pháp, từ vựng, cụm và hội thoại', () => {
