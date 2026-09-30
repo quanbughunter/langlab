@@ -2313,6 +2313,46 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   .pic-opt-t{font-size:15px}
 }
 
+/* ===== Mục từ Pháp / Tây Ban Nha: ví dụ, cấu tạo từ, họ từ =====
+   Phần này là bản đối ứng của «cấu tạo từ» bên tiếng Trung. Chữ Hán bày
+   theo ô vuông; từ La-tinh bày thành một chuỗi ngang tiền tố + gốc + hậu
+   tố, vì thứ tự trái sang phải chính là thông tin. */
+.lat-ff{margin:10px 0 2px;padding:9px 12px;border-radius:10px;
+  background:var(--accent-soft);border:1px solid var(--line-strong);font-size:13.5px;line-height:1.55}
+.lat-ff b{color:var(--accent);margin-right:6px}
+
+.lat-ex{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.lat-ex>li{padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.lat-ex-t{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:15.5px;line-height:1.5}
+.lat-ex-vi{color:var(--muted);font-size:13.5px;margin-top:3px}
+.lat-ex-tag{color:var(--faint);font-size:11.5px;margin-top:5px;letter-spacing:.02em}
+
+.lat-morph{display:flex;align-items:stretch;gap:6px;flex-wrap:wrap;margin:2px 0 10px}
+.lat-mp{display:flex;flex-direction:column;gap:2px;padding:8px 11px;border-radius:10px;
+  border:1px solid var(--line);background:var(--surface);min-width:76px}
+.lat-mp b{font-size:17px;line-height:1.2}
+.lat-mp i{font-style:normal;font-size:12.5px;color:var(--muted);line-height:1.35}
+.lat-mp u{text-decoration:none;font-size:11px;color:var(--faint)}
+.lat-mp.root{border-color:var(--line-strong);background:var(--accent-soft)}
+.lat-mp.root b{color:var(--accent)}
+.lat-plus{align-self:center;color:var(--faint);font-size:14px}
+.lat-src{font-size:12.5px;color:var(--muted);margin:2px 0 6px}
+.lat-en{font-size:13px;color:var(--muted);margin:2px 0 8px}
+.lat-en b{color:var(--ink);font-weight:500}
+
+.lat-fam{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;margin-top:8px}
+.lat-fam>span{font-size:12.5px;color:var(--faint);margin-right:2px}
+.lat-fam.cross{padding-top:8px;border-top:1px dashed var(--line)}
+.lat-chip{font:inherit;font-size:14px;cursor:pointer;padding:4px 10px;border-radius:999px;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);transition:.15s}
+.lat-chip:hover{border-color:var(--accent);color:var(--accent)}
+.lat-fam.cross .lat-chip{border-style:dashed}
+
+@media (max-width:560px){
+  .lat-mp{min-width:0;padding:7px 9px}
+  .lat-mp b{font-size:15px}
+}
+
 </style>
 </head>
 <body>
@@ -38712,6 +38752,73 @@ if (typeof module !== 'undefined') module.exports = { FACTS };
    ngôn ngữ và chế độ sáng/tối. Khung chung 120×84, nền bo tròn.
    ------------------------------------------------------------ */
 const FACT_ART = {
+  monument:'<path d="M60 12l6 14h-4v12h10v10H64v22h12v8H44v-8h12V48H42V38h10V26h-4z" fill="var(--accent)"/><path d="M28 78h64" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round"/><g fill="var(--accent-2)" opacity=".7"><circle cx="34" cy="60" r="4"/><circle cx="86" cy="60" r="4"/></g>',
+  braille:'<rect x="30" y="20" width="60" height="46" rx="8" fill="var(--surface)" stroke="var(--line-strong)"/><g fill="var(--accent)"><circle cx="46" cy="32" r="4.5"/><circle cx="46" cy="44" r="4.5"/><circle cx="46" cy="56" r="4.5"/><circle cx="66" cy="32" r="4.5"/><circle cx="66" cy="56" r="4.5"/></g><g fill="var(--line-strong)" opacity=".45"><circle cx="66" cy="44" r="4.5"/></g><path d="M78 30q8 6 0 12" fill="none" stroke="var(--seal)" stroke-width="2.5" stroke-linecap="round"/>',
+  pigeon:'<ellipse cx="56" cy="44" rx="22" ry="14" fill="var(--accent)"/><circle cx="78" cy="34" r="8" fill="var(--accent)"/><path d="M86 32l8 3-8 3z" fill="var(--seal)"/><circle cx="80" cy="32" r="1.8" fill="var(--surface)"/><path d="M44 40q12-10 24-2" fill="none" stroke="var(--surface)" stroke-width="2.5" opacity=".8"/><path d="M34 46l-12 8 14 2z" fill="var(--accent-2)"/><rect x="48" y="52" width="18" height="12" rx="2" fill="var(--surface)" stroke="var(--line-strong)"/><path d="M48 52l9 6 9-6" fill="none" stroke="var(--line-strong)" stroke-width="1.5"/>',
+  bonfire:'<path d="M60 18q10 14 4 22t10 10q6 10-2 18t-24 0q-8-10-2-18t10-10q-6-8 4-22z" fill="var(--accent)"/><path d="M60 34q5 8 2 12t5 6q3 6-2 10t-12 0q-4-4-1-10t5-6q-3-4 3-12z" fill="var(--accent-2)"/><path d="M28 72l64 0" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round"/><path d="M36 72l14-8M84 72l-14-8" stroke="var(--seal)" stroke-width="3" stroke-linecap="round"/>',
+  crepe:'<ellipse cx="56" cy="48" rx="30" ry="12" fill="var(--accent)"/><ellipse cx="56" cy="44" rx="30" ry="12" fill="var(--accent-2)"/><ellipse cx="56" cy="44" rx="18" ry="7" fill="var(--accent-soft)" opacity=".6"/><path d="M86 44h16a4 4 0 0 1 0 8H86" fill="none" stroke="var(--line-strong)" stroke-width="3"/><path d="M46 26q4-8 10 0t10 0" fill="none" stroke="var(--seal)" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>',
+  mosque:'<path d="M24 70V44q0-14 14-14t14 14v26z" fill="var(--accent)"/><path d="M52 70V40q0-16 16-16t16 16v30z" fill="var(--accent-2)"/><path d="M84 70V46q0-12 12-12t12 12v24z" fill="var(--accent)" opacity=".8"/><g fill="var(--accent-soft)"><path d="M32 70V52q0-6 6-6t6 6v18z"/><path d="M60 70V48q0-8 8-8t8 8v22z"/></g><path d="M18 74h88" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round"/>',
+  chameleon:'<path d="M30 52q0-16 18-16t20 10 16 4 8 8-10 8-18 2-20 4-14-8z" fill="var(--accent)"/><circle cx="46" cy="44" r="5" fill="var(--surface)"/><circle cx="46" cy="44" r="2" fill="var(--ink)"/><path d="M90 56q10 2 8 10t-12 4" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/><path d="M40 66v8M56 68v8M72 66v8" stroke="var(--accent-2)" stroke-width="3.5" stroke-linecap="round"/><path d="M26 74h72" stroke="var(--line-strong)" stroke-width="2.5" stroke-linecap="round"/>',
+  stork:'<path d="M54 30q10-8 20 0t2 20-22 6z" fill="var(--surface)" stroke="var(--line-strong)"/><circle cx="76" cy="26" r="6" fill="var(--surface)" stroke="var(--line-strong)"/><path d="M82 24l14 4-14 4z" fill="var(--seal)"/><path d="M58 56v18M50 56v18" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/><path d="M46 74h16M54 74h16" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/><path d="M34 48q10 6 22 2" fill="none" stroke="var(--accent-2)" stroke-width="3" stroke-linecap="round"/>',
+  pig:'<ellipse cx="56" cy="48" rx="26" ry="18" fill="var(--ink)" opacity=".72"/><circle cx="82" cy="42" r="12" fill="var(--ink)" opacity=".72"/><ellipse cx="92" cy="44" rx="6" ry="5" fill="var(--accent-2)"/><circle cx="90" cy="43" r="1.4" fill="var(--ink)"/><circle cx="94" cy="43" r="1.4" fill="var(--ink)"/><path d="M76 32l-4-8 10 3z" fill="var(--ink)" opacity=".72"/><path d="M40 64v10M56 66v8M68 64v10" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" opacity=".72"/><path d="M26 76h72" stroke="var(--line-strong)" stroke-width="2.5" stroke-linecap="round"/>',
+  coffee:'<path d="M42 32h30v18a15 15 0 0 1-30 0z" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2"/><path d="M42 36h30v8H42z" fill="var(--ink)" opacity=".75"/><path d="M72 38h8a7 7 0 0 1 0 14h-8" fill="none" stroke="var(--line-strong)" stroke-width="2.5"/><ellipse cx="57" cy="70" rx="24" ry="5" fill="var(--accent)" opacity=".35"/><path d="M50 24q3-6 7 0t7 0" fill="none" stroke="var(--seal)" stroke-width="2.2" stroke-linecap="round" opacity=".7"/>',
+  carnival:'<circle cx="58" cy="42" r="26" fill="var(--accent)"/><circle cx="48" cy="38" r="4" fill="var(--surface)"/><circle cx="68" cy="38" r="4" fill="var(--surface)"/><path d="M48 52q10 8 20 0" fill="none" stroke="var(--surface)" stroke-width="3" stroke-linecap="round"/><path d="M58 68v8" stroke="var(--line-strong)" stroke-width="4" stroke-linecap="round"/><path d="M44 78h28" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round"/><g fill="var(--accent-2)"><circle cx="30" cy="24" r="4"/><circle cx="88" cy="26" r="4"/><circle cx="96" cy="52" r="4"/></g>',
+  tent:'<path d="M34 68L58 26l24 42z" fill="var(--accent)"/><path d="M58 26l24 42H70z" fill="var(--accent-2)"/><path d="M52 68l6-20 6 20z" fill="var(--accent-soft)"/><path d="M20 72h80" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round"/><g fill="var(--seal)"><circle cx="58" cy="22" r="3"/></g><path d="M86 34h18M86 42h14" stroke="var(--accent-2)" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>',
+  fish:'<path d="M88 44q-16-16-34-12T30 44q8 12 24 16t34-16z" fill="var(--accent)"/><path d="M88 44l14-11v22z" fill="var(--accent-2)"/><circle cx="44" cy="40" r="3" fill="var(--surface)"/><path d="M58 32q6 8 0 16" fill="none" stroke="var(--surface)" stroke-width="2.5" opacity=".8"/><text x="26" y="72" font-size="12" font-weight="700" fill="var(--seal)">1</text><text x="34" y="72" font-size="12" font-weight="700" fill="var(--seal)">/4</text>',
+  acutemark:'<text x="58" y="56" text-anchor="middle" font-size="28" font-weight="700" fill="var(--accent)">esta</text><path d="M78 26l9-9" stroke="var(--seal)" stroke-width="5" stroke-linecap="round"/><path d="M74 62h18" stroke="var(--seal)" stroke-width="3" stroke-linecap="round"/><path d="M30 72h60" stroke="var(--line-strong)" stroke-width="2" stroke-dasharray="3 4"/>',
+  reverseverb:'<text x="34" y="40" text-anchor="middle" font-size="14" font-weight="700" fill="var(--muted)">tôi</text><text x="86" y="40" text-anchor="middle" font-size="14" font-weight="700" fill="var(--muted)">thích</text><path d="M50 36h20" stroke="var(--faint)" stroke-width="2.5" stroke-linecap="round"/><text x="34" y="66" text-anchor="middle" font-size="14" font-weight="700" fill="var(--accent)">me</text><text x="86" y="66" text-anchor="middle" font-size="14" font-weight="700" fill="var(--accent)">gusta</text><path d="M70 62H50" stroke="var(--seal)" stroke-width="3" stroke-linecap="round"/><path d="M56 56l-6 6 6 6" fill="none" stroke="var(--seal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>',
+  letterset:'<rect x="16" y="26" width="88" height="34" rx="9" fill="var(--surface)" stroke="var(--line-strong)"/><text x="44" y="50" text-anchor="middle" font-size="20" font-weight="700" fill="var(--faint)">ch</text><text x="76" y="50" text-anchor="middle" font-size="20" font-weight="700" fill="var(--faint)">ll</text><path d="M30 52l28-16M62 52l28-16" stroke="var(--seal)" stroke-width="3" stroke-linecap="round"/>',
+  loudvoice:'<path d="M18 30h42q6 0 6 6v18q0 6-6 6H34l-10 10V60h-6q-6 0-6-6V36q0-6 6-6z" fill="var(--accent)"/><path d="M62 22h38q6 0 6 6v16q0 6-6 6H74l-12 10V50q-6 0-6-6V28q0-6 6-6z" fill="var(--seal)" opacity=".85"/><g stroke="var(--surface)" stroke-width="2.5" stroke-linecap="round"><path d="M26 40h26M26 48h18M70 34h26M70 42h20"/></g>',
+  /* ===== Tranh riêng cho tiếng Pháp và tiếng Tây Ban Nha =====
+     Trước đây hai tiếng này mượn tranh của tiếng khác, nên mẩu nói về phụ
+     âm câm tiếng Pháp lại bày phiên âm tiếng Anh, mẩu nói về số 80 lại bày
+     chữ số Trung Quốc. Dưới đây là bộ vẽ riêng, mỗi hình bám đúng một ý. */
+
+  /* -- chữ viết và phát âm -- */
+  silentletter:'<text x="42" y="54" text-anchor="middle" font-size="30" font-weight="700" fill="var(--accent)">peti</text><text x="82" y="54" text-anchor="middle" font-size="30" font-weight="700" fill="var(--faint)" opacity=".38">t</text><path d="M70 60l24 0" stroke="var(--seal)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3 4"/><path d="M82 66q0 6-6 6" fill="none" stroke="var(--seal)" stroke-width="2"/><circle cx="74" cy="72" r="2" fill="var(--seal)"/>',
+  liaison:'<text x="30" y="46" text-anchor="middle" font-size="20" font-weight="700" fill="var(--accent)">les</text><text x="82" y="46" text-anchor="middle" font-size="20" font-weight="700" fill="var(--accent)">amis</text><path d="M42 54q16 16 26 0" fill="none" stroke="var(--seal)" stroke-width="3" stroke-linecap="round"/><text x="60" y="76" text-anchor="middle" font-size="13" font-weight="600" fill="var(--seal)">z</text>',
+  vigesimal:'<g fill="var(--accent)"><rect x="18" y="24" width="16" height="16" rx="3"/><rect x="38" y="24" width="16" height="16" rx="3"/><rect x="18" y="44" width="16" height="16" rx="3"/><rect x="38" y="44" width="16" height="16" rx="3"/></g><g fill="var(--surface)" font-size="9" font-weight="700" text-anchor="middle"><text x="26" y="36">20</text><text x="46" y="36">20</text><text x="26" y="56">20</text><text x="46" y="56">20</text></g><text x="63" y="50" font-size="16" fill="var(--faint)">=</text><text x="92" y="52" text-anchor="middle" font-size="24" font-weight="700" fill="var(--seal)">80</text>',
+  gendermark:'<rect x="16" y="26" width="42" height="34" rx="8" fill="var(--accent)"/><rect x="62" y="26" width="42" height="34" rx="8" fill="var(--seal)"/><text x="37" y="50" text-anchor="middle" font-size="19" font-weight="700" fill="var(--surface)">le</text><text x="83" y="50" text-anchor="middle" font-size="19" font-weight="700" fill="var(--surface)">la</text><path d="M20 70h80" stroke="var(--line-strong)" stroke-width="2.5" stroke-linecap="round"/>',
+  negation:'<rect x="36" y="28" width="48" height="30" rx="7" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/><text x="60" y="49" text-anchor="middle" font-size="17" font-weight="700" fill="var(--accent)">sais</text><text x="21" y="49" text-anchor="middle" font-size="15" font-weight="700" fill="var(--seal)">ne</text><text x="99" y="49" text-anchor="middle" font-size="15" font-weight="700" fill="var(--seal)">pas</text><path d="M14 58q8 8 16 0M90 58q8 8 16 0" fill="none" stroke="var(--seal)" stroke-width="2.5" stroke-linecap="round"/>',
+  loanword:'<rect x="12" y="30" width="34" height="24" rx="5" fill="var(--accent)"/><text x="29" y="46" text-anchor="middle" font-size="11" font-weight="700" fill="var(--surface)">FR</text><rect x="74" y="30" width="34" height="24" rx="5" fill="var(--seal)"/><text x="91" y="46" text-anchor="middle" font-size="11" font-weight="700" fill="var(--surface)">EN</text><path d="M48 42h22" stroke="var(--accent-2)" stroke-width="3" stroke-linecap="round"/><path d="M64 36l8 6-8 6" fill="none" stroke="var(--accent-2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="60" y="72" text-anchor="middle" font-size="12" font-weight="600" fill="var(--muted)">café · menu</text>',
+  accentcirc:'<text x="46" y="56" text-anchor="middle" font-size="40" font-weight="700" fill="var(--accent)">â</text><text x="86" y="50" text-anchor="middle" font-size="26" font-weight="700" fill="var(--faint)" opacity=".35">s</text><path d="M74 42l22 14M96 42l-22 14" stroke="var(--seal)" stroke-width="2.5" stroke-linecap="round"/><path d="M52 24h26" stroke="var(--line-strong)" stroke-width="2" stroke-dasharray="3 3"/>',
+  throatr:'<path d="M30 20q22-8 40 4t10 34q-4 16-20 18" fill="none" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="14" ry="10" fill="var(--accent)" opacity=".35"/><path d="M56 46q10-6 20 0M56 54q10 6 20 0" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"/><text x="26" y="62" font-size="24" font-weight="700" fill="var(--seal)">R</text>',
+  tuvous:'<g fill="var(--accent)"><circle cx="32" cy="32" r="9"/><path d="M18 62q0-14 14-14t14 14z"/></g><g fill="var(--seal)"><circle cx="86" cy="32" r="9"/><path d="M72 62q0-14 14-14t14 14z"/></g><text x="32" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="var(--accent)">tu</text><text x="86" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="var(--seal)">vous</text>',
+  accentset:'<rect x="12" y="20" width="96" height="44" rx="10" fill="var(--surface)" stroke="var(--line-strong)"/><text x="60" y="50" text-anchor="middle" font-size="17" font-weight="700" fill="var(--accent)">é è ê ë ç</text>',
+  writtentense:'<path d="M24 20h50q8 0 8 8v46H32q-8 0-8-8z" fill="var(--surface)" stroke="var(--line-strong)"/><g stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" opacity=".8"><path d="M34 34h34M34 42h30M34 50h34M34 58h22"/></g><path d="M86 22l12 10-30 32-14 4 4-14z" fill="var(--seal)"/><path d="M86 22l12 10-5 5-12-10z" fill="var(--accent-2)"/>',
+  endstress:'<g fill="var(--line-strong)"><circle cx="24" cy="50" r="5"/><circle cx="42" cy="50" r="5"/><circle cx="60" cy="50" r="5"/><circle cx="78" cy="50" r="5"/></g><circle cx="98" cy="50" r="10" fill="var(--accent)"/><path d="M98 28v10" stroke="var(--seal)" stroke-width="3" stroke-linecap="round"/><path d="M92 34l6-8 6 8" fill="none" stroke="var(--seal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>',
+  academy:'<path d="M20 36L60 16l40 20v6H20z" fill="var(--accent)"/><g fill="var(--surface)" opacity=".9"><rect x="28" y="46" width="8" height="24"/><rect x="44" y="46" width="8" height="24"/><rect x="60" y="46" width="8" height="24"/><rect x="76" y="46" width="8" height="24"/></g><path d="M18 70h84v6H18z" fill="var(--accent-2)"/><circle cx="60" cy="30" r="7" fill="var(--seal)"/><text x="60" y="34" text-anchor="middle" font-size="9" font-weight="700" fill="var(--surface)">40</text>',
+  diplomacy:'<ellipse cx="60" cy="52" rx="42" ry="12" fill="var(--accent)" opacity=".3"/><ellipse cx="60" cy="48" rx="42" ry="12" fill="var(--surface)" stroke="var(--line-strong)"/><g fill="var(--accent)"><circle cx="26" cy="36" r="6"/><circle cx="48" cy="30" r="6"/><circle cx="72" cy="30" r="6"/><circle cx="94" cy="36" r="6"/></g><path d="M60 64v10" stroke="var(--line-strong)" stroke-width="3"/><path d="M44 74h32" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round"/>',
+  latinroot:'<text x="60" y="30" text-anchor="middle" font-size="15" font-weight="700" fill="var(--seal)">scrībere</text><path d="M60 36v8M60 44L34 58M60 44l26 14" fill="none" stroke="var(--accent-2)" stroke-width="2.5" stroke-linecap="round"/><text x="30" y="72" text-anchor="middle" font-size="13" font-weight="700" fill="var(--accent)">écrire</text><text x="90" y="72" text-anchor="middle" font-size="13" font-weight="700" fill="var(--accent)">escribir</text>',
+
+  /* -- riêng tiếng Tây Ban Nha -- */
+  inverted:'<text x="34" y="58" text-anchor="middle" font-size="42" font-weight="700" fill="var(--seal)">¿</text><text x="86" y="58" text-anchor="middle" font-size="42" font-weight="700" fill="var(--accent)">?</text><path d="M46 44h28" stroke="var(--line-strong)" stroke-width="2.5" stroke-dasharray="4 4"/>',
+  enye:'<text x="60" y="60" text-anchor="middle" font-size="48" font-weight="700" fill="var(--accent)">ñ</text><path d="M34 26q12-8 26 0t26 0" fill="none" stroke="var(--seal)" stroke-width="2.5" stroke-linecap="round" opacity=".55"/><text x="100" y="34" text-anchor="middle" font-size="12" font-weight="700" fill="var(--seal)">nn</text>',
+  fivevowels:'<g font-size="24" font-weight="700" text-anchor="middle" fill="var(--accent)"><text x="22" y="52">a</text><text x="41" y="52">e</text><text x="60" y="52">i</text><text x="79" y="52">o</text><text x="98" y="52">u</text></g><path d="M14 62h92" stroke="var(--seal)" stroke-width="2.5" stroke-linecap="round"/><text x="60" y="26" text-anchor="middle" font-size="12" font-weight="600" fill="var(--muted)">5</text>',
+  spellread:'<rect x="14" y="26" width="42" height="32" rx="7" fill="var(--surface)" stroke="var(--line-strong)"/><text x="35" y="49" text-anchor="middle" font-size="17" font-weight="700" fill="var(--accent)">casa</text><path d="M62 42h14" stroke="var(--accent-2)" stroke-width="3" stroke-linecap="round"/><path d="M70 36l7 6-7 6" fill="none" stroke="var(--accent-2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M84 32l10-8v36l-10-8z" fill="var(--seal)"/><path d="M98 34q5 8 0 16" fill="none" stroke="var(--seal)" stroke-width="2.5" stroke-linecap="round"/>',
+  arabicroot:'<rect x="14" y="28" width="40" height="28" rx="6" fill="var(--seal)"/><text x="34" y="47" text-anchor="middle" font-size="15" font-weight="700" fill="var(--surface)">al-</text><path d="M56 42h9" stroke="var(--accent-2)" stroke-width="3" stroke-linecap="round"/><path d="M61 37l6 5-6 5" fill="none" stroke="var(--accent-2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="90" y="48" text-anchor="middle" font-size="13" font-weight="700" fill="var(--accent)">azúcar</text><path d="M18 66h84" stroke="var(--line-strong)" stroke-width="2" stroke-dasharray="3 4"/>',
+  speakers:'<circle cx="60" cy="44" r="24" fill="var(--surface)" stroke="var(--line-strong)"/><path d="M60 20c8 8 8 40 0 48M60 20c-8 8-8 40 0 48M36 44h48" fill="none" stroke="var(--line-strong)" stroke-width="1.6" opacity=".7"/><g fill="var(--accent)"><circle cx="26" cy="64" r="7"/><circle cx="44" cy="70" r="7"/><circle cx="76" cy="70" r="7"/><circle cx="94" cy="64" r="7"/></g>',
+  voseo:'<rect x="14" y="28" width="40" height="30" rx="7" fill="var(--accent)"/><text x="34" y="49" text-anchor="middle" font-size="16" font-weight="700" fill="var(--surface)">tú</text><rect x="66" y="28" width="40" height="30" rx="7" fill="var(--seal)"/><text x="86" y="49" text-anchor="middle" font-size="16" font-weight="700" fill="var(--surface)">vos</text><text x="34" y="74" text-anchor="middle" font-size="10" fill="var(--muted)">España</text><text x="86" y="74" text-anchor="middle" font-size="10" fill="var(--muted)">Argentina</text>',
+  seseo:'<text x="36" y="52" text-anchor="middle" font-size="30" font-weight="700" fill="var(--accent)">c z</text><path d="M56 44h14" stroke="var(--accent-2)" stroke-width="3" stroke-linecap="round"/><path d="M64 38l7 6-7 6" fill="none" stroke="var(--accent-2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="90" y="52" text-anchor="middle" font-size="30" font-weight="700" fill="var(--seal)">s</text><path d="M16 66h88" stroke="var(--line-strong)" stroke-width="2" stroke-dasharray="3 4"/>',
+  rollingr:'<text x="34" y="58" text-anchor="middle" font-size="36" font-weight="700" fill="var(--accent)">rr</text><path d="M60 40q8-6 16 0t16 0" fill="none" stroke="var(--seal)" stroke-width="3" stroke-linecap="round"/><path d="M60 50q8-6 16 0t16 0" fill="none" stroke="var(--seal)" stroke-width="3" stroke-linecap="round" opacity=".7"/><path d="M60 60q8-6 16 0t16 0" fill="none" stroke="var(--seal)" stroke-width="3" stroke-linecap="round" opacity=".45"/>',
+  serestar:'<rect x="14" y="26" width="42" height="34" rx="8" fill="var(--accent)"/><rect x="64" y="26" width="42" height="34" rx="8" fill="var(--seal)"/><text x="35" y="48" text-anchor="middle" font-size="16" font-weight="700" fill="var(--surface)">ser</text><text x="85" y="47" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--surface)">estar</text><text x="35" y="72" text-anchor="middle" font-size="10" fill="var(--muted)">bản chất</text><text x="85" y="72" text-anchor="middle" font-size="10" fill="var(--muted)">lúc này</text>',
+  subjunctive:'<path d="M24 60h22" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round"/><path d="M46 60l20-18M46 60l20 18" fill="none" stroke="var(--accent-2)" stroke-width="3" stroke-linecap="round"/><circle cx="74" cy="42" r="9" fill="var(--accent)"/><circle cx="74" cy="78" r="9" fill="var(--surface)" stroke="var(--seal)" stroke-width="2.5" stroke-dasharray="3 3"/><text x="88" y="44" font-size="9" fill="var(--muted)">chắc</text><text x="84" y="80" font-size="9" fill="var(--muted)">chưa chắc</text>',
+
+  /* -- đời sống, thay cho tranh mượn của tiếng khác -- */
+  kissgreet:'<g fill="var(--accent)"><circle cx="40" cy="34" r="11"/><path d="M24 70q0-16 16-16t16 16z"/></g><g fill="var(--seal)"><circle cx="80" cy="34" r="11"/><path d="M64 70q0-16 16-16t16 16z"/></g><path d="M52 32q8-4 16 0" fill="none" stroke="var(--accent-2)" stroke-width="2.5" stroke-linecap="round"/><path d="M56 22l4 4 4-4" fill="none" stroke="var(--accent-2)" stroke-width="2.5" stroke-linecap="round"/>',
+  terrace:'<path d="M14 26h92v8H14z" fill="var(--accent)"/><g fill="var(--accent-2)" opacity=".85"><rect x="14" y="26" width="15" height="8"/><rect x="44" y="26" width="15" height="8"/><rect x="74" y="26" width="15" height="8"/></g><g stroke="var(--line-strong)" stroke-width="2.5" stroke-linecap="round"><path d="M32 46v24M88 46v24M28 70h8M84 70h8"/></g><ellipse cx="32" cy="46" rx="14" ry="5" fill="var(--surface)" stroke="var(--line-strong)"/><ellipse cx="88" cy="46" rx="14" ry="5" fill="var(--surface)" stroke="var(--line-strong)"/><circle cx="60" cy="56" r="9" fill="var(--seal)"/><path d="M60 47v-6" stroke="var(--seal)" stroke-width="2.5" stroke-linecap="round"/>',
+  mealorder:'<g fill="var(--surface)" stroke="var(--line-strong)"><circle cx="26" cy="46" r="12"/><circle cx="52" cy="46" r="12"/><circle cx="78" cy="46" r="12"/><circle cx="102" cy="46" r="10"/></g><circle cx="26" cy="46" r="5" fill="var(--accent-2)"/><circle cx="52" cy="46" r="5" fill="var(--accent)"/><path d="M73 42l10 0 -5 8z" fill="var(--seal)"/><circle cx="102" cy="46" r="4" fill="var(--accent-2)"/><g font-size="9" text-anchor="middle" fill="var(--muted)"><text x="26" y="70">1</text><text x="52" y="70">2</text><text x="78" y="70">3</text><text x="102" y="70">4</text></g>',
+  lightbreakfast:'<path d="M28 40q0-10 14-10t14 10q8 0 8 8t-8 8H36q-8 0-8-8t0-8z" fill="var(--accent)"/><rect x="66" y="34" width="26" height="24" rx="4" fill="var(--surface)" stroke="var(--line-strong)"/><path d="M92 40h6a5 5 0 0 1 0 10h-6" fill="none" stroke="var(--line-strong)" stroke-width="2.5"/><path d="M72 28q2-6 6 0t6 0" fill="none" stroke="var(--seal)" stroke-width="2" stroke-linecap="round" opacity=".7"/><path d="M22 66h76" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round"/>',
+  grapes12:'<g fill="var(--accent)"><circle cx="44" cy="30" r="6"/><circle cx="58" cy="30" r="6"/><circle cx="72" cy="30" r="6"/><circle cx="37" cy="42" r="6"/><circle cx="51" cy="42" r="6"/><circle cx="65" cy="42" r="6"/><circle cx="79" cy="42" r="6"/><circle cx="44" cy="54" r="6"/><circle cx="58" cy="54" r="6"/><circle cx="72" cy="54" r="6"/><circle cx="51" cy="66" r="6"/><circle cx="65" cy="66" r="6"/></g><path d="M58 24v-8q4-4 8-2" fill="none" stroke="var(--seal)" stroke-width="2.5" stroke-linecap="round"/><text x="100" y="34" text-anchor="middle" font-size="14" font-weight="700" fill="var(--seal)">12</text>',
+  guitar:'<ellipse cx="46" cy="54" rx="22" ry="20" fill="var(--accent)"/><ellipse cx="46" cy="54" rx="7" ry="7" fill="var(--accent-soft)"/><rect x="62" y="48" width="36" height="9" rx="3" fill="var(--seal)"/><rect x="94" y="42" width="12" height="20" rx="3" fill="var(--accent-2)"/><g stroke="var(--surface)" stroke-width="1.2" opacity=".85"><path d="M34 50h62M34 54h62M34 58h62"/></g>',
+  bullring:'<ellipse cx="60" cy="50" rx="44" ry="26" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="3"/><ellipse cx="60" cy="50" rx="30" ry="17" fill="none" stroke="var(--line-strong)" stroke-width="2" stroke-dasharray="4 4"/><path d="M50 50q6-8 12 0" fill="none" stroke="var(--seal)" stroke-width="3" stroke-linecap="round"/><g fill="var(--accent-2)"><circle cx="26" cy="30" r="4"/><circle cx="94" cy="30" r="4"/><circle cx="26" cy="70" r="4"/><circle cx="94" cy="70" r="4"/></g>',
+  siesta:'<path d="M20 62h72q6 0 6 6H20z" fill="var(--accent-2)"/><path d="M26 44h30q8 0 8 8v10H26z" fill="var(--surface)" stroke="var(--line-strong)"/><circle cx="40" cy="38" r="8" fill="var(--accent)"/><path d="M76 30q8 0 8 8t-8 8" fill="none" stroke="var(--seal)" stroke-width="2.5" stroke-linecap="round"/><text x="92" y="30" font-size="13" font-weight="700" fill="var(--seal)">z</text><text x="102" y="22" font-size="10" font-weight="700" fill="var(--seal)" opacity=".7">z</text>',
+  tapas:'<g fill="var(--surface)" stroke="var(--line-strong)"><circle cx="34" cy="38" r="13"/><circle cx="66" cy="34" r="11"/><circle cx="90" cy="48" r="12"/><circle cx="50" cy="62" r="12"/></g><circle cx="34" cy="38" r="5" fill="var(--accent)"/><circle cx="66" cy="34" r="4" fill="var(--seal)"/><circle cx="90" cy="48" r="5" fill="var(--accent-2)"/><circle cx="50" cy="62" r="4" fill="var(--accent)"/><path d="M14 74h92" stroke="var(--line-strong)" stroke-width="2.5" stroke-linecap="round"/>',
+  lotterydraw:'<rect x="24" y="24" width="72" height="42" rx="8" fill="var(--surface)" stroke="var(--line-strong)"/><g fill="var(--accent)"><circle cx="44" cy="40" r="8"/><circle cx="62" cy="48" r="8"/><circle cx="80" cy="38" r="8"/></g><g fill="var(--surface)" font-size="8" font-weight="700" text-anchor="middle"><text x="44" y="43">5</text><text x="62" y="51">1</text><text x="80" y="41">3</text></g><path d="M36 74h48" stroke="var(--seal)" stroke-width="3" stroke-linecap="round"/>',
+  saintcal:'<rect x="24" y="22" width="72" height="52" rx="8" fill="var(--surface)" stroke="var(--line-strong)"/><path d="M24 34h72" stroke="var(--line-strong)" stroke-width="2"/><rect x="24" y="22" width="72" height="12" rx="8" fill="var(--accent)"/><g fill="var(--accent-2)" opacity=".75"><rect x="32" y="42" width="10" height="9" rx="2"/><rect x="48" y="42" width="10" height="9" rx="2"/><rect x="64" y="42" width="10" height="9" rx="2"/><rect x="80" y="42" width="10" height="9" rx="2"/><rect x="32" y="56" width="10" height="9" rx="2"/><rect x="48" y="56" width="10" height="9" rx="2"/></g><circle cx="69" cy="61" r="7" fill="var(--seal)"/><path d="M66 61h6M69 58v6" stroke="var(--surface)" stroke-width="1.8" stroke-linecap="round"/>',
+  zincroof:'<path d="M16 46L60 20l44 26v4H16z" fill="var(--faint)" opacity=".55"/><path d="M22 50h76v26H22z" fill="var(--surface)" stroke="var(--line-strong)"/><g fill="var(--accent)" opacity=".85"><rect x="32" y="58" width="12" height="18" rx="2"/><rect x="54" y="58" width="12" height="18" rx="2"/><rect x="76" y="58" width="12" height="18" rx="2"/></g><g stroke="var(--line-strong)" stroke-width="1.4" opacity=".6"><path d="M30 44l8-12M46 40l8-14M62 40l8-14M78 44l8-12"/></g>',
+  oldscreen:'<rect x="22" y="22" width="76" height="44" rx="6" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="2"/><rect x="30" y="30" width="60" height="28" rx="3" fill="var(--seal)"/><g stroke="var(--accent-2)" stroke-width="2" opacity=".9"><path d="M36 38h32M36 44h44M36 50h24"/></g><path d="M44 66h32v8H44z" fill="var(--faint)" opacity=".5"/><path d="M36 78h48" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round"/>',
+  metroline:'<rect x="14" y="30" width="92" height="30" rx="14" fill="var(--accent)"/><g fill="var(--accent-soft)"><rect x="24" y="38" width="16" height="12" rx="3"/><rect x="46" y="38" width="16" height="12" rx="3"/><rect x="68" y="38" width="16" height="12" rx="3"/></g><circle cx="98" cy="45" r="4" fill="var(--seal)"/><path d="M20 66h80" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round"/><path d="M28 72v6M92 72v6" stroke="var(--line-strong)" stroke-width="2.5" stroke-linecap="round"/>',
 hanbok:'<path d="M42 22h36l10 12-8 6v6H40v-6l-8-6z" fill="var(--accent)"/><path d="M34 46h52l8 30H26z" fill="var(--accent-2)"/><path d="M26 76h68l-4 6H30z" fill="var(--accent)" opacity=".7"/><path d="M60 22v24" stroke="var(--surface)" stroke-width="3"/><circle cx="60" cy="48" r="4" fill="var(--seal)"/>',
   taekwondo:'<circle cx="46" cy="24" r="8" fill="var(--accent)"/><path d="M34 38h24l6 18-8 4-4-10v22h-8V52l-6 10-8-4z" fill="var(--accent)"/><path d="M56 62l24-8 4 8-24 10z" fill="var(--seal)"/><path d="M28 76h64" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round"/><path d="M40 44h18" stroke="var(--surface)" stroke-width="2.5"/>',
   apartment:'<rect x="26" y="16" width="30" height="62" rx="3" fill="var(--accent)"/><rect x="62" y="30" width="32" height="48" rx="3" fill="var(--accent-2)"/><g fill="var(--surface)" opacity=".85"><rect x="32" y="24" width="7" height="8"/><rect x="43" y="24" width="7" height="8"/><rect x="32" y="38" width="7" height="8"/><rect x="43" y="38" width="7" height="8"/><rect x="32" y="52" width="7" height="8"/><rect x="43" y="52" width="7" height="8"/><rect x="68" y="38" width="8" height="9"/><rect x="80" y="38" width="8" height="9"/><rect x="68" y="54" width="8" height="9"/><rect x="80" y="54" width="8" height="9"/></g><path d="M20 78h80" stroke="var(--line-strong)" stroke-width="3" stroke-linecap="round"/>',
@@ -40537,62 +40644,62 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
    ================================================================== */
 
 /* ---------------- Ngôn ngữ ---------------- */
-{ lang:'fr', cat:'Ngôn ngữ', art:'letter', title:'Tiếng Pháp có một viện hàn lâm canh giữ ngôn ngữ',
+{ lang:'fr', cat:'Ngôn ngữ', art:'academy', title:'Tiếng Pháp có một viện hàn lâm canh giữ ngôn ngữ',
   body:'Académie française lập từ năm 1635, có 40 thành viên trọn đời gọi là «những người bất tử». Nhiệm vụ của họ là soạn từ điển và giữ chuẩn mực cho tiếng Pháp.',
   extra:'Khác hẳn tiếng Anh vốn không có cơ quan nào quản. Viện hàn lâm hay đề xuất từ Pháp thay cho từ mượn tiếng Anh — «courriel» thay cho email, «logiciel» thay cho software. Không phải đề xuất nào cũng được dân chấp nhận.',
   word:{ t:'l’Académie française', r:'a.ka.de.mi fʁɑ̃.sɛz', vi:'Viện Hàn lâm Pháp' } },
 
-{ lang:'fr', cat:'Ngôn ngữ', art:'phonetic', title:'Phụ âm cuối trong tiếng Pháp thường câm',
+{ lang:'fr', cat:'Ngôn ngữ', art:'silentletter', title:'Phụ âm cuối trong tiếng Pháp thường câm',
   body:'«Petit» đọc là «pơ-ti», «grand» là «gờ-răng». Chữ viết giữ lại phụ âm mà tiếng nói đã bỏ từ lâu.',
   extra:'Mẹo nhớ của người bản xứ: bốn chữ C, R, F, L thì thường đọc lên — ghép lại thành từ tiếng Anh «CaReFuL». Vẫn có ngoại lệ, nhưng mẹo này đúng phần lớn trường hợp.',
   word:{ t:'muet', r:'mɥɛ', vi:'câm, không phát âm' } },
 
-{ lang:'fr', cat:'Ngôn ngữ', art:'phonetic', title:'Nối âm liaison làm cả câu dính vào nhau',
+{ lang:'fr', cat:'Ngôn ngữ', art:'liaison', title:'Nối âm liaison làm cả câu dính vào nhau',
   body:'«Les amis» đọc thành «lê-za-mi» vì chữ s câm được đánh thức khi từ sau bắt đầu bằng nguyên âm.',
   extra:'Đây là lý do người mới học nghe tiếng Pháp thấy như một dòng âm liền không có khoảng nghỉ. Tách được từ trong dòng âm đó là cột mốc lớn nhất của việc luyện nghe tiếng Pháp.',
   word:{ t:'la liaison', r:'lje.zɔ̃', vi:'nối âm' } },
 
-{ lang:'fr', cat:'Ngôn ngữ', art:'number', title:'Số 80 trong tiếng Pháp là «bốn hai mươi»',
+{ lang:'fr', cat:'Ngôn ngữ', art:'vigesimal', title:'Số 80 trong tiếng Pháp là «bốn hai mươi»',
   body:'70 là «soixante-dix» (60+10), 80 là «quatre-vingts» (4×20), 90 là «quatre-vingt-dix» (4×20+10). Số 99 đọc thành «bốn hai mươi mười chín».',
   extra:'Đây là tàn dư của lối đếm theo hệ 20 thời cổ. Người Bỉ và Thuỵ Sĩ nói gọn hơn nhiều: septante (70), huitante (80), nonante (90) — nhưng ở Pháp thì không dùng.',
   word:{ t:'quatre-vingts', r:'katʁə vɛ̃', vi:'tám mươi' } },
 
-{ lang:'fr', cat:'Ngôn ngữ', art:'book', title:'Danh từ tiếng Pháp không có giống trung',
+{ lang:'fr', cat:'Ngôn ngữ', art:'gendermark', title:'Danh từ tiếng Pháp không có giống trung',
   body:'Mọi danh từ đều là giống đực hoặc giống cái, kể cả vật vô tri. Cái bàn là giống cái, quyển sách là giống đực.',
   extra:'Đổi giống là đổi nghĩa: «un livre» là quyển sách, «une livre» là nửa cân. «Le tour» là vòng đi, «la tour» là cái tháp. Nên học từ mà không học giống thì sau phải học lại từ đầu.',
   word:{ t:'le genre', r:'ʒɑ̃ʁ', vi:'giống của danh từ' } },
 
-{ lang:'fr', cat:'Ngôn ngữ', art:'letter', title:'Tiếng Pháp từng là ngôn ngữ ngoại giao của cả châu Âu',
+{ lang:'fr', cat:'Ngôn ngữ', art:'diplomacy', title:'Tiếng Pháp từng là ngôn ngữ ngoại giao của cả châu Âu',
   body:'Từ thế kỷ XVII tới đầu thế kỷ XX, hiệp ước và thư từ giữa các triều đình châu Âu chủ yếu viết bằng tiếng Pháp.',
   extra:'Dấu vết còn lại trong tiếng Anh ngày nay: attaché, communiqué, détente, rendez-vous, chargé d’affaires. Hộ chiếu nhiều nước vẫn in song ngữ với tiếng Pháp vì lý do lịch sử này.',
   word:{ t:'la diplomatie', r:'di.plɔ.ma.si', vi:'ngành ngoại giao' } },
 
-{ lang:'fr', cat:'Ngôn ngữ', art:'phrasal', title:'Tiếng Pháp phủ định bằng hai chữ kẹp lấy động từ',
+{ lang:'fr', cat:'Ngôn ngữ', art:'negation', title:'Tiếng Pháp phủ định bằng hai chữ kẹp lấy động từ',
   body:'«Ne … pas» ôm lấy động từ chia: «je ne sais pas». Cấu trúc kẹp này khác hẳn tiếng Anh chỉ cần một chữ «not».',
   extra:'Khi nói, người Pháp thường nuốt mất «ne»: «je sais pas» nghe thành «chê-pa». Viết thì luôn phải giữ đủ. Nghe hội thoại thật mà không biết điều này là hiểu ngược hoàn toàn.',
   word:{ t:'la négation', r:'ne.ɡa.sjɔ̃', vi:'phủ định' } },
 
-{ lang:'fr', cat:'Ngôn ngữ', art:'idiom', title:'Tiếng Pháp có rất nhiều từ mà tiếng Anh mượn nguyên xi',
+{ lang:'fr', cat:'Ngôn ngữ', art:'loanword', title:'Tiếng Pháp có rất nhiều từ mà tiếng Anh mượn nguyên xi',
   body:'Café, restaurant, menu, chef, ballet, genre, déjà-vu, fiancé, souvenir — tiếng Anh dùng thẳng mà không dịch.',
   extra:'Chiều ngược lại cũng có: tiếng Pháp mượn week-end, parking, shopping, football. Điều buồn cười là nhiều từ «tiếng Anh» trong tiếng Pháp lại không tồn tại trong tiếng Anh thật, ví dụ «le footing» nghĩa là chạy bộ.',
   word:{ t:'un emprunt', r:'ɑ̃.pʁœ̃', vi:'từ mượn' } },
 
-{ lang:'fr', cat:'Ngôn ngữ', art:'letter', title:'Dấu mũ trong tiếng Pháp thường đánh dấu một chữ S đã mất',
+{ lang:'fr', cat:'Ngôn ngữ', art:'accentcirc', title:'Dấu mũ trong tiếng Pháp thường đánh dấu một chữ S đã mất',
   body:'«Forêt» từng là «forest», «hôpital» từng là «hospital», «île» từng là «isle». Dấu mũ ^ là bia mộ của chữ s biến mất.',
   extra:'Mẹo này rất hữu dụng cho người biết tiếng Anh: thấy dấu mũ thì thử thêm chữ s vào sau nguyên âm, rất có thể ra một từ tiếng Anh quen thuộc. Bête → beast, coût → cost, pâte → paste.',
   word:{ t:'l’accent circonflexe', r:'siʁ.kɔ̃.flɛks', vi:'dấu mũ' } },
 
-{ lang:'fr', cat:'Ngôn ngữ', art:'phonetic', title:'Chữ R tiếng Pháp phát ở cổ họng, không rung đầu lưỡi',
+{ lang:'fr', cat:'Ngôn ngữ', art:'throatr', title:'Chữ R tiếng Pháp phát ở cổ họng, không rung đầu lưỡi',
   body:'Âm này ma sát ở cuống lưỡi, gần với «kh» nhẹ hơn là với «r» tiếng Việt. Nó là âm khó nhất với người Việt học tiếng Pháp.',
   extra:'Thú vị là âm R họng này chỉ mới phổ biến ở Pháp từ khoảng thế kỷ XVII, bắt đầu từ giới quý tộc Paris. Ở một số vùng quê và ở Québec, người già vẫn rung lưỡi theo lối cũ.',
   word:{ t:'la prononciation', r:'pʁɔ.nɔ̃.sja.sjɔ̃', vi:'cách phát âm' } },
 
-{ lang:'fr', cat:'Ngôn ngữ', art:'book', title:'Tiếng Pháp có hai cách nói «bạn» và chọn sai là bất lịch sự',
+{ lang:'fr', cat:'Ngôn ngữ', art:'tuvous', title:'Tiếng Pháp có hai cách nói «bạn» và chọn sai là bất lịch sự',
   body:'«Tu» thân mật, «vous» trang trọng và cũng là số nhiều. Dùng «tu» với người chưa quen bị coi là suồng sã.',
   extra:'Có hẳn hai động từ cho việc này: «tutoyer» là gọi bằng tu, «vouvoyer» là gọi bằng vous. Khi quan hệ đủ thân, người Pháp sẽ đề nghị «on peut se tutoyer ?» — một cột mốc nhỏ trong quan hệ.',
   word:{ t:'tutoyer', r:'ty.twa.je', vi:'gọi bằng «tu»' } },
 
-{ lang:'fr', cat:'Ngôn ngữ', art:'alphabet', title:'Tiếng Pháp dùng chung bảng chữ Latinh nhưng thêm năm dấu',
+{ lang:'fr', cat:'Ngôn ngữ', art:'accentset', title:'Tiếng Pháp dùng chung bảng chữ Latinh nhưng thêm năm dấu',
   body:'Accent aigu (é), accent grave (è), circonflexe (ê), cédille (ç) và tréma (ë). Mỗi dấu có một chức năng riêng chứ không phải trang trí.',
   extra:'Cédille dưới chữ c ép nó đọc thành «s» trước a, o, u — nên «français» mới đọc là «phrăng-xe». Không có cédille thì «francais» sẽ phải đọc là «phrăng-ke».',
   word:{ t:'la cédille', r:'se.dij', vi:'dấu móc dưới chữ c' } },
@@ -40602,17 +40709,17 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'«Voir trente-six chandelles» nghĩa đen là «thấy ba mươi sáu ngọn nến», dùng khi bị đánh choáng váng — tương đương «hoa mắt chóng mặt» của tiếng Việt. Con số 36 xuất hiện trong rất nhiều thành ngữ Pháp.',
   word:{ t:'trente-six', r:'tʁɑ̃t sis', vi:'ba mươi sáu; rất nhiều' } },
 
-{ lang:'fr', cat:'Ngôn ngữ', art:'phrasal', title:'Tiếng Pháp có một thì chỉ dùng trong văn viết',
+{ lang:'fr', cat:'Ngôn ngữ', art:'writtentense', title:'Tiếng Pháp có một thì chỉ dùng trong văn viết',
   body:'Passé simple gần như biến mất khỏi lời nói hằng ngày, nhưng vẫn sống trong tiểu thuyết, truyện cổ tích và sách lịch sử.',
   extra:'Nên người Pháp có thể đọc hiểu thì này trôi chảy mà không bao giờ dùng nó khi nói. Người học thường chỉ cần nhận biết chứ không cần chia thành thạo — trừ khi định đọc văn học.',
   word:{ t:'le passé simple', r:'pa.se sɛ̃pl', vi:'thì quá khứ đơn (văn viết)' } },
 
-{ lang:'fr', cat:'Ngôn ngữ', art:'letter', title:'Hơn nửa từ vựng tiếng Anh có gốc Pháp hoặc Latinh qua Pháp',
+{ lang:'fr', cat:'Ngôn ngữ', art:'latinroot', title:'Hơn nửa từ vựng tiếng Anh có gốc Pháp hoặc Latinh qua Pháp',
   body:'Sau cuộc chinh phục Norman năm 1066, tiếng Pháp tràn vào tiếng Anh suốt mấy thế kỷ, để lại một lớp từ rất dày.',
   extra:'Đó là lý do người Việt biết tiếng Anh học tiếng Pháp rất nhanh ở phần đọc: nation, information, situation, possible, important — viết gần như y hệt. Chỉ cách đọc là khác hẳn.',
   word:{ t:'le vocabulaire', r:'vɔ.ka.by.lɛʁ', vi:'từ vựng' } },
 
-{ lang:'fr', cat:'Ngôn ngữ', art:'phonetic', title:'Trọng âm tiếng Pháp luôn rơi vào cuối cụm từ',
+{ lang:'fr', cat:'Ngôn ngữ', art:'endstress', title:'Trọng âm tiếng Pháp luôn rơi vào cuối cụm từ',
   body:'Khác tiếng Anh với trọng âm nhảy khắp nơi, tiếng Pháp nhấn đều và nhẹ vào âm tiết cuối của mỗi nhóm từ.',
   extra:'Điều này làm tiếng Pháp nghe có nhịp rất đều, và cũng là lý do người Pháp nói tiếng Anh hay bị nhận ra ngay: họ nhấn sai chỗ vì quen nhấn cuối.',
   word:{ t:'l’accent tonique', r:'tɔ.nik', vi:'trọng âm' } },
@@ -40730,7 +40837,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Chỉ tên đầu tiên được dùng trong đời sống, các tên sau chủ yếu xuất hiện trên giấy tờ. Người Việt điền biểu mẫu Pháp hay bối rối vì có ô «prénoms» ở dạng số nhiều.',
   word:{ t:'les prénoms', r:'pʁe.nɔ̃', vi:'các tên riêng' } },
 
-{ lang:'fr', cat:'Tên gọi', art:'crown', title:'Người Pháp chào hỏi kèm tên riêng rất ít',
+{ lang:'fr', cat:'Tên gọi', art:'nametag', title:'Người Pháp chào hỏi kèm tên riêng rất ít',
   body:'Câu chào chuẩn là «Bonjour, monsieur» hoặc «Bonjour, madame» chứ không phải «Bonjour, Pierre». Thêm tên riêng khi chưa thân là hơi suồng sã.',
   extra:'Bỏ hẳn chữ «monsieur» hay «madame» khi chào người lạ — chỉ nói trống «bonjour» — lại bị coi là cộc lốc. Đây là chi tiết nhỏ nhưng ảnh hưởng lớn tới ấn tượng đầu tiên.',
   word:{ t:'monsieur', r:'mə.sjø', vi:'ông, ngài' } },
@@ -40740,7 +40847,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Nhìn bản đồ Pháp có thể đoán được lịch sử định cư: vùng nào chịu ảnh hưởng Gaulois, vùng nào chịu ảnh hưởng Germanic. Đuôi «-ville» còn theo người Pháp sang tận Bắc Mỹ, như Louisville.',
   word:{ t:'un village', r:'vi.laʒ', vi:'ngôi làng' } },
 
-{ lang:'fr', cat:'Tên gọi', art:'book', title:'Pháp có lịch ghi tên thánh cho từng ngày trong năm',
+{ lang:'fr', cat:'Tên gọi', art:'saintcal', title:'Pháp có lịch ghi tên thánh cho từng ngày trong năm',
   body:'Mỗi ngày trong lịch Pháp gắn với một vị thánh. Người mang tên đó được chúc mừng «bonne fête» giống như ngày sinh nhật nhỏ.',
   extra:'Lịch treo tường và cả bản tin thời tiết trên truyền hình đều nhắc tên thánh của ngày. Truyền thống này còn mạnh ở các vùng quê, nhất là với người lớn tuổi.',
   word:{ t:'la fête', r:'fɛt', vi:'ngày lễ; ngày tên thánh' } },
@@ -40766,12 +40873,12 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Cách này dựa trên khái niệm «terroir» — đất, khí hậu và tay nghề của một vùng tạo nên hương vị riêng. Muốn biết chai Bourgogne làm từ nho gì thì phải học thuộc, vì nhãn không ghi.',
   word:{ t:'le terroir', r:'tɛ.ʁwaʁ', vi:'thổ nhưỡng vùng trồng' } },
 
-{ lang:'fr', cat:'Ẩm thực', art:'teatime', title:'Bữa sáng Pháp rất nhẹ và ngọt',
+{ lang:'fr', cat:'Ẩm thực', art:'lightbreakfast', title:'Bữa sáng Pháp rất nhẹ và ngọt',
   body:'Một tách cà phê với bánh sừng bò hoặc bánh mì phết bơ mứt. Không có món mặn, không có trứng thịt như bữa sáng Anh.',
   extra:'Bù lại, bữa trưa ở Pháp là bữa chính và có thể kéo dài cả tiếng. Nhiều cửa hàng nhỏ vẫn đóng cửa nghỉ trưa — thói quen đang mất dần ở thành phố lớn nhưng còn nguyên ở tỉnh lẻ.',
   word:{ t:'le petit-déjeuner', r:'pə.ti de.ʒø.ne', vi:'bữa sáng' } },
 
-{ lang:'fr', cat:'Ẩm thực', art:'bowl', title:'Bữa ăn Pháp có thứ tự cố định, và phô mai đứng trước tráng miệng',
+{ lang:'fr', cat:'Ẩm thực', art:'mealorder', title:'Bữa ăn Pháp có thứ tự cố định, và phô mai đứng trước tráng miệng',
   body:'Khai vị, món chính, rồi phô mai, rồi mới tới đồ ngọt. Đây là trật tự truyền thống, không phải tuỳ hứng.',
   extra:'Salad nếu có thì ăn SAU món chính chứ không phải trước như kiểu Mỹ. Bữa ăn kiểu Pháp đã được UNESCO ghi vào danh sách di sản phi vật thể, và chính cái trật tự này là một phần của hồ sơ.',
   word:{ t:'l’entrée', r:'ɑ̃.tʁe', vi:'món khai vị' } },
@@ -40781,7 +40888,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Chính người Pháp đã biến nó thành thứ như ngày nay: bột gập nhiều lớp với bơ, nở phồng thành tầng. Croissant làm bằng bơ thật có hình thẳng, loại cong là làm bằng bơ thực vật — đó là quy ước ở Pháp.',
   word:{ t:'le croissant', r:'kʁwa.sɑ̃', vi:'bánh sừng bò' } },
 
-{ lang:'fr', cat:'Ẩm thực', art:'bowl', title:'Người Pháp ăn ốc sên và đùi ếch, nhưng không thường xuyên',
+{ lang:'fr', cat:'Ẩm thực', art:'mealorder', title:'Người Pháp ăn ốc sên và đùi ếch, nhưng không thường xuyên',
   body:'Escargots và cuisses de grenouille là món truyền thống có thật, nhưng chủ yếu xuất hiện trong dịp lễ hoặc ở nhà hàng, không phải món ăn hằng ngày.',
   extra:'Đùi ếch thì người Việt rất quen. Còn biệt danh «frogs» mà người Anh gán cho người Pháp chính là từ món này — và người Pháp đáp lại bằng biệt danh «rosbifs» (thịt bò nướng) cho người Anh.',
   word:{ t:'les escargots', r:'ɛs.kaʁ.ɡo', vi:'ốc sên' } },
@@ -40869,7 +40976,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Paris đi Marseille hơn 750 km chỉ mất khoảng ba tiếng. Vì thế nhiều tuyến bay nội địa ngắn ở Pháp đã bị huỷ, và luật còn cấm bay nếu có tàu chạy dưới hai tiếng rưỡi.',
   word:{ t:'le TGV', r:'te ʒe ve', vi:'tàu cao tốc Pháp' } },
 
-{ lang:'fr', cat:'Địa lý', art:'metro', title:'Metro Paris có ga nằm sâu tới bốn tầng dưới mặt đất',
+{ lang:'fr', cat:'Địa lý', art:'metroline', title:'Metro Paris có ga nằm sâu tới bốn tầng dưới mặt đất',
   body:'Mạng metro Paris rất dày: trong nội đô, gần như đứng ở đâu cũng chỉ cách một ga chừng năm trăm mét.',
   extra:'Nhiều ga được thiết kế theo chủ đề: ga Louvre trưng bày bản sao hiện vật bảo tàng, ga Arts et Métiers ốp đồng như trong tàu ngầm Jules Verne. Lối vào kiểu Art Nouveau của Hector Guimard đã thành biểu tượng của Paris.',
   word:{ t:'une station', r:'sta.sjɔ̃', vi:'ga tàu điện ngầm' } },
@@ -40889,33 +40996,33 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Nhờ vậy nước Pháp vẫn còn rất nhiều hiệu sách độc lập, điều hiếm thấy ở các nước khác. Luật này thường được gọi theo tên vị bộ trưởng đã đưa nó ra năm 1981.',
   word:{ t:'une librairie', r:'li.bʁɛ.ʁi', vi:'hiệu sách' } },
 
-{ lang:'fr', cat:'Địa lý', art:'apartment', title:'Nhà Pháp có mái kẽm xám đặc trưng ở Paris',
+{ lang:'fr', cat:'Địa lý', art:'zincroof', title:'Nhà Pháp có mái kẽm xám đặc trưng ở Paris',
   body:'Mái kẽm màu xám xanh của các toà nhà Haussmann là một phần bản sắc của Paris, và nghề thợ mái kẽm Paris đã được UNESCO ghi danh.',
   extra:'Toàn bộ trung tâm Paris được quy hoạch lại vào thế kỷ XIX dưới thời nam tước Haussmann, với chiều cao và kiểu mặt tiền thống nhất. Đó là lý do phố Paris nhìn đồng đều đến vậy.',
   word:{ t:'le zinc', r:'zɛ̃ɡ', vi:'kẽm; mái kẽm' } },
 
-{ lang:'fr', cat:'Địa lý', art:'coin', title:'Pháp nghỉ trưa dài và nghỉ hè cả tháng Tám',
+{ lang:'fr', cat:'Địa lý', art:'saintcal', title:'Pháp nghỉ trưa dài và nghỉ hè cả tháng Tám',
   body:'Tháng Tám là tháng nghỉ lớn: nhiều cửa hàng nhỏ, tiệm bánh và cả phòng khám đóng cửa vài tuần liền.',
   extra:'Ở Paris tháng Tám, thành phố vắng hẳn người bản địa mà đầy du khách. Với người mới sang, đây là cú sốc thật: cần mua gì cũng phải đi xa hơn vì tiệm quen đóng cửa.',
   word:{ t:'les vacances', r:'va.kɑ̃s', vi:'kỳ nghỉ' } },
 
-{ lang:'fr', cat:'Địa lý', art:'phone', title:'Pháp từng có một mạng trực tuyến riêng trước cả internet',
+{ lang:'fr', cat:'Địa lý', art:'oldscreen', title:'Pháp từng có một mạng trực tuyến riêng trước cả internet',
   body:'Minitel là thiết bị đầu cuối phát miễn phí cho hộ gia đình từ đầu những năm 1980, cho phép tra danh bạ, đặt vé tàu, mua sắm và nhắn tin.',
   extra:'Nó phổ biến tới mức làm Pháp chậm chân trong việc chuyển sang internet. Minitel chỉ ngừng hẳn vào năm 2012 — nghĩa là nó sống song song với web suốt gần hai mươi năm.',
   word:{ t:'le Minitel', r:'mi.ni.tɛl', vi:'máy Minitel' } },
 
 /* ---------------- Văn hoá & thói quen ---------------- */
-{ lang:'fr', cat:'Thói quen', art:'bow', title:'Người Pháp chào nhau bằng cách hôn má, và số lần tuỳ vùng',
+{ lang:'fr', cat:'Thói quen', art:'kissgreet', title:'Người Pháp chào nhau bằng cách hôn má, và số lần tuỳ vùng',
   body:'«La bise» là chạm má và tạo tiếng hôn. Paris thường hai lần, một số vùng ba, có nơi bốn. Không phải hôn thật lên má.',
   extra:'Bắt đầu từ bên má nào cũng tuỳ vùng, nên người từ hai vùng khác nhau gặp nhau có thể va đầu. Với người lạ hoặc trong công việc thì bắt tay, không bise.',
   word:{ t:'la bise', r:'biz', vi:'nụ hôn má chào hỏi' } },
 
-{ lang:'fr', cat:'Thói quen', art:'teatime', title:'Nói «bonjour» trước khi hỏi bất cứ điều gì là bắt buộc',
+{ lang:'fr', cat:'Thói quen', art:'tuvous', title:'Nói «bonjour» trước khi hỏi bất cứ điều gì là bắt buộc',
   body:'Vào cửa hàng, lên taxi, hỏi đường — đều phải chào trước rồi mới nói việc. Bỏ qua bước này bị coi là rất bất lịch sự.',
   extra:'Đây là nguồn hiểu lầm lớn nhất về «người Pháp lạnh lùng». Du khách vào hỏi thẳng bằng tiếng Anh mà quên chào thì bị đáp lại lạnh nhạt, rồi kết luận người Pháp khó tính.',
   word:{ t:'la politesse', r:'pɔ.li.tɛs', vi:'phép lịch sự' } },
 
-{ lang:'fr', cat:'Thói quen', art:'pub', title:'Ngồi quán cà phê ở Pháp có thể ngồi rất lâu với một ly',
+{ lang:'fr', cat:'Thói quen', art:'terrace', title:'Ngồi quán cà phê ở Pháp có thể ngồi rất lâu với một ly',
   body:'Gọi một ly cà phê rồi ngồi đọc sách hay ngắm phố hàng giờ là chuyện bình thường. Không ai giục.',
   extra:'Giá cà phê khác nhau tuỳ chỗ ngồi: đứng ở quầy rẻ nhất, ngồi trong nhà đắt hơn, ngồi ngoài terrasse đắt nhất. Bảng giá theo luật phải niêm yết cả ba mức.',
   word:{ t:'la terrasse', r:'te.ʁas', vi:'chỗ ngồi ngoài trời' } },
@@ -40935,12 +41042,12 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Trước khi đi Pháp nên kiểm tra tin tức về «grève» — một cuộc đình công tàu điện có thể làm hỏng cả lịch trình. Người Pháp coi đây là cách thương lượng bình thường chứ không phải sự cố.',
   word:{ t:'la grève', r:'ɡʁɛv', vi:'cuộc đình công' } },
 
-{ lang:'fr', cat:'Lễ hội', art:'lantern', title:'Ngày Quốc khánh Pháp không được người Pháp gọi là Bastille Day',
+{ lang:'fr', cat:'Lễ hội', art:'flag', title:'Ngày Quốc khánh Pháp không được người Pháp gọi là Bastille Day',
   body:'Người Pháp gọi đơn giản là «le 14 juillet» — ngày mười bốn tháng Bảy. Tên «Bastille Day» chủ yếu là cách gọi của người nói tiếng Anh.',
   extra:'Ngày này kỷ niệm sự kiện phá ngục Bastille năm 1789, nhưng luật lập quốc khánh năm 1880 lại cố tình nói mập mờ để cũng có thể hiểu là kỷ niệm Lễ Liên minh năm 1790 — một sự kiện ôn hoà hơn.',
   word:{ t:'le 14 juillet', r:'la.tɔʁz ʒɥi.jɛ', vi:'Quốc khánh Pháp' } },
 
-{ lang:'fr', cat:'Lễ hội', art:'newyear', title:'Pháp có ngày hội âm nhạc mà ai cũng được chơi nhạc ngoài phố',
+{ lang:'fr', cat:'Lễ hội', art:'guitar', title:'Pháp có ngày hội âm nhạc mà ai cũng được chơi nhạc ngoài phố',
   body:'Ngày 21 tháng 6, «Fête de la Musique» cho phép mọi người biểu diễn tự do ngoài đường, miễn phí, không cần giấy phép.',
   extra:'Bắt đầu ở Pháp năm 1982, ngày hội này nay đã lan ra hàng trăm thành phố trên thế giới. Nó rơi đúng vào ngày hạ chí, ngày dài nhất trong năm.',
   word:{ t:'la fête de la musique', r:'fɛt də la my.zik', vi:'ngày hội âm nhạc' } },
@@ -40961,12 +41068,12 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Bản thân phiến đá hiện nằm ở Bảo tàng Anh, vì Pháp phải nhượng lại cho Anh sau thất bại quân sự. Nhưng người giải mã được nó lại là một người Pháp.',
   word:{ t:'les hiéroglyphes', r:'je.ʁɔ.ɡlif', vi:'chữ tượng hình' } },
 
-{ lang:'fr', cat:'Lịch sử', art:'liberty', title:'Tượng Nữ thần Tự do do người Pháp làm và tặng nước Mỹ',
+{ lang:'fr', cat:'Lịch sử', art:'monument', title:'Tượng Nữ thần Tự do do người Pháp làm và tặng nước Mỹ',
   body:'Bartholdi thiết kế phần tượng, còn Gustave Eiffel làm khung thép bên trong. Tượng được tháo rời, chở qua Đại Tây Dương rồi lắp lại ở New York năm 1886.',
   extra:'Ở Paris còn vài bản sao nhỏ hơn, trong đó một bản đứng trên đảo giữa sông Seine và quay mặt về hướng tây — nhìn về phía «chị em» của mình ở New York.',
   word:{ t:'la statue', r:'sta.ty', vi:'bức tượng' } },
 
-{ lang:'fr', cat:'Lịch sử', art:'bigben', title:'Tháp Eiffel ban đầu chỉ định dựng tạm hai mươi năm',
+{ lang:'fr', cat:'Lịch sử', art:'monument', title:'Tháp Eiffel ban đầu chỉ định dựng tạm hai mươi năm',
   body:'Nó được xây cho Triển lãm Thế giới năm 1889 và dự kiến tháo dỡ sau đó. Nhiều nghệ sĩ Paris ký kiến nghị phản đối, gọi nó là «cây đèn đường xấu xí».',
   extra:'Thứ cứu tháp Eiffel là ăng-ten vô tuyến đặt trên đỉnh, khiến nó trở nên hữu ích về quân sự và truyền thông. Nhờ đó nó được giữ lại, rồi thành biểu tượng của cả nước Pháp.',
   word:{ t:'la tour Eiffel', r:'tuʁ ɛ.fɛl', vi:'tháp Eiffel' } },
@@ -40976,7 +41083,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Chính anh em Lumière lại cho rằng phát minh của mình «không có tương lai thương mại». Họ nghĩ nó chỉ là một trò tò mò khoa học.',
   word:{ t:'le cinéma', r:'si.ne.ma', vi:'điện ảnh' } },
 
-{ lang:'fr', cat:'Lịch sử', art:'space', title:'Louis Braille phát minh chữ nổi khi mới mười lăm tuổi',
+{ lang:'fr', cat:'Lịch sử', art:'braille', title:'Louis Braille phát minh chữ nổi khi mới mười lăm tuổi',
   body:'Ông bị mù từ nhỏ sau một tai nạn. Dựa trên một hệ mã quân sự đọc bằng tay, ông rút gọn thành hệ sáu chấm mà ngày nay cả thế giới dùng.',
   extra:'Hệ Braille được đặt theo tên ông và đã được chuyển thể cho hàng trăm ngôn ngữ, kể cả tiếng Việt, tiếng Trung và tiếng Ả Rập. Nó là một trong những phát minh Pháp có ảnh hưởng rộng nhất.',
   word:{ t:'le braille', r:'bʁaj', vi:'chữ nổi Braille' } },
@@ -41002,22 +41109,22 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Pháp và Bỉ là cái nôi của Tintin, Astérix, Lucky Luke. Khác Nhật Bản nơi manga in đen trắng khổ nhỏ, truyện tranh Pháp thường in màu, khổ lớn, bìa cứng.',
   word:{ t:'la bande dessinée', r:'bɑ̃d de.si.ne', vi:'truyện tranh' } },
 
-{ lang:'fr', cat:'Văn hoá', art:'bigben', title:'Nhà thờ Đức Bà Paris mất gần hai trăm năm để xây',
+{ lang:'fr', cat:'Văn hoá', art:'monument', title:'Nhà thờ Đức Bà Paris mất gần hai trăm năm để xây',
   body:'Khởi công năm 1163 và hoàn thành về cơ bản vào giữa thế kỷ XIV. Nhiều thế hệ thợ đã sống và chết trong lúc công trình còn dang dở.',
   extra:'Cuốn tiểu thuyết của Victor Hugo năm 1831 đã cứu nhà thờ khỏi bị phá bỏ, khi đó nó đang xuống cấp nặng. Sách làm dấy lên phong trào đòi trùng tu, và công trình được cứu.',
   word:{ t:'la cathédrale', r:'ka.te.dʁal', vi:'nhà thờ lớn' } },
 
-{ lang:'fr', cat:'Văn hoá', art:'ballet', title:'Thuật ngữ ballet trên toàn thế giới đều bằng tiếng Pháp',
+{ lang:'fr', cat:'Văn hoá', art:'loanword', title:'Thuật ngữ ballet trên toàn thế giới đều bằng tiếng Pháp',
   body:'Plié, jeté, arabesque, pirouette — mọi động tác đều mang tên tiếng Pháp, dù lớp học diễn ra ở Nga, Nhật hay Mỹ.',
   extra:'Lý do là Học viện Múa Hoàng gia do vua Louis XIV lập năm 1661 đã chuẩn hoá và đặt tên cho các động tác. Chính nhà vua cũng là một vũ công, và biệt danh «Vua Mặt Trời» đến từ một vai diễn của ông.',
   word:{ t:'la danse', r:'dɑ̃s', vi:'múa, khiêu vũ' } },
 
-{ lang:'fr', cat:'Văn hoá', art:'teatime', title:'Pháp có hệ thống xếp hạng nhà hàng ra đời từ một hãng lốp xe',
+{ lang:'fr', cat:'Văn hoá', art:'mealorder', title:'Pháp có hệ thống xếp hạng nhà hàng ra đời từ một hãng lốp xe',
   body:'Cẩm nang Michelin ban đầu là sách phát miễn phí cho tài xế, nhằm khuyến khích họ lái xe nhiều hơn — và mòn lốp nhiều hơn.',
   extra:'Hệ sao chỉ được đưa vào từ những năm 1920–30. Một nhà hàng ba sao nghĩa là «đáng để đi một chuyến riêng» — đúng tinh thần ban đầu của cuốn sách hướng dẫn lái xe.',
   word:{ t:'une étoile', r:'e.twal', vi:'ngôi sao' } },
 
-{ lang:'fr', cat:'Văn hoá', art:'pub', title:'Quán cà phê Paris từng là nơi triết học ra đời',
+{ lang:'fr', cat:'Văn hoá', art:'terrace', title:'Quán cà phê Paris từng là nơi triết học ra đời',
   body:'Café de Flore và Les Deux Magots ở khu Saint-Germain là nơi Sartre, Beauvoir và nhiều nhà văn ngồi viết hằng ngày.',
   extra:'Họ ngồi quán vì căn hộ thời đó thiếu than sưởi, mà quán thì ấm. Nên phong trào triết học hiện sinh một phần ra đời vì lý do rất thực tế: tìm chỗ ấm để ngồi viết.',
   word:{ t:'la philosophie', r:'fi.lɔ.zɔ.fi', vi:'triết học' } },
@@ -41037,7 +41144,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Lý do là người sáng lập Thế vận hội hiện đại, nam tước Pierre de Coubertin, là người Pháp. Đây là một trong những vị trí ưu tiên cuối cùng còn lại của tiếng Pháp trong các thiết chế quốc tế.',
   word:{ t:'les Jeux olympiques', r:'ʒø ɔ.lɛ̃.pik', vi:'Thế vận hội' } },
 
-{ lang:'fr', cat:'Văn hoá', art:'bigben', title:'Pháp có hơn bốn mươi nghìn công trình được xếp hạng di tích',
+{ lang:'fr', cat:'Văn hoá', art:'monument', title:'Pháp có hơn bốn mươi nghìn công trình được xếp hạng di tích',
   body:'Từ lâu đài, nhà thờ tới cầu cống và cả một số nhà máy cũ. Chủ sở hữu công trình xếp hạng được hỗ trợ tài chính nhưng phải tuân thủ quy định trùng tu nghiêm ngặt.',
   extra:'Mỗi năm vào tháng 9 có «Ngày Di sản châu Âu», khi nhiều công trình thường đóng — kể cả dinh tổng thống — mở cửa miễn phí cho dân vào xem.',
   word:{ t:'le patrimoine', r:'pa.tʁi.mwan', vi:'di sản' } },
@@ -41053,7 +41160,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Bánh mì cũng dùng để «vét» sốt còn lại trên đĩa — hành vi này ở Pháp là lời khen món ăn, không phải bất lịch sự. Nhưng vét bằng tay thì được, còn dùng dĩa thì tuỳ mức trang trọng.',
   word:{ t:'le pain', r:'pɛ̃', vi:'bánh mì' } },
 
-{ lang:'fr', cat:'Thói quen', art:'bowl', title:'Người Pháp để hai tay trên bàn khi ăn',
+{ lang:'fr', cat:'Thói quen', art:'mealorder', title:'Người Pháp để hai tay trên bàn khi ăn',
   body:'Khác phép lịch sự Anh Mỹ vốn yêu cầu để tay không dùng xuống đùi, người Pháp giữ cả hai cổ tay trên mặt bàn.',
   extra:'Gốc gác được cho là từ thời trung cổ, khi giấu tay dưới bàn bị nghi là đang thủ vũ khí. Dù vậy chống cả khuỷu tay lên bàn thì vẫn bị coi là thiếu lễ độ.',
   word:{ t:'la table', r:'tabl', vi:'cái bàn' } },
@@ -41068,7 +41175,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Hệ thống này gọi là «digicode», và đổi mã định kỳ. Người mới sang Pháp hay đứng ngoài cửa chờ mãi vì không biết phải có mã mới vào được.',
   word:{ t:'le digicode', r:'di.ʒi.kɔd', vi:'khoá mã số cửa' } },
 
-{ lang:'fr', cat:'Thói quen', art:'pub', title:'Người Pháp hay hỏi «ça va ?» nhưng không mong câu trả lời dài',
+{ lang:'fr', cat:'Thói quen', art:'terrace', title:'Người Pháp hay hỏi «ça va ?» nhưng không mong câu trả lời dài',
   body:'Giống «how are you» trong tiếng Anh, đây là câu chào chứ không phải câu hỏi thật. Đáp lại bằng «ça va, et toi ?» là đủ.',
   extra:'Khác với người Nga vốn trả lời thật và kể hết mọi chuyện, người Pháp giữ câu này ở mức xã giao. Kể lể chi tiết với người mới quen sẽ khiến không khí hơi ngượng.',
   word:{ t:'ça va', r:'sa va', vi:'khoẻ chứ, ổn cả' } },
@@ -41109,17 +41216,17 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   word:{ t:'le débat', r:'de.ba', vi:'cuộc tranh luận' } },
 
 /* ---------------- Lễ hội ---------------- */
-{ lang:'fr', cat:'Lễ hội', art:'newyear', title:'Người Pháp ăn bánh vua vào tháng Giêng và giấu một hạt đậu trong đó',
+{ lang:'fr', cat:'Lễ hội', art:'lightbreakfast', title:'Người Pháp ăn bánh vua vào tháng Giêng và giấu một hạt đậu trong đó',
   body:'Bánh galette des rois có một tượng nhỏ giấu bên trong. Ai ăn trúng thì được đội vương miện giấy và làm «vua» trong ngày.',
   extra:'Theo lệ, người trẻ nhất chui xuống gầm bàn và chỉ định xem miếng bánh nào cho ai, để đảm bảo không ai gian lận. Tục này gắn với ngày lễ Hiển linh đầu tháng Giêng.',
   word:{ t:'la galette des rois', r:'ɡa.lɛt de ʁwa', vi:'bánh vua' } },
 
-{ lang:'fr', cat:'Lễ hội', art:'lantern', title:'Ngày Cá tháng Tư ở Pháp gọi là «con cá tháng Tư»',
+{ lang:'fr', cat:'Lễ hội', art:'fish', title:'Ngày Cá tháng Tư ở Pháp gọi là «con cá tháng Tư»',
   body:'Trẻ con dán hình con cá giấy lên lưng người khác rồi hô «poisson d’avril !» khi bị phát hiện.',
   extra:'Một giả thuyết phổ biến gắn tục này với việc đổi ngày đầu năm từ cuối tháng Ba sang mùng 1 tháng Giêng vào thế kỷ XVI — ai còn ăn Tết theo lịch cũ thì bị trêu. Giả thuyết này chưa được chứng minh chắc chắn.',
   word:{ t:'le poisson d’avril', r:'pwa.sɔ̃ da.vʁil', vi:'cá tháng Tư' } },
 
-{ lang:'fr', cat:'Lễ hội', art:'blin', title:'Ngày Chandeleur là ngày ăn bánh crêpe',
+{ lang:'fr', cat:'Lễ hội', art:'crepe', title:'Ngày Chandeleur là ngày ăn bánh crêpe',
   body:'Ngày 2 tháng 2, cả nước làm bánh crêpe. Có tục cầm đồng xu trong tay trái và lật bánh bằng tay phải để cầu may cả năm.',
   extra:'Hình tròn vàng của bánh crêpe được cho là tượng trưng cho mặt trời và sự trở lại của ánh sáng sau mùa đông. Nhiều nền văn hoá có lễ tương tự vào thời điểm này trong năm.',
   word:{ t:'la crêpe', r:'kʁɛp', vi:'bánh crêpe' } },
@@ -41140,7 +41247,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   word:{ t:'le défilé', r:'de.fi.le', vi:'cuộc diễu hành' } },
 
 /* ---------------- Ẩm thực (tiếp) ---------------- */
-{ lang:'fr', cat:'Ẩm thực', art:'bowl', title:'Món hầm bò bourguignon vốn là món nhà nghèo',
+{ lang:'fr', cat:'Ẩm thực', art:'wine', title:'Món hầm bò bourguignon vốn là món nhà nghèo',
   body:'Thịt bò phần dai được hầm rất lâu trong rượu vang đỏ cho mềm. Đây là cách tận dụng phần thịt rẻ, không phải món sang trọng.',
   extra:'Rất nhiều món Pháp nổi tiếng có gốc bình dân: cassoulet, pot-au-feu, ratatouille. Chính các đầu bếp thế kỷ XX đã nâng chúng lên hàng ẩm thực cao cấp.',
   word:{ t:'le bœuf bourguignon', r:'bœf buʁ.ɡi.ɲɔ̃', vi:'bò hầm rượu vang' } },
@@ -41155,7 +41262,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Macaron kiểu hai vỏ kẹp nhân như ngày nay được cho là do hiệu bánh Ladurée ở Paris hoàn thiện vào đầu thế kỷ XX. Làm được vỏ bánh có chân nhẵn và mặt bóng là thước đo tay nghề thợ bánh.',
   word:{ t:'le macaron', r:'ma.ka.ʁɔ̃', vi:'bánh macaron' } },
 
-{ lang:'fr', cat:'Ẩm thực', art:'teatime', title:'Người Pháp uống cà phê rất đặc và rất nhỏ',
+{ lang:'fr', cat:'Ẩm thực', art:'coffee', title:'Người Pháp uống cà phê rất đặc và rất nhỏ',
   body:'Gọi «un café» ở Pháp là ra một tách espresso nhỏ. Muốn loại loãng hơn phải nói rõ «un allongé» hoặc «un café crème».',
   extra:'Cà phê sữa lớn kiểu sáng chỉ uống vào bữa sáng; gọi «café au lait» sau bữa trưa sẽ khiến người phục vụ hơi ngạc nhiên. Người Việt quen cà phê sữa đá thì đây là cú sốc nhỏ đầu tiên.',
   word:{ t:'un café', r:'ka.fe', vi:'tách cà phê espresso' } },
@@ -41182,7 +41289,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   word:{ t:'la lavande', r:'la.vɑ̃d', vi:'hoa oải hương' } },
 
 /* ---------------- Động vật (tiếp) ---------------- */
-{ lang:'fr', cat:'Động vật', art:'robin', title:'Chim bồ câu đưa thư từng là hệ thống liên lạc của Paris bị vây',
+{ lang:'fr', cat:'Động vật', art:'pigeon', title:'Chim bồ câu đưa thư từng là hệ thống liên lạc của Paris bị vây',
   body:'Trong cuộc vây hãm Paris 1870–71, thư được thu nhỏ bằng kỹ thuật ảnh rồi buộc vào chân bồ câu để gửi ra ngoài.',
   extra:'Một con chim có thể mang hàng nghìn bức thư đã thu nhỏ. Người nhận dùng máy chiếu để phóng to và chép lại — có thể coi là một dạng tiền thân của việc nén dữ liệu.',
   word:{ t:'le pigeon', r:'pi.ʒɔ̃', vi:'chim bồ câu' } },
@@ -41193,47 +41300,47 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   word:{ t:'une race', r:'ʁas', vi:'giống (vật nuôi)' } },
 
 /* ---------------- Ngôn ngữ (16) ---------------- */
-{ lang:'es', cat:'Ngôn ngữ', art:'alphabet', title:'Chữ ñ là chữ cái riêng, không phải n có dấu',
+{ lang:'es', cat:'Ngôn ngữ', art:'enye', title:'Chữ ñ là chữ cái riêng, không phải n có dấu',
   body:'Trong bảng chữ cái tiếng Tây Ban Nha, ñ đứng riêng một ô sau n. Từ điển xếp año sau ano, và hai từ này nghĩa khác nhau hoàn toàn.',
   extra:'Dấu ngã trên đầu vốn là chữ n thứ hai viết thu nhỏ đặt lên trên, do các thầy tu thời trung cổ nghĩ ra để tiết kiệm giấy da. Về sau nét viết tắt đó cứng lại thành một chữ cái độc lập.',
   word:{ t:'el año', r:'a.ɲo', vi:'năm' } },
 
-{ lang:'es', cat:'Ngôn ngữ', art:'phonetic', title:'Tiếng Tây Ban Nha viết sao đọc vậy gần như tuyệt đối',
+{ lang:'es', cat:'Ngôn ngữ', art:'spellread', title:'Tiếng Tây Ban Nha viết sao đọc vậy gần như tuyệt đối',
   body:'Biết vài quy tắc là đọc đúng mọi từ, kể cả từ chưa gặp. Đây là điểm dễ nhất của tiếng Tây Ban Nha với người Việt.',
   extra:'Nguyên do là Viện Hàn lâm Hoàng gia đã nhiều lần cải cách chính tả cho khớp với cách phát âm, trong khi tiếng Anh và tiếng Pháp thì giữ lại lối viết cũ. Nhờ vậy học viết chính tả tiếng Tây Ban Nha nhẹ hơn hẳn.',
   word:{ t:'la ortografía', r:'oɾ.to.ɣɾa.fi.a', vi:'chính tả' } },
 
-{ lang:'es', cat:'Ngôn ngữ', art:'letter', title:'Câu hỏi tiếng Tây Ban Nha có dấu hỏi ở cả hai đầu',
+{ lang:'es', cat:'Ngôn ngữ', art:'inverted', title:'Câu hỏi tiếng Tây Ban Nha có dấu hỏi ở cả hai đầu',
   body:'¿Cómo estás? — dấu hỏi ngược mở đầu câu, dấu hỏi thường đóng lại. Câu cảm thán cũng vậy: ¡Qué bien!',
   extra:'Viện Hàn lâm đưa quy tắc này vào từ thế kỷ XVIII, vì tiếng Tây Ban Nha không đảo trật tự từ khi hỏi như tiếng Anh. Không có dấu mở, người đọc đọc tới cuối câu mới biết đó là câu hỏi.',
   word:{ t:'la pregunta', r:'pɾe.ɣun.ta', vi:'câu hỏi' } },
 
-{ lang:'es', cat:'Ngôn ngữ', art:'nametag', title:'Tiếng Tây Ban Nha là tiếng mẹ đẻ của nhiều người hơn tiếng Anh',
+{ lang:'es', cat:'Ngôn ngữ', art:'speakers', title:'Tiếng Tây Ban Nha là tiếng mẹ đẻ của nhiều người hơn tiếng Anh',
   body:'Tính theo số người nói bản ngữ, tiếng Tây Ban Nha đứng thứ hai thế giới, chỉ sau tiếng Trung. Tiếng Anh vượt nó nếu tính cả người học.',
   extra:'Hơn hai mươi quốc gia lấy tiếng Tây Ban Nha làm ngôn ngữ chính thức, phần lớn ở châu Mỹ. Mexico một mình đã có nhiều người nói tiếng Tây Ban Nha hơn cả Tây Ban Nha.',
   word:{ t:'el idioma', r:'i.ðjo.ma', vi:'ngôn ngữ' } },
 
-{ lang:'es', cat:'Ngôn ngữ', art:'tone', title:'Tiếng Tây Ban Nha chỉ có năm nguyên âm',
+{ lang:'es', cat:'Ngôn ngữ', art:'fivevowels', title:'Tiếng Tây Ban Nha chỉ có năm nguyên âm',
   body:'A, e, i, o, u — mỗi chữ một âm, không đổi theo vị trí. So với tiếng Anh có hơn mười nguyên âm thì đây là món quà cho người học.',
   extra:'Nhưng chính điều đó khiến người Tây Ban Nha học tiếng Anh rất khó phân biệt ship và sheep, hay bad và bed. Tai họ không được luyện để nghe những khác biệt đó từ nhỏ.',
   word:{ t:'la vocal', r:'bo.kal', vi:'nguyên âm' } },
 
-{ lang:'es', cat:'Ngôn ngữ', art:'stress', title:'Dấu sắc trong tiếng Tây Ban Nha chỉ để đánh dấu trọng âm',
+{ lang:'es', cat:'Ngôn ngữ', art:'acutemark', title:'Dấu sắc trong tiếng Tây Ban Nha chỉ để đánh dấu trọng âm',
   body:'Không phải dấu thanh như tiếng Việt. Nó chỉ nói cho biết âm tiết nào nhấn, khi trọng âm lệch khỏi quy tắc mặc định.',
   extra:'Đôi khi dấu này là thứ duy nhất phân biệt hai từ: esta (này) và está (thì, ở), hay papa (khoai tây) và papá (bố). Bỏ dấu là đổi nghĩa.',
   word:{ t:'el acento', r:'a.θen.to', vi:'trọng âm, dấu' } },
 
-{ lang:'es', cat:'Ngôn ngữ', art:'hanzi', title:'Tiếng Tây Ban Nha có khoảng bốn nghìn từ gốc Ả Rập',
+{ lang:'es', cat:'Ngôn ngữ', art:'arabicroot', title:'Tiếng Tây Ban Nha có khoảng bốn nghìn từ gốc Ả Rập',
   body:'Tám thế kỷ Hồi giáo ở bán đảo Iberia để lại dấu vết trong kho từ: azúcar (đường), almohada (gối), ojalá (mong sao), aceite (dầu).',
   extra:'Nhiều từ trong số đó bắt đầu bằng al-, vốn là mạo từ xác định tiếng Ả Rập bị dính liền vào từ. Nên khi nói almohada, người Tây Ban Nha đang nói «cái-cái gối» mà không biết.',
   word:{ t:'el azúcar', r:'a.θu.kaɾ', vi:'đường (ăn)' } },
 
-{ lang:'es', cat:'Ngôn ngữ', art:'chopsticks', title:'Nhiều từ tiếng Việt mượn qua tiếng Tây Ban Nha mà ta không nhận ra',
+{ lang:'es', cat:'Ngôn ngữ', art:'loanword', title:'Nhiều từ tiếng Việt mượn qua tiếng Tây Ban Nha mà ta không nhận ra',
   body:'Cà phê, xà bông, ga, sô-cô-la đi vòng qua các tiếng châu Âu. Riêng «xì gà» thì đúng là từ cigarro của tiếng Tây Ban Nha.',
   extra:'Ngược lại, tiếng Tây Ban Nha cũng lấy rất nhiều từ của các tiếng bản địa châu Mỹ rồi truyền cho cả thế giới: chocolate, tomate, aguacate từ tiếng Nahuatl, còn cacao, canoa, huracán từ vùng Caribe.',
   word:{ t:'el chocolate', r:'tʃo.ko.la.te', vi:'sô-cô-la' } },
 
-{ lang:'es', cat:'Ngôn ngữ', art:'bow', title:'Tiếng Tây Ban Nha có hai cách gọi «bạn» và ranh giới rất khác nhau tuỳ nước',
+{ lang:'es', cat:'Ngôn ngữ', art:'tuvous', title:'Tiếng Tây Ban Nha có hai cách gọi «bạn» và ranh giới rất khác nhau tuỳ nước',
   body:'Tú là thân, usted là lịch sự. Nhưng ngưỡng chuyển đổi mỗi nước một khác: ở Tây Ban Nha người ta dùng tú rất rộng, ở Colombia thì usted phổ biến cả trong gia đình.',
   extra:'Ở Argentina và Uruguay còn có vos thay cho tú, với cách chia động từ riêng: vos tenés chứ không phải tú tienes. Đây là một trong những dấu hiệu rõ nhất để nhận ra người nói từ đâu.',
   word:{ t:'usted', r:'us.teð', vi:'ngài, ông/bà (lịch sự)' } },
@@ -41243,32 +41350,32 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Kiểu thành ngữ này rất nhiều trong tiếng Tây Ban Nha: «ser pan comido» (là bánh đã ăn) nghĩa là quá dễ, «estar en las nubes» (đang ở trên mây) nghĩa là lơ đãng.',
   word:{ t:'la abuela', r:'a.βwe.la', vi:'bà nội, bà ngoại' } },
 
-{ lang:'es', cat:'Ngôn ngữ', art:'square', title:'Ở Tây Ban Nha, c và z đọc như th tiếng Anh, ở Mỹ Latinh thì không',
+{ lang:'es', cat:'Ngôn ngữ', art:'seseo', title:'Ở Tây Ban Nha, c và z đọc như th tiếng Anh, ở Mỹ Latinh thì không',
   body:'Gracias ở Madrid nghe là «gra-thias», ở Mexico là «gra-sias». Cả hai đều chuẩn, chỉ khác vùng.',
   extra:'Hiện tượng phân biệt này gọi là distinción, còn cách đọc gộp thành s gọi là seseo. Người học nên chọn một lối rồi giữ nhất quán, chứ không trộn lẫn trong cùng một câu.',
   word:{ t:'gracias', r:'ɡɾa.θjas', vi:'cảm ơn' } },
 
-{ lang:'es', cat:'Ngôn ngữ', art:'book', title:'Có một Viện Hàn lâm chung cho tất cả các nước nói tiếng Tây Ban Nha',
+{ lang:'es', cat:'Ngôn ngữ', art:'academy', title:'Có một Viện Hàn lâm chung cho tất cả các nước nói tiếng Tây Ban Nha',
   body:'Hiệp hội các Viện Hàn lâm tiếng Tây Ban Nha gồm đại diện của mọi quốc gia nói ngôn ngữ này, cùng biên soạn từ điển và ngữ pháp chuẩn.',
   extra:'Nhờ đó tiếng Tây Ban Nha giữ được sự thống nhất đáng kể trên hai lục địa. Khẩu hiệu của Viện Hàn lâm Tây Ban Nha là «gạn trong, giữ vững và làm rạng» — limpia, fija y da esplendor.',
   word:{ t:'la academia', r:'a.ka.ðe.mja', vi:'viện hàn lâm' } },
 
-{ lang:'es', cat:'Ngôn ngữ', art:'number', title:'Tiếng Tây Ban Nha có hai động từ «là»',
+{ lang:'es', cat:'Ngôn ngữ', art:'serestar', title:'Tiếng Tây Ban Nha có hai động từ «là»',
   body:'Ser dùng cho bản chất lâu dài, estar cho trạng thái tạm thời. Ser aburrido là người nhàm chán, estar aburrido là đang buồn.',
   extra:'Đây là lỗi dai dẳng nhất của người học. Câu nổi tiếng trong lớp học: «es guapo» là đẹp sẵn, còn «está guapo» là hôm nay trông đẹp — khen kiểu này an toàn hơn nhiều.',
   word:{ t:'ser / estar', r:'seɾ / es.taɾ', vi:'là, thì (hai động từ)' } },
 
-{ lang:'es', cat:'Ngôn ngữ', art:'phrasal', title:'Người Tây Ban Nha nói «tôi thích» theo lối ngược',
+{ lang:'es', cat:'Ngôn ngữ', art:'reverseverb', title:'Người Tây Ban Nha nói «tôi thích» theo lối ngược',
   body:'Me gusta el café nghĩa đúng là «cà phê làm vui lòng tôi». Chủ ngữ ngữ pháp là món được thích, không phải người thích.',
   extra:'Nên khi thích nhiều thứ thì động từ phải đổi: me gustan los libros. Nhóm động từ hoạt động kiểu này khá lớn: encantar, doler, interesar, faltar.',
   word:{ t:'gustar', r:'ɡus.taɾ', vi:'làm vui lòng, thích' } },
 
-{ lang:'es', cat:'Ngôn ngữ', art:'calligraphy', title:'Viện Hàn lâm từng bỏ hai chữ cái khỏi bảng chữ',
+{ lang:'es', cat:'Ngôn ngữ', art:'letterset', title:'Viện Hàn lâm từng bỏ hai chữ cái khỏi bảng chữ',
   body:'Ch và ll trước đây được xếp là chữ cái riêng. Từ năm 1994 chúng bị coi là tổ hợp hai chữ, và từ điển sắp xếp lại theo đó.',
   extra:'Lý do rất thực dụng: máy tính và cơ sở dữ liệu quốc tế sắp xếp theo bảng chữ Latinh cơ bản. Giữ ch và ll làm chữ riêng khiến việc sắp thứ tự trở nên rắc rối.',
   word:{ t:'la letra', r:'le.tɾa', vi:'chữ cái' } },
 
-{ lang:'es', cat:'Ngôn ngữ', art:'smile', title:'Cùng một từ có thể vô hại ở nước này và thô tục ở nước khác',
+{ lang:'es', cat:'Ngôn ngữ', art:'voseo', title:'Cùng một từ có thể vô hại ở nước này và thô tục ở nước khác',
   body:'Coger ở Tây Ban Nha chỉ là «lấy, bắt» — coger el autobús là bắt xe buýt. Ở Argentina và Mexico thì nó là từ thô tục.',
   extra:'Danh sách những từ như vậy khá dài, nên người học nên biết mình đang học biến thể nào. An toàn nhất là dùng tomar el autobús, hiểu được ở mọi nơi.',
   word:{ t:'tomar', r:'to.maɾ', vi:'lấy, uống, đi (xe)' } },
@@ -41422,7 +41529,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Thứ quyết định một chảo paella ngon là lớp cơm cháy giòn dưới đáy, gọi là socarrat. Đảo cơm trong lúc nấu là điều không được làm, khác hẳn cơm rang.',
   word:{ t:'la paella', r:'pa.e.ʎa', vi:'món paella' } },
 
-{ lang:'es', cat:'Ẩm thực', art:'bowl', title:'Gazpacho là món xúp uống lạnh',
+{ lang:'es', cat:'Ẩm thực', art:'tapas', title:'Gazpacho là món xúp uống lạnh',
   body:'Cà chua, dưa chuột, ớt ngọt, tỏi, bánh mì, dầu ô liu xay nhuyễn rồi làm lạnh. Ở miền nam nóng, nó được rót ra cốc uống như nước.',
   extra:'Trước khi người châu Âu biết đến cà chua từ châu Mỹ, gazpacho vốn có màu trắng, làm từ bánh mì, tỏi và hạnh nhân. Bản màu trắng đó nay gọi là ajoblanco và vẫn được ăn.',
   word:{ t:'el gazpacho', r:'ɡaθ.pa.tʃo', vi:'xúp lạnh gazpacho' } },
@@ -41442,22 +41549,22 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Cùng một từ Latinh nghĩa «cái bánh tròn nhỏ» nhưng đi hai đường. Gọi «tortilla» ở Madrid mà mong nhận được bánh cuốn taco thì sẽ ra một đĩa trứng khoai rất dày.',
   word:{ t:'la tortilla', r:'toɾ.ti.ʎa', vi:'trứng chiên khoai; bánh ngô' } },
 
-{ lang:'es', cat:'Ẩm thực', art:'teatime', title:'Churros là món ăn sáng, chấm sô-cô-la đặc',
+{ lang:'es', cat:'Ẩm thực', art:'lightbreakfast', title:'Churros là món ăn sáng, chấm sô-cô-la đặc',
   body:'Bột nặn qua khuôn hình ngôi sao rồi chiên, ăn kèm một cốc sô-cô-la đặc gần như kem. Đây là món sáng hoặc món ăn khuya sau khi đi chơi về.',
   extra:'Có hàng churros mở từ tờ mờ sáng đón cả hai loại khách: người đi làm sớm và người vừa tan tiệc. Khuôn hình ngôi sao không để trang trí mà để bánh chín đều và giòn.',
   word:{ t:'el churro', r:'tʃu.ro', vi:'bánh churro' } },
 
-{ lang:'es', cat:'Ẩm thực', art:'pub', title:'Ở một số vùng Tây Ban Nha, gọi đồ uống là được tapa miễn phí',
+{ lang:'es', cat:'Ẩm thực', art:'tapas', title:'Ở một số vùng Tây Ban Nha, gọi đồ uống là được tapa miễn phí',
   body:'Granada và León nổi tiếng nhất về chuyện này: mỗi lần gọi bia là quán mang ra một món nhỏ kèm theo, không tính tiền.',
   extra:'Ở Madrid hay Barcelona thì tapa thường phải gọi và trả riêng. Nên «đi tapas» ở Granada có thể thay cả bữa tối, còn ở Barcelona thì không.',
   word:{ t:'la tapa', r:'ta.pa', vi:'món nhắm nhỏ' } },
 
-{ lang:'es', cat:'Ẩm thực', art:'soup', title:'Người Tây Ban Nha ăn tối rất muộn',
+{ lang:'es', cat:'Ẩm thực', art:'siesta', title:'Người Tây Ban Nha ăn tối rất muộn',
   body:'Bữa tối thường bắt đầu từ chín, mười giờ đêm. Nhà hàng nhiều nơi còn chưa nhận khách trước tám giờ.',
   extra:'Một cách giải thích là Tây Ban Nha dùng múi giờ lệch so với vị trí địa lý thực, từ những năm 1940. Nên mười giờ tối theo đồng hồ ở Madrid tương ứng với chín giờ theo mặt trời.',
   word:{ t:'la cena', r:'θe.na', vi:'bữa tối' } },
 
-{ lang:'es', cat:'Ẩm thực', art:'bowl', title:'Ba loại rau quả quen thuộc nhất châu Âu đến từ châu Mỹ',
+{ lang:'es', cat:'Ẩm thực', art:'map', title:'Ba loại rau quả quen thuộc nhất châu Âu đến từ châu Mỹ',
   body:'Khoai tây, cà chua và ớt đều được mang từ châu Mỹ về qua các cảng Tây Ban Nha vào thế kỷ XVI.',
   extra:'Không có chúng thì không có pizza Ý, không có khoai tây chiên Bỉ, không có goulash Hungary. Cả ba lúc mới sang đều bị nghi là độc và phải mất rất lâu mới được ăn rộng rãi.',
   word:{ t:'el tomate', r:'to.ma.te', vi:'cà chua' } },
@@ -41472,7 +41579,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Nhiều dầu Tây Ban Nha được bán sang Ý rồi đóng nhãn Ý xuất đi tiếp. Dầu ép nguội loại đầu gọi là aceite de oliva virgen extra, và đó là thứ dùng ăn nguội.',
   word:{ t:'el aceite de oliva', r:'a.θei̯.te ðe o.li.βa', vi:'dầu ô liu' } },
 
-{ lang:'es', cat:'Ẩm thực', art:'newyear', title:'Người Tây Ban Nha ăn mười hai quả nho lúc giao thừa',
+{ lang:'es', cat:'Ẩm thực', art:'grapes12', title:'Người Tây Ban Nha ăn mười hai quả nho lúc giao thừa',
   body:'Mỗi tiếng đồng hồ điểm là một quả nho, mười hai quả cho mười hai tháng. Ai kịp hết trước khi hồi chuông dứt thì được cả năm may.',
   extra:'Tục này được cho là bắt đầu từ đầu thế kỷ XX và có phần do các nhà vườn nho muốn bán hết vụ. Dù gốc gác thực dụng, nay nó là hình ảnh giao thừa quen thuộc nhất ở Tây Ban Nha.',
   word:{ t:'las uvas', r:'u.βas', vi:'những quả nho' } },
@@ -41554,7 +41661,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Kiến trúc sư Ildefons Cerdà thiết kế như vậy từ giữa thế kỷ XIX, để xe ngựa quay đầu được và để ánh sáng vào sâu hơn. Nhìn từ trên cao, cả khu thành một mạng bát giác đều đặn.',
   word:{ t:'la manzana', r:'man.θa.na', vi:'ô phố; quả táo' } },
 
-{ lang:'es', cat:'Địa lý', art:'bigben', title:'Tây Ban Nha có một nhà thờ xây mãi chưa xong sau hơn trăm năm',
+{ lang:'es', cat:'Địa lý', art:'monument', title:'Tây Ban Nha có một nhà thờ xây mãi chưa xong sau hơn trăm năm',
   body:'Sagrada Família ở Barcelona khởi công năm 1882 và vẫn đang thi công, chủ yếu bằng tiền vé tham quan và quyên góp.',
   extra:'Gaudí biết mình không sống tới ngày hoàn thành, nên để lại mô hình thạch cao thay vì bản vẽ đầy đủ. Nhiều mô hình bị phá trong nội chiến và phải chắp lại từ mảnh vỡ.',
   word:{ t:'la obra', r:'o.βɾa', vi:'công trình; tác phẩm' } },
@@ -41564,7 +41671,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Điều đó tạo áp lực thật lên đời sống ở Barcelona, Mallorca và quần đảo Canaria, từ giá nhà tới nước sinh hoạt. Một số thành phố đã siết chặt việc cho thuê nhà ngắn ngày.',
   word:{ t:'el turismo', r:'tu.ɾis.mo', vi:'du lịch' } },
 
-{ lang:'es', cat:'Địa lý', art:'metro', title:'Madrid và Barcelona đều có tàu điện ngầm rất rộng',
+{ lang:'es', cat:'Địa lý', art:'metroline', title:'Madrid và Barcelona đều có tàu điện ngầm rất rộng',
   body:'Hệ thống metro Madrid thuộc nhóm lớn nhất châu Âu về chiều dài tuyến, và mở rộng rất nhanh trong hai thập niên gần đây.',
   extra:'Một ga metro Madrid còn giữ nguyên trạng ga cũ đầu thế kỷ XX làm bảo tàng. Barcelona thì có ga nằm dưới một khu khảo cổ, nên hành khách đi qua vách đất có hiện vật.',
   word:{ t:'el metro', r:'me.tɾo', vi:'tàu điện ngầm' } },
@@ -41595,12 +41702,12 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Cách bảo tồn này gắn với hệ thống chỉ dẫn địa lý của Liên minh châu Âu: muốn dùng tên vùng thì phải nuôi đúng giống, đúng cách, đúng nơi. Nhờ đó nhiều giống cũ không biến mất.',
   word:{ t:'la gallina', r:'ɡa.ʎi.na', vi:'con gà (mái)' } },
 
-{ lang:'es', cat:'Động vật', art:'robin', title:'Hạc trắng ở Tây Ban Nha nhiều nơi không còn di cư nữa',
+{ lang:'es', cat:'Động vật', art:'stork', title:'Hạc trắng ở Tây Ban Nha nhiều nơi không còn di cư nữa',
   body:'Vốn bay sang châu Phi tránh đông, nhiều đàn hạc nay ở lại quanh năm vì tìm được thức ăn ổn định ở các bãi rác lớn.',
   extra:'Đây là thay đổi hành vi được ghi nhận rõ trong mấy thập niên gần đây. Khi các bãi rác lộ thiên bị đóng theo quy định môi trường, tập tính của chúng lại đang thay đổi lần nữa.',
   word:{ t:'la cigüeña', r:'θi.ɣwe.ɲa', vi:'con hạc' } },
 
-{ lang:'es', cat:'Động vật', art:'koi', title:'Lợn đen Iberia được thả trong rừng sồi thưa',
+{ lang:'es', cat:'Động vật', art:'pig', title:'Lợn đen Iberia được thả trong rừng sồi thưa',
   body:'Hệ thống chăn nuôi này gọi là dehesa: rừng sồi thưa được giữ lại để lợn, bò và cừu cùng ăn dưới tán cây.',
   extra:'Dehesa là một trong những kiểu canh tác có tuổi đời rất dài ở châu Âu, và được coi là mẫu mực về cân bằng giữa sản xuất và giữ rừng. Nó phụ thuộc vào việc không nuôi quá số con trên một diện tích.',
   word:{ t:'el cerdo', r:'θeɾ.ðo', vi:'con lợn' } },
@@ -41615,18 +41722,18 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Việc này thành cần thiết sau khi quy định vệ sinh yêu cầu thu gom xác gia súc, làm đàn kền kền mất nguồn ăn tự nhiên. Tây Ban Nha hiện giữ phần lớn số kền kền của châu Âu.',
   word:{ t:'el buitre', r:'bwi.tɾe', vi:'con kền kền' } },
 
-{ lang:'es', cat:'Động vật', art:'tiger', title:'Tây Ban Nha có loài tắc kè hoa châu Âu duy nhất',
+{ lang:'es', cat:'Động vật', art:'chameleon', title:'Tây Ban Nha có loài tắc kè hoa châu Âu duy nhất',
   body:'Tắc kè hoa chung sống ở vùng ven biển phía nam, là một trong rất ít nơi ở châu Âu có loài này trong tự nhiên.',
   extra:'Chúng đổi màu không phải để hoà lẫn vào cảnh vật như nhiều người tưởng, mà chủ yếu để điều hoà nhiệt và báo hiệu tâm trạng với đồng loại. Màu tối thì hút nhiệt, màu nhạt thì phản nhiệt.',
   word:{ t:'el camaleón', r:'ka.ma.le.on', vi:'tắc kè hoa' } },
 
 /* ---------------- Lịch sử (10) ---------------- */
-{ lang:'es', cat:'Lịch sử', art:'bigben', title:'Cung Alhambra được giữ lại vì các vua Công giáo không phá',
+{ lang:'es', cat:'Lịch sử', art:'monument', title:'Cung Alhambra được giữ lại vì các vua Công giáo không phá',
   body:'Sau khi Granada thất thủ năm 1492, cung điện Hồi giáo này không bị dỡ mà được dùng làm nơi ở của hoàng gia, nên tồn tại tới nay.',
   extra:'Nhờ đó Alhambra là kiến trúc Hồi giáo trung cổ được bảo tồn tốt nhất ở châu Âu. Một phần cung sau đó bị phá để xây một dinh kiểu Phục hưng chen vào giữa — và dinh đó thì đến nay vẫn chưa có mái.',
   word:{ t:'el palacio', r:'pa.la.θjo', vi:'cung điện' } },
 
-{ lang:'es', cat:'Lịch sử', art:'space', title:'Nhà thờ lớn ở Córdoba từng là một đền thờ Hồi giáo',
+{ lang:'es', cat:'Lịch sử', art:'mosque', title:'Nhà thờ lớn ở Córdoba từng là một đền thờ Hồi giáo',
   body:'Công trình có rừng cột với vòm sọc đỏ trắng của thời Hồi giáo, và ở giữa là một nhà thờ Công giáo được dựng lên vào thế kỷ XVI.',
   extra:'Tương truyền vua Carlos V khi thấy công trình đã bị cắt vào giữa đã tỏ ý hối tiếc. Câu chuyện có thể là truyền khẩu, nhưng hình ảnh hai lối kiến trúc lồng vào nhau thì là thật và rất khác thường.',
   word:{ t:'la mezquita', r:'meθ.ki.ta', vi:'đền thờ Hồi giáo' } },
@@ -41672,12 +41779,12 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   word:{ t:'el derecho', r:'de.ɾe.tʃo', vi:'quyền; luật' } },
 
 /* ---------------- Văn hoá (12) ---------------- */
-{ lang:'es', cat:'Văn hoá', art:'ballet', title:'Flamenco không chỉ là múa mà là ba thứ hợp lại',
+{ lang:'es', cat:'Văn hoá', art:'guitar', title:'Flamenco không chỉ là múa mà là ba thứ hợp lại',
   body:'Hát, đàn ghi ta và múa. Trong ba phần đó, hát mới là cốt lõi, còn múa là thứ khán giả nước ngoài để ý nhất.',
   extra:'Tiếng vỗ tay theo nhịp gọi là palmas, và nó là một vai trò thật sự, không phải cổ vũ. Flamenco được UNESCO ghi vào danh sách di sản phi vật thể.',
   word:{ t:'el flamenco', r:'fla.meŋ.ko', vi:'nghệ thuật flamenco' } },
 
-{ lang:'es', cat:'Văn hoá', art:'calligraphy', title:'Đàn ghi ta hiện đại có hình dáng do một người thợ Tây Ban Nha định ra',
+{ lang:'es', cat:'Văn hoá', art:'guitar', title:'Đàn ghi ta hiện đại có hình dáng do một người thợ Tây Ban Nha định ra',
   body:'Antonio de Torres vào thế kỷ XIX đã chuẩn hoá kích thước thùng đàn và cách đặt nan bên trong. Ghi ta cổ điển ngày nay vẫn theo mẫu đó.',
   extra:'Thay đổi lớn của ông là làm thùng to hơn và mặt đàn mỏng hơn, cho tiếng vang đủ lớn để chơi trong phòng hoà nhạc. Trước đó ghi ta là nhạc cụ chỉ chơi trong phòng nhỏ.',
   word:{ t:'la guitarra', r:'ɡi.ta.ra', vi:'đàn ghi ta' } },
@@ -41702,12 +41809,12 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Ngày này trùng với ngày mất của Cervantes và của Shakespeare, và chính từ đó mà UNESCO chọn 23 tháng 4 làm Ngày Sách Thế giới. Nghĩa là một tục lệ địa phương đã thành ngày kỷ niệm toàn cầu.',
   word:{ t:'el libro', r:'li.βɾo', vi:'quyển sách' } },
 
-{ lang:'es', cat:'Văn hoá', art:'teatime', title:'Điện ảnh Tây Ban Nha có đạo diễn dựng cả một tông màu riêng',
+{ lang:'es', cat:'Văn hoá', art:'podium', title:'Điện ảnh Tây Ban Nha có đạo diễn dựng cả một tông màu riêng',
   body:'Phim của Almodóvar nổi tiếng vì màu đỏ rực, bối cảnh Madrid và những nhân vật nữ ở trung tâm câu chuyện.',
   extra:'Giải thưởng điện ảnh quốc gia của Tây Ban Nha là giải Goya, đặt theo tên hoạ sĩ Francisco de Goya. Điện ảnh Tây Ban Nha còn nổi bật ở dòng phim kinh dị và phim tâm lý.',
   word:{ t:'la película', r:'pe.li.ku.la', vi:'bộ phim' } },
 
-{ lang:'es', cat:'Văn hoá', art:'space', title:'Gaudí gần như không dùng đường thẳng',
+{ lang:'es', cat:'Văn hoá', art:'monument', title:'Gaudí gần như không dùng đường thẳng',
   body:'Kiến trúc của ông dựa trên hình dạng tìm thấy trong tự nhiên: cột như thân cây, mái như vảy, vòm theo dạng dây treo lộn ngược.',
   extra:'Ông thiết kế bằng mô hình dây và túi cát treo ngược, rồi soi gương để thấy hình vòm chịu lực. Cách làm này cho ra những vòm chỉ chịu nén, không cần trụ đỡ bên ngoài.',
   word:{ t:'la arquitectura', r:'aɾ.ki.tek.tu.ɾa', vi:'kiến trúc' } },
@@ -41717,7 +41824,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Giải thường được trao luân phiên giữa nhà văn Tây Ban Nha và nhà văn Mỹ Latinh, dù đó là thông lệ chứ không phải quy định. Lễ trao diễn ra ở Alcalá de Henares, quê Cervantes.',
   word:{ t:'el escritor', r:'es.kɾi.toɾ', vi:'nhà văn' } },
 
-{ lang:'es', cat:'Văn hoá', art:'pub', title:'Tây Ban Nha có nhà hàng liên tục hoạt động lâu nhất thế giới',
+{ lang:'es', cat:'Văn hoá', art:'terrace', title:'Tây Ban Nha có nhà hàng liên tục hoạt động lâu nhất thế giới',
   body:'Một nhà hàng ở Madrid mở từ năm 1725 và được ghi nhận là nhà hàng cổ nhất còn hoạt động không ngắt quãng.',
   extra:'Lò nướng củi trong đó được nói là chưa từng tắt lửa. Bếp lò thường xuyên duy trì là chuyện có thật ở các lò nướng cũ, vì làm nguội rồi nhóm lại làm nứt gạch chịu nhiệt.',
   word:{ t:'el restaurante', r:'res.tau̯.ɾan.te', vi:'nhà hàng' } },
@@ -41733,12 +41840,12 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   word:{ t:'el parador', r:'pa.ɾa.ðoɾ', vi:'nhà nghỉ lịch sử' } },
 
 /* ---------------- Thói quen (12) ---------------- */
-{ lang:'es', cat:'Thói quen', art:'bow', title:'Người Tây Ban Nha chào nhau bằng hai nụ hôn lên má',
+{ lang:'es', cat:'Thói quen', art:'kissgreet', title:'Người Tây Ban Nha chào nhau bằng hai nụ hôn lên má',
   body:'Giữa nữ với nữ, và nam với nữ, hai bên chạm má phải rồi má trái. Nam với nam thì bắt tay hoặc vỗ vai.',
   extra:'Thứ tự bên má cũng có quy ước: bắt đầu từ bên phải của mình. Người Pháp thì tuỳ vùng mà hai, ba hay bốn cái, còn Tây Ban Nha thì rất nhất quán là hai.',
   word:{ t:'el beso', r:'be.so', vi:'nụ hôn (chào)' } },
 
-{ lang:'es', cat:'Thói quen', art:'pub', title:'Người Tây Ban Nha nói to và đó không phải là tranh cãi',
+{ lang:'es', cat:'Thói quen', art:'loudvoice', title:'Người Tây Ban Nha nói to và đó không phải là tranh cãi',
   body:'Âm lượng trong quán và ngoài phố rất lớn, nhiều người nói cùng lúc, chen ngang là bình thường. Đây là cách trò chuyện, không phải xung đột.',
   extra:'Chen lời ở Tây Ban Nha thường được hiểu là dấu hiệu bạn đang hào hứng tham gia. Người Bắc Âu và người Á Đông thường mất một thời gian mới quen được với nhịp này.',
   word:{ t:'la conversación', r:'kom.beɾ.sa.θjon', vi:'cuộc trò chuyện' } },
@@ -41753,7 +41860,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Cũng có thói quen một người trả cả bàn rồi lần sau người khác trả — invitar. Đòi tính riêng từng món có thể bị coi là khô khan, dù ở thành phố lớn ngày nay chuyện này dễ chấp nhận hơn.',
   word:{ t:'la cuenta', r:'kwen.ta', vi:'hoá đơn' } },
 
-{ lang:'es', cat:'Thói quen', art:'bowl', title:'Bữa trưa là bữa chính trong ngày ở Tây Ban Nha',
+{ lang:'es', cat:'Thói quen', art:'mealorder', title:'Bữa trưa là bữa chính trong ngày ở Tây Ban Nha',
   body:'La comida ăn vào khoảng hai, ba giờ chiều, gồm nhiều món và là bữa nặng nhất. Bữa tối thì nhẹ hơn dù ăn muộn.',
   extra:'Nhiều nhà hàng có menú del día: một bữa trưa cố định gồm món đầu, món chính, bánh ngọt và đồ uống, với giá rất phải chăng. Đây là cách ăn trưa của người đi làm, không phải món dành cho khách du lịch.',
   word:{ t:'la comida', r:'ko.mi.ða', vi:'bữa trưa; đồ ăn' } },
@@ -41763,7 +41870,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Điều đó khiến đời sống diễn ra nhiều ngoài đường: quảng trường và quán là phòng khách nối dài. Ban công cũng là một không gian sống thật, không chỉ để phơi đồ.',
   word:{ t:'el piso', r:'pi.so', vi:'căn hộ; sàn nhà' } },
 
-{ lang:'es', cat:'Thói quen', art:'teatime', title:'Cà phê sữa ở Tây Ban Nha có tên riêng theo tỷ lệ sữa',
+{ lang:'es', cat:'Thói quen', art:'coffee', title:'Cà phê sữa ở Tây Ban Nha có tên riêng theo tỷ lệ sữa',
   body:'Café solo là espresso không sữa, cortado là thêm chút sữa, café con leche là nửa nửa, và manchada thì gần như toàn sữa.',
   extra:'Gọi đúng tên là cách nhanh nhất để không bị nhận ra là người mới. Ở miền nam còn có thêm vài mức nữa, và ở Valencia người ta gọi tên khác hẳn — nên phải hỏi tại chỗ.',
   word:{ t:'el cortado', r:'koɾ.ta.ðo', vi:'cà phê thêm chút sữa' } },
@@ -41773,7 +41880,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Ranh giới giữa hai loại hẹn này chặt hơn nhiều người nghĩ. Đi trễ vào cuộc họp hay lớp học ở Tây Ban Nha vẫn bị coi là thiếu chuyên nghiệp như mọi nơi khác.',
   word:{ t:'la cita', r:'θi.ta', vi:'cuộc hẹn' } },
 
-{ lang:'es', cat:'Thói quen', art:'age', title:'Người Tây Ban Nha gọi người lớn tuổi bằng tên riêng',
+{ lang:'es', cat:'Thói quen', art:'nametag', title:'Người Tây Ban Nha gọi người lớn tuổi bằng tên riêng',
   body:'Cách gọi don hay doña kèm tên vẫn còn nhưng đã rất trang trọng và ít dùng trong đời thường. Phần lớn người ta gọi thẳng tên riêng.',
   extra:'Trong trường, học sinh nhiều nơi gọi giáo viên bằng tên riêng chứ không kèm họ. Với người Việt thì đây là điểm cần thời gian để quen, vì thang bậc xưng hô của ta chi tiết hơn nhiều.',
   word:{ t:'don / doña', r:'don / do.ɲa', vi:'ông / bà (trang trọng)' } },
@@ -41788,7 +41895,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Mỗi màu thùng một loại: vàng cho nhựa và vỏ hộp, xanh dương cho giấy, xanh lá cho thuỷ tinh. Đổ sai màu ở một số nơi có thể bị nhắc hoặc bị phạt.',
   word:{ t:'la basura', r:'ba.su.ɾa', vi:'rác' } },
 
-{ lang:'es', cat:'Thói quen', art:'shoes', title:'Người Tây Ban Nha thường không cởi giày khi vào nhà',
+{ lang:'es', cat:'Thói quen', art:'apartment', title:'Người Tây Ban Nha thường không cởi giày khi vào nhà',
   body:'Khác với Việt Nam, Nhật hay Nga, ở Tây Ban Nha vào nhà vẫn để giày là bình thường, dù mỗi gia đình có thể có lệ riêng.',
   extra:'Nhưng đi chân đất trong nhà lại bị nhiều người coi là không tốt cho sức khoẻ, nên thường có dép trong nhà. Cách an toàn nhất khi được mời tới nhà là quan sát chủ nhà rồi làm theo.',
   word:{ t:'los zapatos', r:'θa.pa.tos', vi:'đôi giày' } },
@@ -41799,7 +41906,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Hemingway đã viết về hội này và làm nó nổi tiếng toàn thế giới. Mỗi năm đều có người bị thương, và có nhiều quy định về ai được vào đường chạy.',
   word:{ t:'el encierro', r:'en.θje.ro', vi:'cuộc chạy bò' } },
 
-{ lang:'es', cat:'Lễ hội', art:'lantern', title:'Ở Valencia, lễ hội kết thúc bằng việc đốt các tượng khổng lồ',
+{ lang:'es', cat:'Lễ hội', art:'bonfire', title:'Ở Valencia, lễ hội kết thúc bằng việc đốt các tượng khổng lồ',
   body:'Hội Fallas dựng những tượng giấy bồi cao như nhà nhiều tầng ở khắp các khu phố, rồi vào đêm cuối tháng 3 đốt hết.',
   extra:'Tượng thường châm biếm chuyện thời sự trong năm. Mỗi khu phố làm một tượng và cạnh tranh nhau, chỉ một tượng thắng giải được giữ lại cho bảo tàng, còn lại cháy hết.',
   word:{ t:'la fiesta', r:'fjes.ta', vi:'lễ hội' } },
@@ -41814,7 +41921,7 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Trẻ để giày ra ngoài cửa hoặc ngoài ban công cho Ba Vua đặt quà vào. Ai không ngoan thì theo lệ sẽ nhận được than — nay thay bằng một cục kẹo đen hình than.',
   word:{ t:'los Reyes Magos', r:'re.jes ma.ɣos', vi:'Ba Vua' } },
 
-{ lang:'es', cat:'Lễ hội', art:'newyear', title:'Xổ số Giáng sinh Tây Ban Nha do trẻ em xướng số bằng cách hát',
+{ lang:'es', cat:'Lễ hội', art:'lotterydraw', title:'Xổ số Giáng sinh Tây Ban Nha do trẻ em xướng số bằng cách hát',
   body:'Học sinh một trường ở Madrid lần lượt hát lên số vé và số tiền trúng. Buổi rút thăm kéo dài nhiều giờ và được truyền hình trực tiếp.',
   extra:'Cách chơi cũng khác: nhiều người mua chung một vé rồi chia nhau, nên cả một cơ quan hay cả một làng có thể cùng trúng. Giải lớn nhất gọi là El Gordo — «cái béo».',
   word:{ t:'la lotería', r:'lo.te.ɾi.a', vi:'xổ số' } },
@@ -41824,17 +41931,17 @@ if (typeof module !== 'undefined') module.exports.FACT_ART = FACT_ART;
   extra:'Người đội bệ gọi là costalero và đi trong tối, không thấy đường, chỉ theo tiếng gõ chỉ huy. Đây là dịp nghiêm trang, khác hẳn không khí vui nhộn của các hội khác trong năm.',
   word:{ t:'la procesión', r:'pɾo.θe.sjon', vi:'đoàn rước' } },
 
-{ lang:'es', cat:'Lễ hội', art:'ballet', title:'Hội tháng Tư ở Sevilla diễn ra trong một thành phố lều dựng tạm',
+{ lang:'es', cat:'Lễ hội', art:'tent', title:'Hội tháng Tư ở Sevilla diễn ra trong một thành phố lều dựng tạm',
   body:'Feria de Abril dựng cả một khu hàng nghìn lều bạt sọc, nơi các gia đình và hội nhóm tiếp khách, ăn uống và múa sevillanas cả tuần.',
   extra:'Phần lớn lều là của riêng từng nhóm, phải có người quen mới vào được. Khách du lịch thường không biết điều này và bất ngờ khi thấy mình không tự nhiên bước vào được.',
   word:{ t:'la feria', r:'fe.ɾja', vi:'hội chợ, hội làng' } },
 
-{ lang:'es', cat:'Lễ hội', art:'lantern', title:'Ở Tây Ban Nha có lễ hội nhảy qua lửa vào đêm hè',
+{ lang:'es', cat:'Lễ hội', art:'bonfire', title:'Ở Tây Ban Nha có lễ hội nhảy qua lửa vào đêm hè',
   body:'Đêm San Juan cuối tháng 6, người ta đốt lửa trên bãi biển, nhảy qua đống lửa và nhảy qua sóng biển để cầu may.',
   extra:'Đây là một trong nhiều lễ hội châu Âu quanh ngày hạ chí, có gốc xa hơn cả Cơ Đốc giáo. Người ta cũng viết điều muốn bỏ lại vào giấy rồi đốt trong lửa.',
   word:{ t:'la hoguera', r:'o.ɣe.ɾa', vi:'đống lửa' } },
 
-{ lang:'es', cat:'Lễ hội', art:'lantern', title:'Bilbao có hội hoá trang tháng Hai với những nhân vật đầu to',
+{ lang:'es', cat:'Lễ hội', art:'carnival', title:'Bilbao có hội hoá trang tháng Hai với những nhân vật đầu to',
   body:'Ở Carnaval nhiều nơi có gigantes y cabezudos — người khổng lồ và người đầu to, những hình nộm được người mặc vào rồi đi trong đám rước.',
   extra:'Truyền thống này có ở cả Tây Ban Nha và Bồ Đào Nha, và mỗi thị trấn giữ những hình nộm riêng, đôi khi cả trăm năm tuổi. Người đầu to thường có nhiệm vụ trêu và đuổi trẻ con trong đám rước.',
   word:{ t:'el carnaval', r:'kaɾ.na.βal', vi:'hội hoá trang' } },
@@ -51652,6 +51759,54 @@ function frGroup(inf){
 }
 
 /** Bảng chia đầy đủ của một động từ tiếng Pháp. null nếu không nhận ra. */
+
+/* ---------------- PHÂN TỪ BẤT QUY TẮC ----------------
+   Đây là chỗ dễ sai mà khó thấy: bảng chia trông rất đầy đủ, chỉ có
+   ô «đã làm» là sai. Mà ô đó lại dựng nên toàn bộ các thì kép — sai
+   một chỗ là sai lan ra sáu ô của thì hoàn thành.
+
+   Không liệt kê từng động từ, vì tiếng nào cũng có hàng loạt động từ
+   ghép thêm tiền tố: describir, inscribir, suscribir đều theo escribir;
+   componer, proponer, disponer đều theo poner. Nên bắt theo ĐUÔI, dài
+   trước ngắn sau, và chỉ nhận những đuôi đủ đặc trưng để không vơ nhầm
+   (mover không được ăn theo ver, nên «ver» phải liệt kê đích danh). */
+const ES_PP = [
+  ['scribir','scrito'], ['solver','suelto'], ['volver','vuelto'], ['poner','puesto'],
+  ['cubrir','cubierto'], ['hacer','hecho'], ['decir','dicho'], ['abrir','abierto'],
+  ['morir','muerto'], ['romper','roto'], ['imprimir','impreso'], ['freír','frito']
+];
+const ES_PP_EXACT = { 'ver':'visto', 'prever':'previsto', 'entrever':'entrevisto',
+  'satisfacer':'satisfecho', 'bendecir':'bendecido' };
+function esPart(inf, fallback){
+  if (ES_PP_EXACT[inf]) return ES_PP_EXACT[inf];
+  for (const [end, pp] of ES_PP){
+    /* Dùng >= chứ không phải >: chính động từ gốc (cubrir, morir) cũng phải
+       khớp với đuôi của nó, không chỉ các động từ ghép thêm tiền tố. */
+    if (inf.length >= end.length && inf.slice(-end.length) === end)
+      return inf.slice(0, inf.length - end.length) + pp;
+  }
+  return fallback;
+}
+
+const FR_PP = [
+  ['crire','crit'], ['ffrir','ffert'], ['vrir','vert'], ['eindre','eint'],
+  ['aindre','aint'], ['oindre','oint'], ['duire','duit'], ['struire','struit'],
+  ['mettre','mis'], ['prendre','pris']
+];
+const FR_PP_EXACT = { 'mourir':'mort', 'naître':'né', 'renaître':'rené',
+  'résoudre':'résolu', 'absoudre':'absous', 'coudre':'cousu', 'moudre':'moulu',
+  'conclure':'conclu', 'exclure':'exclu', 'inclure':'inclus', 'vivre':'vécu',
+  'suivre':'suivi', 'rire':'ri', 'sourire':'souri', 'plaire':'plu', 'taire':'tu',
+  'croire':'cru', 'croître':'crû', 'battre':'battu', 'rompre':'rompu' };
+function frPart(inf, fallback){
+  if (FR_PP_EXACT[inf]) return FR_PP_EXACT[inf];
+  for (const [end, pp] of FR_PP){
+    if (inf.length >= end.length && inf.slice(-end.length) === end)
+      return inf.slice(0, inf.length - end.length) + pp;
+  }
+  return fallback;
+}
+
 function frTable(inf){
   inf = low(inf);
   const irr = FR_IRR[inf];
@@ -51666,7 +51821,7 @@ function frTable(inf){
     subj    = irr.subj ? irr.subj.slice()
             : irr.subjStem ? [0,1,2,3,4,5].map(i => (i === 3 || i === 4 ? irr.subjStem[1] : irr.subjStem[0])
                 + FR_REG.er.subj[i]) : [];
-    pp      = irr.pp; ppr = irr.ppr; futStem = irr.futStem;
+    pp      = irr.pp || frPart(inf, ''); ppr = irr.ppr; futStem = irr.futStem;
     imper   = irr.imper || (irr.noImper ? null : [pres[1], pres[3], pres[4]]);
     if (irr.only3s){ imparf = ['','', imparf[2], '','','']; subj = ['','', subj[2], '','','']; }
   } else {
@@ -51683,7 +51838,7 @@ function frTable(inf){
       pres = zip(st, R.pres); imparf = zip(st, R.imp); subj = zip(st, R.subj);
     }
     const st = inf.slice(0, -2);
-    pp = st + R.pp; ppr = (g === 'ir' ? st + 'issant' : st + 'ant');
+    pp = frPart(inf, st + R.pp); ppr = (g === 'ir' ? st + 'issant' : st + 'ant');
     futStem = R.futStem(inf);
     imper = [g === 'er' ? pres[2] : pres[1], pres[3], pres[4]];
   }
@@ -51877,7 +52032,7 @@ function esTable(inf){
     pret = irr.pret ? irr.pret.slice() : zip(st, R.pret);
     imp  = irr.imp  ? irr.imp.slice()  : zip(st, R.imp);
     subj = irr.subj.slice();
-    part = irr.part; ger = irr.ger;
+    part = irr.part || esPart(inf, ''); ger = irr.ger;
     futStem = irr.futStem !== undefined ? irr.futStem : base;
     if (irr.only3s){ pret = ['','', (pret[2] || ''), '','','']; imp = ['','', (imp[2] || ''), '','','']; }
   } else {
@@ -51901,7 +52056,7 @@ function esTable(inf){
       }
       return stemAt(i) + R.subj[i];
     });
-    part = st + R.part;
+    part = esPart(inf, st + R.part);
     ger  = irChange
       ? (change === 'o>ue' ? st.replace(/o([^o]*)$/, 'u$1') : st.replace(/e([^e]*)$/, 'i$1')) + R.ger
       : st + R.ger;
@@ -52034,6 +52189,696 @@ const API = { table, forms, stripLead, frFem, frPlural, esFem, esPlural,
 if (typeof window !== 'undefined') window.LAT_MORPH = API;
 if (typeof module !== 'undefined' && module.exports) module.exports = API;
 })();
+
+</script>
+<script>
+/* ============================================================
+   LangLab — GỐC TỪ CỦA TIẾNG PHÁP VÀ TIẾNG TÂY BAN NHA
+   ------------------------------------------------------------
+   Tiếng Trung có «cấu tạo từ»: mỗi chữ Hán là một viên gạch, biết
+   chữ thì đoán được từ. Nhiều người tưởng hai tiếng chữ Latinh
+   không có gì tương đương — thật ra có, và còn chặt hơn: gần như
+   mọi từ dài đều tách được thành TIỀN TỐ + GỐC + HẬU TỐ, trong đó
+   phần gốc hầu hết là một động từ hoặc danh từ La-tinh.
+
+   Cái hay là cùng một gốc chạy xuyên cả ba thứ tiếng:
+
+       La-tinh  scrībere  (viết)
+       Pháp     écrire · écrit · décrire · inscription
+       TBN      escribir · escrito · describir · inscripción
+       Anh      script · describe · manuscript
+
+   Học «scrib» một lần là mở được cả ba cột. Đó là lý do tệp này
+   tồn tại: nó biến 2.000 từ rời rạc thành vài trăm họ từ.
+
+   CÁCH LÀM: KHỚP CHỨ KHÔNG ĐOÁN.
+   Bộ phân tích chỉ nhận một kết quả khi TOÀN BỘ từ được phủ kín
+   bằng tiền tố + gốc + hậu tố có trong bảng này. Không phủ kín
+   được thì trả về null và mục từ không hiện phần «cấu tạo từ».
+   Thà không nói gì còn hơn bịa cho người học một gốc không có.
+
+   Nguồn gốc ngoài La-tinh cũng được ghi, vì đó chính là chỗ người
+   học hay vướng: những từ thông dụng nhất lại thường KHÔNG phải
+   gốc La-tinh — «guerre/guerra» là tiếng German, «azúcar/sucre»
+   là tiếng Ả Rập qua đường Andalucía.
+
+   Nội dung do LangLab tự biên soạn.
+   ============================================================ */
+
+/* Ghi chú chính tả: mọi dạng dùng để KHỚP đều đã bỏ dấu phụ
+   (écri → ecri), vì bộ phân tích chuẩn hoá từ trước khi so.
+   Phần hiển thị thì lấy từ thật trong khoá học nên vẫn đủ dấu. */
+
+const LAT_ROOTS = {
+
+/* ---------------- TIỀN TỐ ----------------
+   Đứng trước gốc, đổi hướng nghĩa. Một tiền tố thường có nhiều
+   cách viết vì phụ âm đầu của gốc kéo nó biến dạng theo: in- + legal
+   thành illégal, con- + rompre thành corrompre. Bảng này liệt kê
+   đủ các biến thể đó để bộ phân tích không bị hụt. */
+pre: {
+  ad:   { vi:'hướng tới, thêm vào', la:'ad-', f:['a','ad','ac','af','ag','al','ap','ar','as','at'], note:'Chữ d nuốt theo phụ âm sau: ad+prochier → approcher.' },
+  ab:   { vi:'rời khỏi, bỏ đi', la:'ab-', f:['ab','abs','av'] },
+  ante: { vi:'trước', la:'ante-', f:['ante','anté','anti'] },
+  bene: { vi:'tốt, lành', la:'bene-', f:['bene','béné','bien','ben'] },
+  bi:   { vi:'hai', la:'bi-', f:['bi','bis','biz'] },
+  circ: { vi:'vòng quanh', la:'circum-', f:['circon','circun','circum','circu'] },
+  co:   { vi:'cùng nhau', la:'cum-', f:['co','col','com','con','cor','cons','conv'], note:'Tiền tố năng sản nhất của cả hai tiếng.' },
+  contra:{ vi:'ngược lại, chống', la:'contra-', f:['contra','contre','contro'] },
+  de:   { vi:'xuống, tách ra, làm ngược', la:'de-', f:['de','dé'] },
+  dis:  { vi:'tách rời, phủ định', la:'dis-', f:['dis','di','des','dés','dif','dir'] },
+  ex:   { vi:'ra khỏi, hết', la:'ex-', f:['ex','e','é','es','ef'], note:'Tiếng TBN thêm e- cho dễ đọc: ex-scribere → escribir.' },
+  en:   { vi:'vào trong, làm cho thành', la:'in-', f:['en','em','in','im'] },
+  inNeg:{ vi:'không, chưa (phủ định)', la:'in-', f:['in','im','il','ir','i'], note:'Trùng mặt chữ với in- «vào trong» — phải xét nghĩa mới phân biệt được: incorporer là đưa vào, incapable là không có khả năng.' },
+  inter:{ vi:'giữa, qua lại', la:'inter-', f:['inter','entre','entr'] },
+  intra:{ vi:'bên trong', la:'intra-', f:['intra','intro'] },
+  mal:  { vi:'xấu, hỏng', la:'male-', f:['mal','mau','mé'] },
+  mi:   { vi:'nửa', la:'medius', f:['mi','medi','media'] },
+  multi:{ vi:'nhiều', la:'multi-', f:['multi','mult'] },
+  ob:   { vi:'chắn trước, đối lại', la:'ob-', f:['ob','o','oc','of','op','os'] },
+  per:  { vi:'xuyên suốt, hoàn toàn', la:'per-', f:['per','par','por'] },
+  post: { vi:'sau', la:'post-', f:['post','pos','pós'] },
+  pre:  { vi:'trước', la:'prae-', f:['pre','pré'] },
+  pro:  { vi:'về phía trước, thay mặt', la:'pro-', f:['pro','pour','pur'] },
+  re:   { vi:'lại, lần nữa, ngược về', la:'re-', f:['re','ré','r','red','res'] },
+  retro:{ vi:'lùi về sau', la:'retro-', f:['retro','rétro'] },
+  semi: { vi:'nửa', la:'semi-', f:['semi'] },
+  sub:  { vi:'dưới, phụ', la:'sub-', f:['sub','sou','sous','su','suc','suf','sug','sup','sus','so'] },
+  super:{ vi:'trên, vượt mức', la:'super-', f:['super','sur','sobre','supr','sopr'] },
+  trans:{ vi:'xuyên qua, sang bên kia', la:'trans-', f:['trans','tras','tra','tré'] },
+  ultra:{ vi:'quá mức', la:'ultra-', f:['ultra','outre'] },
+  vice: { vi:'phó, thay thế', la:'vice-', f:['vice','vi','viz'] },
+  /* Gốc Hy Lạp — đi thẳng vào hai tiếng qua đường khoa học và nhà thờ */
+  anti: { vi:'chống lại', la:'ἀντί', src:'gr', f:['anti','ant'] },
+  auto: { vi:'tự thân', la:'αὐτός', src:'gr', f:['auto','aut'] },
+  hyper:{ vi:'quá, vượt', la:'ὑπέρ', src:'gr', f:['hyper','hiper'] },
+  hypo: { vi:'dưới, thiếu', la:'ὑπό', src:'gr', f:['hypo','hipo'] },
+  micro:{ vi:'nhỏ', la:'μικρός', src:'gr', f:['micro'] },
+  mono: { vi:'một', la:'μόνος', src:'gr', f:['mono'] },
+  poly: { vi:'nhiều', la:'πολύς', src:'gr', f:['poly','poli'] },
+  tele: { vi:'xa', la:'τῆλε', src:'gr', f:['tele','télé'] },
+  syn:  { vi:'cùng, chung', la:'σύν', src:'gr', f:['syn','sin','sym','sim'] },
+  peri: { vi:'quanh', la:'περί', src:'gr', f:['peri','péri'] },
+  meta: { vi:'sau, vượt lên', la:'μετά', src:'gr', f:['meta','méta'] },
+  a_gr: { vi:'không, thiếu', la:'ἀ-', src:'gr', f:['a','an'] }
+},
+
+/* ---------------- HẬU TỐ ----------------
+   Hậu tố quyết định TỪ LOẠI và thường quyết định luôn GIỐNG của
+   danh từ — thứ người Việt hay phải học thuộc từng từ một. Biết
+   bảng này thì đoán được giống mà không cần tra:
+   -tion/-ción luôn giống cái, -ment/-miento luôn giống đực. */
+suf: {
+  tion:  { vi:'hành động hoặc kết quả của hành động', pos:'danh từ', g:'f', fr:['tion','ation','ition','sion','ssion','xion','ion'], es:['cion','acion','icion','sion','xion','ion'], note:'Luôn giống CÁI ở cả hai tiếng. Không có ngoại lệ đáng kể.' },
+  ment:  { vi:'hành động hoặc kết quả', pos:'danh từ', g:'m', fr:['ment','ement','issement'], es:['miento','amiento','imiento'], note:'Luôn giống ĐỰC. Đừng lẫn với hậu tố trạng từ -ment của tiếng Pháp, viết giống hệt nhưng gắn vào tính từ.' },
+  ance:  { vi:'trạng thái, tính chất', pos:'danh từ', g:'f', fr:['ance','ence','ance'], es:['ancia','encia'] },
+  te:    { vi:'tính chất trừu tượng', pos:'danh từ', g:'f', fr:['té','ité','eté'], es:['dad','idad','edad','tad'], note:'Cặp tương ứng rất đều: liberté ↔ libertad, réalité ↔ realidad.' },
+  eur:   { vi:'người làm việc đó, hoặc máy làm việc đó', pos:'danh từ', g:'m', fr:['eur','ateur','iteur','isseur'], es:['dor','ador','idor','or'] },
+  age:   { vi:'việc làm, hoặc tập hợp', pos:'danh từ', g:'m', fr:['age','issage'], es:['aje'] },
+  ure:   { vi:'kết quả, vật tạo ra', pos:'danh từ', g:'f', fr:['ure','ture','ature'], es:['ura','tura','atura'] },
+  isme:  { vi:'học thuyết, khuynh hướng', pos:'danh từ', g:'m', fr:['isme'], es:['ismo'] },
+  iste:  { vi:'người theo, người làm nghề', pos:'danh từ', fr:['iste'], es:['ista'], note:'Không đổi theo giống: un artiste, une artiste; el artista, la artista.' },
+  erie:  { vi:'nơi làm hoặc bán thứ đó', pos:'danh từ', g:'f', fr:['erie','rie'], es:['eria','ria'], note:'boulangerie ↔ panadería: cùng một khuôn, ghép vào tên món là ra tên cửa hàng.' },
+  esse:  { vi:'tính chất', pos:'danh từ', g:'f', fr:['esse'], es:['eza'] },
+  itude: { vi:'trạng thái', pos:'danh từ', g:'f', fr:['itude'], es:['itud'] },
+  at:    { vi:'chức vụ, trạng thái', pos:'danh từ', g:'m', fr:['at','at'], es:['ado'] },
+  ade:   { vi:'hành động, lượt, món', pos:'danh từ', g:'f', fr:['ade'], es:['ada'] },
+  ie:    { vi:'ngành, tính chất, nơi', pos:'danh từ', g:'f', fr:['ie'], es:['ia'] },
+  able:  { vi:'có thể làm được điều đó', pos:'tính từ', fr:['able','ible','uble'], es:['able','ible'] },
+  eux:   { vi:'đầy, nhiều, mang tính', pos:'tính từ', fr:['eux','euse','ueux'], es:['oso','osa'], note:'Cặp rất đều: dangereux ↔ peligroso, curieux ↔ curioso.' },
+  if:    { vi:'có xu hướng, có tác dụng', pos:'tính từ', fr:['if','ive','atif','itif'], es:['ivo','iva','ativo','itivo'] },
+  aire:  { vi:'thuộc về, liên quan tới', pos:'tính từ', fr:['aire'], es:['ario','aria'] },
+  al:    { vi:'thuộc về', pos:'tính từ', fr:['al','el','ale','elle','iel'], es:['al','ial'] },
+  ique:  { vi:'thuộc về, mang tính', pos:'tính từ', fr:['ique','atique'], es:['ico','ica','atico'] },
+  ant:   { vi:'đang làm, gây ra', pos:'tính từ', fr:['ant','ent','ante','ente'], es:['ante','iente','ente'] },
+  e_pp:  { vi:'đã bị làm (quá khứ phân từ)', pos:'tính từ', fr:['é','ée','i','ie','u','ue'], es:['ado','ada','ido','ida'] },
+  ense:  { vi:'người hoặc vật xứ đó', pos:'tính từ', fr:['ais','aise','ois','oise','ien','ienne'], es:['es','esa','ano','ana','eno','ena','ense'] },
+  er_v:  { vi:'động từ nhóm đều', pos:'động từ', fr:['er'], es:['ar'] },
+  ir_v:  { vi:'động từ nhóm -ir', pos:'động từ', fr:['ir'], es:['ir'] },
+  re_v:  { vi:'động từ nhóm -re', pos:'động từ', fr:['re','oir'], es:['er'] },
+  iser:  { vi:'làm cho thành, biến thành', pos:'động từ', fr:['iser'], es:['izar'] },
+  ifier: { vi:'làm cho thành', pos:'động từ', fr:['ifier'], es:['ificar'] },
+  oyer:  { vi:'làm việc đó nhiều lần', pos:'động từ', fr:['oyer','ayer','eyer'], es:['ear'] },
+  mente: { vi:'tạo trạng từ từ tính từ', pos:'trạng từ', fr:['ment'], es:['mente'], note:'Cả hai tiếng đều lấy dạng GIỐNG CÁI rồi gắn vào: lente → lentement, lenta → lentamente.' },
+  ito:   { vi:'nhỏ, thân mật', pos:'hậu tố nhỏ hoá', es:['ito','ita','illo','illa','cito','cita'], fr:['et','ette'], note:'Tiếng TBN dùng dày đặc, không chỉ để chỉ nhỏ mà còn để nói cho dịu: ahorita, un momentito.' },
+  on_aug:{ vi:'to, quá mức', pos:'hậu tố to hoá', es:['on','ona','azo','aza'], fr:['on','asse'], note:'Có khi mang nghĩa xấu: mandón là kẻ thích ra lệnh.' },
+  isimo: { vi:'rất, cực kỳ', pos:'mức tuyệt đối', es:['isimo','isima'], fr:['issime'], note:'Tiếng TBN dùng hằng ngày; tiếng Pháp gần như không dùng nữa.' }
+},
+
+/* ---------------- GỐC TỪ ----------------
+   Mỗi mục: dạng La-tinh gốc, nghĩa, các cách viết phần gốc trong
+   tiếng Pháp và tiếng Tây Ban Nha, và từ tiếng Anh cùng gốc để
+   người học bắt cầu bằng vốn tiếng Anh sẵn có. */
+roots: {
+  lex:    { la:'lex, legis', vi:'luật', fr:['légal','legal','légis','legisl','loi'], es:['ley','legal','legisl'], en:'legal, legislate', note:'Khác gốc legere (đọc) tuy mặt chữ rất giống: loi/ley là luật, lire/leer là đọc.' },
+  umbr:   { la:'umbra', vi:'bóng râm', fr:['ombr','sombr'], es:['sombr','umbr'], en:'umbrella, sombre', note:'sombre và sombra là «dưới bóng» — sub + umbra.' },
+  vitr:   { la:'vitrum', vi:'thuỷ tinh', fr:['verr','vitr'], es:['vidri','vitr'], en:'vitreous, vitrine' },
+  salnou: { la:'sal', vi:'muối', fr:['sel','salé','sale'], es:['sal','salad'], en:'salt, salary', note:'Lính La-mã từng được trả công bằng muối — chữ salaire và salario ra đời từ đó.' },
+  perd:   { la:'perdere', vi:'mất, làm hỏng', fr:['perd','pert','perte'], es:['perd','pérd','perdic'], en:'perdition' },
+  par3:   { la:'parere', vi:'hiện ra, lộ ra', fr:['parai','paraî','apparai','apparaî'], es:['parec','parez','aparec','aparez'], en:'appear, apparent', note:'parecer của tiếng TBN là «lộ ra» — trông có vẻ thế nào.' },
+  extran: { la:'extraneus', vi:'ở bên ngoài, xa lạ', fr:['étrang','etrang'], es:['extrañ','extran','estrañ'], en:'strange, extraneous' },
+  caten:  { la:'catena', vi:'dây xích', fr:['chaîn','chain'], es:['caden','cadén'], en:'chain, concatenate' },
+  faci:   { la:'facies', vi:'khuôn mặt, bề mặt', fr:['façad','facad','visag'], es:['fach','faz','faci'], en:'face, facade, surface' },
+  virid:  { la:'viridis', vi:'xanh lá', fr:['verdur','verdoy'], es:['verd','verdur'], en:'verdant, verdure' },
+  infer:  { la:'inferus', vi:'ở dưới, thấp hơn', fr:['inféri','inferi'], es:['inferi'], en:'inferior, infernal' },
+  superu: { la:'superus', vi:'ở trên, cao hơn', fr:['supéri','superi'], es:['superi'], en:'superior, supreme' },
+  vit:    { la:'vitare', vi:'tránh', fr:['évit','evit'], es:['evit'], en:'inevitable' },
+  surd:   { la:'surdus', vi:'điếc, câm lặng', fr:['sourd','surd'], es:['sord','surd'], en:'absurd, surd', note:'absurde nghĩa gốc là «điếc đặc» — nghe mà không lọt tai được.' },
+  cruc:   { la:'crux, crucis', vi:'cây thập, chỗ bắt chéo', fr:['crois','croix','cruc'], es:['cruz','cruc'], en:'cross, crucial', note:'croiser và cruzar là «bắt chéo như hình thập».' },
+  vir:    { la:'virare', vi:'quay, đổi hướng', fr:['vir'], es:['vir','gir'], en:'veer' },
+  lic:    { la:'licere', vi:'được phép', fr:['loisir','licen'], es:['licen','lícit','licit'], en:'licence, leisure', note:'loisir nghĩa gốc là «điều được phép làm» — thời gian ngoài bổn phận.' },
+  invit:  { la:'invitare', vi:'mời', fr:['invit'], es:['invit'], en:'invite' },
+  pasc:   { la:'pascere', vi:'cho ăn, nuôi', fr:['repas','past'], es:['past','pasto'], en:'pasture, repast' },
+  ventus: { la:'ventus', vi:'gió', fr:['vent'], es:['ventan','vient','vent'], en:'vent, ventilate', note:'ventana của tiếng TBN là «lỗ đón gió» — cửa sổ sinh ra từ chữ gió.' },
+  bon:    { la:'bonus', vi:'tốt', fr:['bon','bonn','bien'], es:['buen','bon','bien'], en:'bonus, bounty' },
+  jour:   { la:'diurnum', vi:'ngày', fr:['jour','journ'], es:['día','dia','diurn','jorn'], en:'journal, diurnal', note:'jour và día cùng một gốc: dies → diurnum. Tiếng Pháp giữ phần «diurnum», tiếng TBN giữ phần «dies».' },
+  noct:   { la:'nox, noctis', vi:'đêm', fr:['nuit','nocturn'], es:['noch','nocturn'], en:'nocturnal', note:'Cụm -ct- của La-tinh thành -ch- trong tiếng TBN và -it- trong tiếng Pháp: noctem → noche · nuit, lactem → leche · lait, factum → hecho · fait. Nhận ra quy luật này là đọc được rất nhiều từ.' },
+  lact:   { la:'lac, lactis', vi:'sữa', fr:['lait','lact'], es:['lech','lact'], en:'lactose, lactic' },
+  fil:    { la:'filius', vi:'con (trai, gái)', fr:['fils','fill'], es:['hij','fili'], en:'filial, affiliate', note:'Lại một lần f- La-tinh thành h- câm trong tiếng TBN: filius → hijo.' },
+  oct:    { la:'octo', vi:'tám', fr:['huit','oct'], es:['och','oct'], en:'octopus, October' },
+  fest:   { la:'festum', vi:'ngày lễ', fr:['fêt','fet','fest'], es:['fiest','fest'], en:'festival, feast' },
+  camp:   { la:'campus', vi:'cánh đồng, bãi', fr:['champ','camp'], es:['camp'], en:'camp, campus, champion' },
+  cas:    { la:'casa', vi:'nhà', fr:['chez'], es:['casa','caser'], en:'casino', note:'chez của tiếng Pháp chính là casa rút gọn: «chez moi» là «ở nhà tôi».' },
+  fin2:   { la:'focus', vi:'bếp lửa', fr:['feu','foy'], es:['fueg','hog'], en:'focus, fuel', note:'hogar (mái ấm) nghĩa gốc là «chỗ có bếp lửa».' },
+  ag:     { la:'agere', vi:'làm, dẫn dắt', fr:['agent','exig','ag','acte','act','agi'], es:['agent','exig','ag','acte','act','actu'], en:'act, agent, agile' },
+  alt:    { la:'altus', vi:'cao', fr:['haut','alt'], es:['alt'], en:'altitude, alto' },
+  am:     { la:'amare', vi:'yêu', fr:['aim','am'], es:['am'], en:'amateur, amorous' },
+  anim:   { la:'anima', vi:'hơi thở, hồn', fr:['anim'], es:['anim'], en:'animal, animate' },
+  ann:    { la:'annus', vi:'năm', fr:['an','ann'], es:['an','añ','anu'], en:'annual, anniversary' },
+  aper:   { la:'aperire', vi:'mở', fr:['ouvr','ouvert','ouver'], es:['abr','abiert','apert'], en:'aperture' },
+  aqu:    { la:'aqua', vi:'nước', fr:['eau','aqu'], es:['agu','acu'], en:'aquarium, aquatic' },
+  arm:    { la:'arma', vi:'vũ khí', fr:['arm'], es:['arm'], en:'army, armour' },
+  art:    { la:'ars, artis', vi:'nghề, kỹ năng', fr:['art'], es:['art'], en:'art, artisan' },
+  aud:    { la:'audire', vi:'nghe', fr:['aud','obéi','obei','ouï','oui'], es:['aud','obedec','obedez','oí','oi'], en:'audio, audience' },
+  bell1:  { la:'bellus', vi:'đẹp', fr:['beau','bel','bell'], es:['bell'], en:'beautiful, embellish' },
+  bell2:  { la:'bellum', vi:'chiến tranh', fr:['bell'], es:['bel'], en:'rebel, belligerent', note:'Trùng mặt chữ với bellus «đẹp» nhưng không họ hàng gì: rebelle là kẻ gây chiến lại, không phải kẻ đẹp lại.' },
+  brev:   { la:'brevis', vi:'ngắn', fr:['bref','brev','brèv','abrég'], es:['brev','abrev'], en:'brief, abbreviate' },
+  cad:    { la:'cadere', vi:'rơi, ngã', fr:['cad','cas','ché','chu'], es:['ca','cad','cas','caí','cai'], en:'cadence, accident, case' },
+  cap:    { la:'capere', vi:'nắm lấy, chứa', fr:['cap','cep','cev','cip','çoi','coi'], es:['caber','cup','cep','cib','cip'], en:'capture, receive, accept', note:'Một trong những gốc năng sản nhất: recevoir/recibir, concevoir/concebir, accepter/aceptar đều từ đây.' },
+  capit:  { la:'caput', vi:'cái đầu', fr:['chef','chap','capit','cap'], es:['cab','capit'], en:'captain, chapter, capital', note:'chef và cabeza cùng một gốc: người đứng đầu chính là cái đầu.' },
+  car:    { la:'carus', vi:'thân yêu, đắt', fr:['cher','chèr','chér'], es:['car','cariñ'], en:'charity, cherish', note:'Cả hai tiếng dùng một từ cho «đắt» và «thân yêu» — cher, caro.' },
+  carn:   { la:'caro, carnis', vi:'thịt', fr:['charn','carn'], es:['carn'], en:'carnivore, carnal' },
+  cav:    { la:'cavus', vi:'rỗng, hang', fr:['cav','creu'], es:['cav','cuev'], en:'cave, cavity' },
+  ced:    { la:'cedere', vi:'đi, nhường bước', fr:['céd','ced','cès','cess'], es:['ced','ces'], en:'proceed, concede, process' },
+  cent:   { la:'centum', vi:'trăm', fr:['cent'], es:['cien','cent'], en:'century, percent' },
+  cern:   { la:'cernere', vi:'phân biệt, sàng lọc', fr:['cern','cret','cert'], es:['cern','cret','cert'], en:'discern, secret, certain' },
+  cid:    { la:'caedere', vi:'cắt, chặt', fr:['cid','cis'], es:['cid','cis'], en:'decide, precise, scissors' },
+  circ:   { la:'circus', vi:'vòng tròn', fr:['cherch','cerc','circ'], es:['cerc','circ','busc'], en:'circle, circus' },
+  civ:    { la:'civis', vi:'công dân', fr:['civ'], es:['civ','ciud'], en:'city, civil' },
+  clam:   { la:'clamare', vi:'kêu to', fr:['clam','clâm'], es:['clam','llam'], en:'claim, exclaim', note:'Tiếng TBN biến cl- thành ll-: clamare → llamar, nên «gọi» và «kêu ca» chung một gốc.' },
+  clar:   { la:'clarus', vi:'sáng, rõ', fr:['clair','clar'], es:['clar'], en:'clear, declare' },
+  claud:  { la:'claudere', vi:'đóng', fr:['clos','clô','clu','clau'], es:['clus','claus','clu'], en:'close, include, conclude' },
+  clav:   { la:'clavis', vi:'chìa khoá', fr:['clé','clef','clav'], es:['llav','clav'], en:'key, clavicle', note:'Lại một cặp cl- → ll-: clavis → llave.' },
+  cord:   { la:'cor, cordis', vi:'trái tim', fr:['coeur','cord','accord','cordial'], es:['coraz','cord','cuerd'], en:'core, courage, record', note:'recordar nghĩa đen là «đưa trở lại vào tim» — đó là cách tiếng TBN nói «nhớ».' },
+  corp:   { la:'corpus', vi:'thân thể', fr:['corp'], es:['cuerp','corp'], en:'corpse, corporate' },
+  cred:   { la:'credere', vi:'tin', fr:['croi','croy','créd','cred'], es:['cre','créd','cred'], en:'credit, incredible' },
+  cresc:  { la:'crescere', vi:'lớn lên', fr:['croît','croit','croiss','crû'], es:['crec','crez'], en:'increase, crescent' },
+  culp:   { la:'culpa', vi:'lỗi', fr:['coup','culp'], es:['culp'], en:'culprit, culpable' },
+  cur:    { la:'cura', vi:'sự chăm lo', fr:['cur','sûr','sur','assur'], es:['cur','segur'], en:'cure, secure, curious', note:'sécurité và seguridad đều là «se- (không) + cura (lo)»: không phải lo gì nữa.' },
+  curr:   { la:'currere', vi:'chạy', fr:['couri','cours','courr','curs','cour'], es:['corr','curs','curr'], en:'current, course, occur' },
+  dic:    { la:'dicere', vi:'nói', fr:['di','dic','dict','dis'], es:['dec','dic','dich'], en:'dictate, predict, diction' },
+  dign:   { la:'dignus', vi:'xứng đáng', fr:['dign'], es:['dign'], en:'dignity, indignant' },
+  doc:    { la:'docere', vi:'dạy', fr:['doc','doct'], es:['doc','doct'], en:'doctor, document' },
+  dol:    { la:'dolor', vi:'đau', fr:['doul','dol'], es:['dol','duel'], en:'dolorous, condolence' },
+  domin:  { la:'dominus', vi:'chủ, người làm chủ', fr:['domin','dam','dom'], es:['domin','dueñ','dueñ','don'], en:'dominate, dominion' },
+  dorm:   { la:'dormire', vi:'ngủ', fr:['dorm'], es:['dorm','duerm'], en:'dormitory, dormant' },
+  duc:    { la:'ducere', vi:'dẫn dắt', fr:['duir','duc','duit','dui'], es:['duc','duj','duct'], en:'conduct, produce, reduce' },
+  dur:    { la:'durus, durare', vi:'cứng, kéo dài', fr:['dur'], es:['dur'], en:'durable, endure, hard' },
+  equ:    { la:'aequus', vi:'ngang bằng', fr:['égal','egal','équi','equi'], es:['igual','equi'], en:'equal, equator' },
+  err:    { la:'errare', vi:'đi lạc, sai', fr:['err'], es:['err'], en:'error, err' },
+  fac:    { la:'facere', vi:'làm', fr:['fai','fait','fac','fic','fect'], es:['hac','hech','fac','fic','fect'], en:'factory, perfect, difficult', note:'Tiếng TBN đổi f- đầu từ La-tinh thành h- câm: facere → hacer, farina → harina, ferrum → hierro.' },
+  fall:   { la:'fallere', vi:'đánh lừa, hụt', fr:['faut','faux','fauss','fail','fall'], es:['falt','fals','fall'], en:'false, fault, fail' },
+  fer:    { la:'ferre', vi:'mang, chịu', fr:['fer','fèr','ffr','ffer'], es:['fer','fre','fri'], en:'transfer, offer, suffer' },
+  fid:    { la:'fides', vi:'lòng tin', fr:['fi','fid','fian','fianc'], es:['fi','fid','fianz','fiel'], en:'confide, fidelity' },
+  fin:    { la:'finis', vi:'ranh giới, cuối', fr:['fin'], es:['fin'], en:'finish, define, final' },
+  firm:   { la:'firmus', vi:'chắc, vững', fr:['ferm','firm'], es:['firm','ferm','enferm'], en:'firm, confirm', note:'enfermo nghĩa đen là «không vững» — in + firmus — nên ốm và yếu chung một gốc.' },
+  flect:  { la:'flectere', vi:'uốn cong', fr:['fléch','flech','flex'], es:['flex','flect'], en:'reflect, flexible' },
+  flor:   { la:'flos, floris', vi:'hoa', fr:['fleur','flor'], es:['flor'], en:'flower, flourish' },
+  flu:    { la:'fluere', vi:'chảy', fr:['flu','fleuv'], es:['flu'], en:'fluid, influence' },
+  form:   { la:'forma', vi:'hình dạng', fr:['form'], es:['form'], en:'form, inform, reform' },
+  fort:   { la:'fortis', vi:'mạnh', fr:['fort','forc'], es:['fuert','fuerz','fort','forz','esfuerz'], en:'force, effort, comfort' },
+  frang:  { la:'frangere', vi:'bẻ gãy', fr:['fract','fragil','fraction'], es:['fract','frágil','fragil'], en:'fracture, fragile' },
+  fug:    { la:'fugere', vi:'chạy trốn', fr:['fui','fuy','fug'], es:['hui','huy','fug'], en:'refuge, fugitive' },
+  fund:   { la:'fundere', vi:'đổ, chảy tan', fr:['fond','fus','fond'], es:['fund','fus'], en:'fuse, confuse, refund' },
+  gen:    { la:'genus, gignere', vi:'dòng giống, sinh ra', fr:['gen','gén','gent','genr'], es:['gen','gent','géner','gener'], en:'gene, general, generate' },
+  grad:   { la:'gradus', vi:'bước, bậc', fr:['grad','gré','gress'], es:['grad','gres'], en:'grade, progress, aggression' },
+  grand:  { la:'grandis', vi:'lớn', fr:['grand'], es:['grand'], en:'grand, aggrandize' },
+  grat:   { la:'gratus', vi:'dễ chịu, biết ơn', fr:['grâc','grac','grat'], es:['graci','grat'], en:'grateful, gratis, grace' },
+  grav:   { la:'gravis', vi:'nặng, nghiêm', fr:['grav','grev'], es:['grav'], en:'grave, gravity' },
+  hab:    { la:'habere', vi:'có, giữ', fr:['av','habit','hab'], es:['hab','habit'], en:'habit, inhabit, able' },
+  hom:    { la:'homo', vi:'con người', fr:['homm','hom','hum'], es:['hombr','hum'], en:'human, homage' },
+  hosp:   { la:'hospes', vi:'chủ nhà, khách trọ', fr:['hôt','hot','hosp','hôp'], es:['huésp','huesp','hosp','hotel'], en:'hospital, hotel, host' },
+  hum:    { la:'humus', vi:'đất', fr:['humbl','humil'], es:['humild','humil'], en:'humble, humility', note:'Khiêm tốn nghĩa đen là «sát đất».' },
+  jact:   { la:'jacere', vi:'ném', fr:['jet','ject'], es:['ech','yect'], en:'eject, project, object', note:'echar của tiếng TBN chính là jactare — «ném».' },
+  jud:    { la:'jus, juris', vi:'luật, lẽ phải', fr:['jug','just','jur'], es:['juzg','juez','just','jur'], en:'judge, justice, jury' },
+  junct:  { la:'jungere', vi:'nối, ghép', fr:['joi','join','joint','jonct'], es:['junt','yunt','junc'], en:'join, junction, conjunction' },
+  lab:    { la:'labor', vi:'công sức', fr:['labor','labeur'], es:['labor'], en:'labour, collaborate' },
+  lav:    { la:'lavare', vi:'rửa', fr:['lav'], es:['lav'], en:'lavatory, launder' },
+  leg:    { la:'legere', vi:'đọc, chọn ra', fr:['li','lis','lect','élir','elir','lectur'], es:['le','lect','leg','coger','cog','coj','elig','elec'], en:'legible, collect, elect, intelligent' },
+  lev:    { la:'levare', vi:'nâng lên, nhẹ', fr:['lev','lèv','lég','leg'], es:['lev','llev','liger','ligr'], en:'elevate, levity, relieve' },
+  liber:  { la:'liber', vi:'tự do', fr:['libr','libér','liber','délivr','delivr'], es:['libr','liber'], en:'liberty, deliver' },
+  libr:   { la:'liber (vỏ cây)', vi:'sách', fr:['livr','librair'], es:['librer','libr'], en:'library, libretto', note:'Người La-tinh viết lên vỏ cây, nên «vỏ cây» thành «sách».' },
+  lig:    { la:'ligare', vi:'buộc, ràng', fr:['li','lig','liais'], es:['lig','liga'], en:'ligature, oblige, religion' },
+  loc:    { la:'locus', vi:'nơi chốn', fr:['lieu','loc','lou'], es:['lug','loc'], en:'local, locate, locomotive' },
+  long:   { la:'longus', vi:'dài', fr:['long'], es:['long','lueng'], en:'long, prolong, longitude' },
+  loqu:   { la:'loqui', vi:'nói chuyện', fr:['loqu','locut'], es:['locu','locut'], en:'eloquent, colloquial' },
+  luc:    { la:'lux, lucis', vi:'ánh sáng', fr:['lumi','lueur','luc'], es:['luz','luc','lumin'], en:'lucid, illuminate, translucent' },
+  magn:   { la:'magnus, major', vi:'lớn, lớn hơn', fr:['majeur','major','maj','maît','mait'], es:['mayor','may','maest','magn'], en:'major, magnify, master' },
+  man:    { la:'manus', vi:'bàn tay', fr:['main','manu','man','manœuvr'], es:['manu','man','manej'], en:'manual, manage, maintain', note:'maintenir và mantener là «manu + tenere»: giữ trong tay.' },
+  mand:   { la:'mandare', vi:'giao việc, sai bảo', fr:['mand'], es:['mand'], en:'command, demand, mandate' },
+  mane:   { la:'manere', vi:'ở lại', fr:['maison','manoir','manso'], es:['mansi','manso'], en:'mansion, remain, permanent' },
+  mar:    { la:'mare', vi:'biển', fr:['mer','mar','marin'], es:['mar','marin'], en:'marine, maritime' },
+  matr:   { la:'mater', vi:'mẹ', fr:['mere','matern','matri'], es:['madr','matern','matri'], en:'maternal, matrix' },
+  med:    { la:'medius', vi:'ở giữa', fr:['milieu','moy','médi','medi'], es:['medi','mitad'], en:'medium, mediate, middle' },
+  medic:  { la:'medicus', vi:'thầy thuốc', fr:['médec','medec','médic','medic'], es:['médic','medic'], en:'medicine, medical' },
+  memor:  { la:'memoria', vi:'trí nhớ', fr:['mémoir','memoir','mémor'], es:['memori','memor'], en:'memory, memorial' },
+  ment:   { la:'mens, mentis', vi:'trí óc', fr:['ment','menti'], es:['ment','menti'], en:'mental, mention, demented' },
+  merc:   { la:'merx, mercis', vi:'hàng hoá', fr:['march','merc','merci'], es:['merc','mercad'], en:'market, merchant, commerce' },
+  mil:    { la:'mille', vi:'nghìn', fr:['mill','mil'], es:['mil','mill'], en:'million, mile, millennium' },
+  min:    { la:'minor, minuere', vi:'nhỏ hơn, giảm', fr:['moin','min','minu','minist'], es:['men','min','minu','minist'], en:'minor, minute, diminish, minister' },
+  mir:    { la:'mirari', vi:'nhìn, ngạc nhiên', fr:['mir','merveill','admir'], es:['mir','milagr','admir','marav'], en:'mirror, admire, miracle', note:'Tiếng TBN giữ mirar cho «nhìn»; tiếng Pháp chuyển sang regarder và chỉ giữ mirar trong miroir.' },
+  mit:    { la:'mittere', vi:'gửi đi, thả ra', fr:['met','mett','mis','miss'], es:['met','mit','mis'], en:'mission, permit, transmit, message' },
+  mod:    { la:'modus', vi:'cách thức, chừng mực', fr:['mod'], es:['mod'], en:'mode, model, modern, modest' },
+  mont:   { la:'mons, montis', vi:'núi', fr:['mont'], es:['mont','mont'], en:'mountain, mount, amount' },
+  mor:    { la:'mors, mortis', vi:'cái chết', fr:['mort','mour','meur'], es:['muert','mor','muer'], en:'mortal, mortgage' },
+  mov:    { la:'movere', vi:'chuyển động', fr:['mouv','meu','mot','mobil'], es:['mov','muev','mot','móvil','movil'], en:'move, motor, emotion, mobile' },
+  mut:    { la:'mutare', vi:'thay đổi', fr:['mu','mut'], es:['mud','mut'], en:'mutate, commute', note:'mudarse của tiếng TBN là «đổi chỗ ở» — đúng nghĩa gốc.' },
+  nasc:   { la:'nasci', vi:'sinh ra', fr:['naî','nai','nat','naiss'], es:['nac','nat'], en:'native, nature, nation, renaissance' },
+  nav:    { la:'navis', vi:'tàu thuyền', fr:['navir','nav'], es:['nav','nave'], en:'navy, navigate' },
+  neg:    { la:'negare', vi:'từ chối, nói không', fr:['ni','nég','neg'], es:['neg','nieg'], en:'negative, deny, renegade' },
+  nomin:  { la:'nomen', vi:'tên gọi', fr:['nom','nomm','nomin'], es:['nombr','nomin'], en:'nominate, noun, renown' },
+  nosc:   { la:'noscere', vi:'biết, nhận ra', fr:['connaiss','connaî','connai','conn','not'], es:['conozc','conoc','not','noti'], en:'recognize, notice, notion', note:'noticia (tin tức) chính là «thứ đáng biết».' },
+  nov:    { la:'novus', vi:'mới', fr:['neuf','neuv','nouv','nov'], es:['nuev','nov'], en:'novel, renovate, innovation' },
+  numer:  { la:'numerus', vi:'con số', fr:['nombr','numér','numer'], es:['númer','numer'], en:'number, numeral' },
+  ocul:   { la:'oculus', vi:'con mắt', fr:['œil','oeil','yeux','ocul'], es:['ojo','ocul','oj'], en:'ocular, monocle' },
+  oper:   { la:'opus, operis', vi:'công việc, tác phẩm', fr:['œuvr','oeuvr','ouvrier','ouvrag','opér','oper'], es:['obr','oper'], en:'opera, operate, cooperate' },
+  opt:    { la:'optare', vi:'chọn', fr:['opt'], es:['opt'], en:'option, adopt, optional' },
+  ord:    { la:'ordo, ordinis', vi:'trật tự, hàng lối', fr:['ordr','ordon','ordin'], es:['orden','ordin'], en:'order, ordinary, coordinate' },
+  orig:   { la:'oriri', vi:'mọc lên, bắt đầu', fr:['origin','orient'], es:['origen','origin','orient'], en:'origin, orient, abort' },
+  par1:   { la:'parare', vi:'sửa soạn, làm sẵn', fr:['par','pare','parei'], es:['par','parat','par'], en:'prepare, repair, apparatus' },
+  par2:   { la:'par', vi:'ngang nhau, đôi', fr:['pair','par'], es:['par'], en:'pair, compare, parity' },
+  part:   { la:'pars, partis', vi:'phần, chia phần', fr:['part','parti','partag'], es:['part','partid'], en:'part, depart, particular', note:'partir nghĩa gốc là «chia ra» — tách khỏi chỗ đang đứng, nên thành «ra đi».' },
+  pass:   { la:'passus, pati', vi:'bước đi; chịu đựng', fr:['pas','pass','passi','pati'], es:['pas','pasi','paci'], en:'pass, passion, patient' },
+  patr:   { la:'pater', vi:'cha', fr:['pèr','per','patr','patron'], es:['padr','patr','patrón','patron'], en:'paternal, patron, patriot' },
+  ped:    { la:'pes, pedis', vi:'bàn chân', fr:['pied','péd','ped'], es:['pie','peat','ped','pid'], en:'pedal, pedestrian, expedite', note:'impedir là «chặn chân» — in + pes.' },
+  pell:   { la:'pellere', vi:'đẩy', fr:['puls','pouss','pel'], es:['puls','pel','emp'], en:'impulse, expel, propel' },
+  pend:   { la:'pendere', vi:'treo, cân, trả', fr:['pend','pens','pendr'], es:['pend','pens','peso'], en:'pending, suspend, expensive', note:'pensar của tiếng TBN là «cân nhắc» — cân một ý trong đầu.' },
+  pet:    { la:'petere', vi:'nhắm tới, xin', fr:['pét','pet','pét','appét'], es:['pet','pit','apet'], en:'appetite, compete, repeat, petition' },
+  plac:   { la:'placere', vi:'làm vừa lòng', fr:['plai','plais','plaî'], es:['plac','place'], en:'please, pleasant, placid' },
+  plan:   { la:'planus', vi:'bằng phẳng', fr:['plan','plain'], es:['plan','llan'], en:'plain, plane, explain', note:'Tiếng TBN đổi pl- La-tinh thành ll-: planus → llano, plenus → lleno, pluvia → lluvia.' },
+  plen:   { la:'plenus', vi:'đầy', fr:['plein','plén','plen','plir','plit'], es:['llen','plen'], en:'plenty, complete, replenish' },
+  plic:   { la:'plicare', vi:'gấp, xếp lớp', fr:['pli','ploi','ploy','pliqu'], es:['pleg','plic','ple'], en:'apply, complicate, explain, employ' },
+  plor:   { la:'plorare', vi:'khóc', fr:['pleur','plor'], es:['llor','plor'], en:'deplore, implore' },
+  plu:    { la:'pluvia', vi:'mưa', fr:['plu','pleuv','pluv'], es:['lluv','llov','pluv'], en:'pluvial' },
+  pon:    { la:'ponere', vi:'đặt để', fr:['pos','pon'], es:['pon','posi','posit','puest','pues'], en:'position, compose, propose, deposit' },
+  popul:  { la:'populus', vi:'dân chúng', fr:['peupl','popul'], es:['puebl','popul'], en:'people, popular, population' },
+  port1:  { la:'portare', vi:'mang, chở', fr:['port'], es:['port'], en:'transport, import, portable' },
+  port2:  { la:'porta, portus', vi:'cửa, bến', fr:['oportun','opportun','port','portai'], es:['oportun','puert','port'], en:'portal, porch' },
+  pot:    { la:'posse, potere', vi:'có thể, quyền lực', fr:['pouv','peu','puiss','poss','possib','possibl','pot'], es:['pod','pued','posib','posibl','pot'], en:'power, possible, potent', note:'possible và posible thuộc gốc này (posse — có thể), không phải gốc ponere (đặt) tuy mặt chữ rất giống.' },
+  prehend:{ la:'prehendere', vi:'nắm bắt', fr:['prend','pren','pris','prehen'], es:['prend','pren','prendi','pris'], en:'apprehend, comprehend, prison', note:'Hiểu chính là «nắm được»: comprendre, comprender, comprehend.' },
+  press:  { la:'premere', vi:'ép, nén', fr:['press','imprim','exprim','oppress','prim'], es:['pres','imprim','exprim','oprim'], en:'press, express, impression' },
+  prim:   { la:'primus', vi:'đầu tiên', fr:['premi','prim','princ'], es:['prim','princ'], en:'primary, prince, principle', note:'printemps và primavera đều là «mùa đầu tiên».' },
+  priv:   { la:'privus', vi:'riêng, tách khỏi chung', fr:['priv'], es:['priv'], en:'private, deprive, privilege' },
+  prob:   { la:'probare', vi:'thử, chứng tỏ', fr:['prouv','preuv','prob','prouv'], es:['prob','prueb'], en:'prove, probe, approve' },
+  propri: { la:'proprius', vi:'của riêng', fr:['propr'], es:['propi','propr'], en:'proper, property, appropriate' },
+  public: { la:'publicus', vi:'thuộc về dân chúng', fr:['public','publi'], es:['públic','public'], en:'public, publish, republic' },
+  punct:  { la:'pungere', vi:'chích, chấm', fr:['point','ponct'], es:['punt','punz'], en:'point, punctual, puncture' },
+  put:    { la:'putare', vi:'tính toán, cân nhắc', fr:['compt','put','pute'], es:['cont','put','pute'], en:'compute, dispute, reputation', note:'compter và contar đều từ computare — đếm và kể chuyện chung một gốc.' },
+  quaer:  { la:'quaerere', vi:'tìm, hỏi', fr:['quêt','quet','quér','quer','quest','quis'], es:['quer','quier','quist','cuest','quisit'], en:'question, quest, require, acquire', note:'querer của tiếng TBN — muốn, yêu — nghĩa gốc là «đi tìm».' },
+  radic:  { la:'radix, radicis', vi:'rễ', fr:['racin','radic'], es:['raíz','raiz','radic'], en:'radical, radish, eradicate' },
+  rap:    { la:'rapere', vi:'giật lấy, nhanh', fr:['rapid','rap'], es:['rápid','rapid','rapt'], en:'rapid, rapture' },
+  rect:   { la:'regere, rectus', vi:'cai quản, thẳng', fr:['règl','regl','rect','droit','direc','rein','rég','reg'], es:['regl','rect','derech','direc','rein','reg','rig'], en:'rule, correct, direct, regime', note:'droit và derecho cùng từ directus: «thẳng» rồi thành «luật» và «quyền».' },
+  rid:    { la:'ridere', vi:'cười', fr:['ri','rir','ris'], es:['re','reí','rei','ris'], en:'ridicule, derision' },
+  rog:    { la:'rogare', vi:'hỏi, cầu xin', fr:['rog'], es:['rog','rueg'], en:'interrogate, arrogant' },
+  rump:   { la:'rumpere', vi:'làm vỡ', fr:['romp','rupt','rompr'], es:['romp','rupt','rot'], en:'rupture, interrupt, corrupt' },
+  sal:    { la:'salire', vi:'nhảy', fr:['saut','sail','sult'], es:['salt','sult','salir'], en:'salient, result, assault' },
+  salut:  { la:'salus, salvus', vi:'sức khoẻ, an toàn', fr:['salu','sauv','sauf','salv'], es:['salud','salv','salu'], en:'salute, save, salvage' },
+  sanguin:{ la:'sanguis', vi:'máu', fr:['sang','sangui'], es:['sangr','sangui'], en:'sanguine, consanguinity' },
+  sci:    { la:'scire', vi:'biết', fr:['sci','scien','consci'], es:['cienc','conci','sci'], en:'science, conscious' },
+  scrib:  { la:'scribere', vi:'viết', fr:['écri','ecri','écrit','ecrit','scri','scrip','scriv','script'], es:['escrib','escrit','scrib','scrip'], en:'script, describe, manuscript' },
+  sec:    { la:'secare', vi:'cắt', fr:['sect','segm','scie'], es:['sect','segm','seg'], en:'section, insect, segment' },
+  sed:    { la:'sedere', vi:'ngồi', fr:['sied','sièg','sieg','sid','sess','assoi','asse'], es:['sid','ses','asient','sedent'], en:'sedentary, president, session, reside', note:'Trong tiếng TBN, sentarse (ngồi) và sentir (cảm thấy) có thân trùng nhau — bảng này bỏ thân mơ hồ đó ra để không gán nhầm gốc.' },
+  sent:   { la:'sentire', vi:'cảm thấy', fr:['sent','sens','senti'], es:['sent','sient','sens'], en:'sense, sentiment, consent' },
+  sequ:   { la:'sequi', vi:'đi theo', fr:['sui','suiv','séqu','sequ','second'], es:['sigu','segu','sigo','secu','segund'], en:'sequence, consequence, second, pursue' },
+  serv1:  { la:'servire', vi:'phục vụ', fr:['servic','serv'], es:['servici','servic','serv','sirv'], en:'serve, service, servant' },
+  serv2:  { la:'servare', vi:'giữ gìn', fr:['serv','conserv','réserv','reserv','observ'], es:['serv','conserv','reserv','observ'], en:'preserve, observe, reserve' },
+  sign:   { la:'signum', vi:'dấu hiệu', fr:['sign','enseign','seign','dessin'], es:['sign','señal','senal','enseñ','ensen','diseñ','disen','reseñ'], en:'sign, design, signal', note:'enseigner và enseñar là «in + signare»: ghi dấu vào đầu người học.' },
+  simil:  { la:'similis', vi:'giống nhau', fr:['sembl','simil','simul'], es:['semej','simil','simul'], en:'similar, assemble, simulate' },
+  sol1:   { la:'solus', vi:'một mình', fr:['seul','sol','solit'], es:['sol','solit'], en:'sole, solitude, desolate' },
+  sol2:   { la:'sol', vi:'mặt trời', fr:['soleil','solair','sol'], es:['sol','solar'], en:'solar, parasol' },
+  solv:   { la:'solvere', vi:'cởi ra, giải quyết', fr:['soud','solu','solv','soudr'], es:['solv','soluc','suelv'], en:'solve, solution, absolve' },
+  somn:   { la:'somnus', vi:'giấc ngủ', fr:['somm','somn','song'], es:['sueñ','suen','somn'], en:'insomnia, somnolent' },
+  son:    { la:'sonus', vi:'âm thanh', fr:['son','sonn','sonor'], es:['son','sonid','sonor'], en:'sound, sonic, resonate' },
+  spec:   { la:'specere', vi:'nhìn, ngó', fr:['spect','spèc','spec','espèc','espec','soupçon'], es:['spect','espect','especi','espej','sospech'], en:'spectacle, inspect, species, suspect', note:'espejo là speculum — thứ để soi; sospechar là «nhìn từ dưới lên».' },
+  sper:   { la:'sperare', vi:'hy vọng', fr:['espér','esper','espoir','espér'], es:['esper','esperanz'], en:'prosper, desperate' },
+  spir:   { la:'spirare', vi:'thở', fr:['spir','espri','respir'], es:['spir','espírit','espirit','respir'], en:'spirit, respire, inspire' },
+  sta:    { la:'stare', vi:'đứng, đứng yên', fr:['stant','stanc','stat','stabl','sist','rest','état','etat','instan','constan'], es:['stant','stanc','est','estad','establ','sist','rest','instan','constan'], en:'stand, state, stable, resist', note:'estar của tiếng TBN chính là stare — đứng ở đâu, trong trạng thái nào.' },
+  string: { la:'stringere', vi:'siết chặt', fr:['strict','étroit','etroit','strein'], es:['estrict','estrech','string'], en:'strict, restrict, stringent' },
+  stru:   { la:'struere', vi:'xây dựng', fr:['stru','struct','struir'], es:['stru','struct','struir'], en:'structure, construct, destroy' },
+  sum:    { la:'sumere', vi:'lấy, nhận vào', fr:['consom','assum','présum','presum','résum','resum','sum'], es:['sum','sumir'], en:'consume, assume, resume' },
+  surg:   { la:'surgere', vi:'trỗi dậy', fr:['surg','sourc','ressourc'], es:['surg','surt','recurs'], en:'surge, resurrect, source' },
+  tang:   { la:'tangere', vi:'chạm', fr:['tact','tang','teind'], es:['tact','tang'], en:'contact, tangible, intact' },
+  temp:   { la:'tempus', vi:'thời gian, thời tiết', fr:['temp','tempêt','tempet'], es:['tiemp','temp','tempest'], en:'temporary, tempest, contemporary' },
+  ten:    { la:'tenere', vi:'giữ, nắm', fr:['ten','tien','tenu'], es:['ten','tien','tuv'], en:'tenant, contain, maintain, retain' },
+  tend:   { la:'tendere', vi:'căng ra, hướng tới', fr:['tend','tens','tent','attend','entend'], es:['tend','tens','tent','atend','entend'], en:'tend, extend, intend, attention', note:'entender của tiếng TBN là «căng đầu về phía» điều đang nghe.' },
+  term:   { la:'terminus', vi:'cột mốc, ranh giới', fr:['term','termin'], es:['términ','termin'], en:'term, terminate, determine' },
+  terr:   { la:'terra', vi:'đất', fr:['terr','enterr'], es:['tierr','terr','entierr'], en:'terrain, territory, inter' },
+  test:   { la:'testis', vi:'người làm chứng', fr:['témoi','temoi','test','attest','protest'], es:['testig','test','atestig','protest'], en:'testify, protest, attest' },
+  text:   { la:'texere', vi:'dệt', fr:['text','tissu','tiss'], es:['text','tej','tejid'], en:'text, textile, context', note:'Một bài viết chính là một tấm vải dệt bằng chữ.' },
+  tim:    { la:'timere', vi:'sợ', fr:['timid','craint'], es:['tem','tím','tim'], en:'timid, intimidate' },
+  tract:  { la:'trahere', vi:'kéo', fr:['trai','trait','tract','tir'], es:['tra','trat','tract','traig'], en:'attract, contract, extract, tractor' },
+  trad:   { la:'tradere', vi:'trao sang tay khác', fr:['trad','trahi','trahir'], es:['trad','traic','traicion'], en:'tradition, traitor, translate', note:'Cùng một hành động «trao sang»: trao kiến thức thì thành truyền thống, trao người của mình thì thành phản bội.' },
+  trib:   { la:'tribuere', vi:'chia cho', fr:['tribu'], es:['tribu'], en:'distribute, contribute, tribute' },
+  turb:   { la:'turba', vi:'đám đông hỗn loạn', fr:['troubl','turb','perturb'], es:['turb','disturb','perturb'], en:'disturb, turbulent, trouble' },
+  un:     { la:'unus', vi:'một', fr:['un','uni','uniqu'], es:['un','uni','únic','unic'], en:'unit, union, unique, unite' },
+  urb:    { la:'urbs', vi:'thành phố', fr:['urb'], es:['urb'], en:'urban, suburb' },
+  us:     { la:'uti, usus', vi:'dùng', fr:['us','util','usag'], es:['us','útil','util'], en:'use, utility, abuse' },
+  vac:    { la:'vacuus, vacare', vi:'trống, rỗi', fr:['vide','vac','vacanc'], es:['vací','vaci','vac','vacac'], en:'vacant, vacation, evacuate' },
+  val:    { la:'valere', vi:'có giá trị, khoẻ', fr:['val','vail','vaill'], es:['val','valg'], en:'value, valid, evaluate, prevail' },
+  ven:    { la:'venire', vi:'đến', fr:['ven','vien','venu','avenir'], es:['ven','vien','venid','porvenir'], en:'advent, convene, invent, adventure', note:'souvenir là «sub + venire» — từ dưới trồi lên: một kỷ niệm tự nổi lên trong đầu.' },
+  vend:   { la:'vendere', vi:'bán', fr:['vend','vent'], es:['vend','venta'], en:'vendor, vending' },
+  ver:    { la:'verus', vi:'thật', fr:['vrai','vér','vérit','vérif','verif'], es:['verdad','verdader','verif'], en:'verify, verdict, very' },
+  verb:   { la:'verbum', vi:'lời, từ', fr:['verb','proverb'], es:['verb','proverbi'], en:'verb, proverb, verbal' },
+  vert:   { la:'vertere', vi:'quay, xoay', fr:['vers','vert','virt','divers','avert'], es:['vers','vert','virt','divers','advert'], en:'convert, version, reverse, universe', note:'univers và universo là «quay về một mối»: unus + vertere.' },
+  vest:   { la:'vestis', vi:'áo quần', fr:['vêt','vet','vest'], es:['vest','vist'], en:'vest, invest, travesty' },
+  via:    { la:'via', vi:'đường đi', fr:['voie','voyag','dévi','devi','envoi','envoy'], es:['vía','via','viaj','enví','envi','desví','desvi'], en:'via, voyage, deviate, obvious', note:'envoyer và enviar là «đưa vào đường» — cho lên đường.' },
+  vinc:   { la:'vincere', vi:'thắng', fr:['vainc','vain','vict','convainc'], es:['venc','vict','convenc'], en:'victory, convince, invincible' },
+  vid:    { la:'videre', vi:'nhìn thấy', fr:['voi','voy','vu','vis','vid','évid','evid'], es:['ve','vis','evid'], en:'vision, visit, evident, provide' },
+  viv:    { la:'vivere', vi:'sống', fr:['viv','vie','vit'], es:['viv','vid','vit'], en:'vivid, survive, vital, revive' },
+  voc:    { la:'vocare, vox', vi:'gọi, giọng nói', fr:['voix','voc','vocab','avocat'], es:['voz','voc','vocab','abogad'], en:'vocal, vocabulary, invoke, advocate' },
+  vol:    { la:'velle', vi:'muốn', fr:['voul','veu','vol','volont'], es:['volunt','volunt'], en:'volunteer, voluntary, benevolent' },
+  volv:   { la:'volvere', vi:'cuộn, lăn', fr:['volumin','volum','volu','velopp','volv'], es:['volumin','volum','volv','vuelv','volu','arroll'], en:'revolve, evolve, envelope' },
+  vot:    { la:'votum', vi:'lời nguyện, lá phiếu', fr:['vot','vœu','voeu','dévou'], es:['vot','devot'], en:'vote, devote, votive' },
+  vulg:   { la:'vulgus', vi:'dân thường', fr:['vulg','divulg'], es:['vulg','divulg'], en:'vulgar, divulge' },
+
+  /* ---- Gốc Hy Lạp: vào hai tiếng qua đường khoa học, y học, nhà thờ ---- */
+  graph:  { la:'γράφειν', src:'gr', vi:'viết, vẽ', fr:['graph','gramm'], es:['graf','gram'], en:'graph, grammar, photograph' },
+  log:    { la:'λόγος', src:'gr', vi:'lời, lẽ, ngành học', fr:['log','logi'], es:['log','logí','logi'], en:'logic, dialogue, biology' },
+  metr:   { la:'μέτρον', src:'gr', vi:'đo lường', fr:['mètr','metr'], es:['metr','métr'], en:'metre, geometry, thermometer' },
+  phon:   { la:'φωνή', src:'gr', vi:'âm thanh, tiếng', fr:['phon','phoni'], es:['fon','foní','foni'], en:'phone, symphony, phonetic' },
+  photo:  { la:'φῶς, φωτός', src:'gr', vi:'ánh sáng', fr:['phot'], es:['fot'], en:'photo, photograph' },
+  psych:  { la:'ψυχή', src:'gr', vi:'tâm hồn', fr:['psych'], es:['psic','sic'], en:'psychology, psyche' },
+  techn:  { la:'τέχνη', src:'gr', vi:'kỹ nghệ, tay nghề', fr:['techn'], es:['técnic','tecn'], en:'technique, technology' },
+  therm:  { la:'θερμός', src:'gr', vi:'nóng', fr:['therm'], es:['term'], en:'thermos, thermal' },
+  bio:    { la:'βίος', src:'gr', vi:'sự sống', fr:['bio'], es:['bio'], en:'biology, biography' },
+  geo:    { la:'γῆ', src:'gr', vi:'đất, trái đất', fr:['géo','geo'], es:['geo','geó'], en:'geography, geology' },
+  crat:   { la:'κράτος', src:'gr', vi:'quyền lực', fr:['crat','cratie'], es:['crat','cracia'], en:'democracy, bureaucrat' },
+  dem:    { la:'δῆμος', src:'gr', vi:'dân', fr:['démo','demo'], es:['demo'], en:'democracy, epidemic' },
+  chron:  { la:'χρόνος', src:'gr', vi:'thời gian', fr:['chron'], es:['cron','crón'], en:'chronology, chronic' },
+  path:   { la:'πάθος', src:'gr', vi:'cảm xúc, bệnh', fr:['path'], es:['pát','patolog'], en:'sympathy, pathology' },
+  scop:   { la:'σκοπεῖν', src:'gr', vi:'nhìn, xem xét', fr:['scop'], es:['scop','scóp'], en:'telescope, microscope' },
+
+  /* ---- Gốc Ả Rập: vào tiếng Tây Ban Nha tám thế kỷ Al-Andalus,
+     rồi một phần sang tiếng Pháp. Đây là lý do rất nhiều từ TBN
+     thông dụng bắt đầu bằng al- — đó chính là mạo từ tiếng Ả Rập
+     dính luôn vào từ. ---- */
+azucar: { la:'as-sukkar', src:'ar', vi:'đường (gia vị)', fr:['sucr'], es:['azúcar','azucar','azucar'], en:'sugar' },
+aceit:  { la:'az-zayt', src:'ar', vi:'dầu ô liu', fr:['huil'], es:['aceit'], en:'olive oil', note:'Tiếng Pháp lấy oleum của La-tinh (huile), tiếng TBN lấy az-zayt của Ả Rập.' },
+alcohol:{ la:'al-kuḥl', src:'ar', vi:'rượu cồn', fr:['alcool','alcoo'], es:['alcohol','alcoh'], en:'alcohol' },
+algod:  { la:'al-quṭn', src:'ar', vi:'bông', fr:['coton'], es:['algod'], en:'cotton' },
+arroz:  { la:'ar-ruzz', src:'ar', vi:'gạo', fr:['riz'], es:['arroz','arroc'], en:'rice' },
+barri:  { la:'barrī', src:'ar', vi:'khu phố ngoài thành', fr:['quarti'], es:['barri'], en:'barrio' },
+naranj: { la:'nāranj', src:'ar', vi:'quả cam', fr:['orang'], es:['naranj'], en:'orange' },
+ojala:  { la:'law šāʾ allāh', src:'ar', vi:'ước gì, mong sao', es:['ojalá','ojala'], fr:[], en:'inshallah', note:'Nghĩa đen là «nếu Chúa muốn thế». Giờ chỉ còn là một từ để ước, không còn nghĩa tôn giáo.' },
+alcald: { la:'al-qāḍī', src:'ar', vi:'thị trưởng', fr:['mair'], es:['alcald'], en:'mayor (alcalde)' },
+alfombr:{ la:'al-ḫumra', src:'ar', vi:'tấm thảm', fr:['tapis'], es:['alfombr'], en:'carpet' },
+alm:    { la:'al-miḫadda', src:'ar', vi:'cái gối', fr:['oreill'], es:['almohad'], en:'pillow' },
+
+  /* ---- Gốc German: người Frank ở phía bắc và người Goth ở Tây Ban Nha
+     để lại một lớp từ rất thông dụng. Chúng không tách được theo
+     kiểu La-tinh, nên biết chúng là gốc German cũng là biết vì sao
+     không nên cố tìm gốc La-tinh ở đó. ---- */
+guerr:  { la:'*werra', src:'germ', vi:'chiến tranh', fr:['guerr'], es:['guerr'], en:'war', note:'Tiếng Anh lấy chữ war từ cùng gốc này qua tiếng Pháp Norman.' },
+blank:  { la:'*blank', src:'germ', vi:'trắng', fr:['blanc','blanch'], es:['blanc','blanqu'], en:'blank, blanch' },
+gard:   { la:'*wardōn', src:'germ', vi:'trông coi, giữ', fr:['gard'], es:['guard'], en:'guard, ward, regard' },
+gan:    { la:'*waidanjan', src:'germ', vi:'kiếm được, thắng', fr:['gagn'], es:['gan'], en:'gain' },
+rich:   { la:'*rīkja', src:'germ', vi:'giàu, có thế lực', fr:['rich'], es:['ric','riqu'], en:'rich, realm' },
+jard:   { la:'*gardo', src:'germ', vi:'vườn rào', fr:['jard'], es:['jard'], en:'garden, yard' },
+choi:   { la:'*kausjan', src:'germ', vi:'chọn, nếm thử', fr:['chois','choix'], es:[], en:'choose' },
+danz:   { la:'*dansōn', src:'germ', vi:'nhảy múa', fr:['dans'], es:['danz','baila'], en:'dance' },
+hont:   { la:'*haunitha', src:'germ', vi:'sự xấu hổ', fr:['hont'], es:[], en:'shame' },
+bleu:   { la:'*blao', src:'germ', vi:'màu xanh lam', fr:['bleu'], es:['azul'], en:'blue', note:'Tiếng TBN không lấy từ German mà lấy azul của Ba Tư qua Ả Rập — nên hai tiếng khác hẳn nhau ở đúng một màu này.' }
+},
+
+/* ---------------- BẠN GIẢ ----------------
+   Từ nhìn quen mà nghĩa lệch. Ba nguồn bẫy, xếp theo mức nguy hiểm:
+
+   1. Giữa chính hai tiếng này — nguy nhất, vì mặt chữ gần như trùng.
+      «salir» ở Pháp là làm bẩn, ở Tây Ban Nha là đi ra.
+   2. Với tiếng Anh — người Việt học tiếng Anh trước nên rất dễ mắc.
+   3. Với tiếng Việt qua đường phiên âm.
+
+   Mục từ nào có tên ở đây thì hiện một dòng cảnh báo. */
+ff: {
+  fr: {
+    'salir':      { vi:'làm bẩn', warn:'Tiếng Tây Ban Nha «salir» lại là ĐI RA. Muốn nói đi ra trong tiếng Pháp thì dùng «sortir».' },
+    'entendre':   { vi:'nghe thấy', warn:'Tiếng Tây Ban Nha «entender» là HIỂU. Hai việc khác nhau: nghe được chưa chắc đã hiểu.' },
+    'rester':     { vi:'ở lại', warn:'Tiếng Tây Ban Nha «restar» là TRỪ ĐI (phép toán). Nghỉ ngơi trong tiếng Pháp là «se reposer».' },
+    'quitter':    { vi:'rời khỏi', warn:'Tiếng Tây Ban Nha «quitar» là LẤY ĐI, BỎ RA — không phải rời đi.' },
+    'large':      { vi:'rộng', warn:'Tiếng Tây Ban Nha «largo» là DÀI, không phải rộng. Rộng trong tiếng Tây Ban Nha là «ancho».' },
+    'subir':      { vi:'chịu đựng, hứng lấy', warn:'Tiếng Tây Ban Nha «subir» là ĐI LÊN. Nghĩa gần như ngược nhau.' },
+    'demander':   { vi:'hỏi, yêu cầu', warn:'Tiếng Tây Ban Nha «demandar» là KIỆN RA TOÀ. Hỏi là «preguntar».' },
+    'attendre':   { vi:'chờ đợi', warn:'Tiếng Tây Ban Nha «atender» là TIẾP, PHỤC VỤ. Chờ là «esperar». Tiếng Anh «attend» lại là dự — ba đường ba nghĩa.' },
+    'constipé':   { vi:'táo bón', warn:'Tiếng Tây Ban Nha «constipado» là BỊ CẢM LẠNH. Nói nhầm ở hiệu thuốc thì phiền to.' },
+    'actuellement':{ vi:'hiện nay', warn:'Không phải «actually» của tiếng Anh. «Thật ra» là «en fait».' },
+    'éventuellement':{ vi:'nếu cần thì', warn:'Không phải «eventually». «Cuối cùng» là «finalement».' },
+    'librairie':  { vi:'hiệu sách', warn:'Không phải thư viện. Thư viện là «bibliothèque».' },
+    'monnaie':    { vi:'tiền lẻ, tiền thối', warn:'Không phải tiền nói chung. Tiền là «argent».' },
+    'journée':    { vi:'cả ngày', warn:'Không phải chuyến đi. Chuyến đi là «voyage».' },
+    'sensible':   { vi:'nhạy cảm', warn:'Không phải «hợp lý». Hợp lý là «raisonnable».' },
+    'prétendre':  { vi:'cho rằng, tự nhận', warn:'Không phải giả vờ. Giả vờ là «faire semblant».' },
+    'déception':  { vi:'sự thất vọng', warn:'Không phải lừa dối. Lừa dối là «tromperie».' },
+    'blesser':    { vi:'làm bị thương', warn:'Không phải ban phước. Ban phước là «bénir».' },
+    'pain':       { vi:'bánh mì', warn:'Không phải nỗi đau. Đau là «douleur».' },
+    'raisin':     { vi:'quả nho tươi', warn:'Nho khô mới là «raisin sec».' }
+  },
+  es: {
+    'salir':      { vi:'đi ra', warn:'Tiếng Pháp «salir» lại là LÀM BẨN. Cùng mặt chữ, hai việc chẳng liên quan.' },
+    'entender':   { vi:'hiểu', warn:'Tiếng Pháp «entendre» là NGHE THẤY. Nghe được chưa chắc đã hiểu.' },
+    'restar':     { vi:'trừ đi', warn:'Tiếng Pháp «rester» là Ở LẠI. Ở lại trong tiếng Tây Ban Nha là «quedarse».' },
+    'quitar':     { vi:'lấy đi, bỏ ra', warn:'Tiếng Pháp «quitter» là RỜI KHỎI. Rời khỏi ở đây là «irse».' },
+    'largo':      { vi:'dài', warn:'Tiếng Pháp «large» là RỘNG. Rộng ở đây là «ancho».' },
+    'subir':      { vi:'đi lên', warn:'Tiếng Pháp «subir» là CHỊU ĐỰNG. Nghĩa gần như ngược nhau.' },
+    'demandar':   { vi:'kiện ra toà', warn:'Tiếng Pháp «demander» chỉ là HỎI. Hỏi ở đây là «preguntar».' },
+    'atender':    { vi:'tiếp, phục vụ, chăm', warn:'Tiếng Pháp «attendre» là CHỜ. Chờ ở đây là «esperar».' },
+    'constipado': { vi:'bị cảm lạnh', warn:'Tiếng Pháp «constipé» là TÁO BÓN. Nói nhầm ở hiệu thuốc thì phiền to.' },
+    'embarazada': { vi:'có thai', warn:'Không phải «embarrassed» của tiếng Anh. Ngượng là «avergonzada».' },
+    'éxito':      { vi:'thành công', warn:'Không phải lối ra. Lối ra là «salida».' },
+    'suceso':     { vi:'vụ việc xảy ra', warn:'Không phải thành công. Thành công là «éxito».' },
+    'realizar':   { vi:'thực hiện', warn:'Không phải «nhận ra». Nhận ra là «darse cuenta».' },
+    'recordar':   { vi:'nhớ, nhắc nhớ', warn:'Không phải ghi âm. Ghi âm là «grabar».' },
+    'ropa':       { vi:'quần áo', warn:'Không phải dây thừng. Dây là «cuerda».' },
+    'sopa':       { vi:'món xúp', warn:'Không phải xà phòng. Xà phòng là «jabón».' },
+    'fábrica':    { vi:'nhà máy', warn:'Không phải vải. Vải là «tela».' },
+    'librería':   { vi:'hiệu sách', warn:'Không phải thư viện. Thư viện là «biblioteca».' },
+    'sensible':   { vi:'nhạy cảm', warn:'Không phải «hợp lý». Hợp lý là «sensato».' },
+    'pretender':  { vi:'toan tính, định làm', warn:'Không phải giả vờ. Giả vờ là «fingir».' },
+    'molestar':   { vi:'làm phiền', warn:'Chỉ là làm phiền thôi — không mang nghĩa nặng như «molest» trong tiếng Anh.' },
+    'introducir': { vi:'đưa vào, nhét vào', warn:'Giới thiệu người thì dùng «presentar», không dùng từ này.' },
+    'discutir':   { vi:'tranh cãi', warn:'Nặng hơn «discuss» của tiếng Anh: thường là cãi nhau chứ không phải bàn bạc.' },
+    'carpeta':    { vi:'cặp đựng hồ sơ', warn:'Không phải thảm. Thảm là «alfombra».' }
+  }
+}
+};
+
+
+/* Những từ mà mặt chữ gợi một gốc, còn lịch sử thật lại đi đường khác.
+   Chặn hẳn còn hơn để bộ khớp tự tin dạy sai: «potage» là cái nồi của
+   tiếng German chứ không phải posse, «empate» không dính gì tới πάθος. */
+const LAT_NO_SPLIT = {
+  fr: ['rhume','abonnement','abonner','potage','autonome','entretien','entreprise','apercevoir','personne','parfum','pourtant','souvent','toujours','sondage','carrefour','trottoir'],
+  es: ['mientras','empate','empatar','acontecimiento','acontecer','reciente','recientemente','apenas','alrededor','entonces','tampoco','siquiera','despacho','bocadillo','carretera']
+};
+
+/* ============================================================
+   BỘ PHÂN TÍCH
+   ------------------------------------------------------------
+   Nguyên tắc: chỉ trả kết quả khi PHỦ KÍN được cả từ bằng
+   tiền tố + gốc + hậu tố có thật trong bảng. Không phủ kín
+   được thì trả null, và mục từ sẽ không hiện phần cấu tạo.
+   Thà im lặng còn hơn dạy người học một gốc không tồn tại.
+   ============================================================ */
+(function(){
+  const R = LAT_ROOTS;
+  /* œ và æ phải thành oe/ae TRƯỚC khi bỏ dấu; nếu không «cœur» teo lại
+     thành «cur» rồi bị nhận nhầm sang gốc cura. */
+  const norm = s => String(s || '').toLowerCase()
+    .replace(/\u0153/g, 'oe').replace(/\u00e6/g, 'ae')
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z]/g, '');
+
+  /* Bảng tra ngược: dạng viết của gốc → khoá gốc. Dựng một lần. */
+  const STEM = { fr:null, es:null };
+  function stems(id){
+    if (STEM[id]) return STEM[id];
+    const m = new Map();
+    for (const k of Object.keys(R.roots)){
+      for (const s of (R.roots[k][id] || [])){
+        const n = norm(s);
+        if (n.length < 3) continue;
+        /* Một thân có thể thuộc hai gốc khác hẳn nhau — «bell» vừa là
+           bellus (đẹp) vừa là bellum (chiến tranh), «sol» vừa là solus
+           (một mình) vừa là sol (mặt trời). Giữ cả danh sách rồi để mục
+           từ nói rõ là có hai khả năng, chứ không tự chọn một cái. */
+        if (!m.has(n)) m.set(n, [k]);
+        else if (m.get(n).indexOf(k) < 0) m.get(n).push(k);
+      }
+    }
+    /* Dài trước ngắn sau: «escrit» phải thắng «escrib» khi cả hai cùng khớp. */
+    STEM[id] = { map:m, list:Array.from(m.keys()).sort((a, b) => b.length - a.length) };
+    return STEM[id];
+  }
+
+  /* Các tiền tố / hậu tố có thể áp cho từ này, dài trước ngắn sau. */
+  function preList(w){
+    const out = [];
+    for (const k of Object.keys(R.pre)){
+      for (const f of R.pre[k].f){
+        const n = norm(f);
+        if (n && w.startsWith(n) && w.length - n.length >= 3) out.push({ k, n });
+      }
+    }
+    return out.sort((a, b) => b.n.length - a.n.length);
+  }
+  function sufList(id, w){
+    const out = [];
+    for (const k of Object.keys(R.suf)){
+      const arr = R.suf[k][id] || [];
+      for (const f of arr){
+        const n = norm(f);
+        /* Hậu tố một chữ cái thì vô dụng: «é» bỏ dấu thành «e», mà chữ e
+           đứng cuối thì từ nào chẳng có. Nhận nó vào là mọi phép tách đều
+           lệch đi một nấc. */
+        if (n && n.length >= 2 && w.endsWith(n) && w.length - n.length >= 3) out.push({ k, n });
+      }
+    }
+    return out.sort((a, b) => b.n.length - a.n.length);
+  }
+
+  /* Khớp phần giữa. Cho thừa tối đa 2 chữ cái — đó là nguyên âm nối
+     hoặc đuôi thân động từ, không đủ để thành một hình vị riêng. */
+  function oneRoot(id, mid){
+    if (mid.length < 3) return null;
+    const S = stems(id);
+    if (S.map.has(mid)){ const ks = S.map.get(mid); return { key:ks[0], alt:ks.slice(1), stem:mid, extra:'' }; }
+    for (const s of S.list){
+      if (s.length >= 3 && mid.startsWith(s) && mid.length - s.length <= 2){
+        const ks = S.map.get(s);
+        return { key:ks[0], alt:ks.slice(1), stem:s, extra:mid.slice(s.length) };
+      }
+    }
+    return null;
+  }
+
+  /* Từ ghép hai gốc: maintenir = manus + tenere, manuscrit = manus +
+     scribere. Không đỡ trường hợp này thì cả một lớp từ rất hay bị
+     bỏ trắng, mà đây lại đúng là chỗ người học thích nhất. */
+  function matchMid(id, mid){
+    const one = oneRoot(id, mid);
+    if (one && !one.extra) return { roots:[one], extra:'' };
+    const S = stems(id);
+    for (let i = mid.length - 3; i >= 3; i--){
+      const head = mid.slice(0, i);
+      if (!S.map.has(head)) continue;
+      const tail = oneRoot(id, mid.slice(i));
+      if (tail && tail.extra.length <= 1)
+        return { roots:[{ key:S.map.get(head)[0], alt:S.map.get(head).slice(1), stem:head, extra:'' }, tail], extra:tail.extra };
+    }
+    return one ? { roots:[one], extra:one.extra } : null;
+  }
+
+  /* Trả về { pre:[], roots:[…], suf:[] } hoặc null. */
+  function analyze(id, word){
+    const w = norm(word);
+    if (w.length < 4) return null;
+    const raw = String(word).toLowerCase().trim();
+    if ((LAT_NO_SPLIT[id] || []).some(x => x === raw || norm(x) === w)) return null;
+    if (String(word).indexOf(' ') >= 0) return null;   /* cụm từ thì không tách */
+
+    const PS = [{ k:null, n:'' }].concat(preList(w));
+    const SS = [{ k:null, n:'' }].concat(sufList(id, w));
+    let best = null;
+
+    for (const p of PS){
+      const afterPre = w.slice(p.n.length);
+      const PS2 = [{ k:null, n:'' }].concat(
+        p.k ? preList(afterPre).filter(x => x.n.length + 3 <= afterPre.length) : []);
+      for (const p2 of PS2){
+        const mid0 = afterPre.slice(p2.n.length);
+        for (const s of SS){
+          if (s.n.length >= mid0.length) continue;
+          const mid = mid0.slice(0, mid0.length - s.n.length);
+          const hit = matchMid(id, mid);
+          if (!hit) continue;
+          const stemLen = hit.roots.reduce((a, r) => a + r.stem.length, 0);
+          /* Phần «extra» là chữ không hình vị nào giải thích được, nên phạt
+             nặng nhất. Hậu tố dài được thưởng, nếu không thì «inscription»
+             bị cắt thành in-script-i-on thay vì in-scrip-tion. */
+          /* Ghép hai gốc là chuyện có thật (maintenir = manus + tenere) nhưng
+             hiếm, nên phải trả giá: không phạt thì «chercher» bị bẻ thành
+             cher + cher và «oportunidad» thành port + uni. */
+          const score = stemLen * 10 + s.n.length * 6 + p.n.length * 4
+                      - hit.extra.length * 8 - (p2.k ? 2 : 0)
+                      - (hit.roots.length - 1) * 14;
+          if (!best || score > best.score)
+            best = { score, pre:[p, p2].filter(x => x.k), hit, suf:s.k ? [s] : [] };
+        }
+      }
+    }
+    if (!best) return null;
+    const mk = r => Object.assign({ id:r.key, form:r.stem, extra:r.extra || '',
+      alt:(r.alt || []).map(k => Object.assign({ id:k }, R.roots[k])) }, R.roots[r.key]);
+    /* Chiều dài từng mảnh theo thứ tự trái sang phải, tính trên chuỗi ĐÃ bỏ
+       dấu. Giao diện dùng nó để cắt lại từ chuỗi CÒN dấu — không thì mục từ
+       bày ra «ecri» trong khi từ thật là «écri», trông như lỗi chính tả. */
+    const lens = best.pre.map(x => x.n.length)
+      .concat(best.hit.roots.map((r, i) => r.stem.length + (i === best.hit.roots.length - 1 ? (r.extra || '').length : 0)))
+      .concat(best.suf.map(x => x.n.length));
+    return {
+      pre:  best.pre.map(x => ({ id:x.k, form:x.n, vi:R.pre[x.k].vi, la:R.pre[x.k].la, src:R.pre[x.k].src || 'la', note:R.pre[x.k].note })),
+      lens,
+      root: mk(best.hit.roots[0]),
+      roots: best.hit.roots.map(mk),
+      suf:  best.suf.map(x => ({ id:x.k, form:x.n, vi:R.suf[x.k].vi, pos:R.suf[x.k].pos, g:R.suf[x.k].g, note:R.suf[x.k].note }))
+    };
+  }
+
+  function falseFriend(id, word){
+    const t = String(word || '').toLowerCase().trim();
+    const tbl = (R.ff && R.ff[id]) || {};
+    if (tbl[t]) return tbl[t];
+    const n = norm(t);
+    for (const k of Object.keys(tbl)) if (norm(k) === n) return tbl[k];
+    return null;
+  }
+
+  /* Cắt chuỗi gốc (còn dấu) theo các độ dài đo trên chuỗi đã bỏ dấu.
+     Một chữ có dấu vẫn là một chữ sau khi bỏ dấu, nhưng œ thành hai — nên
+     phải đi từng chữ mà đếm chứ không cắt thẳng theo chỉ số. */
+  function segments(word, lens){
+    const raw = String(word || '');
+    const out = []; let i = 0, need = 0, k = 0, buf = '';
+    for (const ch of raw){
+      const n = norm(ch).length;
+      if (n === 0){ buf += ch; continue; }          /* dấu nháy, gạch nối */
+      while (k < lens.length && need === 0){ need = lens[k]; if (need === 0) { out.push(''); k++; } }
+      if (k >= lens.length){ buf += ch; continue; }
+      buf += ch; need -= n;
+      if (need <= 0){ out.push(buf); buf = ''; need = 0; k++; }
+    }
+    if (buf) { if (out.length) out[out.length - 1] += buf; else out.push(buf); }
+    while (out.length < lens.length) out.push('');
+    return out;
+  }
+
+  R.segments = segments;
+  R.norm = norm;
+  R.analyze = analyze;
+  R.falseFriend = falseFriend;
+  R.rootOf = (id, w) => { const a = analyze(id, w); return a ? a.root.id : null; };
+})();
+
+if (typeof module !== 'undefined') module.exports = { LAT_ROOTS };
 
 </script>
 <script>
@@ -73433,8 +74278,19 @@ function render(){
     b.setAttribute('aria-current', on ? 'page' : 'false');
   });
   const tq = $('#topq');
-  const tqLang = isRd ? rdLang() : isSh ? shLang() : isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : isEn ? 'en' : 'ko';
-  if (tq) tq.placeholder = (tqLang === 'zh') ? 'Tra nhanh tiếng Trung (chữ Hán / pinyin / nghĩa)…' : (tqLang === 'ru') ? 'Tra nhanh tiếng Nga (không cần dấu trọng âm)…' : (tqLang === 'ja') ? 'Tra nhanh tiếng Nhật (kana / kanji / romaji / nghĩa)…' : (tqLang === 'en') ? 'Tra nhanh tiếng Anh (từ / phiên âm / nghĩa)…' : state.view === 'about' ? 'Tra nhanh: 한국어 · 中文 · русский · tiếng Việt…' : 'Tra nhanh tiếng Hàn (Hangul / romaja / nghĩa)…';
+  const tqLang = isRd ? rdLang() : isSh ? shLang() : isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : isEn ? 'en'
+               : isFr ? 'fr' : isEs ? 'es' : 'ko';
+  const TQ_PH = {
+    zh:'Tra nhanh tiếng Trung (chữ Hán / pinyin / nghĩa)…',
+    ru:'Tra nhanh tiếng Nga (không cần dấu trọng âm)…',
+    ja:'Tra nhanh tiếng Nhật (kana / kanji / romaji / nghĩa)…',
+    en:'Tra nhanh tiếng Anh (từ / phiên âm / nghĩa)…',
+    fr:'Tra nhanh tiếng Pháp (từ / dạng đã chia / nghĩa)…',
+    es:'Tra nhanh tiếng Tây Ban Nha (từ / dạng đã chia / nghĩa)…',
+    ko:'Tra nhanh tiếng Hàn (Hangul / romaja / nghĩa)…'
+  };
+  if (tq) tq.placeholder = state.view === 'about' ? 'Tra nhanh: 한국어 · 中文 · русский · tiếng Việt…'
+                         : (TQ_PH[tqLang] || TQ_PH.ko);
   $$('.nav-drop.open').forEach(d => {
     d.classList.remove('open');
     const bb = d.querySelector('.nav-drop-btn'); if (bb) bb.setAttribute('aria-expanded', 'false');
@@ -78177,6 +79033,76 @@ function latForms(id){
   return m;
 }
 
+/* ---------------- VÍ DỤ THẬT LẤY TỪ CHÍNH KHOÁ HỌC ----------------
+   Mục từ mà chỉ có nghĩa thì người học vẫn không biết đặt câu thế nào.
+   Khoá đã có sẵn hàng nghìn câu — câu ví dụ của điểm ngữ pháp, câu của
+   cụm từ, lượt hội thoại — nên chỉ việc soi ngược: câu nào chứa từ này
+   thì gắn vào mục từ ấy. Soi qua bảng dạng biến đổi nên «allé» trong
+   một câu vẫn về đúng mục «aller».
+
+   Ưu tiên cụm từ trước, vì cụm cho thấy từ này hay đi với từ nào; rồi
+   tới câu ngữ pháp; cuối cùng mới tới hội thoại. */
+const _latEx = {};
+function latExamples(id){
+  if (_latEx[id]) return _latEx[id];
+  const F = latForms(id), L = latLookup(id), out = {};
+  const add = (key, ex) => {
+    if (!L[key]) return;
+    const a = (out[key] = out[key] || []);
+    if (a.length >= 8 || a.some(x => x.t === ex.t)) return;
+    a.push(ex);
+  };
+  /* Một câu có thể nhắc tới nhiều từ trong khoá; gắn cho mọi từ nó chứa. */
+  const scan = (text, vi, tag, rank) => {
+    const t = String(text || '');
+    if (!t) return;
+    const seen = {};
+    t.toLowerCase().split(/[^a-zà-ÿœæ'’-]+/).forEach(tok => {
+      const w = tok.replace(/^[''’-]+|[''’-]+$/g, '');
+      if (!w || w.length < 2 || seen[w]) return;
+      seen[w] = 1;
+      const keys = L[w] ? [w] : (F[w] || []);
+      keys.slice(0, 2).forEach(k => add(k, { t, vi, tag, rank }));
+    });
+  };
+  /* Mục từ nhiều chữ («à ce moment-là», «hacer falta») không bao giờ trúng
+     khi soi theo từng chữ một, nên phải dò thẳng cả cụm trong câu. Bỏ bước
+     này thì một phần tư số mục từ không có ví dụ nào. */
+  const phrases = Object.keys(L).filter(k => k.indexOf(' ') > 0 || k.indexOf('’') > 0);
+  const scanPhrase = (text, vi, tag, rank) => {
+    const low = String(text || '').toLowerCase().replace(/’/g, "'");
+    if (!low) return;
+    phrases.forEach(k => { if (low.indexOf(k.replace(/’/g, "'")) >= 0) add(k, { t:text, vi, tag, rank }); });
+  };
+  latCfg(id).course.lessons.forEach(l => {
+    (l.colloc || []).forEach(c => { scan(c.ex, c.vi, 'Cụm «' + c.p + '»', 0); scanPhrase(c.ex, c.vi, 'Cụm «' + c.p + '»', 0); });
+    (l.grammar || []).forEach(g => { if (g.ex){ scan(g.ex[id], g.ex.vi, g.form, 1); scanPhrase(g.ex[id], g.ex.vi, g.form, 1); } });
+    (l.dialogue || []).forEach(d => { scan(d[id], d.vi, 'Hội thoại bài ' + l.no, 2); scanPhrase(d[id], d.vi, 'Hội thoại bài ' + l.no, 2); });
+  });
+  Object.keys(out).forEach(k => out[k].sort((a, b) => a.rank - b.rank));
+  _latEx[id] = out;
+  return out;
+}
+
+/* ---------------- HỌ TỪ THEO GỐC LA-TINH ----------------
+   Chạy bộ phân tích một lượt trên toàn bộ mục từ rồi gom theo gốc.
+   Nhờ vậy «từ cùng gốc» không phải bảng chép tay — thêm bài mới là
+   danh sách tự lớn theo. */
+const _latFam = {};
+function latFamily(id){
+  if (_latFam[id]) return _latFam[id];
+  const R = (typeof LAT_ROOTS !== 'undefined') ? LAT_ROOTS : null;
+  const L = latLookup(id), fam = {}, of = {};
+  if (R) Object.keys(L).forEach(k => {
+    const a = R.analyze(id, L[k][id] || k);
+    if (!a) return;
+    of[k] = a;
+    a.roots.forEach(r => { (fam[r.id] = fam[r.id] || []); if (fam[r.id].indexOf(k) < 0) fam[r.id].push(k); });
+  });
+  _latFam[id] = { fam, of };
+  return _latFam[id];
+}
+
 /* Tra một chuỗi bất kỳ: trả về {key, via} — via là dạng người dùng đã gõ
    khi nó không phải dạng từ điển. Không có thì trả null, KHÔNG đoán. */
 function latResolve(id, raw){
@@ -78357,11 +79283,104 @@ function latEntryHTML(id, key, via){
     <div class="zh-entry-vi">${esc(cur.vi)}</div>
     ${cur.pos ? `<div class="zh-entry-meta">${esc(cur.pos)}</div>` : ''}
     ${cur.note ? `<p class="zh-gram-note">${esc(cur.note)}</p>` : ''}
-    ${isVerb ? latConjHTML(id, M.stripLead(id, cur[id] || key)) : latAgreeHTML(id, cur, key)}
+    ${latFalseFriendHTML(id, cur[id] || key)}
     <div class="zh-entry-refs">${cur.refs && cur.refs.length
       ? cur.refs.map(r => `<button class="zh-ref" data-lat-lesson="${id}:${r.no}">Bài ${r.no}</button>`).join(' ')
       : `<span class="zh-dict-tag">Từ của bài đọc${cur.from ? ' «' + esc(cur.from) + '»' : ''} — chưa nằm trong bài học nào</span>`}</div>
+    ${latExHTML(id, key)}
+    ${isVerb ? latConjHTML(id, M.stripLead(id, cur[id] || key)) : latAgreeHTML(id, cur, key)}
+    ${latMorphHTML(id, key, cur)}
   </div>`;
+}
+
+/* ---- Bạn giả: cảnh báo ngay dưới nghĩa, vì đọc xong nghĩa là người ta
+   đóng mục từ lại. Để xuống cuối thì không ai thấy. ---- */
+function latFalseFriendHTML(id, word){
+  const R = (typeof LAT_ROOTS !== 'undefined') ? LAT_ROOTS : null;
+  const ff = R && R.falseFriend ? R.falseFriend(id, word) : null;
+  if (!ff) return '';
+  return `<div class="lat-ff"><b>Bạn giả</b> ${esc(ff.warn)}</div>`;
+}
+
+/* ---- Ví dụ trong câu ---- */
+function latExHTML(id, key){
+  const ex = (latExamples(id)[key] || []).slice(0, 4);
+  if (!ex.length) return '';
+  return `
+  <section class="zh-entry-sec">
+    <h3>Dùng trong câu</h3>
+    <ol class="lat-ex">${ex.map(x => `
+      <li>
+        <div class="lat-ex-t"><span class="${id}">${latTokens(x.t, id)}</span> ${latSpeakBtn(x.t, id, 'icon-btn mini')}</div>
+        ${x.vi ? `<div class="lat-ex-vi">${esc(x.vi)}</div>` : ''}
+        <div class="lat-ex-tag">${esc(x.tag)}</div>
+      </li>`).join('')}</ol>
+  </section>`;
+}
+
+/* ---- Cấu tạo từ và họ từ ----
+   Đây là phần thay cho «cấu tạo từ» của tiếng Trung. Chữ Hán tách thành
+   từng chữ; từ La-tinh tách thành tiền tố + gốc + hậu tố. Và vì Pháp với
+   Tây Ban Nha dùng chung kho gốc, mục từ nối luôn sang tiếng kia — học
+   một gốc là mở được hai cột từ vựng cùng lúc. */
+function latMorphHTML(id, key, cur){
+  const R = (typeof LAT_ROOTS !== 'undefined') ? LAT_ROOTS : null;
+  if (!R || !R.analyze) return '';
+  const a = R.analyze(id, cur[id] || key);
+  if (!a) return '';
+  const other = id === 'fr' ? 'es' : 'fr';
+  const otherVi = id === 'fr' ? 'Tây Ban Nha' : 'Pháp';
+
+  const piece = (kind, form, vi, sub) => `
+    <span class="lat-mp ${kind}">
+      <b class="${id}">${esc(form)}</b>
+      <i>${esc(vi)}</i>
+      ${sub ? `<u>${esc(sub)}</u>` : ''}
+    </span>`;
+
+  /* Bày đúng mặt chữ của từ, kể cả dấu — người học nhìn thấy «écri» chứ
+     không phải «ecri» của bảng khớp nội bộ. */
+  const seg = (R.segments && a.lens) ? R.segments(cur[id] || key, a.lens) : null;
+  let si = 0;
+  const take = fb => (seg && seg[si] ? seg[si++] : (si++, fb));
+  const chain = []
+    .concat(a.pre.map(p => piece('pre', take(p.form) + '-', p.vi, p.la)))
+    .concat(a.roots.map(r => piece('root', take(r.form), r.vi, r.la)))
+    .concat(a.suf.map(s => piece('suf', '-' + take(s.form), s.vi, s.g ? (s.g === 'm' ? 'giống đực' : 'giống cái') : s.pos)));
+
+  const notes = []
+    .concat(a.pre.filter(p => p.note).map(p => p.note))
+    .concat(a.roots.filter(r => r.note).map(r => r.note))
+    .concat(a.suf.filter(s => s.note).map(s => s.note));
+
+  const alt = a.roots[0].alt || [];
+  const en = a.roots.map(r => r.en).filter(Boolean).join(' · ');
+
+  /* Từ cùng gốc — của chính tiếng này và của tiếng kia. */
+  const FH = latFamily(id).fam, FO = latFamily(other).fam;
+  const Lh = latLookup(id), Lo = latLookup(other);
+  const ids = a.roots.map(r => r.id);
+  const here = [], there = [];
+  ids.forEach(rid => {
+    (FH[rid] || []).forEach(k => { if (k !== key && here.indexOf(k) < 0) here.push(k); });
+    (FO[rid] || []).forEach(k => { if (there.indexOf(k) < 0) there.push(k); });
+  });
+
+  return `
+  <section class="zh-entry-sec">
+    <h3>Cấu tạo từ</h3>
+    <div class="lat-morph">${chain.join('<span class="lat-plus">+</span>')}</div>
+    ${a.roots[0].src === 'gr' ? '<p class="lat-src">Gốc Hy Lạp, vào hai tiếng này qua đường khoa học và nhà thờ.</p>'
+      : a.roots[0].src === 'ar' ? '<p class="lat-src">Gốc Ả Rập, vào tiếng Tây Ban Nha thời Al-Andalus.</p>'
+      : a.roots[0].src === 'germ' ? '<p class="lat-src">Gốc German, không phải La-tinh — nên đừng cố tìm gốc La-tinh ở từ này.</p>' : ''}
+    ${alt.length ? `<p class="lat-src">Thân này còn thuộc một gốc khác: <b>${esc(alt[0].la)}</b> — ${esc(alt[0].vi)}. Phải xét nghĩa mới biết từ này theo gốc nào.</p>` : ''}
+    ${en ? `<p class="lat-en">Tiếng Anh cùng gốc: <b>${esc(en)}</b></p>` : ''}
+    ${notes.length ? `<p class="zh-gram-note">${esc(notes[0])}</p>` : ''}
+    ${here.length ? `<div class="lat-fam"><span>Từ cùng gốc:</span> ${here.slice(0, 14).map(k =>
+        `<button class="lat-chip ${id}" data-lat-entry="${id}:${esc(k)}">${esc(Lh[k][id] || k)}</button>`).join('')}</div>` : ''}
+    ${there.length ? `<div class="lat-fam cross"><span>Cùng gốc trong tiếng ${otherVi}:</span> ${there.slice(0, 10).map(k =>
+        `<button class="lat-chip ${other}" data-lat-cross="${other}:${esc(k)}">${esc(Lo[k][other] || k)}</button>`).join('')}</div>` : ''}
+  </section>`;
 }
 
 /* Danh từ và tính từ: bày luôn các dạng hợp giống số, vì đó chính là thứ
@@ -78410,6 +79429,7 @@ function latDict(id){
            placeholder="${id === 'fr' ? 'bonjour / aller / xin chào…' : 'hola / ir / xin chào…'}" autocomplete="off">
   </div>
   ${curKey ? latEntryHTML(id, curKey, res ? res.via : null) : ''}
+  ${q ? crossDictHint(q, id) : ''}
   <div class="zh-res-list">
     ${hits.slice(0, 600).map(k => {
       const w = L[k];
@@ -78831,7 +79851,7 @@ function latSpeakView(id){
   </div>`;
 }
 
-try { window.__lat = { lookup: latLookup, cfg: latCfg, quiz: latMakeQuiz, pool: latPool, types: LAT_QZ_TYPE }; } catch(e){}
+try { window.__lat = { lookup: latLookup, cfg: latCfg, quiz: latMakeQuiz, pool: latPool, types: LAT_QZ_TYPE, examples: latExamples, family: latFamily }; } catch(e){}
 
 Object.keys(LAT).forEach(id => {
   VIEWS[id + '_home']   = () => latSt(id).lesson ? latLessonView(id) : latHome(id);
@@ -79147,6 +80167,15 @@ document.addEventListener('click', e => {
   if (latE){ const i = latE.dataset.latEntry.indexOf(':'); const id = latE.dataset.latEntry.slice(0, i);
     latSt(id).entry = latE.dataset.latEntry.slice(i + 1);
     if (state.view !== id + '_dict') go(id + '_dict'); else renderKeep();
+    return; }
+  /* Bấm một từ cùng gốc của tiếng KIA: chuyển hẳn sang từ điển tiếng đó và
+     mở đúng mục từ. Đây là cái mà hai tiếng cùng gốc La-tinh cho không —
+     nhìn thấy ngay écrire và escribir là một nhà. */
+  const latX = t.closest('[data-lat-cross]');
+  if (latX){ const i = latX.dataset.latCross.indexOf(':'); const id = latX.dataset.latCross.slice(0, i);
+    latSt(id).entry = latX.dataset.latCross.slice(i + 1);
+    latSt(id).q = '';
+    go(id + '_dict');
     return; }
   const latW = t.closest('[data-latw]');
   if (latW){ const i = latW.dataset.latw.indexOf(':'); const id = latW.dataset.latw.slice(0, i);
@@ -79588,7 +80617,7 @@ document.addEventListener('click', e => {
   const rE = t.closest('[data-ru-entry]');
   if (rE && !t.closest('[data-ru-open]') && !t.closest('[data-ru-speak]')){ state.ru.entry = rE.dataset.ruEntry; if (state.view !== 'ru_dict') go('ru_dict'); else render(); try { const el = $('#ruEntry'); if (el) el.scrollIntoView({ block:'start' }); } catch(e){} return; }
   const xd = t.closest('[data-cross]');
-  if (xd){ quickSearch(xd.dataset.q, xd.dataset.cross === 'dict' ? 'ko' : xd.dataset.cross === 'zh_dict' ? 'zh' : xd.dataset.cross === 'ja_dict' ? 'ja' : 'ru'); return; }
+  if (xd){ quickSearch(xd.dataset.q, xd.dataset.cross === 'dict' ? 'ko' : String(xd.dataset.cross).replace('_dict', '')); return; }
   const rOp = t.closest('[data-ru-open]');
   if (rOp){ const p = rOp.dataset.ruOpen.split(':'); const lv = _RC.levels.find(x => x.id === p[0]);
     if (lv && lv.status === 'active'){ state.ru.level = p[0]; state.ru.lesson = +p[1]; go('ru_lesson'); } return; }
@@ -80008,7 +81037,10 @@ function quickLang(v){
   const l = document.documentElement.getAttribute('data-lang');
   if (/[一-鿿]/.test(v)) return l === 'ja' ? 'ja' : 'zh';
   if (/[А-Яа-яЁё]/.test(v)) return 'ru';
-  return (l === 'zh' || l === 'ru' || l === 'ja' || l === 'en') ? l : 'ko';
+  /* Tiếng Pháp và Tây Ban Nha cũng viết bằng chữ Latinh, nên phải có tên trong
+     danh sách này. Thiếu hai mã đó thì gõ «bonjour» ở trang tiếng Pháp lại
+     nhảy sang kho từ tiếng Hàn — đúng thứ người học không hề xin. */
+  return (l === 'zh' || l === 'ru' || l === 'ja' || l === 'en' || l === 'fr' || l === 'es') ? l : 'ko';
 }
 function quickSearch(v, lang){
   lang = lang || quickLang(v);
@@ -80016,6 +81048,15 @@ function quickSearch(v, lang){
   if (lang === 'en'){ state.en.dictQ = v; state.en.entry = enLemma(v) || null; if (state.view !== 'en_dict') go('en_dict'); else render(); return; }
   if (lang === 'ja'){ state.ja.dictQ = v; const keys = jaLemmatize(v); state.ja.entry = keys.length ? keys[0] : null; if (state.view !== 'ja_dict') go('ja_dict'); else render(); return; }
   if (lang === 'ru'){ state.ru.dictQ = v; const keys = ruLemmatize(v); state.ru.entry = (keys.length && (ruKey(RU_LOOKUP[keys[0]].ru) === ruKey(v) || /[а-яё]/i.test(v))) ? keys[0] : null; if (state.view !== 'ru_dict') go('ru_dict'); else render(); return; }
+  /* Gõ dạng đã chia cũng phải ra: «allé», «fuimos» đều dẫn về từ gốc,
+     vì latResolve() tra trong bảng dạng sinh sẵn chứ không cắt đuôi đoán bừa. */
+  if (lang === 'fr' || lang === 'es'){
+    const st = latSt(lang); st.q = v;
+    let r = null; try { r = latResolve(lang, v); } catch(e){}
+    st.entry = r ? r.key : null;
+    if (state.view !== lang + '_dict') go(lang + '_dict'); else render();
+    return;
+  }
   if (state.view !== 'dict') go('dict');
   const d = $('#dq'); if (d){ d.value = v; d.dispatchEvent(new Event('input')); }
 }
@@ -80029,11 +81070,16 @@ function crossDictCounts(q){
   try { const qk = ruKey(t); ru = Object.values(RU_LOOKUP).filter(w => ruKey(w.ru).indexOf(qk) >= 0 || w.vi.toLowerCase().indexOf(t) >= 0).length; } catch(e){}
   let ja = 0;
   try { const qq = q.trim(), qh = _JM ? _JM.hira(qq) : qq; ja = Object.values(JA_LOOKUP).filter(w => String(w.jp).indexOf(qq) >= 0 || String(w.kana).indexOf(qh) >= 0 || (w.vi || '').toLowerCase().indexOf(t) >= 0 || (w.romaji || '').toLowerCase().indexOf(t) >= 0).length; } catch(e){}
-  return { ko, zh, ru, ja };
+  /* Pháp và Tây Ban Nha cùng gốc Latin nên một từ khoá rất hay trúng cả hai kho —
+     gợi ý chuyển qua lại giữa chúng là thứ dùng được nhiều nhất ở đây. */
+  let fr = 0, es = 0;
+  try { fr = Object.values(latLookup('fr')).filter(w => strip(w.fr).indexOf(strip(t)) >= 0 || (w.vi || '').toLowerCase().indexOf(t) >= 0).length; } catch(e){}
+  try { es = Object.values(latLookup('es')).filter(w => strip(w.es).indexOf(strip(t)) >= 0 || (w.vi || '').toLowerCase().indexOf(t) >= 0).length; } catch(e){}
+  return { ko, zh, ru, ja, fr, es };
 }
 function crossDictHint(q, cur){
   const c = crossDictCounts(q); if (!c) return '';
-  const items = [['ko','🇰🇷 Tiếng Hàn','dict'],['zh','🇨🇳 Tiếng Trung','zh_dict'],['ja','🇯🇵 Tiếng Nhật','ja_dict'],['ru','🇷🇺 Tiếng Nga','ru_dict']].filter(x => x[0] !== cur && c[x[0]] > 0);
+  const items = [['ko','🇰🇷 Tiếng Hàn','dict'],['zh','🇨🇳 Tiếng Trung','zh_dict'],['ja','🇯🇵 Tiếng Nhật','ja_dict'],['ru','🇷🇺 Tiếng Nga','ru_dict'],['fr','🇫🇷 Tiếng Pháp','fr_dict'],['es','🇪🇸 Tiếng Tây Ban Nha','es_dict']].filter(x => x[0] !== cur && c[x[0]] > 0);
   if (!items.length) return '';
   return `<div class="dict-cross">Từ khoá này còn có trong kho: ${items.map(x => `<button class="zh-ref" data-cross="${x[2]}" data-q="${esc(q)}">${x[1]} · ${c[x[0]]} từ</button>`).join(' ')}</div>`;
 }

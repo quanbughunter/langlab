@@ -2483,8 +2483,19 @@ function render(){
     b.setAttribute('aria-current', on ? 'page' : 'false');
   });
   const tq = $('#topq');
-  const tqLang = isRd ? rdLang() : isSh ? shLang() : isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : isEn ? 'en' : 'ko';
-  if (tq) tq.placeholder = (tqLang === 'zh') ? 'Tra nhanh tiếng Trung (chữ Hán / pinyin / nghĩa)…' : (tqLang === 'ru') ? 'Tra nhanh tiếng Nga (không cần dấu trọng âm)…' : (tqLang === 'ja') ? 'Tra nhanh tiếng Nhật (kana / kanji / romaji / nghĩa)…' : (tqLang === 'en') ? 'Tra nhanh tiếng Anh (từ / phiên âm / nghĩa)…' : state.view === 'about' ? 'Tra nhanh: 한국어 · 中文 · русский · tiếng Việt…' : 'Tra nhanh tiếng Hàn (Hangul / romaja / nghĩa)…';
+  const tqLang = isRd ? rdLang() : isSh ? shLang() : isZh ? 'zh' : isRu ? 'ru' : isJa ? 'ja' : isEn ? 'en'
+               : isFr ? 'fr' : isEs ? 'es' : 'ko';
+  const TQ_PH = {
+    zh:'Tra nhanh tiếng Trung (chữ Hán / pinyin / nghĩa)…',
+    ru:'Tra nhanh tiếng Nga (không cần dấu trọng âm)…',
+    ja:'Tra nhanh tiếng Nhật (kana / kanji / romaji / nghĩa)…',
+    en:'Tra nhanh tiếng Anh (từ / phiên âm / nghĩa)…',
+    fr:'Tra nhanh tiếng Pháp (từ / dạng đã chia / nghĩa)…',
+    es:'Tra nhanh tiếng Tây Ban Nha (từ / dạng đã chia / nghĩa)…',
+    ko:'Tra nhanh tiếng Hàn (Hangul / romaja / nghĩa)…'
+  };
+  if (tq) tq.placeholder = state.view === 'about' ? 'Tra nhanh: 한국어 · 中文 · русский · tiếng Việt…'
+                         : (TQ_PH[tqLang] || TQ_PH.ko);
   $$('.nav-drop.open').forEach(d => {
     d.classList.remove('open');
     const bb = d.querySelector('.nav-drop-btn'); if (bb) bb.setAttribute('aria-expanded', 'false');
@@ -7227,6 +7238,76 @@ function latForms(id){
   return m;
 }
 
+/* ---------------- VÍ DỤ THẬT LẤY TỪ CHÍNH KHOÁ HỌC ----------------
+   Mục từ mà chỉ có nghĩa thì người học vẫn không biết đặt câu thế nào.
+   Khoá đã có sẵn hàng nghìn câu — câu ví dụ của điểm ngữ pháp, câu của
+   cụm từ, lượt hội thoại — nên chỉ việc soi ngược: câu nào chứa từ này
+   thì gắn vào mục từ ấy. Soi qua bảng dạng biến đổi nên «allé» trong
+   một câu vẫn về đúng mục «aller».
+
+   Ưu tiên cụm từ trước, vì cụm cho thấy từ này hay đi với từ nào; rồi
+   tới câu ngữ pháp; cuối cùng mới tới hội thoại. */
+const _latEx = {};
+function latExamples(id){
+  if (_latEx[id]) return _latEx[id];
+  const F = latForms(id), L = latLookup(id), out = {};
+  const add = (key, ex) => {
+    if (!L[key]) return;
+    const a = (out[key] = out[key] || []);
+    if (a.length >= 8 || a.some(x => x.t === ex.t)) return;
+    a.push(ex);
+  };
+  /* Một câu có thể nhắc tới nhiều từ trong khoá; gắn cho mọi từ nó chứa. */
+  const scan = (text, vi, tag, rank) => {
+    const t = String(text || '');
+    if (!t) return;
+    const seen = {};
+    t.toLowerCase().split(/[^a-zà-ÿœæ'’-]+/).forEach(tok => {
+      const w = tok.replace(/^[''’-]+|[''’-]+$/g, '');
+      if (!w || w.length < 2 || seen[w]) return;
+      seen[w] = 1;
+      const keys = L[w] ? [w] : (F[w] || []);
+      keys.slice(0, 2).forEach(k => add(k, { t, vi, tag, rank }));
+    });
+  };
+  /* Mục từ nhiều chữ («à ce moment-là», «hacer falta») không bao giờ trúng
+     khi soi theo từng chữ một, nên phải dò thẳng cả cụm trong câu. Bỏ bước
+     này thì một phần tư số mục từ không có ví dụ nào. */
+  const phrases = Object.keys(L).filter(k => k.indexOf(' ') > 0 || k.indexOf('’') > 0);
+  const scanPhrase = (text, vi, tag, rank) => {
+    const low = String(text || '').toLowerCase().replace(/’/g, "'");
+    if (!low) return;
+    phrases.forEach(k => { if (low.indexOf(k.replace(/’/g, "'")) >= 0) add(k, { t:text, vi, tag, rank }); });
+  };
+  latCfg(id).course.lessons.forEach(l => {
+    (l.colloc || []).forEach(c => { scan(c.ex, c.vi, 'Cụm «' + c.p + '»', 0); scanPhrase(c.ex, c.vi, 'Cụm «' + c.p + '»', 0); });
+    (l.grammar || []).forEach(g => { if (g.ex){ scan(g.ex[id], g.ex.vi, g.form, 1); scanPhrase(g.ex[id], g.ex.vi, g.form, 1); } });
+    (l.dialogue || []).forEach(d => { scan(d[id], d.vi, 'Hội thoại bài ' + l.no, 2); scanPhrase(d[id], d.vi, 'Hội thoại bài ' + l.no, 2); });
+  });
+  Object.keys(out).forEach(k => out[k].sort((a, b) => a.rank - b.rank));
+  _latEx[id] = out;
+  return out;
+}
+
+/* ---------------- HỌ TỪ THEO GỐC LA-TINH ----------------
+   Chạy bộ phân tích một lượt trên toàn bộ mục từ rồi gom theo gốc.
+   Nhờ vậy «từ cùng gốc» không phải bảng chép tay — thêm bài mới là
+   danh sách tự lớn theo. */
+const _latFam = {};
+function latFamily(id){
+  if (_latFam[id]) return _latFam[id];
+  const R = (typeof LAT_ROOTS !== 'undefined') ? LAT_ROOTS : null;
+  const L = latLookup(id), fam = {}, of = {};
+  if (R) Object.keys(L).forEach(k => {
+    const a = R.analyze(id, L[k][id] || k);
+    if (!a) return;
+    of[k] = a;
+    a.roots.forEach(r => { (fam[r.id] = fam[r.id] || []); if (fam[r.id].indexOf(k) < 0) fam[r.id].push(k); });
+  });
+  _latFam[id] = { fam, of };
+  return _latFam[id];
+}
+
 /* Tra một chuỗi bất kỳ: trả về {key, via} — via là dạng người dùng đã gõ
    khi nó không phải dạng từ điển. Không có thì trả null, KHÔNG đoán. */
 function latResolve(id, raw){
@@ -7407,11 +7488,104 @@ function latEntryHTML(id, key, via){
     <div class="zh-entry-vi">${esc(cur.vi)}</div>
     ${cur.pos ? `<div class="zh-entry-meta">${esc(cur.pos)}</div>` : ''}
     ${cur.note ? `<p class="zh-gram-note">${esc(cur.note)}</p>` : ''}
-    ${isVerb ? latConjHTML(id, M.stripLead(id, cur[id] || key)) : latAgreeHTML(id, cur, key)}
+    ${latFalseFriendHTML(id, cur[id] || key)}
     <div class="zh-entry-refs">${cur.refs && cur.refs.length
       ? cur.refs.map(r => `<button class="zh-ref" data-lat-lesson="${id}:${r.no}">Bài ${r.no}</button>`).join(' ')
       : `<span class="zh-dict-tag">Từ của bài đọc${cur.from ? ' «' + esc(cur.from) + '»' : ''} — chưa nằm trong bài học nào</span>`}</div>
+    ${latExHTML(id, key)}
+    ${isVerb ? latConjHTML(id, M.stripLead(id, cur[id] || key)) : latAgreeHTML(id, cur, key)}
+    ${latMorphHTML(id, key, cur)}
   </div>`;
+}
+
+/* ---- Bạn giả: cảnh báo ngay dưới nghĩa, vì đọc xong nghĩa là người ta
+   đóng mục từ lại. Để xuống cuối thì không ai thấy. ---- */
+function latFalseFriendHTML(id, word){
+  const R = (typeof LAT_ROOTS !== 'undefined') ? LAT_ROOTS : null;
+  const ff = R && R.falseFriend ? R.falseFriend(id, word) : null;
+  if (!ff) return '';
+  return `<div class="lat-ff"><b>Bạn giả</b> ${esc(ff.warn)}</div>`;
+}
+
+/* ---- Ví dụ trong câu ---- */
+function latExHTML(id, key){
+  const ex = (latExamples(id)[key] || []).slice(0, 4);
+  if (!ex.length) return '';
+  return `
+  <section class="zh-entry-sec">
+    <h3>Dùng trong câu</h3>
+    <ol class="lat-ex">${ex.map(x => `
+      <li>
+        <div class="lat-ex-t"><span class="${id}">${latTokens(x.t, id)}</span> ${latSpeakBtn(x.t, id, 'icon-btn mini')}</div>
+        ${x.vi ? `<div class="lat-ex-vi">${esc(x.vi)}</div>` : ''}
+        <div class="lat-ex-tag">${esc(x.tag)}</div>
+      </li>`).join('')}</ol>
+  </section>`;
+}
+
+/* ---- Cấu tạo từ và họ từ ----
+   Đây là phần thay cho «cấu tạo từ» của tiếng Trung. Chữ Hán tách thành
+   từng chữ; từ La-tinh tách thành tiền tố + gốc + hậu tố. Và vì Pháp với
+   Tây Ban Nha dùng chung kho gốc, mục từ nối luôn sang tiếng kia — học
+   một gốc là mở được hai cột từ vựng cùng lúc. */
+function latMorphHTML(id, key, cur){
+  const R = (typeof LAT_ROOTS !== 'undefined') ? LAT_ROOTS : null;
+  if (!R || !R.analyze) return '';
+  const a = R.analyze(id, cur[id] || key);
+  if (!a) return '';
+  const other = id === 'fr' ? 'es' : 'fr';
+  const otherVi = id === 'fr' ? 'Tây Ban Nha' : 'Pháp';
+
+  const piece = (kind, form, vi, sub) => `
+    <span class="lat-mp ${kind}">
+      <b class="${id}">${esc(form)}</b>
+      <i>${esc(vi)}</i>
+      ${sub ? `<u>${esc(sub)}</u>` : ''}
+    </span>`;
+
+  /* Bày đúng mặt chữ của từ, kể cả dấu — người học nhìn thấy «écri» chứ
+     không phải «ecri» của bảng khớp nội bộ. */
+  const seg = (R.segments && a.lens) ? R.segments(cur[id] || key, a.lens) : null;
+  let si = 0;
+  const take = fb => (seg && seg[si] ? seg[si++] : (si++, fb));
+  const chain = []
+    .concat(a.pre.map(p => piece('pre', take(p.form) + '-', p.vi, p.la)))
+    .concat(a.roots.map(r => piece('root', take(r.form), r.vi, r.la)))
+    .concat(a.suf.map(s => piece('suf', '-' + take(s.form), s.vi, s.g ? (s.g === 'm' ? 'giống đực' : 'giống cái') : s.pos)));
+
+  const notes = []
+    .concat(a.pre.filter(p => p.note).map(p => p.note))
+    .concat(a.roots.filter(r => r.note).map(r => r.note))
+    .concat(a.suf.filter(s => s.note).map(s => s.note));
+
+  const alt = a.roots[0].alt || [];
+  const en = a.roots.map(r => r.en).filter(Boolean).join(' · ');
+
+  /* Từ cùng gốc — của chính tiếng này và của tiếng kia. */
+  const FH = latFamily(id).fam, FO = latFamily(other).fam;
+  const Lh = latLookup(id), Lo = latLookup(other);
+  const ids = a.roots.map(r => r.id);
+  const here = [], there = [];
+  ids.forEach(rid => {
+    (FH[rid] || []).forEach(k => { if (k !== key && here.indexOf(k) < 0) here.push(k); });
+    (FO[rid] || []).forEach(k => { if (there.indexOf(k) < 0) there.push(k); });
+  });
+
+  return `
+  <section class="zh-entry-sec">
+    <h3>Cấu tạo từ</h3>
+    <div class="lat-morph">${chain.join('<span class="lat-plus">+</span>')}</div>
+    ${a.roots[0].src === 'gr' ? '<p class="lat-src">Gốc Hy Lạp, vào hai tiếng này qua đường khoa học và nhà thờ.</p>'
+      : a.roots[0].src === 'ar' ? '<p class="lat-src">Gốc Ả Rập, vào tiếng Tây Ban Nha thời Al-Andalus.</p>'
+      : a.roots[0].src === 'germ' ? '<p class="lat-src">Gốc German, không phải La-tinh — nên đừng cố tìm gốc La-tinh ở từ này.</p>' : ''}
+    ${alt.length ? `<p class="lat-src">Thân này còn thuộc một gốc khác: <b>${esc(alt[0].la)}</b> — ${esc(alt[0].vi)}. Phải xét nghĩa mới biết từ này theo gốc nào.</p>` : ''}
+    ${en ? `<p class="lat-en">Tiếng Anh cùng gốc: <b>${esc(en)}</b></p>` : ''}
+    ${notes.length ? `<p class="zh-gram-note">${esc(notes[0])}</p>` : ''}
+    ${here.length ? `<div class="lat-fam"><span>Từ cùng gốc:</span> ${here.slice(0, 14).map(k =>
+        `<button class="lat-chip ${id}" data-lat-entry="${id}:${esc(k)}">${esc(Lh[k][id] || k)}</button>`).join('')}</div>` : ''}
+    ${there.length ? `<div class="lat-fam cross"><span>Cùng gốc trong tiếng ${otherVi}:</span> ${there.slice(0, 10).map(k =>
+        `<button class="lat-chip ${other}" data-lat-cross="${other}:${esc(k)}">${esc(Lo[k][other] || k)}</button>`).join('')}</div>` : ''}
+  </section>`;
 }
 
 /* Danh từ và tính từ: bày luôn các dạng hợp giống số, vì đó chính là thứ
@@ -7460,6 +7634,7 @@ function latDict(id){
            placeholder="${id === 'fr' ? 'bonjour / aller / xin chào…' : 'hola / ir / xin chào…'}" autocomplete="off">
   </div>
   ${curKey ? latEntryHTML(id, curKey, res ? res.via : null) : ''}
+  ${q ? crossDictHint(q, id) : ''}
   <div class="zh-res-list">
     ${hits.slice(0, 600).map(k => {
       const w = L[k];
@@ -7881,7 +8056,7 @@ function latSpeakView(id){
   </div>`;
 }
 
-try { window.__lat = { lookup: latLookup, cfg: latCfg, quiz: latMakeQuiz, pool: latPool, types: LAT_QZ_TYPE }; } catch(e){}
+try { window.__lat = { lookup: latLookup, cfg: latCfg, quiz: latMakeQuiz, pool: latPool, types: LAT_QZ_TYPE, examples: latExamples, family: latFamily }; } catch(e){}
 
 Object.keys(LAT).forEach(id => {
   VIEWS[id + '_home']   = () => latSt(id).lesson ? latLessonView(id) : latHome(id);
@@ -8197,6 +8372,15 @@ document.addEventListener('click', e => {
   if (latE){ const i = latE.dataset.latEntry.indexOf(':'); const id = latE.dataset.latEntry.slice(0, i);
     latSt(id).entry = latE.dataset.latEntry.slice(i + 1);
     if (state.view !== id + '_dict') go(id + '_dict'); else renderKeep();
+    return; }
+  /* Bấm một từ cùng gốc của tiếng KIA: chuyển hẳn sang từ điển tiếng đó và
+     mở đúng mục từ. Đây là cái mà hai tiếng cùng gốc La-tinh cho không —
+     nhìn thấy ngay écrire và escribir là một nhà. */
+  const latX = t.closest('[data-lat-cross]');
+  if (latX){ const i = latX.dataset.latCross.indexOf(':'); const id = latX.dataset.latCross.slice(0, i);
+    latSt(id).entry = latX.dataset.latCross.slice(i + 1);
+    latSt(id).q = '';
+    go(id + '_dict');
     return; }
   const latW = t.closest('[data-latw]');
   if (latW){ const i = latW.dataset.latw.indexOf(':'); const id = latW.dataset.latw.slice(0, i);
@@ -8638,7 +8822,7 @@ document.addEventListener('click', e => {
   const rE = t.closest('[data-ru-entry]');
   if (rE && !t.closest('[data-ru-open]') && !t.closest('[data-ru-speak]')){ state.ru.entry = rE.dataset.ruEntry; if (state.view !== 'ru_dict') go('ru_dict'); else render(); try { const el = $('#ruEntry'); if (el) el.scrollIntoView({ block:'start' }); } catch(e){} return; }
   const xd = t.closest('[data-cross]');
-  if (xd){ quickSearch(xd.dataset.q, xd.dataset.cross === 'dict' ? 'ko' : xd.dataset.cross === 'zh_dict' ? 'zh' : xd.dataset.cross === 'ja_dict' ? 'ja' : 'ru'); return; }
+  if (xd){ quickSearch(xd.dataset.q, xd.dataset.cross === 'dict' ? 'ko' : String(xd.dataset.cross).replace('_dict', '')); return; }
   const rOp = t.closest('[data-ru-open]');
   if (rOp){ const p = rOp.dataset.ruOpen.split(':'); const lv = _RC.levels.find(x => x.id === p[0]);
     if (lv && lv.status === 'active'){ state.ru.level = p[0]; state.ru.lesson = +p[1]; go('ru_lesson'); } return; }
@@ -9058,7 +9242,10 @@ function quickLang(v){
   const l = document.documentElement.getAttribute('data-lang');
   if (/[一-鿿]/.test(v)) return l === 'ja' ? 'ja' : 'zh';
   if (/[А-Яа-яЁё]/.test(v)) return 'ru';
-  return (l === 'zh' || l === 'ru' || l === 'ja' || l === 'en') ? l : 'ko';
+  /* Tiếng Pháp và Tây Ban Nha cũng viết bằng chữ Latinh, nên phải có tên trong
+     danh sách này. Thiếu hai mã đó thì gõ «bonjour» ở trang tiếng Pháp lại
+     nhảy sang kho từ tiếng Hàn — đúng thứ người học không hề xin. */
+  return (l === 'zh' || l === 'ru' || l === 'ja' || l === 'en' || l === 'fr' || l === 'es') ? l : 'ko';
 }
 function quickSearch(v, lang){
   lang = lang || quickLang(v);
@@ -9066,6 +9253,15 @@ function quickSearch(v, lang){
   if (lang === 'en'){ state.en.dictQ = v; state.en.entry = enLemma(v) || null; if (state.view !== 'en_dict') go('en_dict'); else render(); return; }
   if (lang === 'ja'){ state.ja.dictQ = v; const keys = jaLemmatize(v); state.ja.entry = keys.length ? keys[0] : null; if (state.view !== 'ja_dict') go('ja_dict'); else render(); return; }
   if (lang === 'ru'){ state.ru.dictQ = v; const keys = ruLemmatize(v); state.ru.entry = (keys.length && (ruKey(RU_LOOKUP[keys[0]].ru) === ruKey(v) || /[а-яё]/i.test(v))) ? keys[0] : null; if (state.view !== 'ru_dict') go('ru_dict'); else render(); return; }
+  /* Gõ dạng đã chia cũng phải ra: «allé», «fuimos» đều dẫn về từ gốc,
+     vì latResolve() tra trong bảng dạng sinh sẵn chứ không cắt đuôi đoán bừa. */
+  if (lang === 'fr' || lang === 'es'){
+    const st = latSt(lang); st.q = v;
+    let r = null; try { r = latResolve(lang, v); } catch(e){}
+    st.entry = r ? r.key : null;
+    if (state.view !== lang + '_dict') go(lang + '_dict'); else render();
+    return;
+  }
   if (state.view !== 'dict') go('dict');
   const d = $('#dq'); if (d){ d.value = v; d.dispatchEvent(new Event('input')); }
 }
@@ -9079,11 +9275,16 @@ function crossDictCounts(q){
   try { const qk = ruKey(t); ru = Object.values(RU_LOOKUP).filter(w => ruKey(w.ru).indexOf(qk) >= 0 || w.vi.toLowerCase().indexOf(t) >= 0).length; } catch(e){}
   let ja = 0;
   try { const qq = q.trim(), qh = _JM ? _JM.hira(qq) : qq; ja = Object.values(JA_LOOKUP).filter(w => String(w.jp).indexOf(qq) >= 0 || String(w.kana).indexOf(qh) >= 0 || (w.vi || '').toLowerCase().indexOf(t) >= 0 || (w.romaji || '').toLowerCase().indexOf(t) >= 0).length; } catch(e){}
-  return { ko, zh, ru, ja };
+  /* Pháp và Tây Ban Nha cùng gốc Latin nên một từ khoá rất hay trúng cả hai kho —
+     gợi ý chuyển qua lại giữa chúng là thứ dùng được nhiều nhất ở đây. */
+  let fr = 0, es = 0;
+  try { fr = Object.values(latLookup('fr')).filter(w => strip(w.fr).indexOf(strip(t)) >= 0 || (w.vi || '').toLowerCase().indexOf(t) >= 0).length; } catch(e){}
+  try { es = Object.values(latLookup('es')).filter(w => strip(w.es).indexOf(strip(t)) >= 0 || (w.vi || '').toLowerCase().indexOf(t) >= 0).length; } catch(e){}
+  return { ko, zh, ru, ja, fr, es };
 }
 function crossDictHint(q, cur){
   const c = crossDictCounts(q); if (!c) return '';
-  const items = [['ko','🇰🇷 Tiếng Hàn','dict'],['zh','🇨🇳 Tiếng Trung','zh_dict'],['ja','🇯🇵 Tiếng Nhật','ja_dict'],['ru','🇷🇺 Tiếng Nga','ru_dict']].filter(x => x[0] !== cur && c[x[0]] > 0);
+  const items = [['ko','🇰🇷 Tiếng Hàn','dict'],['zh','🇨🇳 Tiếng Trung','zh_dict'],['ja','🇯🇵 Tiếng Nhật','ja_dict'],['ru','🇷🇺 Tiếng Nga','ru_dict'],['fr','🇫🇷 Tiếng Pháp','fr_dict'],['es','🇪🇸 Tiếng Tây Ban Nha','es_dict']].filter(x => x[0] !== cur && c[x[0]] > 0);
   if (!items.length) return '';
   return `<div class="dict-cross">Từ khoá này còn có trong kho: ${items.map(x => `<button class="zh-ref" data-cross="${x[2]}" data-q="${esc(q)}">${x[1]} · ${c[x[0]]} từ</button>`).join(' ')}</div>`;
 }

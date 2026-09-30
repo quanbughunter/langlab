@@ -166,6 +166,54 @@ function frGroup(inf){
 }
 
 /** Bảng chia đầy đủ của một động từ tiếng Pháp. null nếu không nhận ra. */
+
+/* ---------------- PHÂN TỪ BẤT QUY TẮC ----------------
+   Đây là chỗ dễ sai mà khó thấy: bảng chia trông rất đầy đủ, chỉ có
+   ô «đã làm» là sai. Mà ô đó lại dựng nên toàn bộ các thì kép — sai
+   một chỗ là sai lan ra sáu ô của thì hoàn thành.
+
+   Không liệt kê từng động từ, vì tiếng nào cũng có hàng loạt động từ
+   ghép thêm tiền tố: describir, inscribir, suscribir đều theo escribir;
+   componer, proponer, disponer đều theo poner. Nên bắt theo ĐUÔI, dài
+   trước ngắn sau, và chỉ nhận những đuôi đủ đặc trưng để không vơ nhầm
+   (mover không được ăn theo ver, nên «ver» phải liệt kê đích danh). */
+const ES_PP = [
+  ['scribir','scrito'], ['solver','suelto'], ['volver','vuelto'], ['poner','puesto'],
+  ['cubrir','cubierto'], ['hacer','hecho'], ['decir','dicho'], ['abrir','abierto'],
+  ['morir','muerto'], ['romper','roto'], ['imprimir','impreso'], ['freír','frito']
+];
+const ES_PP_EXACT = { 'ver':'visto', 'prever':'previsto', 'entrever':'entrevisto',
+  'satisfacer':'satisfecho', 'bendecir':'bendecido' };
+function esPart(inf, fallback){
+  if (ES_PP_EXACT[inf]) return ES_PP_EXACT[inf];
+  for (const [end, pp] of ES_PP){
+    /* Dùng >= chứ không phải >: chính động từ gốc (cubrir, morir) cũng phải
+       khớp với đuôi của nó, không chỉ các động từ ghép thêm tiền tố. */
+    if (inf.length >= end.length && inf.slice(-end.length) === end)
+      return inf.slice(0, inf.length - end.length) + pp;
+  }
+  return fallback;
+}
+
+const FR_PP = [
+  ['crire','crit'], ['ffrir','ffert'], ['vrir','vert'], ['eindre','eint'],
+  ['aindre','aint'], ['oindre','oint'], ['duire','duit'], ['struire','struit'],
+  ['mettre','mis'], ['prendre','pris']
+];
+const FR_PP_EXACT = { 'mourir':'mort', 'naître':'né', 'renaître':'rené',
+  'résoudre':'résolu', 'absoudre':'absous', 'coudre':'cousu', 'moudre':'moulu',
+  'conclure':'conclu', 'exclure':'exclu', 'inclure':'inclus', 'vivre':'vécu',
+  'suivre':'suivi', 'rire':'ri', 'sourire':'souri', 'plaire':'plu', 'taire':'tu',
+  'croire':'cru', 'croître':'crû', 'battre':'battu', 'rompre':'rompu' };
+function frPart(inf, fallback){
+  if (FR_PP_EXACT[inf]) return FR_PP_EXACT[inf];
+  for (const [end, pp] of FR_PP){
+    if (inf.length >= end.length && inf.slice(-end.length) === end)
+      return inf.slice(0, inf.length - end.length) + pp;
+  }
+  return fallback;
+}
+
 function frTable(inf){
   inf = low(inf);
   const irr = FR_IRR[inf];
@@ -180,7 +228,7 @@ function frTable(inf){
     subj    = irr.subj ? irr.subj.slice()
             : irr.subjStem ? [0,1,2,3,4,5].map(i => (i === 3 || i === 4 ? irr.subjStem[1] : irr.subjStem[0])
                 + FR_REG.er.subj[i]) : [];
-    pp      = irr.pp; ppr = irr.ppr; futStem = irr.futStem;
+    pp      = irr.pp || frPart(inf, ''); ppr = irr.ppr; futStem = irr.futStem;
     imper   = irr.imper || (irr.noImper ? null : [pres[1], pres[3], pres[4]]);
     if (irr.only3s){ imparf = ['','', imparf[2], '','','']; subj = ['','', subj[2], '','','']; }
   } else {
@@ -197,7 +245,7 @@ function frTable(inf){
       pres = zip(st, R.pres); imparf = zip(st, R.imp); subj = zip(st, R.subj);
     }
     const st = inf.slice(0, -2);
-    pp = st + R.pp; ppr = (g === 'ir' ? st + 'issant' : st + 'ant');
+    pp = frPart(inf, st + R.pp); ppr = (g === 'ir' ? st + 'issant' : st + 'ant');
     futStem = R.futStem(inf);
     imper = [g === 'er' ? pres[2] : pres[1], pres[3], pres[4]];
   }
@@ -391,7 +439,7 @@ function esTable(inf){
     pret = irr.pret ? irr.pret.slice() : zip(st, R.pret);
     imp  = irr.imp  ? irr.imp.slice()  : zip(st, R.imp);
     subj = irr.subj.slice();
-    part = irr.part; ger = irr.ger;
+    part = irr.part || esPart(inf, ''); ger = irr.ger;
     futStem = irr.futStem !== undefined ? irr.futStem : base;
     if (irr.only3s){ pret = ['','', (pret[2] || ''), '','','']; imp = ['','', (imp[2] || ''), '','','']; }
   } else {
@@ -415,7 +463,7 @@ function esTable(inf){
       }
       return stemAt(i) + R.subj[i];
     });
-    part = st + R.part;
+    part = esPart(inf, st + R.part);
     ger  = irChange
       ? (change === 'o>ue' ? st.replace(/o([^o]*)$/, 'u$1') : st.replace(/e([^e]*)$/, 'i$1')) + R.ger
       : st + R.ger;

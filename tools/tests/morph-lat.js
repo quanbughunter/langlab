@@ -254,5 +254,38 @@ check('không bịa: từ không phải động từ thì trả về null', () =
   return true;
 });
 
+/* Phân từ quá khứ dựng nên mọi thì kép, nên sai một chỗ là sai lan ra cả
+   bảng. Trước đây «describir» ra «describido» (đúng: descrito) và
+   «craindre» ra «craindu» (đúng: craint) — chốt lại cho chắc. */
+check('phân từ bất quy tắc — kể cả động từ ghép thêm tiền tố', () => {
+  const want = {
+    es: { escribir:'escrito', describir:'descrito', inscribir:'inscrito',
+          poner:'puesto', componer:'compuesto', disponer:'dispuesto',
+          hacer:'hecho', deshacer:'deshecho', satisfacer:'satisfecho',
+          volver:'vuelto', devolver:'devuelto', envolver:'envuelto',
+          resolver:'resuelto', cubrir:'cubierto', descubrir:'descubierto',
+          abrir:'abierto', morir:'muerto', romper:'roto', decir:'dicho',
+          ver:'visto', prever:'previsto', imprimir:'impreso',
+          /* và những động từ ĐỀU thì phải để yên */
+          mover:'movido', comer:'comido', vivir:'vivido', subir:'subido' },
+    fr: { 'écrire':'écrit', 'décrire':'décrit', ouvrir:'ouvert', couvrir:'couvert',
+          'découvrir':'découvert', offrir:'offert', souffrir:'souffert',
+          mourir:'mort', 'naître':'né', craindre:'craint', joindre:'joint',
+          peindre:'peint', 'éteindre':'éteint', 'résoudre':'résolu',
+          conclure:'conclu', inclure:'inclus',
+          parler:'parlé', finir:'fini', vendre:'vendu', dormir:'dormi' }
+  };
+  const bad = [];
+  for (const id of ['fr', 'es']){
+    for (const inf of Object.keys(want[id])){
+      const t = M.table(id, inf);
+      if (!t){ bad.push(id + ' ' + inf + ': không dựng được bảng'); continue; }
+      const got = String(t.part || t.pp || '');
+      if (got !== want[id][inf]) bad.push(id + ' ' + inf + ': «' + got + '» đáng lẽ «' + want[id][inf] + '»');
+    }
+  }
+  return bad.length ? bad.slice(0, 5).join(' | ') : true;
+});
+
 console.log('\n' + pass + ' đạt / ' + fail + ' lỗi');
 process.exit(fail ? 1 : 0);

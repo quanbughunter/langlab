@@ -349,6 +349,110 @@ const LANGS = [
     return bad.length ? bad.map(x => x[0] + '=' + x[1]).join(' ') : true;
   });
 
+
+  /* ---------- ba lỗi người dùng chỉ ra, chốt lại để không tái diễn ---------- */
+
+  /* 1. Tranh của mục «Bạn có biết?»: không mẩu nào của hai tiếng này được đeo
+     tranh vẽ cho ngôn ngữ khác. Đây là lỗi im lặng — mã chạy đúng, chỉ có
+     người đọc là thấy phiên âm tiếng Anh nằm dưới một mẩu tiếng Pháp. */
+  check('Bạn có biết? — không mẩu Pháp/TBN nào dùng tranh của tiếng khác', () => {
+    const F = win.eval('FACTS'), A = win.eval('FACT_ART');
+    const foreign = ['hangul','hanzi','pinyin','tone','kana','keigo','cyrillic','stress','phonetic',
+      'phrasal','number','alphabet','shakespeare','teatime','fishchips','burger','queue','bigben',
+      'liberty','baseball','halloween','thanksgiving','taekwondo','chopsticks','mahjong','koi','kimchi',
+      'ondol','seaweed','ppalli','redenvelope','panda','dumpling','greatwall','hotpot','matryoshka',
+      'samovar','blin','banya','sansho','sushi','bowjp','sakura','train_jp','onsen','maneki','onomat',
+      'bento','torii','vending','nameru','ramen','kintsugi','matsuri','newyearja','origami','mtfuji',
+      'lantern','dragon','birch','ballet','bow','age','bowl','pub','metro','smile','shoes','newyear','soup'];
+    const bad = F.filter(f => (f.lang === 'fr' || f.lang === 'es') && foreign.indexOf(f.art) >= 0);
+    if (bad.length) return bad.length + ' mẩu, ví dụ «' + bad[0].title.slice(0, 40) + '» dùng tranh ' + bad[0].art;
+    const miss = F.filter(f => (f.lang === 'fr' || f.lang === 'es') && !A[f.art]);
+    return !miss.length || miss.length + ' mẩu trỏ vào khoá tranh không tồn tại';
+  });
+
+  check('Bạn có biết? — mỗi tiếng có bộ tranh riêng đủ rộng', () => {
+    const F = win.eval('FACTS');
+    const fr = Array.from(new Set(F.filter(f => f.lang === 'fr').map(f => f.art)));
+    const es = Array.from(new Set(F.filter(f => f.lang === 'es').map(f => f.art)));
+    const onlyFr = fr.filter(k => es.indexOf(k) < 0).length;
+    const onlyEs = es.filter(k => fr.indexOf(k) < 0).length;
+    if (onlyFr < 15) return 'tiếng Pháp chỉ có ' + onlyFr + ' tranh riêng';
+    if (onlyEs < 15) return 'tiếng Tây Ban Nha chỉ có ' + onlyEs + ' tranh riêng';
+    return true;
+  });
+
+  /* 2 và 3: thanh tra nhanh và chiều sâu của mục từ. */
+  LANGS.forEach(L => {
+    check(L.vi + ' — thanh tra nhanh vào đúng kho, không rơi về tiếng Hàn', () => {
+      click('[data-go="' + L.id + '_home"]');
+      const tq = d.querySelector('#topq');
+      if (!tq) return 'không thấy ô tra nhanh';
+      const lbl = tq.getAttribute('aria-label') || tq.placeholder || '';
+      if (lbl.toLowerCase().indexOf(L.vi.toLowerCase()) < 0) return 'nhãn ô tra nhanh vẫn là: ' + lbl;
+      const word = L.id === 'fr' ? 'bonjour' : 'hola';
+      tq.value = word;
+      tq.dispatchEvent(new win.Event('input', { bubbles:true }));
+      const e = d.querySelector('#latEntry');
+      if (!e) return 'không mở mục từ nào — nhiều khả năng đã nhảy sang kho khác';
+      const hz = e.querySelector('.zh-entry-hz');
+      return (hz && hz.textContent.trim() === word) || 'mở ra «' + (hz ? hz.textContent.trim() : '?') + '»';
+    });
+
+    check(L.vi + ' — gõ dạng đã chia vào ô tra nhanh vẫn ra từ gốc', () => {
+      click('[data-go="' + L.id + '_home"]');
+      const tq = d.querySelector('#topq');
+      const typed = L.id === 'fr' ? 'allé' : 'fuimos';
+      const want  = L.id === 'fr' ? 'aller' : 'ser';
+      tq.value = typed;
+      tq.dispatchEvent(new win.Event('input', { bubbles:true }));
+      const e = d.querySelector('#latEntry');
+      if (!e) return 'không mở mục từ nào';
+      const hz = e.querySelector('.zh-entry-hz');
+      return (hz && hz.textContent.trim() === want) || 'ra «' + (hz ? hz.textContent.trim() : '?') + '» thay vì «' + want + '»';
+    });
+
+    check(L.vi + ' — mục từ có ví dụ trong câu, cấu tạo từ và từ cùng gốc', () => {
+      const word = L.id === 'fr' ? 'écrire' : 'escribir';
+      click('[data-go="' + L.id + '_home"]');
+      const tq = d.querySelector('#topq');
+      tq.value = word; tq.dispatchEvent(new win.Event('input', { bubbles:true }));
+      const e = d.querySelector('#latEntry');
+      if (!e) return 'không mở được mục từ ' + word;
+      const heads = Array.prototype.map.call(e.querySelectorAll('.zh-entry-sec h3'), h => h.textContent);
+      if (heads.indexOf('Dùng trong câu') < 0) return 'thiếu mục ví dụ; hiện có: ' + heads.join(', ');
+      if (heads.indexOf('Cấu tạo từ') < 0) return 'thiếu mục cấu tạo từ; hiện có: ' + heads.join(', ');
+      if (e.querySelectorAll('.lat-ex > li').length < 2) return 'dưới 2 câu ví dụ';
+      if (!e.querySelectorAll('.lat-mp b').length) return 'không bày được tiền tố / gốc / hậu tố';
+      return e.querySelectorAll('.lat-chip').length > 0 || 'không có từ cùng gốc nào';
+    });
+  });
+
+  check('Mục từ — phần gốc bày đúng mặt chữ có dấu', () => {
+    click('[data-go="fr_home"]');
+    const tq = d.querySelector('#topq');
+    tq.value = 'écrire'; tq.dispatchEvent(new win.Event('input', { bubbles:true }));
+    const b = d.querySelector('#latEntry .lat-mp.root b');
+    if (!b) return 'không thấy mảnh gốc';
+    return b.textContent.indexOf('é') === 0 || 'bày ra «' + b.textContent + '», đáng lẽ còn dấu sắc';
+  });
+
+  check('Bảng gốc La-tinh — gán đúng gốc, và không tự nghĩ ra gốc', () => {
+    const R = win.eval('typeof LAT_ROOTS !== "undefined" ? LAT_ROOTS : null');
+    if (!R || !R.analyze) return 'chưa nạp được bảng gốc';
+    const want = [['fr','impossible','pot'], ['es','posible','pot'], ['fr','chercher','circ'],
+                  ['fr','léger','lev'], ['es','salado','salnou'], ['fr','maintenir','man'],
+                  ['es','desencadenar','caten'], ['fr','inscription','scrib']];
+    for (let i = 0; i < want.length; i++){
+      const id = want[i][0], w = want[i][1], root = want[i][2];
+      const a = R.analyze(id, w);
+      if (!a) return w + ': không tách được nữa';
+      if (a.roots[0].id !== root && !(a.roots[1] && a.roots[1].id === root))
+        return w + ': gán vào gốc ' + a.roots[0].id + ', đáng lẽ ' + root;
+    }
+    if (R.analyze('fr', 'xyzzyx')) return 'bịa ra gốc cho một từ không có thật';
+    return true;
+  });
+
   check('không có lỗi console', () => errors.length === 0 || errors.slice(0, 2).join(' | '));
 
   console.log('\n' + pass + ' đạt / ' + fail + ' lỗi');
