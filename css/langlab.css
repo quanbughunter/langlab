@@ -1304,6 +1304,10 @@ body.nav-collapsed .nav-in{gap:10px}
 .py{font-family:"JetBrains Mono",ui-monospace,monospace;color:var(--accent-2);font-weight:500}
 .zc{cursor:pointer;border-radius:2px}
 .zc:hover{color:var(--accent);background:var(--accent-soft)}
+/* Từ bấm được nhưng chưa có mục từ: gạch chân mờ để người học biết trước rằng
+   bấm vào sẽ ra «chưa có», thay vì tưởng app hỏng. */
+.zc-x{text-decoration:underline dotted var(--faint);text-underline-offset:3px}
+.zc-x:hover{color:var(--muted);background:var(--accent-soft)}
 /* Từ bấm được trong phần tiếng Nga: gạch chấm để thấy rõ là link tra từ */
 .ru .zc,.zc.ru-tok{text-decoration:underline dotted;text-decoration-color:color-mix(in srgb,var(--accent) 55%,transparent);text-underline-offset:4px;text-decoration-thickness:1.5px;padding:0 1px;transition:background .12s,color .12s,text-decoration-color .12s}
 .ru .zc:hover,.zc.ru-tok:hover,.ru .zc:focus-visible{color:var(--accent);background:var(--accent-soft);text-decoration-style:solid;text-decoration-color:var(--accent)}
@@ -2332,3 +2336,70 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
   .lat-mp{min-width:0;padding:7px 9px}
   .lat-mp b{font-size:15px}
 }
+
+/* ===== Bảng chữ cái Pháp / Tây Ban Nha =====
+   Chủ ý: cả bảng chữ chỉ chiếm hai ba dòng, còn diện tích để dành cho phần
+   giải thích chữ nào đáng học. Ô chữ nhỏ nhưng vẫn đủ lớn để bấm bằng ngón
+   tay (44px là ngưỡng tối thiểu nên không thu nhỏ hơn). */
+.lat-alpha-lead{color:var(--muted);font-size:13.5px;line-height:1.6;margin:-2px 0 12px;max-width:62ch}
+.lat-alpha{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.lat-ltr{font:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;
+  width:52px;padding:7px 2px 6px;border-radius:10px;background:var(--surface);
+  border:1px solid var(--line);border-bottom:3px solid var(--line);transition:.15s}
+.lat-ltr b{font-size:17px;font-weight:600;line-height:1.1;color:var(--ink)}
+.lat-ltr i{font-style:normal;font-size:10.5px;color:var(--faint);line-height:1.2;
+  max-width:48px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lat-ltr:hover{border-color:var(--line-strong);transform:translateY(-1px)}
+.lat-ltr.on{background:var(--accent-soft);border-color:var(--accent);border-bottom-color:var(--accent)}
+.lat-ltr.on b{color:var(--accent)}
+/* Gạch dưới màu = mức đáng chú ý. Dùng cạnh dưới chứ không dùng nền, để dải
+   chữ vẫn nhẹ mắt khi nhìn lướt cả bảng. */
+.lat-ltr.t-diff{border-bottom-color:var(--accent)}
+.lat-ltr.t-silent{border-bottom-color:var(--faint);border-bottom-style:dashed}
+.lat-ltr.t-rare{border-bottom-color:var(--line-strong);opacity:.6}
+.lat-ltr.t-new{border-bottom-color:var(--seal)}
+.lat-ltr.t-new b{color:var(--seal)}
+
+.lat-legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:12px}
+.lat-lg{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.lat-lg i{width:16px;height:3px;border-radius:2px;background:var(--line-strong);display:inline-block}
+.lat-lg.t-diff i{background:var(--accent)}
+.lat-lg.t-silent i{background:var(--faint)}
+.lat-lg.t-rare i{background:var(--line-strong)}
+.lat-lg.t-new i{background:var(--seal)}
+
+.lat-ltr-card{position:relative;display:flex;gap:16px;align-items:flex-start;
+  padding:14px 16px;border:1px solid var(--line-strong);border-radius:14px;
+  background:var(--surface);margin:0 0 18px}
+.lat-ltr-big{font-size:38px;font-weight:600;line-height:1;color:var(--accent);min-width:78px}
+.lat-ltr-body{flex:1;min-width:0}
+.lat-ltr-name{font-size:13px;color:var(--muted);margin-bottom:6px}
+.lat-ltr-tag{color:var(--accent)}
+.lat-ltr-tag.t-silent,.lat-ltr-tag.t-rare{color:var(--faint)}
+.lat-ltr-tag.t-new{color:var(--seal)}
+.lat-ltr-card p{margin:0 0 10px;font-size:14px;line-height:1.6;color:var(--ink)}
+.lat-ltr-ex{display:flex;flex-wrap:wrap;gap:10px}
+.lat-ltr-w{display:inline-flex;align-items:center;gap:3px}
+.lat-ltr-w b{font-size:15px}
+.lat-ltr-x{position:absolute;top:8px;right:10px;border:0;background:none;cursor:pointer;
+  color:var(--faint);font-size:14px;line-height:1;padding:4px}
+.lat-ltr-x:hover{color:var(--accent)}
+
+@media (max-width:560px){
+  .lat-ltr{width:46px}
+  .lat-ltr b{font-size:15px}
+  .lat-ltr-card{flex-direction:column;gap:8px}
+  .lat-ltr-big{font-size:32px}
+}
+
+/* Từ đồng tự: một chữ hai nghĩa khác nhau hẳn về từ loại — devoir vừa là «bài
+   tập về nhà» vừa là «phải», personne vừa là «người» vừa là «không ai». Giấu
+   một nghĩa đi là dạy sai, nên nghĩa thứ hai có khối riêng ngay dưới nghĩa
+   chính, đủ khác để không lẫn mà không tranh chỗ của nghĩa chính. */
+.lat-alt2{margin:10px 0 0;padding:10px 12px;border-left:2px solid var(--line-strong);
+  background:var(--surface);border-radius:0 4px 4px 0}
+.lat-alt2-tag{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:3px}
+.lat-alt2 b{font-size:15px;color:var(--ink)}
+.lat-alt2 i{margin-left:8px;font-size:12px;color:var(--muted);font-style:normal}
+.lat-alt2 .zh-gram-note{margin:5px 0 0}

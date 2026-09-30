@@ -287,5 +287,224 @@ check('phân từ bất quy tắc — kể cả động từ ghép thêm tiền 
   return bad.length ? bad.slice(0, 5).join(' | ') : true;
 });
 
+/* ============================================================
+   HỌ ĐỘNG TỪ VÀ CHÍNH TẢ
+   ------------------------------------------------------------
+   Đây là chỗ đã từng sai âm thầm và sai rất nhiều. Bảng chia cũ chỉ
+   phủ những động từ có sẵn trong khoá; động từ nào khác thì bị áp
+   khuôn đều, mà khuôn đều sinh ra dạng KHÔNG TỒN TẠI trông y như
+   thật — valoir thành «valois, valoit», envoyer thành «envoyent»,
+   parecer thành «pareco», construire thành «cononduis».
+   Người học không có cách nào tự biết ô nào là giả, nên mỗi dạng
+   dưới đây đều gõ tay theo ngữ pháp chuẩn rồi để máy tự tố giác.
+   ============================================================ */
+
+const PRES_FR = {
+  /* động từ mẫu mới thêm */
+  'valoir':'vaux vaux vaut valons valez valent',
+  'mourir':'meurs meurs meurt mourons mourez meurent',
+  'naître':'nais nais naît naissons naissez naissent',
+  'plaire':'plais plais plaît plaisons plaisez plaisent',
+  'suffire':'suffis suffis suffit suffisons suffisez suffisent',
+  'sentir':'sens sens sent sentons sentez sentent',
+  'craindre':'crains crains craint craignons craignez craignent',
+  'battre':'bats bats bat battons battez battent',
+  'rompre':'romps romps rompt rompons rompez rompent',
+  'conclure':'conclus conclus conclut concluons concluez concluent',
+  'asseoir':'assieds assieds assied asseyons asseyez asseyent',
+  'résoudre':'résous résous résout résolvons résolvez résolvent',
+  'convaincre':'convaincs convaincs convainc convainquons convainquez convainquent',
+  'accueillir':'accueille accueilles accueille accueillons accueillez accueillent',
+  'prévoir':'prévois prévois prévoit prévoyons prévoyez prévoient',
+  /* suy theo họ: phải ra đúng như động từ mẫu, chỉ khác phần đầu */
+  'revenir':'reviens reviens revient revenons revenez reviennent',
+  'devenir':'deviens deviens devient devenons devenez deviennent',
+  'convenir':'conviens conviens convient convenons convenez conviennent',
+  'obtenir':'obtiens obtiens obtient obtenons obtenez obtiennent',
+  'soutenir':'soutiens soutiens soutient soutenons soutenez soutiennent',
+  'appartenir':'appartiens appartiens appartient appartenons appartenez appartiennent',
+  'permettre':'permets permets permet permettons permettez permettent',
+  'transmettre':'transmets transmets transmet transmettons transmettez transmettent',
+  'décrire':'décris décris décrit décrivons décrivez décrivent',
+  'construire':'construis construis construit construisons construisez construisent',
+  'détruire':'détruis détruis détruit détruisons détruisez détruisent',
+  'produire':'produis produis produit produisons produisez produisent',
+  'atteindre':'atteins atteins atteint atteignons atteignez atteignent',
+  'éteindre':'éteins éteins éteint éteignons éteignez éteignent',
+  'interrompre':'interromps interromps interrompt interrompons interrompez interrompent',
+  'reconnaître':'reconnais reconnais reconnaît reconnaissons reconnaissez reconnaissent',
+  'parcourir':'parcours parcours parcourt parcourons parcourez parcourent',
+  'poursuivre':'poursuis poursuis poursuit poursuivons poursuivez poursuivent',
+  'concevoir':'conçois conçois conçoit concevons concevez conçoivent',
+  'ressentir':'ressens ressens ressent ressentons ressentez ressentent',
+  'démentir':'démens démens dément démentons démentez démentent',
+  /* «dites» là của riêng dire; động từ ghép khác theo đuôi đều */
+  'interdire':'interdis interdis interdit interdisons interdisez interdisent',
+  'contredire':'contredis contredis contredit contredisons contredisez contredisent',
+  /* -yer: chữ y thành i trước đuôi câm */
+  'envoyer':'envoie envoies envoie envoyons envoyez envoient',
+  'nettoyer':'nettoie nettoies nettoie nettoyons nettoyez nettoient',
+  'essayer':'essaie essaies essaie essayons essayez essaient',
+  'payer':'paie paies paie payons payez paient',
+  'tutoyer':'tutoie tutoies tutoie tutoyons tutoyez tutoient',
+  /* những cái này vốn đã đúng — giữ để không sửa chỗ này lại làm vỡ chỗ kia */
+  'finir':'finis finis finit finissons finissez finissent',
+  'vendre':'vends vends vend vendons vendez vendent',
+  'manger':'mange manges mange mangeons mangez mangent',
+  'commencer':'commence commences commence commençons commencez commencent',
+  'acheter':'achète achètes achète achetons achetez achètent',
+  'appeler':'appelle appelles appelle appelons appelez appellent',
+  'préférer':'préfère préfères préfère préférons préférez préfèrent'
+};
+check('fr · hiện tại của ' + Object.keys(PRES_FR).length + ' động từ, gõ tay từng ngôi', () => {
+  const bad = [];
+  for (const [v, exp] of Object.entries(PRES_FR)){
+    const t = M.table('fr', v);
+    if (!t){ bad.push(v + ': không có bảng'); continue; }
+    const got = t.tenses[0].forms.join(' ');
+    if (got !== exp) bad.push(v + ': ra «' + got + '» cần «' + exp + '»');
+  }
+  return bad.length ? bad.length + ' sai · ' + bad.slice(0, 3).join(' | ') : true;
+});
+
+const FUT_FR = { 'valoir':'vaudrai', 'mourir':'mourrai', 'envoyer':'enverrai',
+  'nettoyer':'nettoierai', 'essayer':'essaierai', 'payer':'paierai',
+  'revenir':'reviendrai', 'obtenir':'obtiendrai', 'prévoir':'prévoirai',
+  'accueillir':'accueillerai', 'asseoir':'assiérai', 'conclure':'conclurai',
+  'plaire':'plairai', 'naître':'naîtrai',
+  /* -eler/-eter và e_er đổi chính tả cả ở tương lai; é_er thì KHÔNG */
+  'acheter':'achèterai', 'appeler':'appellerai', 'lever':'lèverai',
+  'préférer':'préférerai', 'parler':'parlerai' };
+check('fr · tương lai đơn — gốc futur của động từ đổi chính tả', () => {
+  const bad = [];
+  for (const [v, exp] of Object.entries(FUT_FR)){
+    const t = M.table('fr', v); if (!t){ bad.push(v + ': không có bảng'); continue; }
+    const got = t.tenses.find(x => x.id === 'fut').forms[0];
+    if (got !== exp) bad.push(v + ': ra «' + got + '» cần «' + exp + '»');
+  }
+  return bad.length ? bad.join(' | ') : true;
+});
+
+check('fr · động từ khuyết thì KHÔNG dựng bảng bịa', () => {
+  const bad = [];
+  for (const v of ['fuir','haïr','bouillir','acquérir','coudre','moudre','traire','clore'])
+    if (M.table('fr', v)) bad.push(v + ': lẽ ra phải trả null');
+  return bad.length ? bad.join(' | ') : true;
+});
+
+const PRES_ES = {
+  'mostrar':'muestro muestras muestra mostramos mostráis muestran',
+  'convertir':'convierto conviertes convierte convertimos convertís convierten',
+  'seguir':'sigo sigues sigue seguimos seguís siguen',
+  'elegir':'elijo eliges elige elegimos elegís eligen',
+  'coger':'cojo coges coge cogemos cogéis cogen',
+  'dirigir':'dirijo diriges dirige dirigimos dirigís dirigen',
+  'parecer':'parezco pareces parece parecemos parecéis parecen',
+  'nacer':'nazco naces nace nacemos nacéis nacen',
+  'crecer':'crezco creces crece crecemos crecéis crecen',
+  'traducir':'traduzco traduces traduce traducimos traducís traducen',
+  'construir':'construyo construyes construye construimos construís construyen',
+  'caer':'caigo caes cae caemos caéis caen',
+  'valer':'valgo vales vale valemos valéis valen',
+  'reír':'río ríes ríe reímos reís ríen',
+  'enviar':'envío envías envía enviamos enviáis envían',
+  'continuar':'continúo continúas continúa continuamos continuáis continúan',
+  /* suy theo họ */
+  'contener':'contengo contienes contiene contenemos contenéis contienen',
+  'obtener':'obtengo obtienes obtiene obtenemos obtenéis obtienen',
+  'convenir':'convengo convienes conviene convenimos convenís convienen',
+  'suponer':'supongo supones supone suponemos suponéis suponen',
+  'devolver':'devuelvo devuelves devuelve devolvemos devolvéis devuelven',
+  'resolver':'resuelvo resuelves resuelve resolvemos resolvéis resuelven',
+  'describir':'describo describes describe describimos describís describen',
+  'reconocer':'reconozco reconoces reconoce reconocemos reconocéis reconocen',
+  /* vốn đã đúng */
+  'pensar':'pienso piensas piensa pensamos pensáis piensan',
+  'pedir':'pido pides pide pedimos pedís piden',
+  'dormir':'duermo duermes duerme dormimos dormís duermen',
+  'jugar':'juego juegas juega jugamos jugáis juegan',
+  'hablar':'hablo hablas habla hablamos habláis hablan',
+  'comer':'como comes come comemos coméis comen',
+  'vivir':'vivo vives vive vivimos vivís viven'
+};
+check('es · hiện tại của ' + Object.keys(PRES_ES).length + ' động từ, gõ tay từng ngôi', () => {
+  const bad = [];
+  for (const [v, exp] of Object.entries(PRES_ES)){
+    const t = M.table('es', v);
+    if (!t){ bad.push(v + ': không có bảng'); continue; }
+    const got = t.tenses[0].forms.filter(x => x).join(' ');
+    if (got !== exp) bad.push(v + ': ra «' + got + '» cần «' + exp + '»');
+  }
+  return bad.length ? bad.length + ' sai · ' + bad.slice(0, 3).join(' | ') : true;
+});
+
+/* -car / -gar / -zar đổi chính tả ở quá khứ ngôi yo và toàn bộ thì giả định.
+   Ba đuôi này cực thông dụng nên sai là sai khắp bảng. */
+const SPELL_ES = {
+  'buscar':   ['busqué', 'busque'],
+  'sacar':    ['saqué', 'saque'],
+  'llegar':   ['llegué', 'llegue'],
+  'pagar':    ['pagué', 'pague'],
+  'empezar':  ['empecé', 'empiece'],
+  'almorzar': ['almorcé', 'almuerce'],
+  'hablar':   ['hablé', 'hable'],
+  'coger':    ['cogí', 'coja'],
+  'conocer':  ['conocí', 'conozca'],
+  'seguir':   ['seguí', 'siga'],
+  'construir':['construí', 'construya'],
+  'enviar':   ['envié', 'envíe']
+};
+check('es · quá khứ ngôi yo và giả định — chính tả -car/-gar/-zar', () => {
+  const bad = [];
+  for (const [v, pair] of Object.entries(SPELL_ES)){
+    const t = M.table('es', v); if (!t){ bad.push(v + ': không có bảng'); continue; }
+    const gp = t.tenses.find(x => x.id === 'pret').forms[0];
+    const gs = t.tenses.find(x => x.id === 'subj').forms[0];
+    if (gp !== pair[0]) bad.push(v + ' quá khứ: «' + gp + '» cần «' + pair[0] + '»');
+    if (gs !== pair[1]) bad.push(v + ' giả định: «' + gs + '» cần «' + pair[1] + '»');
+  }
+  return bad.length ? bad.join(' | ') : true;
+});
+
+check('es · gốc nguyên âm: quá khứ -yó, gerundio -yendo, phân từ có dấu', () => {
+  const want = { 'leer':['leyó','leyendo','leído'], 'caer':['cayó','cayendo','caído'],
+                 'creer':['creyó','creyendo','creído'], 'oír':['oyó','oyendo','oído'],
+                 'construir':['construyó','construyendo','construido'] };
+  const bad = [];
+  for (const [v, w] of Object.entries(want)){
+    const t = M.table('es', v); if (!t){ bad.push(v + ': không có bảng'); continue; }
+    const g3 = t.tenses.find(x => x.id === 'pret').forms[2];
+    if (g3 !== w[0])      bad.push(v + ' quá khứ ngôi 3: «' + g3 + '» cần «' + w[0] + '»');
+    if (t.ger !== w[1])   bad.push(v + ' gerundio: «' + t.ger + '» cần «' + w[1] + '»');
+    if (t.part !== w[2])  bad.push(v + ' phân từ: «' + t.part + '» cần «' + w[2] + '»');
+  }
+  return bad.length ? bad.join(' | ') : true;
+});
+
+check('es · phân từ bất quy tắc của động từ ghép', () => {
+  const want = { 'devolver':'devuelto', 'resolver':'resuelto', 'envolver':'envuelto',
+                 'describir':'descrito', 'inscribir':'inscrito', 'suponer':'supuesto',
+                 'componer':'compuesto', 'deshacer':'deshecho', 'descubrir':'descubierto' };
+  const bad = [];
+  for (const [v, exp] of Object.entries(want)){
+    const t = M.table('es', v); if (!t){ bad.push(v + ': không có bảng'); continue; }
+    if (t.part !== exp) bad.push(v + ': «' + t.part + '» cần «' + exp + '»');
+  }
+  return bad.length ? bad.join(' | ') : true;
+});
+
+check('es · động từ khuyết thì KHÔNG dựng bảng bịa', () => {
+  const bad = [];
+  for (const v of ['abolir','asir','roer','yacer','cocer','balbucir','atañer'])
+    if (M.table('es', v)) bad.push(v + ': lẽ ra phải trả null');
+  return bad.length ? bad.join(' | ') : true;
+});
+
+check('es · cụm động từ (acabar de, tener que) không làm sập bảng chia', () => {
+  for (const v of ['acabar de','tener que','ir a','hacer falta','dar igual'])
+    M.table('es', v);            // chỉ cần không ném lỗi
+  return true;
+});
+
 console.log('\n' + pass + ' đạt / ' + fail + ' lỗi');
 process.exit(fail ? 1 : 0);

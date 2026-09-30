@@ -453,6 +453,50 @@ const LANGS = [
     return true;
   });
 
+
+  /* Bảng chữ cái: dải gọn + nhãn cho chữ đáng học + thẻ chi tiết bấm ra.
+     Bản cũ cho mỗi chữ một ô vuông bằng nhau, tốn bốn dòng màn hình để nói
+     một điều ai cũng biết. Chốt lại hình dạng mới để không trượt về đó. */
+  LANGS.forEach(L => {
+    check(L.vi + ' — bảng chữ cái: dải gọn, có nhãn, bấm ra được chi tiết', () => {
+      click('[data-go="' + L.id + '_phon"]');
+      const chips = d.querySelectorAll('.lat-ltr');
+      if (chips.length < 26) return 'chỉ có ' + chips.length + ' ô chữ';
+      if (d.querySelectorAll('.ru-letter').length) return 'vẫn còn dùng ô vuông kiểu cũ';
+      const tagged = Array.prototype.filter.call(chips, c => /\bt-(diff|silent|rare|new)\b/.test(c.className));
+      if (tagged.length < 8) return 'chỉ ' + tagged.length + ' chữ được đánh nhãn — bảng không nói được chữ nào đáng học';
+      if (d.querySelectorAll('.lat-lg').length !== 4) return 'thiếu chú giải màu';
+      if (d.querySelector('.lat-ltr-card')) return 'thẻ chi tiết hiện sẵn, đáng lẽ phải bấm mới ra';
+      /* bấm một chữ có nhãn */
+      click(tagged[0]);
+      const card = d.querySelector('.lat-ltr-card');
+      if (!card) return 'bấm vào chữ không mở được thẻ chi tiết';
+      if (!card.querySelector('.lat-ltr-ex .lat-ltr-w')) return 'thẻ chi tiết không có từ ví dụ nào';
+      if (!card.textContent.trim()) return 'thẻ chi tiết rỗng';
+      /* Bấm lại thì đóng. Phải TÌM LẠI nút: màn hình vừa vẽ lại nên nút cũ
+         đã rời khỏi cây DOM, bấm vào nó thì không ai nghe. */
+      const again = Array.prototype.find.call(d.querySelectorAll('.lat-ltr'),
+        c => c.dataset.latLetter === tagged[0].dataset.latLetter);
+      if (!again) return 'không tìm lại được ô chữ sau khi vẽ lại';
+      click(again);
+      return !d.querySelector('.lat-ltr-card') || 'bấm lần hai không đóng được thẻ';
+    });
+
+    check(L.vi + ' — chữ câm và chữ riêng được đánh đúng nhãn', () => {
+      click('[data-go="' + L.id + '_phon"]');
+      const find = ch => Array.prototype.find.call(d.querySelectorAll('.lat-ltr'),
+        c => c.querySelector('b').textContent === ch);
+      const h = find('H');
+      if (!h) return 'không thấy chữ H';
+      if (!/t-silent/.test(h.className)) return 'chữ H phải được đánh là câm — cả hai tiếng đều không đọc nó';
+      if (L.id === 'es'){
+        const nn = find('Ñ');
+        if (!nn) return 'không thấy chữ Ñ';
+        if (!/t-new/.test(nn.className)) return 'Ñ phải được đánh là chữ riêng, không phải n có dấu';
+      }
+      return true;
+    });
+  });
   check('không có lỗi console', () => errors.length === 0 || errors.slice(0, 2).join(' | '));
 
   console.log('\n' + pass + ' đạt / ' + fail + ' lỗi');

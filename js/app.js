@@ -7124,10 +7124,39 @@ const LAT = {
     ],
     alphaTitle:'Bảng chữ cái và dấu',
     alpha:[
-      ['A a','a'],['B b','bé'],['C c','xê'],['D d','đê'],['E e','ơ'],['F f','ép'],['G g','giê'],
-      ['H h','át (luôn câm)'],['I i','i'],['J j','gi'],['K k','ca'],['L l','en-lơ'],['M m','em-mơ'],
-      ['N n','en-nơ'],['O o','ô'],['P p','pê'],['Q q','quy'],['R r','e-rơ'],['S s','ét-xơ'],
-      ['T t','tê'],['U u','uy'],['V v','vê'],['W w','vê kép'],['X x','ích-xơ'],['Y y','i cờ-rếch'],['Z z','dét']
+      /* Mỗi chữ mang thêm một NHÃN cho biết nó đáng chú ý tới mức nào, để
+         màn hình khỏi dành diện tích ngang nhau cho chữ A (ai cũng biết) và
+         chữ H (luôn câm — thứ người Việt hay quên).
+           diff   đọc khác thói quen tiếng Việt
+           silent câm
+           rare   gần như chỉ có trong từ mượn
+           new    chữ hoặc dấu riêng của tiếng này */
+      { l:'A a', n:'a' },
+      { l:'B b', n:'bé' },
+      { l:'C c', n:'xê', tag:'diff', hint:'Trước e, i, y đọc là «x»; trước a, o, u đọc là «c». Chữ ç luôn đọc «x».', ex:['ce','ça','café'] },
+      { l:'D d', n:'đê' },
+      { l:'E e', n:'ơ', tag:'diff', hint:'Chữ e không dấu ở cuối từ hầu như luôn CÂM: «table» đọc là «tabl». Đây là lý do từ tiếng Pháp nghe ngắn hơn nhìn.', ex:['table','porte'] },
+      { l:'F f', n:'ép' },
+      { l:'G g', n:'giê', tag:'diff', hint:'Trước e, i, y đọc mềm thành «gi»; trước a, o, u đọc cứng như «g» tiếng Việt.', ex:['gare','âge'] },
+      { l:'H h', n:'át', tag:'silent', hint:'Không bao giờ phát ra tiếng. Nhưng có hai loại: h câm cho nối âm (l’heure) và h bặt hơi chặn nối âm (le héros).', ex:['heure','hôtel'] },
+      { l:'I i', n:'i' },
+      { l:'J j', n:'gi', tag:'diff', hint:'Đọc như «gi» tiếng Việt, không phải «j» tiếng Anh.', ex:['jour','jeudi'] },
+      { l:'K k', n:'ca', tag:'rare', hint:'Gần như chỉ gặp trong từ mượn: kilo, kayak.' },
+      { l:'L l', n:'en-lơ' },
+      { l:'M m', n:'em-mơ' },
+      { l:'N n', n:'en-nơ' },
+      { l:'O o', n:'ô' },
+      { l:'P p', n:'pê' },
+      { l:'Q q', n:'quy', tag:'diff', hint:'Hầu như luôn đi với u thành «qu», và đọc gọn là «c» — không đọc «qu» như tiếng Việt.', ex:['qui','quatre'] },
+      { l:'R r', n:'e-rơ', tag:'diff', hint:'Phát ở cổ họng, không rung đầu lưỡi. Đây là âm khó nhất với người Việt.', ex:['rue','Paris'] },
+      { l:'S s', n:'ét-xơ', tag:'diff', hint:'Giữa hai nguyên âm đọc thành «z»: maison. Ở cuối từ thường câm.', ex:['maison','vous'] },
+      { l:'T t', n:'tê' },
+      { l:'U u', n:'uy', tag:'diff', hint:'Âm không có trong tiếng Việt: chúm môi như «u» nhưng đặt lưỡi ở vị trí «i».', ex:['tu','rue'] },
+      { l:'V v', n:'vê' },
+      { l:'W w', n:'vê kép', tag:'rare', hint:'Chỉ trong từ mượn: week-end, wagon.' },
+      { l:'X x', n:'ích-xơ', tag:'diff', hint:'Cuối từ thường câm (deux); giữa từ có khi đọc «gz» (examen).', ex:['deux','examen'] },
+      { l:'Y y', n:'i cờ-rếch' },
+      { l:'Z z', n:'dét' }
     ],
     marks:[
       ['é','accent aigu — chỉ đứng trên chữ e, đọc khép miệng'],
@@ -7156,11 +7185,34 @@ const LAT = {
     ],
     alphaTitle:'Bảng chữ cái',
     alpha:[
-      ['A a','a'],['B b','bê'],['C c','xê'],['D d','đê'],['E e','ê'],['F f','ê-phê'],['G g','khê'],
-      ['H h','a-chê (câm)'],['I i','i'],['J j','khô-ta'],['K k','ca'],['L l','ê-lê'],['M m','ê-mê'],
-      ['N n','ê-nê'],['Ñ ñ','ê-nhê'],['O o','ô'],['P p','pê'],['Q q','cu'],['R r','ê-rê'],
-      ['S s','ê-xê'],['T t','tê'],['U u','u'],['V v','u-vê'],['W w','u-vê kép'],['X x','ê-kít'],
-      ['Y y','i gờ-ri-ê-ga'],['Z z','thê-ta']
+      /* Nhãn: diff · silent · rare · new — xem chú thích ở khối tiếng Pháp. */
+      { l:'A a', n:'a' },
+      { l:'B b', n:'bê', tag:'diff', hint:'b và v đọc GIỐNG HỆT nhau. Người Tây Ban Nha phải hỏi «b de burro hay v de vaca?» mới biết viết chữ nào.', ex:['bueno','vaca'] },
+      { l:'C c', n:'xê', tag:'diff', hint:'Trước e, i: ở Tây Ban Nha đọc như «th» tiếng Anh, ở Mỹ Latinh đọc «s». Trước a, o, u luôn đọc «c».', ex:['cinco','casa'] },
+      { l:'D d', n:'đê', tag:'diff', hint:'Giữa hai nguyên âm và ở cuối từ đọc rất nhẹ, gần như «đ» hụt hơi: cada, usted.', ex:['cada','usted'] },
+      { l:'E e', n:'ê' },
+      { l:'F f', n:'ê-phê' },
+      { l:'G g', n:'khê', tag:'diff', hint:'Trước e, i đọc «kh» mạnh như chữ j; trước a, o, u đọc «g» cứng.', ex:['gente','gato'] },
+      { l:'H h', n:'a-chê', tag:'silent', hint:'Luôn câm, không có ngoại lệ: hola đọc là «ô-la».', ex:['hola','hora'] },
+      { l:'I i', n:'i' },
+      { l:'J j', n:'khô-ta', tag:'diff', hint:'Luôn đọc «kh» mạnh từ cổ họng, không bao giờ đọc như j tiếng Anh.', ex:['jamón','trabajo'] },
+      { l:'K k', n:'ca', tag:'rare', hint:'Chỉ trong từ mượn: kilo, kiwi.' },
+      { l:'L l', n:'ê-lê' },
+      { l:'M m', n:'ê-mê' },
+      { l:'N n', n:'ê-nê' },
+      { l:'Ñ ñ', n:'ê-nhê', tag:'new', hint:'Chữ cái RIÊNG, không phải n có dấu. Trong từ điển nó đứng hẳn một ô sau n. Đọc là «nh».', ex:['año','España'] },
+      { l:'O o', n:'ô' },
+      { l:'P p', n:'pê' },
+      { l:'Q q', n:'cu', tag:'diff', hint:'Chỉ tồn tại trong qu-, và chữ u đó câm: queso đọc «kê-sô».', ex:['queso','quince'] },
+      { l:'R r', n:'ê-rê', tag:'diff', hint:'Đầu từ và rr rung mạnh nhiều nhịp; giữa từ chỉ rung một nhịp. perro và pero là hai từ khác nhau.', ex:['perro','pero'] },
+      { l:'S s', n:'ê-xê' },
+      { l:'T t', n:'tê' },
+      { l:'U u', n:'u', tag:'diff', hint:'Câm sau q và sau g trước e, i: queso, guerra. Muốn đọc lên phải thêm dấu ü: pingüino.', ex:['guerra','queso'] },
+      { l:'V v', n:'u-vê', tag:'diff', hint:'Đọc y hệt chữ b. Không có âm «v» như tiếng Việt.', ex:['vivir','vino'] },
+      { l:'W w', n:'u-vê kép', tag:'rare', hint:'Chỉ trong từ mượn: wifi, whisky.' },
+      { l:'X x', n:'ê-kít' },
+      { l:'Y y', n:'i gờ-ri-ê-ga' },
+      { l:'Z z', n:'thê-ta', tag:'diff', hint:'Ở Tây Ban Nha đọc như «th» tiếng Anh; ở Mỹ Latinh đọc «s». Không bao giờ đọc «z».', ex:['zapato','azul'] }
     ],
     marks:[
       ['á é í ó ú','dấu sắc — chỉ báo trọng âm rơi trái quy tắc, không đổi cách đọc nguyên âm'],
@@ -7186,11 +7238,18 @@ function latLesson(id){ const st = latSt(id); return latCfg(id).course.lessons.f
 
 /* Kho từ gộp từ mọi bài — dùng cho từ điển và cho việc bấm vào từ trong câu */
 const _latLookup = {};
+/* Dấu nháy cong ’ (U+2019) và dấu nháy thẳng ' là cùng một chữ với người học
+   nhưng là hai mã khác nhau với máy. Mục từ ghi «aujourd’hui» mà câu ví dụ viết
+   «aujourd'hui» thì bấm vào không ra gì — mà không ai nhìn ra được vì trên màn
+   hình hai chữ ấy giống nhau. Khoá tra luôn dùng dấu thẳng; chữ hiện trên màn
+   hình thì vẫn lấy từ w[id], giữ nguyên cách viết đẹp. */
+const latKey = s => String(s || '').toLowerCase().replace(/[\u2019\u02bc]/g, "'");
+
 function latLookup(id){
   if (_latLookup[id]) return _latLookup[id];
   const m = {};
   latCfg(id).course.lessons.forEach(l => (l.vocab || []).forEach(w => {
-    const k = String(w[id] || '').toLowerCase();
+    const k = latKey(w[id]);
     if (!k) return;
     if (!m[k]) m[k] = Object.assign({ key:k, refs:[] }, w);
     m[k].refs.push({ level:l.level, no:l.no });
@@ -7203,11 +7262,42 @@ function latLookup(id){
     if (r.lang !== id) return;
     (r.keys || []).forEach(w => {
       const raw = String(w.w || '');
-      const k = raw.toLowerCase();
+      const k = latKey(raw);
       if (!k || m[k]) return;
       m[k] = { key:k, [id]:raw, ipa:String(w.r || '').replace(/^\/|\/$/g, ''),
                vi:w.vi, pos:'', g:'', refs:[], from:r.title };
     });
+  });
+  /* LỚP TỪ NỀN. Ràng buộc «không từ nào lặp giữa 100 bài» giữ cho kho từ của
+     khoá học sạch, nhưng nó đẩy việc chọn từ trôi dần sang từ hiếm: «faire»,
+     «semaine», «hacer», «día», «el», «à» được dùng thoải mái trong câu ví dụ mà
+     không bao giờ được liệt kê thành mục từ. Bấm vào thì không ra gì — mà một
+     cuốn từ điển không có «làm» với «ngày» thì không gọi là từ điển.
+     Lớp này lấp đúng chỗ đó. Từ của khoá vào trước nên luôn thắng; từ nền chỉ
+     điền vào chỗ trống, và được đánh dấu core để mục từ nói thật là nó không
+     thuộc bài nào. */
+  const pick = (a, b) => (typeof a !== 'undefined' ? a : []).concat(typeof b !== 'undefined' ? b : []);
+  const CORE = (id === 'fr') ? pick(typeof WORDS_CORE_FR !== 'undefined' ? WORDS_CORE_FR : undefined,
+                                    typeof WORDS_CORE2_FR !== 'undefined' ? WORDS_CORE2_FR : undefined)
+             : (id === 'es') ? pick(typeof WORDS_CORE_ES !== 'undefined' ? WORDS_CORE_ES : undefined,
+                                    typeof WORDS_CORE2_ES !== 'undefined' ? WORDS_CORE2_ES : undefined)
+             : null;
+  if (CORE) CORE.forEach(w => {
+    const k = latKey(w[id]);
+    if (!k) return;
+    if (m[k]){
+      /* TỪ ĐỒNG TỰ. Khoá học có «devoir» là DANH TỪ «bài tập về nhà», nên mục
+         động từ «devoir» (phải) bị loại — và vì từ loại là danh từ, bảng chia
+         không chạy, «dois», «doit», «dû» tra vào không ra gì. Cũng vậy với
+         «personne» (người / không ai), «bien» (tốt / tài sản), «sobre» (trên /
+         phong bì), «seguro» (chắc chắn / bảo hiểm).
+         Một từ hai nghĩa là chuyện thật của ngôn ngữ, nên giữ cả hai: nghĩa của
+         khoá đứng chính, nghĩa kia thành nghĩa thứ hai, và hình thái sinh theo
+         CẢ HAI từ loại. */
+      if ((m[k].pos || '') !== (w.pos || '') && !m[k].alt) m[k].alt = w;
+      return;
+    }
+    m[k] = Object.assign({ key:k, refs:[], core:true }, w);
   });
   _latLookup[id] = m;
   return m;
@@ -7227,8 +7317,14 @@ function latForms(id){
   const M = (typeof LAT_MORPH !== 'undefined') ? LAT_MORPH : null;
   Object.keys(L).forEach(k => {
     const w = L[k];
-    const list = M ? M.forms(id, w[id] || k, w.pos || '') : [k];
-    list.forEach(f => {
+    const surf = w[id] || k;
+    /* Sinh theo cả hai từ loại nếu là từ đồng tự: «devoir» danh từ thì ra
+       devoirs, mà động từ thì ra dois, doit, devrai… Cả hai đều thật. */
+    const list = M ? M.forms(id, surf, w.pos || '')
+                      .concat(w.alt ? M.forms(id, surf, w.alt.pos || '') : [])
+                   : [k];
+    list.forEach(f0 => {
+      const f = latKey(f0);
       if (!f || f === k) return;
       (m[f] = m[f] || []);
       if (m[f].indexOf(k) < 0) m[f].push(k);
@@ -7280,7 +7376,13 @@ function latExamples(id){
     phrases.forEach(k => { if (low.indexOf(k.replace(/’/g, "'")) >= 0) add(k, { t:text, vi, tag, rank }); });
   };
   latCfg(id).course.lessons.forEach(l => {
-    (l.colloc || []).forEach(c => { scan(c.ex, c.vi, 'Cụm «' + c.p + '»', 0); scanPhrase(c.ex, c.vi, 'Cụm «' + c.p + '»', 0); });
+    /* c.vi là nghĩa của CỤM TỪ, không phải nghĩa của câu ví dụ. Trước đây tôi
+       truyền c.vi vào đây nên mục từ hiện «A falta de tiempo, no lo revisé» kèm
+       bản dịch «vì không có thời gian» — tức là nghĩa của mỗi cụm «a falta de»,
+       còn nửa sau của câu («tôi đã không xem lại nó») thì mất hẳn. Người học
+       đọc vào sẽ hiểu sai câu. Bản dịch của câu nằm ở c.exvi; không có thì
+       không hiện bản dịch nào, thà thiếu còn hơn sai. */
+    (l.colloc || []).forEach(c => { scan(c.ex, c.exvi, 'Cụm «' + c.p + '» — ' + c.vi, 0); scanPhrase(c.ex, c.exvi, 'Cụm «' + c.p + '» — ' + c.vi, 0); });
     (l.grammar || []).forEach(g => { if (g.ex){ scan(g.ex[id], g.ex.vi, g.form, 1); scanPhrase(g.ex[id], g.ex.vi, g.form, 1); } });
     (l.dialogue || []).forEach(d => { scan(d[id], d.vi, 'Hội thoại bài ' + l.no, 2); scanPhrase(d[id], d.vi, 'Hội thoại bài ' + l.no, 2); });
   });
@@ -7313,27 +7415,86 @@ function latFamily(id){
 function latResolve(id, raw){
   const L = latLookup(id);
   const M = (typeof LAT_MORPH !== 'undefined') ? LAT_MORPH : null;
-  const w = String(raw || '').toLowerCase().trim();
+  /* Dấu nháy cong ’ và dấu nháy thẳng ' là cùng một chữ với người học nhưng là
+     hai mã khác nhau với máy: mục từ ghi «quelqu’un» mà câu ví dụ viết
+     «quelqu'un» thì tra vào không ra. Quy về một mối ngay từ đầu. */
+  const norm = s => String(s || '').toLowerCase().trim().replace(/[’ʼ]/g, "'");
+  const w = norm(raw);
   if (!w) return null;
   if (L[w]) return { key:w, via:null };
-  const bare = M ? M.stripLead(id, w) : w;
+  const bare = M ? norm(M.stripLead(id, w)) : w;
   if (L[bare]) return { key:bare, via:null };
   const F = latForms(id);
   const hit = F[w] || F[bare];
   if (hit && hit.length) return { key:hit[0], via:w, also:hit.slice(1) };
+  /* Tiếng Tây Ban Nha dán đại từ vào sau động từ: quedarme, irse, ayudarme,
+     devuélvemelo, dígame. Bóc đại từ ra rồi tra lại — với người học thì đó vẫn
+     là «quedar», «ir», «devolver». Chỉ nhận khi phần còn lại là một dạng THẬT
+     trong bảng, nên không có chỗ nào để đoán. */
+  if (id === 'es' && M && M.esUnclitic){
+    for (const c of M.esUnclitic(w)){
+      if (L[c]) return { key:c, via:w };
+      const h2 = F[c];
+      if (h2 && h2.length) return { key:h2[0], via:w, also:h2.slice(1) };
+    }
+  }
   return null;
 }
 
 /* Tách câu thành từ bấm được. Chữ Latinh có dấu nên không dùng \w được:
    \w bỏ sót é, ñ, ç… và sẽ cắt «français» thành «fran» + «ais». */
-const LAT_WORD = /[A-Za-zÀ-ÖØ-öø-ÿ'’-]+/g;
+/* Dải mã À-ÖØ-öø-ÿ chỉ tới U+00FF nên bỏ sót œ (U+0153) và æ (U+00E6 thì có,
+   nhưng œ thì không): «cœur» bị cắt thành «c» + «ur», «sœur» thành «s» + «ur».
+   Đó là lỗi tôi phát hiện khi đo độ phủ — chín lượt hiện chữ «ur» vô nghĩa.
+   \p{L} lấy MỌI chữ cái của Unicode, nên cũng nhận luôn tên riêng tiếng Việt
+   như «Quân», «Nguyễn» mà bảng cũ cắt nát. */
+const LAT_WORD = /[\p{L}'’-]+/gu;
+
+/* Tiếng Pháp rút gọn từ trước nguyên âm: «c'est» là HAI từ dán vào nhau, «ce»
+   và «est». Nếu chỉ tra nguyên khối thì người học bấm vào chẳng ra gì, mà
+   «c'est» thì không bao giờ đáng là một mục từ riêng. Bảng này trả chữ rút gọn
+   về dạng đầy đủ để tra, còn trên màn hình vẫn giữ nguyên chữ người Pháp viết. */
+const FR_ELIDE = { c:'ce', d:'de', j:'je', l:'le', m:'me', n:'ne', s:'se', t:'te',
+                   qu:'que', lorsqu:'lorsque', puisqu:'puisque', quoiqu:'quoique',
+                   jusqu:"jusqu'à", presqu:'presque' };
+
+/* Tách một chuỗi chữ thành những mảnh tra được.
+   Thử nguyên khối trước — «aujourd’hui», «rendez-vous», «peut-être» là mục từ
+   thật, cắt ra là sai. Không được thì mới bóc phần rút gọn ở đầu, rồi mới cắt
+   ở gạch nối. Trả về danh sách [chữ hiện trên màn hình, khoá tra hoặc null]. */
+function latSplit(w, id){
+  const R = latResolve(id, w);
+  if (R) return [[w, R.key]];
+  const el = id === 'fr' && w.match(/^(\p{L}{1,7})[’']([\s\S]+)$/u);
+  if (el){
+    const full = FR_ELIDE[el[1].toLowerCase()];
+    if (full){
+      const head = latResolve(id, full);
+      return [[el[1] + w.charAt(el[1].length), head ? head.key : null]]
+             .concat(latSplit(el[2], id));
+    }
+  }
+  const i = w.indexOf('-');
+  if (i > 0 && i < w.length - 1)
+    return latSplit(w.slice(0, i), id).concat([['-', null]], latSplit(w.slice(i + 1), id));
+  const bare = w.replace(/^[-’']+|[-’']+$/g, '');
+  if (bare && bare !== w){
+    const B = latResolve(id, bare);
+    if (B) return [[w, B.key]];
+  }
+  return [[w, null]];
+}
+
+/* Mọi từ trong câu đều bấm được — đó mới là từ điển điện tử. Từ nào tra được
+   thì mở thẳng mục từ; từ nào chưa có thì vẫn bấm được nhưng đưa vào thanh tra
+   và nói thật là chưa có, chứ không im lặng như hỏng. */
 function latTokens(text, id){
-  const L = latLookup(id);
   return String(text || '').replace(/[&<>]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[c]))
-    .replace(LAT_WORD, w => {
-      const k = w.toLowerCase().replace(/[’']$/, '');
-      return L[k] ? `<span class="zc" data-latw="${id}:${esc(k)}">${w}</span>` : w;
-    });
+    .replace(LAT_WORD, w => latSplit(w, id).map(([surf, key]) =>
+      key ? `<span class="zc" data-latw="${id}:${esc(key)}">${surf}</span>`
+          : (/^[-’']+$/.test(surf) ? surf
+             : `<span class="zc zc-x" data-latwx="${id}:${esc(surf)}">${surf}</span>`)
+    ).join(''));
 }
 function latSpeakBtn(text, id, cls){
   return `<button class="${cls || 'icon-btn'}" data-lat-speak="${id}:${esc(text)}" title="Nghe">${SPK_ICO}</button>`;
@@ -7413,7 +7574,7 @@ function latLessonView(id){
       <div class="zh-gram">
         <div class="zh-gram-form ${id}">${latTokens(p.p, id)} ${latSpeakBtn(p.p, id, 'icon-btn mini')}</div>
         <p class="zh-gram-vi">${esc(p.vi)}</p>
-        ${p.ex ? `<div class="zh-gram-ex"><span class="${id}">${latTokens(p.ex, id)}</span> ${latSpeakBtn(p.ex, id, 'icon-btn mini')}</div>` : ''}
+        ${p.ex ? `<div class="zh-gram-ex"><span class="${id}">${latTokens(p.ex, id)}</span> ${latSpeakBtn(p.ex, id, 'icon-btn mini')}${p.exvi ? `<i>${esc(p.exvi)}</i>` : ''}</div>` : ''}
       </div>`).join('');
   } else {
     body = `<div class="dlg">${(l.dialogue || []).map(d => `
@@ -7488,12 +7649,22 @@ function latEntryHTML(id, key, via){
     <div class="zh-entry-vi">${esc(cur.vi)}</div>
     ${cur.pos ? `<div class="zh-entry-meta">${esc(cur.pos)}</div>` : ''}
     ${cur.note ? `<p class="zh-gram-note">${esc(cur.note)}</p>` : ''}
+    ${cur.alt ? `<div class="lat-alt2">
+      <span class="lat-alt2-tag">Nghĩa thứ hai</span>
+      <b>${esc(cur.alt.vi)}</b>
+      ${cur.alt.pos ? `<i>${esc(cur.alt.pos)}</i>` : ''}
+      ${cur.alt.note ? `<p class="zh-gram-note">${esc(cur.alt.note)}</p>` : ''}
+    </div>` : ''}
     ${latFalseFriendHTML(id, cur[id] || key)}
     <div class="zh-entry-refs">${cur.refs && cur.refs.length
       ? cur.refs.map(r => `<button class="zh-ref" data-lat-lesson="${id}:${r.no}">Bài ${r.no}</button>`).join(' ')
-      : `<span class="zh-dict-tag">Từ của bài đọc${cur.from ? ' «' + esc(cur.from) + '»' : ''} — chưa nằm trong bài học nào</span>`}</div>
+      : cur.core
+        ? `<span class="zh-dict-tag">Từ nền — thông dụng đến mức câu nào cũng gặp, nên không dành riêng cho bài nào</span>`
+        : `<span class="zh-dict-tag">Từ của bài đọc${cur.from ? ' «' + esc(cur.from) + '»' : ''} — chưa nằm trong bài học nào</span>`}</div>
     ${latExHTML(id, key)}
     ${isVerb ? latConjHTML(id, M.stripLead(id, cur[id] || key)) : latAgreeHTML(id, cur, key)}
+    ${(!isVerb && cur.alt && /động từ/.test(cur.alt.pos || '') && M && M.table(id, M.stripLead(id, cur[id] || key)))
+      ? latConjHTML(id, M.stripLead(id, cur[id] || key)) : ''}
     ${latMorphHTML(id, key, cur)}
   </div>`;
 }
@@ -7614,8 +7785,11 @@ function latDict(id){
   const q = String(st.q || '').trim().toLowerCase();
   const all = Object.keys(L).sort((a, b) => a.localeCompare(b, id));
   const hits = q ? all.filter(k => k.indexOf(q) >= 0 || String(L[k].vi).toLowerCase().indexOf(q) >= 0) : all;
-  /* Gõ một dạng biến đổi thì danh sách trên rỗng — lúc đó mới đi tra ngược. */
-  const res = (q && !hits.length) ? latResolve(id, q) : null;
+  /* Trước đây chỉ tra ngược KHI danh sách rỗng. Nhưng gõ «vais» thì danh sách
+     không rỗng — vì «vaisselle» có chứa bốn chữ ấy — nên mục «aller» không hiện
+     ra, và người học tưởng từ điển không biết dạng chia. Giờ luôn tra ngược, và
+     mục từ hiện SONG SONG với danh sách gợi ý. */
+  const res = q ? latResolve(id, q) : null;
   latAlso[id] = res ? (res.also || []) : [];
   const curKey = res ? res.key : (st.entry && L[st.entry] ? st.entry : null);
   const nVerb = all.filter(k => /động từ/.test(L[k].pos || '')).length;
@@ -7651,6 +7825,77 @@ function latDict(id){
 }
 
 /* ---------------- Bảng chữ cái & phát âm ---------------- */
+/* ---------------- BẢNG CHỮ CÁI ----------------
+   Bản cũ cho mỗi chữ một ô vuông bằng nhau: hai mươi sáu ô chiếm cả màn
+   hình để nói một điều người Việt đã biết từ lớp một — rằng có chữ A, chữ
+   B. Diện tích thì tốn mà thông tin gần như bằng không.
+
+   Bản này đảo lại: cả bảng chữ nằm gọn trong một dải nhỏ, còn chỗ rộng
+   dành cho những chữ ĐÁNG HỌC — chữ đọc khác thói quen, chữ câm, chữ chỉ
+   có trong từ mượn, chữ riêng của tiếng đó. Bấm vào một chữ mới mở phần
+   giải thích, kèm từ ví dụ lấy thẳng từ khoá học nên nghe được ngay. */
+const LAT_TAG = {
+  diff:   { vi:'đọc khác thói quen tiếng Việt' },
+  silent: { vi:'câm' },
+  rare:   { vi:'gần như chỉ có trong từ mượn' },
+  new:    { vi:'chữ riêng của tiếng này' }
+};
+
+function latAlphaHTML(id){
+  const c = latCfg(id), st = latSt(id);
+  const A = (c.alpha || []).map(x => Array.isArray(x) ? { l:x[0], n:x[1] } : x);
+  const notable = A.filter(x => x.tag);
+  const cur = A.find(x => x.l === st.letter) || null;
+
+  const chip = x => `
+    <button class="lat-ltr${x.tag ? ' t-' + x.tag : ''}${cur && cur.l === x.l ? ' on' : ''}"
+            data-lat-letter="${id}:${esc(x.l)}"${x.tag ? ' title="' + esc(LAT_TAG[x.tag].vi) + '"' : ''}>
+      <b class="${id}">${esc(x.l.split(' ')[0])}</b><i>${esc(x.n)}</i>
+    </button>`;
+
+  /* Từ ví dụ: ưu tiên từ đã ghi trong bảng, thiếu thì lấy từ chính khoá học
+     — vừa có sẵn bản thu, vừa bấm được sang mục từ điển. */
+  const exWords = x => {
+    const L = latLookup(id);
+    let out = (x.ex || []).filter(w => w);
+    if (out.length < 2){
+      const ch = x.l.split(' ')[1] || x.l.charAt(0).toLowerCase();
+      const more = Object.keys(L)
+        .filter(k => k.charAt(0) === ch && k.indexOf(' ') < 0 && k.length >= 3 && k.length <= 9)
+        .sort((a, b) => a.length - b.length);
+      out = out.concat(more.filter(w => out.indexOf(w) < 0));
+    }
+    return out.slice(0, 3);
+  };
+
+  const detail = cur ? `
+    <div class="lat-ltr-card">
+      <div class="lat-ltr-big ${id}">${esc(cur.l)}</div>
+      <div class="lat-ltr-body">
+        <div class="lat-ltr-name">đọc tên chữ là <b>${esc(cur.n)}</b>${
+          cur.tag ? ` · <span class="lat-ltr-tag t-${cur.tag}">${esc(LAT_TAG[cur.tag].vi)}</span>` : ''}</div>
+        ${cur.hint ? `<p>${esc(cur.hint)}</p>` : '<p>Đọc như tiếng Việt, không có gì phải nhớ riêng.</p>'}
+        <div class="lat-ltr-ex">${exWords(cur).map(w => {
+          const has = latLookup(id)[w];
+          return `<span class="lat-ltr-w">${has
+            ? `<button class="lat-chip ${id}" data-lat-entry="${id}:${esc(w)}">${esc(w)}</button>`
+            : `<b class="${id}">${esc(w)}</b>`} ${latSpeakBtn(w, id, 'icon-btn mini')}</span>`;
+        }).join('')}</div>
+      </div>
+      <button class="lat-ltr-x" data-lat-letter="${id}:" title="Đóng" aria-label="Đóng">✕</button>
+    </div>` : '';
+
+  return `
+  <h2 class="sec-h">${esc(c.alphaTitle)}</h2>
+  <p class="lat-alpha-lead">Cả bảng ${A.length} chữ nằm gọn ở đây. Chữ nào có gạch màu là chữ
+     <b>không đọc theo thói quen tiếng Việt</b> — ${notable.length} chữ, và đó mới là phần phải học.
+     Bấm vào một chữ để xem cách đọc và nghe từ ví dụ.</p>
+  <div class="lat-alpha">${A.map(chip).join('')}</div>
+  <div class="lat-legend">${Object.keys(LAT_TAG).map(k =>
+      `<span class="lat-lg t-${k}"><i></i>${esc(LAT_TAG[k].vi)}</span>`).join('')}</div>
+  ${detail}`;
+}
+
 function latPhon(id){
   const c = latCfg(id);
   return `
@@ -7659,10 +7904,7 @@ function latPhon(id){
     <h1>${esc(c.phonTitle)}</h1>
     <p>${esc(c.phonLead)}</p>
   </div>
-  <h2 class="sec-h">${esc(c.alphaTitle)}</h2>
-  <div class="ru-letters">
-    ${c.alpha.map(a => `<div class="ru-letter"><span class="ru-letter-ch ${id}">${esc(a[0])}</span><span class="ru-letter-nm">${esc(a[1])}</span></div>`).join('')}
-  </div>
+  ${latAlphaHTML(id)}
   <h2 class="sec-h">Dấu phụ</h2>
   <div class="zh-word-grid">
     ${c.marks.map(m => `<div class="zh-word"><div class="zh-word-top"><span class="zh-word-hz ${id}">${esc(m[0])}</span></div><div class="zh-word-vi">${esc(m[1])}</div></div>`).join('')}
@@ -8056,7 +8298,7 @@ function latSpeakView(id){
   </div>`;
 }
 
-try { window.__lat = { lookup: latLookup, cfg: latCfg, quiz: latMakeQuiz, pool: latPool, types: LAT_QZ_TYPE, examples: latExamples, family: latFamily }; } catch(e){}
+try { window.__lat = { lookup: latLookup, cfg: latCfg, quiz: latMakeQuiz, pool: latPool, types: LAT_QZ_TYPE, examples: latExamples, family: latFamily, resolve: latResolve, forms: latForms, tokens: latTokens }; } catch(e){}
 
 Object.keys(LAT).forEach(id => {
   VIEWS[id + '_home']   = () => latSt(id).lesson ? latLessonView(id) : latHome(id);
@@ -8368,6 +8610,11 @@ document.addEventListener('click', e => {
   }
   const latT = t.closest('[data-lat-tab]');
   if (latT){ const [id, tab] = latT.dataset.latTab.split(':'); latSt(id).tab = tab; renderKeep(); return; }
+  const latLt = t.closest('[data-lat-letter]');
+  if (latLt){ const v = latLt.dataset.latLetter; const i = v.indexOf(':');
+    const id = v.slice(0, i), L = v.slice(i + 1);
+    latSt(id).letter = (latSt(id).letter === L || !L) ? null : L;
+    renderKeep(); return; }
   const latE = t.closest('[data-lat-entry]');
   if (latE){ const i = latE.dataset.latEntry.indexOf(':'); const id = latE.dataset.latEntry.slice(0, i);
     latSt(id).entry = latE.dataset.latEntry.slice(i + 1);
@@ -8385,6 +8632,13 @@ document.addEventListener('click', e => {
   const latW = t.closest('[data-latw]');
   if (latW){ const i = latW.dataset.latw.indexOf(':'); const id = latW.dataset.latw.slice(0, i);
     latSt(id).entry = latW.dataset.latw.slice(i + 1); latSt(id).q = '';
+    go(id + '_dict'); return; }
+  /* Từ chưa có mục từ. Vẫn phải phản hồi — bấm mà không có gì xảy ra thì người
+     học tưởng app hỏng. Đưa chữ vào thanh tra để màn từ điển nói thẳng là chưa
+     có, đồng thời gợi ý tra sang từ điển các tiếng khác. */
+  const latWx = t.closest('[data-latwx]');
+  if (latWx){ const i = latWx.dataset.latwx.indexOf(':'); const id = latWx.dataset.latwx.slice(0, i);
+    latSt(id).q = latWx.dataset.latwx.slice(i + 1); latSt(id).entry = null;
     go(id + '_dict'); return; }
   const latSp = t.closest('[data-lat-speak]');
   if (latSp){ const i = latSp.dataset.latSpeak.indexOf(':'); const id = latSp.dataset.latSpeak.slice(0, i);

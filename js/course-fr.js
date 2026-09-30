@@ -56,9 +56,9 @@ const COURSE_FR = {
       { fr:'comment', ipa:'kɔ.mɑ̃', vi:'thế nào, làm sao', pos:'trạng từ nghi vấn' }
     ],
     colloc:[
-      { p:'Comment allez-vous ?', vi:'Ông/bà khoẻ không ạ? — trang trọng. Thân mật thì «Ça va ?»', ex:'Bonjour madame, comment allez-vous ?' },
-      { p:'Je m’appelle…', vi:'Tôi tên là… Nghĩa đen là «tôi tự gọi mình là».', ex:'Je m’appelle Quan.' },
-      { p:'Enchanté de faire votre connaissance.', vi:'Rất hân hạnh được làm quen — câu lịch sự đầy đủ.', ex:'Enchanté de faire votre connaissance, monsieur.' }
+      { p:'Comment allez-vous ?', vi:'Ông/bà khoẻ không ạ? — trang trọng. Thân mật thì «Ça va ?»', ex:'Bonjour madame, comment allez-vous ?', exvi:'Chào bà, bà có khoẻ không?' },
+      { p:'Je m’appelle…', vi:'Tôi tên là… Nghĩa đen là «tôi tự gọi mình là».', ex:'Je m’appelle Quan.', exvi:'Tôi tên là Quân.' },
+      { p:'Enchanté de faire votre connaissance.', vi:'Rất hân hạnh được làm quen — câu lịch sự đầy đủ.', ex:'Enchanté de faire votre connaissance, monsieur.', exvi:'Rất hân hạnh được gặp ông.' }
     ],
     dialogue:[
       { sp:'Mme Dubois', fr:'Bonjour. Vous êtes Monsieur Quan ?', vi:'Chào anh. Anh là anh Quân phải không?' },
@@ -101,9 +101,9 @@ const COURSE_FR = {
       { fr:'grand', ipa:'ɡʁɑ̃', vi:'to, lớn, cao', pos:'tính từ' }
     ],
     colloc:[
-      { p:'Tu as quel âge ?', vi:'Bạn bao nhiêu tuổi? Trang trọng: «Quel âge avez-vous ?»', ex:'Tu as quel âge ? — J’ai vingt ans.' },
-      { p:'avoir faim / avoir soif', vi:'Đói / khát — cũng dùng «avoir» chứ không dùng «être».', ex:'J’ai faim. On mange ?' },
-      { p:'Je suis fils unique.', vi:'Tôi là con một. Con gái một thì «fille unique».', ex:'Je n’ai pas de frère, je suis fils unique.' }
+      { p:'Tu as quel âge ?', vi:'Bạn bao nhiêu tuổi? Trang trọng: «Quel âge avez-vous ?»', ex:'Tu as quel âge ? — J’ai vingt ans.', exvi:'Cậu bao nhiêu tuổi? — Tôi hai mươi tuổi.' },
+      { p:'avoir faim / avoir soif', vi:'Đói / khát — cũng dùng «avoir» chứ không dùng «être».', ex:'J’ai faim. On mange ?', exvi:'Tôi đói rồi. Mình ăn nhé?' },
+      { p:'Je suis fils unique.', vi:'Tôi là con một. Con gái một thì «fille unique».', ex:'Je n’ai pas de frère, je suis fils unique.', exvi:'Tôi không có anh em trai, tôi là con một.' }
     ],
     dialogue:[
       { sp:'Claire', fr:'Vous avez des frères et sœurs ?', vi:'Anh có anh chị em không?' },
@@ -144,9 +144,9 @@ const COURSE_FR = {
       { fr:'midi', ipa:'mi.di', vi:'mười hai giờ trưa', pos:'danh từ', g:'m' }
     ],
     colloc:[
-      { p:'Il est midi et demi.', vi:'Mười hai giờ rưỡi trưa. Nửa đêm là «minuit».', ex:'On déjeune à midi et demi.' },
-      { p:'à quelle heure ?', vi:'Vào lúc mấy giờ?', ex:'À quelle heure part le train ?' },
-      { p:'dix heures moins le quart', vi:'Mười giờ kém mười lăm — «moins» là kém.', ex:'Je pars à dix heures moins le quart.' }
+      { p:'Il est midi et demi.', vi:'Mười hai giờ rưỡi trưa. Nửa đêm là «minuit».', ex:'On déjeune à midi et demi.', exvi:'Chúng tôi ăn trưa lúc mười hai giờ rưỡi.' },
+      { p:'à quelle heure ?', vi:'Vào lúc mấy giờ?', ex:'À quelle heure part le train ?', exvi:'Tàu chạy lúc mấy giờ?' },
+      { p:'dix heures moins le quart', vi:'Mười giờ kém mười lăm — «moins» là kém.', ex:'Je pars à dix heures moins le quart.', exvi:'Tôi đi lúc mười giờ kém mười lăm.' }
     ],
     dialogue:[
       { sp:'Quan', fr:'Pardon, quelle heure est-il ?', vi:'Cho hỏi, mấy giờ rồi ạ?' },
@@ -187,9 +187,9 @@ const COURSE_FR = {
       { fr:'combien', ipa:'kɔ̃.bjɛ̃', vi:'bao nhiêu', pos:'trạng từ nghi vấn' }
     ],
     colloc:[
-      { p:'s’il vous plaît', vi:'Làm ơn — gần như bắt buộc ở cuối mọi câu nhờ vả. Thân mật: «s’il te plaît».', ex:'Un café, s’il vous plaît.' },
-      { p:'L’addition, s’il vous plaît.', vi:'Cho tôi thanh toán. Ở Pháp phải gọi, phục vụ không tự mang ra.', ex:'Excusez-moi, l’addition s’il vous plaît.' },
-      { p:'un café noisette', vi:'Cà phê pha chút sữa — tên gọi theo màu hạt dẻ.', ex:'Je prends un café noisette.' }
+      { p:'s’il vous plaît', vi:'Làm ơn — gần như bắt buộc ở cuối mọi câu nhờ vả. Thân mật: «s’il te plaît».', ex:'Un café, s’il vous plaît.', exvi:'Cho tôi một cà phê.' },
+      { p:'L’addition, s’il vous plaît.', vi:'Cho tôi thanh toán. Ở Pháp phải gọi, phục vụ không tự mang ra.', ex:'Excusez-moi, l’addition s’il vous plaît.', exvi:'Xin lỗi, cho tôi hoá đơn.' },
+      { p:'un café noisette', vi:'Cà phê pha chút sữa — tên gọi theo màu hạt dẻ.', ex:'Je prends un café noisette.', exvi:'Tôi lấy một cà phê pha chút sữa.' }
     ],
     dialogue:[
       { sp:'Serveur', fr:'Bonjour ! Vous désirez ?', vi:'Chào anh! Anh dùng gì ạ?' },
@@ -232,9 +232,9 @@ const COURSE_FR = {
       { fr:'billet', ipa:'bi.jɛ', vi:'vé', pos:'danh từ', g:'m' }
     ],
     colloc:[
-      { p:'Tournez à droite.', vi:'Rẽ phải. Rẽ trái là «tournez à gauche».', ex:'Tournez à droite après la banque.' },
-      { p:'C’est loin d’ici ?', vi:'Có xa đây không?', ex:'La gare, c’est loin d’ici ?' },
-      { p:'prendre le métro', vi:'Đi tàu điện ngầm — dùng «prendre», không dùng «aller par».', ex:'Je prends le métro tous les jours.' }
+      { p:'Tournez à droite.', vi:'Rẽ phải. Rẽ trái là «tournez à gauche».', ex:'Tournez à droite après la banque.', exvi:'Qua khỏi ngân hàng thì rẽ phải.' },
+      { p:'C’est loin d’ici ?', vi:'Có xa đây không?', ex:'La gare, c’est loin d’ici ?', exvi:'Nhà ga có xa đây không?' },
+      { p:'prendre le métro', vi:'Đi tàu điện ngầm — dùng «prendre», không dùng «aller par».', ex:'Je prends le métro tous les jours.', exvi:'Ngày nào tôi cũng đi tàu điện ngầm.' }
     ],
     dialogue:[
       { sp:'Quan', fr:'Excusez-moi madame, où est la gare ?', vi:'Xin lỗi bà, ga ở đâu ạ?' },
@@ -286,9 +286,9 @@ const COURSE_FR = {
     { fr:'louer', ipa:'lwe', vi:'thuê; cho thuê', pos:'động từ', g:'', note:'Một từ mà hai chiều: je loue un studio (tôi thuê) và il loue son studio (anh ấy cho thuê).' }
   ],
   colloc:[
-    { p:'à louer', vi:'cho thuê — dòng chữ trên tờ rao vặt.', ex:'Studio meublé à louer, 450 euros.' },
-    { p:'donner sur', vi:'nhìn ra (hướng nào).', ex:'La fenêtre donne sur la cour.' },
-    { p:'bien situé', vi:'ở vị trí thuận tiện.', ex:'L’appartement est petit mais bien situé.' }
+    { p:'à louer', vi:'cho thuê — dòng chữ trên tờ rao vặt.', ex:'Studio meublé à louer, 450 euros.', exvi:'Cho thuê phòng đơn có sẵn đồ, 450 euro.' },
+    { p:'donner sur', vi:'nhìn ra (hướng nào).', ex:'La fenêtre donne sur la cour.', exvi:'Cửa sổ nhìn ra sân trong.' },
+    { p:'bien situé', vi:'ở vị trí thuận tiện.', ex:'L’appartement est petit mais bien situé.', exvi:'Căn hộ nhỏ nhưng ở vị trí tốt.' }
   ],
   dialogue:[
     { sp:'Quan', fr:'Bonjour, je téléphone pour le studio à louer.', vi:'Chào chị, tôi gọi về căn studio cho thuê ạ.' },
@@ -339,9 +339,9 @@ const COURSE_FR = {
     { fr:'payer', ipa:'pe.je', vi:'trả tiền', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'C’est combien ?', vi:'Bao nhiêu tiền? — câu hỏi giá thông dụng nhất.', ex:'C’est combien, le kilo de pommes ?' },
-    { p:'Et avec ceci ?', vi:'Anh chị dùng thêm gì nữa ạ? — câu người bán luôn hỏi.', ex:'— Et avec ceci ? — Ce sera tout, merci.' },
-    { p:'payer par carte', vi:'trả bằng thẻ. Trả tiền mặt là «payer en espèces».', ex:'Je peux payer par carte ?' }
+    { p:'C’est combien ?', vi:'Bao nhiêu tiền? — câu hỏi giá thông dụng nhất.', ex:'C’est combien, le kilo de pommes ?', exvi:'Táo bao nhiêu một kilô?' },
+    { p:'Et avec ceci ?', vi:'Anh chị dùng thêm gì nữa ạ? — câu người bán luôn hỏi.', ex:'— Et avec ceci ? — Ce sera tout, merci.', exvi:'— Cần thêm gì nữa không? — Thế là đủ rồi, cảm ơn.' },
+    { p:'payer par carte', vi:'trả bằng thẻ. Trả tiền mặt là «payer en espèces».', ex:'Je peux payer par carte ?', exvi:'Tôi trả bằng thẻ được không?' }
   ],
   dialogue:[
     { sp:'Vendeur', fr:'Bonjour ! Vous désirez ?', vi:'Chào anh! Anh cần gì ạ?' },
@@ -392,9 +392,9 @@ const COURSE_FR = {
     { fr:'jamais', ipa:'ʒa.mɛ', vi:'không bao giờ', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'de bonne heure', vi:'sớm — trang trọng hơn «tôt».', ex:'Je me lève de bonne heure.' },
-    { p:'être en retard', vi:'bị muộn. Đúng giờ là «être à l’heure».', ex:'Désolé, je suis en retard.' },
-    { p:'faire la grasse matinée', vi:'ngủ nướng — nghĩa đen là «làm một buổi sáng béo».', ex:'Le dimanche, je fais la grasse matinée.' }
+    { p:'de bonne heure', vi:'sớm — trang trọng hơn «tôt».', ex:'Je me lève de bonne heure.', exvi:'Tôi thức dậy sớm.' },
+    { p:'être en retard', vi:'bị muộn. Đúng giờ là «être à l’heure».', ex:'Désolé, je suis en retard.', exvi:'Xin lỗi, tôi đến muộn.' },
+    { p:'faire la grasse matinée', vi:'ngủ nướng — nghĩa đen là «làm một buổi sáng béo».', ex:'Le dimanche, je fais la grasse matinée.', exvi:'Chủ nhật thì tôi ngủ nướng.' }
   ],
   dialogue:[
     { sp:'Léa', fr:'Tu te lèves à quelle heure, toi ?', vi:'Cậu dậy lúc mấy giờ?' },
@@ -445,9 +445,9 @@ const COURSE_FR = {
     { fr:'neiger', ipa:'nɛ.ʒe', vi:'có tuyết', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'Quel temps fait-il ?', vi:'Thời tiết thế nào? — câu hỏi chuẩn.', ex:'— Quel temps fait-il ? — Il fait gris.' },
-    { p:'il fait un temps de chien', vi:'thời tiết chó má — trời xấu kinh khủng.', ex:'Ne sors pas, il fait un temps de chien.' },
-    { p:'sous la pluie', vi:'dưới trời mưa.', ex:'Il a marché une heure sous la pluie.' }
+    { p:'Quel temps fait-il ?', vi:'Thời tiết thế nào? — câu hỏi chuẩn.', ex:'— Quel temps fait-il ? — Il fait gris.', exvi:'— Trời thế nào? — Trời xám xịt.' },
+    { p:'il fait un temps de chien', vi:'thời tiết chó má — trời xấu kinh khủng.', ex:'Ne sors pas, il fait un temps de chien.', exvi:'Đừng ra ngoài, trời đang xấu kinh khủng.' },
+    { p:'sous la pluie', vi:'dưới trời mưa.', ex:'Il a marché une heure sous la pluie.', exvi:'Anh ấy đã đi bộ một tiếng dưới mưa.' }
   ],
   dialogue:[
     { sp:'Léa', fr:'Tu sors ce week-end ?', vi:'Cuối tuần cậu có đi đâu không?' },
@@ -498,9 +498,9 @@ const COURSE_FR = {
     { fr:'essayer', ipa:'e.sɛ.je', vi:'thử', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'faire du 40', vi:'mặc cỡ 40 — cách nói cỡ quần áo và giày.', ex:'Je fais du quarante en chaussures.' },
-    { p:'la cabine d’essayage', vi:'phòng thử đồ.', ex:'La cabine d’essayage est au fond à droite.' },
-    { p:'ça te va bien', vi:'cái này hợp với bạn.', ex:'Ce pull vert te va très bien.' }
+    { p:'faire du 40', vi:'mặc cỡ 40 — cách nói cỡ quần áo và giày.', ex:'Je fais du quarante en chaussures.', exvi:'Tôi mặc giày cỡ bốn mươi.' },
+    { p:'la cabine d’essayage', vi:'phòng thử đồ.', ex:'La cabine d’essayage est au fond à droite.', exvi:'Buồng thử đồ ở trong cùng bên phải.' },
+    { p:'ça te va bien', vi:'cái này hợp với bạn.', ex:'Ce pull vert te va très bien.', exvi:'Cái áo len xanh này rất vừa với cậu.' }
   ],
   dialogue:[
     { sp:'Vendeuse', fr:'Bonjour, je peux vous aider ?', vi:'Chào anh, tôi giúp được gì ạ?' },
@@ -551,9 +551,9 @@ const COURSE_FR = {
     { fr:'dormir', ipa:'dɔʁ.miʁ', vi:'ngủ', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'prendre rendez-vous', vi:'đặt lịch hẹn.', ex:'Je voudrais prendre rendez-vous avec le docteur.' },
-    { p:'Ce n’est pas grave.', vi:'Không sao đâu. Dùng cả khi an ủi người khác.', ex:'— Je suis désolé. — Ce n’est pas grave.' },
-    { p:'être en forme', vi:'khoẻ, sung sức.', ex:'Après une semaine de repos, il est de nouveau en forme.' }
+    { p:'prendre rendez-vous', vi:'đặt lịch hẹn.', ex:'Je voudrais prendre rendez-vous avec le docteur.', exvi:'Tôi muốn hẹn gặp bác sĩ.' },
+    { p:'Ce n’est pas grave.', vi:'Không sao đâu. Dùng cả khi an ủi người khác.', ex:'— Je suis désolé. — Ce n’est pas grave.', exvi:'— Tôi xin lỗi. — Không sao đâu.' },
+    { p:'être en forme', vi:'khoẻ, sung sức.', ex:'Après une semaine de repos, il est de nouveau en forme.', exvi:'Sau một tuần nghỉ ngơi, anh ấy đã khoẻ lại.' }
   ],
   dialogue:[
     { sp:'Médecin', fr:'Bonjour. Qu’est-ce qui ne va pas ?', vi:'Chào anh. Anh thấy trong người thế nào?' },
@@ -604,9 +604,9 @@ const COURSE_FR = {
     { fr:'oublier', ipa:'u.bli.je', vi:'quên', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'Qu’est-ce que tu as fait ?', vi:'Cậu đã làm gì? — câu mở đầu quen thuộc nhất khi kể chuyện.', ex:'Alors, qu’est-ce que tu as fait ce week-end ?' },
-    { p:'ça s’est bien passé', vi:'mọi chuyện ổn cả.', ex:'L’examen s’est bien passé.' },
-    { p:'d’abord … ensuite … enfin', vi:'trước hết… sau đó… cuối cùng — bộ khung kể chuyện.', ex:'D’abord j’ai mangé, ensuite j’ai travaillé, enfin j’ai dormi.' }
+    { p:'Qu’est-ce que tu as fait ?', vi:'Cậu đã làm gì? — câu mở đầu quen thuộc nhất khi kể chuyện.', ex:'Alors, qu’est-ce que tu as fait ce week-end ?', exvi:'Thế cuối tuần cậu làm gì?' },
+    { p:'ça s’est bien passé', vi:'mọi chuyện ổn cả.', ex:'L’examen s’est bien passé.', exvi:'Kì thi diễn ra suôn sẻ.' },
+    { p:'d’abord … ensuite … enfin', vi:'trước hết… sau đó… cuối cùng — bộ khung kể chuyện.', ex:'D’abord j’ai mangé, ensuite j’ai travaillé, enfin j’ai dormi.', exvi:'Trước tiên tôi ăn, sau đó tôi làm việc, cuối cùng tôi đi ngủ.' }
   ],
   dialogue:[
     { sp:'Léa', fr:'Alors, qu’est-ce que tu as fait hier ?', vi:'Thế hôm qua cậu làm gì?' },
@@ -657,9 +657,9 @@ const COURSE_FR = {
     { fr:'durer', ipa:'dy.ʁe', vi:'kéo dài', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'un aller simple', vi:'vé một chiều. Khứ hồi là «un aller-retour».', ex:'Un aller simple pour Lyon, s’il vous plaît.' },
-    { p:'être en retard', vi:'bị muộn — dùng cho cả người và phương tiện.', ex:'Le train a vingt minutes de retard.' },
-    { p:'changer à', vi:'đổi tuyến tại đâu.', ex:'Vous changez à Châtelet.' }
+    { p:'un aller simple', vi:'vé một chiều. Khứ hồi là «un aller-retour».', ex:'Un aller simple pour Lyon, s’il vous plaît.', exvi:'Cho tôi một vé một chiều đi Lyon.' },
+    { p:'être en retard', vi:'bị muộn — dùng cho cả người và phương tiện.', ex:'Le train a vingt minutes de retard.', exvi:'Tàu chậm hai mươi phút.' },
+    { p:'changer à', vi:'đổi tuyến tại đâu.', ex:'Vous changez à Châtelet.', exvi:'Ông đổi tàu ở Châtelet.' }
   ],
   dialogue:[
     { sp:'Quan', fr:'Bonjour, un aller-retour pour Marseille, s’il vous plaît.', vi:'Chào chị, cho tôi một vé khứ hồi đi Marseille ạ.' },
@@ -710,9 +710,9 @@ const COURSE_FR = {
     { fr:'trouver', ipa:'tʁu.ve', vi:'thấy, cho rằng; tìm thấy', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'L’addition, s’il vous plaît.', vi:'Cho tôi xin hoá đơn. — câu kết thúc bữa ăn.', ex:'On peut avoir l’addition, s’il vous plaît ?' },
-    { p:'à point', vi:'thịt chín vừa. Tái là «saignant», chín kỹ là «bien cuit».', ex:'Un steak à point, s’il vous plaît.' },
-    { p:'C’est offert.', vi:'Cái này quán mời. — nghe câu này là không phải trả tiền món đó.', ex:'Le café, c’est offert.' }
+    { p:'L’addition, s’il vous plaît.', vi:'Cho tôi xin hoá đơn. — câu kết thúc bữa ăn.', ex:'On peut avoir l’addition, s’il vous plaît ?', exvi:'Cho chúng tôi hoá đơn được không?' },
+    { p:'à point', vi:'thịt chín vừa. Tái là «saignant», chín kỹ là «bien cuit».', ex:'Un steak à point, s’il vous plaît.', exvi:'Cho tôi một miếng bít-tết chín vừa.' },
+    { p:'C’est offert.', vi:'Cái này quán mời. — nghe câu này là không phải trả tiền món đó.', ex:'Le café, c’est offert.', exvi:'Cà phê này là mời.' }
   ],
   dialogue:[
     { sp:'Serveur', fr:'Bonsoir. Vous avez choisi ?', vi:'Chào anh chị. Đã chọn món chưa ạ?' },
@@ -763,9 +763,9 @@ const COURSE_FR = {
     { fr:'lentement', ipa:'lɑ̃t.mɑ̃', vi:'chậm rãi', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'Ne quittez pas.', vi:'Xin giữ máy.', ex:'Ne quittez pas, je vous le passe.' },
-    { p:'C’est de la part de qui ?', vi:'Ai đang gọi đấy ạ? — câu hỏi chuẩn khi nghe máy hộ.', ex:'— Je voudrais parler à Monsieur Petit. — C’est de la part de qui ?' },
-    { p:'Je vous rappelle.', vi:'Tôi sẽ gọi lại cho anh chị.', ex:'Je suis en réunion, je vous rappelle dans une heure.' }
+    { p:'Ne quittez pas.', vi:'Xin giữ máy.', ex:'Ne quittez pas, je vous le passe.', exvi:'Xin đừng cúp máy, tôi chuyển máy cho ông ngay.' },
+    { p:'C’est de la part de qui ?', vi:'Ai đang gọi đấy ạ? — câu hỏi chuẩn khi nghe máy hộ.', ex:'— Je voudrais parler à Monsieur Petit. — C’est de la part de qui ?', exvi:'— Tôi muốn nói chuyện với ông Petit. — Xin cho biết ai gọi ạ?' },
+    { p:'Je vous rappelle.', vi:'Tôi sẽ gọi lại cho anh chị.', ex:'Je suis en réunion, je vous rappelle dans une heure.', exvi:'Tôi đang họp, một tiếng nữa tôi gọi lại cho anh.' }
   ],
   dialogue:[
     { sp:'Secrétaire', fr:'Cabinet du docteur Roux, bonjour.', vi:'Phòng khám bác sĩ Roux xin nghe.' },
@@ -816,9 +816,9 @@ const COURSE_FR = {
     { fr:'sentir', ipa:'sɑ̃.tiʁ', vi:'ngửi thấy, cảm thấy', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'avoir mal partout', vi:'đau khắp người.', ex:'Après le déménagement, j’ai mal partout.' },
-    { p:'faire un signe de la main', vi:'vẫy tay ra hiệu.', ex:'Il m’a fait un signe de la main depuis le quai.' },
-    { p:'se laver les dents', vi:'đánh răng — tiếng Pháp nói «rửa răng».', ex:'Je me lave les dents matin et soir.' }
+    { p:'avoir mal partout', vi:'đau khắp người.', ex:'Après le déménagement, j’ai mal partout.', exvi:'Sau vụ chuyển nhà, người tôi đau khắp chỗ.' },
+    { p:'faire un signe de la main', vi:'vẫy tay ra hiệu.', ex:'Il m’a fait un signe de la main depuis le quai.', exvi:'Anh ấy vẫy tay với tôi từ trên sân ga.' },
+    { p:'se laver les dents', vi:'đánh răng — tiếng Pháp nói «rửa răng».', ex:'Je me lave les dents matin et soir.', exvi:'Tôi đánh răng sáng và tối.' }
   ],
   dialogue:[
     { sp:'Léa', fr:'Tu as l’air fatigué. Ça va ?', vi:'Trông cậu mệt. Ổn không?' },
@@ -869,9 +869,9 @@ const COURSE_FR = {
     { fr:'adorer', ipa:'a.dɔ.ʁe', vi:'rất thích', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'avoir du temps libre', vi:'có thời gian rảnh.', ex:'Le dimanche, j’ai enfin du temps libre.' },
-    { p:'faire une balade', vi:'đi dạo một vòng — thân mật hơn «promenade».', ex:'On fait une balade au bord du fleuve ?' },
-    { p:'ça me dit bien', vi:'nghe hấp dẫn đấy, tớ thích ý đó.', ex:'— Un ciné ce soir ? — Ça me dit bien.' }
+    { p:'avoir du temps libre', vi:'có thời gian rảnh.', ex:'Le dimanche, j’ai enfin du temps libre.', exvi:'Chủ nhật thì cuối cùng tôi cũng có thời gian rảnh.' },
+    { p:'faire une balade', vi:'đi dạo một vòng — thân mật hơn «promenade».', ex:'On fait une balade au bord du fleuve ?', exvi:'Mình đi dạo bên bờ sông nhé?' },
+    { p:'ça me dit bien', vi:'nghe hấp dẫn đấy, tớ thích ý đó.', ex:'— Un ciné ce soir ? — Ça me dit bien.', exvi:'— Tối nay đi xem phim nhé? — Nghe hay đấy.' }
   ],
   dialogue:[
     { sp:'Léa', fr:'Tu fais quoi de tes week-ends ?', vi:'Cuối tuần cậu làm gì?' },
@@ -921,9 +921,9 @@ const COURSE_FR = {
     { fr:'embaucher', ipa:'ɑ̃.bo.ʃe', vi:'tuyển dụng', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'gagner sa vie', vi:'kiếm sống.', ex:'Il gagne sa vie comme chauffeur de bus.' },
-    { p:'à plein temps / à mi-temps', vi:'làm toàn thời gian / bán thời gian.', ex:'Je travaille à mi-temps pendant mes études.' },
-    { p:'être au chômage', vi:'đang thất nghiệp.', ex:'Il est au chômage depuis trois mois.' }
+    { p:'gagner sa vie', vi:'kiếm sống.', ex:'Il gagne sa vie comme chauffeur de bus.', exvi:'Anh ấy kiếm sống bằng nghề lái xe buýt.' },
+    { p:'à plein temps / à mi-temps', vi:'làm toàn thời gian / bán thời gian.', ex:'Je travaille à mi-temps pendant mes études.', exvi:'Tôi làm nửa thời gian trong lúc còn đi học.' },
+    { p:'être au chômage', vi:'đang thất nghiệp.', ex:'Il est au chômage depuis trois mois.', exvi:'Anh ấy thất nghiệp ba tháng nay.' }
   ],
   dialogue:[
     { sp:'Marc', fr:'Qu’est-ce que tu fais dans la vie ?', vi:'Cậu làm nghề gì?' },
@@ -974,9 +974,9 @@ const COURSE_FR = {
     { fr:'fort', ipa:'fɔʁ', vi:'giỏi; mạnh', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'passer un examen', vi:'DỰ một kỳ thi — không phải «thi đỗ». Đỗ là «réussir un examen».', ex:'J’ai passé l’examen mardi, je ne sais pas si je l’ai réussi.' },
-    { p:'sécher un cours', vi:'trốn tiết.', ex:'Il a séché le cours de chimie.' },
-    { p:'prendre des notes', vi:'ghi chép bài.', ex:'Je prends des notes pendant le cours.' }
+    { p:'passer un examen', vi:'DỰ một kỳ thi — không phải «thi đỗ». Đỗ là «réussir un examen».', ex:'J’ai passé l’examen mardi, je ne sais pas si je l’ai réussi.', exvi:'Tôi thi hôm thứ Ba, không biết có đỗ không.' },
+    { p:'sécher un cours', vi:'trốn tiết.', ex:'Il a séché le cours de chimie.', exvi:'Anh ấy bỏ tiết hoá.' },
+    { p:'prendre des notes', vi:'ghi chép bài.', ex:'Je prends des notes pendant le cours.', exvi:'Tôi ghi chép trong giờ học.' }
   ],
   dialogue:[
     { sp:'Léa', fr:'Tu as combien en histoire ?', vi:'Môn sử cậu được bao nhiêu?' },
@@ -1026,9 +1026,9 @@ const COURSE_FR = {
     { fr:'avoir faim', ipa:'a.vwaʁ fɛ̃', vi:'đói', pos:'động từ', g:'', note:'Tiếng Pháp nói «có cái đói», không nói «thì đói». Tương tự: avoir soif (khát), avoir sommeil (buồn ngủ).' }
   ],
   colloc:[
-    { p:'avoir soif', vi:'khát nước.', ex:'J’ai très soif, tu as de l’eau ?' },
-    { p:'mettre la table', vi:'dọn bàn ăn. Dọn dẹp sau bữa là «débarrasser».', ex:'Tu mets la table pendant que je cuisine ?' },
-    { p:'à table !', vi:'Vào ăn thôi! — câu gọi cả nhà vào bàn.', ex:'À table ! C’est prêt.' }
+    { p:'avoir soif', vi:'khát nước.', ex:'J’ai très soif, tu as de l’eau ?', exvi:'Tôi khát quá, cậu có nước không?' },
+    { p:'mettre la table', vi:'dọn bàn ăn. Dọn dẹp sau bữa là «débarrasser».', ex:'Tu mets la table pendant que je cuisine ?', exvi:'Cậu dọn bàn trong lúc tôi nấu nhé?' },
+    { p:'à table !', vi:'Vào ăn thôi! — câu gọi cả nhà vào bàn.', ex:'À table ! C’est prêt.', exvi:'Vào bàn! Xong rồi đây.' }
   ],
   dialogue:[
     { sp:'Léa', fr:'Tu prends quoi au petit-déjeuner ?', vi:'Bữa sáng cậu ăn gì?' },
@@ -1078,9 +1078,9 @@ const COURSE_FR = {
     { fr:'compter', ipa:'kɔ̃.te', vi:'đếm', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'coûter les yeux de la tête', vi:'đắt cắt cổ — nghĩa đen là «đắt bằng hai con mắt».', ex:'Cet appartement coûte les yeux de la tête.' },
-    { p:'faire des économies', vi:'để dành tiền.', ex:'Je fais des économies pour voyager cet été.' },
-    { p:'en solde', vi:'đang hạ giá.', ex:'J’ai acheté ce manteau en solde.' }
+    { p:'coûter les yeux de la tête', vi:'đắt cắt cổ — nghĩa đen là «đắt bằng hai con mắt».', ex:'Cet appartement coûte les yeux de la tête.', exvi:'Căn hộ này đắt cắt cổ.' },
+    { p:'faire des économies', vi:'để dành tiền.', ex:'Je fais des économies pour voyager cet été.', exvi:'Tôi đang tiết kiệm để hè này đi du lịch.' },
+    { p:'en solde', vi:'đang hạ giá.', ex:'J’ai acheté ce manteau en solde.', exvi:'Tôi mua cái áo này lúc đang giảm giá.' }
   ],
   dialogue:[
     { sp:'Caissier', fr:'Bonjour. Ça fait quatre-vingt-sept euros trente.', vi:'Chào anh. Tất cả là tám mươi bảy euro ba mươi.' },
@@ -1130,9 +1130,9 @@ const COURSE_FR = {
     { fr:'allumer', ipa:'a.ly.me', vi:'bật (đèn, máy)', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'faire le ménage', vi:'dọn nhà — làm chung mọi việc dọn dẹp.', ex:'Le samedi matin, je fais le ménage.' },
-    { p:'faire la vaisselle', vi:'rửa bát.', ex:'Tu cuisines, je fais la vaisselle.' },
-    { p:'sortir la poubelle', vi:'mang rác ra ngoài.', ex:'N’oublie pas de sortir la poubelle.' }
+    { p:'faire le ménage', vi:'dọn nhà — làm chung mọi việc dọn dẹp.', ex:'Le samedi matin, je fais le ménage.', exvi:'Sáng thứ Bảy tôi dọn nhà.' },
+    { p:'faire la vaisselle', vi:'rửa bát.', ex:'Tu cuisines, je fais la vaisselle.', exvi:'Cậu nấu, tôi rửa bát.' },
+    { p:'sortir la poubelle', vi:'mang rác ra ngoài.', ex:'N’oublie pas de sortir la poubelle.', exvi:'Đừng quên đem rác ra nhé.' }
   ],
   dialogue:[
     { sp:'Colocataire', fr:'On range un peu ce week-end ?', vi:'Cuối tuần mình dọn một chút nhé?' },
@@ -1182,9 +1182,9 @@ const COURSE_FR = {
     { fr:'reconnaître', ipa:'ʁə.kɔ.nɛtʁ', vi:'nhận ra', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'avoir bon caractère', vi:'tính tình dễ chịu.', ex:'Il a bon caractère, on ne le voit jamais énervé.' },
-    { p:'être de bonne humeur', vi:'đang vui vẻ. Ngược lại là «de mauvaise humeur».', ex:'Elle est de bonne humeur ce matin.' },
-    { p:'au premier abord', vi:'thoạt nhìn.', ex:'Au premier abord, il a l’air timide.' }
+    { p:'avoir bon caractère', vi:'tính tình dễ chịu.', ex:'Il a bon caractère, on ne le voit jamais énervé.', exvi:'Anh ấy tính tốt, chưa bao giờ thấy anh ấy nổi nóng.' },
+    { p:'être de bonne humeur', vi:'đang vui vẻ. Ngược lại là «de mauvaise humeur».', ex:'Elle est de bonne humeur ce matin.', exvi:'Sáng nay cô ấy vui vẻ.' },
+    { p:'au premier abord', vi:'thoạt nhìn.', ex:'Au premier abord, il a l’air timide.', exvi:'Mới gặp thì thấy anh ấy có vẻ rụt rè.' }
   ],
   dialogue:[
     { sp:'Léa', fr:'Tu connais Camille ?', vi:'Cậu biết Camille không?' },
@@ -1234,9 +1234,9 @@ const COURSE_FR = {
     { fr:'nourrir', ipa:'nu.ʁiʁ', vi:'cho ăn, nuôi', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'avoir un chat dans la gorge', vi:'bị khản giọng — nghĩa đen là «có con mèo trong cổ».', ex:'Excusez-moi, j’ai un chat dans la gorge.' },
-    { p:'il fait un temps de canard', vi:'trời mưa dầm lạnh lẽo.', ex:'Prends ton parapluie, il fait un temps de canard.' },
-    { p:'poser un lapin à quelqu’un', vi:'cho ai leo cây, hẹn rồi không đến.', ex:'Il m’a posé un lapin hier soir.' }
+    { p:'avoir un chat dans la gorge', vi:'bị khản giọng — nghĩa đen là «có con mèo trong cổ».', ex:'Excusez-moi, j’ai un chat dans la gorge.', exvi:'Xin lỗi, tôi bị khản giọng.' },
+    { p:'il fait un temps de canard', vi:'trời mưa dầm lạnh lẽo.', ex:'Prends ton parapluie, il fait un temps de canard.', exvi:'Mang dù đi, trời đang mưa gió.' },
+    { p:'poser un lapin à quelqu’un', vi:'cho ai leo cây, hẹn rồi không đến.', ex:'Il m’a posé un lapin hier soir.', exvi:'Tối qua anh ấy cho tôi leo cây.' }
   ],
   dialogue:[
     { sp:'Léa', fr:'Tu as des animaux chez toi ?', vi:'Nhà cậu có nuôi con gì không?' },
@@ -1287,9 +1287,9 @@ const COURSE_FR = {
     { fr:'échanger', ipa:'e.ʃɑ̃.ʒe', vi:'đổi', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'faire les magasins', vi:'đi ngắm và mua sắm các cửa hàng.', ex:'On fait les magasins samedi après-midi ?' },
-    { p:'faire la queue', vi:'xếp hàng.', ex:'Il faut faire la queue vingt minutes.' },
-    { p:'entre midi et deux', vi:'giữa trưa — quãng nhiều cửa hàng đóng cửa.', ex:'Ils ferment entre midi et deux.' }
+    { p:'faire les magasins', vi:'đi ngắm và mua sắm các cửa hàng.', ex:'On fait les magasins samedi après-midi ?', exvi:'Chiều thứ Bảy mình đi mua sắm nhé?' },
+    { p:'faire la queue', vi:'xếp hàng.', ex:'Il faut faire la queue vingt minutes.', exvi:'Phải xếp hàng hai mươi phút.' },
+    { p:'entre midi et deux', vi:'giữa trưa — quãng nhiều cửa hàng đóng cửa.', ex:'Ils ferment entre midi et deux.', exvi:'Họ đóng cửa từ mười hai giờ đến hai giờ.' }
   ],
   dialogue:[
     { sp:'Quan', fr:'Bonjour, je voudrais échanger ce pull.', vi:'Chào chị, tôi muốn đổi cái áo len này.' },
@@ -1340,9 +1340,9 @@ const COURSE_FR = {
     { fr:'annuler', ipa:'a.ny.le', vi:'huỷ', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'faire ses valises', vi:'thu xếp hành lý.', ex:'Je fais mes valises ce soir.' },
-    { p:'bon voyage !', vi:'Thượng lộ bình an!', ex:'— Je pars demain. — Bon voyage !' },
-    { p:'à l’étranger', vi:'ở nước ngoài.', ex:'C’est la première fois qu’il part à l’étranger.' }
+    { p:'faire ses valises', vi:'thu xếp hành lý.', ex:'Je fais mes valises ce soir.', exvi:'Tối nay tôi xếp hành lí.' },
+    { p:'bon voyage !', vi:'Thượng lộ bình an!', ex:'— Je pars demain. — Bon voyage !', exvi:'— Mai tôi đi. — Chúc đi đường bình an!' },
+    { p:'à l’étranger', vi:'ở nước ngoài.', ex:'C’est la première fois qu’il part à l’étranger.', exvi:'Đây là lần đầu anh ấy ra nước ngoài.' }
   ],
   dialogue:[
     { sp:'Agent', fr:'Bonjour, vous partez quand ?', vi:'Chào anh, anh đi hôm nào ạ?' },
@@ -1393,9 +1393,9 @@ const COURSE_FR = {
     { fr:'photographier', ipa:'fɔ.tɔ.ɡʁa.fje', vi:'chụp ảnh', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'partir en vacances', vi:'đi nghỉ.', ex:'On part en vacances le premier août.' },
-    { p:'prendre des photos', vi:'chụp ảnh.', ex:'J’ai pris trois cents photos en une semaine.' },
-    { p:'passer de bonnes vacances', vi:'có một kỳ nghỉ vui.', ex:'Passe de bonnes vacances !' }
+    { p:'partir en vacances', vi:'đi nghỉ.', ex:'On part en vacances le premier août.', exvi:'Chúng tôi đi nghỉ ngày mồng một tháng Tám.' },
+    { p:'prendre des photos', vi:'chụp ảnh.', ex:'J’ai pris trois cents photos en une semaine.', exvi:'Tôi chụp ba trăm ảnh trong một tuần.' },
+    { p:'passer de bonnes vacances', vi:'có một kỳ nghỉ vui.', ex:'Passe de bonnes vacances !', exvi:'Chúc anh có kì nghỉ vui vẻ!' }
   ],
   dialogue:[
     { sp:'Léa', fr:'Tu es parti où l’été dernier ?', vi:'Hè năm ngoái cậu đi đâu?' },
@@ -1446,9 +1446,9 @@ const COURSE_FR = {
     { fr:'vite', ipa:'vit', vi:'nhanh', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'être en forme', vi:'đang sung sức.', ex:'Il s’entraîne tous les jours, il est très en forme.' },
-    { p:'faire match nul', vi:'hoà.', ex:'Ils ont fait match nul, un partout.' },
-    { p:'donner un coup de main', vi:'giúp một tay — dùng cả ngoài thể thao.', ex:'Tu me donnes un coup de main ?' }
+    { p:'être en forme', vi:'đang sung sức.', ex:'Il s’entraîne tous les jours, il est très en forme.', exvi:'Anh ấy tập hằng ngày nên rất sung sức.' },
+    { p:'faire match nul', vi:'hoà.', ex:'Ils ont fait match nul, un partout.', exvi:'Họ hoà nhau, mỗi bên một bàn.' },
+    { p:'donner un coup de main', vi:'giúp một tay — dùng cả ngoài thể thao.', ex:'Tu me donnes un coup de main ?', exvi:'Cậu giúp tôi một tay nhé?' }
   ],
   dialogue:[
     { sp:'Marc', fr:'Tu as vu le match hier soir ?', vi:'Tối qua cậu có xem trận đấu không?' },
@@ -1499,9 +1499,9 @@ const COURSE_FR = {
     { fr:'marcher', ipa:'maʁ.ʃe', vi:'chạy được; đi bộ', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'être en panne', vi:'bị hỏng.', ex:'La machine à laver est en panne.' },
-    { p:'ça ne marche pas', vi:'không chạy, hỏng rồi.', ex:'J’ai tout essayé, ça ne marche pas.' },
-    { p:'brancher le chargeur', vi:'cắm sạc.', ex:'Branche le chargeur, la batterie est à cinq pour cent.' }
+    { p:'être en panne', vi:'bị hỏng.', ex:'La machine à laver est en panne.', exvi:'Máy giặt bị hỏng.' },
+    { p:'ça ne marche pas', vi:'không chạy, hỏng rồi.', ex:'J’ai tout essayé, ça ne marche pas.', exvi:'Tôi thử hết cách rồi, vẫn không chạy.' },
+    { p:'brancher le chargeur', vi:'cắm sạc.', ex:'Branche le chargeur, la batterie est à cinq pour cent.', exvi:'Cắm sạc vào, pin còn năm phần trăm.' }
   ],
   dialogue:[
     { sp:'Quan', fr:'L’ascenseur est encore en panne.', vi:'Thang máy lại hỏng rồi.' },
@@ -1551,9 +1551,9 @@ const COURSE_FR = {
     { fr:'reporter', ipa:'ʁə.pɔʁ.te', vi:'hoãn lại', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'à partir du', vi:'kể từ ngày.', ex:'Le magasin est fermé à partir du quinze août.' },
-    { p:'la semaine prochaine', vi:'tuần sau. Tuần trước là «la semaine dernière».', ex:'On se voit la semaine prochaine ?' },
-    { p:'tous les deux jours', vi:'cách một ngày một lần.', ex:'Je vais à la piscine tous les deux jours.' }
+    { p:'à partir du', vi:'kể từ ngày.', ex:'Le magasin est fermé à partir du quinze août.', exvi:'Cửa hàng đóng cửa từ ngày mười lăm tháng Tám.' },
+    { p:'la semaine prochaine', vi:'tuần sau. Tuần trước là «la semaine dernière».', ex:'On se voit la semaine prochaine ?', exvi:'Tuần sau mình gặp nhau nhé?' },
+    { p:'tous les deux jours', vi:'cách một ngày một lần.', ex:'Je vais à la piscine tous les deux jours.', exvi:'Hai ngày tôi đi bể bơi một lần.' }
   ],
   dialogue:[
     { sp:'Léa', fr:'On est le combien aujourd’hui ?', vi:'Hôm nay ngày mấy nhỉ?' },
@@ -1604,9 +1604,9 @@ const COURSE_FR = {
     { fr:'surtout', ipa:'syʁ.tu', vi:'nhất là, trên hết', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'Fais attention !', vi:'Cẩn thận đấy!', ex:'Fais attention, la rue est glissante.' },
-    { p:'Vas-y !', vi:'Đi đi! Làm đi! — câu thúc giục rất hay dùng.', ex:'Vas-y, n’aie pas peur.' },
-    { p:'Dépêche-toi !', vi:'Nhanh lên!', ex:'Dépêche-toi, le train part dans cinq minutes.' }
+    { p:'Fais attention !', vi:'Cẩn thận đấy!', ex:'Fais attention, la rue est glissante.', exvi:'Cẩn thận, đường trơn đấy.' },
+    { p:'Vas-y !', vi:'Đi đi! Làm đi! — câu thúc giục rất hay dùng.', ex:'Vas-y, n’aie pas peur.', exvi:'Cứ đi đi, đừng sợ.' },
+    { p:'Dépêche-toi !', vi:'Nhanh lên!', ex:'Dépêche-toi, le train part dans cinq minutes.', exvi:'Nhanh lên, năm phút nữa tàu chạy.' }
   ],
   dialogue:[
     { sp:'Prof', fr:'Écoutez bien et répétez après moi.', vi:'Các em nghe kỹ và nhắc lại theo cô.' },
@@ -1656,9 +1656,9 @@ const COURSE_FR = {
     { fr:'peut-être', ipa:'pø.tɛtʁ', vi:'có lẽ', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'ça me plaît', vi:'tôi thích cái đó.', ex:'Cette chanson, ça me plaît beaucoup.' },
-    { p:'avoir envie de', vi:'thèm, muốn.', ex:'J’ai envie de sortir ce soir.' },
-    { p:'ce n’est pas mon truc', vi:'không hợp gu tôi.', ex:'Le foot, ce n’est pas mon truc.' }
+    { p:'ça me plaît', vi:'tôi thích cái đó.', ex:'Cette chanson, ça me plaît beaucoup.', exvi:'Bài hát này tôi thích lắm.' },
+    { p:'avoir envie de', vi:'thèm, muốn.', ex:'J’ai envie de sortir ce soir.', exvi:'Tối nay tôi muốn ra ngoài.' },
+    { p:'ce n’est pas mon truc', vi:'không hợp gu tôi.', ex:'Le foot, ce n’est pas mon truc.', exvi:'Bóng đá không phải sở thích của tôi.' }
   ],
   dialogue:[
     { sp:'Léa', fr:'Qu’est-ce que tu aimes faire le soir ?', vi:'Buổi tối cậu thích làm gì?' },
@@ -1709,9 +1709,9 @@ const COURSE_FR = {
     { fr:'gentil', ipa:'ʒɑ̃.ti', vi:'tốt bụng, tử tế', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'Ça te dit ?', vi:'Cậu thấy sao? Có hứng không? — câu mời ngắn gọn nhất.', ex:'Un ciné ce soir, ça te dit ?' },
-    { p:'avec plaisir', vi:'Rất sẵn lòng.', ex:'— Tu viens dîner ? — Avec plaisir.' },
-    { p:'une autre fois', vi:'Để dịp khác vậy — cách từ chối nhẹ nhàng.', ex:'Pas ce soir, une autre fois ?' }
+    { p:'Ça te dit ?', vi:'Cậu thấy sao? Có hứng không? — câu mời ngắn gọn nhất.', ex:'Un ciné ce soir, ça te dit ?', exvi:'Tối nay đi xem phim, cậu thấy thế nào?' },
+    { p:'avec plaisir', vi:'Rất sẵn lòng.', ex:'— Tu viens dîner ? — Avec plaisir.', exvi:'— Cậu đến ăn tối nhé? — Rất vui lòng.' },
+    { p:'une autre fois', vi:'Để dịp khác vậy — cách từ chối nhẹ nhàng.', ex:'Pas ce soir, une autre fois ?', exvi:'Tối nay thì không được, hôm khác nhé?' }
   ],
   dialogue:[
     { sp:'Léa', fr:'Ça te dit d’aller au théâtre vendredi ?', vi:'Thứ Sáu đi xem kịch không?' },
@@ -1762,9 +1762,9 @@ const COURSE_FR = {
     { fr:'plus tard', ipa:'ply taʁ', vi:'lát nữa', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'laisser un message', vi:'để lại lời nhắn.', ex:'Je laisse un message sur son répondeur.' },
-    { p:'passer un coup de fil', vi:'gọi một cuộc — thân mật.', ex:'Je te passe un coup de fil ce soir.' },
-    { p:'être en ligne', vi:'đang bận máy.', ex:'Il est en ligne, vous patientez ?' }
+    { p:'laisser un message', vi:'để lại lời nhắn.', ex:'Je laisse un message sur son répondeur.', exvi:'Tôi để lại tin nhắn trong hộp thư thoại của anh ấy.' },
+    { p:'passer un coup de fil', vi:'gọi một cuộc — thân mật.', ex:'Je te passe un coup de fil ce soir.', exvi:'Tối nay tôi gọi điện cho cậu.' },
+    { p:'être en ligne', vi:'đang bận máy.', ex:'Il est en ligne, vous patientez ?', exvi:'Ông ấy đang nói điện thoại, ông chờ một chút nhé?' }
   ],
   dialogue:[
     { sp:'Standard', fr:'Cabinet Roux, bonjour.', vi:'Văn phòng Roux xin nghe.' },
@@ -1815,9 +1815,9 @@ const COURSE_FR = {
     { fr:'bizarre', ipa:'bi.zaʁ', vi:'kỳ quặc', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'poser une question', vi:'đặt một câu hỏi — dùng poser, không dùng demander.', ex:'Je peux vous poser une question ?' },
-    { p:'Comment ça se fait ?', vi:'Sao lại thế nhỉ? — hỏi nguyên nhân một cách tự nhiên.', ex:'Il n’est pas venu ? Comment ça se fait ?' },
-    { p:'À quoi ça sert ?', vi:'Cái đó để làm gì?', ex:'Ce bouton, à quoi ça sert ?' }
+    { p:'poser une question', vi:'đặt một câu hỏi — dùng poser, không dùng demander.', ex:'Je peux vous poser une question ?', exvi:'Tôi hỏi anh một câu được không?' },
+    { p:'Comment ça se fait ?', vi:'Sao lại thế nhỉ? — hỏi nguyên nhân một cách tự nhiên.', ex:'Il n’est pas venu ? Comment ça se fait ?', exvi:'Anh ấy không đến à? Sao lại thế?' },
+    { p:'À quoi ça sert ?', vi:'Cái đó để làm gì?', ex:'Ce bouton, à quoi ça sert ?', exvi:'Cái nút này để làm gì?' }
   ],
   dialogue:[
     { sp:'Quan', fr:'Je peux vous poser une question ?', vi:'Tôi hỏi anh một câu được không?' },
@@ -1868,9 +1868,9 @@ const COURSE_FR = {
     { fr:'sans', ipa:'sɑ̃', vi:'không có', pos:'giới từ', g:'' }
   ],
   colloc:[
-    { p:'chacun pour soi', vi:'mạnh ai nấy lo.', ex:'Dans le métro à huit heures, c’est chacun pour soi.' },
-    { p:'à mon avis', vi:'theo ý tôi.', ex:'À mon avis, c’est une mauvaise idée.' },
-    { p:'compter sur quelqu’un', vi:'trông cậy vào ai.', ex:'Tu peux compter sur moi.' }
+    { p:'chacun pour soi', vi:'mạnh ai nấy lo.', ex:'Dans le métro à huit heures, c’est chacun pour soi.', exvi:'Tàu điện ngầm lúc tám giờ thì ai lo phần người ấy.' },
+    { p:'à mon avis', vi:'theo ý tôi.', ex:'À mon avis, c’est une mauvaise idée.', exvi:'Theo tôi thì đó là một ý tệ.' },
+    { p:'compter sur quelqu’un', vi:'trông cậy vào ai.', ex:'Tu peux compter sur moi.', exvi:'Cậu cứ tin ở tôi.' }
   ],
   dialogue:[
     { sp:'Léa', fr:'Qui vient au concert ? Toi ?', vi:'Ai đi xem nhạc? Cậu à?' },
@@ -1920,9 +1920,9 @@ const COURSE_FR = {
     { fr:'suffire', ipa:'sy.fiʁ', vi:'đủ', pos:'động từ', g:'', note:'«Ça suffit !» là «đủ rồi!» — câu quát rất hay nghe.' }
   ],
   colloc:[
-    { p:'Ça suffit !', vi:'Đủ rồi!', ex:'Ça suffit, arrêtez de crier.' },
-    { p:'un peu trop', vi:'hơi quá một chút.', ex:'C’est un peu trop salé.' },
-    { p:'pas du tout', vi:'không hề.', ex:'— Tu es fâché ? — Pas du tout.' }
+    { p:'Ça suffit !', vi:'Đủ rồi!', ex:'Ça suffit, arrêtez de crier.', exvi:'Đủ rồi, đừng hét nữa.' },
+    { p:'un peu trop', vi:'hơi quá một chút.', ex:'C’est un peu trop salé.', exvi:'Món này hơi mặn quá.' },
+    { p:'pas du tout', vi:'không hề.', ex:'— Tu es fâché ? — Pas du tout.', exvi:'— Cậu giận à? — Không hề.' }
   ],
   dialogue:[
     { sp:'Quan', fr:'Il y a assez de chaises pour tout le monde ?', vi:'Đủ ghế cho mọi người chưa?' },
@@ -1972,9 +1972,9 @@ const COURSE_FR = {
     { fr:'nulle part', ipa:'nyl paʁ', vi:'không đâu cả', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'ça ne fait rien', vi:'không sao đâu.', ex:'— J’ai oublié. — Ça ne fait rien.' },
-    { p:'plus jamais', vi:'không bao giờ nữa.', ex:'Plus jamais je ne fais ça.' },
-    { p:'rien du tout', vi:'chẳng gì cả — nhấn mạnh.', ex:'Je n’ai compris rien du tout.' }
+    { p:'ça ne fait rien', vi:'không sao đâu.', ex:'— J’ai oublié. — Ça ne fait rien.', exvi:'— Tôi quên mất. — Không sao cả.' },
+    { p:'plus jamais', vi:'không bao giờ nữa.', ex:'Plus jamais je ne fais ça.', exvi:'Tôi sẽ không bao giờ làm thế nữa.' },
+    { p:'rien du tout', vi:'chẳng gì cả — nhấn mạnh.', ex:'Je n’ai compris rien du tout.', exvi:'Tôi chẳng hiểu gì cả.' }
   ],
   dialogue:[
     { sp:'Léa', fr:'Tu as trouvé tes clés ?', vi:'Cậu tìm được chìa khoá chưa?' },
@@ -2025,9 +2025,9 @@ const COURSE_FR = {
     { fr:'finalement', ipa:'fi.nal.mɑ̃', vi:'rốt cuộc', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'comme d’habitude', vi:'như mọi khi.', ex:'Il est arrivé en retard, comme d’habitude.' },
-    { p:'se tromper de', vi:'nhầm cái gì.', ex:'Je me suis trompé de jour.' },
-    { p:'ne t’inquiète pas', vi:'đừng lo.', ex:'Ne t’inquiète pas, j’ai tout prévu.' }
+    { p:'comme d’habitude', vi:'như mọi khi.', ex:'Il est arrivé en retard, comme d’habitude.', exvi:'Anh ấy đến muộn, như mọi lần.' },
+    { p:'se tromper de', vi:'nhầm cái gì.', ex:'Je me suis trompé de jour.', exvi:'Tôi nhớ nhầm ngày.' },
+    { p:'ne t’inquiète pas', vi:'đừng lo.', ex:'Ne t’inquiète pas, j’ai tout prévu.', exvi:'Đừng lo, tôi đã tính hết rồi.' }
   ],
   dialogue:[
     { sp:'Léa', fr:'Tu t’es levé à quelle heure ce matin ?', vi:'Sáng nay cậu dậy lúc mấy giờ?' },
@@ -2078,9 +2078,9 @@ const COURSE_FR = {
     { fr:'désormais', ipa:'de.zɔʁ.mɛ', vi:'từ nay trở đi', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'être en train de', vi:'đang làm dở.', ex:'Je suis en train de cuisiner, je te rappelle.' },
-    { p:'venir de', vi:'vừa mới.', ex:'Je viens de recevoir ton message.' },
-    { p:'de peu', vi:'suýt chút nữa, chỉ một chút.', ex:'J’ai raté le train de peu.' }
+    { p:'être en train de', vi:'đang làm dở.', ex:'Je suis en train de cuisiner, je te rappelle.', exvi:'Tôi đang nấu ăn, tôi gọi lại cho cậu sau.' },
+    { p:'venir de', vi:'vừa mới.', ex:'Je viens de recevoir ton message.', exvi:'Tôi vừa nhận được tin của cậu.' },
+    { p:'de peu', vi:'suýt chút nữa, chỉ một chút.', ex:'J’ai raté le train de peu.', exvi:'Tôi nhỡ tàu trong gang tấc.' }
   ],
   dialogue:[
     { sp:'Léa', fr:'Allô, je te dérange ?', vi:'A lô, tớ làm phiền cậu à?' },
@@ -2131,9 +2131,9 @@ const COURSE_FR = {
     { fr:'un jour', ipa:'œ̃ ʒuʁ', vi:'một ngày nào đó', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'on verra', vi:'rồi tính sau — câu trả lời lửng rất hay dùng.', ex:'— Tu viendras ? — On verra.' },
-    { p:'dans l’avenir', vi:'trong tương lai.', ex:'Dans l’avenir, je voudrais enseigner.' },
-    { p:'avoir l’intention de', vi:'có ý định làm gì.', ex:'J’ai l’intention de rester deux ans.' }
+    { p:'on verra', vi:'rồi tính sau — câu trả lời lửng rất hay dùng.', ex:'— Tu viendras ? — On verra.', exvi:'— Cậu sẽ đến chứ? — Rồi xem đã.' },
+    { p:'dans l’avenir', vi:'trong tương lai.', ex:'Dans l’avenir, je voudrais enseigner.', exvi:'Sau này tôi muốn đi dạy.' },
+    { p:'avoir l’intention de', vi:'có ý định làm gì.', ex:'J’ai l’intention de rester deux ans.', exvi:'Tôi dự định ở lại hai năm.' }
   ],
   dialogue:[
     { sp:'Léa', fr:'Tu feras quoi après tes études ?', vi:'Học xong cậu sẽ làm gì?' },
@@ -2184,9 +2184,9 @@ const COURSE_FR = {
     { fr:'mensuel', ipa:'mɑ̃.sɥɛl', vi:'hằng tháng', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'ouvrir un compte', vi:'mở tài khoản.', ex:'Je voudrais ouvrir un compte étudiant.' },
-    { p:'être à découvert', vi:'âm tài khoản.', ex:'À la fin du mois, je suis souvent à découvert.' },
-    { p:'faire un virement', vi:'chuyển khoản.', ex:'Je fais un virement pour le loyer chaque mois.' }
+    { p:'ouvrir un compte', vi:'mở tài khoản.', ex:'Je voudrais ouvrir un compte étudiant.', exvi:'Tôi muốn mở một tài khoản sinh viên.' },
+    { p:'être à découvert', vi:'âm tài khoản.', ex:'À la fin du mois, je suis souvent à découvert.', exvi:'Cuối tháng thì tôi thường bị âm tài khoản.' },
+    { p:'faire un virement', vi:'chuyển khoản.', ex:'Je fais un virement pour le loyer chaque mois.', exvi:'Tháng nào tôi cũng chuyển khoản trả tiền thuê nhà.' }
   ],
   dialogue:[
     { sp:'Quan', fr:'Bonjour, j’aimerais ouvrir un compte.', vi:'Chào chị, tôi muốn mở một tài khoản.' },
@@ -2237,9 +2237,9 @@ const COURSE_FR = {
     { fr:'obligatoire', ipa:'ɔ.bli.ɡa.twaʁ', vi:'bắt buộc', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'en deux exemplaires', vi:'làm hai bản.', ex:'Le formulaire est à remplir en deux exemplaires.' },
-    { p:'pièce jointe', vi:'tệp đính kèm; giấy kèm theo.', ex:'Vous trouverez le document en pièce jointe.' },
-    { p:'au plus tard', vi:'chậm nhất là.', ex:'Le dossier doit arriver au plus tard le quinze.' }
+    { p:'en deux exemplaires', vi:'làm hai bản.', ex:'Le formulaire est à remplir en deux exemplaires.', exvi:'Đơn phải điền thành hai bản.' },
+    { p:'pièce jointe', vi:'tệp đính kèm; giấy kèm theo.', ex:'Vous trouverez le document en pièce jointe.', exvi:'Ông sẽ thấy tài liệu ở tệp đính kèm.' },
+    { p:'au plus tard', vi:'chậm nhất là.', ex:'Le dossier doit arriver au plus tard le quinze.', exvi:'Hồ sơ phải tới chậm nhất là ngày mười lăm.' }
   ],
   dialogue:[
     { sp:'Agent', fr:'Bonjour. Vous venez pour quoi ?', vi:'Chào anh. Anh tới việc gì ạ?' },
@@ -2290,9 +2290,9 @@ const COURSE_FR = {
     { fr:'supporter mal', ipa:'sy.pɔʁ.te mal', vi:'chịu đựng kém', pos:'động từ', g:'' }
   ],
   colloc:[
-    { p:'avoir de la chance', vi:'may mắn.', ex:'Tu as de la chance, il reste une place.' },
-    { p:'se mettre en colère', vi:'nổi giận.', ex:'Il se met en colère pour rien.' },
-    { p:'ça me fait plaisir', vi:'tôi thấy vui vì điều đó.', ex:'Ça me fait plaisir de te revoir.' }
+    { p:'avoir de la chance', vi:'may mắn.', ex:'Tu as de la chance, il reste une place.', exvi:'Cậu may đấy, còn một chỗ.' },
+    { p:'se mettre en colère', vi:'nổi giận.', ex:'Il se met en colère pour rien.', exvi:'Anh ấy nổi nóng chẳng vì gì cả.' },
+    { p:'ça me fait plaisir', vi:'tôi thấy vui vì điều đó.', ex:'Ça me fait plaisir de te revoir.', exvi:'Gặp lại cậu tôi thấy vui lắm.' }
   ],
   dialogue:[
     { sp:'Léa', fr:'Tu as l’air soulagé.', vi:'Trông cậu nhẹ cả người.' },
@@ -2343,9 +2343,9 @@ const COURSE_FR = {
     { fr:'maison', ipa:'mɛ.zɔ̃', vi:'ngôi nhà; nhà làm', pos:'danh từ', g:'f', note:'«Tarte maison» là bánh nhà làm — chữ maison đứng sau danh từ thành tính từ.' }
   ],
   colloc:[
-    { p:'Faites comme chez vous.', vi:'Cứ tự nhiên như ở nhà.', ex:'Entrez, faites comme chez vous.' },
-    { p:'À votre santé !', vi:'Chúc sức khoẻ! — câu nâng ly. Thân mật hơn là «Tchin-tchin !».', ex:'À votre santé, et merci pour l’invitation.' },
-    { p:'se donner du mal', vi:'bỏ công sức.', ex:'Vous vous êtes vraiment donné du mal.' }
+    { p:'Faites comme chez vous.', vi:'Cứ tự nhiên như ở nhà.', ex:'Entrez, faites comme chez vous.', exvi:'Mời vào, cứ tự nhiên như ở nhà.' },
+    { p:'À votre santé !', vi:'Chúc sức khoẻ! — câu nâng ly. Thân mật hơn là «Tchin-tchin !».', ex:'À votre santé, et merci pour l’invitation.', exvi:'Chúc sức khoẻ, và cảm ơn đã mời tôi.' },
+    { p:'se donner du mal', vi:'bỏ công sức.', ex:'Vous vous êtes vraiment donné du mal.', exvi:'Anh thật là đã vất vả quá.' }
   ],
   dialogue:[
     { sp:'Hôtesse', fr:'Entrez, entrez ! Donnez-moi votre manteau.', vi:'Mời vào, mời vào! Đưa tôi áo khoác nào.' },
@@ -2396,9 +2396,9 @@ const COURSE_FR = {
     { fr:'chaque année', ipa:'ʃak a.ne', vi:'hằng năm', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'faire le pont', vi:'nghỉ bắc cầu — lễ rơi vào thứ Ba thì nghỉ luôn thứ Hai.', ex:'Le 1er mai tombe un mardi, on fait le pont.' },
-    { p:'passer les fêtes en famille', vi:'đón lễ cùng gia đình.', ex:'Je passe les fêtes en famille à Hanoï.' },
-    { p:'tirer les rois', vi:'ăn bánh vua tháng Giêng và tìm hạt đậu giấu bên trong.', ex:'On tire les rois dimanche chez ma tante.' }
+    { p:'faire le pont', vi:'nghỉ bắc cầu — lễ rơi vào thứ Ba thì nghỉ luôn thứ Hai.', ex:'Le 1er mai tombe un mardi, on fait le pont.', exvi:'Mồng một tháng Năm rơi vào thứ Ba, chúng tôi nghỉ luôn ngày kẹp giữa.' },
+    { p:'passer les fêtes en famille', vi:'đón lễ cùng gia đình.', ex:'Je passe les fêtes en famille à Hanoï.', exvi:'Tôi về Hà Nội ăn Tết cùng gia đình.' },
+    { p:'tirer les rois', vi:'ăn bánh vua tháng Giêng và tìm hạt đậu giấu bên trong.', ex:'On tire les rois dimanche chez ma tante.', exvi:'Chủ nhật này nhà cô tôi cắt bánh vua.' }
   ],
   dialogue:[
     { sp:'Léa', fr:'Tu fais quoi pour Noël ?', vi:'Noel cậu làm gì?' },
@@ -2449,9 +2449,9 @@ const COURSE_FR = {
     { fr:'animé', ipa:'a.ni.me', vi:'nhộn nhịp', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'à deux pas', vi:'ngay gần đây.', ex:'Le marché est à deux pas.' },
-    { p:'faire du bruit', vi:'gây ồn.', ex:'Ils font du bruit jusqu’à deux heures du matin.' },
-    { p:'le bouche-à-oreille', vi:'tin truyền miệng.', ex:'J’ai trouvé cet appartement par le bouche-à-oreille.' }
+    { p:'à deux pas', vi:'ngay gần đây.', ex:'Le marché est à deux pas.', exvi:'Chợ chỉ cách vài bước chân.' },
+    { p:'faire du bruit', vi:'gây ồn.', ex:'Ils font du bruit jusqu’à deux heures du matin.', exvi:'Họ làm ồn tới hai giờ sáng.' },
+    { p:'le bouche-à-oreille', vi:'tin truyền miệng.', ex:'J’ai trouvé cet appartement par le bouche-à-oreille.', exvi:'Tôi tìm được căn hộ này nhờ người nọ mách người kia.' }
   ],
   dialogue:[
     { sp:'Quan', fr:'Bonjour, je viens d’emménager au troisième.', vi:'Chào bác, cháu vừa dọn tới tầng ba.' },
@@ -2502,9 +2502,9 @@ const COURSE_FR = {
     { fr:'malheureusement', ipa:'ma.lø.ʁøz.mɑ̃', vi:'tiếc là', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'rendre service', vi:'giúp một việc.', ex:'Il m’a rendu un grand service.' },
-    { p:'Ça vous dérange si… ?', vi:'Tôi làm thế có phiền anh không?', ex:'Ça vous dérange si je m’assois ici ?' },
-    { p:'Je vous en prie.', vi:'Không có gì. Mời anh cứ tự nhiên.', ex:'— Merci beaucoup. — Je vous en prie.' }
+    { p:'rendre service', vi:'giúp một việc.', ex:'Il m’a rendu un grand service.', exvi:'Anh ấy đã giúp tôi một việc rất lớn.' },
+    { p:'Ça vous dérange si… ?', vi:'Tôi làm thế có phiền anh không?', ex:'Ça vous dérange si je m’assois ici ?', exvi:'Tôi ngồi đây có làm anh khó chịu không?' },
+    { p:'Je vous en prie.', vi:'Không có gì. Mời anh cứ tự nhiên.', ex:'— Merci beaucoup. — Je vous en prie.', exvi:'— Cảm ơn nhiều. — Không có gì.' }
   ],
   dialogue:[
     { sp:'Quan', fr:'Excusez-moi de vous déranger.', vi:'Xin lỗi đã làm phiền bà.' },
@@ -2555,9 +2555,9 @@ const COURSE_FR = {
     { fr:'utile', ipa:'y.til', vi:'hữu ích', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'de mieux en mieux', vi:'ngày một tốt hơn.', ex:'Ton français va de mieux en mieux.' },
-    { p:'tant mieux', vi:'càng tốt.', ex:'— Il ne pleut plus. — Tant mieux !' },
-    { p:'petit à petit', vi:'dần dần.', ex:'Petit à petit, je comprends mieux.' }
+    { p:'de mieux en mieux', vi:'ngày một tốt hơn.', ex:'Ton français va de mieux en mieux.', exvi:'Tiếng Pháp của cậu ngày càng tốt lên.' },
+    { p:'tant mieux', vi:'càng tốt.', ex:'— Il ne pleut plus. — Tant mieux !', exvi:'— Trời tạnh mưa rồi. — Càng tốt!' },
+    { p:'petit à petit', vi:'dần dần.', ex:'Petit à petit, je comprends mieux.', exvi:'Dần dần tôi hiểu tốt hơn.' }
   ],
   dialogue:[
     { sp:'Prof', fr:'Vous parlez mieux qu’au premier cours.', vi:'Em nói tốt hơn hồi buổi đầu rồi.' },
@@ -2608,9 +2608,9 @@ const COURSE_FR = {
     { fr:'désormais capable', ipa:'de.zɔʁ.mɛ ka.pabl', vi:'từ nay đã làm được', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'faire le point', vi:'nhìn lại, tổng kết.', ex:'Faisons le point sur ce qu’on a vu.' },
-    { p:'passer au niveau supérieur', vi:'lên cấp tiếp theo.', ex:'Vous êtes prêt à passer au niveau supérieur.' },
-    { p:'la pratique fait le maître', vi:'trăm hay không bằng tay quen.', ex:'Parlez tous les jours : la pratique fait le maître.' }
+    { p:'faire le point', vi:'nhìn lại, tổng kết.', ex:'Faisons le point sur ce qu’on a vu.', exvi:'Chúng ta điểm lại những gì đã học.' },
+    { p:'passer au niveau supérieur', vi:'lên cấp tiếp theo.', ex:'Vous êtes prêt à passer au niveau supérieur.', exvi:'Anh đã sẵn sàng lên trình độ cao hơn.' },
+    { p:'la pratique fait le maître', vi:'trăm hay không bằng tay quen.', ex:'Parlez tous les jours : la pratique fait le maître.', exvi:'Hãy nói hằng ngày: có làm thì mới thành nghề.' }
   ],
   dialogue:[
     { sp:'Prof', fr:'Alors, un an de français. Qu’est-ce que vous savez faire ?', vi:'Vậy là một năm tiếng Pháp. Em làm được những gì rồi?' },
@@ -2661,9 +2661,9 @@ const COURSE_FR = {
     { fr:'à l\'époque', ipa:'a le.pɔk', vi:'hồi ấy', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'par hasard', vi:'tình cờ.', ex:'Je l\'ai retrouvé par hasard dans le métro.' },
-    { p:'qu\'est-ce qui s\'est passé ?', vi:'chuyện gì đã xảy ra vậy?', ex:'Tu as l\'air bouleversé, qu\'est-ce qui s\'est passé ?' },
-    { p:'raconter en détail', vi:'kể tường tận.', ex:'Raconte-moi tout en détail.' }
+    { p:'par hasard', vi:'tình cờ.', ex:'Je l\'ai retrouvé par hasard dans le métro.', exvi:'Tôi tình cờ gặp lại anh ấy trong tàu điện ngầm.' },
+    { p:'qu\'est-ce qui s\'est passé ?', vi:'chuyện gì đã xảy ra vậy?', ex:'Tu as l\'air bouleversé, qu\'est-ce qui s\'est passé ?', exvi:'Trông cậu như vừa qua chuyện gì lớn, đã xảy ra việc gì?' },
+    { p:'raconter en détail', vi:'kể tường tận.', ex:'Raconte-moi tout en détail.', exvi:'Kể cho tôi thật chi tiết đi.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu as l\'air fatigué. Qu\'est-ce qui s\'est passé ?', vi:'Trông cậu mệt thế. Có chuyện gì vậy?' },
@@ -2714,9 +2714,9 @@ const COURSE_FR = {
     { fr:'au loin', ipa:'o lwɛ̃', vi:'phía xa', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'il y avait du monde', vi:'lúc ấy đông người.', ex:'Il y avait du monde devant le cinéma.' },
-    { p:'on se serait cru ailleurs', vi:'cứ ngỡ đang ở nơi nào khác.', ex:'Avec cette lumière, on se serait cru ailleurs.' },
-    { p:'à perte de vue', vi:'ngút tầm mắt.', ex:'Des champs à perte de vue.' }
+    { p:'il y avait du monde', vi:'lúc ấy đông người.', ex:'Il y avait du monde devant le cinéma.', exvi:'Trước rạp chiếu phim đông người.' },
+    { p:'on se serait cru ailleurs', vi:'cứ ngỡ đang ở nơi nào khác.', ex:'Avec cette lumière, on se serait cru ailleurs.', exvi:'Với thứ ánh sáng ấy, cứ tưởng như đang ở một nơi khác.' },
+    { p:'à perte de vue', vi:'ngút tầm mắt.', ex:'Des champs à perte de vue.', exvi:'Đồng ruộng trải ra ngút tầm mắt.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Décris-moi ton village au Vietnam.', vi:'Tả cho tớ nghe làng cậu ở Việt Nam đi.' },
@@ -2767,9 +2767,9 @@ const COURSE_FR = {
     { fr:'de temps en temps', ipa:'də tɑ̃.z‿ɑ̃ tɑ̃', vi:'thỉnh thoảng', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'quand j\'étais petit', vi:'hồi tôi còn bé.', ex:'Quand j\'étais petit, je détestais les épinards.' },
-    { p:'avoir l\'habitude de', vi:'có thói quen.', ex:'J\'avais l\'habitude de rentrer à pied.' },
-    { p:'c\'était le bon temps', vi:'hồi đó thật đẹp.', ex:'Pas d\'examens, pas de loyer : c\'était le bon temps.' }
+    { p:'quand j\'étais petit', vi:'hồi tôi còn bé.', ex:'Quand j\'étais petit, je détestais les épinards.', exvi:'Hồi bé tôi ghét rau chân vịt.' },
+    { p:'avoir l\'habitude de', vi:'có thói quen.', ex:'J\'avais l\'habitude de rentrer à pied.', exvi:'Tôi từng có thói quen đi bộ về nhà.' },
+    { p:'c\'était le bon temps', vi:'hồi đó thật đẹp.', ex:'Pas d\'examens, pas de loyer : c\'était le bon temps.', exvi:'Không thi cử, không tiền nhà: đó là thời đẹp đẽ.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu étais un enfant sage ?', vi:'Hồi bé cậu ngoan không?' },
@@ -2820,9 +2820,9 @@ const COURSE_FR = {
     { fr:'en fin de compte', ipa:'ɑ̃ fɛ̃ də kɔ̃t', vi:'rốt cuộc', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'si j\'avais su', vi:'biết thế thì…', ex:'Si j\'avais su, j\'aurais pris le parapluie.' },
-    { p:'la veille au soir', vi:'tối hôm trước.', ex:'Il était rentré la veille au soir.' },
-    { p:'se rendre compte que', vi:'nhận ra rằng.', ex:'Je me suis rendu compte que j\'avais oublié mes clés.' }
+    { p:'si j\'avais su', vi:'biết thế thì…', ex:'Si j\'avais su, j\'aurais pris le parapluie.', exvi:'Nếu biết trước thì tôi đã mang dù.' },
+    { p:'la veille au soir', vi:'tối hôm trước.', ex:'Il était rentré la veille au soir.', exvi:'Anh ấy đã về từ tối hôm trước.' },
+    { p:'se rendre compte que', vi:'nhận ra rằng.', ex:'Je me suis rendu compte que j\'avais oublié mes clés.', exvi:'Tôi chợt nhận ra là mình quên chìa khoá.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Alors, ce rendez-vous chez le médecin ?', vi:'Thế buổi khám bác sĩ thế nào?' },
@@ -2873,9 +2873,9 @@ const COURSE_FR = {
     { fr:'ailleurs', ipa:'a.jœʁ', vi:'nơi khác', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'ça y est', vi:'xong rồi đó.', ex:'Ça y est, le train arrive.' },
-    { p:'j\'en ai marre', vi:'chán lắm rồi.', ex:'J\'en ai marre de cette pluie.' },
-    { p:'il n\'y en a plus', vi:'hết rồi.', ex:'— Du lait ? — Il n\'y en a plus.' }
+    { p:'ça y est', vi:'xong rồi đó.', ex:'Ça y est, le train arrive.', exvi:'Xong rồi, tàu đến kia.' },
+    { p:'j\'en ai marre', vi:'chán lắm rồi.', ex:'J\'en ai marre de cette pluie.', exvi:'Tôi chán cái kiểu mưa này lắm rồi.' },
+    { p:'il n\'y en a plus', vi:'hết rồi.', ex:'— Du lait ? — Il n\'y en a plus.', exvi:'— Còn sữa không? — Hết rồi.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu es déjà allé en Bretagne ?', vi:'Cậu đi Bretagne bao giờ chưa?' },
@@ -2926,9 +2926,9 @@ const COURSE_FR = {
     { fr:'à mon tour', ipa:'a mɔ̃ tuʁ', vi:'đến lượt tôi', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'je te le promets', vi:'tôi hứa với cậu đấy.', ex:'Je te le rapporte demain, je te le promets.' },
-    { p:'rends-le-moi', vi:'trả lại cho tôi đi.', ex:'C\'est mon stylo, rends-le-moi.' },
-    { p:'passe-le-lui', vi:'chuyển máy cho anh ấy đi.', ex:'Si Paul appelle, passe-le-lui.' }
+    { p:'je te le promets', vi:'tôi hứa với cậu đấy.', ex:'Je te le rapporte demain, je te le promets.', exvi:'Mai tôi trả lại cậu, tôi hứa đấy.' },
+    { p:'rends-le-moi', vi:'trả lại cho tôi đi.', ex:'C\'est mon stylo, rends-le-moi.', exvi:'Đó là bút của tôi, trả lại cho tôi.' },
+    { p:'passe-le-lui', vi:'chuyển máy cho anh ấy đi.', ex:'Si Paul appelle, passe-le-lui.', exvi:'Nếu Paul gọi thì chuyển máy cho anh ấy.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu as rendu le dictionnaire à Marc ?', vi:'Cậu trả từ điển cho Marc chưa?' },
@@ -2979,9 +2979,9 @@ const COURSE_FR = {
     { fr:'ci-dessus', ipa:'si.də.sy', vi:'ở trên đây', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'c\'est ce qui compte', vi:'đó mới là điều quan trọng.', ex:'Tu as essayé : c\'est ce qui compte.' },
-    { p:'ce que je veux dire', vi:'điều tôi muốn nói.', ex:'Ce que je veux dire, c\'est que c\'est trop cher.' },
-    { p:'tout ce qui bouge', vi:'bất cứ thứ gì nhúc nhích.', ex:'Le chat attaque tout ce qui bouge.' }
+    { p:'c\'est ce qui compte', vi:'đó mới là điều quan trọng.', ex:'Tu as essayé : c\'est ce qui compte.', exvi:'Cậu đã thử: đó mới là điều đáng kể.' },
+    { p:'ce que je veux dire', vi:'điều tôi muốn nói.', ex:'Ce que je veux dire, c\'est que c\'est trop cher.', exvi:'Ý tôi muốn nói là nó quá đắt.' },
+    { p:'tout ce qui bouge', vi:'bất cứ thứ gì nhúc nhích.', ex:'Le chat attaque tout ce qui bouge.', exvi:'Con mèo tấn công mọi thứ động đậy.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu as fini le roman que je t\'ai conseillé ?', vi:'Cậu đọc xong quyển tiểu thuyết tớ giới thiệu chưa?' },
@@ -3032,9 +3032,9 @@ const COURSE_FR = {
     { fr:'ci-dessous', ipa:'si.də.su', vi:'ở dưới đây', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'le jour où', vi:'cái hôm mà.', ex:'Le jour où tu partiras, préviens-moi.' },
-    { p:'ce dont j\'ai besoin', vi:'thứ tôi cần.', ex:'Ce dont j\'ai besoin, c\'est de calme.' },
-    { p:'là où', vi:'ở chỗ mà.', ex:'Attends-moi là où on s\'est vus hier.' }
+    { p:'le jour où', vi:'cái hôm mà.', ex:'Le jour où tu partiras, préviens-moi.', exvi:'Ngày nào cậu đi thì báo tôi nhé.' },
+    { p:'ce dont j\'ai besoin', vi:'thứ tôi cần.', ex:'Ce dont j\'ai besoin, c\'est de calme.', exvi:'Điều tôi cần là sự yên tĩnh.' },
+    { p:'là où', vi:'ở chỗ mà.', ex:'Attends-moi là où on s\'est vus hier.', exvi:'Chờ tôi ở chỗ hôm qua chúng ta gặp nhau.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'C\'est ici, le café dont tu m\'as parlé ?', vi:'Đây là quán cà phê cậu kể à?' },
@@ -3085,9 +3085,9 @@ const COURSE_FR = {
     { fr:'de loin', ipa:'də lwɛ̃', vi:'hơn hẳn', pos:'trạng từ', g:'', note:'«De loin le meilleur» là «tốt nhất một cách áp đảo», không liên quan tới khoảng cách.' }
   ],
   colloc:[
-    { p:'de mieux en mieux', vi:'càng ngày càng khá.', ex:'Ton français va de mieux en mieux.' },
-    { p:'de plus en plus', vi:'ngày một nhiều hơn.', ex:'Il fait de plus en plus chaud.' },
-    { p:'rien à voir', vi:'chẳng liên quan gì.', ex:'Les deux villes ? Rien à voir.' }
+    { p:'de mieux en mieux', vi:'càng ngày càng khá.', ex:'Ton français va de mieux en mieux.', exvi:'Tiếng Pháp của cậu ngày càng tốt lên.' },
+    { p:'de plus en plus', vi:'ngày một nhiều hơn.', ex:'Il fait de plus en plus chaud.', exvi:'Trời càng lúc càng nóng.' },
+    { p:'rien à voir', vi:'chẳng liên quan gì.', ex:'Les deux villes ? Rien à voir.', exvi:'Hai thành phố ấy? Chẳng liên quan gì đến nhau.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Alors, Lyon ou Bordeaux ?', vi:'Thế nào, Lyon hay Bordeaux?' },
@@ -3138,9 +3138,9 @@ const COURSE_FR = {
     { fr:'éventuellement', ipa:'e.vɑ̃.tɥɛl.mɑ̃', vi:'nếu cần thì', pos:'trạng từ', g:'', note:'Không phải «cuối cùng». Cuối cùng là «finalement» — bẫy rất hay gặp.' }
   ],
   colloc:[
-    { p:'si jamais', vi:'nhỡ mà.', ex:'Si jamais tu es en retard, envoie un message.' },
-    { p:'on verra bien', vi:'rồi tính sau.', ex:'S\'il pleut, on verra bien.' },
-    { p:'ça ne coûte rien d\'essayer', vi:'thử thì có mất gì đâu.', ex:'Postule : ça ne coûte rien d\'essayer.' }
+    { p:'si jamais', vi:'nhỡ mà.', ex:'Si jamais tu es en retard, envoie un message.', exvi:'Nếu cậu có đến muộn thì gửi tin nhắn nhé.' },
+    { p:'on verra bien', vi:'rồi tính sau.', ex:'S\'il pleut, on verra bien.', exvi:'Nếu mưa thì rồi tính.' },
+    { p:'ça ne coûte rien d\'essayer', vi:'thử thì có mất gì đâu.', ex:'Postule : ça ne coûte rien d\'essayer.', exvi:'Cứ ứng tuyển đi: thử thì chẳng mất gì.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Si tu obtiens la bourse, tu resteras un an ?', vi:'Nếu được học bổng, cậu ở lại một năm chứ?' },
@@ -3191,9 +3191,9 @@ const COURSE_FR = {
     { fr:'vivement', ipa:'viv.mɑ̃', vi:'mong sao chóng tới', pos:'trạng từ', g:'', note:'«Vivement les vacances !» là «mong sao mau tới kỳ nghỉ». Không dịch được sát, phải học nguyên cụm.' }
   ],
   colloc:[
-    { p:'à ta place, je…', vi:'nếu là cậu thì tôi…', ex:'À ta place, je refuserais poliment.' },
-    { p:'qu\'est-ce que tu ferais ?', vi:'cậu sẽ làm gì?', ex:'Si tu gagnais au loto, qu\'est-ce que tu ferais ?' },
-    { p:'ce serait bien de', vi:'giá mà được…', ex:'Ce serait bien de partir une semaine.' }
+    { p:'à ta place, je…', vi:'nếu là cậu thì tôi…', ex:'À ta place, je refuserais poliment.', exvi:'Nếu là cậu thì tôi sẽ lịch sự từ chối.' },
+    { p:'qu\'est-ce que tu ferais ?', vi:'cậu sẽ làm gì?', ex:'Si tu gagnais au loto, qu\'est-ce que tu ferais ?', exvi:'Nếu cậu trúng xổ số thì cậu sẽ làm gì?' },
+    { p:'ce serait bien de', vi:'giá mà được…', ex:'Ce serait bien de partir une semaine.', exvi:'Đi một tuần thì sẽ hay đấy.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Si tu gagnais à la loterie, tu ferais quoi ?', vi:'Nếu trúng xổ số, cậu sẽ làm gì?' },
@@ -3244,9 +3244,9 @@ const COURSE_FR = {
     { fr:'sincèrement', ipa:'sɛ̃.sɛʁ.mɑ̃', vi:'thành thật', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'je voudrais savoir si', vi:'tôi muốn hỏi liệu.', ex:'Je voudrais savoir si le dossier est complet.' },
-    { p:'ça vous dérangerait de', vi:'có phiền ông không nếu.', ex:'Ça vous dérangerait de rappeler demain ?' },
-    { p:'ce serait très aimable', vi:'thế thì quý hoá quá.', ex:'Ce serait très aimable de votre part.' }
+    { p:'je voudrais savoir si', vi:'tôi muốn hỏi liệu.', ex:'Je voudrais savoir si le dossier est complet.', exvi:'Tôi muốn biết hồ sơ đã đủ chưa.' },
+    { p:'ça vous dérangerait de', vi:'có phiền ông không nếu.', ex:'Ça vous dérangerait de rappeler demain ?', exvi:'Anh gọi lại mai có bất tiện không?' },
+    { p:'ce serait très aimable', vi:'thế thì quý hoá quá.', ex:'Ce serait très aimable de votre part.', exvi:'Anh làm vậy thì thật quá tốt.' }
   ],
   dialogue:[
     { sp:'Quân', fr:'Bonjour, je voudrais renouveler mon titre de séjour.', vi:'Chào bà, tôi muốn gia hạn thẻ cư trú.' },
@@ -3297,9 +3297,9 @@ const COURSE_FR = {
     { fr:'impérativement', ipa:'ɛ̃.pe.ʁa.tiv.mɑ̃', vi:'nhất thiết phải', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'il faut que j\'y aille', vi:'tôi phải đi đây.', ex:'Il est tard, il faut que j\'y aille.' },
-    { p:'il vaut mieux que', vi:'tốt hơn là.', ex:'Il vaut mieux que tu partes avant six heures.' },
-    { p:'bien que ce soit', vi:'dù rằng.', ex:'Bien que ce soit cher, je le prends.' }
+    { p:'il faut que j\'y aille', vi:'tôi phải đi đây.', ex:'Il est tard, il faut que j\'y aille.', exvi:'Muộn rồi, tôi phải đi.' },
+    { p:'il vaut mieux que', vi:'tốt hơn là.', ex:'Il vaut mieux que tu partes avant six heures.', exvi:'Cậu nên đi trước sáu giờ.' },
+    { p:'bien que ce soit', vi:'dù rằng.', ex:'Bien que ce soit cher, je le prends.', exvi:'Dù đắt, tôi vẫn lấy.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Il faut que tu rendes le dossier quand ?', vi:'Cậu phải nộp hồ sơ khi nào?' },
@@ -3350,9 +3350,9 @@ const COURSE_FR = {
     { fr:'rassurant', ipa:'ʁa.sy.ʁɑ̃', vi:'khiến yên lòng', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'je suis ravi que', vi:'tôi mừng lắm vì.', ex:'Je suis ravi que tu aies réussi.' },
-    { p:'j\'ai peur que ce soit trop tard', vi:'tôi e là muộn mất rồi.', ex:'J\'ai peur que ce soit trop tard pour s\'inscrire.' },
-    { p:'ça m\'étonnerait', vi:'tôi nghi lắm.', ex:'Il sera à l\'heure ? Ça m\'étonnerait.' }
+    { p:'je suis ravi que', vi:'tôi mừng lắm vì.', ex:'Je suis ravi que tu aies réussi.', exvi:'Tôi rất mừng vì cậu đã đỗ.' },
+    { p:'j\'ai peur que ce soit trop tard', vi:'tôi e là muộn mất rồi.', ex:'J\'ai peur que ce soit trop tard pour s\'inscrire.', exvi:'Tôi sợ là đã quá muộn để ghi danh.' },
+    { p:'ça m\'étonnerait', vi:'tôi nghi lắm.', ex:'Il sera à l\'heure ? Ça m\'étonnerait.', exvi:'Anh ấy sẽ đến đúng giờ à? Tôi thấy khó tin.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Alors, le résultat de la bourse ?', vi:'Thế nào, kết quả học bổng?' },
@@ -3403,9 +3403,9 @@ const COURSE_FR = {
     { fr:'prudemment', ipa:'pʁy.da.mɑ̃', vi:'thận trọng', pos:'trạng từ', g:'', note:'Viết «-emment» nhưng đọc «-amment». Mọi tính từ đuôi -ent đều theo quy tắc này.' }
   ],
   colloc:[
-    { p:'en attendant', vi:'trong lúc chờ.', ex:'En attendant, prends un café.' },
-    { p:'c\'est en forgeant qu\'on devient forgeron', vi:'trăm hay không bằng tay quen.', ex:'Continue : c\'est en forgeant qu\'on devient forgeron.' },
-    { p:'en un rien de temps', vi:'trong nháy mắt.', ex:'Il a tout rangé en un rien de temps.' }
+    { p:'en attendant', vi:'trong lúc chờ.', ex:'En attendant, prends un café.', exvi:'Trong khi chờ, cậu uống cà phê đi.' },
+    { p:'c\'est en forgeant qu\'on devient forgeron', vi:'trăm hay không bằng tay quen.', ex:'Continue : c\'est en forgeant qu\'on devient forgeron.', exvi:'Cứ tiếp tục: có rèn thì mới thành thợ rèn.' },
+    { p:'en un rien de temps', vi:'trong nháy mắt.', ex:'Il a tout rangé en un rien de temps.', exvi:'Anh ấy dọn xong hết trong nháy mắt.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu révises comment, toi ?', vi:'Cậu ôn bài kiểu gì thế?' },
@@ -3456,9 +3456,9 @@ const COURSE_FR = {
     { fr:'industriel', ipa:'ɛ̃.dys.tʁi.jɛl', vi:'công nghiệp', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'c\'est fait main', vi:'đồ làm tay.', ex:'Ce panier est fait main.' },
-    { p:'il s\'est fait avoir', vi:'anh ấy bị lừa rồi.', ex:'Il a payé le double : il s\'est fait avoir.' },
-    { p:'fabriqué en France', vi:'sản xuất tại Pháp.', ex:'Ces couteaux sont fabriqués en France.' }
+    { p:'c\'est fait main', vi:'đồ làm tay.', ex:'Ce panier est fait main.', exvi:'Cái giỏ này làm bằng tay.' },
+    { p:'il s\'est fait avoir', vi:'anh ấy bị lừa rồi.', ex:'Il a payé le double : il s\'est fait avoir.', exvi:'Anh ấy trả gấp đôi: bị lừa rồi.' },
+    { p:'fabriqué en France', vi:'sản xuất tại Pháp.', ex:'Ces couteaux sont fabriqués en France.', exvi:'Những con dao này được làm ở Pháp.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Ce pont a été construit quand ?', vi:'Cây cầu này được xây khi nào?' },
@@ -3509,9 +3509,9 @@ const COURSE_FR = {
     { fr:'paraît-il', ipa:'pa.ʁɛ.t‿il', vi:'nghe đâu', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'il paraît que', vi:'nghe nói là.', ex:'Il paraît que le musée est gratuit le dimanche.' },
-    { p:'qu\'est-ce qu\'il a dit ?', vi:'anh ấy nói gì vậy?', ex:'Je n\'ai pas entendu, qu\'est-ce qu\'il a dit ?' },
-    { p:'d\'après ce que j\'ai compris', vi:'theo chỗ tôi hiểu.', ex:'D\'après ce que j\'ai compris, c\'est reporté.' }
+    { p:'il paraît que', vi:'nghe nói là.', ex:'Il paraît que le musée est gratuit le dimanche.', exvi:'Nghe nói bảo tàng vào chủ nhật thì miễn phí.' },
+    { p:'qu\'est-ce qu\'il a dit ?', vi:'anh ấy nói gì vậy?', ex:'Je n\'ai pas entendu, qu\'est-ce qu\'il a dit ?', exvi:'Tôi không nghe rõ, anh ấy nói gì?' },
+    { p:'d\'après ce que j\'ai compris', vi:'theo chỗ tôi hiểu.', ex:'D\'après ce que j\'ai compris, c\'est reporté.', exvi:'Theo như tôi hiểu thì việc đó đã bị hoãn.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Le propriétaire a appelé. Qu\'est-ce qu\'il a dit ?', vi:'Chủ nhà gọi rồi. Ông ấy nói gì?' },
@@ -3562,9 +3562,9 @@ const COURSE_FR = {
     { fr:'textuellement', ipa:'tɛks.tɥɛl.mɑ̃', vi:'nguyên văn', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'il m\'a dit textuellement', vi:'anh ấy nói nguyên văn.', ex:'Il m\'a dit textuellement : « c\'est impossible ».' },
-    { p:'tu déformes mes propos', vi:'cậu bóp méo lời tôi.', ex:'Ce n\'est pas ça, tu déformes mes propos.' },
-    { p:'pour résumer', vi:'tóm lại.', ex:'Pour résumer, personne ne savait.' }
+    { p:'il m\'a dit textuellement', vi:'anh ấy nói nguyên văn.', ex:'Il m\'a dit textuellement : « c\'est impossible ».', exvi:'Anh ấy nói với tôi nguyên văn: «không thể được».' },
+    { p:'tu déformes mes propos', vi:'cậu bóp méo lời tôi.', ex:'Ce n\'est pas ça, tu déformes mes propos.', exvi:'Không phải thế, cậu bóp méo lời tôi.' },
+    { p:'pour résumer', vi:'tóm lại.', ex:'Pour résumer, personne ne savait.', exvi:'Nói tóm lại, chẳng ai biết gì.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu avais dit que tu viendrais samedi.', vi:'Cậu đã bảo thứ Bảy sẽ tới.' },
@@ -3615,9 +3615,9 @@ const COURSE_FR = {
     { fr:'commun', ipa:'kɔ.mœ̃', vi:'chung', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'chacun le sien', vi:'của ai người nấy.', ex:'Pas de mélange : chacun le sien.' },
-    { p:'c\'est à qui ?', vi:'cái này của ai?', ex:'Ce parapluie, c\'est à qui ?' },
-    { p:'faire comme chez soi', vi:'cứ tự nhiên như ở nhà.', ex:'Entre et fais comme chez toi.' }
+    { p:'chacun le sien', vi:'của ai người nấy.', ex:'Pas de mélange : chacun le sien.', exvi:'Không lẫn vào nhau: ai phần người ấy.' },
+    { p:'c\'est à qui ?', vi:'cái này của ai?', ex:'Ce parapluie, c\'est à qui ?', exvi:'Cái dù này của ai?' },
+    { p:'faire comme chez soi', vi:'cứ tự nhiên như ở nhà.', ex:'Entre et fais comme chez toi.', exvi:'Vào đi và cứ tự nhiên như ở nhà.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Ce carnet, c\'est le tien ou le mien ?', vi:'Cuốn sổ này của cậu hay của tớ?' },
@@ -3668,9 +3668,9 @@ const COURSE_FR = {
     { fr:'encombrant', ipa:'ɑ̃.kɔ̃.bʁɑ̃', vi:'cồng kềnh', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'celui qui ne risque rien', vi:'kẻ không dám liều.', ex:'Celui qui ne risque rien n\'a rien.' },
-    { p:'ça dépend', vi:'còn tuỳ.', ex:'— Tu viens ? — Ça dépend de l\'heure.' },
-    { p:'et ça, qu\'est-ce que c\'est ?', vi:'còn cái này là cái gì?', ex:'Et ça, qu\'est-ce que c\'est, en bas ?' }
+    { p:'celui qui ne risque rien', vi:'kẻ không dám liều.', ex:'Celui qui ne risque rien n\'a rien.', exvi:'Ai không dám mạo hiểm thì chẳng được gì.' },
+    { p:'ça dépend', vi:'còn tuỳ.', ex:'— Tu viens ? — Ça dépend de l\'heure.', exvi:'— Cậu đến không? — Tuỳ giờ.' },
+    { p:'et ça, qu\'est-ce que c\'est ?', vi:'còn cái này là cái gì?', ex:'Et ça, qu\'est-ce que c\'est, en bas ?', exvi:'Còn cái kia ở phía dưới là gì?' }
   ],
   dialogue:[
     { sp:'Vendeur', fr:'Ces deux modèles sont les plus vendus.', vi:'Hai mẫu này bán chạy nhất ạ.' },
@@ -3721,9 +3721,9 @@ const COURSE_FR = {
     { fr:'sous prétexte que', ipa:'su pʁe.tɛkst kə', vi:'lấy cớ rằng', pos:'liên từ', g:'' }
   ],
   colloc:[
-    { p:'c\'est à cause de moi', vi:'là tại tôi.', ex:'Le retard, c\'est à cause de moi.' },
-    { p:'grâce au ciel', vi:'nhờ trời.', ex:'Grâce au ciel, personne n\'était blessé.' },
-    { p:'faute de temps', vi:'vì không có thời gian.', ex:'Faute de temps, je n\'ai pas relu.' }
+    { p:'c\'est à cause de moi', vi:'là tại tôi.', ex:'Le retard, c\'est à cause de moi.', exvi:'Việc chậm trễ là do lỗi của tôi.' },
+    { p:'grâce au ciel', vi:'nhờ trời.', ex:'Grâce au ciel, personne n\'était blessé.', exvi:'Nhờ trời, không ai bị thương.' },
+    { p:'faute de temps', vi:'vì không có thời gian.', ex:'Faute de temps, je n\'ai pas relu.', exvi:'Vì thiếu thời gian, tôi đã không xem lại.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Pourquoi tu n\'es pas venu hier ?', vi:'Sao hôm qua cậu không tới?' },
@@ -3774,9 +3774,9 @@ const COURSE_FR = {
     { fr:'imprévu', ipa:'ɛ̃.pʁe.vy', vi:'ngoài dự tính', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'du coup, j\'ai changé d\'avis', vi:'thế là tôi đổi ý.', ex:'Il pleuvait ; du coup, j\'ai changé d\'avis.' },
-    { p:'ça n\'a rien donné', vi:'chẳng đi tới đâu.', ex:'J\'ai téléphoné trois fois, ça n\'a rien donné.' },
-    { p:'d\'où l\'idée de', vi:'từ đó nảy ra ý.', ex:'Le loyer est cher, d\'où l\'idée de partager.' }
+    { p:'du coup, j\'ai changé d\'avis', vi:'thế là tôi đổi ý.', ex:'Il pleuvait ; du coup, j\'ai changé d\'avis.', exvi:'Trời đang mưa; thế nên tôi đổi ý.' },
+    { p:'ça n\'a rien donné', vi:'chẳng đi tới đâu.', ex:'J\'ai téléphoné trois fois, ça n\'a rien donné.', exvi:'Tôi gọi ba lần mà chẳng được gì.' },
+    { p:'d\'où l\'idée de', vi:'từ đó nảy ra ý.', ex:'Le loyer est cher, d\'où l\'idée de partager.', exvi:'Tiền nhà đắt, từ đó mới nảy ra ý ở ghép.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Alors, cette demande de bourse ?', vi:'Thế nào, cái đơn học bổng ấy?' },
@@ -3827,9 +3827,9 @@ const COURSE_FR = {
     { fr:'nuancé', ipa:'nɥɑ̃.se', vi:'có chừng mực', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'n\'empêche que', vi:'dù sao thì.', ex:'N\'empêche que tu aurais pu prévenir.' },
-    { p:'ça se discute', vi:'còn phải bàn.', ex:'C\'est le meilleur ? Ça se discute.' },
-    { p:'d\'un côté… de l\'autre', vi:'một mặt… mặt khác.', ex:'D\'un côté c\'est loin, de l\'autre c\'est moins cher.' }
+    { p:'n\'empêche que', vi:'dù sao thì.', ex:'N\'empêche que tu aurais pu prévenir.', exvi:'Dù sao thì cậu cũng đã có thể báo trước.' },
+    { p:'ça se discute', vi:'còn phải bàn.', ex:'C\'est le meilleur ? Ça se discute.', exvi:'Đó là cái tốt nhất à? Còn phải bàn.' },
+    { p:'d\'un côté… de l\'autre', vi:'một mặt… mặt khác.', ex:'D\'un côté c\'est loin, de l\'autre c\'est moins cher.', exvi:'Một mặt thì xa, mặt khác thì rẻ hơn.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Ce studio est minuscule.', vi:'Căn studio này bé tí.' },
@@ -3880,9 +3880,9 @@ const COURSE_FR = {
     { fr:'efficace', ipa:'e.fi.kas', vi:'hiệu quả', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'ça sert à quoi ?', vi:'cái này dùng để làm gì?', ex:'Ce bouton rouge, ça sert à quoi ?' },
-    { p:'dans le but de', vi:'nhằm mục đích.', ex:'Il écrit dans le but de convaincre.' },
-    { p:'histoire de voir', vi:'cốt để xem sao.', ex:'On y va, histoire de voir.' }
+    { p:'ça sert à quoi ?', vi:'cái này dùng để làm gì?', ex:'Ce bouton rouge, ça sert à quoi ?', exvi:'Cái nút đỏ này để làm gì?' },
+    { p:'dans le but de', vi:'nhằm mục đích.', ex:'Il écrit dans le but de convaincre.', exvi:'Anh ấy viết nhằm thuyết phục người đọc.' },
+    { p:'histoire de voir', vi:'cốt để xem sao.', ex:'On y va, histoire de voir.', exvi:'Ta đi thử xem, cho biết thế nào.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Pourquoi tu prends des cours du soir ?', vi:'Sao cậu học lớp buổi tối?' },
@@ -3933,9 +3933,9 @@ const COURSE_FR = {
     { fr:'sur-le-champ', ipa:'syʁ lə ʃɑ̃', vi:'ngay lập tức', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'dès que possible', vi:'sớm nhất có thể.', ex:'Envoie-le-moi dès que possible.' },
-    { p:'en attendant mieux', vi:'trong lúc chờ có cái tốt hơn.', ex:'C\'est petit, mais ça ira en attendant mieux.' },
-    { p:'au fur et à mesure', vi:'làm tới đâu hay tới đó.', ex:'Je corrige au fur et à mesure.' }
+    { p:'dès que possible', vi:'sớm nhất có thể.', ex:'Envoie-le-moi dès que possible.', exvi:'Gửi cho tôi càng sớm càng tốt.' },
+    { p:'en attendant mieux', vi:'trong lúc chờ có cái tốt hơn.', ex:'C\'est petit, mais ça ira en attendant mieux.', exvi:'Nhỏ đấy, nhưng tạm ổn trong khi chờ chỗ tốt hơn.' },
+    { p:'au fur et à mesure', vi:'làm tới đâu hay tới đó.', ex:'Je corrige au fur et à mesure.', exvi:'Tôi sửa dần theo tiến độ.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu déménages quand ?', vi:'Khi nào cậu chuyển nhà?' },
@@ -3986,9 +3986,9 @@ const COURSE_FR = {
     { fr:'en moyenne', ipa:'ɑ̃ mwa.jɛn', vi:'tính bình quân', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'dans les grandes lignes', vi:'về đại thể.', ex:'Dans les grandes lignes, c\'est ça.' },
-    { p:'à vue de nez', vi:'nhắm chừng.', ex:'À vue de nez, il y avait cent personnes.' },
-    { p:'ni plus ni moins', vi:'không hơn không kém.', ex:'Trois cents euros, ni plus ni moins.' }
+    { p:'dans les grandes lignes', vi:'về đại thể.', ex:'Dans les grandes lignes, c\'est ça.', exvi:'Đại thể thì đúng như vậy.' },
+    { p:'à vue de nez', vi:'nhắm chừng.', ex:'À vue de nez, il y avait cent personnes.', exvi:'Ước lượng bằng mắt thì có khoảng trăm người.' },
+    { p:'ni plus ni moins', vi:'không hơn không kém.', ex:'Trois cents euros, ni plus ni moins.', exvi:'Ba trăm euro, không hơn không kém.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Combien coûte un studio dans ce quartier ?', vi:'Một căn studio ở khu này bao nhiêu?' },
@@ -4039,9 +4039,9 @@ const COURSE_FR = {
     { fr:'exigu', ipa:'ɛɡ.zi.ɡy', vi:'chật chội', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'charges comprises', vi:'đã gồm phí.', ex:'600 euros charges comprises.' },
-    { p:'donner son préavis', vi:'gửi thông báo trả nhà.', ex:'J\'ai donné mon préavis en mars.' },
-    { p:'récupérer sa caution', vi:'lấy lại tiền cọc.', ex:'J\'ai récupéré ma caution en un mois.' }
+    { p:'charges comprises', vi:'đã gồm phí.', ex:'600 euros charges comprises.', exvi:'600 euro đã gồm phí dịch vụ.' },
+    { p:'donner son préavis', vi:'gửi thông báo trả nhà.', ex:'J\'ai donné mon préavis en mars.', exvi:'Tôi đã gửi thông báo trả nhà từ tháng Ba.' },
+    { p:'récupérer sa caution', vi:'lấy lại tiền cọc.', ex:'J\'ai récupéré ma caution en un mois.', exvi:'Tôi lấy lại được tiền đặt cọc trong một tháng.' }
   ],
   dialogue:[
     { sp:'Agente', fr:'Le loyer est de 620 euros charges comprises.', vi:'Tiền nhà 620 euro đã gồm phí.' },
@@ -4092,9 +4092,9 @@ const COURSE_FR = {
     { fr:'ponctuel', ipa:'pɔ̃k.tɥɛl', vi:'đúng giờ', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'sous quinze jours', vi:'trong vòng mười lăm ngày.', ex:'Vous aurez une réponse sous quinze jours.' },
-    { p:'dans l\'attente de votre réponse', vi:'kính chờ hồi âm của quý vị.', ex:'Dans l\'attente de votre réponse, je vous remercie.' },
-    { p:'être pris', vi:'được nhận.', ex:'Il a été pris dès le premier entretien.' }
+    { p:'sous quinze jours', vi:'trong vòng mười lăm ngày.', ex:'Vous aurez une réponse sous quinze jours.', exvi:'Ông sẽ có câu trả lời trong vòng mười lăm ngày.' },
+    { p:'dans l\'attente de votre réponse', vi:'kính chờ hồi âm của quý vị.', ex:'Dans l\'attente de votre réponse, je vous remercie.', exvi:'Trong lúc chờ hồi âm của ông, tôi xin cảm ơn.' },
+    { p:'être pris', vi:'được nhận.', ex:'Il a été pris dès le premier entretien.', exvi:'Anh ấy được nhận ngay từ buổi phỏng vấn đầu.' }
   ],
   dialogue:[
     { sp:'Recruteuse', fr:'Vous avez déjà travaillé en France ?', vi:'Anh từng làm việc ở Pháp chưa?' },
@@ -4145,9 +4145,9 @@ const COURSE_FR = {
     { fr:'en télétravail', ipa:'ɑ̃ te.le.tʁa.vaj', vi:'làm việc từ xa', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'je reviens vers vous', vi:'tôi xin liên hệ lại.', ex:'Je reviens vers vous au sujet du devis.' },
-    { p:'c\'est noté', vi:'tôi ghi nhận rồi.', ex:'— Réunion à dix heures. — C\'est noté.' },
-    { p:'faire le point', vi:'rà lại tình hình.', ex:'On fait le point vendredi matin.' }
+    { p:'je reviens vers vous', vi:'tôi xin liên hệ lại.', ex:'Je reviens vers vous au sujet du devis.', exvi:'Tôi xin liên hệ lại với ông về bảng báo giá.' },
+    { p:'c\'est noté', vi:'tôi ghi nhận rồi.', ex:'— Réunion à dix heures. — C\'est noté.', exvi:'— Họp lúc mười giờ. — Tôi ghi nhận.' },
+    { p:'faire le point', vi:'rà lại tình hình.', ex:'On fait le point vendredi matin.', exvi:'Sáng thứ Sáu ta điểm lại tình hình.' }
   ],
   dialogue:[
     { sp:'Chef', fr:'On fait le point sur le dossier Lambert ?', vi:'Mình rà lại hồ sơ Lambert nhé?' },
@@ -4198,9 +4198,9 @@ const COURSE_FR = {
     { fr:'à jeun', ipa:'a ʒœ̃', vi:'lúc bụng đói', pos:'trạng từ', g:'', note:'Xét nghiệm máu ở Pháp thường yêu cầu «à jeun» — không ăn từ tối hôm trước.' }
   ],
   colloc:[
-    { p:'depuis quand ?', vi:'từ khi nào?', ex:'— J\'ai mal au dos. — Depuis quand ?' },
-    { p:'ça ne passe pas', vi:'không đỡ.', ex:'J\'ai pris du paracétamol, ça ne passe pas.' },
-    { p:'rien de grave', vi:'không có gì nghiêm trọng.', ex:'Rassurez-vous : rien de grave.' }
+    { p:'depuis quand ?', vi:'từ khi nào?', ex:'— J\'ai mal au dos. — Depuis quand ?', exvi:'— Tôi đau lưng. — Từ khi nào?' },
+    { p:'ça ne passe pas', vi:'không đỡ.', ex:'J\'ai pris du paracétamol, ça ne passe pas.', exvi:'Tôi uống thuốc hạ đau rồi mà vẫn không đỡ.' },
+    { p:'rien de grave', vi:'không có gì nghiêm trọng.', ex:'Rassurez-vous : rien de grave.', exvi:'Ông cứ yên tâm: không có gì nghiêm trọng.' }
   ],
   dialogue:[
     { sp:'Médecin', fr:'Qu\'est-ce qui vous amène ?', vi:'Anh đến vì chuyện gì?' },
@@ -4251,9 +4251,9 @@ const COURSE_FR = {
     { fr:'consigné', ipa:'kɔ̃.si.ɲe', vi:'có đặt cọc vỏ', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'geste pour la planète', vi:'việc nhỏ vì trái đất.', ex:'Prendre le train, c\'est un geste pour la planète.' },
-    { p:'de plus en plus de', vi:'ngày càng nhiều.', ex:'Il y a de plus en plus de vrac au marché.' },
-    { p:'zéro déchet', vi:'không rác thải.', ex:'Elle vit presque zéro déchet.' }
+    { p:'geste pour la planète', vi:'việc nhỏ vì trái đất.', ex:'Prendre le train, c\'est un geste pour la planète.', exvi:'Đi tàu là một việc làm vì hành tinh này.' },
+    { p:'de plus en plus de', vi:'ngày càng nhiều.', ex:'Il y a de plus en plus de vrac au marché.', exvi:'Ở chợ ngày càng nhiều hàng bán rời.' },
+    { p:'zéro déchet', vi:'không rác thải.', ex:'Elle vit presque zéro déchet.', exvi:'Cô ấy sống gần như không thải rác.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu tries tes déchets ?', vi:'Cậu có phân loại rác không?' },
@@ -4304,9 +4304,9 @@ const COURSE_FR = {
     { fr:'à la une', ipa:'a la yn', vi:'trên trang nhất', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'tu as lu ça où ?', vi:'cậu đọc cái đó ở đâu?', ex:'Une grève demain ? Tu as lu ça où ?' },
-    { p:'faire la une', vi:'lên trang nhất.', ex:'L\'affaire a fait la une pendant trois jours.' },
-    { p:'prendre du recul', vi:'lùi lại mà nhìn.', ex:'Devant ce genre de titre, il faut prendre du recul.' }
+    { p:'tu as lu ça où ?', vi:'cậu đọc cái đó ở đâu?', ex:'Une grève demain ? Tu as lu ça où ?', exvi:'Mai có bãi công à? Cậu đọc ở đâu ra?' },
+    { p:'faire la une', vi:'lên trang nhất.', ex:'L\'affaire a fait la une pendant trois jours.', exvi:'Vụ việc lên trang nhất suốt ba ngày.' },
+    { p:'prendre du recul', vi:'lùi lại mà nhìn.', ex:'Devant ce genre de titre, il faut prendre du recul.', exvi:'Trước loại tiêu đề như thế thì phải lùi lại mà nhìn.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu as vu le titre à la une ce matin ?', vi:'Sáng nay cậu thấy tiêu đề trang nhất chưa?' },
@@ -4357,9 +4357,9 @@ const COURSE_FR = {
     { fr:'franchement dit', ipa:'fʁɑ̃ʃ.mɑ̃ di', vi:'nói thẳng ra', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'je trouve que', vi:'tôi thấy là.', ex:'Je trouve que le film est trop long.' },
-    { p:'ça se défend', vi:'ý đó cũng có lý.', ex:'Ce n\'est pas mon avis, mais ça se défend.' },
-    { p:'chacun voit les choses à sa façon', vi:'mỗi người nhìn một cách.', ex:'Chacun voit les choses à sa façon.' }
+    { p:'je trouve que', vi:'tôi thấy là.', ex:'Je trouve que le film est trop long.', exvi:'Tôi thấy phim dài quá.' },
+    { p:'ça se défend', vi:'ý đó cũng có lý.', ex:'Ce n\'est pas mon avis, mais ça se défend.', exvi:'Đó không phải ý tôi, nhưng cũng có lí của nó.' },
+    { p:'chacun voit les choses à sa façon', vi:'mỗi người nhìn một cách.', ex:'Chacun voit les choses à sa façon.', exvi:'Mỗi người nhìn sự việc theo cách của mình.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu penses que je devrais accepter ce poste ?', vi:'Cậu nghĩ tớ nên nhận vị trí đó không?' },
@@ -4410,9 +4410,9 @@ const COURSE_FR = {
     { fr:'au final', ipa:'o fi.nal', vi:'sau cùng thì', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'je vois où tu veux en venir', vi:'tôi hiểu cậu đang dẫn tới đâu.', ex:'Je vois où tu veux en venir, mais non.' },
-    { p:'restons-en là', vi:'ta dừng ở đây thôi.', ex:'On tourne en rond : restons-en là.' },
-    { p:'sur le fond, oui', vi:'về cơ bản thì đúng.', ex:'Sur le fond, oui ; sur la forme, non.' }
+    { p:'je vois où tu veux en venir', vi:'tôi hiểu cậu đang dẫn tới đâu.', ex:'Je vois où tu veux en venir, mais non.', exvi:'Tôi hiểu cậu muốn dẫn tới đâu, nhưng không.' },
+    { p:'restons-en là', vi:'ta dừng ở đây thôi.', ex:'On tourne en rond : restons-en là.', exvi:'Chúng ta cứ đi vòng quanh: dừng ở đây thôi.' },
+    { p:'sur le fond, oui', vi:'về cơ bản thì đúng.', ex:'Sur le fond, oui ; sur la forme, non.', exvi:'Về nội dung thì đúng; về hình thức thì không.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Vivre en colocation, c\'est toujours moins cher.', vi:'Ở ghép luôn rẻ hơn.' },
@@ -4463,9 +4463,9 @@ const COURSE_FR = {
     { fr:'en pleine voie', ipa:'ɑ̃ plɛn vwa', vi:'giữa đoạn đường', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'trafic perturbé', vi:'lưu thông bị rối.', ex:'Trafic perturbé sur la ligne B.' },
-    { p:'ça a duré une éternité', vi:'lâu như cả thế kỷ.', ex:'On a attendu : ça a duré une éternité.' },
-    { p:'aucune information', vi:'chẳng có thông tin gì.', ex:'Sur le quai, aucune information.' }
+    { p:'trafic perturbé', vi:'lưu thông bị rối.', ex:'Trafic perturbé sur la ligne B.', exvi:'Tuyến B đang bị rối loạn giao thông.' },
+    { p:'ça a duré une éternité', vi:'lâu như cả thế kỷ.', ex:'On a attendu : ça a duré une éternité.', exvi:'Chúng tôi chờ: dài như cả thiên thu.' },
+    { p:'aucune information', vi:'chẳng có thông tin gì.', ex:'Sur le quai, aucune information.', exvi:'Trên sân ga chẳng có thông tin gì.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu es arrivé très tard hier soir.', vi:'Tối qua cậu về rất muộn.' },
@@ -4516,9 +4516,9 @@ const COURSE_FR = {
     { fr:'par écrit', ipa:'paʁ e.kʁi', vi:'bằng văn bản', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'ce n\'est pas normal', vi:'thế là không ổn.', ex:'Il ne s\'allume plus : ce n\'est pas normal.' },
-    { p:'sous garantie', vi:'còn bảo hành.', ex:'L\'appareil est encore sous garantie.' },
-    { p:'que me proposez-vous ?', vi:'ông đề xuất gì cho tôi?', ex:'Le produit est cassé : que me proposez-vous ?' }
+    { p:'ce n\'est pas normal', vi:'thế là không ổn.', ex:'Il ne s\'allume plus : ce n\'est pas normal.', exvi:'Nó không lên nguồn nữa: như thế là không bình thường.' },
+    { p:'sous garantie', vi:'còn bảo hành.', ex:'L\'appareil est encore sous garantie.', exvi:'Máy vẫn còn trong thời hạn bảo hành.' },
+    { p:'que me proposez-vous ?', vi:'ông đề xuất gì cho tôi?', ex:'Le produit est cassé : que me proposez-vous ?', exvi:'Hàng bị vỡ: anh giải quyết cho tôi thế nào?' }
   ],
   dialogue:[
     { sp:'Quân', fr:'Bonjour, j\'ai un problème avec cette lampe.', vi:'Chào ông, tôi có vấn đề với chiếc đèn này.' },
@@ -4569,9 +4569,9 @@ const COURSE_FR = {
     { fr:'à feu vif', ipa:'a fø vif', vi:'lửa lớn', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'à la vietnamienne', vi:'theo kiểu Việt Nam.', ex:'Du poulet au caramel à la vietnamienne.' },
-    { p:'ça sent bon', vi:'thơm quá.', ex:'Ça sent bon dans la cuisine !' },
-    { p:'rectifier l\'assaisonnement', vi:'nêm lại cho vừa.', ex:'Goûtez et rectifiez l\'assaisonnement.' }
+    { p:'à la vietnamienne', vi:'theo kiểu Việt Nam.', ex:'Du poulet au caramel à la vietnamienne.', exvi:'Thịt gà rang nước hàng kiểu Việt Nam.' },
+    { p:'ça sent bon', vi:'thơm quá.', ex:'Ça sent bon dans la cuisine !', exvi:'Trong bếp thơm quá!' },
+    { p:'rectifier l\'assaisonnement', vi:'nêm lại cho vừa.', ex:'Goûtez et rectifiez l\'assaisonnement.', exvi:'Nếm thử rồi nêm lại cho vừa.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu me montres comment tu fais ce plat ?', vi:'Cậu chỉ tớ cách làm món đó đi?' },
@@ -4622,9 +4622,9 @@ const COURSE_FR = {
     { fr:'à guichets fermés', ipa:'a ɡi.ʃɛ fɛʁ.me', vi:'hết vé', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'ça valait le détour', vi:'đáng đi một chuyến.', ex:'L\'expo était petite mais ça valait le détour.' },
-    { p:'rester sur sa faim', vi:'thấy chưa thoả.', ex:'La fin est rapide : on reste sur sa faim.' },
-    { p:'jouer à guichets fermés', vi:'diễn cháy vé.', ex:'La pièce joue à guichets fermés depuis un mois.' }
+    { p:'ça valait le détour', vi:'đáng đi một chuyến.', ex:'L\'expo était petite mais ça valait le détour.', exvi:'Triển lãm nhỏ nhưng đi một chuyến là đáng.' },
+    { p:'rester sur sa faim', vi:'thấy chưa thoả.', ex:'La fin est rapide : on reste sur sa faim.', exvi:'Đoạn kết nhanh quá: xem xong vẫn thấy chưa đủ.' },
+    { p:'jouer à guichets fermés', vi:'diễn cháy vé.', ex:'La pièce joue à guichets fermés depuis un mois.', exvi:'Vở kịch cháy vé suốt một tháng nay.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu es allé à l\'exposition du musée ?', vi:'Cậu đi triển lãm ở bảo tàng chưa?' },
@@ -4675,9 +4675,9 @@ const COURSE_FR = {
     { fr:'sous l\'Ancien Régime', ipa:'su lɑ̃.sjɛ̃ ʁe.ʒim', vi:'dưới chế độ cũ', pos:'trạng từ', g:'', note:'Chỉ nước Pháp trước năm 1789. Một thuật ngữ cố định, luôn viết hoa.' }
   ],
   colloc:[
-    { p:'remonter au Moyen Âge', vi:'có từ thời trung cổ.', ex:'Ce marché remonte au Moyen Âge.' },
-    { p:'classé monument historique', vi:'được xếp hạng di tích.', ex:'Le pont est classé monument historique.' },
-    { p:'entrer dans l\'histoire', vi:'đi vào lịch sử.', ex:'Cette date est entrée dans l\'histoire.' }
+    { p:'remonter au Moyen Âge', vi:'có từ thời trung cổ.', ex:'Ce marché remonte au Moyen Âge.', exvi:'Cái chợ này có từ thời Trung cổ.' },
+    { p:'classé monument historique', vi:'được xếp hạng di tích.', ex:'Le pont est classé monument historique.', exvi:'Cây cầu được xếp hạng di tích lịch sử.' },
+    { p:'entrer dans l\'histoire', vi:'đi vào lịch sử.', ex:'Cette date est entrée dans l\'histoire.', exvi:'Ngày ấy đã đi vào lịch sử.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Ce bâtiment date de quand ?', vi:'Toà nhà này có từ khi nào?' },
@@ -4728,9 +4728,9 @@ const COURSE_FR = {
     { fr:'en plein centre', ipa:'ɑ̃ plɛ̃ sɑ̃tʁ', vi:'ngay giữa trung tâm', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'aux quatre coins du pays', vi:'khắp bốn phương của nước.', ex:'Ils viennent des quatre coins du pays.' },
-    { p:'à deux heures de train', vi:'cách hai giờ tàu.', ex:'La mer est à deux heures de train.' },
-    { p:'le Midi', vi:'miền nam nước Pháp.', ex:'Il a pris sa retraite dans le Midi.' }
+    { p:'aux quatre coins du pays', vi:'khắp bốn phương của nước.', ex:'Ils viennent des quatre coins du pays.', exvi:'Họ đến từ khắp bốn phương của cả nước.' },
+    { p:'à deux heures de train', vi:'cách hai giờ tàu.', ex:'La mer est à deux heures de train.', exvi:'Biển cách đây hai giờ tàu.' },
+    { p:'le Midi', vi:'miền nam nước Pháp.', ex:'Il a pris sa retraite dans le Midi.', exvi:'Ông ấy về nghỉ hưu ở miền nam nước Pháp.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu connais quelles régions, en France ?', vi:'Cậu biết những vùng nào ở Pháp?' },
@@ -4781,9 +4781,9 @@ const COURSE_FR = {
     { fr:'sélectif', ipa:'se.lɛk.tif', vi:'xét chọn gắt', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'avoir la moyenne', vi:'đạt điểm đậu.', ex:'J\'ai eu la moyenne à tous les partiels.' },
-    { p:'bosser ses partiels', vi:'ôn thi cật lực.', ex:'Je bosse mes partiels tout le week-end.' },
-    { p:'être en L3', vi:'học năm ba cử nhân.', ex:'Mon frère est en L3 de physique.' }
+    { p:'avoir la moyenne', vi:'đạt điểm đậu.', ex:'J\'ai eu la moyenne à tous les partiels.', exvi:'Tôi đạt điểm trung bình ở tất cả các bài giữa kì.' },
+    { p:'bosser ses partiels', vi:'ôn thi cật lực.', ex:'Je bosse mes partiels tout le week-end.', exvi:'Cả cuối tuần tôi cày bài cho các bài giữa kì.' },
+    { p:'être en L3', vi:'học năm ba cử nhân.', ex:'Mon frère est en L3 de physique.', exvi:'Anh trai tôi đang học năm ba vật lí.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu es en quelle année ?', vi:'Cậu học năm mấy?' },
@@ -4834,9 +4834,9 @@ const COURSE_FR = {
     { fr:'hors de prix', ipa:'ɔʁ də pʁi', vi:'đắt vô lý', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'ça vaut le coup', vi:'đáng đấy.', ex:'Le pass annuel ? Ça vaut le coup.' },
-    { p:'faire des économies', vi:'tiết kiệm.', ex:'Je fais des économies pour l\'été.' },
-    { p:'être à sec', vi:'cạn túi.', ex:'Fin du mois : je suis à sec.' }
+    { p:'ça vaut le coup', vi:'đáng đấy.', ex:'Le pass annuel ? Ça vaut le coup.', exvi:'Thẻ đi lại cả năm à? Đáng tiền đấy.' },
+    { p:'faire des économies', vi:'tiết kiệm.', ex:'Je fais des économies pour l\'été.', exvi:'Tôi đang tiết kiệm cho mùa hè.' },
+    { p:'être à sec', vi:'cạn túi.', ex:'Fin du mois : je suis à sec.', exvi:'Cuối tháng: tôi cạn tiền.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu arrives à mettre de côté ?', vi:'Cậu để dành được không?' },
@@ -4887,9 +4887,9 @@ const COURSE_FR = {
     { fr:'sur la réserve', ipa:'syʁ la ʁe.zɛʁv', vi:'còn dè dặt', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'avoir bon cœur', vi:'tốt bụng.', ex:'Il râle beaucoup mais il a bon cœur.' },
-    { p:'on ne se refait pas', vi:'tính người khó đổi.', ex:'Je suis en retard : on ne se refait pas.' },
-    { p:'c\'est quelqu\'un de bien', vi:'đó là người tử tế.', ex:'Crois-moi, c\'est quelqu\'un de bien.' }
+    { p:'avoir bon cœur', vi:'tốt bụng.', ex:'Il râle beaucoup mais il a bon cœur.', exvi:'Anh ấy hay càu nhàu nhưng bụng thì tốt.' },
+    { p:'on ne se refait pas', vi:'tính người khó đổi.', ex:'Je suis en retard : on ne se refait pas.', exvi:'Tôi đến muộn: tính người thì khó đổi.' },
+    { p:'c\'est quelqu\'un de bien', vi:'đó là người tử tế.', ex:'Crois-moi, c\'est quelqu\'un de bien.', exvi:'Tin tôi đi, đó là một người tốt.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Comment est ton nouveau colocataire ?', vi:'Người ở ghép mới của cậu thế nào?' },
@@ -4940,9 +4940,9 @@ const COURSE_FR = {
     { fr:'indulgent', ipa:'ɛ̃.dyl.ʒɑ̃', vi:'khoan dung', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'on se comprend', vi:'hai bên hiểu nhau.', ex:'Pas besoin d\'expliquer : on se comprend.' },
-    { p:'crever l\'abcès', vi:'nói thẳng cho xong.', ex:'Il faut crever l\'abcès une fois pour toutes.' },
-    { p:'tourner la page', vi:'sang trang.', ex:'Il a tourné la page depuis longtemps.' }
+    { p:'on se comprend', vi:'hai bên hiểu nhau.', ex:'Pas besoin d\'expliquer : on se comprend.', exvi:'Không cần giải thích: chúng ta hiểu nhau.' },
+    { p:'crever l\'abcès', vi:'nói thẳng cho xong.', ex:'Il faut crever l\'abcès une fois pour toutes.', exvi:'Phải nói cho hết nhọt một lần cho xong.' },
+    { p:'tourner la page', vi:'sang trang.', ex:'Il a tourné la page depuis longtemps.', exvi:'Anh ấy đã sang trang từ lâu rồi.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu as reparlé à Marc ?', vi:'Cậu nói lại với Marc chưa?' },
@@ -4993,9 +4993,9 @@ const COURSE_FR = {
     { fr:'au réveil', ipa:'o ʁe.vɛj', vi:'lúc vừa thức', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'j\'aurais dû', vi:'đáng lẽ tôi phải.', ex:'J\'aurais dû partir plus tôt.' },
-    { p:'faire un rêve bizarre', vi:'gặp một giấc mơ lạ.', ex:'J\'ai fait un rêve bizarre cette nuit.' },
-    { p:'ça m\'est resté', vi:'chuyện đó cứ đọng lại trong tôi.', ex:'Ce rêve, ça m\'est resté toute la journée.' }
+    { p:'j\'aurais dû', vi:'đáng lẽ tôi phải.', ex:'J\'aurais dû partir plus tôt.', exvi:'Tôi đã nên đi sớm hơn.' },
+    { p:'faire un rêve bizarre', vi:'gặp một giấc mơ lạ.', ex:'J\'ai fait un rêve bizarre cette nuit.', exvi:'Đêm qua tôi có một giấc mơ lạ.' },
+    { p:'ça m\'est resté', vi:'chuyện đó cứ đọng lại trong tôi.', ex:'Ce rêve, ça m\'est resté toute la journée.', exvi:'Giấc mơ ấy theo tôi suốt cả ngày.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu as l\'air ailleurs ce matin.', vi:'Sáng nay trông cậu để đâu mất hồn.' },
@@ -5046,9 +5046,9 @@ const COURSE_FR = {
     { fr:'coup de chance', ipa:'ku də ʃɑ̃s', vi:'cú may', pos:'danh từ', g:'m' }
   ],
   colloc:[
-    { p:'si seulement j\'avais su', vi:'giá mà tôi biết trước.', ex:'Si seulement j\'avais su, j\'aurais changé de train.' },
-    { p:'avec le recul', vi:'giờ ngẫm lại.', ex:'Avec le recul, c\'était la bonne décision.' },
-    { p:'ça aurait pu être pire', vi:'thế còn may.', ex:'J\'ai perdu mon sac, mais ça aurait pu être pire.' }
+    { p:'si seulement j\'avais su', vi:'giá mà tôi biết trước.', ex:'Si seulement j\'avais su, j\'aurais changé de train.', exvi:'Nếu mà biết thì tôi đã đổi tàu.' },
+    { p:'avec le recul', vi:'giờ ngẫm lại.', ex:'Avec le recul, c\'était la bonne décision.', exvi:'Nhìn lại thì đó là quyết định đúng.' },
+    { p:'ça aurait pu être pire', vi:'thế còn may.', ex:'J\'ai perdu mon sac, mais ça aurait pu être pire.', exvi:'Tôi mất túi, nhưng cũng có thể tệ hơn thế.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu regrettes d\'être venu en France ?', vi:'Cậu có tiếc vì sang Pháp không?' },
@@ -5099,9 +5099,9 @@ const COURSE_FR = {
     { fr:'imagé', ipa:'i.ma.ʒe', vi:'giàu hình ảnh', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'j\'en ai ras le bol', vi:'chán tận cổ.', ex:'Trois heures d\'attente : j\'en ai ras le bol.' },
-    { p:'ça ne casse pas trois pattes à un canard', vi:'cũng chẳng có gì đặc sắc.', ex:'Le film ? Ça ne casse pas trois pattes à un canard.' },
-    { p:'revenons à nos moutons', vi:'trở lại chuyện chính.', ex:'Bon, revenons à nos moutons.' }
+    { p:'j\'en ai ras le bol', vi:'chán tận cổ.', ex:'Trois heures d\'attente : j\'en ai ras le bol.', exvi:'Chờ ba tiếng: tôi chán đến tận cổ.' },
+    { p:'ça ne casse pas trois pattes à un canard', vi:'cũng chẳng có gì đặc sắc.', ex:'Le film ? Ça ne casse pas trois pattes à un canard.', exvi:'Phim ấy à? Cũng chẳng có gì ghê gớm.' },
+    { p:'revenons à nos moutons', vi:'trở lại chuyện chính.', ex:'Bon, revenons à nos moutons.', exvi:'Thôi, ta trở lại chuyện đang nói.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu as l\'air de mauvaise humeur.', vi:'Trông cậu đang khó ở.' },
@@ -5152,9 +5152,9 @@ const COURSE_FR = {
     { fr:'d\'une région à l\'autre', ipa:'dyn ʁe.ʒjɔ̃.n‿a lotʁ', vi:'từ vùng này sang vùng khác', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'avoir un accent', vi:'có giọng vùng.', ex:'Elle a un accent du Sud-Ouest.' },
-    { p:'d\'un pays à l\'autre', vi:'từ nước này sang nước khác.', ex:'Les chiffres changent d\'un pays à l\'autre.' },
-    { p:'ça s\'entend tout de suite', vi:'nghe ra ngay.', ex:'Il est belge : ça s\'entend tout de suite.' }
+    { p:'avoir un accent', vi:'có giọng vùng.', ex:'Elle a un accent du Sud-Ouest.', exvi:'Cô ấy có giọng vùng tây nam.' },
+    { p:'d\'un pays à l\'autre', vi:'từ nước này sang nước khác.', ex:'Les chiffres changent d\'un pays à l\'autre.', exvi:'Các con số thay đổi từ nước này sang nước khác.' },
+    { p:'ça s\'entend tout de suite', vi:'nghe ra ngay.', ex:'Il est belge : ça s\'entend tout de suite.', exvi:'Anh ấy là người Bỉ: nghe là ra ngay.' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu comprends bien mon collègue belge ?', vi:'Cậu hiểu rõ đồng nghiệp người Bỉ của tớ không?' },
@@ -5205,9 +5205,9 @@ const COURSE_FR = {
     { fr:'officiel', ipa:'ɔ.fi.sjɛl', vi:'chính thức', pos:'tính từ', g:'' }
   ],
   colloc:[
-    { p:'dans l\'attente de votre retour', vi:'kính chờ phản hồi của quý vị.', ex:'Dans l\'attente de votre retour, je vous remercie.' },
-    { p:'ci-joint', vi:'đính kèm theo đây.', ex:'Vous trouverez ci-joint mon attestation.' },
-    { p:'en réponse à votre courrier', vi:'trả lời thư của quý vị.', ex:'En réponse à votre courrier du 3 mai…' }
+    { p:'dans l\'attente de votre retour', vi:'kính chờ phản hồi của quý vị.', ex:'Dans l\'attente de votre retour, je vous remercie.', exvi:'Trong lúc chờ hồi âm của ông, tôi xin cảm ơn.' },
+    { p:'ci-joint', vi:'đính kèm theo đây.', ex:'Vous trouverez ci-joint mon attestation.', exvi:'Ông sẽ thấy giấy chứng nhận của tôi đính kèm đây.' },
+    { p:'en réponse à votre courrier', vi:'trả lời thư của quý vị.', ex:'En réponse à votre courrier du 3 mai…', exvi:'Trả lời thư của ông ngày 3 tháng Năm…' }
   ],
   dialogue:[
     { sp:'Claire', fr:'Tu écris à la préfecture ?', vi:'Cậu viết thư cho sở hành chính à?' },
@@ -5258,9 +5258,9 @@ const COURSE_FR = {
     { fr:'dorénavant', ipa:'dɔ.ʁe.na.vɑ̃', vi:'từ nay trở đi', pos:'trạng từ', g:'' }
   ],
   colloc:[
-    { p:'franchir un échelon', vi:'vượt lên một bậc.', ex:'Tu as franchi un échelon ce trimestre.' },
-    { p:'viser le niveau B1', vi:'nhắm tới trình độ B1.', ex:'Je vise le niveau B1 pour juin.' },
-    { p:'à force de pratiquer', vi:'luyện nhiều rồi thì.', ex:'À force de pratiquer, ça devient naturel.' }
+    { p:'franchir un échelon', vi:'vượt lên một bậc.', ex:'Tu as franchi un échelon ce trimestre.', exvi:'Quý này cậu đã lên một bậc.' },
+    { p:'viser le niveau B1', vi:'nhắm tới trình độ B1.', ex:'Je vise le niveau B1 pour juin.', exvi:'Tôi nhắm trình độ B1 vào tháng Sáu.' },
+    { p:'à force de pratiquer', vi:'luyện nhiều rồi thì.', ex:'À force de pratiquer, ça devient naturel.', exvi:'Cứ luyện mãi thì sẽ thành tự nhiên.' }
   ],
   dialogue:[
     { sp:'Professeure', fr:'Deux ans de français. Qu\'est-ce que vous savez faire, maintenant ?', vi:'Hai năm tiếng Pháp. Giờ em làm được những gì?' },

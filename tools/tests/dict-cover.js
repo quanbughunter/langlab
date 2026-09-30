@@ -69,7 +69,9 @@ setTimeout(() => {
       if (!L) return 'app chưa mở __lat.lookup ra ngoài';
       const miss = R.filter(r => r.lang === l)
         .flatMap(r => (r.keys || []).map(k => ({ w:String(k.w), t:r.title })))
-        .filter(x => !L[x.w.toLowerCase()]);
+        /* Khoá tra quy dấu nháy cong ’ về dấu thẳng ' (xem latKey trong
+           js/app.js), nên phép so ở đây phải quy y như vậy. */
+        .filter(x => !L[x.w.toLowerCase().replace(/[\u2019\u02bc]/g, "'")]);
       if (miss.length) console.log('   thiếu:', miss.slice(0, 8).map(x => x.w + ' [' + x.t + ']').join(' · '), '(' + miss.length + ')');
       return miss.length === 0;
     });

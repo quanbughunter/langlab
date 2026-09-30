@@ -69,6 +69,63 @@ const FR_REG = {
   }
 };
 
+/* ---------------- RÚT ĐUÔI TRƯỚC DANH TỪ (TIẾNG TÂY BAN NHA) ----------------
+   Một nhúm tính từ và từ hạn định rụng đuôi khi đứng trước danh từ giống đực
+   số ít: bueno → buen día, primero → primer piso, grande → gran libro.
+   Dạng rút này xuất hiện dày đặc trong câu ví dụ mà tra thì không ra, vì nó
+   không phải dạng chia nào cả. Sinh thẳng từ dạng đầy đủ. */
+const ES_APOC = { 'bueno':'buen', 'malo':'mal', 'primero':'primer', 'tercero':'tercer',
+  'alguno':'algún', 'ninguno':'ningún', 'grande':'gran', 'cualquiera':'cualquier',
+  'santo':'san' };
+
+/* Mức tuyệt đối -ísimo: bueno → buenísimo, generoso → generosísimo,
+   mucho → muchísimo. Dùng rất nhiều trong nói thường mà không phải dạng chia
+   nào, nên phải sinh riêng. Chính tả: c → qu, g → gu, z → c để giữ âm. */
+function esSuper(w){
+  let st = low(w).replace(/[oaeó]$/, '');
+  if (!st) return null;
+  if (/c$/.test(st))      st = st.slice(0, -1) + 'qu';
+  else if (/g$/.test(st)) st = st + 'u';
+  else if (/z$/.test(st)) st = st.slice(0, -1) + 'c';
+  return st + 'ísimo';
+}
+
+/* ---------------- ĐẠI TỪ DÍNH SAU ĐỘNG TỪ (TIẾNG TÂY BAN NHA) ----------------
+   Tiếng Tây Ban Nha dán đại từ vào sau nguyên mẫu, gerundio và mệnh lệnh:
+   quedarme, irse, llamarte, ayudarme, devuélvemelo, dígame. Với người học thì
+   đó vẫn là «quedar», «ir», «devolver» — nên bấm vào phải ra đúng động từ ấy.
+   Dán hai đại từ thì trọng âm phải đánh dấu: devuelve → devuélvemelo, nên bóc
+   xong còn phải thử bỏ dấu nữa. */
+const ES_CLIT = ['melo','mela','melos','melas','telo','tela','telos','telas',
+  'selo','sela','selos','selas','noslo','nosla','oslo','osla',
+  'me','te','se','nos','os','lo','la','le','los','las','les'];
+const ES_UNACC = s => s.replace(/[áéíóú]/g, c => 'aeiou'['áéíóú'.indexOf(c)]);
+
+/** Mọi gốc có thể có sau khi bóc đại từ dính đuôi. Không tra từ điển ở đây —
+    chỉ trả ứng viên, để chỗ gọi tự đối chiếu với danh sách dạng thật. */
+function esUnclitic(w){
+  const out = [];
+  const peel = (s, depth) => {
+    if (depth > 2) return;
+    for (const c of ES_CLIT){
+      /* Gốc chỉ cần hai chữ là đủ: «irse» → ir, «dame» → da. Ngưỡng cũ đòi
+         ba chữ nên bỏ sót đúng những động từ ngắn hay gặp nhất. */
+      if (s.length < c.length + 2 || s.slice(-c.length) !== c) continue;
+      const base = s.slice(0, s.length - c.length);
+      out.push(base, ES_UNACC(base));
+      /* Ngược lại cũng có: «dele» ← dé + le, dấu sắc bị đại từ làm mất chỗ. */
+      const m = base.match(/([aeiou])([^aeiouáéíóú]*)$/);
+      if (m) out.push(base.slice(0, base.length - m[0].length)
+        + 'áéíóú'['aeiou'.indexOf(m[1])] + m[2]);
+      /* «se» của mệnh lệnh ngôi nosotros rụng chữ s: vámonos ← vamos + nos. */
+      if (c === 'nos') out.push(base + 's', ES_UNACC(base) + 's');
+      peel(base, depth + 1);
+    }
+  };
+  peel(String(w || '').toLowerCase(), 1);
+  return out.filter((x, i, a) => x && a.indexOf(x) === i);
+}
+
 /* Đuôi futur và conditionnel dùng CHUNG một gốc — nhớ một lần là xong hai thì. */
 const FR_FUT  = ['ai', 'as', 'a', 'ons', 'ez', 'ont'];
 const FR_COND = ['ais', 'ais', 'ait', 'ions', 'iez', 'aient'];
@@ -116,13 +173,128 @@ const FR_IRR = {
   'comprendre':{ pres:['comprends','comprends','comprend','comprenons','comprenez','comprennent'], futStem:'comprendr', impStem:'compren', subjStem:['comprenn','compren'], pp:'compris', ppr:'comprenant', aux:'avoir' },
   'apprendre':{ pres:['apprends','apprends','apprend','apprenons','apprenez','apprennent'], futStem:'apprendr', impStem:'appren', subjStem:['apprenn','appren'], pp:'appris', ppr:'apprenant', aux:'avoir' },
   'pleuvoir':{ pres:['','','pleut','','',''], futStem:'pleuvr', impStem:'pleuv', subjStem:['pleuv','pleuv'], pp:'plu', ppr:'pleuvant', aux:'avoir', only3s:true, noImper:true },
-  'falloir': { pres:['','','faut','','',''], futStem:'faudr', impStem:'fall', subjStem:['faill','faill'], pp:'fallu', ppr:'', aux:'avoir', only3s:true, noImper:true }
+  'falloir': { pres:['','','faut','','',''], futStem:'faudr', impStem:'fall', subjStem:['faill','faill'], pp:'fallu', ppr:'', aux:'avoir', only3s:true, noImper:true },
+
+  /* ---- Bổ sung sau khi đo độ phủ. Trước đây những động từ này không có bảng
+     riêng nên bị áp khuôn đều, và khuôn đều sinh ra dạng KHÔNG TỒN TẠI mà
+     trông rất thật: valoir → «valois, valoit, valoissons» (đúng là vaux, vaut,
+     valons), mourir → «mouris, mourissons» (đúng là meurs, mourons, meurent),
+     envoyer → «envoye, envoyent» (đúng là envoie, envoient).
+     Bảng chia bịa còn tệ hơn không có bảng, nên phải ghi thẳng ra. ---- */
+  'sentir':  { pres:['sens','sens','sent','sentons','sentez','sentent'], futStem:'sentir', impStem:'sent', subjStem:['sent','sent'], pp:'senti', ppr:'sentant', aux:'avoir' },
+  'mentir':  { pres:['mens','mens','ment','mentons','mentez','mentent'], futStem:'mentir', impStem:'ment', subjStem:['ment','ment'], pp:'menti', ppr:'mentant', aux:'avoir' },
+  'plaire':  { pres:['plais','plais','plaît','plaisons','plaisez','plaisent'], futStem:'plair', impStem:'plais', subjStem:['plais','plais'], pp:'plu', ppr:'plaisant', aux:'avoir' },
+  'taire':   { pres:['tais','tais','tait','taisons','taisez','taisent'], futStem:'tair', impStem:'tais', subjStem:['tais','tais'], pp:'tu', ppr:'taisant', aux:'avoir' },
+  'valoir':  { pres:['vaux','vaux','vaut','valons','valez','valent'], futStem:'vaudr', impStem:'val', subjStem:['vaill','val'], pp:'valu', ppr:'valant', aux:'avoir', noImper:true },
+  'mourir':  { pres:['meurs','meurs','meurt','mourons','mourez','meurent'], futStem:'mourr', impStem:'mour', subjStem:['meur','mour'], pp:'mort', ppr:'mourant', aux:'être' },
+  'naître':  { pres:['nais','nais','naît','naissons','naissez','naissent'], futStem:'naîtr', impStem:'naiss', subjStem:['naiss','naiss'], pp:'né', ppr:'naissant', aux:'être' },
+  'suffire': { pres:['suffis','suffis','suffit','suffisons','suffisez','suffisent'], futStem:'suffir', impStem:'suffis', subjStem:['suffis','suffis'], pp:'suffi', ppr:'suffisant', aux:'avoir', noImper:true },
+  'conduire':{ pres:['conduis','conduis','conduit','conduisons','conduisez','conduisent'], futStem:'conduir', impStem:'conduis', subjStem:['conduis','conduis'], pp:'conduit', ppr:'conduisant', aux:'avoir' },
+  'cuire':   { pres:['cuis','cuis','cuit','cuisons','cuisez','cuisent'], futStem:'cuir', impStem:'cuis', subjStem:['cuis','cuis'], pp:'cuit', ppr:'cuisant', aux:'avoir' },
+  'craindre':{ pres:['crains','crains','craint','craignons','craignez','craignent'], futStem:'craindr', impStem:'craign', subjStem:['craign','craign'], pp:'craint', ppr:'craignant', aux:'avoir' },
+  'peindre': { pres:['peins','peins','peint','peignons','peignez','peignent'], futStem:'peindr', impStem:'peign', subjStem:['peign','peign'], pp:'peint', ppr:'peignant', aux:'avoir' },
+  'joindre': { pres:['joins','joins','joint','joignons','joignez','joignent'], futStem:'joindr', impStem:'joign', subjStem:['joign','joign'], pp:'joint', ppr:'joignant', aux:'avoir' },
+  'battre':  { pres:['bats','bats','bat','battons','battez','battent'], futStem:'battr', impStem:'batt', subjStem:['batt','batt'], pp:'battu', ppr:'battant', aux:'avoir' },
+  'rompre':  { pres:['romps','romps','rompt','rompons','rompez','rompent'], futStem:'rompr', impStem:'romp', subjStem:['romp','romp'], pp:'rompu', ppr:'rompant', aux:'avoir' },
+  'vaincre': { pres:['vaincs','vaincs','vainc','vainquons','vainquez','vainquent'], futStem:'vaincr', impStem:'vainqu', subjStem:['vainqu','vainqu'], pp:'vaincu', ppr:'vainquant', aux:'avoir' },
+  'conclure':{ pres:['conclus','conclus','conclut','concluons','concluez','concluent'], futStem:'conclur', impStem:'conclu', subjStem:['conclu','conclu'], pp:'conclu', ppr:'concluant', aux:'avoir' },
+  'asseoir': { pres:['assieds','assieds','assied','asseyons','asseyez','asseyent'], futStem:'assiér', impStem:'assey', subjStem:['assey','assey'], pp:'assis', ppr:'asseyant', aux:'avoir' },
+  'envoyer': { pres:['envoie','envoies','envoie','envoyons','envoyez','envoient'], futStem:'enverr', impStem:'envoy', subjStem:['envoi','envoy'], pp:'envoyé', ppr:'envoyant', aux:'avoir', imper:['envoie','envoyons','envoyez'] },
+  'cueillir':{ pres:['cueille','cueilles','cueille','cueillons','cueillez','cueillent'], futStem:'cueiller', impStem:'cueill', subjStem:['cueill','cueill'], pp:'cueilli', ppr:'cueillant', aux:'avoir', imper:['cueille','cueillons','cueillez'] },
+  'prévoir': { pres:['prévois','prévois','prévoit','prévoyons','prévoyez','prévoient'], futStem:'prévoir', impStem:'prévoy', subjStem:['prévoi','prévoy'], pp:'prévu', ppr:'prévoyant', aux:'avoir' },
+  'plaindre':{ pres:['plains','plains','plaint','plaignons','plaignez','plaignent'], futStem:'plaindr', impStem:'plaign', subjStem:['plaign','plaign'], pp:'plaint', ppr:'plaignant', aux:'avoir' },
+  'résoudre':{ pres:['résous','résous','résout','résolvons','résolvez','résolvent'], futStem:'résoudr', impStem:'résolv', subjStem:['résolv','résolv'], pp:'résolu', ppr:'résolvant', aux:'avoir' },
+  'accueillir':{ pres:['accueille','accueilles','accueille','accueillons','accueillez','accueillent'], futStem:'accueiller', impStem:'accueill', subjStem:['accueill','accueill'], pp:'accueilli', ppr:'accueillant', aux:'avoir', imper:['accueille','accueillons','accueillez'] },
+  'convaincre':{ pres:['convaincs','convaincs','convainc','convainquons','convainquez','convainquent'], futStem:'convaincr', impStem:'convainqu', subjStem:['convainqu','convainqu'], pp:'convaincu', ppr:'convainquant', aux:'avoir' }
 };
+
+/* ---------------- HỌ ĐỘNG TỪ ----------------
+   Tiếng Pháp ghép tiền tố rất nhiều: revenir, devenir, parvenir, survenir đều
+   chia y như venir; obtenir, contenir, soutenir, maintenir đều theo tenir;
+   admettre, permettre, remettre, transmettre đều theo mettre. Ghi tay từng cái
+   thì vừa dài vừa chắc chắn sót, mà sót là quay lại bịa dạng.
+   Bảng dưới đây khai báo ĐUÔI và ĐỘNG TỪ MẪU của đuôi ấy. Dài trước ngắn sau,
+   để «prendre» thắng «endre» và «naître» thắng «aître». */
+const FR_FAM = [
+  ['accueillir','accueillir'], ['cueillir','cueillir'], ['convaincre','convaincre'],
+  ['comprendre','comprendre'], ['apprendre','apprendre'], ['prendre','prendre'],
+  ['connaître','connaître'], ['naître','naître'], ['aître','connaître'],
+  ['plaindre','plaindre'], ['craindre','craindre'], ['aindre','craindre'],
+  ['eindre','peindre'], ['oindre','joindre'],
+  ['résoudre','résoudre'], ['soudre','résoudre'],
+  ['mettre','mettre'], ['battre','battre'],
+  ['venir','venir'], ['tenir','tenir'],
+  ['prévoir','prévoir'], ['cevoir','recevoir'],
+  ['écrire','écrire'], ['crire','écrire'],
+  ['conduire','conduire'], ['duire','conduire'], ['uire','cuire'],
+  ['courir','courir'], ['mourir','mourir'],
+  ['sentir','sentir'], ['mentir','mentir'], ['partir','partir'], ['sortir','sortir'],
+  ['dormir','dormir'], ['servir','servir'],
+  ['suivre','suivre'], ['vivre','vivre'],
+  ['plaire','plaire'], ['taire','taire'], ['faire','faire'],
+  ['suffire','suffire'], ['dire','dire'], ['lire','lire'], ['rire','rire'],
+  ['boire','boire'], ['croire','croire'],
+  ['valoir','valoir'], ['vouloir','vouloir'], ['pouvoir','pouvoir'], ['savoir','savoir'],
+  ['devoir','devoir'], ['asseoir','asseoir'],
+  ['vrir','ouvrir'], ['ffrir','offrir'],
+  ['rompre','rompre'], ['aincre','vaincre'], ['clure','conclure'],
+  ['envoyer','envoyer'],
+  /* ['voir','voir'] phải nằm CUỐI: mọi động từ -cevoir, và avoir/devoir/
+     pouvoir/savoir/prévoir, đều đã được nhận trước đó. */
+  ['voir','voir']
+  /* KHÔNG khai họ cho être, avoir và aller. Chúng không phải gốc của họ nào —
+     mà «aller» thì lại là đuôi của installer, rappeler, appeler… nên khai vào
+     đây là installer chia thành «instvais, instvont». Tôi đã tự mắc đúng lỗi
+     ấy: đuôi càng thông dụng càng phải cẩn thận. */
+];
+
+/* «dites» là của riêng dire và redire. Các động từ ghép khác thì theo đuôi đều:
+   vous interdisez, vous contredisez — nói «vous interdites» là sai. */
+const FR_DIRE_REG = new Set(['interdire','contredire','prédire','médire','dédire']);
+
+/* Suy bảng của một động từ ghép từ bảng của động từ mẫu. Chỉ thay phần đầu,
+   không sinh thêm gì mới, nên không có chỗ nào để đoán. */
+function frInherit(inf){
+  for (const [suf, base] of FR_FAM){
+    if (inf.length <= suf.length || inf.slice(-suf.length) !== suf) continue;
+    const B = FR_IRR[base];
+    if (!B) continue;
+    /* Động từ mẫu BẮT BUỘC phải kết thúc bằng chính cái đuôi ấy, nếu không thì
+       phép thay phần đầu ra chữ vô nghĩa. Tôi đã tự mắc lỗi này một lần:
+       khai ['struire','conduire'] — mà «conduire» không kết thúc bằng
+       «struire» — nên construire chia thành «cononduis». Chặn ngay tại đây. */
+    if (base.length < suf.length || base.slice(-suf.length) !== suf) continue;
+    const bs  = base.slice(0, base.length - suf.length);   // phần đầu của mẫu
+    const pre = inf.slice(0, inf.length - suf.length);     // phần đầu của từ cần chia
+    const sw  = f => !f ? f
+      : (bs && f.slice(0, bs.length) === bs) ? pre + f.slice(bs.length) : pre + f;
+    const out = {
+      pres: B.pres.map(sw), futStem: sw(B.futStem), impStem: sw(B.impStem),
+      /* Phân từ riêng của chính động từ ấy PHẢI thắng phân từ mượn của họ:
+         inclure cùng họ conclure nhưng phân từ là «inclus», không phải «inclu».
+         Không chặn thì cơ chế họ vừa sửa xong một lỗi lại tạo ra lỗi khác. */
+      pp: FR_PP_EXACT[inf] || sw(B.pp), ppr: sw(B.ppr),
+      /* Trợ động từ KHÔNG di truyền: revenir đi với être mà obtenir đi với
+         avoir, dù cả hai cùng họ. Quyết định theo danh sách FR_ETRE. */
+      aux: FR_ETRE.has(inf) ? 'être' : 'avoir'
+    };
+    if (B.subj) out.subj = B.subj.map(sw);
+    if (B.subjStem) out.subjStem = B.subjStem.map(sw);
+    if (B.imper) out.imper = B.imper.map(sw);
+    if (B.noImper) out.noImper = true;
+    if (B.only3s) out.only3s = true;
+    if (base === 'dire' && FR_DIRE_REG.has(inf)) out.pres[4] = pre + 'disez';
+    return out;
+  }
+  return null;
+}
 
 /* Nhóm động từ đi với ÊTRE ở thì kép. Quá khứ phân từ khi đó phải hợp
    giống số với chủ ngữ: elle est allée, ils sont allés. */
 const FR_ETRE = new Set(['aller','venir','partir','arriver','entrer','sortir','monter','descendre',
-  'rester','tomber','naître','mourir','devenir','revenir','rentrer','retourner','passer']);
+  'rester','tomber','naître','mourir','devenir','revenir','rentrer','retourner','passer',
+  'parvenir','survenir','intervenir','repartir','ressortir','remonter','redescendre',
+  'renaître','décéder','demeurer']);
 
 /* Động từ -eler / -eter chia làm hai phe, và KHÔNG có quy tắc nào đoán được
    một động từ thuộc phe nào — phải nhớ. Phe đông thì gấp đôi phụ âm
@@ -141,6 +313,11 @@ function frErStem(inf, personIndex, tense){
   const st = inf.slice(0, -2);
   const soft = [0, 1, 2, 5].indexOf(personIndex) >= 0;      // ngôi có đuôi câm
   if (tense === 'pres' || tense === 'subj'){
+    /* -oyer / -uyer / -ayer: chữ y thành i trước đuôi câm.
+       nettoyer → je nettoie · essayer → j’essaie · appuyer → j’appuie.
+       Không có luật này thì sinh ra «nettoye», «essayent» — dạng không tồn tại
+       mà lại rất giống thật, nên người học không có cách nào biết là sai. */
+    if (soft && /[oua]y$/.test(st)) return st.slice(0, -1) + 'i';
     if (soft){
       if (/é[bcdfglmnprstvz]+$/.test(st)) return st.replace(/é([bcdfglmnprstvz]+)$/, 'è$1');
       if (/[^e]e[lt]$/.test(st)){
@@ -214,11 +391,25 @@ function frPart(inf, fallback){
   return fallback;
 }
 
+/* Động từ mà khuôn đều CHẮC CHẮN cho ra dạng sai, và không thuộc họ nào ở trên.
+   Thà không hiện bảng chia còn hơn hiện một bảng bịa: người học không có cách
+   nào biết ô nào thật ô nào giả. */
+const FR_NO_TABLE = new Set([
+  'fuir','s’enfuir','enfuir','haïr','bouillir','acquérir','conquérir','requérir',
+  'faillir','saillir','tressaillir','vêtir','revêtir','gésir','ouïr','seoir',
+  'coudre','moudre','croître','accroître','décroître','traire','distraire',
+  'extraire','soustraire','abstraire','clore','enclore','frire','maudire',
+  'circoncire','confire','choir','déchoir','échoir','braire','paître','repaître',
+  'pourvoir','mouvoir','émouvoir','promouvoir','dépourvoir'
+]);
+
 function frTable(inf){
   inf = low(inf);
-  const irr = FR_IRR[inf];
+  /* Bảng riêng trước; không có thì suy theo họ động từ; không được nữa mới
+     tới khuôn đều. */
+  const irr = FR_IRR[inf] || (FR_NO_TABLE.has(inf) ? null : frInherit(inf));
   const g   = frGroup(inf);
-  if (!irr && !g) return null;
+  if (!irr && (!g || FR_NO_TABLE.has(inf))) return null;
 
   let pres, imparf, subj, pp, ppr, futStem, imper;
 
@@ -245,8 +436,23 @@ function frTable(inf){
       pres = zip(st, R.pres); imparf = zip(st, R.imp); subj = zip(st, R.subj);
     }
     const st = inf.slice(0, -2);
-    pp = frPart(inf, st + R.pp); ppr = (g === 'ir' ? st + 'issant' : st + 'ant');
-    futStem = R.futStem(inf);
+    pp = frPart(inf, st + R.pp);
+    /* Phân từ hiện tại dựng trên gốc NGÔI NOUS, nên giữ nguyên chỗ chính tả:
+       manger → mangeant (không phải «mangant»), commencer → commençant.
+       Lỗi này nằm im vì phân từ hiện tại ít gặp hơn các thì khác, nhưng
+       «c’est en forgeant qu’on devient forgeron» thì hiện ngay ra. */
+    ppr = (g === 'ir') ? st + 'issant'
+        : (g === 'er') ? frErStem(inf, 3, 'presNous') + 'ant'
+        : st + 'ant';
+    /* Futur của nhóm -er dùng NGUYÊN dạng nguyên mẫu — nhưng những động từ đổi
+       chính tả ở présent thì đổi luôn cả ở futur: acheter → j’achèterai,
+       appeler → j’appellerai, lever → je lèverai, nettoyer → je nettoierai.
+       Ngoại lệ là nhóm é_er: theo chính tả truyền thống vẫn là je préférerai,
+       giữ nguyên dấu sắc. */
+    futStem = (g !== 'er') ? R.futStem(inf)
+      : /[oua]yer$/.test(inf)                    ? inf.slice(0, -3) + 'ier'
+      : /é[bcdfglmnprstvz]+er$/.test(inf)        ? inf
+      : frErStem(inf, 0, 'pres') + 'er';
     imper = [g === 'er' ? pres[2] : pres[1], pres[3], pres[4]];
   }
 
@@ -292,6 +498,24 @@ const FR_S_DOUBLE = new Set(['bas','gros','épais','gras','las','métis','exprè
 const FR_ET_GRAVE = new Set(['complet','incomplet','inquiet','secret','discret','indiscret',
   'concret','replet','désuet']);
 
+/* Ba tính từ này có dạng riêng khi đứng trước nguyên âm: un bel homme, le
+   nouvel an, un vieil ami. Không phải giống cái, cũng không phải số nhiều —
+   nên nếu không sinh riêng thì bấm vào «bel» hay «vieil» không ra gì. */
+/* Danh từ chỉ người kết thúc bằng -eur chia làm ba phe, và quy tắc chung
+   (-eur → -euse) chỉ đúng với phe đông: vendeur → vendeuse. Phe -teur thành
+   -trice (directeur → directrice), còn một nhúm thì chỉ thêm -e
+   (professeur → professeure). Áp quy tắc chung cho cả ba là sinh ra
+   «professeuse» — một chữ không tồn tại. */
+const FR_FEM_NOUN = { 'professeur':'professeure', 'auteur':'autrice',
+  'docteur':'docteure', 'ingénieur':'ingénieure', 'entraîneur':'entraîneuse',
+  'maire':'mairesse', 'maître':'maîtresse', 'chat':'chatte', 'chien':'chienne',
+  'copain':'copine', 'héros':'héroïne', 'roi':'reine', 'neveu':'nièce',
+  'garçon':'fille', 'homme':'femme', 'monsieur':'madame', 'père':'mère',
+  'frère':'sœur', 'fils':'fille', 'oncle':'tante' };
+
+const FR_PRE_VOWEL = { 'beau':'bel', 'nouveau':'nouvel', 'vieux':'vieil',
+  'fou':'fol', 'mou':'mol' };
+
 const FR_ADJ_F = [
   [/^beau$/, 'belle'], [/^nouveau$/, 'nouvelle'], [/^vieux$/, 'vieille'],
   [/^fou$/, 'folle'], [/^mou$/, 'molle'],
@@ -318,8 +542,18 @@ function frFem(w){
   }
   return /e$/.test(w) ? w : w + 'e';
 }
+/* Số nhiều bất quy tắc. Đuôi -ail và -ou chia làm hai phe mà không có luật nào
+   đoán được: travail → travaux nhưng détail → détails; bijou → bijoux nhưng
+   clou → clous. Phe ít thì ghi thẳng ra. */
+const FR_PLUR_X = { 'travail':'travaux', 'vitrail':'vitraux', 'corail':'coraux',
+  'émail':'émaux', 'bail':'baux', 'soupirail':'soupiraux',
+  'bijou':'bijoux', 'caillou':'cailloux', 'chou':'choux', 'genou':'genoux',
+  'hibou':'hiboux', 'joujou':'joujoux', 'pou':'poux',
+  'œil':'yeux', 'oeil':'yeux', 'ciel':'cieux', 'aïeul':'aïeux' };
+
 function frPlural(w){
   w = low(w);
+  if (FR_PLUR_X[w]) return FR_PLUR_X[w];
   if (/(s|x|z)$/.test(w)) return w;
   if (/(eau|eu)$/.test(w)) return w + 'x';
   if (/al$/.test(w)) return w.replace(/al$/, 'aux');
@@ -375,8 +609,99 @@ const ES_STEMV = {
   'poder':'o>ue','volver':'o>ue','llover':'o>ue','doler':'o>ue','mover':'o>ue',
   'dormir':'o>ue','morir':'o>ue',
   'pedir':'e>i','servir':'e>i','repetir':'e>i','seguir':'e>i','vestirse':'e>i','medir':'e>i',
-  'jugar':'u>ue'
+  'jugar':'u>ue',
+  /* Bổ sung sau khi đo: những động từ này đã vào từ điển mà chưa khai đổi gốc,
+     nên chia thành «recomenda», «atravesa», «cuelga» thiếu chuyển âm. */
+  'recomendar':'e>ie','atravesar':'e>ie','fregar':'e>ie','temblar':'e>ie',
+  'apretar':'e>ie','arrepentir':'e>ie','arrepentirse':'e>ie','hervir':'e>ie',
+  'colgar':'o>ue','sonar':'o>ue','apostar':'o>ue','oler':'o>ue'
 };
+
+/* Bảng trên là danh sách đích danh, nên mỗi động từ ghép thêm tiền tố lại lọt:
+   «mostrar» không có trong bảng nên chia thành «mostro» thay vì «muestro»,
+   «convertir» thành «converto» thay vì «convierto», «conseguir» thành
+   «conseguo». Đổi gốc đi theo GỐC TỪ, nên bắt theo đuôi thì một dòng phủ được
+   cả họ: demostrar, mostrar; convertir, invertir, divertir, advertir. */
+const ES_STEMV_SUF = [
+  ['vertir','e>ie'], ['sentir','e>ie'], ['mentir','e>ie'], ['pensar','e>ie'],
+  ['cerrar','e>ie'], ['empezar','e>ie'], ['tender','e>ie'], ['perder','e>ie'],
+  ['querer','e>ie'], ['sentar','e>ie'], ['despertar','e>ie'], ['encender','e>ie'],
+  ['helar','e>ie'], ['negar','e>ie'], ['pezar','e>ie'], ['ferir','e>ie'],
+  ['mostrar','o>ue'], ['contar','o>ue'], ['encontrar','o>ue'], ['recordar','o>ue'],
+  ['costar','o>ue'], ['probar','o>ue'], ['volar','o>ue'], ['soñar','o>ue'],
+  ['almorzar','o>ue'], ['forzar','o>ue'], ['volver','o>ue'], ['solver','o>ue'],
+  ['mover','o>ue'], ['doler','o>ue'], ['llover','o>ue'], ['morder','o>ue'],
+  ['dormir','o>ue'], ['morir','o>ue'], ['contrar','o>ue'],
+  ['pedir','e>i'], ['servir','e>i'], ['petir','e>i'], ['seguir','e>i'],
+  ['vestir','e>i'], ['medir','e>i'], ['egir','e>i'], ['reír','e>i'],
+  ['jugar','u>ue']
+];
+/* Trùng đuôi mà KHÔNG đổi gốc. «presentar» kết thúc bằng -sentar như
+   «sentar» nhưng chia là presento, không phải «presiento»; «pretender» kết
+   thúc bằng -tender như «entender» nhưng chia là pretendo. Bắt theo đuôi thì
+   phải có danh sách chặn, nếu không là sai ngay ở những từ hay dùng nhất. */
+const ES_NO_STEM = new Set(['presentar','presentarse','representar','ausentar',
+  'ausentarse','pretender','alimentar','aumentar','comentar','intentar',
+  'lamentar','fomentar','orientar','sentenciar','atentar','patentar']);
+
+function esStemChange(inf){
+  if (ES_STEMV[inf]) return ES_STEMV[inf];
+  if (ES_NO_STEM.has(inf)) return null;
+  for (const [suf, ch] of ES_STEMV_SUF)
+    if (inf.length >= suf.length && inf.slice(-suf.length) === suf) return ch;
+  return null;
+}
+
+/* ---------------- CHÍNH TẢ NGÔI «YO» VÀ THÌ GIẢ ĐỊNH ----------------
+   Tiếng Tây Ban Nha có một lớp thay đổi KHÔNG phải đổi gốc mà là chính tả: chữ
+   viết phải đổi để giữ nguyên ÂM. Bỏ qua lớp này thì sinh ra «cogo» thay cho
+   «cojo», «busce» thay cho «busque», «llege» thay cho «llegue», «pareco» thay
+   cho «parezco» — sai mà nhìn rất hợp lí, nên người học không thể tự phát hiện.
+   Đây là quy tắc thật, áp cho mọi động từ có đuôi ấy, chứ không phải danh sách. */
+
+/* nguyên âm + cer/cir → thêm z ở ngôi yo và cả thì giả định: conozco, parezco,
+   traduzco. «hacer», «decir», «cocer» đi đường khác nên loại riêng. */
+const ES_ZCO_SKIP = new Set(['hacer','decir','cocer','escocer','recocer','mecer','remecer']);
+/* Nhận vào gốc ĐÃ đổi nguyên âm (stemAt(0)), vì hai lớp này cộng dồn:
+   seguir đổi gốc e>i thành «sigu», rồi chính tả bỏ chữ u thành «sig» → sigo.
+   Làm riêng lẻ thì ra «sego» hoặc «siguo», cả hai đều không tồn tại. */
+function esYoStem(base, g, st){
+  /* -cer / -cir sau nguyên âm: chữ c thành zc, KHÔNG phải thêm z vào sau.
+     conocer → cono|zc|o, parecer → pare|zc|o, traducir → tradu|zc|o. */
+  if (/[aeiou]c(er|ir)$/.test(base) && !ES_ZCO_SKIP.has(base)) return st.slice(0, -1) + 'zc';
+  if (/gu(ir)$/.test(base))     return st.slice(0, -1);           // seguir → sigo
+  if (/qu(ir)$/.test(base))     return st.slice(0, -2) + 'c';     // delinquir → delinco
+  if (/g(er|ir)$/.test(base))   return st.slice(0, -1) + 'j';     // coger → cojo, elegir → elijo
+  return null;
+}
+/* Đuôi -uir (không phải -guir, -quir) thêm y trước đuôi không bắt đầu bằng i:
+   construyo, construyes, incluyen. */
+const esUir = base => /[^gq]uir$/.test(base);
+/* Gốc kết thúc bằng nguyên âm ở nhóm -er/-ir: leer, creer, caer, oír.
+   Ngôi thứ ba quá khứ đơn thành -yó/-yeron, gerundio thành -yendo, phân từ có
+   dấu sắc: leído, caído, oído. */
+const esVowelStem = (st, g) => g !== 'ar' && /[aeoáéó]$/.test(st);
+
+/* -car / -gar / -zar đổi chính tả ở quá khứ đơn ngôi yo và ở toàn bộ thì giả
+   định: buscar → busqué, busque · llegar → llegué, llegue · empezar → empecé,
+   empiece. Đây là ba đuôi rất thông dụng nên bỏ sót là sai khắp bảng. */
+function esSpell(st, base){
+  if (/car$/.test(base)) return st.slice(0, -1) + 'qu';
+  if (/gar$/.test(base)) return st + 'u';
+  if (/zar$/.test(base)) return st.slice(0, -1) + 'c';
+  if (/guar$/.test(base)) return st + 'ü';
+  return st;
+}
+
+/* Động từ -iar / -uar mà trọng âm rơi vào i hoặc u, thành í / ú có dấu:
+   enviar → envío · continuar → continúo. Cùng đuôi mà cambiar → cambio,
+   estudiar → estudio thì KHÔNG có dấu. Không có quy tắc nào đoán được, nên
+   phải ghi danh sách — và chỉ ghi những từ tôi chắc. */
+const ES_ACC_IU = new Set(['enviar','continuar','actuar','situar','esquiar','confiar',
+  'guiar','vaciar','variar','espiar','liar','fiar','graduar','evaluar','acentuar',
+  'insinuar','atenuar','efectuar','habituar','perpetuar','ampliar','enfriar','desviar',
+  'rociar','criar','aliar','desafiar','fotografiar','telegrafiar','desconfiar',
+  'confiarse','fiarse','enviarse','resfriar']);
 
 const ES_IRR = {
   'ser':   { pres:['soy','eres','es','somos','sois','son'], pret:['fui','fuiste','fue','fuimos','fuisteis','fueron'], imp:['era','eras','era','éramos','erais','eran'], subj:['sea','seas','sea','seamos','seáis','sean'], part:'sido', ger:'siendo', imper:['sé','sea','sed','sean'] },
@@ -404,13 +729,126 @@ const ES_IRR = {
   'abrir': { pres:['abro','abres','abre','abrimos','abrís','abren'], subj:['abra','abras','abra','abramos','abráis','abran'], part:'abierto', ger:'abriendo' },
   'romper':{ pres:['rompo','rompes','rompe','rompemos','rompéis','rompen'], subj:['rompa','rompas','rompa','rompamos','rompáis','rompan'], part:'roto', ger:'rompiendo' },
   'llover':{ pres:['','','llueve','','',''], subj:['','','llueva','','',''], part:'llovido', ger:'lloviendo', only3s:true, noImper:true },
-  'nevar': { pres:['','','nieva','','',''], subj:['','','nieve','','',''], part:'nevado', ger:'nevando', only3s:true, noImper:true }
+  'nevar': { pres:['','','nieva','','',''], subj:['','','nieve','','',''], part:'nevado', ger:'nevando', only3s:true, noImper:true },
+
+  /* ---- Bổ sung sau khi đo: những động từ này thiếu bảng nên bị áp khuôn đều
+     và ra dạng không tồn tại — caer → «cao» (đúng là caigo), valer → «valo»
+     (đúng là valgo), reír → «reo» (đúng là río). ---- */
+  'caer':  { pres:['caigo','caes','cae','caemos','caéis','caen'], pret:['caí','caíste','cayó','caímos','caísteis','cayeron'], subj:['caiga','caigas','caiga','caigamos','caigáis','caigan'], part:'caído', ger:'cayendo' },
+  'valer': { pres:['valgo','vales','vale','valemos','valéis','valen'], subj:['valga','valgas','valga','valgamos','valgáis','valgan'], futStem:'valdr', part:'valido', ger:'valiendo' },
+  'creer': { pres:['creo','crees','cree','creemos','creéis','creen'], pret:['creí','creíste','creyó','creímos','creísteis','creyeron'], subj:['crea','creas','crea','creamos','creáis','crean'], part:'creído', ger:'creyendo' },
+  'reír':  { pres:['río','ríes','ríe','reímos','reís','ríen'], pret:['reí','reíste','rio','reímos','reísteis','rieron'], subj:['ría','rías','ría','riamos','riais','rían'], part:'reído', ger:'riendo', imper:['ríe','ría','reíd','rían'] },
+  'sonreír':{ pres:['sonrío','sonríes','sonríe','sonreímos','sonreís','sonríen'], pret:['sonreí','sonreíste','sonrio','sonreímos','sonreísteis','sonrieron'], subj:['sonría','sonrías','sonría','sonriamos','sonriais','sonrían'], part:'sonreído', ger:'sonriendo' },
+  /* Hai động từ gần giống hacer và ver nhưng lệch đủ để không mượn được họ:
+     satisfacer có tương lai satisfaré, prever thì ngôi «yo» là preveo. */
+  'satisfacer':{ pres:['satisfago','satisfaces','satisface','satisfacemos','satisfacéis','satisfacen'], pret:['satisfice','satisficiste','satisfizo','satisficimos','satisficisteis','satisficieron'], subj:['satisfaga','satisfagas','satisfaga','satisfagamos','satisfagáis','satisfagan'], futStem:'satisfar', part:'satisfecho', ger:'satisfaciendo' },
+  /* soler là động từ khuyết — không có mệnh lệnh, không có tương lai — nhưng
+     hiện tại và quá khứ chưa hoàn thành thì dùng liên tục: «solía ir», «solemos
+     comer». Chặn hẳn thì «solíamos» tra vào không ra gì. */
+  'soler': { pres:['suelo','sueles','suele','solemos','soléis','suelen'], pret:['solí','soliste','solió','solimos','solisteis','solieron'], subj:['suela','suelas','suela','solamos','soláis','suelan'], futStem:null, part:'solido', ger:'soliendo', noImper:true },
+  /* Ba động từ lộ ra khi đo độ phủ: oler phải thêm chữ h (huelo, không phải
+     «uelo»), conducir có quá khứ -duje kéo theo cả họ -ducir, và rehacer/
+     deshacer cần dấu sắc ở quá khứ (rehíce) mà phép suy theo họ không đặt được. */
+  'oler':  { pres:['huelo','hueles','huele','olemos','oléis','huelen'], subj:['huela','huelas','huela','olamos','oláis','huelan'], part:'olido', ger:'oliendo' },
+  'conducir':{ pres:['conduzco','conduces','conduce','conducimos','conducís','conducen'], pret:['conduje','condujiste','condujo','condujimos','condujisteis','condujeron'], subj:['conduzca','conduzcas','conduzca','conduzcamos','conduzcáis','conduzcan'], part:'conducido', ger:'conduciendo' },
+  'rehacer':{ pres:['rehago','rehaces','rehace','rehacemos','rehacéis','rehacen'], pret:['rehíce','rehiciste','rehízo','rehicimos','rehicisteis','rehicieron'], subj:['rehaga','rehagas','rehaga','rehagamos','rehagáis','rehagan'], futStem:'rehar', part:'rehecho', ger:'rehaciendo' },
+  'deshacer':{ pres:['deshago','deshaces','deshace','deshacemos','deshacéis','deshacen'], pret:['deshice','deshiciste','deshizo','deshicimos','deshicisteis','deshicieron'], subj:['deshaga','deshagas','deshaga','deshagamos','deshagáis','deshagan'], futStem:'deshar', part:'deshecho', ger:'deshaciendo' },
+  'prever': { pres:['preveo','prevés','prevé','prevemos','prevéis','prevén'], pret:['preví','previste','previó','previmos','previsteis','previeron'], imp:['preveía','preveías','preveía','preveíamos','preveíais','preveían'], subj:['prevea','preveas','prevea','preveamos','preveáis','prevean'], part:'previsto', ger:'previendo' }
 };
+
+/* ---------------- HỌ ĐỘNG TỪ TIẾNG TÂY BAN NHA ----------------
+   Cùng lí do như bên tiếng Pháp: contener, obtener, mantener, detener đều chia
+   theo tener; suponer, componer, proponer theo poner; describir, inscribir theo
+   escribir. Khai báo đuôi và động từ mẫu, khỏi phải ghi tay từng cái rồi sót. */
+const ES_FAM = [
+  ['hacer','hacer'],
+  ['tener','tener'], ['poner','poner'], ['venir','venir'],
+  ['traer','traer'], ['caer','caer'],
+  ['decir','decir'],
+  /* KHÔNG khai ['ver','ver']: đuôi ba chữ ấy vơ luôn volver, mover, resolver,
+     devolver — và resolver liền chia phân từ thành «resolvisto» theo ver.
+     Đuôi càng ngắn càng dễ vơ nhầm, nên chỉ nhận đuôi đủ đặc trưng. */
+  ['volver','volver'],
+  ['escribir','escribir'], ['scribir','escribir'],
+  ['poder','poder'], ['querer','querer'], ['saber','saber'],
+  ['salir','salir'], ['oír','oír'], ['leer','leer'], ['creer','creer'],
+  ['reír','reír'], ['abrir','abrir'], ['conocer','conocer'],
+  ['seguir','seguir'], ['sentir','sentir'], ['dormir','dormir'],
+  ['contar','contar'], ['pedir','pedir'], ['servir','servir'],
+  ['conducir','conducir'], ['ducir','conducir']
+  /* KHÔNG khai họ cho oler: «doler» kết thúc bằng -oler nên sẽ chia thành
+     «dhuelo». oler và soler đã có bảng riêng, không cần họ. */
+];
+/* Ngoại lệ của họ: bendecir và maldecir tuy cùng đuôi -decir nhưng phân từ là
+   bendecido / maldecido và tương lai là bendeciré, không theo decir. */
+const ES_FAM_SKIP = new Set(['bendecir','maldecir','predecir']);
+
+function esInherit(inf){
+  if (ES_FAM_SKIP.has(inf)) return null;
+  for (const [suf, base] of ES_FAM){
+    if (inf.length <= suf.length || inf.slice(-suf.length) !== suf) continue;
+    const B = ES_IRR[base];
+    if (!B) continue;
+    if (base.length < suf.length || base.slice(-suf.length) !== suf) continue;
+    const bs  = base.slice(0, base.length - suf.length);
+    const pre = inf.slice(0, inf.length - suf.length);
+    const sw  = f => !f ? f
+      : (bs && f.slice(0, bs.length) === bs) ? pre + f.slice(bs.length) : pre + f;
+    const out = { pres:B.pres.map(sw), subj:B.subj.map(sw),
+                  /* Phân từ riêng thắng phân từ mượn của họ — cùng lí do như
+                     bên tiếng Pháp. */
+                  part: ES_PP_EXACT[inf] || sw(B.part), ger: sw(B.ger) };
+    if (B.pret) out.pret = B.pret.map(sw);
+    if (B.imp)  out.imp  = B.imp.map(sw);
+    if (B.futStem !== undefined) out.futStem = B.futStem ? sw(B.futStem) : B.futStem;
+    if (B.imper) out.imper = B.imper.map(sw);
+    if (B.noImper) out.noImper = true;
+    if (B.only3s)  out.only3s  = true;
+    return out;
+  }
+  return null;
+}
+
+/* Động từ khuyết hoặc quá lệch, không có bảng nào đúng để mượn. Thà không hiện
+   bảng còn hơn hiện bảng bịa. */
+const ES_NO_TABLE = new Set(['abolir','asir','raer','roer','argüir','erguir','yacer',
+  'placer','cocer','escocer','mecer','atañer','concernir','balbucir',
+  'bendecir','maldecir']);
+
+/* ---------------- GIẢ ĐỊNH QUÁ KHỨ ----------------
+   Thì này không có ngoại lệ nào: lấy quá khứ đơn ngôi thứ ba số nhiều, cắt
+   «-ron», thay bằng -ra / -ras / -ra / -ramos / -rais / -ran.
+     hablaron → hablara · tuvieron → tuviera · fueron → fuera
+     hubieron → hubiera · vinieron → viniera · pudieron → pudiera
+   Không có thì này thì cả mảng câu điều kiện của A2 — «si tuviera tiempo»,
+   «si fuera tú» — tra vào không ra gì, mà đó lại là thứ người học gặp liên tục.
+   Ngôi nosotros mang dấu: habláramos, tuviéramos. */
+const ES_SUBJI = ['ra','ras','ra','ramos','rais','ran'];
+/* Tiếng Tây Ban Nha có HAI dạng giả định quá khứ dùng thay nhau được:
+   tuviera / tuviese, pudiera / pudiese. Bảng chia hiện dạng -ra vì thông dụng
+   hơn, nhưng dạng -se cũng phải tra được. */
+const ES_SUBJI_SE = ['se','ses','se','semos','seis','sen'];
+function esSubjImp(pret, endings){
+  const E = endings || ES_SUBJI;
+  const p3 = String(pret && pret[5] || '');
+  if (!/ron$/.test(p3)) return ['','','','','',''];
+  const st = p3.slice(0, -3);                       // hablaron → habla
+  return E.map((e, i) => {
+    if (i !== 3) return st + e;
+    /* nosotros: trọng âm lùi một âm tiết nên nguyên âm cuối gốc mang dấu. */
+    const m = st.match(/([aeiou])([^aeiou]*)$/);
+    if (!m) return st + e;
+    const acc = 'áéíóú'['aeiou'.indexOf(m[1])];
+    return st.slice(0, st.length - m[0].length) + acc + m[2] + e;
+  });
+}
 
 function esGroup(inf){
   if (/ar$/.test(inf)) return 'ar';
-  if (/er$/.test(inf)) return 'er';
-  if (/ir$/.test(inf)) return 'ir';
+  if (/[eé]r$/.test(inf)) return 'er';
+  /* oír, reír, freír viết có dấu sắc nhưng vẫn là nhóm -ir. Không nhận ra thì
+     esGroup trả null và cả bảng chia biến mất. */
+  if (/[ií]r$/.test(inf)) return 'ir';
   return null;
 }
 
@@ -419,13 +857,15 @@ function esTable(inf){
   inf = low(inf);
   const refl = /se$/.test(inf) && inf.length > 4;
   const base = refl ? inf.slice(0, -2) : inf;      // acostarse → acostar
-  const irr  = ES_IRR[inf] || (refl ? ES_IRR[base] : null);
+  const irr  = ES_IRR[inf] || (refl ? ES_IRR[base] : null)
+            || (ES_NO_TABLE.has(base) ? null : (esInherit(inf) || (refl ? esInherit(base) : null)));
   const g    = esGroup(base);
+  if (ES_NO_TABLE.has(base) && !irr) return null;
   if (!irr && !g) return null;
 
   const R = g ? ES_REG[g] : null;
   const st = base.slice(0, -2);
-  const change = ES_STEMV[inf] || (refl ? ES_STEMV[base] : null);
+  const change = esStemChange(inf) || (refl ? esStemChange(base) : null);
 
   const stemAt = i => {
     if (!change || i === 3 || i === 4) return st;   // nosotros/vosotros giữ nguyên
@@ -436,6 +876,11 @@ function esTable(inf){
   let pres, pret, imp, subj, part, ger, futStem;
   if (irr){
     pres = irr.pres.slice();
+    /* Bảng bất quy tắc có thể thiếu pret hoặc imp và mượn đuôi đều — nhưng
+       «acabar de», «tener que» thì esGroup trả null nên R cũng null. Không
+       chặn ở đây thì sập cả trang. Không có đuôi đều để mượn thì thà không ra
+       bảng, còn hơn ra bảng bịa. */
+    if ((!irr.pret || !irr.imp) && !R) return null;
     pret = irr.pret ? irr.pret.slice() : zip(st, R.pret);
     imp  = irr.imp  ? irr.imp.slice()  : zip(st, R.imp);
     subj = irr.subj.slice();
@@ -443,11 +888,31 @@ function esTable(inf){
     futStem = irr.futStem !== undefined ? irr.futStem : base;
     if (irr.only3s){ pret = ['','', (pret[2] || ''), '','','']; imp = ['','', (imp[2] || ''), '','','']; }
   } else {
-    pres = [0,1,2,3,4,5].map(i => stemAt(i) + R.pres[i]);
+    /* Ngôi «yo» và toàn bộ thì giả định dùng một gốc riêng khi chính tả buộc
+       phải đổi: conocer → conozco/conozca, coger → cojo/coja, seguir → sigo. */
+    const yo = esYoStem(base, g, stemAt(0));
+    const uy = esUir(base);
+    const accIU = ES_ACC_IU.has(base);
+    /* enviar → envío: dấu sắc rơi vào i/u ở đúng những ngôi có trọng âm gốc. */
+    const accSt = accIU ? st.replace(/([iu])$/, m => m === 'i' ? 'í' : 'ú') : st;
+    pres = [0,1,2,3,4,5].map(i => {
+      if (i === 0 && yo) return yo + R.pres[0];
+      const soft = (i !== 3 && i !== 4);
+      let s = soft && accIU ? accSt : stemAt(i);
+      if (uy && soft) s = s + 'y';
+      return s + R.pres[i];
+    });
     /* -ir đổi gốc còn đổi cả ở ngôi thứ ba của quá khứ đơn và ở gerundio:
        pedir → pidió, pidieron, pidiendo. */
     const irChange = change && g === 'ir';
+    const vow = esVowelStem(st, g);
     pret = [0,1,2,3,4,5].map(i => {
+      /* buscar → busqué, llegar → llegué, empezar → empecé: chỉ đổi ở ngôi yo,
+         vì chỉ ngôi ấy có đuôi bắt đầu bằng é. */
+      if (i === 0 && g === 'ar') return esSpell(st, base) + R.pret[0];
+      /* leer → leyó, leyeron · caer → cayó · construir → construyó */
+      if ((vow || esUir(base)) && (i === 2 || i === 5))
+        return st + R.pret[i].replace(/^i/, 'y');
       if (irChange && (i === 2 || i === 5)){
         const [re] = ES_STEM['e>i'];
         const s2 = change === 'o>ue' ? st.replace(/o([^o]*)$/, 'u$1') : st.replace(re, 'i$1');
@@ -457,16 +922,30 @@ function esTable(inf){
     });
     imp  = zip(st, R.imp);
     subj = [0,1,2,3,4,5].map(i => {
+      /* Thì giả định dựng từ gốc của ngôi yo — đó là lí do conozca, coja, siga
+         đều theo yo chứ không theo nguyên mẫu. */
+      if (yo) return yo + R.subj[i];
+      /* Dấu sắc của enviar/continuar phải xét TRƯỚC chính tả -ar, nếu không thì
+         nhánh -ar nuốt luôn và ra «envie» thay vì «envíe». */
+      if (accIU && i !== 3 && i !== 4) return esSpell(accSt, base) + R.subj[i];
+      if (g === 'ar') return esSpell(stemAt(i), base) + R.subj[i];
+      if (esUir(base)) return st + 'y' + R.subj[i];
       if (g === 'ir' && change && (i === 3 || i === 4)){
         const s2 = change === 'o>ue' ? st.replace(/o([^o]*)$/, 'u$1') : st.replace(/e([^e]*)$/, 'i$1');
         return s2 + R.subj[i];
       }
       return stemAt(i) + R.subj[i];
     });
-    part = esPart(inf, st + R.part);
-    ger  = irChange
-      ? (change === 'o>ue' ? st.replace(/o([^o]*)$/, 'u$1') : st.replace(/e([^e]*)$/, 'i$1')) + R.ger
-      : st + R.ger;
+    /* Gốc kết thúc bằng nguyên âm thì phân từ có dấu sắc: leído, caído, oído,
+       traído. Không có dấu là sai chính tả, mà lại rất dễ bỏ qua. */
+    part = esPart(inf, (vow ? st + 'ído' : st + R.part));
+    ger  = (vow || esUir(base))
+      ? st + R.ger.replace(/^i/, 'y')                    // leyendo, construyendo
+      : irChange
+        ? (change === 'o>ue' ? st.replace(/o([^o]*)$/, 'u$1') : st.replace(/e([^e]*)$/, 'i$1')) + R.ger
+        : st + R.ger;
+    /* Tương lai và điều kiện luôn dựng trên NGUYÊN MẪU đầy đủ — kể cả với động
+       từ có dấu: enviaré, continuaré, oiré. */
     futStem = base;
   }
 
@@ -491,7 +970,8 @@ function esTable(inf){
       { id:'imp',  vi:'Quá khứ chưa hoàn thành', nat:'imperfecto',      forms: wrap(imp) },
       { id:'fut',  vi:'Tương lai',         nat:'futuro simple',         forms: futStem ? zip(futStem, ES_FUT) : [] },
       { id:'cond', vi:'Điều kiện',         nat:'condicional',           forms: futStem ? zip(futStem, ES_COND) : [] },
-      { id:'subj', vi:'Giả định',          nat:'presente de subjuntivo', forms: wrap(subj), lead:'que ' }
+      { id:'subj', vi:'Giả định',          nat:'presente de subjuntivo', forms: wrap(subj), lead:'que ' },
+      { id:'subji', vi:'Giả định quá khứ', nat:'imperfecto de subjuntivo', forms: wrap(esSubjImp(pret)), lead:'si ' }
     ],
     imper, imperPron: ['(tú)', '(usted)', '(vosotros)', '(ustedes)'],
     part, ger
@@ -511,10 +991,25 @@ function esFem(w){
   if (/or$/.test(w))  return w + 'a';
   if (/és$/.test(w))  return w.replace(/és$/, 'esa');
   if (/ón$/.test(w))  return w.replace(/ón$/, 'ona');
+  /* Tính từ chỉ dân tộc: español → española, alemán → alemana,
+     mallorquín → mallorquina. Các tính từ khác kết thúc bằng -l hay -n
+     (fácil, joven) thì KHÔNG đổi, nên chỉ nhận đúng ba đuôi này. */
+  if (/ol$/.test(w))  return w + 'a';
+  if (/án$/.test(w))  return w.replace(/án$/, 'ana');
+  if (/ín$/.test(w))  return w.replace(/ín$/, 'ina');
   return w;
 }
+/* Số nhiều làm trọng âm lùi thêm một âm tiết nên phải thêm dấu sắc, mà quy tắc
+   thì không đoán được từ chính tả: examen → exámenes, joven → jóvenes. Danh
+   sách ngắn nên ghi đích danh. */
+const ES_PLUR_ACC = { 'examen':'exámenes', 'joven':'jóvenes', 'origen':'orígenes',
+  'imagen':'imágenes', 'margen':'márgenes', 'volumen':'volúmenes',
+  'crimen':'crímenes', 'resumen':'resúmenes', 'certamen':'certámenes',
+  'régimen':'regímenes', 'espécimen':'especímenes', 'carácter':'caracteres' };
+
 function esPlural(w){
   w = low(w);
+  if (ES_PLUR_ACC[w]) return ES_PLUR_ACC[w];
   if (/[aeiouáéíóú]$/.test(w)) return w + 's';
   if (/z$/.test(w))  return w.replace(/z$/, 'ces');
   /* Thêm -es thì trọng âm lùi một nhịp, nên dấu sắc ở âm cuối rụng đi:
@@ -552,6 +1047,13 @@ function forms(lang, word, pos){
     const t = lang === 'fr' ? frTable(w) : esTable(w);
     if (t){
       t.tenses.forEach(x => x.forms.forEach(f => { if (f) f.split(/\s+/).forEach(k => out.add(low(k))); }));
+      /* Dạng -se của giả định quá khứ: tuviese bên cạnh tuviera. Bảng chia chỉ
+         hiện một dạng cho gọn, nhưng cả hai đều đúng nên cả hai phải tra được. */
+      if (lang === 'es'){
+        const pr = (t.tenses.find(x => x.id === 'pret') || {}).forms;
+        if (pr) esSubjImp(pr.map(f => low(String(f || '')).replace(/^(me|te|se|nos|os) /, '')), ES_SUBJI_SE)
+          .forEach(f => { if (f) out.add(f); });
+      }
       (t.imper || []).forEach(f => { if (f) out.add(low(f)); });
       if (t.pp)   out.add(low(t.pp));
       if (t.ppr)  out.add(low(t.ppr));
@@ -569,10 +1071,39 @@ function forms(lang, word, pos){
   if (/danh từ|tính từ/.test(p) || !isVerb){
     if (lang === 'fr'){
       out.add(frPlural(w));
-      if (/tính từ/.test(p)){ const f = frFem(w); out.add(f); out.add(frPlural(f)); out.add(frPlural(w)); }
+      if (FR_PRE_VOWEL[w]) out.add(FR_PRE_VOWEL[w]);
+      /* Danh từ chỉ NGƯỜI có dạng giống cái: professeur → professeure,
+         vendeur → vendeuse, étudiant → étudiante, boulanger → boulangère.
+         Chỉ áp cho những đuôi chỉ tác nhân, vì áp bừa thì «port» sẽ sinh ra
+         «porte» — mà porte là cái cửa, một từ thật, khác hẳn. */
+      if (/danh từ/.test(p)){
+        const f = FR_FEM_NOUN[w]
+          || (/(teur|eur|ien|ier|er|ant|ent|é|eux|if)$/.test(w) ? frFem(w) : null);
+        if (f && f !== w){ out.add(f); out.add(frPlural(f)); }
+      }
+      /* Hợp giống KHÔNG chỉ dành cho tính từ: «quel» là từ hỏi mà vẫn ra quelle,
+         quels, quelles; «premier» được khoá ghi là số từ mà vẫn ra première.
+         Chỉ xét «tính từ» thì những dạng ấy tra vào không có gì. */
+      if (/tính từ|từ hỏi|từ hạn định|từ chỉ định|từ sở hữu|đại từ|số/.test(p)){
+        const f = frFem(w); out.add(f); out.add(frPlural(f)); out.add(frPlural(w));
+      }
     } else {
       out.add(esPlural(w));
-      if (/tính từ/.test(p)){ const f = esFem(w); out.add(f); out.add(esPlural(f)); }
+      if (/tính từ|từ hỏi|từ hạn định|từ chỉ định|từ sở hữu|đại từ|số/.test(p)){
+        const f = esFem(w); out.add(f); out.add(esPlural(f));
+        /* Từ vốn ở dạng số nhiều — trescientos, varios, ambos — vẫn phải có
+           dạng giống cái: trescientas personas, varias veces. */
+        if (/os$/.test(w)) out.add(w.replace(/os$/, 'as'));
+      }
+      /* Danh từ chỉ người: profesor → profesora, vecino → vecina. */
+      if (/danh từ/.test(p) && /(o|or|és|ón|ol|án|ín)$/.test(w)){
+        const f = esFem(w); if (f !== w){ out.add(f); out.add(esPlural(f)); }
+      }
+      if (ES_APOC[w]) out.add(ES_APOC[w]);
+      if (/tính từ|trạng từ/.test(p)){
+        const sup = esSuper(w);
+        if (sup){ out.add(sup); out.add(esFem(sup)); out.add(esPlural(sup)); out.add(esPlural(esFem(sup))); }
+      }
     }
   }
 
@@ -591,7 +1122,7 @@ function isVerbForm(lang, w){
 }
 
 const API = { table, forms, stripLead, frFem, frPlural, esFem, esPlural,
-              FR_PRON, ES_PRON, isVerbForm };
+              FR_PRON, ES_PRON, isVerbForm, esUnclitic };
 
 if (typeof window !== 'undefined') window.LAT_MORPH = API;
 if (typeof module !== 'undefined' && module.exports) module.exports = API;
