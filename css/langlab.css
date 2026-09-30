@@ -2067,14 +2067,14 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 .qz-opt.ru{font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:16px}
 
 /* ---------- Từ điển Nga: mục từ đầy đủ ---------- */
-.ru-entry{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin:6px 0 10px;box-shadow:var(--shadow-sm)}
-.ru-entry-head{border-bottom:1px solid var(--border);padding-bottom:12px;margin-bottom:6px}
+.ru-entry{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:6px 0 10px;box-shadow:var(--shadow-sm)}
+.ru-entry-head{border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:6px}
 .ru-entry-word{font-size:30px;font-weight:700;line-height:1.2;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .ru-entry-meta{color:var(--muted);font-size:13.5px;margin-top:4px}
 .ru-gov{color:var(--accent-2);font-weight:600}
 .ru-entry-refs{margin-top:6px;display:flex;flex-wrap:wrap;gap:4px}
 .ru-dict-tag,.zh-dict-tag{font-size:11.5px;color:var(--muted);border:1px dashed var(--line);border-radius:999px;padding:1px 8px}
-.ru-entry-sec{padding:12px 0 4px;border-bottom:1px dashed var(--border)}
+.ru-entry-sec{padding:12px 0 4px;border-bottom:1px dashed var(--line)}
 .ru-entry-sec:last-child{border-bottom:0}
 .ru-entry-sec h3{font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
 .ru-senses{margin:0;padding-left:22px}
@@ -2089,7 +2089,7 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 .ru-entry-note{font-size:13.5px;background:var(--surface-2);border-radius:8px;padding:8px 11px;margin:8px 0 2px}
 .ru-struct{display:flex;flex-direction:column;gap:6px}
 .ru-seg-row{display:flex;flex-wrap:wrap;gap:3px;font-size:22px;font-weight:600}
-.ru-seg{display:inline-block;padding:2px 8px;border-radius:7px;border:1px solid var(--border);line-height:1.3}
+.ru-seg{display:inline-block;padding:2px 8px;border-radius:7px;border:1px solid var(--line);line-height:1.3}
 .ru-seg.pre{background:color-mix(in srgb,var(--accent) 12%,var(--surface));border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
 .ru-seg.root{background:color-mix(in srgb,var(--seal,#8E2F3C) 14%,var(--surface));border-color:color-mix(in srgb,var(--seal,#8E2F3C) 45%,transparent);font-weight:800}
 .ru-seg.suf{background:color-mix(in srgb,var(--accent-2,#2a7) 12%,var(--surface))}
@@ -2103,7 +2103,7 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 .ru-irr{color:var(--seal,#8E2F3C);font-weight:600}
 .ru-tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .ru-tbl{border-collapse:collapse;width:100%;font-size:15px;min-width:420px}
-.ru-tbl th,.ru-tbl td{border:1px solid var(--border);padding:6px 10px;text-align:left;vertical-align:top}
+.ru-tbl th,.ru-tbl td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
 .ru-tbl thead th{background:var(--surface-2);font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
 .ru-tbl tbody th{background:var(--surface-2);font-weight:500;white-space:nowrap;width:1%}
 .ru-tbl tbody th small{display:block;font-size:11px;color:var(--muted);font-weight:400;line-height:1.2}
@@ -2403,3 +2403,31 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 .lat-alt2 b{font-size:15px;color:var(--ink)}
 .lat-alt2 i{margin-left:8px;font-size:12px;color:var(--muted);font-style:normal}
 .lat-alt2 .zh-gram-note{margin:5px 0 0}
+
+/* ---- Dạng chia bấm được trong bảng chia ----
+   Không đặt icon loa vào từng ô: một bảng chia có bốn mươi tám ô, bốn mươi tám
+   cái loa thì bảng thành cái mớ. Thay vào đó cả ô bấm được, và chỗ nghe nằm ở
+   mục từ mà nó dẫn tới. Gạch chân mờ để người học biết là bấm được mà không
+   làm rối bảng. */
+.lat-fm{cursor:pointer;border-radius:2px;text-decoration:underline dotted transparent;
+  text-underline-offset:3px;transition:background .12s,color .12s}
+.lat-conj-tb tr:hover .lat-fm{text-decoration-color:var(--faint)}
+.lat-fm:hover{color:var(--accent);background:var(--accent-soft);text-decoration-color:var(--accent)}
+.lat-conj-hint{margin:10px 0 0;font-size:12.5px;color:var(--muted);display:flex;
+  align-items:center;gap:6px}
+.lat-conj-hint .ln-ico{flex:none;width:15px;height:15px}
+
+/* Trọng âm nhảy chỗ (Tây Ban Nha) và các dạng đọc giống nhau (Pháp). Đây là
+   thứ người học NGHE ra trước khi hiểu ra, nên cho nó chỗ đứng riêng chứ không
+   nhét vào chú thích nhỏ. */
+.lat-stress{margin:12px 0 0;padding:11px 13px;border:1px solid var(--line);
+  border-left:3px solid var(--accent);border-radius:0 5px 5px 0;background:var(--surface)}
+.lat-stress-tag{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:5px}
+.lat-stress b{font-size:16px;letter-spacing:.01em}
+.lat-stress i{color:var(--faint);font-style:normal;margin:0 4px}
+.lat-stress p{margin:7px 0 0;font-size:12.5px;line-height:1.65;color:var(--muted)}
+
+.lat-via-top{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.lat-via-top b{font-size:17px}
+.lat-via-str{font-size:13px;color:var(--accent);letter-spacing:.02em}

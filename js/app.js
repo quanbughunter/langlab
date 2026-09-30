@@ -3761,7 +3761,7 @@ function ruVerbAspect(pos, i, n){
   if (/НСВ|NSV/.test(p)) return 'НСВ';
   return null;
 }
-function ruTblCell(v){ return v == null || v === '-' ? '<td class="ru-na">—</td>' : `<td class="ru">${esc(v)}</td>`; }
+function ruTblCell(v){ return v == null || v === '-' ? '<td class="ru-na">—</td>' : `<td class="ru">${formCell('ru', v)}</td>`; }
 function ruNounTable(word, w){
   if (!_RM) return '';
   const n = _RM.noun(word, { pos:w.pos, vi:w.vi });
@@ -3774,15 +3774,15 @@ function ruNounTable(word, w){
 function ruAdjTable(word){
   if (!_RM) return '';
   const a = _RM.adj(word); if (!a) return '';
-  const acc = (o, anim) => o.accI != null ? `${esc(o.accI)} <small>/ ${esc(o.accA)}</small>` : esc(o.acc);
+  const acc = (o, anim) => o.accI != null ? `${formCell('ru', o.accI)} <small>/ ${formCell('ru', o.accA)}</small>` : formCell('ru', o.acc);
   const rows = RU_CASES.map(c => {
     const k = c[0];
     const cell = (o) => k === 'acc' ? `<td class="ru">${acc(o)}</td>` : ruTblCell(o[k]);
     return `<tr><th><span class="ru-case">${c[1]}</span><small class="ru">${c[2]}</small></th>${cell(a.m)}${cell(a.f)}${cell(a.n)}${cell(a.pl)}</tr>`;
   }).join('');
   const extra = [];
-  if (a.short) extra.push(`<div><b>Dạng ngắn:</b> <span class="ru">${a.short.map(esc).join(' · ')}</span></div>`);
-  if (a.cmp) extra.push(`<div><b>So sánh hơn:</b> <span class="ru">${esc(a.cmp)}</span> · <b>nhất:</b> <span class="ru">са́мый ${esc(word)}</span></div>`);
+  if (a.short) extra.push(`<div><b>Dạng ngắn:</b> <span class="ru">${a.short.map(x => formCell('ru', x)).join(' · ')}</span></div>`);
+  if (a.cmp) extra.push(`<div><b>So sánh hơn:</b> <span class="ru">${formCell('ru', a.cmp)}</span> · <b>nhất:</b> <span class="ru">са́мый ${formCell('ru', word)}</span></div>`);
   return `<div class="ru-morph-head"><b>Biến cách tính từ</b> · cách 4: bất động vật / <small>động vật</small></div><div class="ru-tbl-wrap"><table class="ru-tbl"><thead><tr><th></th><th>Giống đực</th><th>Giống cái</th><th>Giống trung</th><th>Số nhiều</th></tr></thead><tbody>${rows}</tbody></table></div>${extra.length ? `<div class="ru-morph-extra">${extra.join('')}</div>` : ''}${a.notes.length ? `<p class="ru-morph-note">${a.notes.map(esc).join(' ')}</p>` : ''}`;
 }
 function ruVerbTable(word, aspect){
@@ -3790,17 +3790,17 @@ function ruVerbTable(word, aspect){
   const v = _RM.verb(word, { aspect }); if (!v || !v.forms) return v && v.notes.length ? `<p class="ru-morph-note">${esc(v.notes[0])}</p>` : '';
   const P = ['я','ты','он / она́','мы','вы','они́'];
   const tense = v.tense === 'future' ? 'Tương lai (thể hoàn thành)' : 'Hiện tại';
-  const rows = v.forms.map((f, i) => `<tr><th class="ru">${P[i]}</th><td class="ru">${esc(f)}</td>${v.fut ? `<td class="ru">${esc(v.fut[i])}</td>` : ''}</tr>`).join('');
-  const past = v.past ? `<div><b>Quá khứ:</b> <span class="ru">${esc(v.past[0])}</span> (он) · <span class="ru">${esc(v.past[1])}</span> (она́) · <span class="ru">${esc(v.past[2])}</span> (оно́) · <span class="ru">${esc(v.past[3])}</span> (они́)</div>` : '';
-  const imp = v.imp ? `<div><b>Mệnh lệnh:</b> <span class="ru">${esc(v.imp[0])}</span> (ты) · <span class="ru">${esc(v.imp[1])}</span> (вы)</div>` : '<div><b>Mệnh lệnh:</b> không dùng</div>';
-  const ger = v.ger ? `<div><b>Trạng động từ:</b> <span class="ru">${esc(v.ger)}</span></div>` : '';
+  const rows = v.forms.map((f, i) => `<tr><th class="ru">${P[i]}</th><td class="ru">${formCell('ru', f)}</td>${v.fut ? `<td class="ru">${formCell('ru', v.fut[i])}</td>` : ''}</tr>`).join('');
+  const past = v.past ? `<div><b>Quá khứ:</b> <span class="ru">${formCell('ru', v.past[0])}</span> (он) · <span class="ru">${formCell('ru', v.past[1])}</span> (она́) · <span class="ru">${formCell('ru', v.past[2])}</span> (оно́) · <span class="ru">${formCell('ru', v.past[3])}</span> (они́)</div>` : '';
+  const imp = v.imp ? `<div><b>Mệnh lệnh:</b> <span class="ru">${formCell('ru', v.imp[0])}</span> (ты) · <span class="ru">${formCell('ru', v.imp[1])}</span> (вы)</div>` : '<div><b>Mệnh lệnh:</b> không dùng</div>';
+  const ger = v.ger ? `<div><b>Trạng động từ:</b> <span class="ru">${formCell('ru', v.ger)}</span></div>` : '';
   return `<div class="ru-morph-head"><b>Chia động từ</b> · thể ${esc(v.aspect || '?')}${v.refl ? ' · phản thân (-ся)' : ''}${v.irregular ? ' · <span class="ru-irr">bất quy tắc</span>' : ''}</div><div class="ru-tbl-wrap"><table class="ru-tbl ru-tbl-verb"><thead><tr><th></th><th>${tense}</th>${v.fut ? '<th>Tương lai</th>' : ''}</tr></thead><tbody>${rows}</tbody></table></div><div class="ru-morph-extra">${past}${imp}${ger}</div>${v.notes.length ? `<p class="ru-morph-note">${v.notes.map(esc).join(' ')}</p>` : ''}`;
 }
 function ruPronTable(word){
   if (!_RM) return '';
   const P = _RM.PRON[ruKey(word)]; if (!P) return '';
-  if (P.cases) return `<div class="ru-morph-head"><b>Biến cách</b></div><div class="ru-tbl-wrap"><table class="ru-tbl"><tbody>${RU_CASES.map((c, i) => `<tr><th><span class="ru-case">${c[1]}</span><small class="ru">${c[2]}</small></th><td class="ru">${esc(P.cases[i])}</td></tr>`).join('')}</tbody></table></div>`;
-  return `<div class="ru-morph-head"><b>Biến cách</b></div><div class="ru-tbl-wrap"><table class="ru-tbl"><thead><tr><th></th><th>Giống đực</th><th>Giống cái</th><th>Giống trung</th><th>Số nhiều</th></tr></thead><tbody>${P.table.map((r, i) => `<tr><th><span class="ru-case">${RU_CASES[i][1]}</span></th>${r.map(x => `<td class="ru">${esc(x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  if (P.cases) return `<div class="ru-morph-head"><b>Biến cách</b></div><div class="ru-tbl-wrap"><table class="ru-tbl"><tbody>${RU_CASES.map((c, i) => `<tr><th><span class="ru-case">${c[1]}</span><small class="ru">${c[2]}</small></th><td class="ru">${formCell('ru', P.cases[i])}</td></tr>`).join('')}</tbody></table></div>`;
+  return `<div class="ru-morph-head"><b>Biến cách</b></div><div class="ru-tbl-wrap"><table class="ru-tbl"><thead><tr><th></th><th>Giống đực</th><th>Giống cái</th><th>Giống trung</th><th>Số nhiều</th></tr></thead><tbody>${P.table.map((r, i) => `<tr><th><span class="ru-case">${RU_CASES[i][1]}</span></th>${r.map(x => `<td class="ru">${formCell('ru', x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 }
 /* Cấu tạo từ + từ cùng gốc */
 let _ruRootIdx = null;
@@ -3863,8 +3863,11 @@ function ruEntryHTML(key){
   else if (kind === 'pron') morph = ruPronTable(parts[0]);
   const ex = ruExamplesFor(w, 6);
   const refs = w.refs.map(r => `<button class="zh-ref" data-ru-open="${r.lv}:${r.no}" title="Mở bài học">${esc(ruLevelName(r.lv))} bài ${r.no}</button>`).join(' ');
+  const typedRu = ruPlain(state.ru.dictQ || '');
   return `
   <article class="ru-entry">
+    ${heardFormHTML('ru', state.ru.dictQ || '', ruPlain(parts[0]),
+      typedRu ? ruSpeakBtn(typedRu) : '')}
     <header class="ru-entry-head">
       <div class="ru-entry-word ru">${esc(w.ru)} ${ruSpeakBtn(parts[0])}</div>
       <div class="ru-entry-meta">${esc(w.pos || '')}${d.gov ? ` · <span class="ru-gov" title="chi phối (управление)">${esc(d.gov)}</span>` : ''}${d.pair ? ` · cặp thể: <span class="ru">${esc(d.pair)}</span>` : ''}</div>
@@ -4283,6 +4286,27 @@ function jaLemmatize(tok){
   if (!out.length && _JM) _JM.deinflect(s).forEach(c => { const m = c.match(/^(.{2,})(する|できる)$/); if (m) (idx[m[1]] || []).forEach(push); });
   if (!out.length){ const m = s.match(/^(.{2,}?)(せず|せずに|しないで|せざる|し)$/); if (m){ (idx[m[1]] || []).forEach(push); (idx[m[1] + 'する'] || []).forEach(push); } }
   if (!out.length){ let t = s.replace(/(さん|様|さま|ちゃん|くん|君|先生|たち)$/, ''); if (t !== s && t) (idx[t] || []).forEach(push); if (/^[おご]./.test(t)){ t = t.slice(1); (idx[t] || []).forEach(push); if (_JM) _JM.deinflect(t).forEach(c => (idx[c] || []).forEach(push)); } }
+  /* Trợ từ cuối câu dính vào đuôi động từ: 行きますか, 食べましたか, んですが.
+     Với người học thì đó vẫn là «行く», nên bóc trợ từ ra rồi tra lại. Chỉ bóc
+     khi phần còn lại đủ dài, để không biến «か» thành rỗng. */
+  if (!out.length){
+    const m = s.match(/^(.{2,})(ですか|んですか|んですが|んです|ですが|か|ね|よ|な|わ|ぞ|ぜ|の)$/);
+    if (m){
+      (idx[m[1]] || []).forEach(push);
+      if (_JM) _JM.deinflect(m[1]).forEach(c => (idx[c] || []).forEach(push));
+    }
+  }
+  /* Số đếm dính liền đơn vị: 六時, 三か月, 十分, 二時間, 三年間. Tiếng Nhật ghép
+     thẳng số với đơn vị nên không có ranh giới nào để cắt. Bóc phần số ra rồi
+     tra đơn vị — đó mới là thứ người học cần biết («時» là giờ, «割» là mười
+     phần trăm). Không bịa: chỉ nhận khi đơn vị có thật trong từ điển. */
+  if (!out.length){
+    const m = s.match(/^([〇一二三四五六七八九十百千万0-9０-９何数]+)(.+)$/);
+    if (m && m[2].length <= 4){
+      (idx[m[2]] || []).forEach(push);
+      if (!out.length && JA_LOOKUP[m[2]]) push(m[2]);
+    }
+  }
   if (!out.length) Object.values(JA_LOOKUP).forEach(w => { if (String(w.jp).replace(/^[〜～]/, '') === s || String(w.kana).replace(/^[〜～]/, '') === s) push(w.key); });
   return out;
 }
@@ -4534,13 +4558,13 @@ function jaVerbTable(w){
   const v = _JM.verb(w.jp, w.g, w.kana);
   const vk = (w.kana && w.kana !== w.jp) ? _JM.verb(w.kana, w.g, w.kana) : null;
   const gname = { '1':'nhóm I (五段)', '2':'nhóm II (一段)', '3':'nhóm III (bất quy tắc)' }[v.group] || '';
-  const rows = _JM.FORM_LABELS.map(([k, label]) => `<tr><th>${esc(label)}</th><td class="ja">${esc(v.forms[k] || '—')}</td>${vk ? `<td class="ja ja-kana-sub">${esc(vk.forms[k] || '')}</td>` : ''}</tr>`).join('');
+  const rows = _JM.FORM_LABELS.map(([k, label]) => `<tr><th>${esc(label)}</th><td class="ja">${formCell('ja', v.forms[k] || '—')}</td>${vk ? `<td class="ja ja-kana-sub">${formCell('ja', vk.forms[k] || '')}</td>` : ''}</tr>`).join('');
   return `<div class="ru-morph-head"><b>Chia động từ</b> · ${esc(gname)}</div><div class="ru-tbl-wrap"><table class="ru-tbl ru-tbl-verb"><thead><tr><th></th><th>Dạng</th>${vk ? '<th>Kana</th>' : ''}</tr></thead><tbody>${rows}</tbody></table></div>${v.notes.length ? `<p class="ru-morph-note">${v.notes.map(esc).join(' ')}</p>` : ''}`;
 }
 function jaAdjTable(w, type){
   if (!_JM) return '';
   const a = _JM.adj(w.jp, type), ak = (w.kana && w.kana !== w.jp) ? _JM.adj(w.kana, type) : null;
-  const rows = _JM.ADJ_LABELS.map(([k, label]) => `<tr><th>${esc(label)}</th><td class="ja">${esc(a.forms[k] || '—')}</td>${ak ? `<td class="ja ja-kana-sub">${esc(ak.forms[k] || '')}</td>` : ''}</tr>`).join('');
+  const rows = _JM.ADJ_LABELS.map(([k, label]) => `<tr><th>${esc(label)}</th><td class="ja">${formCell('ja', a.forms[k] || '—')}</td>${ak ? `<td class="ja ja-kana-sub">${formCell('ja', ak.forms[k] || '')}</td>` : ''}</tr>`).join('');
   return `<div class="ru-morph-head"><b>Biến đổi tính từ ${type === 'i' ? 'い' : 'な'}</b></div><div class="ru-tbl-wrap"><table class="ru-tbl"><thead><tr><th></th><th>Dạng</th>${ak ? '<th>Kana</th>' : ''}</tr></thead><tbody>${rows}</tbody></table></div>${a.notes.length ? `<p class="ru-morph-note">${a.notes.map(esc).join(' ')}</p>` : ''}`;
 }
 function jaExamplesFor(w, limit){
@@ -4573,8 +4597,10 @@ function jaEntryHTML(key){
   const kanjis = [...String(w.jp)].filter(ch => /[一-鿿]/.test(ch)).map(ch => jaKanjiOf(ch)).filter(Boolean);
   const ex = jaExamplesFor(w, 6);
   const refs = w.refs.map(r => `<button class="zh-ref" data-ja-open="${r.lv}:${r.no}" title="Mở bài học">${esc(jaLevelName(r.lv))} bài ${r.no}</button>`).join(' ');
+  const typedJa = jaPlain(state.ja.dictQ || '');
   return `
   <article class="ru-entry">
+    ${heardFormHTML('ja', typedJa, w.jp, typedJa ? jaSpeakBtn(typedJa) : '')}
     <header class="ru-entry-head">
       <div class="ru-entry-word ja">${esc(w.jp)} ${w.kana && w.kana !== w.jp ? `<span class="ja-entry-kana">${esc(w.kana)}</span>` : ''} <span class="ja-romaji">${esc(w.romaji || '')}</span> ${jaSpeakBtn(w.kana || w.jp)}</div>
       <div class="ru-entry-meta">${esc(w.pos || '')}${w.g ? ` · ${{ '1':'nhóm I', '2':'nhóm II', '3':'nhóm III' }[w.g]}` : ''}${d.gov ? ` · <span class="ru-gov">${esc(d.gov)}</span>` : ''}</div>
@@ -4652,7 +4678,11 @@ function jaOpenWord(tok){
   if (state.view !== 'ja_dict') go('ja_dict'); else render();
   try { window.scrollTo({ top:0 }); } catch(e){}
 }
-try { window.__jaDict = { lemmatize: jaLemmatize, lookup: JA_LOOKUP, forms: jaFormIndex, tokens: shJaTokens }; } catch(e){}
+/* tokens = bộ tách của BÀI ĐỌC (văn bản liền, phải tự đoán ranh giới từ);
+   lessonTokens = bộ tách của CÂU TRONG KHOÁ (đã có sẵn dấu cách và ruby).
+   Hai chỗ khác nhau thật, nên phép đo độ phủ phải dùng đúng từng cái. */
+try { window.__jaDict = { lemmatize: jaLemmatize, lookup: JA_LOOKUP, forms: jaFormIndex,
+                          tokens: shJaTokens, lessonTokens: jaTokens, segment: jaSegment }; } catch(e){}
 
 /* ---------- Ôn tập ---------- */
 VIEWS.ja_srs = function(){
@@ -5745,18 +5775,86 @@ function shTokens(text){
 }
 /* Văn bản Nhật dán vào không có dấu cách — cắt từ bằng Intl.Segmenter,
    không có thì lùi về cắt theo cụm kanji + kana. */
-function shJaTokens(text){
-  const str = String(text || '');
-  let segs = null;
+/* ---------------- TÁCH TỪ TIẾNG NHẬT ----------------
+   Bản cũ giao hết cho Intl.Segmenter. Nhưng tiếng Nhật viết liền không dấu
+   cách, mà Segmenter thì tuỳ trình duyệt và tuỳ hệ điều hành có sẵn dữ liệu
+   tiếng Nhật hay không — chỗ không có thì nó cắt ra từng chữ kana một. Đo độ
+   phủ thấy hậu quả: «ま» xuất hiện 443 lượt, «た» 347 lượt, «ん» 319 lượt —
+   toàn mảnh vụn không phải từ, bấm vào chẳng ra gì.
+
+   Bản này tách bằng CHÍNH TỪ ĐIỂN: quét từ trái sang phải, mỗi bước lấy chuỗi
+   DÀI NHẤT khớp một mục từ hoặc một dạng biến đổi có thật. Không khớp được thì
+   gom cả cụm chữ cùng loại làm một khối, chứ không xé lẻ từng chữ — thà một
+   khối chưa tra được còn hơn năm mảnh vô nghĩa.
+
+   Tra được thì bấm mở mục từ; không tra được thì vẫn bấm được nhưng gạch chân
+   mờ và nói thật là chưa có, y như bên tiếng Pháp và Tây Ban Nha. */
+const JA_MAXLEN = 12;
+let _jaSegKeys = null;
+function jaSegKeys(){
+  if (_jaSegKeys) return _jaSegKeys;
+  const set = new Set();
   try {
-    if (typeof Intl !== 'undefined' && Intl.Segmenter){
-      segs = Array.from(new Intl.Segmenter('ja', { granularity:'word' }).segment(str)).map(x => x.segment);
-    }
+    Object.keys(jaFormIndex()).forEach(k => { if (k && k.length <= JA_MAXLEN) set.add(k); });
   } catch(e){}
-  if (!segs || !segs.length) segs = str.match(/[一-鿿々]+[ぁ-ん]*|[ァ-ヴー]+|[ぁ-ん]+|[A-Za-z0-9]+|[\s\S]/g) || [];
-  return segs.map(tok => {
+  try {
+    if (typeof KANJI_JA !== 'undefined') KANJI_JA.forEach(k => set.add(k.k));
+  } catch(e){}
+  _jaSegKeys = set; return set;
+}
+
+/* Cắt theo LOẠI CHỮ là sai với tiếng Nhật: một từ bình thường trộn cả Hán lẫn
+   kana, và kính ngữ お (kana) lại đứng trước 願 (Hán). Cắt theo loại chữ thì
+   «お願いします» thành bốn mảnh ở bốn khối khác nhau, không cách nào nối lại.
+   Nên chỉ tách ra hai thứ: đoạn chữ Nhật liền mạch, và mọi thứ còn lại. Dấu
+   câu (。、！？「」) nằm ngoài dải nên tự khắc ngắt đoạn. */
+const JA_RUN = /[぀-ヿ一-鿿々ｦ-ﾟ]+|[^぀-ヿ一-鿿々ｦ-ﾟ]+/g;
+
+function jaSegment(str){
+  const keys = jaSegKeys();
+  const out = [];
+  const runs = String(str || '').match(JA_RUN) || [];
+  for (const run of runs){
+    if (!/[぀-ヿ一-鿿々]/.test(run)){ out.push([run, false]); continue; }
+    let i = 0;
+    while (i < run.length){
+      let hit = '';
+      for (let len = Math.min(JA_MAXLEN, run.length - i); len >= 1; len--){
+        const cand = run.substr(i, len);
+        if (keys.has(cand)){ hit = cand; break; }
+      }
+      /* Kính ngữ お và ご dính liền từ đứng sau: お願い, ご家族. Không nối lại
+         thì «お願いします» bị xé thành お | 願 | い | します — bốn mảnh, mảnh
+         nào bấm vào cũng không ra đúng nghĩa. */
+      if (!hit && /^[おご]$/.test(run[i])){
+        for (let len = Math.min(JA_MAXLEN - 1, run.length - i - 1); len >= 2; len--){
+          if (keys.has(run.substr(i + 1, len))){ hit = run.substr(i, len + 1); break; }
+        }
+      }
+      if (hit){ out.push([hit, true]); i += hit.length; continue; }
+      /* Không khớp: nuốt tới chỗ gần nhất mà từ điển nhận ra, rồi để cả đoạn
+         ấy thành MỘT khối chưa tra được. */
+      let j = i + 1;
+      while (j < run.length){
+        let found = false;
+        for (let len = Math.min(JA_MAXLEN, run.length - j); len >= 2; len--)
+          if (keys.has(run.substr(j, len))){ found = true; break; }
+        if (found) break;
+        j++;
+      }
+      out.push([run.slice(i, j), false]);
+      i = j;
+    }
+  }
+  return out;
+}
+
+function shJaTokens(text){
+  return jaSegment(text).map(([tok, ok]) => {
     if (!/[぀-ヿ一-鿿々]/.test(tok)) return esc(tok);
-    return `<span class="zc ja-tok" data-jaw="${esc(tok)}" title="Tra từ này">${esc(tok)}</span>`;
+    return ok
+      ? `<span class="zc ja-tok" data-jaw="${esc(tok)}" title="Tra từ này">${esc(tok)}</span>`
+      : `<span class="zc ja-tok zc-x" data-jaw="${esc(tok)}" title="Chưa có trong từ điển">${esc(tok)}</span>`;
   }).join('');
 }
 
@@ -6700,6 +6798,8 @@ function enEntryHTML(e){
   if (F.cmp) formRows.push(['So sánh hơn / nhất', F.cmp + ' · ' + (F.sup || '')]);
   return `
   <div class="ru-entry" id="enEntry">
+    ${heardFormHTML('en', String(state.en.dictQ || '').trim(), e.w,
+      state.en.dictQ ? enSpeakBtn(String(state.en.dictQ).trim()) : '')}
     <div class="ru-entry-head">
       <div class="ru-entry-word en">${esc(e.w)} ${enSpeakBtn(e.w)}</div>
       <div class="ph-row"><span class="ipa big">${esc(ipa)}</span>${other}${e.pos ? `<span class="ph-tag hi">${esc(e.pos)}</span>` : ''}${e.reg ? `<span class="ph-tag">${esc(e.reg)}</span>` : ''}</div>
@@ -6710,7 +6810,8 @@ function enEntryHTML(e){
         ${x.note ? `<div class="ru-sense-note">${esc(x.note)}</div>` : ''}
         ${x.ex && x.ex[0] ? `<div class="ru-sense-ex"><span class="en">${enTokens(x.ex[0])}</span> ${enSpeakBtn(x.ex[0], 'mini')}${x.ex[1] ? `<span class="ru-sense-exvi">${esc(x.ex[1])}</span>` : ''}</div>` : ''}
       </li>`).join('')}</ol></section>` : ''}
-    ${formRows.length ? `<section class="ru-entry-sec"><h3>Dạng của từ</h3><div class="st-list">${formRows.map(r => `<div class="st-card"><h4>${esc(r[0])}</h4><p class="en">${esc(r[1])}</p></div>`).join('')}</div></section>` : ''}
+    ${formRows.length ? `<section class="ru-entry-sec"><h3>Dạng của từ</h3><div class="st-list">${formRows.map(r => `<div class="st-card"><h4>${esc(r[0])}</h4><p class="en">${formCell('en', r[1])}</p></div>`).join('')}</div></section>
+      <p class="lat-conj-hint">${BULB_ICO} Bấm vào bất cứ dạng nào để nghe cách đọc và mở mục từ của dạng ấy.</p>` : ''}
     ${e.colloc && e.colloc.length ? `<section class="ru-entry-sec"><h3>Cụm từ hay đi cùng</h3><div class="st-ex">${e.colloc.map(c => `<span class="en">${esc(c)}</span>`).join('')}</div></section>` : ''}
     ${e.phrasal && e.phrasal.length ? `<section class="ru-entry-sec"><h3>Cụm động từ</h3><div class="st-list">${e.phrasal.map(x => `<div class="st-card"><h4 class="en">${esc(x[0])}</h4><p>${esc(x[1])}</p></div>`).join('')}</div></section>` : ''}
     ${e.idiom && e.idiom.length ? `<section class="ru-entry-sec"><h3>Thành ngữ</h3><div class="st-list">${e.idiom.map(x => `<div class="st-card"><h4 class="en">${esc(x[0])}</h4><p>${esc(x[1])}</p></div>`).join('')}</div></section>` : ''}
@@ -7600,6 +7701,103 @@ function latLessonView(id){
 /* ---------------- Từ điển ---------------- */
 /* Bảng chia của một động từ, bày ngay trong mục từ. Sáu ngôi trên một hàng,
    mỗi thì một hàng — đọc dọc là thấy ngay chỗ nào đổi gốc. */
+/* ---------------- Ô BẢNG BIẾN ĐỔI, BẤM ĐƯỢC (DÙNG CHUNG) ----------------
+   Tiếng nào biến đổi hình thái thì bảng của tiếng ấy đều cần: tiếng Nga biến
+   cách danh từ và tính từ, tiếng Nhật chia động từ và tính từ, tiếng Anh có
+   dạng số nhiều và thì. Chỉ tiếng Trung là không biến đổi gì nên không có
+   bảng nào để bấm.
+
+   Một thuộc tính chung, một bộ xử lí chung, rồi mỗi tiếng tự mở từ điển của
+   mình bằng đúng hàm nó vẫn dùng khi bấm chữ trong câu. */
+/* Dòng «dạng bạn vừa bấm». Mục từ luôn mở ở dạng NGUYÊN MẪU, nên nếu không
+   nói rõ thì người học bấm vào «говорю» lại thấy «говорить» và tưởng bấm nhầm.
+   Nút nghe ở đây đọc đúng dạng vừa bấm, không phải dạng nguyên mẫu — đó mới là
+   thứ cần nghe. */
+function heardFormHTML(lang, typed, head, speakHTML, extra){
+  const t = String(typed || '').trim();
+  const h = String(head || '').trim();
+  if (!t || !h) return '';
+  const norm = x => x.toLowerCase().replace(/[\u0300-\u036f]/g, '');
+  if (norm(t) === norm(h) || norm(h).indexOf(norm(t)) === 0 && norm(h).length === norm(t).length) return '';
+  return `<div class="lat-via">
+    <div class="lat-via-top"><b class="${lang}">${esc(t)}</b>${speakHTML || ''}${extra || ''}</div>
+    <span>Đây là một dạng đã biến đổi của <b class="${lang}">${esc(h)}</b> — mục từ dưới đây là dạng gốc.</span>
+  </div>`;
+}
+
+function formCell(lang, text, cls){
+  const t = String(text == null ? '' : text);
+  if (!t || t === '—' || t === '-') return '<span class="ru-na">—</span>';
+  const esc2 = x => x.replace(/[&<>]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[c]));
+  /* Tách theo khoảng trắng và dấu ngăn, để «он / она́» hay «đã llamado» thì
+     mỗi chữ là một chỗ bấm riêng. */
+  return esc2(t).replace(/[\p{L}\p{M}\p{N}'’ー―-]+/gu, w =>
+    `<span class="zc lat-fm${cls ? ' ' + cls : ''}" data-form="${lang}:${esc(w)}" title="Nghe và tra dạng này">${w}</span>`);
+}
+
+/* ---------------- DẠNG CHIA BẤM ĐƯỢC ----------------
+   Bảng chia trước đây là chữ chết: bốn mươi tám ô mà không ô nào bấm được,
+   không ô nào nghe được. Mà chính bảng chia mới là chỗ người học cần nghe
+   nhất — «llamar» và «llamas» viết gần giống nhau nhưng trọng âm nhảy chỗ
+   nên nghe khác hẳn.
+
+   Mỗi ô giờ bấm được. Bấm thì mở từ điển với CHÍNH dạng ấy làm từ khoá, nên
+   mục từ hiện ra kèm dòng «bạn gõ llamas — đây là một dạng của llamar» và
+   nút nghe đọc đúng «llamas». Không đặt icon loa vào từng ô — bốn mươi tám
+   cái loa thì bảng thành cái mớ. */
+function latFormCell(id, text){
+  const t = String(text || '');
+  if (!t || t === '—') return '—';
+  return t.replace(/[&<>]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[c]))
+    .replace(/[\p{L}'’-]+/gu, w =>
+      `<span class="zc lat-fm" data-lat-form="${id}:${esc(w)}" title="Nghe và tra dạng này">${w}</span>`);
+}
+
+/* Trọng âm nhảy chỗ — thứ người học nghe ra trước khi hiểu ra. Tính bằng luật
+   trọng âm kín của tiếng Tây Ban Nha nên đúng cho mọi động từ, không phải ghi
+   sẵn cho từng từ. */
+function esStressRow(t){
+  const M = (typeof LAT_MORPH !== 'undefined') ? LAT_MORPH : null;
+  if (!M || !M.esStressMark) return '';
+  const pres = (t.tenses.find(x => x.id === 'pres') || {}).forms || [];
+  const pret = (t.tenses.find(x => x.id === 'pret') || {}).forms || [];
+  const cond = (t.tenses.find(x => x.id === 'cond') || {}).forms || [];
+  const pick = [t.inf, pres[0], pret[0], cond[3]].filter(Boolean)
+    .map(f => String(f).split(/\s+/).pop());
+  const seen = {};
+  const list = pick.filter(f => f && !seen[f] && (seen[f] = 1))
+    .map(f => `<b class="es">${esc(M.esStressMark(f))}</b>`);
+  if (list.length < 2) return '';
+  return `<div class="lat-stress">
+    <span class="lat-stress-tag">Trọng âm nhảy chỗ</span>
+    ${list.join(' <i>→</i> ')}
+    <p>Tiếng Tây Ban Nha không đánh dấu trọng âm bằng dấu thanh mà bằng VỊ TRÍ:
+       có dấu sắc thì trọng âm ở đúng đó; không dấu mà tận cùng bằng nguyên âm,
+       <b>n</b> hoặc <b>s</b> thì rơi vào âm tiết áp chót; còn lại thì rơi vào âm
+       tiết cuối. Đuôi chia đổi là vị trí ấy đổi theo — nên cùng một động từ mà
+       mỗi dạng nghe một khác. Bấm vào từng dạng để nghe.</p>
+  </div>`;
+}
+
+/* Tiếng Pháp thì ngược hẳn: đuôi chia phần lớn CÂM, nên nhiều dạng viết khác
+   nhau mà đọc giống hệt. Không nói ra thì người học tưởng mình nghe sai. */
+const FR_HOMO = {
+  'nhóm -er': ['je · tu · il/elle · ils/elles', 'bốn dạng này đọc GIỐNG HỆT nhau, vì -e, -es và -ent đều câm: je parle, tu parles, il parle, ils parlent đều nghe là /paʁl/. Chỉ có nous và vous là nghe khác.'],
+  'nhóm -ir': ['je · tu · il/elle', 'ba dạng này đọc giống nhau (/fi.ni/): chữ -s và -t cuối đều câm. Nous, vous, ils có thêm -iss- nên nghe rõ khác.'],
+  'nhóm -re': ['je · tu · il/elle', 'ba dạng này đọc giống nhau: -s và -d cuối đều câm, vends · vends · vend đều nghe là /vɑ̃/.']
+};
+function frHomoRow(t){
+  const h = FR_HOMO[t.group];
+  if (!h) return '';
+  return `<div class="lat-stress">
+    <span class="lat-stress-tag">Nghe giống nhau</span>
+    <b class="fr">${esc(h[0])}</b>
+    <p>Ở thì hiện tại, ${esc(h[1])} Đây là chỗ người học nghe mãi vẫn tưởng mình
+       nghe nhầm — thật ra đúng là giống nhau, và người Pháp phân biệt nhờ ĐẠI TỪ
+       đứng trước chứ không nhờ đuôi động từ. Bấm vào từng dạng để nghe.</p>
+  </div>`;
+}
+
 function latConjHTML(id, inf){
   const M = (typeof LAT_MORPH !== 'undefined') ? LAT_MORPH : null;
   const t = M && M.table(id, inf);
@@ -7608,16 +7806,16 @@ function latConjHTML(id, inf){
   const rows = t.tenses.filter(x => x.forms.some(Boolean)).map(x => `
     <tr>
       <th class="lat-tense"><b>${esc(x.vi)}</b><i>${esc(x.nat)}${x.lead ? ' · sau «' + esc(x.lead.trim()) + '»' : ''}</i></th>
-      ${x.forms.map(f => `<td class="${id}">${f ? esc(f) : '—'}</td>`).join('')}
+      ${x.forms.map(f => `<td class="${id}">${f ? latFormCell(id, f) : '—'}</td>`).join('')}
     </tr>`).join('');
   const imp = t.imper && t.imper.some(Boolean) ? `
     <div class="lat-imper">
       <b>Mệnh lệnh</b>
-      ${t.imper.map((f, i) => f ? `<span><i>${esc(t.imperPron[i] || '')}</i> <span class="${id}">${esc(f)}</span></span>` : '').join('')}
+      ${t.imper.map((f, i) => f ? `<span><i>${esc(t.imperPron[i] || '')}</i> <span class="${id}">${latFormCell(id, f)}</span></span>` : '').join('')}
     </div>` : '';
   const extra = id === 'fr'
-    ? `<div class="lat-conj-note">Quá khứ phân từ <b class="fr">${esc(t.pp || '')}</b> · phân từ hiện tại <b class="fr">${esc(t.ppr || '')}</b> · thì kép đi với <b>${esc(t.aux)}</b></div>`
-    : `<div class="lat-conj-note">Phân từ <b class="es">${esc(t.part || '')}</b> · gerundio <b class="es">${esc(t.ger || '')}</b>${t.refl ? ' · động từ phản thân' : ''}</div>`;
+    ? `<div class="lat-conj-note">Quá khứ phân từ <b class="fr">${latFormCell(id, t.pp || '')}</b> · phân từ hiện tại <b class="fr">${latFormCell(id, t.ppr || '')}</b> · thì kép đi với <b>${esc(t.aux)}</b></div>`
+    : `<div class="lat-conj-note">Phân từ <b class="es">${latFormCell(id, t.part || '')}</b> · gerundio <b class="es">${latFormCell(id, t.ger || '')}</b>${t.refl ? ' · động từ phản thân' : ''}</div>`;
   return `
   <div class="lat-conj">
     <div class="lat-conj-head"><h3>Bảng chia</h3><span class="zh-dict-tag">${esc(t.group)}</span></div>
@@ -7626,6 +7824,8 @@ function latConjHTML(id, inf){
     </div>
     ${imp}
     ${extra}
+    ${id === 'es' ? esStressRow(t) : frHomoRow(t)}
+    <p class="lat-conj-hint">${BULB_ICO} Bấm vào bất cứ dạng nào trong bảng để nghe cách đọc và mở mục từ của dạng ấy.</p>
   </div>`;
 }
 
@@ -7636,10 +7836,18 @@ function latEntryHTML(id, key, via){
   const isVerb = /động từ/.test(cur.pos || '') && M && M.table(id, M.stripLead(id, cur[id] || key));
   return `
   <div class="zh-entry" id="latEntry">
-    ${via ? `<div class="lat-via">Bạn gõ <b class="${id}">${esc(via)}</b> — đây là một dạng của từ dưới đây.${
+    ${via ? `<div class="lat-via">
+      <div class="lat-via-top">
+        <b class="${id}">${esc(via)}</b>
+        ${latSpeakBtn(via, id, 'icon-btn')}
+        ${id === 'es' && M && M.esStressMark && M.esSyllables(via).length > 1
+          ? `<span class="lat-via-str">${esc(M.esStressMark(via))}</span>` : ''}
+      </div>
+      <span>Đây là một dạng của từ dưới đây${id === 'es' && M && M.esSyllables(via).length > 1
+        ? ' — nghe kĩ chỗ nhấn, vì đổi đuôi là trọng âm đổi chỗ theo' : ''}.${
       (latAlso[id] && latAlso[id].length)
         ? ' Dạng này còn thuộc cả ' + latAlso[id].map(k => `<button class="lat-alt ${id}" data-lat-entry="${id}:${esc(k)}">${esc((latLookup(id)[k] || {})[id] || k)}</button>`).join(', ') + '.'
-        : ''}</div>` : ''}
+        : ''}</span></div>` : ''}
     <div class="zh-entry-top">
       <span class="zh-entry-hz ${id}">${esc(cur[id] || key)}</span>
       ${latSpeakBtn(cur[id] || key, id, 'icon-btn')}
@@ -8636,6 +8844,27 @@ document.addEventListener('click', e => {
   /* Từ chưa có mục từ. Vẫn phải phản hồi — bấm mà không có gì xảy ra thì người
      học tưởng app hỏng. Đưa chữ vào thanh tra để màn từ điển nói thẳng là chưa
      có, đồng thời gợi ý tra sang từ điển các tiếng khác. */
+  /* Ô bảng biến đổi của tiếng Nga, Nhật, Anh. Gọi thẳng hàm mở từ điển mà mỗi
+     tiếng vẫn dùng khi bấm chữ trong câu, nên không sinh thêm đường đi mới. */
+  const fmAny = t.closest('[data-form]');
+  if (fmAny){ const i = fmAny.dataset.form.indexOf(':');
+    const lg = fmAny.dataset.form.slice(0, i), w = fmAny.dataset.form.slice(i + 1);
+    try {
+      if (lg === 'ru') ruOpenWord(w);
+      else if (lg === 'ja') jaOpenWord(w);
+      else if (lg === 'en'){ state.en.entry = enLemma(w) || w; state.en.dictQ = w;
+        if (state.view !== 'en_dict') go('en_dict'); else render(); }
+      else if (lg === 'ko' && typeof koOpenWord === 'function') koOpenWord(w);
+    } catch(e){}
+    try { window.scrollTo({ top:0 }); } catch(e){}
+    return; }
+  /* Một dạng đã chia, bấm từ trong bảng chia. Đặt chính dạng ấy làm từ khoá
+     tra, để mục từ mở ra có dòng «bạn gõ … — đây là một dạng của …» kèm nút
+     nghe đọc đúng dạng ấy, chứ không phải đọc dạng nguyên mẫu. */
+  const latFm = t.closest('[data-lat-form]');
+  if (latFm){ const i = latFm.dataset.latForm.indexOf(':'); const id = latFm.dataset.latForm.slice(0, i);
+    latSt(id).q = latFm.dataset.latForm.slice(i + 1); latSt(id).entry = null;
+    go(id + '_dict'); return; }
   const latWx = t.closest('[data-latwx]');
   if (latWx){ const i = latWx.dataset.latwx.indexOf(':'); const id = latWx.dataset.latwx.slice(0, i);
     latSt(id).q = latWx.dataset.latwx.slice(i + 1); latSt(id).entry = null;

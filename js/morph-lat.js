@@ -1068,7 +1068,12 @@ function forms(lang, word, pos){
     }
   }
 
-  if (/danh từ|tính từ/.test(p) || !isVerb){
+  /* Mục từ nhiều chữ — «a falta de», «tout à fait», «hacer falta» — không có
+     số nhiều và không có giống. Áp luật hợp giống vào đó thì sinh ra
+     «a condición des», một chữ không tồn tại mà lại lọt cả vào danh sách thu
+     audio. Cụm thì chỉ có chính nó. */
+  const multi = /\s/.test(w);
+  if (!multi && (/danh từ|tính từ/.test(p) || !isVerb)){
     if (lang === 'fr'){
       out.add(frPlural(w));
       if (FR_PRE_VOWEL[w]) out.add(FR_PRE_VOWEL[w]);
@@ -1111,6 +1116,83 @@ function forms(lang, word, pos){
   return Array.from(out);
 }
 
+/* ============================================================
+   TRỌNG ÂM TIẾNG TÂY BAN NHA
+   ------------------------------------------------------------
+   Vì sao cần: cùng một động từ mà trọng âm nhảy chỗ theo đuôi chia —
+   lla·MAR nhưng LLA·mas, rồi lla·MÉ, rồi lla·ma·RÍ·a·mos. Viết thì
+   giống nhau nên nhìn bảng chia không thấy, mà nghe thì khác hẳn.
+   Đây là thứ người học nghe ra trước khi hiểu ra, nên phải nói thẳng.
+
+   Tiếng Tây Ban Nha có luật trọng âm KÍN — không có ngoại lệ nào:
+     · có dấu sắc thì trọng âm ở đúng đó;
+     · không dấu mà kết thúc bằng nguyên âm, n hoặc s thì rơi vào âm
+       tiết áp chót;
+     · còn lại thì rơi vào âm tiết cuối.
+   Vì luật kín nên tính được cho MỌI từ, không phải đoán chữ nào.
+   ============================================================ */
+const ES_V = 'aeiouáéíóúü', ES_STRONG = 'aeoáéó', ES_ACC = 'áéíóú';
+/* Cặp phụ âm không tách rời khi chia âm tiết: gui·TA·rra chứ không phải
+   «gui·tar·ra», pla·to chứ không phải «plat·o». */
+const ES_CLUSTER = ['ch','ll','rr','pr','br','tr','dr','cr','gr','fr',
+                    'pl','bl','cl','gl','fl','tl'];
+
+/** Tách một từ tiếng Tây Ban Nha thành âm tiết. */
+function esSyllables(word){
+  const w = low(word).replace(/[^a-záéíóúüñ]/g, '');
+  if (!w) return [];
+  const isV = c => ES_V.indexOf(c) >= 0;
+  const weakAcc = c => 'íú'.indexOf(c) >= 0;
+  const out = [];
+  let i = 0;
+  while (i < w.length){
+    let onset = '';
+    while (i < w.length && !isV(w[i])){ onset += w[i]; i++; }
+    let nucleus = '';
+    while (i < w.length && isV(w[i])){
+      if (nucleus){
+        const a = nucleus[nucleus.length - 1], b = w[i];
+        /* Hai nguyên âm mạnh đứng cạnh nhau thì thành hai âm tiết (pa·se·o);
+           nguyên âm yếu mang dấu cũng tách ra (pa·ÍS, DÍ·a). */
+        if ((ES_STRONG.indexOf(a) >= 0 && ES_STRONG.indexOf(b) >= 0)
+            || weakAcc(a) || weakAcc(b)) break;
+      }
+      nucleus += w[i]; i++;
+    }
+    if (!nucleus){ if (onset){ if (out.length) out[out.length - 1] += onset; else out.push(onset); } break; }
+    let cc = '', j = i;
+    while (j < w.length && !isV(w[j])){ cc += w[j]; j++; }
+    let coda = '', next = '';
+    if (j >= w.length) coda = cc;
+    else if (cc.length === 1) next = cc;
+    else if (cc.length === 2){ if (ES_CLUSTER.indexOf(cc) >= 0) next = cc; else { coda = cc[0]; next = cc[1]; } }
+    else if (cc.length === 3){ if (ES_CLUSTER.indexOf(cc.slice(1)) >= 0){ coda = cc[0]; next = cc.slice(1); } else { coda = cc.slice(0, 2); next = cc[2]; } }
+    else if (cc.length > 3){ coda = cc.slice(0, cc.length - 2); next = cc.slice(-2); }
+    out.push(onset + nucleus + coda);
+    i = j - next.length;
+  }
+  return out.filter(Boolean);
+}
+
+/** Vị trí âm tiết mang trọng âm (chỉ số trong mảng esSyllables). */
+function esStress(word){
+  const s = esSyllables(word);
+  if (!s.length) return -1;
+  for (let k = 0; k < s.length; k++)
+    if ([...s[k]].some(c => ES_ACC.indexOf(c) >= 0)) return k;
+  const w = low(word).replace(/[^a-záéíóúüñ]/g, '');
+  const last = w[w.length - 1];
+  return (ES_V.indexOf(last) >= 0 || last === 'n' || last === 's')
+    ? Math.max(0, s.length - 2) : s.length - 1;
+}
+
+/** «lla·MAR» — âm tiết ngăn bằng dấu chấm giữa, âm tiết mạnh viết hoa. */
+function esStressMark(word){
+  const s = esSyllables(word), k = esStress(word);
+  if (!s.length) return String(word || '');
+  return s.map((x, i) => i === k ? x.toUpperCase() : x).join('·');
+}
+
 /** Bảng chia — dùng chung cho hai tiếng. */
 function table(lang, inf){
   return lang === 'fr' ? frTable(inf) : lang === 'es' ? esTable(inf) : null;
@@ -1122,7 +1204,8 @@ function isVerbForm(lang, w){
 }
 
 const API = { table, forms, stripLead, frFem, frPlural, esFem, esPlural,
-              FR_PRON, ES_PRON, isVerbForm, esUnclitic };
+              FR_PRON, ES_PRON, isVerbForm, esUnclitic,
+              esSyllables, esStress, esStressMark };
 
 if (typeof window !== 'undefined') window.LAT_MORPH = API;
 if (typeof module !== 'undefined' && module.exports) module.exports = API;

@@ -2087,14 +2087,14 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 .qz-opt.ru{font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:16px}
 
 /* ---------- Từ điển Nga: mục từ đầy đủ ---------- */
-.ru-entry{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin:6px 0 10px;box-shadow:var(--shadow-sm)}
-.ru-entry-head{border-bottom:1px solid var(--border);padding-bottom:12px;margin-bottom:6px}
+.ru-entry{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:6px 0 10px;box-shadow:var(--shadow-sm)}
+.ru-entry-head{border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:6px}
 .ru-entry-word{font-size:30px;font-weight:700;line-height:1.2;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .ru-entry-meta{color:var(--muted);font-size:13.5px;margin-top:4px}
 .ru-gov{color:var(--accent-2);font-weight:600}
 .ru-entry-refs{margin-top:6px;display:flex;flex-wrap:wrap;gap:4px}
 .ru-dict-tag,.zh-dict-tag{font-size:11.5px;color:var(--muted);border:1px dashed var(--line);border-radius:999px;padding:1px 8px}
-.ru-entry-sec{padding:12px 0 4px;border-bottom:1px dashed var(--border)}
+.ru-entry-sec{padding:12px 0 4px;border-bottom:1px dashed var(--line)}
 .ru-entry-sec:last-child{border-bottom:0}
 .ru-entry-sec h3{font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
 .ru-senses{margin:0;padding-left:22px}
@@ -2109,7 +2109,7 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 .ru-entry-note{font-size:13.5px;background:var(--surface-2);border-radius:8px;padding:8px 11px;margin:8px 0 2px}
 .ru-struct{display:flex;flex-direction:column;gap:6px}
 .ru-seg-row{display:flex;flex-wrap:wrap;gap:3px;font-size:22px;font-weight:600}
-.ru-seg{display:inline-block;padding:2px 8px;border-radius:7px;border:1px solid var(--border);line-height:1.3}
+.ru-seg{display:inline-block;padding:2px 8px;border-radius:7px;border:1px solid var(--line);line-height:1.3}
 .ru-seg.pre{background:color-mix(in srgb,var(--accent) 12%,var(--surface));border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
 .ru-seg.root{background:color-mix(in srgb,var(--seal,#8E2F3C) 14%,var(--surface));border-color:color-mix(in srgb,var(--seal,#8E2F3C) 45%,transparent);font-weight:800}
 .ru-seg.suf{background:color-mix(in srgb,var(--accent-2,#2a7) 12%,var(--surface))}
@@ -2123,7 +2123,7 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 .ru-irr{color:var(--seal,#8E2F3C);font-weight:600}
 .ru-tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .ru-tbl{border-collapse:collapse;width:100%;font-size:15px;min-width:420px}
-.ru-tbl th,.ru-tbl td{border:1px solid var(--border);padding:6px 10px;text-align:left;vertical-align:top}
+.ru-tbl th,.ru-tbl td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
 .ru-tbl thead th{background:var(--surface-2);font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
 .ru-tbl tbody th{background:var(--surface-2);font-weight:500;white-space:nowrap;width:1%}
 .ru-tbl tbody th small{display:block;font-size:11px;color:var(--muted);font-weight:400;line-height:1.2}
@@ -2423,6 +2423,34 @@ body,.nav,.zh-found-card,.lesson-card,.zh-word,.zh-res{transition:background-col
 .lat-alt2 b{font-size:15px;color:var(--ink)}
 .lat-alt2 i{margin-left:8px;font-size:12px;color:var(--muted);font-style:normal}
 .lat-alt2 .zh-gram-note{margin:5px 0 0}
+
+/* ---- Dạng chia bấm được trong bảng chia ----
+   Không đặt icon loa vào từng ô: một bảng chia có bốn mươi tám ô, bốn mươi tám
+   cái loa thì bảng thành cái mớ. Thay vào đó cả ô bấm được, và chỗ nghe nằm ở
+   mục từ mà nó dẫn tới. Gạch chân mờ để người học biết là bấm được mà không
+   làm rối bảng. */
+.lat-fm{cursor:pointer;border-radius:2px;text-decoration:underline dotted transparent;
+  text-underline-offset:3px;transition:background .12s,color .12s}
+.lat-conj-tb tr:hover .lat-fm{text-decoration-color:var(--faint)}
+.lat-fm:hover{color:var(--accent);background:var(--accent-soft);text-decoration-color:var(--accent)}
+.lat-conj-hint{margin:10px 0 0;font-size:12.5px;color:var(--muted);display:flex;
+  align-items:center;gap:6px}
+.lat-conj-hint .ln-ico{flex:none;width:15px;height:15px}
+
+/* Trọng âm nhảy chỗ (Tây Ban Nha) và các dạng đọc giống nhau (Pháp). Đây là
+   thứ người học NGHE ra trước khi hiểu ra, nên cho nó chỗ đứng riêng chứ không
+   nhét vào chú thích nhỏ. */
+.lat-stress{margin:12px 0 0;padding:11px 13px;border:1px solid var(--line);
+  border-left:3px solid var(--accent);border-radius:0 5px 5px 0;background:var(--surface)}
+.lat-stress-tag{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:5px}
+.lat-stress b{font-size:16px;letter-spacing:.01em}
+.lat-stress i{color:var(--faint);font-style:normal;margin:0 4px}
+.lat-stress p{margin:7px 0 0;font-size:12.5px;line-height:1.65;color:var(--muted)}
+
+.lat-via-top{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.lat-via-top b{font-size:17px}
+.lat-via-str{font-size:13px;color:var(--accent);letter-spacing:.02em}
 
 </style>
 </head>
@@ -7984,7 +8012,262 @@ const VOCAB_COMMON = [
   {ko:'에서', rom:'eseo', vi:'ở (nơi diễn ra hành động); từ', pos:'trợ từ'},
   {ko:'도', rom:'do', vi:'cũng; (đi với phủ định) một… nào', pos:'trợ từ'},
   {ko:'들', rom:'deul', vi:'đuôi chỉ số nhiều', pos:'đuôi từ'},
-  {ko:'아무도', rom:'amudo', vi:'không một ai (đi với phủ định)', pos:'đại từ'}
+  {ko:'아무도', rom:'amudo', vi:'không một ai (đi với phủ định)', pos:'đại từ'},
+
+  /* ============================================================
+     BỔ SUNG SAU KHI ĐO ĐỘ PHỦ TRA TỪ
+     ------------------------------------------------------------
+     Đo lại toàn bộ câu ví dụ thấy nhiều chỗ bấm vào không ra gì.
+     Phần lớn không phải từ vựng thiếu mà là hai thứ khác:
+
+       · DANH TỪ PHỤ THUỘC và MẪU NGỮ PHÁP — 거예요, 만큼, 마련이다,
+         셈이다, 따름이다. Chúng không phải «từ» theo nghĩa thông
+         thường nên giáo trình không xếp vào bảng từ vựng, nhưng lại
+         là thứ người học bấm vào nhiều nhất vì không đoán được nghĩa.
+
+       · ĐỘNG TỪ ĐI VỚI TRỢ TỪ CỐ ĐỊNH — 통하다 (-를 통해), 비하다
+         (-에 비해), 인하다 (-로 인해). Trong câu chúng luôn hiện ra ở
+         dạng đã chia nên không ai nghĩ tới việc tra dạng gốc.
+
+     Nội dung do LangLab tự biên soạn.
+     ============================================================ */
+
+  /* ---------- Danh từ phụ thuộc & mẫu ngữ pháp ---------- */
+  {ko:'거예요', rom:'geoyeyo', vi:'sẽ…; chắc là… (nói tắt của 것이에요, đứng sau -을/ㄹ)', pos:'mẫu ngữ pháp'},
+  {ko:'건', rom:'geon', vi:'cái mà… (nói tắt của 것은)', pos:'mẫu ngữ pháp'},
+  {ko:'만큼', rom:'mankeum', vi:'bằng, đến mức', pos:'danh từ phụ thuộc'},
+  {ko:'데', rom:'de', vi:'chỗ, nơi; việc, điểm', pos:'danh từ phụ thuộc'},
+  {ko:'텐데', rom:'tende', vi:'chắc là… (đứng sau -을/ㄹ, tỏ phỏng đoán kèm tiếc nuối)', pos:'mẫu ngữ pháp'},
+  {ko:'데다가', rom:'dedaga', vi:'thêm vào đó, đã… lại còn…', pos:'mẫu ngữ pháp'},
+  {ko:'따름', rom:'ttareum', vi:'chỉ có thế thôi (…을 따름이다)', pos:'danh từ phụ thuộc'},
+  {ko:'마련', rom:'maryeon', vi:'lẽ tất nhiên sẽ… (…기 마련이다)', pos:'danh từ phụ thuộc'},
+  {ko:'뿐', rom:'ppun', vi:'chỉ, chỉ có', pos:'danh từ phụ thuộc'},
+  {ko:'셈', rom:'sem', vi:'coi như là (…는 셈이다)', pos:'danh từ phụ thuộc'},
+  {ko:'나름', rom:'nareum', vi:'tuỳ vào (…기 나름이다)', pos:'danh từ phụ thuộc'},
+  {ko:'십상', rom:'sipsang', vi:'dễ mà… lắm (…기 십상이다)', pos:'danh từ phụ thuộc', hanja:'十常', hv:'thập thường'},
+  {ko:'채', rom:'chae', vi:'nguyên trạng, cứ để nguyên (…은 채로)', pos:'danh từ phụ thuộc'},
+  {ko:'겸', rom:'gyeom', vi:'kiêm, vừa… vừa…', pos:'danh từ phụ thuộc', hanja:'兼', hv:'kiêm'},
+  {ko:'둥', rom:'dung', vi:'kiểu như, ra vẻ (…는 둥 마는 둥)', pos:'danh từ phụ thuộc'},
+  {ko:'리', rom:'ri', vi:'lẽ nào, có lí nào (…을 리가 없다)', pos:'danh từ phụ thuộc', hanja:'理', hv:'lí'},
+  {ko:'바', rom:'ba', vi:'điều, việc (…는 바와 같이)', pos:'danh từ phụ thuộc'},
+  {ko:'만무하다', rom:'manmuhada', vi:'không thể có chuyện… (…을 리 만무하다)', pos:'tính từ', hanja:'萬無—', hv:'vạn vô'},
+  {ko:'마는', rom:'maneun', vi:'nhưng mà (nối sau câu, văn viết)', pos:'liên từ'},
+  {ko:'무언가', rom:'mueonga', vi:'cái gì đó', pos:'đại từ'},
+  {ko:'대가', rom:'daega', vi:'cái giá phải trả', pos:'danh từ', hanja:'代價', hv:'đại giá'},
+  {ko:'한', rom:'han', vi:'giới hạn, chừng mực (…는 한)', pos:'danh từ phụ thuộc', hanja:'限', hv:'hạn'},
+
+  /* ---------- Động từ đi kèm trợ từ cố định ---------- */
+  {ko:'통하다', rom:'tonghada', vi:'thông qua, nhờ vào (…를 통해)', pos:'động từ', hanja:'通—', hv:'thông'},
+  {ko:'비하다', rom:'bihada', vi:'so với (…에 비해)', pos:'động từ', hanja:'比—', hv:'tỉ'},
+  {ko:'반하다', rom:'banhada', vi:'ngược lại với (…에 반해)', pos:'động từ', hanja:'反—', hv:'phản'},
+  {ko:'인하다', rom:'inhada', vi:'do, bởi (…로 인해)', pos:'động từ', hanja:'因—', hv:'nhân'},
+  {ko:'대하다', rom:'daehada', vi:'về, đối với (…에 대해)', pos:'động từ', hanja:'對—', hv:'đối'},
+  {ko:'관하다', rom:'gwanhada', vi:'liên quan tới (…에 관해)', pos:'động từ', hanja:'關—', hv:'quan'},
+  {ko:'비롯하다', rom:'birothada', vi:'bắt đầu từ; kể cả (…를 비롯해)', pos:'động từ'},
+  {ko:'비롯되다', rom:'birotdoeda', vi:'bắt nguồn từ', pos:'động từ'},
+  {ko:'불구하다', rom:'bulguhada', vi:'mặc dù (…에도 불구하고)', pos:'động từ', hanja:'不拘—', hv:'bất câu'},
+  {ko:'말미암다', rom:'malmiamda', vi:'do bởi (…로 말미암아, văn viết)', pos:'động từ'},
+  {ko:'막론하다', rom:'mangnonhada', vi:'bất kể (…를 막론하고)', pos:'động từ', hanja:'莫論—', hv:'mạc luận'},
+  {ko:'따르다', rom:'ttareuda', vi:'theo, tuân theo (…에 따르면: theo như)', pos:'động từ'},
+  {ko:'불과하다', rom:'bulgwahada', vi:'chỉ là, chẳng qua là', pos:'tính từ', hanja:'不過—', hv:'bất quá'},
+  {ko:'중시하다', rom:'jungsihada', vi:'coi trọng', pos:'động từ', hanja:'重視—', hv:'trọng thị'},
+  {ko:'척하다', rom:'cheokhada', vi:'giả vờ, làm ra vẻ', pos:'động từ'},
+  {ko:'대신하다', rom:'daesinhada', vi:'thay thế', pos:'động từ', hanja:'代身—', hv:'đại thân'},
+
+  /* ---------- Động từ · tính từ còn thiếu ---------- */
+  {ko:'어떻다', rom:'eotteota', vi:'thế nào, ra sao', pos:'tính từ'},
+  {ko:'필요하다', rom:'piryohada', vi:'cần thiết', pos:'tính từ', hanja:'必要—', hv:'tất yếu'},
+  {ko:'걱정되다', rom:'geokjeongdoeda', vi:'thấy lo, đâm lo', pos:'động từ'},
+  {ko:'걱정하다', rom:'geokjeonghada', vi:'lo lắng', pos:'động từ'},
+  {ko:'안전하다', rom:'anjeonhada', vi:'an toàn', pos:'tính từ', hanja:'安全—', hv:'an toàn'},
+  {ko:'자연스럽다', rom:'jayeonseureopda', vi:'tự nhiên, không gượng', pos:'tính từ', hanja:'自然—', hv:'tự nhiên'},
+  {ko:'아름답다', rom:'areumdapda', vi:'đẹp', pos:'tính từ'},
+  {ko:'소용없다', rom:'soyongeopda', vi:'vô ích', pos:'tính từ', hanja:'所用—', hv:'sở dụng'},
+  {ko:'화내다', rom:'hwanaeda', vi:'nổi giận', pos:'động từ', hanja:'火—', hv:'hoả'},
+  {ko:'어기다', rom:'eogida', vi:'vi phạm, trái lời', pos:'động từ'},
+  {ko:'실천하다', rom:'silcheonhada', vi:'thực hiện, đưa vào làm', pos:'động từ', hanja:'實踐—', hv:'thực tiễn'},
+  {ko:'실패하다', rom:'silpaehada', vi:'thất bại', pos:'động từ', hanja:'失敗—', hv:'thất bại'},
+  {ko:'깊다', rom:'gipda', vi:'sâu', pos:'tính từ'},
+  {ko:'늘어나다', rom:'neureonada', vi:'tăng lên, nhiều thêm', pos:'động từ'},
+  {ko:'줄어들다', rom:'jureodeulda', vi:'giảm đi', pos:'động từ'},
+  {ko:'짓다', rom:'jitda', vi:'xây; làm ra; đặt (tên)', pos:'động từ'},
+  {ko:'기대다', rom:'gidaeda', vi:'dựa vào, ỷ vào', pos:'động từ'},
+  {ko:'인정하다', rom:'injeonghada', vi:'công nhận, thừa nhận', pos:'động từ', hanja:'認定—', hv:'nhận định'},
+  {ko:'대화하다', rom:'daehwahada', vi:'trò chuyện, đối thoại', pos:'động từ', hanja:'對話—', hv:'đối thoại'},
+  {ko:'싸우다', rom:'ssauda', vi:'cãi nhau, đánh nhau', pos:'động từ'},
+  {ko:'자유롭다', rom:'jayuropda', vi:'tự do', pos:'tính từ', hanja:'自由—', hv:'tự do'},
+  {ko:'약해지다', rom:'yakhaejida', vi:'yếu đi', pos:'động từ', hanja:'弱—', hv:'nhược'},
+  {ko:'택하다', rom:'taekhada', vi:'chọn', pos:'động từ', hanja:'擇—', hv:'trạch'},
+  {ko:'얻다', rom:'eotda', vi:'nhận được, đạt được', pos:'động từ'},
+  {ko:'이해되다', rom:'ihaedoeda', vi:'hiểu ra, thấy dễ hiểu', pos:'động từ', hanja:'理解—', hv:'lí giải'},
+  {ko:'교류하다', rom:'gyoryuhada', vi:'giao lưu', pos:'động từ', hanja:'交流—', hv:'giao lưu'},
+  {ko:'참여하다', rom:'chamyeohada', vi:'tham gia', pos:'động từ', hanja:'參與—', hv:'tham dự'},
+  {ko:'발전하다', rom:'baljeonhada', vi:'phát triển', pos:'động từ', hanja:'發展—', hv:'phát triển'},
+  {ko:'지키다', rom:'jikida', vi:'giữ gìn, tuân thủ', pos:'động từ'},
+  {ko:'높이다', rom:'nopida', vi:'nâng cao', pos:'động từ'},
+  {ko:'넓히다', rom:'neolpida', vi:'mở rộng', pos:'động từ'},
+  {ko:'깎다', rom:'kkakda', vi:'gọt; bớt giá', pos:'động từ'},
+  {ko:'아끼다', rom:'akkida', vi:'tiết kiệm; quý trọng', pos:'động từ'},
+  {ko:'나아지다', rom:'naajida', vi:'khá lên, tốt lên', pos:'động từ'},
+  {ko:'후회하다', rom:'huhoehada', vi:'hối hận', pos:'động từ', hanja:'後悔—', hv:'hậu hối'},
+  {ko:'고민하다', rom:'gominhada', vi:'trăn trở, băn khoăn', pos:'động từ', hanja:'苦悶—', hv:'khổ muộn'},
+  {ko:'노력하다', rom:'noryeokhada', vi:'nỗ lực', pos:'động từ', hanja:'努力—', hv:'nỗ lực'},
+  {ko:'취직하다', rom:'chwijikhada', vi:'xin được việc', pos:'động từ', hanja:'就職—', hv:'tựu chức'},
+  {ko:'창업하다', rom:'changeophada', vi:'khởi nghiệp', pos:'động từ', hanja:'創業—', hv:'sáng nghiệp'},
+  {ko:'도전하다', rom:'dojeonhada', vi:'thử sức, thách thức', pos:'động từ', hanja:'挑戰—', hv:'khiêu chiến'},
+  {ko:'번역하다', rom:'beonyeokhada', vi:'dịch', pos:'động từ', hanja:'飜譯—', hv:'phiên dịch'},
+  {ko:'검증하다', rom:'geomjeunghada', vi:'kiểm chứng', pos:'động từ', hanja:'檢證—', hv:'kiểm chứng'},
+  {ko:'배려하다', rom:'baeryeohada', vi:'quan tâm, để ý tới người khác', pos:'động từ', hanja:'配慮—', hv:'phối lự'},
+  {ko:'포기하다', rom:'pogihada', vi:'từ bỏ', pos:'động từ', hanja:'抛棄—', hv:'phao khí'},
+  {ko:'보존되다', rom:'bojondoeda', vi:'được bảo tồn', pos:'động từ', hanja:'保存—', hv:'bảo tồn'},
+  {ko:'과로하다', rom:'gwarohada', vi:'làm việc quá sức', pos:'động từ', hanja:'過勞—', hv:'quá lao'},
+  {ko:'감추다', rom:'gamchuda', vi:'giấu đi', pos:'động từ'},
+  {ko:'희생되다', rom:'huisaengdoeda', vi:'bị hi sinh', pos:'động từ', hanja:'犧牲—', hv:'hi sinh'},
+  {ko:'감탄하다', rom:'gamtanhada', vi:'thán phục', pos:'động từ', hanja:'感歎—', hv:'cảm thán'},
+  {ko:'대체하다', rom:'daechehada', vi:'thay thế', pos:'động từ', hanja:'代替—', hv:'đại thế'},
+  {ko:'존중하다', rom:'jonjunghada', vi:'tôn trọng', pos:'động từ', hanja:'尊重—', hv:'tôn trọng'},
+  {ko:'대비하다', rom:'daebihada', vi:'chuẩn bị đối phó', pos:'động từ', hanja:'對備—', hv:'đối bị'},
+  {ko:'묻히다', rom:'muchida', vi:'bị dính, bị vùi', pos:'động từ'},
+  {ko:'잘리다', rom:'jallida', vi:'bị cắt', pos:'động từ'},
+  {ko:'선물하다', rom:'seonmulhada', vi:'tặng quà', pos:'động từ', hanja:'膳物—', hv:'thiện vật'},
+  {ko:'살아가다', rom:'saragada', vi:'sống, sinh sống', pos:'động từ'},
+  {ko:'드러나다', rom:'deureonada', vi:'lộ ra, hiện ra', pos:'động từ'},
+  {ko:'지배하다', rom:'jibaehada', vi:'chi phối, thống trị', pos:'động từ', hanja:'支配—', hv:'chi phối'},
+  {ko:'미치다', rom:'michida', vi:'gây ảnh hưởng, tác động tới', pos:'động từ'},
+  {ko:'간소해지다', rom:'gansohaejida', vi:'trở nên giản tiện', pos:'động từ', hanja:'簡素—', hv:'giản tố'},
+  {ko:'소중하다', rom:'sojunghada', vi:'quý giá', pos:'tính từ', hanja:'所重—', hv:'sở trọng'},
+  {ko:'유한하다', rom:'yuhanhada', vi:'hữu hạn', pos:'tính từ', hanja:'有限—', hv:'hữu hạn'},
+  {ko:'가난하다', rom:'gananhada', vi:'nghèo', pos:'tính từ'},
+  {ko:'독창적이다', rom:'dokchangjeogida', vi:'độc đáo, có sáng tạo riêng', pos:'tính từ', hanja:'獨創的—', hv:'độc sáng đích'},
+  {ko:'객관적이다', rom:'gaekgwanjeogida', vi:'khách quan', pos:'tính từ', hanja:'客觀的—', hv:'khách quan đích'},
+  {ko:'치열해지다', rom:'chiyeolhaejida', vi:'trở nên gay gắt', pos:'động từ', hanja:'熾烈—', hv:'sí liệt'},
+  {ko:'편향되다', rom:'pyeonhyangdoeda', vi:'bị thiên lệch', pos:'động từ', hanja:'偏向—', hv:'thiên hướng'},
+  {ko:'뒤따르다', rom:'dwittareuda', vi:'đi kèm theo sau', pos:'động từ'},
+  {ko:'타고나다', rom:'tagonada', vi:'bẩm sinh có', pos:'động từ'},
+  {ko:'틀림없다', rom:'teullimeopda', vi:'chắc chắn, không sai vào đâu', pos:'tính từ'},
+  {ko:'인정받다', rom:'injeongbatda', vi:'được công nhận', pos:'động từ', hanja:'認定—', hv:'nhận định'},
+  {ko:'바람직하다', rom:'baramjikhada', vi:'đáng mong muốn, nên như vậy', pos:'tính từ'},
+  {ko:'대응하다', rom:'daeeunghada', vi:'ứng phó', pos:'động từ', hanja:'對應—', hv:'đối ứng'},
+  {ko:'분명해지다', rom:'bunmyeonghaejida', vi:'trở nên rõ ràng', pos:'động từ', hanja:'分明—', hv:'phân minh'},
+  {ko:'충분하다', rom:'chungbunhada', vi:'đầy đủ', pos:'tính từ', hanja:'充分—', hv:'sung phân'},
+  {ko:'참신하다', rom:'chamsinhada', vi:'mới mẻ, độc đáo', pos:'tính từ', hanja:'斬新—', hv:'trảm tân'},
+  {ko:'평등하다', rom:'pyeongdeunghada', vi:'bình đẳng', pos:'tính từ', hanja:'平等—', hv:'bình đẳng'},
+
+  /* ---------- Phó từ · đại từ · liên từ ---------- */
+  {ko:'좀', rom:'jom', vi:'một chút; làm ơn (nói giảm cho lịch sự)', pos:'phó từ'},
+  {ko:'서로', rom:'seoro', vi:'lẫn nhau', pos:'phó từ'},
+  {ko:'뭐', rom:'mwo', vi:'gì, cái gì (nói tắt của 무엇)', pos:'đại từ'},
+  {ko:'또', rom:'tto', vi:'lại, lại nữa', pos:'phó từ'},
+  {ko:'그저', rom:'geujeo', vi:'chỉ là, đơn thuần', pos:'phó từ'},
+  {ko:'한번', rom:'hanbeon', vi:'một lần; thử xem', pos:'phó từ'},
+  {ko:'누구나', rom:'nuguna', vi:'ai cũng', pos:'đại từ'},
+  {ko:'그렇게', rom:'geureoke', vi:'như thế, như vậy', pos:'phó từ'},
+  {ko:'옛날', rom:'yennal', vi:'ngày xưa', pos:'danh từ'},
+  {ko:'매달', rom:'maedal', vi:'hằng tháng', pos:'phó từ', hanja:'每—', hv:'mỗi'},
+  {ko:'그러니', rom:'geureoni', vi:'vậy nên', pos:'liên từ'},
+  {ko:'점점', rom:'jeomjeom', vi:'dần dần', pos:'phó từ', hanja:'漸漸', hv:'tiệm tiệm'},
+  {ko:'완전히', rom:'wanjeonhi', vi:'hoàn toàn', pos:'phó từ', hanja:'完全—', hv:'hoàn toàn'},
+  {ko:'언젠가', rom:'eonjenga', vi:'một lúc nào đó', pos:'phó từ'},
+  {ko:'스스로', rom:'seuseuro', vi:'tự mình', pos:'phó từ'},
+  {ko:'무척', rom:'mucheok', vi:'vô cùng, rất', pos:'phó từ'},
+  {ko:'차분히', rom:'chabunhi', vi:'điềm tĩnh, thong thả', pos:'phó từ'},
+  {ko:'바로', rom:'baro', vi:'ngay, chính là', pos:'phó từ'},
+  {ko:'매우', rom:'maeu', vi:'rất', pos:'phó từ'},
+  {ko:'역시', rom:'yeoksi', vi:'quả nhiên; cũng vậy', pos:'phó từ', hanja:'亦是', hv:'diệc thị'},
+  {ko:'여러', rom:'yeoreo', vi:'nhiều, vài', pos:'định từ'},
+  {ko:'소홀히', rom:'soholhi', vi:'qua loa, lơ là', pos:'phó từ', hanja:'疏忽—', hv:'sơ hốt'},
+  {ko:'당분간', rom:'dangbungan', vi:'trong thời gian tới', pos:'phó từ', hanja:'當分間', hv:'đương phân gian'},
+  {ko:'예전', rom:'yejeon', vi:'trước kia', pos:'danh từ'},
+  {ko:'지난번', rom:'jinanbeon', vi:'lần trước', pos:'danh từ'},
+  {ko:'그날', rom:'geunal', vi:'hôm ấy', pos:'danh từ'},
+  {ko:'글쎄요', rom:'geulsseyo', vi:'để xem đã, khó nói quá', pos:'thán từ'},
+  {ko:'그럼', rom:'geureom', vi:'vậy thì; tất nhiên rồi', pos:'liên từ'},
+  {ko:'나머지', rom:'nameoji', vi:'phần còn lại', pos:'danh từ'},
+  {ko:'본인', rom:'bonin', vi:'bản thân người đó', pos:'danh từ', hanja:'本人', hv:'bản nhân'},
+
+  /* ---------- Danh từ còn thiếu ---------- */
+  {ko:'원인', rom:'wonin', vi:'nguyên nhân', pos:'danh từ', hanja:'原因', hv:'nguyên nhân'},
+  {ko:'역할', rom:'yeokhal', vi:'vai trò', pos:'danh từ', hanja:'役割', hv:'dịch cát'},
+  {ko:'삶', rom:'sam', vi:'cuộc sống, cuộc đời', pos:'danh từ'},
+  {ko:'질', rom:'jil', vi:'chất lượng', pos:'danh từ', hanja:'質', hv:'chất'},
+  {ko:'손해', rom:'sonhae', vi:'thiệt hại', pos:'danh từ', hanja:'損害', hv:'tổn hại'},
+  {ko:'효과', rom:'hyogwa', vi:'hiệu quả', pos:'danh từ', hanja:'效果', hv:'hiệu quả'},
+  {ko:'지식', rom:'jisik', vi:'kiến thức', pos:'danh từ', hanja:'知識', hv:'tri thức'},
+  {ko:'배움', rom:'baeum', vi:'sự học', pos:'danh từ'},
+  {ko:'상상력', rom:'sangsangnyeok', vi:'trí tưởng tượng', pos:'danh từ', hanja:'想像力', hv:'tưởng tượng lực'},
+  {ko:'예술', rom:'yesul', vi:'nghệ thuật', pos:'danh từ', hanja:'藝術', hv:'nghệ thuật'},
+  {ko:'껍데기', rom:'kkeopdegi', vi:'cái vỏ ngoài', pos:'danh từ'},
+  {ko:'기계', rom:'gigye', vi:'máy móc', pos:'danh từ', hanja:'機械', hv:'cơ giới'},
+  {ko:'위험', rom:'wiheom', vi:'nguy hiểm, rủi ro', pos:'danh từ', hanja:'危險', hv:'nguy hiểm'},
+  {ko:'다름', rom:'dareum', vi:'sự khác biệt', pos:'danh từ'},
+  {ko:'순간', rom:'sungan', vi:'khoảnh khắc', pos:'danh từ', hanja:'瞬間', hv:'thuấn gian'},
+  {ko:'행사', rom:'haengsa', vi:'sự kiện, lễ hội', pos:'danh từ', hanja:'行事', hv:'hành sự'},
+  {ko:'참여', rom:'chamyeo', vi:'sự tham gia', pos:'danh từ', hanja:'參與', hv:'tham dự'},
+  {ko:'사실', rom:'sasil', vi:'sự thật; thật ra', pos:'danh từ', hanja:'事實', hv:'sự thật'},
+  {ko:'증거', rom:'jeunggeo', vi:'bằng chứng', pos:'danh từ', hanja:'證據', hv:'chứng cứ'},
+  {ko:'근거', rom:'geungeo', vi:'căn cứ, cơ sở', pos:'danh từ', hanja:'根據', hv:'căn cứ'},
+  {ko:'목표', rom:'mokpyo', vi:'mục tiêu', pos:'danh từ', hanja:'目標', hv:'mục tiêu'},
+  {ko:'성과', rom:'seonggwa', vi:'thành quả', pos:'danh từ', hanja:'成果', hv:'thành quả'},
+  {ko:'양식', rom:'yangsik', vi:'kiểu, phong cách; biểu mẫu', pos:'danh từ', hanja:'樣式', hv:'dạng thức'},
+  {ko:'원형', rom:'wonhyeong', vi:'nguyên bản, hình dạng gốc', pos:'danh từ', hanja:'原形', hv:'nguyên hình'},
+  {ko:'유서', rom:'yuseo', vi:'lai lịch lâu đời (유서 깊다)', pos:'danh từ', hanja:'由緖', hv:'do tự'},
+  {ko:'계층', rom:'gyecheung', vi:'tầng lớp', pos:'danh từ', hanja:'階層', hv:'giai tầng'},
+  {ko:'확대', rom:'hwakdae', vi:'sự mở rộng', pos:'danh từ', hanja:'擴大', hv:'khuếch đại'},
+  {ko:'시민', rom:'simin', vi:'người dân, công dân', pos:'danh từ', hanja:'市民', hv:'thị dân'},
+  {ko:'정부', rom:'jeongbu', vi:'chính phủ', pos:'danh từ', hanja:'政府', hv:'chính phủ'},
+  {ko:'산업화', rom:'saneophwa', vi:'công nghiệp hoá', pos:'danh từ', hanja:'産業化', hv:'sản nghiệp hoá'},
+  {ko:'환경오염', rom:'hwangyeongoyeom', vi:'ô nhiễm môi trường', pos:'danh từ', hanja:'環境汚染', hv:'hoàn cảnh ô nhiễm'},
+  {ko:'남용', rom:'namyong', vi:'sự lạm dụng', pos:'danh từ', hanja:'濫用', hv:'lạm dụng'},
+  {ko:'편집', rom:'pyeonjip', vi:'sự biên tập', pos:'danh từ', hanja:'編輯', hv:'biên tập'},
+  {ko:'윤리', rom:'yulli', vi:'đạo đức, luân lí', pos:'danh từ', hanja:'倫理', hv:'luân lí'},
+  {ko:'지위', rom:'jiwi', vi:'địa vị', pos:'danh từ', hanja:'地位', hv:'địa vị'},
+  {ko:'관용', rom:'gwanyong', vi:'sự bao dung', pos:'danh từ', hanja:'寬容', hv:'khoan dung'},
+  {ko:'바탕', rom:'batang', vi:'nền tảng', pos:'danh từ'},
+  {ko:'불교', rom:'bulgyo', vi:'đạo Phật', pos:'danh từ', hanja:'佛敎', hv:'phật giáo'},
+  {ko:'정취', rom:'jeongchwi', vi:'nét thi vị, hồn quê', pos:'danh từ', hanja:'情趣', hv:'tình thú'},
+  {ko:'녹지', rom:'nokji', vi:'mảng xanh', pos:'danh từ', hanja:'綠地', hv:'lục địa'},
+  {ko:'의욕', rom:'uiyok', vi:'ý chí, động lực', pos:'danh từ', hanja:'意慾', hv:'ý dục'},
+  {ko:'끈기', rom:'kkeungi', vi:'sự bền bỉ', pos:'danh từ'},
+  {ko:'장점', rom:'jangjeom', vi:'điểm mạnh', pos:'danh từ', hanja:'長點', hv:'trường điểm'},
+  {ko:'핵심', rom:'haeksim', vi:'cốt lõi', pos:'danh từ', hanja:'核心', hv:'hạch tâm'},
+  {ko:'성숙', rom:'seongsuk', vi:'sự trưởng thành', pos:'danh từ', hanja:'成熟', hv:'thành thục'},
+  {ko:'태도', rom:'taedo', vi:'thái độ', pos:'danh từ', hanja:'態度', hv:'thái độ'},
+  {ko:'자세', rom:'jase', vi:'tư thế; thái độ', pos:'danh từ', hanja:'姿勢', hv:'tư thế'},
+  {ko:'소식', rom:'sosik', vi:'tin tức', pos:'danh từ', hanja:'消息', hv:'tiêu tức'},
+  {ko:'습관', rom:'seupgwan', vi:'thói quen', pos:'danh từ', hanja:'習慣', hv:'tập quán'},
+  {ko:'지역', rom:'jiyeok', vi:'khu vực', pos:'danh từ', hanja:'地域', hv:'địa vực'},
+  {ko:'대기업', rom:'daegieop', vi:'tập đoàn lớn', pos:'danh từ', hanja:'大企業', hv:'đại xí nghiệp'},
+  {ko:'중소기업', rom:'jungsogieop', vi:'doanh nghiệp vừa và nhỏ', pos:'danh từ', hanja:'中小企業', hv:'trung tiểu xí nghiệp'},
+  {ko:'뮤지컬', rom:'myujikeol', vi:'nhạc kịch', pos:'danh từ'},
+  {ko:'클래식', rom:'keullaesik', vi:'nhạc cổ điển', pos:'danh từ'},
+  {ko:'음식물', rom:'eumsingmul', vi:'thức ăn, đồ ăn thừa', pos:'danh từ', hanja:'飮食物', hv:'ẩm thực vật'},
+  {ko:'다회용', rom:'dahoeyong', vi:'dùng được nhiều lần', pos:'danh từ', hanja:'多回用', hv:'đa hồi dụng'},
+  {ko:'층간', rom:'cheunggan', vi:'giữa các tầng (층간 소음: tiếng ồn giữa các tầng)', pos:'danh từ', hanja:'層間', hv:'tầng gian'},
+  {ko:'유연', rom:'yuyeon', vi:'linh hoạt', pos:'danh từ', hanja:'柔軟', hv:'nhu nhuyễn'},
+  {ko:'허리띠', rom:'heoritti', vi:'thắt lưng', pos:'danh từ'},
+  {ko:'며칠', rom:'myeochil', vi:'mấy ngày; ngày mấy', pos:'danh từ'},
+  {ko:'월', rom:'wol', vi:'tháng', pos:'danh từ', hanja:'月', hv:'nguyệt'},
+  {ko:'칠', rom:'chil', vi:'bảy (số Hán–Hàn)', pos:'số từ', hanja:'七', hv:'thất'},
+  {ko:'십일', rom:'sibil', vi:'mười một', pos:'số từ', hanja:'十一', hv:'thập nhất'},
+  {ko:'이십오', rom:'isibo', vi:'hai mươi lăm', pos:'số từ', hanja:'二十五', hv:'nhị thập ngũ'},
+  {ko:'이천', rom:'icheon', vi:'hai nghìn', pos:'số từ', hanja:'二千', hv:'nhị thiên'},
+  {ko:'육천', rom:'yukcheon', vi:'sáu nghìn', pos:'số từ', hanja:'六千', hv:'lục thiên'},
+  {ko:'삼만', rom:'samman', vi:'ba vạn (30.000)', pos:'số từ', hanja:'三萬', hv:'tam vạn'},
+  {ko:'이십', rom:'isip', vi:'hai mươi', pos:'số từ', hanja:'二十', hv:'nhị thập'},
+
+  /* ---------- Tên riêng ---------- */
+  {ko:'꾸언', rom:'kkueon', vi:'Quân (tên nam, người Việt)', pos:'tên riêng'},
+  {ko:'응우옌', rom:'eunguyen', vi:'Nguyễn (họ người Việt)', pos:'tên riêng'},
+  {ko:'딘', rom:'din', vi:'Đình (tên đệm người Việt)', pos:'tên riêng'},
+  {ko:'김민수', rom:'gimminsu', vi:'Kim Min-su (họ tên người Hàn)', pos:'tên riêng'},
+  {ko:'수진', rom:'sujin', vi:'Su-jin (tên nữ, người Hàn)', pos:'tên riêng'},
+  {ko:'제주도', rom:'jejudo', vi:'đảo Jeju', pos:'tên riêng', hanja:'濟州島', hv:'tế châu đảo'},
+  {ko:'명동', rom:'myeongdong', vi:'Myeong-dong (khu mua sắm ở Seoul)', pos:'tên riêng', hanja:'明洞', hv:'minh động'},
+  {ko:'서울역', rom:'seoullyeok', vi:'ga Seoul', pos:'tên riêng', hanja:'—驛', hv:'dịch'},
+  {ko:'충무로역', rom:'chungmuroyeok', vi:'ga Chungmuro', pos:'tên riêng', hanja:'忠武路驛', hv:'trung vũ lộ dịch'},
+  {ko:'전주', rom:'jeonju', vi:'Jeonju (thành phố nổi tiếng về ẩm thực và làng cổ)', pos:'tên riêng', hanja:'全州', hv:'toàn châu'},
+  {ko:'한옥마을', rom:'hanongmaeul', vi:'làng nhà cổ Hanok', pos:'tên riêng', hanja:'韓屋—', hv:'hàn ốc'},
+
 ];
 if (typeof window !== 'undefined') window.VOCAB_COMMON = VOCAB_COMMON;
 
@@ -8727,6 +9010,18 @@ function baseCandidates(s, add){
   if (dp && !dp.jong && dp.jung === 'ㅕ'){
     add(s.slice(0, -1) + composeHangul(dp.cho, 'ㅣ', '') + '다', 'dạng gốc, gỡ co -이- + 어', 'base');
   }
+  /* Bất quy tắc ㅎ: 어때→어떻다 · 그래→그렇다 · 빨개→빨갛다 · 어떤→어떻다.
+     Thân từ kết thúc bằng ㅎ gặp 아/어 thì ㅎ rụng và nguyên âm biến thành ㅐ.
+     Đi ngược lại: ㅐ trả về ㅓ hoặc ㅏ rồi gắn ㅎ. Sinh cả hai vì không đoán
+     được, và dạng nào không có thật thì tự khắc không khớp từ điển. */
+  {
+    const hp = (typeof decomposeHangul === 'function') && decomposeHangul(last);
+    if (hp && !hp.jong && (hp.jung === 'ㅐ' || hp.jung === 'ㅒ')){
+      const v = hp.jung === 'ㅐ' ? ['ㅓ', 'ㅏ'] : ['ㅑ'];
+      v.forEach(j => add(s.slice(0, -1) + composeHangul(hp.cho, j, 'ㅎ') + '다',
+        'dạng gốc bất quy tắc ㅎ', 'base'));
+    }
+  }
   const un2 = uncontract(last);
   if (un2) add(s.slice(0, -1) + un2 + '다', 'dạng gốc, gỡ nguyên âm co', 'base');
   const eu2 = restoreEu(last);
@@ -8748,6 +9043,65 @@ function stemToBase(s, add){
   else if (/시$/.test(s) && s.length > 1) baseCandidates(s.slice(0, -1), add);
 }
 
+/* ---------------- BÓC NHIỀU LỚP ĐUÔI ----------------
+   Tiếng Hàn chồng đuôi lên nhau, mỗi lớp một việc:
+     좋 + 겠 + 어 + 요   →  좋겠어요   (tốt + phỏng đoán + thân mật + lịch sự)
+     있 + 을까 + 요      →  있을까요
+     지키 + 어야         →  지켜야     (còn co nguyên âm ㅣ+ㅓ = ㅕ)
+   Bản cũ chỉ bóc MỘT lớp rồi dừng, nên ba dạng trên đều tra không ra — mà đó
+   lại là những dạng gặp nhiều nhất trong hội thoại.
+
+   Bảng dưới đây là các lớp bóc được, xếp dài trước ngắn sau để «더라고요» không
+   bị cắt nhầm thành «…고» + «요». Bóc xong thì phân tích LẠI từ đầu, tối đa ba
+   vòng — đủ cho mọi tổ hợp thật, mà không sợ lặp vô hạn. */
+const PEEL = [
+  /* đuôi trang trọng -습니다 / -ㅂ니다 — dạng gặp nhiều nhất trong bài đọc */
+  '았습니다','었습니다','였습니다','겠습니다','으셨습니다','셨습니다','으십니다','십니다',
+  '습니다','습니까','읍시다','ㅂ시다','니다','니까',
+  /* lớp lịch sự và ngữ khí cuối câu */
+  '더라고요','더라구요','잖아요','는군요','는데요','은데요','던데요','군요','네요',
+  '지요','거든요','는걸요','을걸요','ㄹ걸요','나요','가요','까요','래요','게요',
+  '죠','요',
+  /* phỏng đoán 겠 và kính ngữ 시 */
+  '겠','으시','시',
+  /* đuôi nối và đuôi phụ thuộc */
+  '으려고','으면서','으니까','으므로','으므로써','음으로써','기로','기는','기도','기만',
+  '더라도','더라면','다면서','다고요','다는','다고','라고','자마자','느라고','는커녕',
+  '을수록','ㄹ수록','을지라도','을지언정','는데도','음에도','음에','으로써','로써',
+  '아야','어야','여야','아서','어서','여서','아도','어도','여도','아야만','어야만',
+  '도록','고자','든지','거나','지만','으면','면서','니까','는데','은데','을까','ㄹ까',
+  '을게','ㄹ게','을래','ㄹ래','을지','ㄹ지','기가','기에','길래','다가','다시피',
+  '고서','고는','고도','아라','어라','으라','세요','셔요',
+  '더니','았더니','었더니','다니','다면','라면','라도','치고','만큼','뿐',
+  '야','지','고','게','기','며','면','서','러','한들','손','네'
+];
+
+/* Đuôi hoà âm TRẦN — không kèm 요, không kèm gì cả: 먹어, 말해, 끓여, 좋겠어.
+   Đây là dạng nói thân mật, gặp dày đặc trong hội thoại. */
+const BARE_HARMONY = ['아', '어', '여'];
+
+/* Bóc đúng một lớp; trả về mọi cách bóc hợp lệ. */
+function peelOnce(token){
+  const out = [];
+  for (const e of PEEL){
+    if (token.length <= e.length || token.slice(-e.length) !== e) continue;
+    let s = token.slice(0, -e.length);
+    /* -ㅂ니다 kiểu 갑니다: patchim ㅂ dính vào âm tiết trước. */
+    if (s.length && jong(s.slice(-1)) === 'ㅂ' && /^(니다|니까)/.test(e))
+      s = s.slice(0, -1) + dropJong(s.slice(-1));
+    if (s.length) out.push([s, e]);
+  }
+  for (const v of BARE_HARMONY){
+    if (token.length > 1 && token.slice(-1) === v) out.push([token.slice(0, -1), v]);
+  }
+  /* Đuôi viết bằng patchim chứ không phải âm tiết riêng: 갈(가+ㄹ), 간(가+ㄴ),
+     배움(배우+ㅁ). Bóc patchim ra là lộ thân từ. */
+  const lc = token.slice(-1), j = jong(lc);
+  if ((j === 'ㄴ' || j === 'ㄹ' || j === 'ㅁ' || j === 'ㅂ') && token.length >= 1)
+    out.push([token.slice(0, -1) + dropJong(lc), 'đuôi ' + j]);
+  return out;
+}
+
 function forms(token){
   const out = [], seen = {};
   const add = (f, why, kind) => {
@@ -8755,6 +9109,27 @@ function forms(token){
     seen[f] = 1; out.push({ form: f, why: why, kind: kind || 'other' });
   };
   add(token, 'nguyên dạng trong câu', 'surface');
+  /* Chính chữ đang đứng đó cũng có thể LÀ thân từ đã co nguyên âm: 끓여 là
+     끓이+어, 봐 là 보+아, 해 là 하+아. Cho nó đi qua bộ gỡ co ngay từ đầu. */
+  stemToBase(token, add);
+
+  /* Bóc từng lớp rồi phân tích lại. Mỗi vòng đều chạy qua đúng bộ quy tắc gỡ
+     co nguyên âm và bất quy tắc ở baseCandidates, nên 지켜 vẫn ra 지키다. */
+  const peeled = {};
+  let layer = [[token, '']];
+  for (let depth = 0; depth < 3 && layer.length; depth++){
+    const next = [];
+    for (const [t] of layer){
+      for (const [s, e] of peelOnce(t)){
+        if (peeled[s]) continue;
+        peeled[s] = 1;
+        stemToBase(s, add);
+        add(s, 'bỏ đuôi -' + e, 'stem');
+        next.push([s, e]);
+      }
+    }
+    layer = next.slice(0, 24);          // chặn bùng nổ tổ hợp
+  }
 
   /* --- động từ / tính từ --- */
   // (1) đuôi hoà âm: …아요 / …어요 / …해요 / …아서 …
@@ -8792,8 +9167,11 @@ function forms(token){
     break;
   }
 
-  // (2) đuôi thường: …습니다 · …지만 · …고 …
-  if (!out.some(f => f.kind === 'base')){
+  /* (2) đuôi thường. Trước đây nhánh này bị chặn bởi «nếu chưa tìm ra dạng gốc
+     nào» — mà từ khi phân tích luôn chính chữ đang đứng đó, điều kiện ấy gần
+     như không bao giờ đúng nữa, nên «있습니다», «갑니다» tra vào không ra gì.
+     Bỏ chặn: add() tự khử trùng lặp nên chạy thêm không hại gì. */
+  {
     for (const e of PLAIN_ENDINGS){
       if (token.length <= e.length || token.slice(-e.length) !== e) continue;
       let s = token.slice(0, -e.length);
@@ -14318,7 +14696,6 @@ const CHARS_ZH = [
   {zh:'商', pinyin:'shāng', hv:'thương', vi:'buôn bán; bàn bạc', pos:'chữ Hán'},
   {zh:'务', pinyin:'wù', hv:'vụ', vi:'việc, nhiệm vụ', pos:'chữ Hán'},
   {zh:'园', pinyin:'yuán', hv:'viên', vi:'vườn, công viên', pos:'chữ Hán'},
-  {zh:'馆', pinyin:'guǎn', hv:'quán', vi:'quán, toà nhà công', pos:'chữ Hán'},
   {zh:'卫', pinyin:'wèi', hv:'vệ', vi:'bảo vệ, vệ sinh', pos:'chữ Hán'},
   {zh:'址', pinyin:'zhǐ', hv:'chỉ', vi:'địa chỉ, vị trí', pos:'chữ Hán'},
   {zh:'籍', pinyin:'jí', hv:'tịch', vi:'sổ sách; quốc tịch', pos:'chữ Hán'},
@@ -14461,7 +14838,6 @@ const CHARS_ZH = [
   {zh:'怎', pinyin:'zěn', hv:'chẩm', vi:'thế nào (怎么)', pos:'chữ Hán'},
   {zh:'吧', pinyin:'ba', hv:'ba', vi:'trợ từ đề nghị: … nhé', pos:'chữ Hán'},
   {zh:'烟', pinyin:'yān', hv:'yên', vi:'khói; thuốc lá', pos:'chữ Hán'},
-  {zh:'王', pinyin:'wáng', hv:'vương', vi:'vua; họ Vương', pos:'chữ Hán'},
   {zh:'明', pinyin:'míng', hv:'minh', vi:'sáng, rõ; ngày mai (明天)', pos:'chữ Hán'},
   {zh:'于', pinyin:'yú', hv:'vu', vi:'ở, tại, đối với (văn viết)', pos:'chữ Hán'},
   {zh:'住', pinyin:'zhù', hv:'trú', vi:'ở, cư trú; dừng lại', pos:'chữ Hán'},
@@ -14471,7 +14847,489 @@ const CHARS_ZH = [
   {zh:'另', pinyin:'lìng', hv:'lánh', vi:'khác, cái kia', pos:'chữ Hán'},
   {zh:'筷', pinyin:'kuài', hv:'khoái', vi:'đũa (trong 筷子)', pos:'chữ Hán'},
   {zh:'套', pinyin:'tào', hv:'sáo', vi:'bộ; bọc ngoài (trong 外套)', pos:'chữ Hán'},
-  {zh:'架', pinyin:'jià', hv:'giá', vi:'cái giá, kệ (trong 书架)', pos:'chữ Hán'}
+  {zh:'架', pinyin:'jià', hv:'giá', vi:'cái giá, kệ (trong 书架)', pos:'chữ Hán'},
+
+  /* ---------- Bổ sung vòng hai: chữ lẻ trong câu ví dụ của khoá học ----------
+     Đo độ phủ thấy 475 chữ Hán bấm vào không ra gì. Phần lớn là chữ rất thông
+     dụng — 哪, 报, 通, 无, 爱 — chỉ vì giáo trình dạy theo TỪ nên chữ lẻ không
+     bao giờ thành mục từ. Với người Việt thì âm Hán–Việt của từng chữ là chỗ
+     bám quý nhất, nên thiếu chữ lẻ là thiếu đúng thứ đáng giá. */
+  {zh:'哪', pinyin:'nǎ', hv:'na', vi:'nào; đâu', pos:'chữ Hán'},
+  {zh:'报', pinyin:'bào', hv:'báo', vi:'báo cáo; tờ báo; ghi danh', pos:'chữ Hán'},
+  {zh:'持', pinyin:'chí', hv:'trì', vi:'cầm, giữ; duy trì', pos:'chữ Hán'},
+  {zh:'备', pinyin:'bèi', hv:'bị', vi:'chuẩn bị; đầy đủ', pos:'chữ Hán'},
+  {zh:'通', pinyin:'tōng', hv:'thông', vi:'thông suốt; qua; thông báo', pos:'chữ Hán'},
+  {zh:'啊', pinyin:'a', hv:'a', vi:'(trợ từ cuối câu, làm giọng mềm đi)', pos:'chữ Hán'},
+  {zh:'坚', pinyin:'jiān', hv:'kiên', vi:'vững, bền; kiên trì', pos:'chữ Hán'},
+  {zh:'非', pinyin:'fēi', hv:'phi', vi:'không phải; châu Phi', pos:'chữ Hán'},
+  {zh:'材', pinyin:'cái', hv:'tài', vi:'vật liệu; tài năng', pos:'chữ Hán'},
+  {zh:'平', pinyin:'píng', hv:'bình', vi:'bằng phẳng; yên bình', pos:'chữ Hán'},
+  {zh:'化', pinyin:'huà', hv:'hoá', vi:'biến đổi; hậu tố «-hoá»', pos:'chữ Hán'},
+  {zh:'无', pinyin:'wú', hv:'vô', vi:'không có', pos:'chữ Hán'},
+  {zh:'免', pinyin:'miǎn', hv:'miễn', vi:'miễn, khỏi phải', pos:'chữ Hán'},
+  {zh:'与', pinyin:'yǔ', hv:'dữ', vi:'và; với (văn viết)', pos:'chữ Hán'},
+  {zh:'文', pinyin:'wén', hv:'văn', vi:'chữ viết; văn hoá', pos:'chữ Hán'},
+  {zh:'任', pinyin:'rèn', hv:'nhiệm', vi:'nhiệm vụ; mặc cho', pos:'chữ Hán'},
+  {zh:'何', pinyin:'hé', hv:'hà', vi:'gì, sao (văn viết)', pos:'chữ Hán'},
+  {zh:'必', pinyin:'bì', hv:'tất', vi:'ắt, nhất định', pos:'chữ Hán'},
+  {zh:'旅', pinyin:'lǚ', hv:'lữ', vi:'đi xa, du lịch', pos:'chữ Hán'},
+  {zh:'准', pinyin:'zhǔn', hv:'chuẩn', vi:'chuẩn xác; cho phép', pos:'chữ Hán'},
+  {zh:'消', pinyin:'xiāo', hv:'tiêu', vi:'tiêu tan; tin tức', pos:'chữ Hán'},
+  {zh:'聊', pinyin:'liáo', hv:'liêu', vi:'trò chuyện phiếm', pos:'chữ Hán'},
+  {zh:'相', pinyin:'xiāng', hv:'tương', vi:'lẫn nhau; xem tướng', pos:'chữ Hán'},
+  {zh:'害', pinyin:'hài', hv:'hại', vi:'làm hại; tai hại', pos:'chữ Hán'},
+  {zh:'误', pinyin:'wù', hv:'ngộ', vi:'nhầm; nhỡ (tàu, xe)', pos:'chữ Hán'},
+  {zh:'减', pinyin:'jiǎn', hv:'giảm', vi:'giảm, bớt', pos:'chữ Hán'},
+  {zh:'该', pinyin:'gāi', hv:'cai', vi:'nên; cái đó', pos:'chữ Hán'},
+  {zh:'责', pinyin:'zé', hv:'trách', vi:'trách nhiệm; trách mắng', pos:'chữ Hán'},
+  {zh:'验', pinyin:'yàn', hv:'nghiệm', vi:'kiểm nghiệm, thử', pos:'chữ Hán'},
+  {zh:'虚', pinyin:'xū', hv:'hư', vi:'rỗng, hư; khiêm tốn', pos:'chữ Hán'},
+  {zh:'性', pinyin:'xìng', hv:'tính', vi:'tính chất; giới tính', pos:'chữ Hán'},
+  {zh:'言', pinyin:'yán', hv:'ngôn', vi:'lời nói; ngôn ngữ', pos:'chữ Hán'},
+  {zh:'独', pinyin:'dú', hv:'độc', vi:'một mình, riêng', pos:'chữ Hán'},
+  {zh:'爱', pinyin:'ài', hv:'ái', vi:'yêu, thích', pos:'chữ Hán'},
+  {zh:'婚', pinyin:'hūn', hv:'hôn', vi:'hôn nhân, cưới', pos:'chữ Hán'},
+  {zh:'料', pinyin:'liào', hv:'liệu', vi:'vật liệu; liệu trước', pos:'chữ Hán'},
+  {zh:'练', pinyin:'liàn', hv:'luyện', vi:'luyện tập', pos:'chữ Hán'},
+  {zh:'预', pinyin:'yù', hv:'dự', vi:'trước, dự trước', pos:'chữ Hán'},
+  {zh:'计', pinyin:'jì', hv:'kế', vi:'tính toán; kế hoạch', pos:'chữ Hán'},
+  {zh:'怪', pinyin:'guài', hv:'quái', vi:'lạ lùng; trách', pos:'chữ Hán'},
+  {zh:'调', pinyin:'tiáo', hv:'điều', vi:'điều chỉnh; đọc «diào» là chuyển đi, giọng điệu', pos:'chữ Hán'},
+  {zh:'当', pinyin:'dāng', hv:'đương', vi:'làm, đảm nhận; vào lúc', pos:'chữ Hán'},
+  {zh:'论', pinyin:'lùn', hv:'luận', vi:'bàn luận; lí luận', pos:'chữ Hán'},
+  {zh:'效', pinyin:'xiào', hv:'hiệu', vi:'hiệu quả; noi theo', pos:'chữ Hán'},
+  {zh:'位', pinyin:'wèi', hv:'vị', vi:'vị trí; (lượng từ lịch sự cho người)', pos:'chữ Hán'},
+  {zh:'证', pinyin:'zhèng', hv:'chứng', vi:'chứng minh; giấy tờ', pos:'chữ Hán'},
+  {zh:'毕', pinyin:'bì', hv:'tất', vi:'xong; tốt nghiệp', pos:'chữ Hán'},
+  {zh:'流', pinyin:'liú', hv:'lưu', vi:'chảy; dòng, luồng', pos:'chữ Hán'},
+  {zh:'环', pinyin:'huán', hv:'hoàn', vi:'vòng; môi trường', pos:'chữ Hán'},
+  {zh:'据', pinyin:'jù', hv:'cứ', vi:'căn cứ; theo như', pos:'chữ Hán'},
+  {zh:'向', pinyin:'xiàng', hv:'hướng', vi:'hướng về; phía', pos:'chữ Hán'},
+  {zh:'乡', pinyin:'xiāng', hv:'hương', vi:'quê, làng', pos:'chữ Hán'},
+  {zh:'清', pinyin:'qīng', hv:'thanh', vi:'trong; rõ ràng', pos:'chữ Hán'},
+  {zh:'代', pinyin:'dài', hv:'đại', vi:'thay thế; thời đại', pos:'chữ Hán'},
+  {zh:'女', pinyin:'nǚ', hv:'nữ', vi:'nữ, con gái', pos:'chữ Hán'},
+  {zh:'介', pinyin:'jiè', hv:'giới', vi:'ở giữa, môi giới', pos:'chữ Hán'},
+  {zh:'绍', pinyin:'shào', hv:'thiệu', vi:'nối tiếp — chủ yếu dùng trong 介绍 «giới thiệu»', pos:'chữ Hán'},
+  {zh:'场', pinyin:'chǎng', hv:'trường', vi:'sân, chỗ; (lượng từ cho buổi)', pos:'chữ Hán'},
+  {zh:'静', pinyin:'jìng', hv:'tĩnh', vi:'yên tĩnh', pos:'chữ Hán'},
+  {zh:'温', pinyin:'wēn', hv:'ôn', vi:'ấm; ôn lại bài', pos:'chữ Hán'},
+  {zh:'弃', pinyin:'qì', hv:'khí', vi:'vứt bỏ, từ bỏ', pos:'chữ Hán'},
+  {zh:'健', pinyin:'jiàn', hv:'kiện', vi:'khoẻ mạnh', pos:'chữ Hán'},
+  {zh:'助', pinyin:'zhù', hv:'trợ', vi:'giúp đỡ', pos:'chữ Hán'},
+  {zh:'者', pinyin:'zhě', hv:'giả', vi:'người… (hậu tố: 记者 kí giả)', pos:'chữ Hán'},
+  {zh:'死', pinyin:'sǐ', hv:'tử', vi:'chết; chết đi được (nhấn mạnh)', pos:'chữ Hán'},
+  {zh:'极', pinyin:'jí', hv:'cực', vi:'cực, hết sức', pos:'chữ Hán'},
+  {zh:'数', pinyin:'shù', hv:'số', vi:'số, con số; đọc «shǔ» là đếm', pos:'chữ Hán'},
+  {zh:'延', pinyin:'yán', hv:'diên', vi:'kéo dài, hoãn', pos:'chữ Hán'},
+  {zh:'甚', pinyin:'shèn', hv:'thậm', vi:'rất; thậm chí', pos:'chữ Hán'},
+  {zh:'川', pinyin:'chuān', hv:'xuyên', vi:'sông; Tứ Xuyên', pos:'chữ Hán'},
+  {zh:'受', pinyin:'shòu', hv:'thụ', vi:'nhận; chịu đựng', pos:'chữ Hán'},
+  {zh:'底', pinyin:'dǐ', hv:'để', vi:'đáy; cuối (tháng, năm)', pos:'chữ Hán'},
+  {zh:'千', pinyin:'qiān', hv:'thiên', vi:'nghìn', pos:'chữ Hán'},
+  {zh:'及', pinyin:'jí', hv:'cập', vi:'và; kịp, đạt tới', pos:'chữ Hán'},
+  {zh:'育', pinyin:'yù', hv:'dục', vi:'nuôi dạy, giáo dục', pos:'chữ Hán'},
+  {zh:'翻', pinyin:'fān', hv:'phiên', vi:'lật; dịch (翻译)', pos:'chữ Hán'},
+  {zh:'译', pinyin:'yì', hv:'dịch', vi:'dịch, phiên dịch', pos:'chữ Hán'},
+  {zh:'具', pinyin:'jù', hv:'cụ', vi:'dụng cụ; có (具有)', pos:'chữ Hán'},
+  {zh:'主', pinyin:'zhǔ', hv:'chủ', vi:'chủ; chính yếu', pos:'chữ Hán'},
+  {zh:'推', pinyin:'tuī', hv:'thôi', vi:'đẩy; tiến cử, suy ra', pos:'chữ Hán'},
+  {zh:'态', pinyin:'tài', hv:'thái', vi:'thái độ; trạng thái', pos:'chữ Hán'},
+  {zh:'顾', pinyin:'gù', hv:'cố', vi:'trông nom; khách hàng', pos:'chữ Hán'},
+  {zh:'境', pinyin:'jìng', hv:'cảnh', vi:'hoàn cảnh; biên giới', pos:'chữ Hán'},
+  {zh:'选', pinyin:'xuǎn', hv:'tuyển', vi:'chọn, tuyển', pos:'chữ Hán'},
+  {zh:'择', pinyin:'zé', hv:'trạch', vi:'lựa chọn', pos:'chữ Hán'},
+  {zh:'设', pinyin:'shè', hv:'thiết', vi:'đặt, lập; thiết kế', pos:'chữ Hán'},
+  {zh:'旦', pinyin:'dàn', hv:'đán', vi:'buổi sớm — 元旦 Tết dương lịch', pos:'chữ Hán'},
+  {zh:'担', pinyin:'dān', hv:'đảm', vi:'gánh vác, đảm nhận', pos:'chữ Hán'},
+  {zh:'距', pinyin:'jù', hv:'cự', vi:'cách, khoảng cách', pos:'chữ Hán'},
+  {zh:'键', pinyin:'jiàn', hv:'kiện', vi:'phím; then chốt (关键)', pos:'chữ Hán'},
+  {zh:'未', pinyin:'wèi', hv:'vị', vi:'chưa; tương lai', pos:'chữ Hán'},
+  {zh:'品', pinyin:'pǐn', hv:'phẩm', vi:'đồ vật; phẩm chất', pos:'chữ Hán'},
+  {zh:'村', pinyin:'cūn', hv:'thôn', vi:'làng, thôn', pos:'chữ Hán'},
+  {zh:'施', pinyin:'shī', hv:'thi', vi:'thi hành, thực hiện', pos:'chữ Hán'},
+  {zh:'迷', pinyin:'mí', hv:'mê', vi:'mê, say mê; lạc đường', pos:'chữ Hán'},
+  {zh:'此', pinyin:'cǐ', hv:'thử', vi:'này, đây (văn viết)', pos:'chữ Hán'},
+  {zh:'频', pinyin:'pín', hv:'tần', vi:'tần số; thường xuyên', pos:'chữ Hán'},
+  {zh:'议', pinyin:'yì', hv:'nghị', vi:'bàn bạc, nghị luận', pos:'chữ Hán'},
+  {zh:'度', pinyin:'dù', hv:'độ', vi:'độ, mức độ', pos:'chữ Hán'},
+  {zh:'突', pinyin:'tū', hv:'đột', vi:'đột ngột; nhô ra', pos:'chữ Hán'},
+  {zh:'声', pinyin:'shēng', hv:'thanh', vi:'tiếng, âm thanh', pos:'chữ Hán'},
+  {zh:'赛', pinyin:'sài', hv:'tái', vi:'thi đấu', pos:'chữ Hán'},
+  {zh:'印', pinyin:'yìn', hv:'ấn', vi:'in; con dấu; Ấn Độ', pos:'chữ Hán'},
+  {zh:'象', pinyin:'xiàng', hv:'tượng', vi:'con voi; hình tượng', pos:'chữ Hán'},
+  {zh:'史', pinyin:'shǐ', hv:'sử', vi:'lịch sử', pos:'chữ Hán'},
+  {zh:'弟', pinyin:'dì', hv:'đệ', vi:'em trai', pos:'chữ Hán'},
+  {zh:'慰', pinyin:'wèi', hv:'uỷ', vi:'an ủi', pos:'chữ Hán'},
+  {zh:'康', pinyin:'kāng', hv:'khang', vi:'khoẻ mạnh, an khang', pos:'chữ Hán'},
+  {zh:'咖', pinyin:'kā', hv:'ca', vi:'(phiên âm — trong 咖啡 cà phê)', pos:'chữ Hán'},
+  {zh:'啡', pinyin:'fēi', hv:'phi', vi:'(phiên âm — trong 咖啡 cà phê)', pos:'chữ Hán'},
+  {zh:'精', pinyin:'jīng', hv:'tinh', vi:'tinh tuý; tinh thần', pos:'chữ Hán'},
+  {zh:'订', pinyin:'dìng', hv:'đính', vi:'đặt (chỗ, hàng); đính ước', pos:'chữ Hán'},
+  {zh:'则', pinyin:'zé', hv:'tắc', vi:'quy tắc; thì (văn viết)', pos:'chữ Hán'},
+  {zh:'观', pinyin:'guān', hv:'quan', vi:'xem, quan sát; quan điểm', pos:'chữ Hán'},
+  {zh:'航', pinyin:'háng', hv:'hàng', vi:'đi thuyền, bay; hàng không', pos:'chữ Hán'},
+  {zh:'默', pinyin:'mò', hv:'mặc', vi:'im lặng; thầm', pos:'chữ Hán'},
+  {zh:'恐', pinyin:'kǒng', hv:'khủng', vi:'sợ; e rằng', pos:'chữ Hán'},
+  {zh:'止', pinyin:'zhǐ', hv:'chỉ', vi:'dừng, ngừng', pos:'chữ Hán'},
+  {zh:'竟', pinyin:'jìng', hv:'cánh', vi:'rốt cuộc; lại (ngoài dự liệu)', pos:'chữ Hán'},
+  {zh:'敢', pinyin:'gǎn', hv:'cảm', vi:'dám', pos:'chữ Hán'},
+  {zh:'展', pinyin:'zhǎn', hv:'triển', vi:'mở ra; triển lãm', pos:'chữ Hán'},
+  {zh:'式', pinyin:'shì', hv:'thức', vi:'kiểu, hình thức', pos:'chữ Hán'},
+  {zh:'购', pinyin:'gòu', hv:'cấu', vi:'mua sắm', pos:'chữ Hán'},
+  {zh:'络', pinyin:'luò', hv:'lạc', vi:'mạng lưới — 网络 mạng', pos:'chữ Hán'},
+  {zh:'趣', pinyin:'qù', hv:'thú', vi:'thú vị; hứng thú', pos:'chữ Hán'},
+  {zh:'演', pinyin:'yǎn', hv:'diễn', vi:'diễn, biểu diễn', pos:'chữ Hán'},
+  {zh:'账', pinyin:'zhàng', hv:'trướng', vi:'tài khoản; sổ nợ', pos:'chữ Hán'},
+  {zh:'折', pinyin:'zhé', hv:'chiết', vi:'gấp; chiết khấu', pos:'chữ Hán'},
+  {zh:'污', pinyin:'wū', hv:'ô', vi:'bẩn, ô nhiễm', pos:'chữ Hán'},
+  {zh:'染', pinyin:'rǎn', hv:'nhiễm', vi:'nhuộm; lây nhiễm', pos:'chữ Hán'},
+  {zh:'资', pinyin:'zī', hv:'tư', vi:'vốn, tài nguyên; tư liệu', pos:'chữ Hán'},
+  {zh:'禁', pinyin:'jìn', hv:'cấm', vi:'cấm', pos:'chữ Hán'},
+  {zh:'垃', pinyin:'lā', hv:'lạp', vi:'(trong 垃圾 rác)', pos:'chữ Hán'},
+  {zh:'圾', pinyin:'jī', hv:'ngập', vi:'(trong 垃圾 rác)', pos:'chữ Hán'},
+  {zh:'保', pinyin:'bǎo', hv:'bảo', vi:'giữ gìn, bảo vệ', pos:'chữ Hán'},
+  {zh:'质', pinyin:'zhì', hv:'chất', vi:'chất lượng; bản chất', pos:'chữ Hán'},
+  {zh:'标', pinyin:'biāo', hv:'tiêu', vi:'dấu hiệu; mục tiêu', pos:'chữ Hán'},
+  {zh:'联', pinyin:'lián', hv:'liên', vi:'liên kết, nối', pos:'chữ Hán'},
+  {zh:'母', pinyin:'mǔ', hv:'mẫu', vi:'mẹ; cái gốc', pos:'chữ Hán'},
+  {zh:'亲', pinyin:'qīn', hv:'thân', vi:'thân thiết; cha mẹ', pos:'chữ Hán'},
+  {zh:'凡', pinyin:'fán', hv:'phàm', vi:'phàm là; bình thường', pos:'chữ Hán'},
+  {zh:'陪', pinyin:'péi', hv:'bồi', vi:'đi cùng, bầu bạn', pos:'chữ Hán'},
+  {zh:'尽', pinyin:'jìn', hv:'tận', vi:'hết, tận; dốc sức', pos:'chữ Hán'},
+  {zh:'仍', pinyin:'réng', hv:'nhưng', vi:'vẫn, vẫn còn', pos:'chữ Hán'},
+  {zh:'握', pinyin:'wò', hv:'ác', vi:'nắm, cầm', pos:'chữ Hán'},
+  {zh:'端', pinyin:'duān', hv:'đoan', vi:'đầu mối; bưng', pos:'chữ Hán'},
+  {zh:'淡', pinyin:'dàn', hv:'đạm', vi:'nhạt; thờ ơ', pos:'chữ Hán'},
+  {zh:'眠', pinyin:'mián', hv:'miên', vi:'ngủ — 失眠 mất ngủ', pos:'chữ Hán'},
+  {zh:'愿', pinyin:'yuàn', hv:'nguyện', vi:'nguyện, muốn', pos:'chữ Hán'},
+  {zh:'冲', pinyin:'chōng', hv:'xung', vi:'xông lên; pha (nước)', pos:'chữ Hán'},
+  {zh:'限', pinyin:'xiàn', hv:'hạn', vi:'giới hạn, hạn chế', pos:'chữ Hán'},
+  {zh:'创', pinyin:'chuàng', hv:'sáng', vi:'sáng tạo, lập nên', pos:'chữ Hán'},
+  {zh:'立', pinyin:'lì', hv:'lập', vi:'đứng; lập nên', pos:'chữ Hán'},
+  {zh:'优', pinyin:'yōu', hv:'ưu', vi:'ưu tú, hơn hẳn', pos:'chữ Hán'},
+  {zh:'粤', pinyin:'yuè', hv:'việt', vi:'Quảng Đông (tên gọi tắt)', pos:'chữ Hán'},
+  {zh:'社', pinyin:'shè', hv:'xã', vi:'xã hội; hội, đoàn', pos:'chữ Hán'},
+  {zh:'摄', pinyin:'shè', hv:'nhiếp', vi:'chụp, quay phim', pos:'chữ Hán'},
+  {zh:'艺', pinyin:'yì', hv:'nghệ', vi:'nghệ thuật, tài nghệ', pos:'chữ Hán'},
+  {zh:'唱', pinyin:'chàng', hv:'xướng', vi:'hát', pos:'chữ Hán'},
+  {zh:'篮', pinyin:'lán', hv:'lam', vi:'cái rổ — 篮球 bóng rổ', pos:'chữ Hán'},
+  {zh:'姐', pinyin:'jiě', hv:'tỉ', vi:'chị', pos:'chữ Hán'},
+  {zh:'冬', pinyin:'dōng', hv:'đông', vi:'mùa đông', pos:'chữ Hán'},
+  {zh:'季', pinyin:'jì', hv:'quý', vi:'mùa, quý', pos:'chữ Hán'},
+  {zh:'概', pinyin:'gài', hv:'khái', vi:'đại khái; khái quát', pos:'chữ Hán'},
+  {zh:'划', pinyin:'huà', hv:'hoạch', vi:'vạch ra, hoạch định', pos:'chữ Hán'},
+  {zh:'聪', pinyin:'cōng', hv:'thông', vi:'thông minh', pos:'chữ Hán'},
+  {zh:'继', pinyin:'jì', hv:'kế', vi:'nối tiếp, kế tục', pos:'chữ Hán'},
+  {zh:'续', pinyin:'xù', hv:'tục', vi:'tiếp tục', pos:'chữ Hán'},
+  {zh:'处', pinyin:'chù', hv:'xứ', vi:'nơi, chỗ; đọc «chǔ» là xử lí', pos:'chữ Hán'},
+  {zh:'景', pinyin:'jǐng', hv:'cảnh', vi:'cảnh vật, phong cảnh', pos:'chữ Hán'},
+  {zh:'锻', pinyin:'duàn', hv:'đoán', vi:'rèn — 锻炼 rèn luyện', pos:'chữ Hán'},
+  {zh:'炼', pinyin:'liàn', hv:'luyện', vi:'luyện, tôi luyện', pos:'chữ Hán'},
+  {zh:'压', pinyin:'yā', hv:'áp', vi:'ép, đè; áp lực', pos:'chữ Hán'},
+  {zh:'应', pinyin:'yīng', hv:'ưng', vi:'nên; đọc «yìng» là đáp ứng', pos:'chữ Hán'},
+  {zh:'规', pinyin:'guī', hv:'quy', vi:'quy tắc, quy định', pos:'chữ Hán'},
+  {zh:'律', pinyin:'lǜ', hv:'luật', vi:'luật, quy luật', pos:'chữ Hán'},
+  {zh:'即', pinyin:'jí', hv:'tức', vi:'tức là; ngay lập tức', pos:'chữ Hán'},
+  {zh:'否', pinyin:'fǒu', hv:'phủ', vi:'không, phủ định', pos:'chữ Hán'},
+  {zh:'座', pinyin:'zuò', hv:'toạ', vi:'chỗ ngồi; (lượng từ cho toà nhà, núi)', pos:'chữ Hán'},
+  {zh:'待', pinyin:'dài', hv:'đãi', vi:'đối đãi; chờ', pos:'chữ Hán'},
+  {zh:'碎', pinyin:'suì', hv:'toái', vi:'vỡ vụn', pos:'chữ Hán'},
+  {zh:'歉', pinyin:'qiàn', hv:'khiểm', vi:'áy náy — 抱歉 xin lỗi', pos:'chữ Hán'},
+  {zh:'惊', pinyin:'jīng', hv:'kinh', vi:'kinh ngạc, giật mình', pos:'chữ Hán'},
+  {zh:'秘', pinyin:'mì', hv:'bí', vi:'bí mật', pos:'chữ Hán'},
+  {zh:'隐', pinyin:'yǐn', hv:'ẩn', vi:'ẩn giấu; riêng tư', pos:'chữ Hán'},
+  {zh:'亏', pinyin:'kuī', hv:'khuy', vi:'thiệt, lỗ; may mà', pos:'chữ Hán'},
+  {zh:'承', pinyin:'chéng', hv:'thừa', vi:'nhận lấy, kế thừa', pos:'chữ Hán'},
+  {zh:'讨', pinyin:'tǎo', hv:'thảo', vi:'bàn bạc; xin', pos:'chữ Hán'},
+  {zh:'入', pinyin:'rù', hv:'nhập', vi:'vào, nhập', pos:'chữ Hán'},
+  {zh:'营', pinyin:'yíng', hv:'doanh', vi:'kinh doanh; doanh trại', pos:'chữ Hán'},
+  {zh:'加', pinyin:'jiā', hv:'gia', vi:'thêm, cộng', pos:'chữ Hán'},
+  {zh:'沟', pinyin:'gōu', hv:'câu', vi:'rãnh — 沟通 trao đổi, giao tiếp', pos:'chữ Hán'},
+  {zh:'适', pinyin:'shì', hv:'thích', vi:'thích hợp', pos:'chữ Hán'},
+  {zh:'建', pinyin:'jiàn', hv:'kiến', vi:'xây dựng; kiến nghị', pos:'chữ Hán'},
+  {zh:'尾', pinyin:'wěi', hv:'vĩ', vi:'đuôi; cuối', pos:'chữ Hán'},
+  {zh:'泪', pinyin:'lèi', hv:'lệ', vi:'nước mắt', pos:'chữ Hán'},
+  {zh:'抱', pinyin:'bào', hv:'bão', vi:'ôm; ôm giữ (ý nghĩ)', pos:'chữ Hán'},
+  {zh:'约', pinyin:'yuē', hv:'ước', vi:'hẹn; khoảng chừng', pos:'chữ Hán'},
+  {zh:'源', pinyin:'yuán', hv:'nguyên', vi:'nguồn', pos:'chữ Hán'},
+  {zh:'供', pinyin:'gōng', hv:'cung', vi:'cung cấp', pos:'chữ Hán'},
+  {zh:'倡', pinyin:'chàng', hv:'xướng', vi:'đề xướng, khởi xướng', pos:'chữ Hán'},
+  {zh:'求', pinyin:'qiú', hv:'cầu', vi:'cầu, xin; yêu cầu', pos:'chữ Hán'},
+  {zh:'类', pinyin:'lèi', hv:'loại', vi:'loại, thứ', pos:'chữ Hán'},
+  {zh:'控', pinyin:'kòng', hv:'khống', vi:'khống chế, điều khiển', pos:'chữ Hán'},
+  {zh:'曾', pinyin:'céng', hv:'tằng', vi:'đã từng', pos:'chữ Hán'},
+  {zh:'获', pinyin:'huò', hv:'hoạch', vi:'thu được, giành được', pos:'chữ Hán'},
+  {zh:'目', pinyin:'mù', hv:'mục', vi:'mắt; mục, đề mục', pos:'chữ Hán'},
+  {zh:'腾', pinyin:'téng', hv:'đằng', vi:'bốc lên, nhảy vọt', pos:'chữ Hán'},
+  {zh:'伴', pinyin:'bàn', hv:'bạn', vi:'bạn đồng hành, đi cùng', pos:'chữ Hán'},
+  {zh:'珍', pinyin:'zhēn', hv:'trân', vi:'quý báu; trân trọng', pos:'chữ Hán'},
+  {zh:'父', pinyin:'fù', hv:'phụ', vi:'cha', pos:'chữ Hán'},
+  {zh:'恨', pinyin:'hèn', hv:'hận', vi:'hận, ghét', pos:'chữ Hán'},
+  {zh:'争', pinyin:'zhēng', hv:'tranh', vi:'tranh giành, tranh cãi', pos:'chữ Hán'},
+  {zh:'许', pinyin:'xǔ', hv:'hứa', vi:'cho phép; có lẽ (也许)', pos:'chữ Hán'},
+  {zh:'妥', pinyin:'tuǒ', hv:'thoả', vi:'thoả đáng, ổn thoả', pos:'chữ Hán'},
+  {zh:'协', pinyin:'xié', hv:'hiệp', vi:'hiệp lực, phối hợp', pos:'chữ Hán'},
+  {zh:'功', pinyin:'gōng', hv:'công', vi:'công lao; thành công', pos:'chữ Hán'},
+  {zh:'积', pinyin:'jī', hv:'tích', vi:'tích luỹ; tích cực', pos:'chữ Hán'},
+  {zh:'委', pinyin:'wěi', hv:'uỷ', vi:'uỷ thác; uỷ ban', pos:'chữ Hán'},
+  {zh:'屈', pinyin:'qū', hv:'khuất', vi:'cong, khuất phục; oan ức', pos:'chữ Hán'},
+  {zh:'宁', pinyin:'nìng', hv:'ninh', vi:'thà rằng; đọc «níng» là yên ổn', pos:'chữ Hán'},
+  {zh:'罪', pinyin:'zuì', hv:'tội', vi:'tội, tội lỗi', pos:'chữ Hán'},
+  {zh:'足', pinyin:'zú', hv:'túc', vi:'chân; đủ', pos:'chữ Hán'},
+  {zh:'率', pinyin:'lǜ', hv:'suất', vi:'tỉ lệ; đọc «shuài» là dẫn dắt', pos:'chữ Hán'},
+  {zh:'界', pinyin:'jiè', hv:'giới', vi:'ranh giới; giới (thế giới)', pos:'chữ Hán'},
+  {zh:'拉', pinyin:'lā', hv:'lạp', vi:'kéo', pos:'chữ Hán'},
+  {zh:'利', pinyin:'lì', hv:'lợi', vi:'lợi ích; sắc bén', pos:'chữ Hán'},
+  {zh:'恰', pinyin:'qià', hv:'kháp', vi:'vừa vặn, vừa đúng', pos:'chữ Hán'},
+  {zh:'职', pinyin:'zhí', hv:'chức', vi:'chức vụ, nghề nghiệp', pos:'chữ Hán'},
+  {zh:'奏', pinyin:'zòu', hv:'tấu', vi:'tấu nhạc; nhịp (节奏)', pos:'chữ Hán'},
+  {zh:'虑', pinyin:'lǜ', hv:'lự', vi:'lo nghĩ, cân nhắc', pos:'chữ Hán'},
+  {zh:'组', pinyin:'zǔ', hv:'tổ', vi:'tổ, nhóm; tổ chức', pos:'chữ Hán'},
+  {zh:'掌', pinyin:'zhǎng', hv:'chưởng', vi:'lòng bàn tay; nắm giữ', pos:'chữ Hán'},
+  {zh:'念', pinyin:'niàn', hv:'niệm', vi:'nhớ, tưởng; đọc lên', pos:'chữ Hán'},
+  {zh:'氛', pinyin:'fēn', hv:'phân', vi:'không khí (气氛)', pos:'chữ Hán'},
+  {zh:'炸', pinyin:'zhá', hv:'tạc', vi:'rán; đọc «zhà» là nổ', pos:'chữ Hán'},
+  {zh:'失', pinyin:'shī', hv:'thất', vi:'mất; thất bại', pos:'chữ Hán'},
+  {zh:'绪', pinyin:'xù', hv:'tự', vi:'mối, đầu mối — 情绪 tâm trạng', pos:'chữ Hán'},
+  {zh:'整', pinyin:'zhěng', hv:'chỉnh', vi:'nguyên vẹn; chỉnh đốn', pos:'chữ Hán'},
+  {zh:'汇', pinyin:'huì', hv:'hối', vi:'tụ lại; chuyển tiền; từ vựng', pos:'chữ Hán'},
+  {zh:'各', pinyin:'gè', hv:'các', vi:'mỗi, các', pos:'chữ Hán'},
+  {zh:'投', pinyin:'tóu', hv:'đầu', vi:'ném; đầu tư', pos:'chữ Hán'},
+  {zh:'善', pinyin:'shàn', hv:'thiện', vi:'tốt lành; giỏi về', pos:'chữ Hán'},
+  {zh:'鉴', pinyin:'jiàn', hv:'giám', vi:'soi xét, tham khảo', pos:'chữ Hán'},
+  {zh:'须', pinyin:'xū', hv:'tu', vi:'phải, cần — 必须', pos:'chữ Hán'},
+  {zh:'孔', pinyin:'kǒng', hv:'khổng', vi:'lỗ; họ Khổng', pos:'chữ Hán'},
+  {zh:'著', pinyin:'zhù', hv:'trứ', vi:'trứ danh; soạn sách', pos:'chữ Hán'},
+  {zh:'伤', pinyin:'shāng', hv:'thương', vi:'vết thương; tổn thương', pos:'chữ Hán'},
+  {zh:'岗', pinyin:'gǎng', hv:'cương', vi:'vị trí làm việc, cương vị', pos:'chữ Hán'},
+  {zh:'擅', pinyin:'shàn', hv:'thiện', vi:'giỏi về; tự tiện', pos:'chữ Hán'},
+  {zh:'造', pinyin:'zào', hv:'tạo', vi:'tạo ra, chế tạo', pos:'chữ Hán'},
+  {zh:'专', pinyin:'zhuān', hv:'chuyên', vi:'chuyên, chuyên môn', pos:'chữ Hán'},
+  {zh:'况', pinyin:'kuàng', hv:'huống', vi:'tình huống; huống chi', pos:'chữ Hán'},
+  {zh:'宠', pinyin:'chǒng', hv:'sủng', vi:'cưng chiều — 宠物 thú cưng', pos:'chữ Hán'},
+  {zh:'诚', pinyin:'chéng', hv:'thành', vi:'thành thật', pos:'chữ Hán'},
+  {zh:'固', pinyin:'gù', hv:'cố', vi:'vững chắc; cố nhiên', pos:'chữ Hán'},
+  {zh:'培', pinyin:'péi', hv:'bồi', vi:'vun trồng, bồi dưỡng', pos:'chữ Hán'},
+  {zh:'罢', pinyin:'bà', hv:'bãi', vi:'thôi, bãi bỏ', pos:'chữ Hán'},
+  {zh:'谦', pinyin:'qiān', hv:'khiêm', vi:'khiêm tốn', pos:'chữ Hán'},
+  {zh:'彩', pinyin:'cǎi', hv:'thái', vi:'màu sắc; rực rỡ', pos:'chữ Hán'},
+  {zh:'熬', pinyin:'áo', hv:'ngao', vi:'ninh, sắc; thức khuya chịu đựng', pos:'chữ Hán'},
+  {zh:'际', pinyin:'jì', hv:'tế', vi:'giữa, lúc; quốc tế', pos:'chữ Hán'},
+  {zh:'束', pinyin:'shù', hv:'thúc', vi:'bó; ràng buộc; kết thúc', pos:'chữ Hán'},
+  {zh:'程', pinyin:'chéng', hv:'trình', vi:'chặng, trình tự; công trình', pos:'chữ Hán'},
+  {zh:'志', pinyin:'zhì', hv:'chí', vi:'chí hướng; tạp chí', pos:'chữ Hán'},
+  {zh:'归', pinyin:'guī', hv:'quy', vi:'trở về, quy về', pos:'chữ Hán'},
+  {zh:'孤', pinyin:'gū', hv:'cô', vi:'cô đơn, lẻ loi', pos:'chữ Hán'},
+  {zh:'梦', pinyin:'mèng', hv:'mộng', vi:'giấc mơ', pos:'chữ Hán'},
+  {zh:'孙', pinyin:'sūn', hv:'tôn', vi:'cháu; họ Tôn', pos:'chữ Hán'},
+  {zh:'岂', pinyin:'qǐ', hv:'khởi', vi:'há lẽ nào (văn viết)', pos:'chữ Hán'},
+  {zh:'制', pinyin:'zhì', hv:'chế', vi:'chế tạo; chế độ', pos:'chữ Hán'},
+  {zh:'谈', pinyin:'tán', hv:'đàm', vi:'nói chuyện, đàm phán', pos:'chữ Hán'},
+  {zh:'欣', pinyin:'xīn', hv:'hân', vi:'vui mừng — 欣赏 thưởng thức', pos:'chữ Hán'},
+  {zh:'英', pinyin:'yīng', hv:'anh', vi:'nước Anh; tinh hoa', pos:'chữ Hán'},
+  {zh:'低', pinyin:'dī', hv:'đê', vi:'thấp; cúi xuống', pos:'chữ Hán'},
+  {zh:'杂', pinyin:'zá', hv:'tạp', vi:'lộn xộn, tạp', pos:'chữ Hán'},
+  {zh:'贺', pinyin:'hè', hv:'hạ', vi:'chúc mừng', pos:'chữ Hán'},
+  {zh:'奇', pinyin:'qí', hv:'kì', vi:'lạ lùng, kì lạ', pos:'chữ Hán'},
+  {zh:'偶', pinyin:'ǒu', hv:'ngẫu', vi:'tình cờ; đôi, chẵn', pos:'chữ Hán'},
+  {zh:'尔', pinyin:'ěr', hv:'nhĩ', vi:'(phiên âm); ngươi (văn cổ)', pos:'chữ Hán'},
+  {zh:'肥', pinyin:'féi', hv:'phì', vi:'béo, màu mỡ', pos:'chữ Hán'},
+  {zh:'或', pinyin:'huò', hv:'hoặc', vi:'hoặc, hay là', pos:'chữ Hán'},
+  {zh:'遇', pinyin:'yù', hv:'ngộ', vi:'gặp; đãi ngộ', pos:'chữ Hán'},
+  {zh:'困', pinyin:'kùn', hv:'khốn', vi:'khó khăn; buồn ngủ', pos:'chữ Hán'},
+  {zh:'佩', pinyin:'pèi', hv:'bội', vi:'đeo; khâm phục', pos:'chữ Hán'},
+  {zh:'神', pinyin:'shén', hv:'thần', vi:'thần; tinh thần', pos:'chữ Hán'},
+  {zh:'显', pinyin:'xiǎn', hv:'hiển', vi:'rõ ràng, hiện ra', pos:'chữ Hán'},
+  {zh:'众', pinyin:'zhòng', hv:'chúng', vi:'đông người, quần chúng', pos:'chữ Hán'},
+  {zh:'举', pinyin:'jǔ', hv:'cử', vi:'giơ lên; nêu ra; cử hành', pos:'chữ Hán'},
+  {zh:'脾', pinyin:'pí', hv:'tì', vi:'lá lách — 脾气 tính khí', pos:'chữ Hán'},
+  {zh:'幽', pinyin:'yōu', hv:'u', vi:'thâm u; 幽默 hài hước', pos:'chữ Hán'},
+  {zh:'瞒', pinyin:'mán', hv:'man', vi:'giấu giếm', pos:'chữ Hán'},
+  {zh:'坦', pinyin:'tǎn', hv:'thản', vi:'bằng phẳng; thẳng thắn', pos:'chữ Hán'},
+  {zh:'邀', pinyin:'yāo', hv:'yêu', vi:'mời', pos:'chữ Hán'},
+  {zh:'截', pinyin:'jié', hv:'tiệt', vi:'cắt đứt; đến hạn', pos:'chữ Hán'},
+  {zh:'粗', pinyin:'cū', hv:'thô', vi:'thô, to; cẩu thả', pos:'chữ Hán'},
+  {zh:'省', pinyin:'shěng', hv:'tỉnh', vi:'tỉnh; tiết kiệm', pos:'chữ Hán'},
+  {zh:'科', pinyin:'kē', hv:'khoa', vi:'khoa, ngành; khoa học', pos:'chữ Hán'},
+  {zh:'济', pinyin:'jì', hv:'tế', vi:'cứu giúp — 经济 kinh tế', pos:'chữ Hán'},
+  {zh:'销', pinyin:'xiāo', hv:'tiêu', vi:'bán ra, tiêu thụ', pos:'chữ Hán'},
+  {zh:'厅', pinyin:'tīng', hv:'sảnh', vi:'gian lớn, sảnh', pos:'chữ Hán'},
+  {zh:'齐', pinyin:'qí', hv:'tề', vi:'đều, ngay ngắn; đầy đủ', pos:'chữ Hán'},
+  {zh:'押', pinyin:'yā', hv:'áp', vi:'đặt cọc; áp giải', pos:'chữ Hán'},
+  {zh:'款', pinyin:'kuǎn', hv:'khoản', vi:'khoản tiền; kiểu dáng', pos:'chữ Hán'},
+  {zh:'厉', pinyin:'lì', hv:'lệ', vi:'nghiêm khắc; 厉害 ghê gớm', pos:'chữ Hán'},
+  {zh:'恢', pinyin:'huī', hv:'khôi', vi:'khôi phục', pos:'chữ Hán'},
+  {zh:'荐', pinyin:'jiàn', hv:'tiến', vi:'tiến cử, giới thiệu', pos:'chữ Hán'},
+  {zh:'塑', pinyin:'sù', hv:'tố', vi:'nặn, tạo hình; nhựa', pos:'chữ Hán'},
+  {zh:'政', pinyin:'zhèng', hv:'chính', vi:'chính trị, chính quyền', pos:'chữ Hán'},
+  {zh:'府', pinyin:'fǔ', hv:'phủ', vi:'phủ, cơ quan — 政府 chính phủ', pos:'chữ Hán'},
+  {zh:'确', pinyin:'què', hv:'xác', vi:'xác thực, chắc chắn', pos:'chữ Hán'},
+  {zh:'虎', pinyin:'hǔ', hv:'hổ', vi:'con hổ', pos:'chữ Hán'},
+  {zh:'零', pinyin:'líng', hv:'linh', vi:'số không; lẻ', pos:'chữ Hán'},
+  {zh:'骤', pinyin:'zhòu', hv:'sậu', vi:'đột ngột — 步骤 bước, trình tự', pos:'chữ Hán'},
+  {zh:'怀', pinyin:'huái', hv:'hoài', vi:'ôm ấp trong lòng; nhớ', pos:'chữ Hán'},
+  {zh:'疑', pinyin:'yí', hv:'nghi', vi:'nghi ngờ', pos:'chữ Hán'},
+  {zh:'毫', pinyin:'háo', hv:'hào', vi:'mảy may — 毫不 chẳng chút nào', pos:'chữ Hán'},
+  {zh:'监', pinyin:'jiān', hv:'giám', vi:'giám sát', pos:'chữ Hán'},
+  {zh:'撒', pinyin:'sā', hv:'tát', vi:'buông ra, rắc — 撒谎 nói dối', pos:'chữ Hán'},
+  {zh:'谎', pinyin:'huǎng', hv:'hoang', vi:'lời nói dối', pos:'chữ Hán'},
+  {zh:'冤', pinyin:'yuān', hv:'oan', vi:'oan ức', pos:'chữ Hán'},
+  {zh:'枉', pinyin:'wǎng', hv:'uổng', vi:'oan uổng; uổng công', pos:'chữ Hán'},
+  {zh:'遗', pinyin:'yí', hv:'di', vi:'để lại, sót lại', pos:'chữ Hán'},
+  {zh:'憾', pinyin:'hàn', hv:'hám', vi:'tiếc nuối — 遗憾 đáng tiếc', pos:'chữ Hán'},
+  {zh:'挑', pinyin:'tiāo', hv:'khiêu', vi:'chọn; gánh; đọc «tiǎo» là khêu gợi', pos:'chữ Hán'},
+  {zh:'战', pinyin:'zhàn', hv:'chiến', vi:'chiến đấu, chiến tranh', pos:'chữ Hán'},
+  {zh:'怨', pinyin:'yuàn', hv:'oán', vi:'oán trách', pos:'chữ Hán'},
+  {zh:'唠', pinyin:'láo', hv:'lao', vi:'lải nhải — 唠叨 càu nhàu', pos:'chữ Hán'},
+  {zh:'叨', pinyin:'dao', hv:'đao', vi:'(trong 唠叨 càu nhàu)', pos:'chữ Hán'},
+  {zh:'达', pinyin:'dá', hv:'đạt', vi:'đạt tới; truyền đạt', pos:'chữ Hán'},
+  {zh:'惜', pinyin:'xī', hv:'tích', vi:'tiếc; quý trọng', pos:'chữ Hán'},
+  {zh:'巴', pinyin:'bā', hv:'ba', vi:'mong mỏi; (phiên âm)', pos:'chữ Hán'},
+  {zh:'途', pinyin:'tú', hv:'đồ', vi:'đường đi — 前途 tiền đồ', pos:'chữ Hán'},
+  {zh:'稳', pinyin:'wěn', hv:'ổn', vi:'vững, ổn định', pos:'chữ Hán'},
+  {zh:'互', pinyin:'hù', hv:'hỗ', vi:'lẫn nhau', pos:'chữ Hán'},
+  {zh:'易', pinyin:'yì', hv:'dị', vi:'dễ; trao đổi (贸易)', pos:'chữ Hán'},
+  {zh:'挫', pinyin:'cuò', hv:'toả', vi:'vấp váp — 挫折 thất bại', pos:'chữ Hán'},
+  {zh:'诀', pinyin:'jué', hv:'quyết', vi:'bí quyết', pos:'chữ Hán'},
+  {zh:'勤', pinyin:'qín', hv:'cần', vi:'siêng năng', pos:'chữ Hán'},
+  {zh:'奋', pinyin:'fèn', hv:'phấn', vi:'hăng hái — 勤奋 chăm chỉ', pos:'chữ Hán'},
+  {zh:'赚', pinyin:'zhuàn', hv:'trám', vi:'kiếm lời', pos:'chữ Hán'},
+  {zh:'勉', pinyin:'miǎn', hv:'miễn', vi:'cố gắng; miễn cưỡng', pos:'chữ Hán'},
+  {zh:'负', pinyin:'fù', hv:'phụ', vi:'gánh vác; âm, phụ', pos:'chữ Hán'},
+  {zh:'妨', pinyin:'fáng', hv:'phương', vi:'cản trở — 不妨 chẳng ngại gì', pos:'chữ Hán'},
+  {zh:'婉', pinyin:'wǎn', hv:'uyển', vi:'uyển chuyển, khéo léo', pos:'chữ Hán'},
+  {zh:'违', pinyin:'wéi', hv:'vi', vi:'trái, vi phạm', pos:'chữ Hán'},
+  {zh:'依', pinyin:'yī', hv:'y', vi:'dựa vào, theo', pos:'chữ Hán'},
+  {zh:'赖', pinyin:'lài', hv:'lại', vi:'ỷ lại; đổ lỗi', pos:'chữ Hán'},
+  {zh:'拟', pinyin:'nǐ', hv:'nghĩ', vi:'dự định; mô phỏng', pos:'chữ Hán'},
+  {zh:'世', pinyin:'shì', hv:'thế', vi:'đời; thế giới', pos:'chữ Hán'},
+  {zh:'私', pinyin:'sī', hv:'tư', vi:'riêng tư; tư nhân', pos:'chữ Hán'},
+  {zh:'弊', pinyin:'bì', hv:'tệ', vi:'điều hại, tệ nạn', pos:'chữ Hán'},
+  {zh:'册', pinyin:'cè', hv:'sách', vi:'quyển, tập; đăng kí (注册)', pos:'chữ Hán'},
+  {zh:'辞', pinyin:'cí', hv:'từ', vi:'từ ngữ; từ chức', pos:'chữ Hán'},
+  {zh:'匆', pinyin:'cōng', hv:'thông', vi:'vội vàng', pos:'chữ Hán'},
+  {zh:'追', pinyin:'zhuī', hv:'truy', vi:'đuổi theo, truy tìm', pos:'chữ Hán'},
+  {zh:'焦', pinyin:'jiāo', hv:'tiêu', vi:'cháy khét; lo lắng (焦虑)', pos:'chữ Hán'},
+  {zh:'示', pinyin:'shì', hv:'thị', vi:'chỉ ra, tỏ rõ', pos:'chữ Hán'},
+  {zh:'映', pinyin:'yìng', hv:'ánh', vi:'chiếu, phản chiếu', pos:'chữ Hán'},
+  {zh:'含', pinyin:'hán', hv:'hàm', vi:'ngậm; chứa đựng', pos:'chữ Hán'},
+  {zh:'义', pinyin:'yì', hv:'nghĩa', vi:'nghĩa, ý nghĩa', pos:'chữ Hán'},
+  {zh:'纪', pinyin:'jì', hv:'kỉ', vi:'ghi chép; kỉ luật; thế kỉ', pos:'chữ Hán'},
+  {zh:'征', pinyin:'zhēng', hv:'trưng', vi:'đặc trưng; trưng thu', pos:'chữ Hán'},
+  {zh:'俗', pinyin:'sú', hv:'tục', vi:'phong tục; thông tục', pos:'chữ Hán'},
+  {zh:'涨', pinyin:'zhǎng', hv:'trướng', vi:'dâng lên, tăng giá', pos:'chữ Hán'},
+  {zh:'饮', pinyin:'yǐn', hv:'ẩm', vi:'uống — 饮食 ăn uống', pos:'chữ Hán'},
+  {zh:'蔬', pinyin:'shū', hv:'sơ', vi:'rau — 蔬菜 rau củ', pos:'chữ Hán'},
+  {zh:'宵', pinyin:'xiāo', hv:'tiêu', vi:'đêm — 宵夜 ăn khuya', pos:'chữ Hán'},
+  {zh:'搭', pinyin:'dā', hv:'đáp', vi:'bắc, dựng; đi (xe); phối', pos:'chữ Hán'},
+  {zh:'配', pinyin:'pèi', hv:'phối', vi:'phối hợp, xứng', pos:'chữ Hán'},
+  {zh:'崩', pinyin:'bēng', hv:'băng', vi:'sụp đổ — 崩溃 sụp đổ, vỡ vụn', pos:'chữ Hán'},
+  {zh:'溃', pinyin:'kuì', hv:'hội', vi:'tan vỡ', pos:'chữ Hán'},
+  {zh:'倾', pinyin:'qīng', hv:'khuynh', vi:'nghiêng; dốc hết', pos:'chữ Hán'},
+  {zh:'疗', pinyin:'liáo', hv:'liệu', vi:'chữa trị — 治疗', pos:'chữ Hán'},
+  {zh:'拥', pinyin:'yōng', hv:'ủng', vi:'ôm; ủng hộ; đông đúc', pos:'chữ Hán'},
+  {zh:'舍', pinyin:'shě', hv:'xả', vi:'bỏ, từ bỏ; đọc «shè» là nhà trọ', pos:'chữ Hán'},
+  {zh:'脆', pinyin:'cuì', hv:'thuý', vi:'giòn; mong manh', pos:'chữ Hán'},
+  {zh:'型', pinyin:'xíng', hv:'hình', vi:'kiểu, mẫu', pos:'chữ Hán'},
+  {zh:'光', pinyin:'guāng', hv:'quang', vi:'ánh sáng; hết sạch', pos:'chữ Hán'},
+  {zh:'族', pinyin:'zú', hv:'tộc', vi:'dân tộc; nhóm người', pos:'chữ Hán'},
+  {zh:'索', pinyin:'suǒ', hv:'tác', vi:'dây thừng; tìm tòi (探索)', pos:'chữ Hán'},
+  {zh:'删', pinyin:'shān', hv:'san', vi:'xoá bỏ', pos:'chữ Hán'},
+  {zh:'储', pinyin:'chǔ', hv:'trữ', vi:'tích trữ', pos:'chữ Hán'},
+  {zh:'蓄', pinyin:'xù', hv:'súc', vi:'tích luỹ — 储蓄 tiết kiệm', pos:'chữ Hán'},
+  {zh:'败', pinyin:'bài', hv:'bại', vi:'thua, thất bại', pos:'chữ Hán'},
+  {zh:'险', pinyin:'xiǎn', hv:'hiểm', vi:'nguy hiểm; bảo hiểm', pos:'chữ Hán'},
+  {zh:'餐', pinyin:'cān', hv:'xan', vi:'bữa ăn — 餐厅 nhà hàng', pos:'chữ Hán'},
+  {zh:'导', pinyin:'dǎo', hv:'đạo', vi:'dẫn dắt, hướng dẫn', pos:'chữ Hán'},
+  {zh:'措', pinyin:'cuò', hv:'thố', vi:'biện pháp — 措施', pos:'chữ Hán'},
+  {zh:'循', pinyin:'xún', hv:'tuần', vi:'noi theo — 循环 tuần hoàn', pos:'chữ Hán'},
+  {zh:'乎', pinyin:'hū', hv:'hồ', vi:'(trợ từ văn viết) — 几乎 hầu như', pos:'chữ Hán'},
+  {zh:'致', pinyin:'zhì', hv:'trí', vi:'dẫn đến; tỉ mỉ (细致)', pos:'chữ Hán'},
+  {zh:'恶', pinyin:'è', hv:'ác', vi:'xấu, ác', pos:'chữ Hán'},
+  {zh:'劣', pinyin:'liè', hv:'liệt', vi:'kém, tồi — 恶劣 tồi tệ', pos:'chữ Hán'},
+  {zh:'伟', pinyin:'wěi', hv:'vĩ', vi:'vĩ đại', pos:'chữ Hán'},
+  {zh:'陌', pinyin:'mò', hv:'mạch', vi:'xa lạ — 陌生 lạ lẫm', pos:'chữ Hán'},
+  {zh:'阔', pinyin:'kuò', hv:'khoát', vi:'rộng rãi', pos:'chữ Hán'},
+  {zh:'尴', pinyin:'gān', hv:'cam', vi:'(trong 尴尬 ngượng nghịu)', pos:'chữ Hán'},
+  {zh:'尬', pinyin:'gà', hv:'giới', vi:'(trong 尴尬 ngượng nghịu)', pos:'chữ Hán'},
+  {zh:'缓', pinyin:'huǎn', hv:'hoãn', vi:'chậm; hoãn lại', pos:'chữ Hán'},
+  {zh:'寸', pinyin:'cùn', hv:'thốn', vi:'tấc; chừng mực (分寸)', pos:'chữ Hán'},
+  {zh:'嘲', pinyin:'cháo', hv:'trào', vi:'chế giễu — 嘲笑', pos:'chữ Hán'},
+  {zh:'引', pinyin:'yǐn', hv:'dẫn', vi:'dẫn, kéo; thu hút', pos:'chữ Hán'},
+  {zh:'智', pinyin:'zhì', hv:'trí', vi:'trí tuệ', pos:'chữ Hán'},
+  {zh:'忧', pinyin:'yōu', hv:'ưu', vi:'lo buồn', pos:'chữ Hán'},
+  {zh:'析', pinyin:'xī', hv:'tích', vi:'phân tích', pos:'chữ Hán'},
+  {zh:'判', pinyin:'pàn', hv:'phán', vi:'phán đoán, xét xử', pos:'chữ Hán'},
+  {zh:'断', pinyin:'duàn', hv:'đoán', vi:'đứt, ngắt; phán đoán', pos:'chữ Hán'},
+  {zh:'伦', pinyin:'lún', hv:'luân', vi:'luân lí, thứ bậc', pos:'chữ Hán'},
+  {zh:'领', pinyin:'lǐng', hv:'lĩnh', vi:'lĩnh nhận; dẫn dắt; cổ áo', pos:'chữ Hán'},
+  {zh:'抛', pinyin:'pāo', hv:'phao', vi:'ném, vứt bỏ', pos:'chữ Hán'},
+  {zh:'忠', pinyin:'zhōng', hv:'trung', vi:'trung thành', pos:'chữ Hán'},
+  {zh:'野', pinyin:'yě', hv:'dã', vi:'đồng hoang; hoang dã', pos:'chữ Hán'},
+  {zh:'灭', pinyin:'miè', hv:'diệt', vi:'tắt; tiêu diệt', pos:'chữ Hán'},
+  {zh:'衡', pinyin:'héng', hv:'hành', vi:'cân bằng — 平衡', pos:'chữ Hán'},
+  {zh:'增', pinyin:'zēng', hv:'tăng', vi:'tăng thêm', pos:'chữ Hán'},
+  {zh:'统', pinyin:'tǒng', hv:'thống', vi:'thống nhất; hệ thống', pos:'chữ Hán'},
+  {zh:'绩', pinyin:'jì', hv:'tích', vi:'thành tích', pos:'chữ Hán'},
+  {zh:'补', pinyin:'bǔ', hv:'bổ', vi:'vá, bù, bổ sung', pos:'chữ Hán'},
+  {zh:'童', pinyin:'tóng', hv:'đồng', vi:'trẻ em', pos:'chữ Hán'},
+  {zh:'竞', pinyin:'jìng', hv:'cạnh', vi:'cạnh tranh, đua', pos:'chữ Hán'},
+  {zh:'激', pinyin:'jī', hv:'kích', vi:'kích động; mãnh liệt', pos:'chữ Hán'},
+  {zh:'烈', pinyin:'liè', hv:'liệt', vi:'mạnh mẽ, dữ dội', pos:'chữ Hán'},
+  {zh:'落', pinyin:'luò', hv:'lạc', vi:'rơi, rụng; tụt lại', pos:'chữ Hán'},
+  {zh:'格', pinyin:'gé', hv:'cách', vi:'ô, khuôn; tính cách', pos:'chữ Hán'},
+  {zh:'素', pinyin:'sù', hv:'tố', vi:'vốn có; chay; yếu tố', pos:'chữ Hán'},
+  {zh:'鼓', pinyin:'gǔ', hv:'cổ', vi:'cái trống; cổ vũ', pos:'chữ Hán'},
+  {zh:'较', pinyin:'jiào', hv:'giảo', vi:'so sánh; khá (比较)', pos:'chữ Hán'},
+  {zh:'骄', pinyin:'jiāo', hv:'kiêu', vi:'kiêu ngạo; tự hào', pos:'chữ Hán'},
+  {zh:'傲', pinyin:'ào', hv:'ngạo', vi:'ngạo nghễ — 骄傲 tự hào', pos:'chữ Hán'},
+  {zh:'矛', pinyin:'máo', hv:'mâu', vi:'cây giáo — 矛盾 mâu thuẫn', pos:'chữ Hán'},
+  {zh:'盾', pinyin:'dùn', hv:'thuẫn', vi:'cái khiên', pos:'chữ Hán'},
+  {zh:'聚', pinyin:'jù', hv:'tụ', vi:'tụ họp', pos:'chữ Hán'},
+  {zh:'圈', pinyin:'quān', hv:'quyển', vi:'vòng tròn; giới (朋友圈)', pos:'chữ Hán'},
+  {zh:'列', pinyin:'liè', hv:'liệt', vi:'xếp hàng, liệt kê', pos:'chữ Hán'},
+  {zh:'患', pinyin:'huàn', hv:'hoạn', vi:'mắc (bệnh); hoạn nạn', pos:'chữ Hán'},
+  {zh:'丰', pinyin:'fēng', hv:'phong', vi:'dồi dào, phong phú', pos:'chữ Hán'},
+  {zh:'恋', pinyin:'liàn', hv:'luyến', vi:'yêu đương, quyến luyến', pos:'chữ Hán'},
+  {zh:'茫', pinyin:'máng', hv:'mang', vi:'mênh mông; mơ hồ (迷茫)', pos:'chữ Hán'},
+  {zh:'攒', pinyin:'zǎn', hv:'toàn', vi:'dành dụm, tích cóp', pos:'chữ Hán'},
+  {zh:'似', pinyin:'sì', hv:'tự', vi:'giống như — 似乎 dường như', pos:'chữ Hán'},
+  {zh:'锦', pinyin:'jǐn', hv:'cẩm', vi:'gấm; tươi đẹp', pos:'chữ Hán'},
+  {zh:'肤', pinyin:'fū', hv:'phu', vi:'da — 皮肤', pos:'chữ Hán'},
+  {zh:'测', pinyin:'cè', hv:'trắc', vi:'đo, kiểm tra', pos:'chữ Hán'},
+  {zh:'惠', pinyin:'huì', hv:'huệ', vi:'ân huệ; ưu đãi (优惠)', pos:'chữ Hán'},
+  {zh:'诱', pinyin:'yòu', hv:'dụ', vi:'dụ dỗ, lôi kéo', pos:'chữ Hán'},
+  {zh:'惑', pinyin:'huò', hv:'hoặc', vi:'mê hoặc — 诱惑 cám dỗ', pos:'chữ Hán'},
+  {zh:'奉', pinyin:'fèng', hv:'phụng', vi:'phụng sự, dâng', pos:'chữ Hán'},
+  {zh:'献', pinyin:'xiàn', hv:'hiến', vi:'hiến dâng — 奉献 cống hiến', pos:'chữ Hán'},
+  {zh:'副', pinyin:'fù', hv:'phó', vi:'phó, phụ; (lượng từ cho bộ)', pos:'chữ Hán'},
+  {zh:'兼', pinyin:'jiān', hv:'kiêm', vi:'kiêm nhiệm', pos:'chữ Hán'},
+  {zh:'勇', pinyin:'yǒng', hv:'dũng', vi:'dũng cảm', pos:'chữ Hán'},
+  {zh:'龄', pinyin:'líng', hv:'linh', vi:'tuổi — 年龄', pos:'chữ Hán'},
+  {zh:'谱', pinyin:'pǔ', hv:'phổ', vi:'bản nhạc, biểu đồ; 靠谱 đáng tin', pos:'chữ Hán'},
+  {zh:'融', pinyin:'róng', hv:'dung', vi:'tan chảy; hoà nhập; tài chính', pos:'chữ Hán'},
+  {zh:'升', pinyin:'shēng', hv:'thăng', vi:'lên cao, thăng tiến; lít', pos:'chữ Hán'},
+  {zh:'洪', pinyin:'hóng', hv:'hồng', vi:'lũ lụt', pos:'chữ Hán'},
+  {zh:'旱', pinyin:'hàn', hv:'hạn', vi:'hạn hán', pos:'chữ Hán'},
+  {zh:'繁', pinyin:'fán', hv:'phồn', vi:'nhiều, phồn thịnh; phức tạp', pos:'chữ Hán'},
+  {zh:'迫', pinyin:'pò', hv:'bách', vi:'ép buộc; gấp gáp', pos:'chữ Hán'},
+  {zh:'招', pinyin:'zhāo', hv:'chiêu', vi:'vẫy gọi; tuyển', pos:'chữ Hán'},
+  {zh:'凌', pinyin:'líng', hv:'lăng', vi:'vượt lên — 凌晨 rạng sáng', pos:'chữ Hán'},
+  {zh:'晨', pinyin:'chén', hv:'thần', vi:'buổi sớm', pos:'chữ Hán'},
+  {zh:'沉', pinyin:'chén', hv:'trầm', vi:'chìm; nặng nề, trầm', pos:'chữ Hán'},
+  {zh:'屏', pinyin:'píng', hv:'bình', vi:'bình phong; màn hình (屏幕)', pos:'chữ Hán'},
+  {zh:'幕', pinyin:'mù', hv:'mạc', vi:'màn, bức màn', pos:'chữ Hán'},
+  {zh:'略', pinyin:'lüè', hv:'lược', vi:'sơ lược; chiến lược', pos:'chữ Hán'},
+  {zh:'槛', pinyin:'kǎn', hv:'hạm', vi:'ngưỡng cửa — 门槛', pos:'chữ Hán'},
+  {zh:'博', pinyin:'bó', hv:'bác', vi:'rộng lớn, uyên bác; 博物馆 bảo tàng', pos:'chữ Hán'},
+  {zh:'览', pinyin:'lǎn', hv:'lãm', vi:'xem, duyệt — 展览 triển lãm', pos:'chữ Hán'},
+  {zh:'灵', pinyin:'líng', hv:'linh', vi:'linh hoạt; linh thiêng', pos:'chữ Hán'},
+  {zh:'台', pinyin:'tái', hv:'đài', vi:'đài, bục; Đài Loan', pos:'chữ Hán'},
+  {zh:'闻', pinyin:'wén', hv:'văn', vi:'nghe thấy; ngửi; tin tức', pos:'chữ Hán'},
+  {zh:'颈', pinyin:'jǐng', hv:'cảnh', vi:'cổ — 颈椎 đốt sống cổ', pos:'chữ Hán'},
+  {zh:'慨', pinyin:'kǎi', hv:'khái', vi:'cảm khái; hào phóng (慷慨)', pos:'chữ Hán'},
+
 ];
 
 if (typeof window !== 'undefined') window.CHARS_ZH = CHARS_ZH;
@@ -22879,7 +23737,127 @@ const VOCAB_RU = [
   {ru:'ра́сти', vi:'mọc, lớn lên', pos:'động từ NSV'},
   {ru:'вме́сте', vi:'cùng nhau', pos:'trạng từ'},
   {ru:'о́коло', vi:'gần, bên cạnh (+ sinh cách)', pos:'giới từ'},
-  {ru:'ме́жду', vi:'ở giữa (+ công cụ cách)', pos:'giới từ'}
+  {ru:'ме́жду', vi:'ở giữa (+ công cụ cách)', pos:'giới từ'},
+
+  /* ============================================================
+     BỔ SUNG SAU KHI ĐO ĐỘ PHỦ TRA TỪ
+     ------------------------------------------------------------
+     Đo lại toàn bộ câu ví dụ thấy 579 chữ bấm vào không ra gì. Soi
+     kĩ thì phần lớn KHÔNG phải lỗi của bộ nhận dạng biến cách mà là
+     thiếu chính DẠNG GỐC: «статью», «конференции», «марта» tra
+     không ra vì статья, конференция, март chưa hề là mục từ. Thiếu
+     một dạng gốc là mất luôn cả mười hai dạng biến cách của nó.
+
+     Nội dung do LangLab tự biên soạn.
+     ============================================================ */
+
+  /* ---------- Từ thường gặp trong văn viết và hội thoại ---------- */
+  {ru:'статья́', vi:'bài báo, bài viết; điều khoản', pos:'danh từ giống cái'},
+  {ru:'конфере́нция', vi:'hội nghị, hội thảo', pos:'danh từ giống cái'},
+  {ru:'организа́ция', vi:'tổ chức; việc tổ chức', pos:'danh từ giống cái'},
+  {ru:'гру́ппа', vi:'nhóm, tốp', pos:'danh từ giống cái'},
+  {ru:'отде́л', vi:'phòng, ban', pos:'danh từ giống đực'},
+  {ru:'движе́ние', vi:'sự chuyển động; phong trào; giao thông', pos:'danh từ giống trung'},
+  {ru:'ме́тод', vi:'phương pháp', pos:'danh từ giống đực'},
+  {ru:'контраргуме́нт', vi:'lí lẽ phản bác', pos:'danh từ giống đực'},
+  {ru:'аргуме́нт', vi:'lí lẽ, luận cứ', pos:'danh từ giống đực'},
+  {ru:'грамма́тика', vi:'ngữ pháp', pos:'danh từ giống cái'},
+  {ru:'стиль', vi:'phong cách, văn phong', pos:'danh từ giống đực'},
+  {ru:'отчёт', vi:'báo cáo', pos:'danh từ giống đực'},
+  {ru:'поста́вка', vi:'việc giao hàng', pos:'danh từ giống cái'},
+  {ru:'заде́ржка', vi:'sự chậm trễ', pos:'danh từ giống cái'},
+  {ru:'соглаше́ние', vi:'thoả thuận', pos:'danh từ giống trung'},
+  {ru:'рассмотре́ние', vi:'việc xem xét', pos:'danh từ giống trung'},
+  {ru:'нахожде́ние', vi:'việc ở, sự có mặt; việc tìm ra', pos:'danh từ giống trung'},
+  {ru:'изуче́ние', vi:'việc nghiên cứu, việc học', pos:'danh từ giống trung'},
+  {ru:'паде́ние', vi:'sự rơi, sự sụt giảm', pos:'danh từ giống trung'},
+  {ru:'кавы́чки', vi:'dấu ngoặc kép', pos:'danh từ số nhiều'},
+  {ru:'пик', vi:'đỉnh, cao điểm (час пик: giờ cao điểm)', pos:'danh từ giống đực'},
+  {ru:'спор', vi:'cuộc tranh luận', pos:'danh từ giống đực'},
+  {ru:'ма́стер', vi:'thợ cả, bậc thầy', pos:'danh từ giống đực'},
+  {ru:'ты́сяча', vi:'nghìn', pos:'số từ'},
+  {ru:'две́сти', vi:'hai trăm', pos:'số từ'},
+  {ru:'оди́ннадцать', vi:'mười một', pos:'số từ'},
+  {ru:'девятна́дцать', vi:'mười chín', pos:'số từ'},
+  {ru:'деся́тый', vi:'thứ mười', pos:'số từ'},
+  {ru:'пятна́дцатый', vi:'thứ mười lăm', pos:'số từ'},
+  {ru:'седьмо́й', vi:'thứ bảy', pos:'số từ'},
+  {ru:'тре́тий', vi:'thứ ba', pos:'số từ'},
+
+  /* ---------- Tháng ---------- */
+  {ru:'янва́рь', vi:'tháng Một', pos:'danh từ giống đực'},
+  {ru:'февра́ль', vi:'tháng Hai', pos:'danh từ giống đực'},
+  {ru:'март', vi:'tháng Ba', pos:'danh từ giống đực'},
+  {ru:'апре́ль', vi:'tháng Tư', pos:'danh từ giống đực'},
+  {ru:'май', vi:'tháng Năm', pos:'danh từ giống đực'},
+  {ru:'ию́нь', vi:'tháng Sáu', pos:'danh từ giống đực'},
+  {ru:'ию́ль', vi:'tháng Bảy', pos:'danh từ giống đực'},
+  {ru:'а́вгуст', vi:'tháng Tám', pos:'danh từ giống đực'},
+
+  /* ---------- Trạng từ · giới từ · từ chức năng ---------- */
+  {ru:'опя́ть', vi:'lại, lần nữa', pos:'trạng từ'},
+  {ru:'вот', vi:'đây này, kia kìa', pos:'trợ từ'},
+  {ru:'вон', vi:'kia kìa (chỉ xa)', pos:'trợ từ'},
+  {ru:'при', vi:'ở, cạnh; dưới thời; khi có', pos:'giới từ'},
+  {ru:'вме́сто', vi:'thay cho', pos:'giới từ'},
+  {ru:'немно́го', vi:'một chút, hơi', pos:'trạng từ'},
+  {ru:'ве́рно', vi:'đúng, chính xác', pos:'trạng từ'},
+  {ru:'пра́вильно', vi:'đúng, chuẩn', pos:'trạng từ'},
+  {ru:'кра́тко', vi:'ngắn gọn', pos:'trạng từ'},
+  {ru:'кста́ти', vi:'nhân tiện', pos:'trạng từ'},
+  {ru:'здо́рово', vi:'tuyệt quá, hay quá', pos:'trạng từ'},
+  {ru:'ну', vi:'thì, nào (từ đệm đầu câu)', pos:'trợ từ'},
+  {ru:'пора́', vi:'lúc, thời kì; đã đến lúc (до сих пор: cho đến nay)', pos:'danh từ giống cái'},
+  {ru:'плюс', vi:'cộng; điểm cộng', pos:'danh từ giống đực'},
+  {ru:'середи́на', vi:'phần giữa', pos:'danh từ giống cái'},
+  {ru:'обра́тный', vi:'ngược lại, chiều về', pos:'tính từ'},
+  {ru:'официа́льный', vi:'chính thức', pos:'tính từ'},
+  {ru:'нау́чный', vi:'khoa học', pos:'tính từ'},
+  {ru:'кита́йский', vi:'thuộc Trung Quốc, tiếng Trung', pos:'tính từ'},
+  {ru:'иностра́нный', vi:'nước ngoài', pos:'tính từ'},
+  {ru:'так называ́емый', vi:'cái gọi là', pos:'cụm cố định'},
+  {ru:'твой', vi:'của cậu', pos:'đại từ sở hữu'},
+  {ru:'ваш', vi:'của anh, của quý vị', pos:'đại từ sở hữu'},
+
+  /* ---------- Động từ ---------- */
+  {ru:'вести́', vi:'dẫn, dẫn dắt; tiến hành', pos:'động từ NSV'},
+  {ru:'поня́ть', vi:'hiểu ra', pos:'động từ СВ'},
+  {ru:'выбра́ть', vi:'chọn', pos:'động từ СВ'},
+  {ru:'вы́расти', vi:'lớn lên; tăng lên', pos:'động từ СВ'},
+  {ru:'хоте́ться', vi:'thấy muốn (dùng với cách 3)', pos:'động từ NSV'},
+  {ru:'бро́сить', vi:'ném; bỏ (thói quen)', pos:'động từ СВ'},
+  {ru:'быть обя́занным', vi:'có nghĩa vụ phải', pos:'cụm cố định'},
+  {ru:'рассма́триваться', vi:'được xem xét', pos:'động từ NSV'},
+  {ru:'снижа́ть', vi:'làm giảm', pos:'động từ NSV'},
+  {ru:'дели́ться', vi:'chia ra; chia sẻ', pos:'động từ NSV'},
+  {ru:'представля́ться', vi:'tự giới thiệu; có vẻ như', pos:'động từ NSV'},
+  {ru:'звуча́ть', vi:'vang lên, nghe ra sao', pos:'động từ NSV'},
+  {ru:'отложи́ть', vi:'hoãn lại; để dành', pos:'động từ СВ'},
+  {ru:'дое́хать', vi:'đi tới nơi', pos:'động từ СВ'},
+  {ru:'повтори́ть', vi:'nhắc lại', pos:'động từ СВ'},
+  {ru:'служи́ть', vi:'phục vụ; đi lính', pos:'động từ NSV'},
+  {ru:'получи́ться', vi:'thành công, ra kết quả', pos:'động từ СВ'},
+  {ru:'вы́глядеть', vi:'trông có vẻ', pos:'động từ NSV'},
+  {ru:'извини́ть', vi:'tha lỗi (Извини: xin lỗi)', pos:'động từ СВ'},
+
+  /* ---------- Tên riêng ---------- */
+  {ru:'Нячанг', vi:'Nha Trang', pos:'tên riêng'},
+  {ru:'Сахали́н', vi:'đảo Sakhalin', pos:'tên riêng'},
+  {ru:'Байка́л', vi:'hồ Baikal — hồ nước ngọt sâu nhất thế giới', pos:'tên riêng'},
+  {ru:'Ива́н', vi:'I-van (tên nam, phổ biến bậc nhất ở Nga)', pos:'tên riêng'},
+  {ru:'Анто́н', vi:'An-tôn (tên nam)', pos:'tên riêng'},
+  {ru:'Достое́вский', vi:'Dostoyevsky (văn hào Nga)', pos:'tên riêng'},
+  {ru:'Че́хов', vi:'Chekhov (nhà văn, nhà viết kịch Nga)', pos:'tên riêng'},
+  {ru:'Пу́шкин', vi:'Pushkin (đại thi hào Nga)', pos:'tên riêng'},
+  {ru:'Пу́шкинская', vi:'phố Pushkinskaya; ga Pushkinskaya', pos:'tên riêng'},
+  {ru:'Ле́нин', vi:'Lenin', pos:'tên riêng'},
+  {ru:'Маргари́та', vi:'Margarita (tên nữ; nhân vật của Bulgakov)', pos:'tên riêng'},
+  {ru:'Тет', vi:'Tết (Tết Nguyên đán của người Việt)', pos:'tên riêng'},
+  {ru:'Минь', vi:'Minh (tên người Việt)', pos:'tên riêng'},
+  {ru:'Лан', vi:'Lan (tên nữ, người Việt)', pos:'tên riêng'},
+  {ru:'ТРКИ', vi:'kì thi năng lực tiếng Nga (ТРКИ-1 … ТРКИ-4)', pos:'tên riêng'},
+  {ru:'ИК', vi:'ngữ điệu (ИК-1 … ИК-7: bảy kiểu ngữ điệu của tiếng Nga)', pos:'tên riêng'},
+
 ];
 
 if (typeof window !== 'undefined') window.VOCAB_RU = VOCAB_RU;
@@ -52732,7 +53710,12 @@ function forms(lang, word, pos){
     }
   }
 
-  if (/danh từ|tính từ/.test(p) || !isVerb){
+  /* Mục từ nhiều chữ — «a falta de», «tout à fait», «hacer falta» — không có
+     số nhiều và không có giống. Áp luật hợp giống vào đó thì sinh ra
+     «a condición des», một chữ không tồn tại mà lại lọt cả vào danh sách thu
+     audio. Cụm thì chỉ có chính nó. */
+  const multi = /\s/.test(w);
+  if (!multi && (/danh từ|tính từ/.test(p) || !isVerb)){
     if (lang === 'fr'){
       out.add(frPlural(w));
       if (FR_PRE_VOWEL[w]) out.add(FR_PRE_VOWEL[w]);
@@ -52775,6 +53758,83 @@ function forms(lang, word, pos){
   return Array.from(out);
 }
 
+/* ============================================================
+   TRỌNG ÂM TIẾNG TÂY BAN NHA
+   ------------------------------------------------------------
+   Vì sao cần: cùng một động từ mà trọng âm nhảy chỗ theo đuôi chia —
+   lla·MAR nhưng LLA·mas, rồi lla·MÉ, rồi lla·ma·RÍ·a·mos. Viết thì
+   giống nhau nên nhìn bảng chia không thấy, mà nghe thì khác hẳn.
+   Đây là thứ người học nghe ra trước khi hiểu ra, nên phải nói thẳng.
+
+   Tiếng Tây Ban Nha có luật trọng âm KÍN — không có ngoại lệ nào:
+     · có dấu sắc thì trọng âm ở đúng đó;
+     · không dấu mà kết thúc bằng nguyên âm, n hoặc s thì rơi vào âm
+       tiết áp chót;
+     · còn lại thì rơi vào âm tiết cuối.
+   Vì luật kín nên tính được cho MỌI từ, không phải đoán chữ nào.
+   ============================================================ */
+const ES_V = 'aeiouáéíóúü', ES_STRONG = 'aeoáéó', ES_ACC = 'áéíóú';
+/* Cặp phụ âm không tách rời khi chia âm tiết: gui·TA·rra chứ không phải
+   «gui·tar·ra», pla·to chứ không phải «plat·o». */
+const ES_CLUSTER = ['ch','ll','rr','pr','br','tr','dr','cr','gr','fr',
+                    'pl','bl','cl','gl','fl','tl'];
+
+/** Tách một từ tiếng Tây Ban Nha thành âm tiết. */
+function esSyllables(word){
+  const w = low(word).replace(/[^a-záéíóúüñ]/g, '');
+  if (!w) return [];
+  const isV = c => ES_V.indexOf(c) >= 0;
+  const weakAcc = c => 'íú'.indexOf(c) >= 0;
+  const out = [];
+  let i = 0;
+  while (i < w.length){
+    let onset = '';
+    while (i < w.length && !isV(w[i])){ onset += w[i]; i++; }
+    let nucleus = '';
+    while (i < w.length && isV(w[i])){
+      if (nucleus){
+        const a = nucleus[nucleus.length - 1], b = w[i];
+        /* Hai nguyên âm mạnh đứng cạnh nhau thì thành hai âm tiết (pa·se·o);
+           nguyên âm yếu mang dấu cũng tách ra (pa·ÍS, DÍ·a). */
+        if ((ES_STRONG.indexOf(a) >= 0 && ES_STRONG.indexOf(b) >= 0)
+            || weakAcc(a) || weakAcc(b)) break;
+      }
+      nucleus += w[i]; i++;
+    }
+    if (!nucleus){ if (onset){ if (out.length) out[out.length - 1] += onset; else out.push(onset); } break; }
+    let cc = '', j = i;
+    while (j < w.length && !isV(w[j])){ cc += w[j]; j++; }
+    let coda = '', next = '';
+    if (j >= w.length) coda = cc;
+    else if (cc.length === 1) next = cc;
+    else if (cc.length === 2){ if (ES_CLUSTER.indexOf(cc) >= 0) next = cc; else { coda = cc[0]; next = cc[1]; } }
+    else if (cc.length === 3){ if (ES_CLUSTER.indexOf(cc.slice(1)) >= 0){ coda = cc[0]; next = cc.slice(1); } else { coda = cc.slice(0, 2); next = cc[2]; } }
+    else if (cc.length > 3){ coda = cc.slice(0, cc.length - 2); next = cc.slice(-2); }
+    out.push(onset + nucleus + coda);
+    i = j - next.length;
+  }
+  return out.filter(Boolean);
+}
+
+/** Vị trí âm tiết mang trọng âm (chỉ số trong mảng esSyllables). */
+function esStress(word){
+  const s = esSyllables(word);
+  if (!s.length) return -1;
+  for (let k = 0; k < s.length; k++)
+    if ([...s[k]].some(c => ES_ACC.indexOf(c) >= 0)) return k;
+  const w = low(word).replace(/[^a-záéíóúüñ]/g, '');
+  const last = w[w.length - 1];
+  return (ES_V.indexOf(last) >= 0 || last === 'n' || last === 's')
+    ? Math.max(0, s.length - 2) : s.length - 1;
+}
+
+/** «lla·MAR» — âm tiết ngăn bằng dấu chấm giữa, âm tiết mạnh viết hoa. */
+function esStressMark(word){
+  const s = esSyllables(word), k = esStress(word);
+  if (!s.length) return String(word || '');
+  return s.map((x, i) => i === k ? x.toUpperCase() : x).join('·');
+}
+
 /** Bảng chia — dùng chung cho hai tiếng. */
 function table(lang, inf){
   return lang === 'fr' ? frTable(inf) : lang === 'es' ? esTable(inf) : null;
@@ -52786,7 +53846,8 @@ function isVerbForm(lang, w){
 }
 
 const API = { table, forms, stripLead, frFem, frPlural, esFem, esPlural,
-              FR_PRON, ES_PRON, isVerbForm, esUnclitic };
+              FR_PRON, ES_PRON, isVerbForm, esUnclitic,
+              esSyllables, esStress, esStressMark };
 
 if (typeof window !== 'undefined') window.LAT_MORPH = API;
 if (typeof module !== 'undefined' && module.exports) module.exports = API;
@@ -78177,7 +79238,7 @@ function ruVerbAspect(pos, i, n){
   if (/НСВ|NSV/.test(p)) return 'НСВ';
   return null;
 }
-function ruTblCell(v){ return v == null || v === '-' ? '<td class="ru-na">—</td>' : `<td class="ru">${esc(v)}</td>`; }
+function ruTblCell(v){ return v == null || v === '-' ? '<td class="ru-na">—</td>' : `<td class="ru">${formCell('ru', v)}</td>`; }
 function ruNounTable(word, w){
   if (!_RM) return '';
   const n = _RM.noun(word, { pos:w.pos, vi:w.vi });
@@ -78190,15 +79251,15 @@ function ruNounTable(word, w){
 function ruAdjTable(word){
   if (!_RM) return '';
   const a = _RM.adj(word); if (!a) return '';
-  const acc = (o, anim) => o.accI != null ? `${esc(o.accI)} <small>/ ${esc(o.accA)}</small>` : esc(o.acc);
+  const acc = (o, anim) => o.accI != null ? `${formCell('ru', o.accI)} <small>/ ${formCell('ru', o.accA)}</small>` : formCell('ru', o.acc);
   const rows = RU_CASES.map(c => {
     const k = c[0];
     const cell = (o) => k === 'acc' ? `<td class="ru">${acc(o)}</td>` : ruTblCell(o[k]);
     return `<tr><th><span class="ru-case">${c[1]}</span><small class="ru">${c[2]}</small></th>${cell(a.m)}${cell(a.f)}${cell(a.n)}${cell(a.pl)}</tr>`;
   }).join('');
   const extra = [];
-  if (a.short) extra.push(`<div><b>Dạng ngắn:</b> <span class="ru">${a.short.map(esc).join(' · ')}</span></div>`);
-  if (a.cmp) extra.push(`<div><b>So sánh hơn:</b> <span class="ru">${esc(a.cmp)}</span> · <b>nhất:</b> <span class="ru">са́мый ${esc(word)}</span></div>`);
+  if (a.short) extra.push(`<div><b>Dạng ngắn:</b> <span class="ru">${a.short.map(x => formCell('ru', x)).join(' · ')}</span></div>`);
+  if (a.cmp) extra.push(`<div><b>So sánh hơn:</b> <span class="ru">${formCell('ru', a.cmp)}</span> · <b>nhất:</b> <span class="ru">са́мый ${formCell('ru', word)}</span></div>`);
   return `<div class="ru-morph-head"><b>Biến cách tính từ</b> · cách 4: bất động vật / <small>động vật</small></div><div class="ru-tbl-wrap"><table class="ru-tbl"><thead><tr><th></th><th>Giống đực</th><th>Giống cái</th><th>Giống trung</th><th>Số nhiều</th></tr></thead><tbody>${rows}</tbody></table></div>${extra.length ? `<div class="ru-morph-extra">${extra.join('')}</div>` : ''}${a.notes.length ? `<p class="ru-morph-note">${a.notes.map(esc).join(' ')}</p>` : ''}`;
 }
 function ruVerbTable(word, aspect){
@@ -78206,17 +79267,17 @@ function ruVerbTable(word, aspect){
   const v = _RM.verb(word, { aspect }); if (!v || !v.forms) return v && v.notes.length ? `<p class="ru-morph-note">${esc(v.notes[0])}</p>` : '';
   const P = ['я','ты','он / она́','мы','вы','они́'];
   const tense = v.tense === 'future' ? 'Tương lai (thể hoàn thành)' : 'Hiện tại';
-  const rows = v.forms.map((f, i) => `<tr><th class="ru">${P[i]}</th><td class="ru">${esc(f)}</td>${v.fut ? `<td class="ru">${esc(v.fut[i])}</td>` : ''}</tr>`).join('');
-  const past = v.past ? `<div><b>Quá khứ:</b> <span class="ru">${esc(v.past[0])}</span> (он) · <span class="ru">${esc(v.past[1])}</span> (она́) · <span class="ru">${esc(v.past[2])}</span> (оно́) · <span class="ru">${esc(v.past[3])}</span> (они́)</div>` : '';
-  const imp = v.imp ? `<div><b>Mệnh lệnh:</b> <span class="ru">${esc(v.imp[0])}</span> (ты) · <span class="ru">${esc(v.imp[1])}</span> (вы)</div>` : '<div><b>Mệnh lệnh:</b> không dùng</div>';
-  const ger = v.ger ? `<div><b>Trạng động từ:</b> <span class="ru">${esc(v.ger)}</span></div>` : '';
+  const rows = v.forms.map((f, i) => `<tr><th class="ru">${P[i]}</th><td class="ru">${formCell('ru', f)}</td>${v.fut ? `<td class="ru">${formCell('ru', v.fut[i])}</td>` : ''}</tr>`).join('');
+  const past = v.past ? `<div><b>Quá khứ:</b> <span class="ru">${formCell('ru', v.past[0])}</span> (он) · <span class="ru">${formCell('ru', v.past[1])}</span> (она́) · <span class="ru">${formCell('ru', v.past[2])}</span> (оно́) · <span class="ru">${formCell('ru', v.past[3])}</span> (они́)</div>` : '';
+  const imp = v.imp ? `<div><b>Mệnh lệnh:</b> <span class="ru">${formCell('ru', v.imp[0])}</span> (ты) · <span class="ru">${formCell('ru', v.imp[1])}</span> (вы)</div>` : '<div><b>Mệnh lệnh:</b> không dùng</div>';
+  const ger = v.ger ? `<div><b>Trạng động từ:</b> <span class="ru">${formCell('ru', v.ger)}</span></div>` : '';
   return `<div class="ru-morph-head"><b>Chia động từ</b> · thể ${esc(v.aspect || '?')}${v.refl ? ' · phản thân (-ся)' : ''}${v.irregular ? ' · <span class="ru-irr">bất quy tắc</span>' : ''}</div><div class="ru-tbl-wrap"><table class="ru-tbl ru-tbl-verb"><thead><tr><th></th><th>${tense}</th>${v.fut ? '<th>Tương lai</th>' : ''}</tr></thead><tbody>${rows}</tbody></table></div><div class="ru-morph-extra">${past}${imp}${ger}</div>${v.notes.length ? `<p class="ru-morph-note">${v.notes.map(esc).join(' ')}</p>` : ''}`;
 }
 function ruPronTable(word){
   if (!_RM) return '';
   const P = _RM.PRON[ruKey(word)]; if (!P) return '';
-  if (P.cases) return `<div class="ru-morph-head"><b>Biến cách</b></div><div class="ru-tbl-wrap"><table class="ru-tbl"><tbody>${RU_CASES.map((c, i) => `<tr><th><span class="ru-case">${c[1]}</span><small class="ru">${c[2]}</small></th><td class="ru">${esc(P.cases[i])}</td></tr>`).join('')}</tbody></table></div>`;
-  return `<div class="ru-morph-head"><b>Biến cách</b></div><div class="ru-tbl-wrap"><table class="ru-tbl"><thead><tr><th></th><th>Giống đực</th><th>Giống cái</th><th>Giống trung</th><th>Số nhiều</th></tr></thead><tbody>${P.table.map((r, i) => `<tr><th><span class="ru-case">${RU_CASES[i][1]}</span></th>${r.map(x => `<td class="ru">${esc(x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  if (P.cases) return `<div class="ru-morph-head"><b>Biến cách</b></div><div class="ru-tbl-wrap"><table class="ru-tbl"><tbody>${RU_CASES.map((c, i) => `<tr><th><span class="ru-case">${c[1]}</span><small class="ru">${c[2]}</small></th><td class="ru">${formCell('ru', P.cases[i])}</td></tr>`).join('')}</tbody></table></div>`;
+  return `<div class="ru-morph-head"><b>Biến cách</b></div><div class="ru-tbl-wrap"><table class="ru-tbl"><thead><tr><th></th><th>Giống đực</th><th>Giống cái</th><th>Giống trung</th><th>Số nhiều</th></tr></thead><tbody>${P.table.map((r, i) => `<tr><th><span class="ru-case">${RU_CASES[i][1]}</span></th>${r.map(x => `<td class="ru">${formCell('ru', x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 }
 /* Cấu tạo từ + từ cùng gốc */
 let _ruRootIdx = null;
@@ -78279,8 +79340,11 @@ function ruEntryHTML(key){
   else if (kind === 'pron') morph = ruPronTable(parts[0]);
   const ex = ruExamplesFor(w, 6);
   const refs = w.refs.map(r => `<button class="zh-ref" data-ru-open="${r.lv}:${r.no}" title="Mở bài học">${esc(ruLevelName(r.lv))} bài ${r.no}</button>`).join(' ');
+  const typedRu = ruPlain(state.ru.dictQ || '');
   return `
   <article class="ru-entry">
+    ${heardFormHTML('ru', state.ru.dictQ || '', ruPlain(parts[0]),
+      typedRu ? ruSpeakBtn(typedRu) : '')}
     <header class="ru-entry-head">
       <div class="ru-entry-word ru">${esc(w.ru)} ${ruSpeakBtn(parts[0])}</div>
       <div class="ru-entry-meta">${esc(w.pos || '')}${d.gov ? ` · <span class="ru-gov" title="chi phối (управление)">${esc(d.gov)}</span>` : ''}${d.pair ? ` · cặp thể: <span class="ru">${esc(d.pair)}</span>` : ''}</div>
@@ -78699,6 +79763,27 @@ function jaLemmatize(tok){
   if (!out.length && _JM) _JM.deinflect(s).forEach(c => { const m = c.match(/^(.{2,})(する|できる)$/); if (m) (idx[m[1]] || []).forEach(push); });
   if (!out.length){ const m = s.match(/^(.{2,}?)(せず|せずに|しないで|せざる|し)$/); if (m){ (idx[m[1]] || []).forEach(push); (idx[m[1] + 'する'] || []).forEach(push); } }
   if (!out.length){ let t = s.replace(/(さん|様|さま|ちゃん|くん|君|先生|たち)$/, ''); if (t !== s && t) (idx[t] || []).forEach(push); if (/^[おご]./.test(t)){ t = t.slice(1); (idx[t] || []).forEach(push); if (_JM) _JM.deinflect(t).forEach(c => (idx[c] || []).forEach(push)); } }
+  /* Trợ từ cuối câu dính vào đuôi động từ: 行きますか, 食べましたか, んですが.
+     Với người học thì đó vẫn là «行く», nên bóc trợ từ ra rồi tra lại. Chỉ bóc
+     khi phần còn lại đủ dài, để không biến «か» thành rỗng. */
+  if (!out.length){
+    const m = s.match(/^(.{2,})(ですか|んですか|んですが|んです|ですが|か|ね|よ|な|わ|ぞ|ぜ|の)$/);
+    if (m){
+      (idx[m[1]] || []).forEach(push);
+      if (_JM) _JM.deinflect(m[1]).forEach(c => (idx[c] || []).forEach(push));
+    }
+  }
+  /* Số đếm dính liền đơn vị: 六時, 三か月, 十分, 二時間, 三年間. Tiếng Nhật ghép
+     thẳng số với đơn vị nên không có ranh giới nào để cắt. Bóc phần số ra rồi
+     tra đơn vị — đó mới là thứ người học cần biết («時» là giờ, «割» là mười
+     phần trăm). Không bịa: chỉ nhận khi đơn vị có thật trong từ điển. */
+  if (!out.length){
+    const m = s.match(/^([〇一二三四五六七八九十百千万0-9０-９何数]+)(.+)$/);
+    if (m && m[2].length <= 4){
+      (idx[m[2]] || []).forEach(push);
+      if (!out.length && JA_LOOKUP[m[2]]) push(m[2]);
+    }
+  }
   if (!out.length) Object.values(JA_LOOKUP).forEach(w => { if (String(w.jp).replace(/^[〜～]/, '') === s || String(w.kana).replace(/^[〜～]/, '') === s) push(w.key); });
   return out;
 }
@@ -78950,13 +80035,13 @@ function jaVerbTable(w){
   const v = _JM.verb(w.jp, w.g, w.kana);
   const vk = (w.kana && w.kana !== w.jp) ? _JM.verb(w.kana, w.g, w.kana) : null;
   const gname = { '1':'nhóm I (五段)', '2':'nhóm II (一段)', '3':'nhóm III (bất quy tắc)' }[v.group] || '';
-  const rows = _JM.FORM_LABELS.map(([k, label]) => `<tr><th>${esc(label)}</th><td class="ja">${esc(v.forms[k] || '—')}</td>${vk ? `<td class="ja ja-kana-sub">${esc(vk.forms[k] || '')}</td>` : ''}</tr>`).join('');
+  const rows = _JM.FORM_LABELS.map(([k, label]) => `<tr><th>${esc(label)}</th><td class="ja">${formCell('ja', v.forms[k] || '—')}</td>${vk ? `<td class="ja ja-kana-sub">${formCell('ja', vk.forms[k] || '')}</td>` : ''}</tr>`).join('');
   return `<div class="ru-morph-head"><b>Chia động từ</b> · ${esc(gname)}</div><div class="ru-tbl-wrap"><table class="ru-tbl ru-tbl-verb"><thead><tr><th></th><th>Dạng</th>${vk ? '<th>Kana</th>' : ''}</tr></thead><tbody>${rows}</tbody></table></div>${v.notes.length ? `<p class="ru-morph-note">${v.notes.map(esc).join(' ')}</p>` : ''}`;
 }
 function jaAdjTable(w, type){
   if (!_JM) return '';
   const a = _JM.adj(w.jp, type), ak = (w.kana && w.kana !== w.jp) ? _JM.adj(w.kana, type) : null;
-  const rows = _JM.ADJ_LABELS.map(([k, label]) => `<tr><th>${esc(label)}</th><td class="ja">${esc(a.forms[k] || '—')}</td>${ak ? `<td class="ja ja-kana-sub">${esc(ak.forms[k] || '')}</td>` : ''}</tr>`).join('');
+  const rows = _JM.ADJ_LABELS.map(([k, label]) => `<tr><th>${esc(label)}</th><td class="ja">${formCell('ja', a.forms[k] || '—')}</td>${ak ? `<td class="ja ja-kana-sub">${formCell('ja', ak.forms[k] || '')}</td>` : ''}</tr>`).join('');
   return `<div class="ru-morph-head"><b>Biến đổi tính từ ${type === 'i' ? 'い' : 'な'}</b></div><div class="ru-tbl-wrap"><table class="ru-tbl"><thead><tr><th></th><th>Dạng</th>${ak ? '<th>Kana</th>' : ''}</tr></thead><tbody>${rows}</tbody></table></div>${a.notes.length ? `<p class="ru-morph-note">${a.notes.map(esc).join(' ')}</p>` : ''}`;
 }
 function jaExamplesFor(w, limit){
@@ -78989,8 +80074,10 @@ function jaEntryHTML(key){
   const kanjis = [...String(w.jp)].filter(ch => /[一-鿿]/.test(ch)).map(ch => jaKanjiOf(ch)).filter(Boolean);
   const ex = jaExamplesFor(w, 6);
   const refs = w.refs.map(r => `<button class="zh-ref" data-ja-open="${r.lv}:${r.no}" title="Mở bài học">${esc(jaLevelName(r.lv))} bài ${r.no}</button>`).join(' ');
+  const typedJa = jaPlain(state.ja.dictQ || '');
   return `
   <article class="ru-entry">
+    ${heardFormHTML('ja', typedJa, w.jp, typedJa ? jaSpeakBtn(typedJa) : '')}
     <header class="ru-entry-head">
       <div class="ru-entry-word ja">${esc(w.jp)} ${w.kana && w.kana !== w.jp ? `<span class="ja-entry-kana">${esc(w.kana)}</span>` : ''} <span class="ja-romaji">${esc(w.romaji || '')}</span> ${jaSpeakBtn(w.kana || w.jp)}</div>
       <div class="ru-entry-meta">${esc(w.pos || '')}${w.g ? ` · ${{ '1':'nhóm I', '2':'nhóm II', '3':'nhóm III' }[w.g]}` : ''}${d.gov ? ` · <span class="ru-gov">${esc(d.gov)}</span>` : ''}</div>
@@ -79068,7 +80155,11 @@ function jaOpenWord(tok){
   if (state.view !== 'ja_dict') go('ja_dict'); else render();
   try { window.scrollTo({ top:0 }); } catch(e){}
 }
-try { window.__jaDict = { lemmatize: jaLemmatize, lookup: JA_LOOKUP, forms: jaFormIndex, tokens: shJaTokens }; } catch(e){}
+/* tokens = bộ tách của BÀI ĐỌC (văn bản liền, phải tự đoán ranh giới từ);
+   lessonTokens = bộ tách của CÂU TRONG KHOÁ (đã có sẵn dấu cách và ruby).
+   Hai chỗ khác nhau thật, nên phép đo độ phủ phải dùng đúng từng cái. */
+try { window.__jaDict = { lemmatize: jaLemmatize, lookup: JA_LOOKUP, forms: jaFormIndex,
+                          tokens: shJaTokens, lessonTokens: jaTokens, segment: jaSegment }; } catch(e){}
 
 /* ---------- Ôn tập ---------- */
 VIEWS.ja_srs = function(){
@@ -80161,18 +81252,86 @@ function shTokens(text){
 }
 /* Văn bản Nhật dán vào không có dấu cách — cắt từ bằng Intl.Segmenter,
    không có thì lùi về cắt theo cụm kanji + kana. */
-function shJaTokens(text){
-  const str = String(text || '');
-  let segs = null;
+/* ---------------- TÁCH TỪ TIẾNG NHẬT ----------------
+   Bản cũ giao hết cho Intl.Segmenter. Nhưng tiếng Nhật viết liền không dấu
+   cách, mà Segmenter thì tuỳ trình duyệt và tuỳ hệ điều hành có sẵn dữ liệu
+   tiếng Nhật hay không — chỗ không có thì nó cắt ra từng chữ kana một. Đo độ
+   phủ thấy hậu quả: «ま» xuất hiện 443 lượt, «た» 347 lượt, «ん» 319 lượt —
+   toàn mảnh vụn không phải từ, bấm vào chẳng ra gì.
+
+   Bản này tách bằng CHÍNH TỪ ĐIỂN: quét từ trái sang phải, mỗi bước lấy chuỗi
+   DÀI NHẤT khớp một mục từ hoặc một dạng biến đổi có thật. Không khớp được thì
+   gom cả cụm chữ cùng loại làm một khối, chứ không xé lẻ từng chữ — thà một
+   khối chưa tra được còn hơn năm mảnh vô nghĩa.
+
+   Tra được thì bấm mở mục từ; không tra được thì vẫn bấm được nhưng gạch chân
+   mờ và nói thật là chưa có, y như bên tiếng Pháp và Tây Ban Nha. */
+const JA_MAXLEN = 12;
+let _jaSegKeys = null;
+function jaSegKeys(){
+  if (_jaSegKeys) return _jaSegKeys;
+  const set = new Set();
   try {
-    if (typeof Intl !== 'undefined' && Intl.Segmenter){
-      segs = Array.from(new Intl.Segmenter('ja', { granularity:'word' }).segment(str)).map(x => x.segment);
-    }
+    Object.keys(jaFormIndex()).forEach(k => { if (k && k.length <= JA_MAXLEN) set.add(k); });
   } catch(e){}
-  if (!segs || !segs.length) segs = str.match(/[一-鿿々]+[ぁ-ん]*|[ァ-ヴー]+|[ぁ-ん]+|[A-Za-z0-9]+|[\s\S]/g) || [];
-  return segs.map(tok => {
+  try {
+    if (typeof KANJI_JA !== 'undefined') KANJI_JA.forEach(k => set.add(k.k));
+  } catch(e){}
+  _jaSegKeys = set; return set;
+}
+
+/* Cắt theo LOẠI CHỮ là sai với tiếng Nhật: một từ bình thường trộn cả Hán lẫn
+   kana, và kính ngữ お (kana) lại đứng trước 願 (Hán). Cắt theo loại chữ thì
+   «お願いします» thành bốn mảnh ở bốn khối khác nhau, không cách nào nối lại.
+   Nên chỉ tách ra hai thứ: đoạn chữ Nhật liền mạch, và mọi thứ còn lại. Dấu
+   câu (。、！？「」) nằm ngoài dải nên tự khắc ngắt đoạn. */
+const JA_RUN = /[぀-ヿ一-鿿々ｦ-ﾟ]+|[^぀-ヿ一-鿿々ｦ-ﾟ]+/g;
+
+function jaSegment(str){
+  const keys = jaSegKeys();
+  const out = [];
+  const runs = String(str || '').match(JA_RUN) || [];
+  for (const run of runs){
+    if (!/[぀-ヿ一-鿿々]/.test(run)){ out.push([run, false]); continue; }
+    let i = 0;
+    while (i < run.length){
+      let hit = '';
+      for (let len = Math.min(JA_MAXLEN, run.length - i); len >= 1; len--){
+        const cand = run.substr(i, len);
+        if (keys.has(cand)){ hit = cand; break; }
+      }
+      /* Kính ngữ お và ご dính liền từ đứng sau: お願い, ご家族. Không nối lại
+         thì «お願いします» bị xé thành お | 願 | い | します — bốn mảnh, mảnh
+         nào bấm vào cũng không ra đúng nghĩa. */
+      if (!hit && /^[おご]$/.test(run[i])){
+        for (let len = Math.min(JA_MAXLEN - 1, run.length - i - 1); len >= 2; len--){
+          if (keys.has(run.substr(i + 1, len))){ hit = run.substr(i, len + 1); break; }
+        }
+      }
+      if (hit){ out.push([hit, true]); i += hit.length; continue; }
+      /* Không khớp: nuốt tới chỗ gần nhất mà từ điển nhận ra, rồi để cả đoạn
+         ấy thành MỘT khối chưa tra được. */
+      let j = i + 1;
+      while (j < run.length){
+        let found = false;
+        for (let len = Math.min(JA_MAXLEN, run.length - j); len >= 2; len--)
+          if (keys.has(run.substr(j, len))){ found = true; break; }
+        if (found) break;
+        j++;
+      }
+      out.push([run.slice(i, j), false]);
+      i = j;
+    }
+  }
+  return out;
+}
+
+function shJaTokens(text){
+  return jaSegment(text).map(([tok, ok]) => {
     if (!/[぀-ヿ一-鿿々]/.test(tok)) return esc(tok);
-    return `<span class="zc ja-tok" data-jaw="${esc(tok)}" title="Tra từ này">${esc(tok)}</span>`;
+    return ok
+      ? `<span class="zc ja-tok" data-jaw="${esc(tok)}" title="Tra từ này">${esc(tok)}</span>`
+      : `<span class="zc ja-tok zc-x" data-jaw="${esc(tok)}" title="Chưa có trong từ điển">${esc(tok)}</span>`;
   }).join('');
 }
 
@@ -81116,6 +82275,8 @@ function enEntryHTML(e){
   if (F.cmp) formRows.push(['So sánh hơn / nhất', F.cmp + ' · ' + (F.sup || '')]);
   return `
   <div class="ru-entry" id="enEntry">
+    ${heardFormHTML('en', String(state.en.dictQ || '').trim(), e.w,
+      state.en.dictQ ? enSpeakBtn(String(state.en.dictQ).trim()) : '')}
     <div class="ru-entry-head">
       <div class="ru-entry-word en">${esc(e.w)} ${enSpeakBtn(e.w)}</div>
       <div class="ph-row"><span class="ipa big">${esc(ipa)}</span>${other}${e.pos ? `<span class="ph-tag hi">${esc(e.pos)}</span>` : ''}${e.reg ? `<span class="ph-tag">${esc(e.reg)}</span>` : ''}</div>
@@ -81126,7 +82287,8 @@ function enEntryHTML(e){
         ${x.note ? `<div class="ru-sense-note">${esc(x.note)}</div>` : ''}
         ${x.ex && x.ex[0] ? `<div class="ru-sense-ex"><span class="en">${enTokens(x.ex[0])}</span> ${enSpeakBtn(x.ex[0], 'mini')}${x.ex[1] ? `<span class="ru-sense-exvi">${esc(x.ex[1])}</span>` : ''}</div>` : ''}
       </li>`).join('')}</ol></section>` : ''}
-    ${formRows.length ? `<section class="ru-entry-sec"><h3>Dạng của từ</h3><div class="st-list">${formRows.map(r => `<div class="st-card"><h4>${esc(r[0])}</h4><p class="en">${esc(r[1])}</p></div>`).join('')}</div></section>` : ''}
+    ${formRows.length ? `<section class="ru-entry-sec"><h3>Dạng của từ</h3><div class="st-list">${formRows.map(r => `<div class="st-card"><h4>${esc(r[0])}</h4><p class="en">${formCell('en', r[1])}</p></div>`).join('')}</div></section>
+      <p class="lat-conj-hint">${BULB_ICO} Bấm vào bất cứ dạng nào để nghe cách đọc và mở mục từ của dạng ấy.</p>` : ''}
     ${e.colloc && e.colloc.length ? `<section class="ru-entry-sec"><h3>Cụm từ hay đi cùng</h3><div class="st-ex">${e.colloc.map(c => `<span class="en">${esc(c)}</span>`).join('')}</div></section>` : ''}
     ${e.phrasal && e.phrasal.length ? `<section class="ru-entry-sec"><h3>Cụm động từ</h3><div class="st-list">${e.phrasal.map(x => `<div class="st-card"><h4 class="en">${esc(x[0])}</h4><p>${esc(x[1])}</p></div>`).join('')}</div></section>` : ''}
     ${e.idiom && e.idiom.length ? `<section class="ru-entry-sec"><h3>Thành ngữ</h3><div class="st-list">${e.idiom.map(x => `<div class="st-card"><h4 class="en">${esc(x[0])}</h4><p>${esc(x[1])}</p></div>`).join('')}</div></section>` : ''}
@@ -82016,6 +83178,103 @@ function latLessonView(id){
 /* ---------------- Từ điển ---------------- */
 /* Bảng chia của một động từ, bày ngay trong mục từ. Sáu ngôi trên một hàng,
    mỗi thì một hàng — đọc dọc là thấy ngay chỗ nào đổi gốc. */
+/* ---------------- Ô BẢNG BIẾN ĐỔI, BẤM ĐƯỢC (DÙNG CHUNG) ----------------
+   Tiếng nào biến đổi hình thái thì bảng của tiếng ấy đều cần: tiếng Nga biến
+   cách danh từ và tính từ, tiếng Nhật chia động từ và tính từ, tiếng Anh có
+   dạng số nhiều và thì. Chỉ tiếng Trung là không biến đổi gì nên không có
+   bảng nào để bấm.
+
+   Một thuộc tính chung, một bộ xử lí chung, rồi mỗi tiếng tự mở từ điển của
+   mình bằng đúng hàm nó vẫn dùng khi bấm chữ trong câu. */
+/* Dòng «dạng bạn vừa bấm». Mục từ luôn mở ở dạng NGUYÊN MẪU, nên nếu không
+   nói rõ thì người học bấm vào «говорю» lại thấy «говорить» và tưởng bấm nhầm.
+   Nút nghe ở đây đọc đúng dạng vừa bấm, không phải dạng nguyên mẫu — đó mới là
+   thứ cần nghe. */
+function heardFormHTML(lang, typed, head, speakHTML, extra){
+  const t = String(typed || '').trim();
+  const h = String(head || '').trim();
+  if (!t || !h) return '';
+  const norm = x => x.toLowerCase().replace(/[\u0300-\u036f]/g, '');
+  if (norm(t) === norm(h) || norm(h).indexOf(norm(t)) === 0 && norm(h).length === norm(t).length) return '';
+  return `<div class="lat-via">
+    <div class="lat-via-top"><b class="${lang}">${esc(t)}</b>${speakHTML || ''}${extra || ''}</div>
+    <span>Đây là một dạng đã biến đổi của <b class="${lang}">${esc(h)}</b> — mục từ dưới đây là dạng gốc.</span>
+  </div>`;
+}
+
+function formCell(lang, text, cls){
+  const t = String(text == null ? '' : text);
+  if (!t || t === '—' || t === '-') return '<span class="ru-na">—</span>';
+  const esc2 = x => x.replace(/[&<>]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[c]));
+  /* Tách theo khoảng trắng và dấu ngăn, để «он / она́» hay «đã llamado» thì
+     mỗi chữ là một chỗ bấm riêng. */
+  return esc2(t).replace(/[\p{L}\p{M}\p{N}'’ー―-]+/gu, w =>
+    `<span class="zc lat-fm${cls ? ' ' + cls : ''}" data-form="${lang}:${esc(w)}" title="Nghe và tra dạng này">${w}</span>`);
+}
+
+/* ---------------- DẠNG CHIA BẤM ĐƯỢC ----------------
+   Bảng chia trước đây là chữ chết: bốn mươi tám ô mà không ô nào bấm được,
+   không ô nào nghe được. Mà chính bảng chia mới là chỗ người học cần nghe
+   nhất — «llamar» và «llamas» viết gần giống nhau nhưng trọng âm nhảy chỗ
+   nên nghe khác hẳn.
+
+   Mỗi ô giờ bấm được. Bấm thì mở từ điển với CHÍNH dạng ấy làm từ khoá, nên
+   mục từ hiện ra kèm dòng «bạn gõ llamas — đây là một dạng của llamar» và
+   nút nghe đọc đúng «llamas». Không đặt icon loa vào từng ô — bốn mươi tám
+   cái loa thì bảng thành cái mớ. */
+function latFormCell(id, text){
+  const t = String(text || '');
+  if (!t || t === '—') return '—';
+  return t.replace(/[&<>]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[c]))
+    .replace(/[\p{L}'’-]+/gu, w =>
+      `<span class="zc lat-fm" data-lat-form="${id}:${esc(w)}" title="Nghe và tra dạng này">${w}</span>`);
+}
+
+/* Trọng âm nhảy chỗ — thứ người học nghe ra trước khi hiểu ra. Tính bằng luật
+   trọng âm kín của tiếng Tây Ban Nha nên đúng cho mọi động từ, không phải ghi
+   sẵn cho từng từ. */
+function esStressRow(t){
+  const M = (typeof LAT_MORPH !== 'undefined') ? LAT_MORPH : null;
+  if (!M || !M.esStressMark) return '';
+  const pres = (t.tenses.find(x => x.id === 'pres') || {}).forms || [];
+  const pret = (t.tenses.find(x => x.id === 'pret') || {}).forms || [];
+  const cond = (t.tenses.find(x => x.id === 'cond') || {}).forms || [];
+  const pick = [t.inf, pres[0], pret[0], cond[3]].filter(Boolean)
+    .map(f => String(f).split(/\s+/).pop());
+  const seen = {};
+  const list = pick.filter(f => f && !seen[f] && (seen[f] = 1))
+    .map(f => `<b class="es">${esc(M.esStressMark(f))}</b>`);
+  if (list.length < 2) return '';
+  return `<div class="lat-stress">
+    <span class="lat-stress-tag">Trọng âm nhảy chỗ</span>
+    ${list.join(' <i>→</i> ')}
+    <p>Tiếng Tây Ban Nha không đánh dấu trọng âm bằng dấu thanh mà bằng VỊ TRÍ:
+       có dấu sắc thì trọng âm ở đúng đó; không dấu mà tận cùng bằng nguyên âm,
+       <b>n</b> hoặc <b>s</b> thì rơi vào âm tiết áp chót; còn lại thì rơi vào âm
+       tiết cuối. Đuôi chia đổi là vị trí ấy đổi theo — nên cùng một động từ mà
+       mỗi dạng nghe một khác. Bấm vào từng dạng để nghe.</p>
+  </div>`;
+}
+
+/* Tiếng Pháp thì ngược hẳn: đuôi chia phần lớn CÂM, nên nhiều dạng viết khác
+   nhau mà đọc giống hệt. Không nói ra thì người học tưởng mình nghe sai. */
+const FR_HOMO = {
+  'nhóm -er': ['je · tu · il/elle · ils/elles', 'bốn dạng này đọc GIỐNG HỆT nhau, vì -e, -es và -ent đều câm: je parle, tu parles, il parle, ils parlent đều nghe là /paʁl/. Chỉ có nous và vous là nghe khác.'],
+  'nhóm -ir': ['je · tu · il/elle', 'ba dạng này đọc giống nhau (/fi.ni/): chữ -s và -t cuối đều câm. Nous, vous, ils có thêm -iss- nên nghe rõ khác.'],
+  'nhóm -re': ['je · tu · il/elle', 'ba dạng này đọc giống nhau: -s và -d cuối đều câm, vends · vends · vend đều nghe là /vɑ̃/.']
+};
+function frHomoRow(t){
+  const h = FR_HOMO[t.group];
+  if (!h) return '';
+  return `<div class="lat-stress">
+    <span class="lat-stress-tag">Nghe giống nhau</span>
+    <b class="fr">${esc(h[0])}</b>
+    <p>Ở thì hiện tại, ${esc(h[1])} Đây là chỗ người học nghe mãi vẫn tưởng mình
+       nghe nhầm — thật ra đúng là giống nhau, và người Pháp phân biệt nhờ ĐẠI TỪ
+       đứng trước chứ không nhờ đuôi động từ. Bấm vào từng dạng để nghe.</p>
+  </div>`;
+}
+
 function latConjHTML(id, inf){
   const M = (typeof LAT_MORPH !== 'undefined') ? LAT_MORPH : null;
   const t = M && M.table(id, inf);
@@ -82024,16 +83283,16 @@ function latConjHTML(id, inf){
   const rows = t.tenses.filter(x => x.forms.some(Boolean)).map(x => `
     <tr>
       <th class="lat-tense"><b>${esc(x.vi)}</b><i>${esc(x.nat)}${x.lead ? ' · sau «' + esc(x.lead.trim()) + '»' : ''}</i></th>
-      ${x.forms.map(f => `<td class="${id}">${f ? esc(f) : '—'}</td>`).join('')}
+      ${x.forms.map(f => `<td class="${id}">${f ? latFormCell(id, f) : '—'}</td>`).join('')}
     </tr>`).join('');
   const imp = t.imper && t.imper.some(Boolean) ? `
     <div class="lat-imper">
       <b>Mệnh lệnh</b>
-      ${t.imper.map((f, i) => f ? `<span><i>${esc(t.imperPron[i] || '')}</i> <span class="${id}">${esc(f)}</span></span>` : '').join('')}
+      ${t.imper.map((f, i) => f ? `<span><i>${esc(t.imperPron[i] || '')}</i> <span class="${id}">${latFormCell(id, f)}</span></span>` : '').join('')}
     </div>` : '';
   const extra = id === 'fr'
-    ? `<div class="lat-conj-note">Quá khứ phân từ <b class="fr">${esc(t.pp || '')}</b> · phân từ hiện tại <b class="fr">${esc(t.ppr || '')}</b> · thì kép đi với <b>${esc(t.aux)}</b></div>`
-    : `<div class="lat-conj-note">Phân từ <b class="es">${esc(t.part || '')}</b> · gerundio <b class="es">${esc(t.ger || '')}</b>${t.refl ? ' · động từ phản thân' : ''}</div>`;
+    ? `<div class="lat-conj-note">Quá khứ phân từ <b class="fr">${latFormCell(id, t.pp || '')}</b> · phân từ hiện tại <b class="fr">${latFormCell(id, t.ppr || '')}</b> · thì kép đi với <b>${esc(t.aux)}</b></div>`
+    : `<div class="lat-conj-note">Phân từ <b class="es">${latFormCell(id, t.part || '')}</b> · gerundio <b class="es">${latFormCell(id, t.ger || '')}</b>${t.refl ? ' · động từ phản thân' : ''}</div>`;
   return `
   <div class="lat-conj">
     <div class="lat-conj-head"><h3>Bảng chia</h3><span class="zh-dict-tag">${esc(t.group)}</span></div>
@@ -82042,6 +83301,8 @@ function latConjHTML(id, inf){
     </div>
     ${imp}
     ${extra}
+    ${id === 'es' ? esStressRow(t) : frHomoRow(t)}
+    <p class="lat-conj-hint">${BULB_ICO} Bấm vào bất cứ dạng nào trong bảng để nghe cách đọc và mở mục từ của dạng ấy.</p>
   </div>`;
 }
 
@@ -82052,10 +83313,18 @@ function latEntryHTML(id, key, via){
   const isVerb = /động từ/.test(cur.pos || '') && M && M.table(id, M.stripLead(id, cur[id] || key));
   return `
   <div class="zh-entry" id="latEntry">
-    ${via ? `<div class="lat-via">Bạn gõ <b class="${id}">${esc(via)}</b> — đây là một dạng của từ dưới đây.${
+    ${via ? `<div class="lat-via">
+      <div class="lat-via-top">
+        <b class="${id}">${esc(via)}</b>
+        ${latSpeakBtn(via, id, 'icon-btn')}
+        ${id === 'es' && M && M.esStressMark && M.esSyllables(via).length > 1
+          ? `<span class="lat-via-str">${esc(M.esStressMark(via))}</span>` : ''}
+      </div>
+      <span>Đây là một dạng của từ dưới đây${id === 'es' && M && M.esSyllables(via).length > 1
+        ? ' — nghe kĩ chỗ nhấn, vì đổi đuôi là trọng âm đổi chỗ theo' : ''}.${
       (latAlso[id] && latAlso[id].length)
         ? ' Dạng này còn thuộc cả ' + latAlso[id].map(k => `<button class="lat-alt ${id}" data-lat-entry="${id}:${esc(k)}">${esc((latLookup(id)[k] || {})[id] || k)}</button>`).join(', ') + '.'
-        : ''}</div>` : ''}
+        : ''}</span></div>` : ''}
     <div class="zh-entry-top">
       <span class="zh-entry-hz ${id}">${esc(cur[id] || key)}</span>
       ${latSpeakBtn(cur[id] || key, id, 'icon-btn')}
@@ -83052,6 +84321,27 @@ document.addEventListener('click', e => {
   /* Từ chưa có mục từ. Vẫn phải phản hồi — bấm mà không có gì xảy ra thì người
      học tưởng app hỏng. Đưa chữ vào thanh tra để màn từ điển nói thẳng là chưa
      có, đồng thời gợi ý tra sang từ điển các tiếng khác. */
+  /* Ô bảng biến đổi của tiếng Nga, Nhật, Anh. Gọi thẳng hàm mở từ điển mà mỗi
+     tiếng vẫn dùng khi bấm chữ trong câu, nên không sinh thêm đường đi mới. */
+  const fmAny = t.closest('[data-form]');
+  if (fmAny){ const i = fmAny.dataset.form.indexOf(':');
+    const lg = fmAny.dataset.form.slice(0, i), w = fmAny.dataset.form.slice(i + 1);
+    try {
+      if (lg === 'ru') ruOpenWord(w);
+      else if (lg === 'ja') jaOpenWord(w);
+      else if (lg === 'en'){ state.en.entry = enLemma(w) || w; state.en.dictQ = w;
+        if (state.view !== 'en_dict') go('en_dict'); else render(); }
+      else if (lg === 'ko' && typeof koOpenWord === 'function') koOpenWord(w);
+    } catch(e){}
+    try { window.scrollTo({ top:0 }); } catch(e){}
+    return; }
+  /* Một dạng đã chia, bấm từ trong bảng chia. Đặt chính dạng ấy làm từ khoá
+     tra, để mục từ mở ra có dòng «bạn gõ … — đây là một dạng của …» kèm nút
+     nghe đọc đúng dạng ấy, chứ không phải đọc dạng nguyên mẫu. */
+  const latFm = t.closest('[data-lat-form]');
+  if (latFm){ const i = latFm.dataset.latForm.indexOf(':'); const id = latFm.dataset.latForm.slice(0, i);
+    latSt(id).q = latFm.dataset.latForm.slice(i + 1); latSt(id).entry = null;
+    go(id + '_dict'); return; }
   const latWx = t.closest('[data-latwx]');
   if (latWx){ const i = latWx.dataset.latwx.indexOf(':'); const id = latWx.dataset.latwx.slice(0, i);
     latSt(id).q = latWx.dataset.latwx.slice(i + 1); latSt(id).entry = null;

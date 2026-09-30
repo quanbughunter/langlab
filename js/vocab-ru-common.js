@@ -1412,7 +1412,127 @@ const VOCAB_RU = [
   {ru:'ра́сти', vi:'mọc, lớn lên', pos:'động từ NSV'},
   {ru:'вме́сте', vi:'cùng nhau', pos:'trạng từ'},
   {ru:'о́коло', vi:'gần, bên cạnh (+ sinh cách)', pos:'giới từ'},
-  {ru:'ме́жду', vi:'ở giữa (+ công cụ cách)', pos:'giới từ'}
+  {ru:'ме́жду', vi:'ở giữa (+ công cụ cách)', pos:'giới từ'},
+
+  /* ============================================================
+     BỔ SUNG SAU KHI ĐO ĐỘ PHỦ TRA TỪ
+     ------------------------------------------------------------
+     Đo lại toàn bộ câu ví dụ thấy 579 chữ bấm vào không ra gì. Soi
+     kĩ thì phần lớn KHÔNG phải lỗi của bộ nhận dạng biến cách mà là
+     thiếu chính DẠNG GỐC: «статью», «конференции», «марта» tra
+     không ra vì статья, конференция, март chưa hề là mục từ. Thiếu
+     một dạng gốc là mất luôn cả mười hai dạng biến cách của nó.
+
+     Nội dung do LangLab tự biên soạn.
+     ============================================================ */
+
+  /* ---------- Từ thường gặp trong văn viết và hội thoại ---------- */
+  {ru:'статья́', vi:'bài báo, bài viết; điều khoản', pos:'danh từ giống cái'},
+  {ru:'конфере́нция', vi:'hội nghị, hội thảo', pos:'danh từ giống cái'},
+  {ru:'организа́ция', vi:'tổ chức; việc tổ chức', pos:'danh từ giống cái'},
+  {ru:'гру́ппа', vi:'nhóm, tốp', pos:'danh từ giống cái'},
+  {ru:'отде́л', vi:'phòng, ban', pos:'danh từ giống đực'},
+  {ru:'движе́ние', vi:'sự chuyển động; phong trào; giao thông', pos:'danh từ giống trung'},
+  {ru:'ме́тод', vi:'phương pháp', pos:'danh từ giống đực'},
+  {ru:'контраргуме́нт', vi:'lí lẽ phản bác', pos:'danh từ giống đực'},
+  {ru:'аргуме́нт', vi:'lí lẽ, luận cứ', pos:'danh từ giống đực'},
+  {ru:'грамма́тика', vi:'ngữ pháp', pos:'danh từ giống cái'},
+  {ru:'стиль', vi:'phong cách, văn phong', pos:'danh từ giống đực'},
+  {ru:'отчёт', vi:'báo cáo', pos:'danh từ giống đực'},
+  {ru:'поста́вка', vi:'việc giao hàng', pos:'danh từ giống cái'},
+  {ru:'заде́ржка', vi:'sự chậm trễ', pos:'danh từ giống cái'},
+  {ru:'соглаше́ние', vi:'thoả thuận', pos:'danh từ giống trung'},
+  {ru:'рассмотре́ние', vi:'việc xem xét', pos:'danh từ giống trung'},
+  {ru:'нахожде́ние', vi:'việc ở, sự có mặt; việc tìm ra', pos:'danh từ giống trung'},
+  {ru:'изуче́ние', vi:'việc nghiên cứu, việc học', pos:'danh từ giống trung'},
+  {ru:'паде́ние', vi:'sự rơi, sự sụt giảm', pos:'danh từ giống trung'},
+  {ru:'кавы́чки', vi:'dấu ngoặc kép', pos:'danh từ số nhiều'},
+  {ru:'пик', vi:'đỉnh, cao điểm (час пик: giờ cao điểm)', pos:'danh từ giống đực'},
+  {ru:'спор', vi:'cuộc tranh luận', pos:'danh từ giống đực'},
+  {ru:'ма́стер', vi:'thợ cả, bậc thầy', pos:'danh từ giống đực'},
+  {ru:'ты́сяча', vi:'nghìn', pos:'số từ'},
+  {ru:'две́сти', vi:'hai trăm', pos:'số từ'},
+  {ru:'оди́ннадцать', vi:'mười một', pos:'số từ'},
+  {ru:'девятна́дцать', vi:'mười chín', pos:'số từ'},
+  {ru:'деся́тый', vi:'thứ mười', pos:'số từ'},
+  {ru:'пятна́дцатый', vi:'thứ mười lăm', pos:'số từ'},
+  {ru:'седьмо́й', vi:'thứ bảy', pos:'số từ'},
+  {ru:'тре́тий', vi:'thứ ba', pos:'số từ'},
+
+  /* ---------- Tháng ---------- */
+  {ru:'янва́рь', vi:'tháng Một', pos:'danh từ giống đực'},
+  {ru:'февра́ль', vi:'tháng Hai', pos:'danh từ giống đực'},
+  {ru:'март', vi:'tháng Ba', pos:'danh từ giống đực'},
+  {ru:'апре́ль', vi:'tháng Tư', pos:'danh từ giống đực'},
+  {ru:'май', vi:'tháng Năm', pos:'danh từ giống đực'},
+  {ru:'ию́нь', vi:'tháng Sáu', pos:'danh từ giống đực'},
+  {ru:'ию́ль', vi:'tháng Bảy', pos:'danh từ giống đực'},
+  {ru:'а́вгуст', vi:'tháng Tám', pos:'danh từ giống đực'},
+
+  /* ---------- Trạng từ · giới từ · từ chức năng ---------- */
+  {ru:'опя́ть', vi:'lại, lần nữa', pos:'trạng từ'},
+  {ru:'вот', vi:'đây này, kia kìa', pos:'trợ từ'},
+  {ru:'вон', vi:'kia kìa (chỉ xa)', pos:'trợ từ'},
+  {ru:'при', vi:'ở, cạnh; dưới thời; khi có', pos:'giới từ'},
+  {ru:'вме́сто', vi:'thay cho', pos:'giới từ'},
+  {ru:'немно́го', vi:'một chút, hơi', pos:'trạng từ'},
+  {ru:'ве́рно', vi:'đúng, chính xác', pos:'trạng từ'},
+  {ru:'пра́вильно', vi:'đúng, chuẩn', pos:'trạng từ'},
+  {ru:'кра́тко', vi:'ngắn gọn', pos:'trạng từ'},
+  {ru:'кста́ти', vi:'nhân tiện', pos:'trạng từ'},
+  {ru:'здо́рово', vi:'tuyệt quá, hay quá', pos:'trạng từ'},
+  {ru:'ну', vi:'thì, nào (từ đệm đầu câu)', pos:'trợ từ'},
+  {ru:'пора́', vi:'lúc, thời kì; đã đến lúc (до сих пор: cho đến nay)', pos:'danh từ giống cái'},
+  {ru:'плюс', vi:'cộng; điểm cộng', pos:'danh từ giống đực'},
+  {ru:'середи́на', vi:'phần giữa', pos:'danh từ giống cái'},
+  {ru:'обра́тный', vi:'ngược lại, chiều về', pos:'tính từ'},
+  {ru:'официа́льный', vi:'chính thức', pos:'tính từ'},
+  {ru:'нау́чный', vi:'khoa học', pos:'tính từ'},
+  {ru:'кита́йский', vi:'thuộc Trung Quốc, tiếng Trung', pos:'tính từ'},
+  {ru:'иностра́нный', vi:'nước ngoài', pos:'tính từ'},
+  {ru:'так называ́емый', vi:'cái gọi là', pos:'cụm cố định'},
+  {ru:'твой', vi:'của cậu', pos:'đại từ sở hữu'},
+  {ru:'ваш', vi:'của anh, của quý vị', pos:'đại từ sở hữu'},
+
+  /* ---------- Động từ ---------- */
+  {ru:'вести́', vi:'dẫn, dẫn dắt; tiến hành', pos:'động từ NSV'},
+  {ru:'поня́ть', vi:'hiểu ra', pos:'động từ СВ'},
+  {ru:'выбра́ть', vi:'chọn', pos:'động từ СВ'},
+  {ru:'вы́расти', vi:'lớn lên; tăng lên', pos:'động từ СВ'},
+  {ru:'хоте́ться', vi:'thấy muốn (dùng với cách 3)', pos:'động từ NSV'},
+  {ru:'бро́сить', vi:'ném; bỏ (thói quen)', pos:'động từ СВ'},
+  {ru:'быть обя́занным', vi:'có nghĩa vụ phải', pos:'cụm cố định'},
+  {ru:'рассма́триваться', vi:'được xem xét', pos:'động từ NSV'},
+  {ru:'снижа́ть', vi:'làm giảm', pos:'động từ NSV'},
+  {ru:'дели́ться', vi:'chia ra; chia sẻ', pos:'động từ NSV'},
+  {ru:'представля́ться', vi:'tự giới thiệu; có vẻ như', pos:'động từ NSV'},
+  {ru:'звуча́ть', vi:'vang lên, nghe ra sao', pos:'động từ NSV'},
+  {ru:'отложи́ть', vi:'hoãn lại; để dành', pos:'động từ СВ'},
+  {ru:'дое́хать', vi:'đi tới nơi', pos:'động từ СВ'},
+  {ru:'повтори́ть', vi:'nhắc lại', pos:'động từ СВ'},
+  {ru:'служи́ть', vi:'phục vụ; đi lính', pos:'động từ NSV'},
+  {ru:'получи́ться', vi:'thành công, ra kết quả', pos:'động từ СВ'},
+  {ru:'вы́глядеть', vi:'trông có vẻ', pos:'động từ NSV'},
+  {ru:'извини́ть', vi:'tha lỗi (Извини: xin lỗi)', pos:'động từ СВ'},
+
+  /* ---------- Tên riêng ---------- */
+  {ru:'Нячанг', vi:'Nha Trang', pos:'tên riêng'},
+  {ru:'Сахали́н', vi:'đảo Sakhalin', pos:'tên riêng'},
+  {ru:'Байка́л', vi:'hồ Baikal — hồ nước ngọt sâu nhất thế giới', pos:'tên riêng'},
+  {ru:'Ива́н', vi:'I-van (tên nam, phổ biến bậc nhất ở Nga)', pos:'tên riêng'},
+  {ru:'Анто́н', vi:'An-tôn (tên nam)', pos:'tên riêng'},
+  {ru:'Достое́вский', vi:'Dostoyevsky (văn hào Nga)', pos:'tên riêng'},
+  {ru:'Че́хов', vi:'Chekhov (nhà văn, nhà viết kịch Nga)', pos:'tên riêng'},
+  {ru:'Пу́шкин', vi:'Pushkin (đại thi hào Nga)', pos:'tên riêng'},
+  {ru:'Пу́шкинская', vi:'phố Pushkinskaya; ga Pushkinskaya', pos:'tên riêng'},
+  {ru:'Ле́нин', vi:'Lenin', pos:'tên riêng'},
+  {ru:'Маргари́та', vi:'Margarita (tên nữ; nhân vật của Bulgakov)', pos:'tên riêng'},
+  {ru:'Тет', vi:'Tết (Tết Nguyên đán của người Việt)', pos:'tên riêng'},
+  {ru:'Минь', vi:'Minh (tên người Việt)', pos:'tên riêng'},
+  {ru:'Лан', vi:'Lan (tên nữ, người Việt)', pos:'tên riêng'},
+  {ru:'ТРКИ', vi:'kì thi năng lực tiếng Nga (ТРКИ-1 … ТРКИ-4)', pos:'tên riêng'},
+  {ru:'ИК', vi:'ngữ điệu (ИК-1 … ИК-7: bảy kiểu ngữ điệu của tiếng Nga)', pos:'tên riêng'},
+
 ];
 
 if (typeof window !== 'undefined') window.VOCAB_RU = VOCAB_RU;

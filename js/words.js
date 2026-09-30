@@ -105,6 +105,18 @@ function baseCandidates(s, add){
   if (dp && !dp.jong && dp.jung === 'ㅕ'){
     add(s.slice(0, -1) + composeHangul(dp.cho, 'ㅣ', '') + '다', 'dạng gốc, gỡ co -이- + 어', 'base');
   }
+  /* Bất quy tắc ㅎ: 어때→어떻다 · 그래→그렇다 · 빨개→빨갛다 · 어떤→어떻다.
+     Thân từ kết thúc bằng ㅎ gặp 아/어 thì ㅎ rụng và nguyên âm biến thành ㅐ.
+     Đi ngược lại: ㅐ trả về ㅓ hoặc ㅏ rồi gắn ㅎ. Sinh cả hai vì không đoán
+     được, và dạng nào không có thật thì tự khắc không khớp từ điển. */
+  {
+    const hp = (typeof decomposeHangul === 'function') && decomposeHangul(last);
+    if (hp && !hp.jong && (hp.jung === 'ㅐ' || hp.jung === 'ㅒ')){
+      const v = hp.jung === 'ㅐ' ? ['ㅓ', 'ㅏ'] : ['ㅑ'];
+      v.forEach(j => add(s.slice(0, -1) + composeHangul(hp.cho, j, 'ㅎ') + '다',
+        'dạng gốc bất quy tắc ㅎ', 'base'));
+    }
+  }
   const un2 = uncontract(last);
   if (un2) add(s.slice(0, -1) + un2 + '다', 'dạng gốc, gỡ nguyên âm co', 'base');
   const eu2 = restoreEu(last);
@@ -126,6 +138,65 @@ function stemToBase(s, add){
   else if (/시$/.test(s) && s.length > 1) baseCandidates(s.slice(0, -1), add);
 }
 
+/* ---------------- BÓC NHIỀU LỚP ĐUÔI ----------------
+   Tiếng Hàn chồng đuôi lên nhau, mỗi lớp một việc:
+     좋 + 겠 + 어 + 요   →  좋겠어요   (tốt + phỏng đoán + thân mật + lịch sự)
+     있 + 을까 + 요      →  있을까요
+     지키 + 어야         →  지켜야     (còn co nguyên âm ㅣ+ㅓ = ㅕ)
+   Bản cũ chỉ bóc MỘT lớp rồi dừng, nên ba dạng trên đều tra không ra — mà đó
+   lại là những dạng gặp nhiều nhất trong hội thoại.
+
+   Bảng dưới đây là các lớp bóc được, xếp dài trước ngắn sau để «더라고요» không
+   bị cắt nhầm thành «…고» + «요». Bóc xong thì phân tích LẠI từ đầu, tối đa ba
+   vòng — đủ cho mọi tổ hợp thật, mà không sợ lặp vô hạn. */
+const PEEL = [
+  /* đuôi trang trọng -습니다 / -ㅂ니다 — dạng gặp nhiều nhất trong bài đọc */
+  '았습니다','었습니다','였습니다','겠습니다','으셨습니다','셨습니다','으십니다','십니다',
+  '습니다','습니까','읍시다','ㅂ시다','니다','니까',
+  /* lớp lịch sự và ngữ khí cuối câu */
+  '더라고요','더라구요','잖아요','는군요','는데요','은데요','던데요','군요','네요',
+  '지요','거든요','는걸요','을걸요','ㄹ걸요','나요','가요','까요','래요','게요',
+  '죠','요',
+  /* phỏng đoán 겠 và kính ngữ 시 */
+  '겠','으시','시',
+  /* đuôi nối và đuôi phụ thuộc */
+  '으려고','으면서','으니까','으므로','으므로써','음으로써','기로','기는','기도','기만',
+  '더라도','더라면','다면서','다고요','다는','다고','라고','자마자','느라고','는커녕',
+  '을수록','ㄹ수록','을지라도','을지언정','는데도','음에도','음에','으로써','로써',
+  '아야','어야','여야','아서','어서','여서','아도','어도','여도','아야만','어야만',
+  '도록','고자','든지','거나','지만','으면','면서','니까','는데','은데','을까','ㄹ까',
+  '을게','ㄹ게','을래','ㄹ래','을지','ㄹ지','기가','기에','길래','다가','다시피',
+  '고서','고는','고도','아라','어라','으라','세요','셔요',
+  '더니','았더니','었더니','다니','다면','라면','라도','치고','만큼','뿐',
+  '야','지','고','게','기','며','면','서','러','한들','손','네'
+];
+
+/* Đuôi hoà âm TRẦN — không kèm 요, không kèm gì cả: 먹어, 말해, 끓여, 좋겠어.
+   Đây là dạng nói thân mật, gặp dày đặc trong hội thoại. */
+const BARE_HARMONY = ['아', '어', '여'];
+
+/* Bóc đúng một lớp; trả về mọi cách bóc hợp lệ. */
+function peelOnce(token){
+  const out = [];
+  for (const e of PEEL){
+    if (token.length <= e.length || token.slice(-e.length) !== e) continue;
+    let s = token.slice(0, -e.length);
+    /* -ㅂ니다 kiểu 갑니다: patchim ㅂ dính vào âm tiết trước. */
+    if (s.length && jong(s.slice(-1)) === 'ㅂ' && /^(니다|니까)/.test(e))
+      s = s.slice(0, -1) + dropJong(s.slice(-1));
+    if (s.length) out.push([s, e]);
+  }
+  for (const v of BARE_HARMONY){
+    if (token.length > 1 && token.slice(-1) === v) out.push([token.slice(0, -1), v]);
+  }
+  /* Đuôi viết bằng patchim chứ không phải âm tiết riêng: 갈(가+ㄹ), 간(가+ㄴ),
+     배움(배우+ㅁ). Bóc patchim ra là lộ thân từ. */
+  const lc = token.slice(-1), j = jong(lc);
+  if ((j === 'ㄴ' || j === 'ㄹ' || j === 'ㅁ' || j === 'ㅂ') && token.length >= 1)
+    out.push([token.slice(0, -1) + dropJong(lc), 'đuôi ' + j]);
+  return out;
+}
+
 function forms(token){
   const out = [], seen = {};
   const add = (f, why, kind) => {
@@ -133,6 +204,27 @@ function forms(token){
     seen[f] = 1; out.push({ form: f, why: why, kind: kind || 'other' });
   };
   add(token, 'nguyên dạng trong câu', 'surface');
+  /* Chính chữ đang đứng đó cũng có thể LÀ thân từ đã co nguyên âm: 끓여 là
+     끓이+어, 봐 là 보+아, 해 là 하+아. Cho nó đi qua bộ gỡ co ngay từ đầu. */
+  stemToBase(token, add);
+
+  /* Bóc từng lớp rồi phân tích lại. Mỗi vòng đều chạy qua đúng bộ quy tắc gỡ
+     co nguyên âm và bất quy tắc ở baseCandidates, nên 지켜 vẫn ra 지키다. */
+  const peeled = {};
+  let layer = [[token, '']];
+  for (let depth = 0; depth < 3 && layer.length; depth++){
+    const next = [];
+    for (const [t] of layer){
+      for (const [s, e] of peelOnce(t)){
+        if (peeled[s]) continue;
+        peeled[s] = 1;
+        stemToBase(s, add);
+        add(s, 'bỏ đuôi -' + e, 'stem');
+        next.push([s, e]);
+      }
+    }
+    layer = next.slice(0, 24);          // chặn bùng nổ tổ hợp
+  }
 
   /* --- động từ / tính từ --- */
   // (1) đuôi hoà âm: …아요 / …어요 / …해요 / …아서 …
@@ -170,8 +262,11 @@ function forms(token){
     break;
   }
 
-  // (2) đuôi thường: …습니다 · …지만 · …고 …
-  if (!out.some(f => f.kind === 'base')){
+  /* (2) đuôi thường. Trước đây nhánh này bị chặn bởi «nếu chưa tìm ra dạng gốc
+     nào» — mà từ khi phân tích luôn chính chữ đang đứng đó, điều kiện ấy gần
+     như không bao giờ đúng nữa, nên «있습니다», «갑니다» tra vào không ra gì.
+     Bỏ chặn: add() tự khử trùng lặp nên chạy thêm không hại gì. */
+  {
     for (const e of PLAIN_ENDINGS){
       if (token.length <= e.length || token.slice(-e.length) !== e) continue;
       let s = token.slice(0, -e.length);

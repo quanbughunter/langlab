@@ -29,7 +29,8 @@ edge-tts dùng endpoint đọc-to của Microsoft Edge: miễn phí, không cầ
 thì không sao, nhưng đừng đưa vào sản phẩm thương mại.
 """
 
-import argparse, asyncio, json, re, sys, pathlib
+import argparse
+import json, asyncio, json, re, sys, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT  = ROOT / 'audio' / 'tts'
@@ -236,7 +237,31 @@ def from_readings(lang: str):
         yield norm(t), 'reading'
 
 
-SOURCES = {'course': from_course, 'pic': from_pic, 'readings': from_readings}
+FORMS_JSON = ROOT / 'tools' / 'forms-audio.json'
+
+
+def from_forms(lang: str):
+    """Mọi dạng đã biến đổi của tiếng Pháp và Tây Ban Nha.
+
+    Bảng chia trong từ điển giờ bấm được vào từng dạng, và bấm thì dẫn tới
+    nút nghe. Không thu sẵn thì nghe bằng giọng máy — đọc được nhưng không
+    bằng giọng thu. Mà đây lại đúng là chỗ cần nghe nhất của tiếng Tây Ban
+    Nha: cùng một động từ mà trọng âm nhảy chỗ theo từng đuôi chia.
+
+    Danh sách do tools/gen-forms.js sinh từ chính bộ hình thái của app, nên
+    không bao giờ lệch với thứ hiện trên màn hình. Chạy lại tệp ấy mỗi khi
+    thêm từ mới.
+    """
+    if not FORMS_JSON.exists():
+        print('  (chưa có %s — chạy «node tools/gen-forms.js» trước)' % FORMS_JSON.name)
+        return
+    data = json.loads(FORMS_JSON.read_text(encoding='utf-8'))
+    for t in data.get(lang, []):
+        yield norm(t), 'forms'
+
+
+SOURCES = {'course': from_course, 'pic': from_pic, 'readings': from_readings,
+           'forms': from_forms}
 
 
 def build(langs, parts):
@@ -358,10 +383,14 @@ def main():
     ap.add_argument('--lang', nargs='*', default=LANGS, choices=LANGS,
                     help='thứ tiếng cần thu, mặc định cả 5')
     ap.add_argument('--only', nargs='*', default=['pic'],
-                    choices=['course', 'pic', 'readings'],
-                    help='phần nào: pic (nghe–xem tranh, mặc định) · course (giáo trình) · readings (bài đọc)')
+                    choices=['course', 'pic', 'readings', 'forms'],
+                    help='phần nào: pic (nghe–xem tranh, mặc định) · course (giáo trình) · '
+                         'readings (bài đọc) · forms (mọi dạng đã chia, chỉ fr và es)')
     ap.add_argument('--with-course', action='store_true', help='thu thêm từ vựng và hội thoại của giáo trình')
     ap.add_argument('--with-readings', action='store_true', help='thu thêm 50 bài đọc mỗi thứ tiếng')
+    ap.add_argument('--with-forms', action='store_true',
+                    help='thu thêm mọi dạng đã chia của tiếng Pháp và Tây Ban Nha '
+                         '(nhiều: khoảng 53 nghìn tệp — chạy «node tools/gen-forms.js» trước)')
     ap.add_argument('--en-voice', default='uk', choices=['uk', 'us', 'both'],
                     help='tiếng Anh thu giọng nào; «both» thu cả hai nên tốn gấp đôi')
     ap.add_argument('--voice', action='append', default=[], metavar='LANG=VOICE',
@@ -387,6 +416,8 @@ def main():
         parts.append('course')
     if a.with_readings and 'readings' not in parts:
         parts.append('readings')
+    if a.with_forms and 'forms' not in parts:
+        parts.append('forms')
 
     VOICE_OF['en'] = {'uk': ['en-gb'], 'us': ['en-us'], 'both': ['en-gb', 'en-us']}[a.en_voice]
 

@@ -499,6 +499,86 @@ const LANGS = [
   });
   check('không có lỗi console', () => errors.length === 0 || errors.slice(0, 2).join(' | '));
 
-  console.log('\n' + pass + ' đạt / ' + fail + ' lỗi');
+  
+/* ============================================================
+   BẢNG CHIA BẤM ĐƯỢC
+   ------------------------------------------------------------
+   Bảng chia trước đây là chữ chết. Nhưng chính bảng chia mới là chỗ
+   cần nghe nhất: «llamar» và «llamas» viết gần giống nhau mà trọng âm
+   nhảy chỗ nên nghe khác hẳn — lla·MAR rồi LLA·mas. Mỗi ô phải bấm
+   được, và bấm thì phải ra mục từ của ĐÚNG dạng ấy kèm nút nghe.
+   ============================================================ */
+for (const L of LANGS){
+  check(L.vi + ' — mọi dạng trong bảng chia đều bấm được', () => {
+    click('[data-go="' + L.id + '_dict"]');
+    const box = d.querySelector('#latSearch');
+    box.value = L.id === 'fr' ? 'parler' : 'llamar';
+    box.dispatchEvent(new win.Event('input', { bubbles:true }));
+    const cells = d.querySelectorAll('.lat-conj-tb [data-lat-form]');
+    if (cells.length < 30) return 'chỉ có ' + cells.length + ' ô bấm được, bảng chia phải có ít nhất 30';
+    return true;
+  });
+
+  check(L.vi + ' — bấm một dạng thì mở đúng dạng ấy, có nút nghe', () => {
+    click('[data-go="' + L.id + '_dict"]');
+    const box = d.querySelector('#latSearch');
+    box.value = L.id === 'fr' ? 'parler' : 'llamar';
+    box.dispatchEvent(new win.Event('input', { bubbles:true }));
+    const want = L.id === 'fr' ? 'parlions' : 'llamas';
+    const cell = [...d.querySelectorAll('[data-lat-form]')].find(c => c.textContent.trim() === want);
+    if (!cell) return 'không thấy ô «' + want + '» trong bảng chia';
+    cell.dispatchEvent(new win.MouseEvent('click', { bubbles:true }));
+    const via = d.querySelector('.lat-via');
+    if (!via) return 'bấm xong không có dòng «đây là một dạng của…»';
+    if (via.textContent.indexOf(want) < 0) return 'dòng via không nhắc tới «' + want + '»';
+    const btn = d.querySelector('.lat-via-top [data-lat-speak]');
+    if (!btn) return 'thiếu nút nghe cho dạng vừa bấm';
+    if (btn.dataset.latSpeak !== L.id + ':' + want)
+      return 'nút nghe đọc «' + btn.dataset.latSpeak + '», lẽ ra phải đọc «' + L.id + ':' + want + '»';
+    return true;
+  });
+}
+
+check('Tây Ban Nha — bảng chia có phần trọng âm nhảy chỗ, tính đúng', () => {
+  click('[data-go="es_dict"]');
+  const box = d.querySelector('#latSearch');
+  box.value = 'llamar';
+  box.dispatchEvent(new win.Event('input', { bubbles:true }));
+  const st = d.querySelector('.lat-stress');
+  if (!st) return 'không có khối trọng âm';
+  const t = st.textContent;
+  for (const want of ['lla·MAR', 'LLA·mo', 'lla·MÉ'])
+    if (t.indexOf(want) < 0) return 'thiếu «' + want + '»';
+  return true;
+});
+
+check('Pháp — bảng chia nói rõ những dạng đọc GIỐNG nhau', () => {
+  click('[data-go="fr_dict"]');
+  const box = d.querySelector('#latSearch');
+  box.value = 'parler';
+  box.dispatchEvent(new win.Event('input', { bubbles:true }));
+  const st = d.querySelector('.lat-stress');
+  if (!st) return 'không có khối «nghe giống nhau»';
+  const t = st.textContent;
+  if (t.indexOf('GIỐNG HỆT') < 0) return 'không nói rõ là bốn dạng đọc giống hệt nhau';
+  return true;
+});
+
+check('trọng âm tiếng Tây Ban Nha — tính đúng theo luật, không phải ghi sẵn', () => {
+  const want = { 'llamar':'lla·MAR', 'llamas':'LLA·mas', 'llamaríamos':'lla·ma·RÍ·a·mos',
+                 'exámenes':'e·XÁ·me·nes', 'país':'pa·ÍS', 'guitarra':'gui·TA·rra',
+                 'instrucción':'ins·truc·CIÓN', 'joven':'JO·ven', 'árbol':'ÁR·bol',
+                 'ciudad':'ciu·DAD', 'construyo':'cons·TRU·yo', 'día':'DÍ·a' };
+  const M = win.LAT_MORPH;
+  if (!M || !M.esStressMark) return 'app chưa mở esStressMark ra ngoài';
+  const bad = [];
+  for (const [w, exp] of Object.entries(want)){
+    const got = M.esStressMark(w);
+    if (got !== exp) bad.push(w + ': ra «' + got + '», cần «' + exp + '»');
+  }
+  return bad.length ? bad.join(' | ') : true;
+});
+
+console.log('\n' + pass + ' đạt / ' + fail + ' lỗi');
   process.exit(fail ? 1 : 0);
 })();
