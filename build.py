@@ -27,7 +27,7 @@ html = re.sub(
 )
 
 # nhúng JS theo đúng thứ tự (bỏ qua tham số ?v=... nếu có)
-for src in ("js/strokes.js", "js/course-ko.js", "js/vocab-common.js", "js/tts.js", "js/config.js", "js/translate.js",
+for src in ("js/tts-native.js", "js/strokes.js", "js/course-ko.js", "js/vocab-common.js", "js/tts.js", "js/config.js", "js/translate.js",
             "js/speech.js", "js/words.js",
             "js/vendor/hanzi-writer.min.js", "js/course-zh.js", "js/hanzi-data-zh.js", "js/radicals-zh.js", "js/vocab-zh-common.js", "js/chars-zh.js", "js/dict-zh.js", "js/hsk-exams.js",
             "js/course-ru.js", "js/speak-ru.js", "js/exercises-ru.js", "js/trki-exams.js",

@@ -216,6 +216,10 @@
   </div>
 </div>
 
+<!-- Phải nạp TRƯỚC mọi thứ: khai speechSynthesis giả khi WebView Android
+     không có API thật (xem js/tts-native.js). Trên trình duyệt thường thì
+     tệp này tự đứng im. -->
+<script src="js/tts-native.js"></script>
 <script src="js/strokes.js?v=2918463"></script>
 <script src="js/course-ko.js?v=2918463"></script>
 <script src="js/vocab-common.js?v=2918463"></script>

@@ -36,3 +36,16 @@ __pycache__/
 # Khoa KRDict - chi tren may minh
 tools/krdict-key.txt
 tools/.dict-progress.json
+
+# ---- Dong goi Android ----
+# www/ la ban sao do tools/gom-app.py sinh ra: mot tep HTML 10 MB cong hang
+# nghin mp3. Dung ban goc trong dist/ va audio/ roi sinh lai, dung dua ban sao
+# len repo. android/ la du an do «npx cap add android» sinh ra, cung vay.
+android-app/www/
+android-app/android/
+android-app/node_modules/
+android-app/package-lock.json
+*.apk
+*.aab
+*.keystore
+*.jks
