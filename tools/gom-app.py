@@ -27,6 +27,7 @@ Dùng:
 """
 import argparse
 import pathlib
+import re
 import shutil
 import sys
 
@@ -46,14 +47,26 @@ VOICES = {
 }
 
 # CHỈ những tệp này được vào gói. Danh sách CHO PHÉP, không phải danh sách cấm.
+#
+# Danh sách cho phép có một chỗ yếu: quên một tệp thì THIẾU. Tôi đã quên
+# logo-full.png thật, và trang Giới thiệu trong APK hiện ra ô ảnh vỡ. Nên bên
+# dưới có thêm phép kiểm tự động soi mọi ảnh mà trang gọi tới — thiếu là dừng
+# hẳn, không cho ra gói hỏng nữa.
 ASSETS = [
     'icon-192.png',
     'icon-512.png',
     'maskable-512.png',
     'apple-touch-icon.png',
     'logo.svg',
+    'logo.png',
     'logo-icon.png',
+    'logo-full.png',
     'manifest.webmanifest',
+    # Từ điển Hàn–Việt 1,9 MB. build.py KHÔNG nhúng tệp này vào bản gộp — app
+    # nạp nó lúc chạy bằng thẻ <script> (xem js/app.js, dictLoaded). Thiếu nó
+    # thì từ điển tiếng Hàn mất nguồn lớn nhất, mà hỏng ÂM THẦM: s.onerror chỉ
+    # trả về false chứ không báo gì cả.
+    'js/dict-ko.js',
 ]
 
 # Không bao giờ được đóng gói, dù có lọt vào danh sách trên đi nữa.
@@ -63,6 +76,44 @@ NEVER = {'api-key.txt', 'logo-b2.png', 'logo-goc-co-vien.png',
 
 def mb(n):
     return f'{n / 1024 / 1024:.0f} MB'
+
+
+# src="..." · href="..." · url(...) — bắt cả ba cách nhúng tệp.
+REF = re.compile(r'''(?:src|href)\s*=\s*["']([^"'>]+)["']|url\(\s*["']?([^"')]+)["']?\s*\)''')
+
+
+def kiem_tham_chieu(www):
+    """Soi trang đã gom: mọi tệp cục bộ mà nó gọi tới đều phải có mặt.
+
+    Đây là tấm lưới đỡ cho danh sách cho phép ở trên. Quên một tệp thì trong
+    APK nó hiện ra ô ảnh vỡ — mà lúc ấy mới phát hiện thì đã đóng gói, đã cài
+    vào máy, đã mất một vòng. Kiểm ngay lúc gom thì biết ngay.
+    """
+    html = (www / 'index.html').read_text(encoding='utf-8', errors='ignore')
+    thieu, da_xet = [], set()
+    for m in REF.finditer(html):
+        ref = (m.group(1) or m.group(2) or '').strip()
+        if not ref or ref in da_xet:
+            continue
+        da_xet.add(ref)
+        # Bỏ qua thứ không phải tệp cục bộ.
+        if ref.startswith(('data:', 'http://', 'https://', '//', '#', 'mailto:', 'tel:', 'blob:')):
+            continue
+        # Chuỗi mẫu trong JavaScript — `${...}` — không phải đường dẫn.
+        if '${' in ref or '{{' in ref:
+            continue
+        # Phải trông như một tên tệp: có phần mở rộng.
+        if not re.search(r'\.[a-z0-9]{2,5}($|\?|#)', ref, re.I):
+            continue
+        duong = ref.split('?')[0].split('#')[0].lstrip('./')
+        if not duong:
+            continue
+        # audio/ tra theo mã băm lúc chạy, không nằm trong trang — bỏ qua.
+        if duong.startswith('audio/'):
+            continue
+        if not (www / duong).exists():
+            thieu.append(ref)
+    return thieu
 
 
 def copy_audio(voices, dst_root):
@@ -113,12 +164,25 @@ def main():
             continue
         src = ROOT / name
         if src.exists():
-            shutil.copy2(src, OUT / name)
+            dst = OUT / name
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, dst)
+        else:
+            print(f'  ! thiếu {name} ở thư mục gốc dự án')
 
     # Kiểm tra lại lần cuối: không tệp cấm nào lọt vào.
     leaked = [p.name for p in OUT.rglob('*') if p.name in NEVER]
     if leaked:
         sys.exit(f'DỪNG: tệp cấm lọt vào gói: {leaked}')
+
+    # Và không tệp nào trang cần mà lại thiếu.
+    thieu = kiem_tham_chieu(OUT)
+    if thieu:
+        print('DỪNG: trang gọi tới những tệp này mà gói không có:')
+        for t in thieu:
+            print(f'    {t}')
+        sys.exit('Thêm chúng vào ASSETS trong tools/gom-app.py rồi chạy lại.')
+    print('tham chiếu       đủ cả')
 
     n = total = 0
     if a.khong_audio:

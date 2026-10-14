@@ -79,6 +79,28 @@ Mặc định trong `dung-apk.bat` là `--tieng ko`. Sửa dòng đó nếu mu�
 Bỏ hẳn audio cũng dùng được: app tự chuyển sang giọng đọc của điện thoại. Nghe
 không hay bằng giọng thu sẵn, nhưng đọc được mọi câu.
 
+## Biểu tượng ứng dụng
+
+`npx cap add android` dựng dự án kèm biểu tượng **mặc định của Capacitor**.
+Không thay thì cài app ra màn hình điện thoại sẽ thấy logo Capacitor chứ không
+phải logo LangLab — đúng lỗi gặp ở bản dựng đầu tiên.
+
+Quy trình dựng đã có sẵn hai bước xử lí:
+
+1. `tools/tao-icon.py` sinh ba ảnh nguồn 1024×1024 vào `android-app/assets/`
+2. `npx capacitor-assets generate --android` cắt ra đủ mọi cỡ Android đòi
+
+Ba ảnh, và vì sao lại ba:
+
+| tệp | vai trò |
+|---|---|
+| `icon.png` | biểu tượng kiểu cũ, máy đời trước hiện nguyên khối vuông |
+| `icon-foreground.png` | lớp trước của biểu tượng thích ứng — hình phải nằm trong **vùng an toàn** ở giữa, vì mỗi hãng máy cắt một kiểu (Pixel cắt tròn, Samsung cắt squircle) và có thể cắt mất tới một phần ba mỗi bề |
+| `icon-background.png` | lớp sau, một màu phẳng lấy đúng `background_color` trong `manifest.webmanifest` |
+
+Nguồn là `logo-icon.png` ở thư mục gốc — bản logo nền trong suốt. Đổi logo thì
+sửa tệp ấy rồi dựng lại, không phải đụng gì vào mã.
+
 ## Giọng đọc trong WebView
 
 Đây là chỗ khác biệt lớn nhất giữa chạy trên trình duyệt và chạy trong APK.
@@ -112,6 +134,19 @@ quên là thiếu, mà thiếu thì thấy ngay.
   — mới được phát hành.
 
 Script còn kiểm lại lần cuối sau khi gom, thấy tệp cấm là dừng hẳn.
+
+## Phép kiểm tham chiếu
+
+Danh sách cho phép có một chỗ yếu: quên một tệp thì **thiếu**. Tôi đã quên thật,
+và bản dựng đầu tiên ra APK với trang Giới thiệu hiện ô ảnh vỡ — thiếu
+`logo-full.png`.
+
+Nên `gom-app.py` giờ soi luôn trang đã gom: mọi tệp cục bộ mà nó gọi tới đều
+phải có mặt, thiếu là dừng hẳn chứ không cho ra gói hỏng. Phép kiểm này bắt
+được ngay một lỗi thứ hai mà mắt thường không thấy: **`js/dict-ko.js`** — từ
+điển Hàn–Việt 1,9 MB — không được `build.py` nhúng vào bản gộp mà app tự nạp
+lúc chạy bằng thẻ `<script>`. Thiếu nó thì từ điển tiếng Hàn mất nguồn lớn
+nhất, mà hỏng **âm thầm**: `s.onerror` chỉ trả về `false` chứ không báo gì.
 
 ## Những chỗ nên thử ngay trên máy thật
 

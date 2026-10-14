@@ -32,18 +32,18 @@ if errorlevel 1 (
   exit /b 1
 )
 
-echo   [1/5] Dung ban HTML mot tep...
+echo   [1/6] Dung ban HTML mot tep...
 python build.py
 if errorlevel 1 goto loi
 
 echo.
-echo   [2/5] Gom noi dung vao android-app\www ...
+echo   [2/6] Gom noi dung vao android-app\www ...
 echo         (mac dinh chi dong audio tieng Han; sua o dong duoi neu muon khac)
 python tools\gom-app.py --tieng ko
 if errorlevel 1 goto loi
 
 echo.
-echo   [3/5] Cai thu vien Capacitor...
+echo   [3/6] Cai thu vien Capacitor...
 cd android-app
 if not exist node_modules (
   call npm install
@@ -51,7 +51,14 @@ if not exist node_modules (
 )
 
 echo.
-echo   [4/5] Tao / cap nhat du an Android...
+echo   [4/6] Dung anh nguon cho bieu tuong...
+cd ..
+python tools\tao-icon.py
+if errorlevel 1 goto loi
+cd android-app
+
+echo.
+echo   [5/6] Tao / cap nhat du an Android...
 if not exist android (
   call npx cap add android
   if errorlevel 1 goto loi
@@ -60,8 +67,14 @@ if not exist android (
   if errorlevel 1 goto loi
 )
 
+REM «cap add android» dung bieu tuong MAC DINH cua Capacitor. Khong thay thi
+REM cai vao may se thay logo Capacitor chu khong phai logo LangLab.
+echo         Thay bieu tuong mac dinh bang logo LangLab...
+call npx capacitor-assets generate --android
+if errorlevel 1 goto loi
+
 echo.
-echo   [5/5] Bien dich APK...
+echo   [6/6] Bien dich APK...
 cd android
 call gradlew.bat assembleDebug
 if errorlevel 1 goto loi_gradle

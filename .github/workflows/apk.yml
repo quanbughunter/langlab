@@ -88,9 +88,29 @@ jobs:
         working-directory: android-app
         run: npm install --no-audit --no-fund
 
+      # Phải dựng icon TRƯỚC khi gọi cap add: công cụ cần ba ảnh nguồn trong
+      # android-app/assets/.
+      - name: Dựng ảnh nguồn cho biểu tượng
+        run: |
+          python -m pip install --quiet Pillow
+          python tools/tao-icon.py
+
       - name: Tạo dự án Android
         working-directory: android-app
         run: npx cap add android
+
+      # «cap add android» dựng dự án kèm biểu tượng MẶC ĐỊNH của Capacitor.
+      # Không chạy bước này thì cài vào máy sẽ thấy logo Capacitor chứ không
+      # phải logo LangLab — đúng lỗi đã gặp ở bản dựng đầu tiên.
+      - name: Thay biểu tượng mặc định bằng logo LangLab
+        working-directory: android-app
+        run: npx capacitor-assets generate --android
+
+      - name: Soi lại biểu tượng đã thay chưa
+        working-directory: android-app
+        run: |
+          echo "Các tệp biểu tượng đã sinh:"
+          find android/app/src/main/res -name 'ic_launcher*' | sort | head -20
 
       - name: Biên dịch APK
         working-directory: android-app/android

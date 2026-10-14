@@ -43,6 +43,9 @@ tools/.dict-progress.json
 # len repo. android/ la du an do «npx cap add android» sinh ra, cung vay.
 android-app/www/
 android-app/android/
+# assets/ do tools/tao-icon.py sinh ra từ logo-icon.png — dựng lại được nên
+# không cần đưa lên.
+android-app/assets/
 android-app/node_modules/
 android-app/package-lock.json
 *.apk

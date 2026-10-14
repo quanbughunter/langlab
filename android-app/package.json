@@ -7,7 +7,9 @@
     "them-android": "cap add android",
     "dong-bo": "cap sync android",
     "mo-studio": "cap open android",
-    "kiem-tra": "cap doctor"
+    "kiem-tra": "cap doctor",
+    "tao-icon": "cd .. && python tools/tao-icon.py",
+    "icon-android": "capacitor-assets generate --android"
   },
   "dependencies": {
     "@capacitor/android": "^8.5.3",
@@ -15,6 +17,7 @@
     "@capacitor-community/text-to-speech": "^8.0.2"
   },
   "devDependencies": {
-    "@capacitor/cli": "^8.5.3"
+    "@capacitor/cli": "^8.5.3",
+    "@capacitor/assets": "^3.0.5"
   }
 }
