@@ -3457,29 +3457,58 @@ function ruFormIndex(){
   const add = (form, key) => { const f = ruKey(form); if (!f) return; (idx[f] = idx[f] || []); if (idx[f].indexOf(key) < 0) idx[f].push(key); };
   Object.values(RU_LOOKUP).forEach(w => {
     const parts = String(w.ru).split(/\s*\/\s*/);
-    parts.forEach(part => {
+    /* Cặp thể viết chung một mục: «возвраща́ться / верну́ться» với pos «động từ
+       НСВ/СВ». Trước đây cả hai vế đều nhận nguyên chuỗi pos ấy, và phép thử
+       thể trong allForms thấy «НСВ» là dừng — nên vế HOÀN THÀNH bị chia như
+       chưa hoàn thành: «верну́вшись» không sinh ra, mà lại sinh một trạng động
+       từ không tồn tại. Tách pos theo vế: tiếng Nga luôn ghi НСВ trước СВ. */
+    const pairAsp = parts.length === 2 && /(НСВ|NSV)\s*\/\s*(СВ|SV)/.test(w.pos || '');
+    parts.forEach((part, i) => {
       const plain = ruPlain(part).trim();
       if (!plain) return;
       if (/\s/.test(plain)){ add(plain, w.key); plain.split(/\s+/).forEach(t => { if (t.length > 3) add(t.replace(/[^А-Яа-яЁё-]/g, ''), w.key); }); return; }
       add(plain, w.key);
-      if (_RM){ try { _RM.allForms(part.trim(), w.pos, w.vi).forEach(f => add(f, w.key)); } catch(e){} }
+      const pos = pairAsp ? String(w.pos).replace(/(НСВ|NSV)\s*\/\s*(СВ|SV)/, i === 0 ? 'НСВ' : 'СВ') : w.pos;
+      if (_RM){ try { _RM.allForms(part.trim(), pos, w.vi).forEach(f => add(f, w.key)); } catch(e){} }
     });
   });
   _ruFormIdx = idx; return idx;
 }
+/* Khoá mục từ, bỏ hoa–thường: cần vì từ đứng ĐẦU CÂU viết hoa. «С трениро́вки»
+   — khoá của giới từ ấy là «с» chữ thường, mà phép so khớp khít lại so đúng
+   chữ, nên bấm vào «С» thì không ra gì, còn bấm vào «В» thì rơi xuống chỉ mục
+   dạng và ra sai hẳn («увеличиваться на / в»). Dựng lười một lần. */
+let _ruByKey = null;
+function ruByKey(){
+  if (_ruByKey) return _ruByKey;
+  const m = {};
+  Object.keys(RU_LOOKUP).forEach(k => { const f = ruKey(k); if (!(f in m)) m[f] = k; });
+  _ruByKey = m; return m;
+}
 /* Tìm mục từ cho một từ bấm trong câu: đúng từ gốc → dạng biến đổi → cụm có chứa */
 function ruLemmatize(tok){
   const raw = ruPlain(String(tok).replace(/[^А-Яа-яЁё́\s-]/g, '').trim().replace(/\s+/g, ' '));
-  const plain = ruPlain(String(tok).replace(/[^А-Яа-яЁё́-]/g, ''));
+  const plain = ruPlain(String(tok).replace(/[^А-Яа-яЁё́-]/g, '')).replace(/^-+|-+$/g, '');
   const k = ruKey(plain);
   if (!k) return [];
   /* trùng khít khoá mục từ (và, không, ở…; cả cụm «ря́дом с») — bắt trước mọi phép suy dạng */
   if (RU_LOOKUP[raw]) return [raw];
   if (RU_LOOKUP[plain]) return [plain];
+  const folded = ruByKey()[k];
+  if (folded) return [folded];
   const exact = Object.values(RU_LOOKUP).filter(w => ruKey(w.ru) === k || String(w.ru).split(/\s*\/\s*/).some(p => ruKey(p) === k));
   if (exact.length) return exact.map(w => w.key);
   const hit = ruFormIndex()[k];
   if (hit && hit.length) return hit.filter(key => !/\s/.test(ruPlain(key))).concat(hit.filter(key => /\s/.test(ruPlain(key))));
+  /* Tên ghép bằng dấu nối: «Санкт-Петербу́рге». Phần sau mới là phần biến
+     cách, nên thử nó trước, rồi mới thử phần đầu. */
+  if (plain.indexOf('-') > 0){
+    const bits = plain.split('-').filter(x => x.length > 1);
+    for (const part of bits.slice().reverse()){
+      const r = ruLemmatize(part);
+      if (r.length) return r;
+    }
+  }
   return [];
 }
 try { window.__ruDict = { lemmatize: ruLemmatize, lookup: RU_LOOKUP, forms: ruFormIndex, tokens: ruTokens }; } catch(e){}
@@ -3541,7 +3570,13 @@ function ruTokens(str){
     if (!tok.trim()) return esc(tok);
     const m = tok.match(/^([^А-Яа-яЁё]*)([А-Яа-яЁё́-]+)([^А-Яа-яЁё]*)$/u);
     if (!m) return esc(tok);
-    return esc(m[1]) + `<span class="zc ru-tok" data-ruw="${esc(ruPlain(m[2]))}" title="Tra từ này">${esc(m[2])}</span>` + esc(m[3]);
+    /* «ИК-1», «ТРКИ-2»: dấu nối nằm trong dải chữ của biểu thức trên, còn chữ
+       số thì không, nên phần chữ bị cắt thành «ИК-» — kéo theo cả dấu nối vào
+       chữ bấm được rồi không tra ra gì. Đẩy dấu nối ra ngoài. */
+    const h = m[2].match(/^(-*)([\s\S]*?)(-*)$/);
+    const pre = m[1] + h[1], w = h[2], post = h[3] + m[3];
+    if (!w) return esc(tok);
+    return esc(pre) + `<span class="zc ru-tok" data-ruw="${esc(ruPlain(w))}" title="Tra từ này">${esc(w)}</span>` + esc(post);
   }).join('');
 }
 function ruSpeakBtn(text, cls){ return `<button class="${cls || 'icon-btn'}" data-ru-speak="${esc(ruPlain(text))}" title="Nghe">${SPK_ICO}</button>`; }
@@ -5810,51 +5845,137 @@ function jaSegKeys(){
    câu (。、！？「」) nằm ngoài dải nên tự khắc ngắt đoạn. */
 const JA_RUN = /[぀-ヿ一-鿿々ｦ-ﾟ]+|[^぀-ヿ一-鿿々ｦ-ﾟ]+/g;
 
-function jaSegment(str){
+/* ---------- furigana phải bóc ra TRƯỚC khi tách từ ----------
+   Bài đọc và câu trong khoá viết furigana theo quy ước của LangLab:
+   漢字[かんじ]. Bộ tách từ nhận nguyên chuỗi ấy thì vỡ, vì dấu [ ] nằm ngoài
+   dải chữ Nhật nên nó ngắt đoạn ở đúng chỗ ấy rồi đem ÂM ĐỌC ra tách như thể
+   là chữ của câu. Hậu quả thấy bằng mắt: bài đọc tiếng Nhật hiện ra
+   «人[ひと]が» kèm dấu ngoặc chứ không phải ruby, và bấm vào «ひ», «おお» hay
+   «ゅっぷん» — những mảnh vụn của âm đọc 十分[じゅっぷん] — thì tất nhiên
+   không ra gì. Phép đo độ phủ đếm đúng những mảnh vụn ấy là «thiếu từ», nên
+   con số 95,5% trước đây nói sai cả về lượng lẫn về bản chất.
+
+   Nên: bóc furigana ra, tách từ trên phần bề mặt, rồi gắn ruby lại theo vị
+   trí ký tự. Chuỗi không có furigana thì mọi thứ y như cũ — đúng trường hợp
+   văn bản người học dán vào màn Shadowing. */
+function jaRubyParse(str){
+  const s = String(str || '');
+  const re = /([^\s\[\]぀-ヿ]+)\[([^\]]*)\]/g;      /* giống jaRubyTok: âm đọc chỉ phủ phần chữ Hán */
+  const groups = [];
+  let plain = '', last = 0, m;
+  while ((m = re.exec(s))){
+    plain += s.slice(last, m.index);
+    const st = plain.length;
+    plain += m[1];
+    groups.push({ st, en:plain.length, read:m[2] });
+    last = m.index + m[0].length;
+  }
+  plain += s.slice(last);
+  return { plain, groups };
+}
+
+/* Chữ kana nhỏ không bao giờ MỞ ĐẦU một từ tiếng Nhật: ゃ ゅ ょ ぁ ぃ ぅ ぇ ぉ
+   っ và dấu kéo dài ー luôn dính vào chữ đứng trước. Đây là luật âm vị học, kín
+   — không phải danh sách phải nuôi. Không chặn thì bộ tách từ cắt ngay trước
+   chúng và sinh ra những chữ bấm được vô nghĩa như «ゅっぷん» hay «ゅう». */
+const JA_SMALL = /[ゃゅょぁぃぅぇぉっーャュョァィゥェォッ゛゜]/;
+
+/* Những vị trí KHÔNG được cắt: bên trong một nhóm ruby, và ngay trước một chữ
+   kana nhỏ. Cắt vào giữa 日本[にほん] thì không cách nào chia âm đọc ra hai
+   nửa, nên thà để nguyên cả nhóm làm một chữ. */
+function jaNoCut(groups, plain){
+  const bad = new Set();
+  groups.forEach(g => { for (let p = g.st + 1; p < g.en; p++) bad.add(p); });
+  const s = String(plain || '');
+  for (let p = 1; p < s.length; p++) if (JA_SMALL.test(s[p])) bad.add(p);
+  return bad;
+}
+
+/* Dựng lại ruby cho một khoảng [a,b) của chuỗi bề mặt. Vì đã chặn cắt giữa
+   nhóm nên mọi nhóm chạm vào khoảng này đều nằm gọn trong nó. */
+function jaRubyRange(plain, groups, a, b){
+  let html = '', p = a;
+  for (const g of groups){
+    if (g.en <= a || g.st >= b) continue;
+    if (g.st > p) html += esc(plain.slice(p, g.st));
+    const st = Math.max(g.st, a), en = Math.min(g.en, b);
+    const surf = plain.slice(st, en);
+    html += (st === g.st && en === g.en && g.read)
+      ? `<ruby>${esc(surf)}<rt>${esc(g.read)}</rt></ruby>`
+      : esc(surf);
+    p = en;
+  }
+  if (p < b) html += esc(plain.slice(p, b));
+  return html;
+}
+
+/* Số đếm ghép thẳng vào đơn vị: 六時, 三日, 五分, 八月, 二日. Tiếng Nhật không
+   có ranh giới nào giữa hai phần, và «六時» thì không ai đưa vào từ điển — chỉ
+   có «時». jaLemmatize đã biết luật ấy từ lâu, nhưng BỘ TÁCH TỪ thì chưa, nên
+   nó không nhận ra 「六時[ろくじ]に」 và nuốt cả cụm thành một khối chưa tra
+   được. Dạy lại cho bộ tách từ đúng luật mà bên tra từ đang dùng, để hai bên
+   nói cùng một thứ tiếng. Không bịa: chỉ nhận khi phần đơn vị có thật. */
+function jaNumCounter(cand, keys){
+  const m = String(cand).match(/^([〇一二三四五六七八九十百千万何数0-9０-９]+)(.{1,4})$/);
+  return !!(m && keys.has(m[2]));
+}
+
+/* Trả về [chữ, tra được, đầu, cuối] — hai số cuối là vị trí trong chuỗi bề
+   mặt, để bên gọi gắn lại ruby. */
+function jaSegment(str, noCut){
   const keys = jaSegKeys();
   const out = [];
   const runs = String(str || '').match(JA_RUN) || [];
+  const cutOk = p => !noCut || !noCut.has(p);
+  let base = 0;
   for (const run of runs){
-    if (!/[぀-ヿ一-鿿々]/.test(run)){ out.push([run, false]); continue; }
+    if (!/[぀-ヿ一-鿿々]/.test(run)){ out.push([run, false, base, base + run.length]); base += run.length; continue; }
     let i = 0;
     while (i < run.length){
       let hit = '';
       for (let len = Math.min(JA_MAXLEN, run.length - i); len >= 1; len--){
+        if (!cutOk(base + i + len)) continue;
         const cand = run.substr(i, len);
-        if (keys.has(cand)){ hit = cand; break; }
+        if (keys.has(cand) || jaNumCounter(cand, keys)){ hit = cand; break; }
       }
       /* Kính ngữ お và ご dính liền từ đứng sau: お願い, ご家族. Không nối lại
          thì «お願いします» bị xé thành お | 願 | い | します — bốn mảnh, mảnh
          nào bấm vào cũng không ra đúng nghĩa. */
       if (!hit && /^[おご]$/.test(run[i])){
         for (let len = Math.min(JA_MAXLEN - 1, run.length - i - 1); len >= 2; len--){
+          if (!cutOk(base + i + 1 + len)) continue;
           if (keys.has(run.substr(i + 1, len))){ hit = run.substr(i, len + 1); break; }
         }
       }
-      if (hit){ out.push([hit, true]); i += hit.length; continue; }
+      if (hit){ out.push([hit, true, base + i, base + i + hit.length]); i += hit.length; continue; }
       /* Không khớp: nuốt tới chỗ gần nhất mà từ điển nhận ra, rồi để cả đoạn
          ấy thành MỘT khối chưa tra được. */
       let j = i + 1;
       while (j < run.length){
+        if (!cutOk(base + j)){ j++; continue; }
         let found = false;
         for (let len = Math.min(JA_MAXLEN, run.length - j); len >= 2; len--)
-          if (keys.has(run.substr(j, len))){ found = true; break; }
+          if (cutOk(base + j + len) && keys.has(run.substr(j, len))){ found = true; break; }
         if (found) break;
         j++;
       }
-      out.push([run.slice(i, j), false]);
+      out.push([run.slice(i, j), false, base + i, base + j]);
       i = j;
     }
+    base += run.length;
   }
   return out;
 }
 
 function shJaTokens(text){
-  return jaSegment(text).map(([tok, ok]) => {
-    if (!/[぀-ヿ一-鿿々]/.test(tok)) return esc(tok);
+  const { plain, groups } = jaRubyParse(text);
+  const noCut = jaNoCut(groups, plain);
+  return jaSegment(plain, noCut).map(([tok, ok, a, b]) => {
+    const inner = jaRubyRange(plain, groups, a, b);
+    if (!/[぀-ヿ一-鿿々]/.test(tok)) return inner;
     return ok
-      ? `<span class="zc ja-tok" data-jaw="${esc(tok)}" title="Tra từ này">${esc(tok)}</span>`
-      : `<span class="zc ja-tok zc-x" data-jaw="${esc(tok)}" title="Chưa có trong từ điển">${esc(tok)}</span>`;
+      ? `<span class="zc ja-tok" data-jaw="${esc(tok)}" title="Tra từ này">${inner}</span>`
+      : `<span class="zc ja-tok zc-x" data-jaw="${esc(tok)}" title="Chưa có trong từ điển">${inner}</span>`;
   }).join('');
 }
 

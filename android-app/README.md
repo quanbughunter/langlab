@@ -122,6 +122,49 @@ Lưu ý: chất lượng giọng lúc này là giọng TTS cài trong điện th
 gói giọng cho thứ tiếng nào thì thứ tiếng ấy sẽ không đọc được — cài thêm
 trong *Cài đặt → Ngôn ngữ → Đầu ra văn bản thành giọng nói*.
 
+## Nút quay lại và cử chỉ vuốt cạnh
+
+Bản dựng đầu tiên vuốt cạnh là **thoát app** chứ không về trang trước. Không
+phải app thiếu bộ định tuyến — `js/app.js` đã ghi vào History API từ lâu
+(`syncHist` / `applyHist` / `popstate`), nên trên trình duyệt nút back chạy
+đúng. Chỗ hỏng nằm ở vỏ: cú back của Android **không tự chảy** vào History API
+của trang, phải có ai bắt lấy.
+
+Trong Capacitor 8 việc ấy thuộc plugin `@capacitor/app`: nó đăng kí một
+`OnBackPressedCallback` vào `OnBackPressedDispatcher` của Activity. Dự án chưa
+có plugin ấy, nên không ai đăng kí gì, và cú back rơi về hành vi mặc định của
+Activity — đóng app. Đúng triệu chứng.
+
+Ba mảnh ghép lại:
+
+| mảnh | việc |
+|---|---|
+| `@capacitor/app` trong `package.json` | đưa cú back từ hệ điều hành sang JS |
+| `js/back-native.js` | quyết định lùi hay thoát |
+| `tools/sua-manifest.py` | bật hình xem trước lúc vuốt |
+
+Một chỗ của plugin cần biết: **hễ JS đăng kí người nghe `backButton` thì plugin
+thôi tự lùi** — nó chỉ báo sang JS rồi để JS quyết. Nên khi `back-native.js`
+nạp, mọi quyết định nằm ở đấy, không còn hành vi mặc định nào chen vào:
+
+- còn trang trước (`canGoBack`) → `history.back()`, chảy tới `popstate`, và
+  `applyHist` đổi màn hình
+- đang ở trang đầu → **vuốt hai lần trong hai giây** mới thoát, lần đầu chỉ
+  hiện nhắc. Một cú vuốt vô ý không được làm mất bài đang học.
+
+Còn `tools/sua-manifest.py` thì chỉ lo một việc hẹp: khai
+`android:enableOnBackInvokedCallback="true"` để có **hình hé trang sẽ lùi về**
+lúc vuốt. Android chia ba mốc — máy 13 và 14 phải khai mới có; từ 15 trở lên
+app nhắm `targetSdk ≥ 35` là bật sẵn và cờ bị bỏ qua (dự án nhắm 36). Tức là
+tệp ấy chỉ để lo cho máy Android 13–14; thiếu nó thì back vẫn chạy, chỉ là lùi
+khô. `npx cap add android` không khai cờ ấy — tôi đọc manifest nó sinh ra để
+chắc, chứ không đoán.
+
+Kiểm chứng bằng `node tools/tests/back-native.js`: bộ này giả lập đúng plugin
+mà Capacitor tự sinh, rồi soi cả đường đi — bắn `backButton` vào thì phải thấy
+`popstate` bắn ra mang đúng hình dạng `histDesc()`, chứng tỏ chuỗi plugin →
+`history.back()` → bộ định tuyến còn thông.
+
 ## Hai thứ không bao giờ được đóng gói
 
 `tools/gom-app.py` dùng **danh sách cho phép**, không phải danh sách loại trừ —

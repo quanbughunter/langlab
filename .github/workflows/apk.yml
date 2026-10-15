@@ -112,6 +112,23 @@ jobs:
           echo "Các tệp biểu tượng đã sinh:"
           find android/app/src/main/res -name 'ic_launcher*' | sort | head -20
 
+      # Cử chỉ vuốt cạnh: plugin @capacitor/app đưa cú back vào bộ định tuyến
+      # (xem js/back-native.js). Cờ trong manifest chỉ thêm hình xem trước lúc
+      # vuốt, và chỉ cần cho máy Android 13–14; từ 15 trở lên bật sẵn.
+      - name: Bật hình xem trước khi vuốt cạnh
+        run: python tools/sua-manifest.py
+
+      - name: Soi lại plugin quay lại đã vào gói chưa
+        working-directory: android-app
+        run: |
+          grep -q "capacitor-app" android/capacitor.settings.gradle \
+            || { echo "THIẾU @capacitor/app — cú back sẽ thoát app"; exit 1; }
+          grep -q "enableOnBackInvokedCallback" android/app/src/main/AndroidManifest.xml \
+            || { echo "Manifest chưa có cờ vuốt cạnh"; exit 1; }
+          grep -q "__backNative" www/index.html \
+            || { echo "Bản HTML chưa nhúng js/back-native.js"; exit 1; }
+          echo "OK: plugin, cờ manifest và lớp đệm đều có mặt."
+
       - name: Biên dịch APK
         working-directory: android-app/android
         run: |

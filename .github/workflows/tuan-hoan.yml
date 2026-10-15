@@ -1,0 +1,197 @@
+# Vòng tuần hoàn hằng tuần — chạy trên máy chủ GitHub, không cần bật máy ở nhà.
+#
+# CHIA LÀM HAI, VÀ CHIA CÓ LÍ DO:
+#
+#   Tự động mỗi tuần  — chỉ ĐO và KIỂM, không sửa gì, không ghi gì vào kho.
+#                       Dựng bản gộp, chạy cả 25 bộ kiểm thử, đo độ phủ tra từ
+#                       của bảy thứ tiếng, rồi in ra danh sách từ còn thiếu xếp
+#                       theo số lần gặp. Đó là bản danh sách việc cho tuần sau.
+#                       Không rủi ro gì: không commit, không đẩy, không xoá.
+#
+#   Bấm nút khi cần    — thu mp3 cho phần còn thiếu rồi ĐẨY VỀ KHO.
+#                       Phải bấm tay vì nó ghi vào lịch sử kho và làm kho nặng
+#                       thêm: audio/tts đã chừng 1 GB. Đưa vào lịch chạy tự
+#                       động thì một hôm nào đó kho phình lên mà không ai để ý.
+#
+# VÌ SAO KHÔNG ĐỂ MÁY TỰ SOẠN TỪ MỚI: viết nghĩa tiếng Việt cho một từ là soạn
+# nội dung, không phải việc máy làm thay được mà không bịa. Quy trình này lo
+# được mọi thứ QUANH nội dung — đo, kiểm, thu, dựng — còn phần nghĩa thì vẫn
+# phải qua tay người soạn. Nói thẳng ra để sau này không ai trông đợi sai.
+#
+# VÌ SAO TỪ MỚI KHÔNG CẦN CHỜ CÓ mp3: app đã có sẵn ba tầng đọc. Từ nào chưa
+# thu thì nó chuyển sang giọng máy của điện thoại, nên dùng được ngay hôm thêm
+# vào; mp3 đuổi theo ở vòng sau. make_audio.py tự bỏ qua tệp đã có, nên một
+# lần chạy chỉ thu đúng phần mới.
+name: Vòng tuần hoàn — đo, kiểm, thu audio
+
+on:
+  schedule:
+    # 23:00 UTC thứ Bảy = 6:00 sáng Chủ nhật ở Hà Nội.
+    - cron: '0 23 * * 6'
+  workflow_dispatch:
+    inputs:
+      thu_audio:
+        description: 'Thu mp3 cho phần còn thiếu rồi đẩy về kho (làm kho nặng thêm)'
+        required: false
+        default: false
+        type: boolean
+      tieng:
+        description: 'Thu audio của thứ tiếng nào: ko zh ja ru en fr es'
+        required: false
+        default: 'ko'
+        type: string
+      phan:
+        description: 'Thu phần nào: pic course readings forms'
+        required: false
+        default: 'pic'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  do-va-kiem:
+    name: Đo độ phủ và chạy kiểm thử
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Dựng bản HTML một tệp
+        run: python build.py
+
+      - name: Cài jsdom
+        run: npm install --no-audit --no-fund --no-save jsdom
+
+      # Mọi bộ phải xanh. Một bộ đỏ là dừng cả vòng — báo cáo sau đó sẽ không
+      # đáng tin, vì nó đọc chính bản dựng vừa hỏng.
+      - name: Chạy toàn bộ kiểm thử
+        run: |
+          loi=0
+          for t in smoke zh-test hsk-test ru-test ja-test en-test fact-test \
+                   sh-test rd-test hist-test asst-flow pic-test say-test \
+                   dict-cover word-cover audio-test tts-test lat-test \
+                   tts-native back-native; do
+            printf '%-12s ' "$t"
+            if out=$(node "tools/tests/$t.js" 2>&1); then
+              echo "$out" | tail -1
+            else
+              echo "$out" | tail -5
+              loi=1
+            fi
+          done
+          for t in morph-nouns morph-verbs morph-adj morph-lat; do
+            printf '%-12s ' "$t"
+            node "tools/tests/$t.js" 2>&1 | tail -1 || loi=1
+          done
+          node tools/tests/worker-test.mjs 2>&1 | tail -1 || loi=1
+          exit $loi
+
+      # Danh sách việc cho tuần sau: từ nào xuất hiện trong câu ví dụ của app
+      # mà bấm vào không tra được, xếp theo số lần gặp. Đo bằng chính bộ tách
+      # từ mà app dùng, nên con số không nói dối được.
+      - name: Đo độ phủ và dựng danh sách từ còn thiếu
+        run: |
+          COVER_DUMP=gap.json node tools/tests/word-cover.js | tail -12 | tee bang.txt
+          python - <<'PY' | tee thieu.md
+          import json
+          d = json.load(open('gap.json'))
+          ten = {'fr':'Pháp','es':'Tây Ban Nha','en':'Anh','zh':'Trung','ru':'Nga','ja':'Nhật','ko':'Hàn'}
+          for k, v in d.items():
+              if not v: continue
+              print('\n### Tiếng %s — %d từ, %d lượt bấm\n' % (ten.get(k, k), len(v), sum(x[1] for x in v)))
+              print('```')
+              for i in range(0, min(len(v), 60), 6):
+                  print('  '.join('%s·%d' % (w, n) for w, n in v[i:i+6]))
+              print('```')
+          PY
+
+      - name: Ghi báo cáo vào trang kết quả
+        run: |
+          {
+            echo '## Độ phủ tra từ'
+            echo '```'
+            cat bang.txt
+            echo '```'
+            echo '## Từ còn thiếu — danh sách việc'
+            cat thieu.md
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Giữ lại danh sách để tải về
+        uses: actions/upload-artifact@v4
+        with:
+          name: tu-con-thieu
+          path: |
+            gap.json
+            thieu.md
+          retention-days: 90
+
+  thu-audio:
+    name: Thu mp3 phần còn thiếu
+    # Chỉ chạy khi bấm nút và tự tay bật, không bao giờ chạy theo lịch.
+    if: github.event_name == 'workflow_dispatch' && inputs.thu_audio
+    needs: do-va-kiem
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Cài edge-tts
+        run: python -m pip install --quiet edge-tts
+
+      # Ô nhập đi qua BIẾN MÔI TRƯỜNG chứ không nhúng thẳng vào dòng lệnh:
+      # ${{ }} được thay chuỗi TRƯỚC khi shell chạy, nên gõ vào đó một dấu ;
+      # là chạy được lệnh tuỳ ý.
+      - name: Xem sẽ thu những gì
+        env:
+          TIENG: ${{ inputs.tieng }}
+          PHAN: ${{ inputs.phan }}
+        run: python tools/make_audio.py --lang $TIENG --only $PHAN --dry-run | tail -20
+
+      - name: Thu phần còn thiếu
+        env:
+          TIENG: ${{ inputs.tieng }}
+          PHAN: ${{ inputs.phan }}
+        run: python tools/make_audio.py --lang $TIENG --only $PHAN --jobs 4 | tail -30
+
+      - name: Xem thêm được bao nhiêu
+        run: |
+          echo "Tệp mp3 mới:"
+          git status --porcelain audio/tts | head -20
+          echo "Tổng số mới: $(git status --porcelain audio/tts | wc -l)"
+          echo "audio/tts hiện nặng: $(du -sh audio/tts | cut -f1)"
+
+      - name: Đẩy mp3 mới về kho
+        env:
+          TIENG: ${{ inputs.tieng }}
+          PHAN: ${{ inputs.phan }}
+        run: |
+          if [ -z "$(git status --porcelain audio/tts)" ]; then
+            echo "Không có tệp nào mới — không commit."
+            exit 0
+          fi
+          git config user.name  'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add audio/tts
+          git commit -m "Thu audio còn thiếu: $TIENG / $PHAN ($(date +%Y-%m-%d))"
+          git push

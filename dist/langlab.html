@@ -2838,6 +2838,134 @@ window.__ttsNative = {
 </script>
 <script>
 /* ============================================================
+   LangLab — NÚT QUAY LẠI / VUỐT CẠNH TRÊN ANDROID
+   ------------------------------------------------------------
+   Vì sao có tệp này: app đã có sẵn bộ định tuyến ghi vào History
+   API (xem syncHist / applyHist / popstate trong js/app.js), nên
+   trên trình duyệt thì nút back và cử chỉ vuốt cạnh lùi trong app
+   đúng như mong đợi. Nhưng trong APK thì không: ở đó app chạy
+   trong WebView, và cú back của hệ điều hành KHÔNG tự chảy vào
+   History API của trang. Phải có ai bắt lấy nó rồi chuyển thành
+   history.back().
+
+   Capacitor 8 để việc ấy cho plugin @capacitor/app: plugin đăng kí
+   một OnBackPressedCallback vào OnBackPressedDispatcher của
+   Activity (đường chính thức của AndroidX, cũng là đường duy nhất
+   còn chạy khi targetSdk ≥ 35 vì Activity.onBackPressed() đã bị hệ
+   thống thôi gọi). Thiếu plugin thì không ai đăng kí gì, nên cú
+   back rơi về hành vi mặc định của Activity: ĐÓNG APP. Đúng cái
+   triệu chứng «vuốt cạnh là thoát luôn chứ không về trang trước».
+
+   Một chỗ cần biết về plugin: hễ JS có đăng kí người nghe sự kiện
+   «backButton» thì plugin KHÔNG tự lùi nữa — nó chỉ báo sang JS
+   rồi để JS quyết. Nên khi tệp này nạp, mọi quyết định lùi/thoát
+   nằm ở đây, không còn hành vi mặc định nào chen vào.
+
+   Tệp này phải nạp TRƯỚC js/app.js, nhưng nó chỉ ĐĂNG KÍ người
+   nghe — không gọi history.back() lúc nạp — nên không đua với
+   seedHist().
+
+   Khi chạy trên trình duyệt thường, tệp này không làm gì cả.
+   ============================================================ */
+
+(function(){
+'use strict';
+
+const CAP = (typeof window !== 'undefined' && typeof window.Capacitor !== 'undefined')
+  ? window.Capacitor : null;
+
+/* Trình duyệt thường: nút back của trình duyệt đã chạy sẵn qua popstate. */
+if (!CAP) return;
+
+const plugin = () => (CAP.Plugins && CAP.Plugins.App) || null;
+
+/* ---------- thông báo ngắn ----------
+   Dùng lại đúng #toast và lớp .toast/.show của app (css/langlab.css) để trông
+   y hệt mọi thông báo khác. Không gọi hàm toast() của js/app.js được vì app
+   nằm trong IIFE, không phơi ra ngoài. */
+let toastTimer = null;
+function nhac(msg){
+  let el = document.getElementById('toast');
+  if (!el){
+    el = document.createElement('div');
+    el.id = 'toast'; el.className = 'toast';
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 1900);
+}
+
+/* ---------- xử lí một cú back ---------- */
+const HAN_THOAT = 2000;        // hai lần trong 2 giây mới thoát
+let lanTruoc = 0;
+let soLanXuLi = 0;             // cho kiểm thử và chẩn đoán
+
+function xuLi(data){
+  soLanXuLi++;
+
+  /* canGoBack do plugin đọc từ WebView.canGoBack(). pushState có tính vào lịch
+     sử WebView, nên con số này đúng với bộ định tuyến của app: ở màn đầu tiên
+     (chỉ có replaceState của seedHist) nó là false. */
+  const luiDuoc = !!(data && data.canGoBack);
+
+  if (luiDuoc){
+    lanTruoc = 0;
+    try { window.history.back(); } catch(e){}
+    return 'back';
+  }
+
+  /* Đã ở trang đầu. Thoát ngay thì dễ mất bài đang học vì một cú vuốt vô ý,
+     nên đòi hai lần. */
+  const gio = Date.now();
+  if (lanTruoc && gio - lanTruoc < HAN_THOAT){
+    lanTruoc = 0;
+    const p = plugin();
+    if (p && p.exitApp){ try { p.exitApp(); } catch(e){} }
+    return 'exit';
+  }
+  lanTruoc = gio;
+  nhac('Vuốt lần nữa để thoát app');
+  return 'warn';
+}
+
+/* ---------- đăng kí ----------
+   Capacitor tiêm đoạn JS sinh ra cho từng plugin vào đầu trang, nên thường
+   Plugins.App đã có mặt ngay lúc này. «Thường» chứ không phải «luôn»: thử lại
+   vài nhịp cho chắc, giống cách js/tts-native.js hỏi lại danh sách giọng. */
+let daDangKi = false;
+function dangKi(){
+  if (daDangKi) return true;
+  const p = plugin();
+  if (!p || !p.addListener) return false;
+  try { p.addListener('backButton', xuLi); } catch(e){ return false; }
+  daDangKi = true;
+  return true;
+}
+
+if (!dangKi()){
+  document.addEventListener('deviceready', dangKi, { once:true });
+  let con = 20;                                  // ~6 giây là quá đủ
+  const dongHo = setInterval(() => {
+    if (dangKi() || --con <= 0) clearInterval(dongHo);
+  }, 300);
+}
+
+/* Để màn chẩn đoán và bộ kiểm thử biết đang chạy bằng đường nào. */
+window.__backNative = {
+  active: true,
+  registered: () => daDangKi,
+  handled: () => soLanXuLi,
+  handle: xuLi,                                  // kiểm thử gọi trực tiếp
+  reset: () => { lanTruoc = 0; soLanXuLi = 0; }
+};
+
+})();
+
+</script>
+<script>
+/* ============================================================
    LangLab — Dữ liệu thứ tự nét viết chữ Hangul (한글 획순)
    ------------------------------------------------------------
    Mọi nét được vẽ trong khung 100×100 (đơn vị viewBox).
@@ -22278,8 +22406,19 @@ const RuMorph = (function(){
     else if (b.endsWith('нуть')){ stem = b.slice(0, -3); cls = 1; endStress = infEndStress; }
     else if (b.endsWith('ти')){ // нести, идти…
       const s = b.slice(0, -2); stem = s.endsWith('с') && /(нес|тряс|пас|спас)$/.test(s) ? s : (s.endsWith('с') ? s.slice(0, -1) + 'д' : s); cls = 1; endStress = true;
-      if (/(вес|бре|пле|ме|цве|расцве|обре|приобре|изобре)$/.test(s) && b.endsWith('сти')) stem = s.slice(0, -1) + 'т';
-      if (/(ве)$/.test(s) && b.endsWith('сти')) stem = s.slice(0, -1) + 'д';
+      /* Hai dòng cũ ở đây so khớp trên `s`, mà `s` của động từ -сти thì LUÔN
+         tận cùng bằng «с» — nên trong cả danh sách chỉ nhánh «вес» có thể
+         trúng, và mọi động từ -вести đều ra thân sai: перевести → перевет-у,
+         bảng chia hiện «перевету, переветут». Phải so trên phần TRƯỚC chữ
+         «с». Thứ tự quan trọng: «цве» cũng tận cùng bằng «ве» nhưng цвести →
+         цвету chứ không цведу; «обре» cũng tận cùng bằng «бре» nhưng обрести →
+         обрету chứ không обреду. */
+      if (b.endsWith('сти') && s.endsWith('с') && !/(нес|тряс|пас|спас)$/.test(s)){
+        const r = s.slice(0, -1);
+        if (/(цве|пле|ме)$/.test(r)) stem = r + 'т';          // цвести → цвету, плести → плету, мести → мету
+        else if (/обре$/.test(r)) stem = r + 'т';             // обрести, приобрести, изобрести → обрету
+        else if (/(ве|бре)$/.test(r)) stem = r + 'д';         // вести → веду, перевести → переведу, брести → бреду
+      }
       if (/грести$/.test(b)) stem = b.slice(0, -3) + 'б';
       if (/расти$/.test(b)) stem = b.slice(0, -2) + 'т';
       if (/везти$/.test(b)) stem = b.slice(0, -2);
@@ -22366,7 +22505,13 @@ const RuMorph = (function(){
       const m = base.endsWith('ти') && /[дт]$/.test(strip(stem)) ? st + 'л' : s;
       const mm = (m === s) ? (s.replace(/е([^аеёиоуыэюя]*)$/, 'ё$1')) : m;
       past = [mm, s + 'ла', s + 'ло', s + 'ли'];
-      if (base.endsWith('ти') && /[дт]$/.test(strip(stem))) past = [st + 'л', st + 'ла', st + 'ло', st + 'ли'];
+      /* Quá khứ giống đực của nhóm thân -д/-т không có đuôi, nên nguyên âm е
+         trong thân chuyển thành ё: вести → вёл, перевести → перевёл, цвести →
+         цвёл. Nhánh -нес/-вез bên trên đã làm đúng việc này (перенёс), nhánh
+         này thì bỏ sót nên ra «перевел». Chỉ đổi dạng giống đực; các dạng còn
+         lại giữ е (перевела́, перевело́). */
+      if (base.endsWith('ти') && /[дт]$/.test(strip(stem)))
+        past = [st.replace(/е([^аеёиоуыэюя]*)$/, 'ё$1') + 'л', st + 'ла', st + 'ло', st + 'ли'];
       if (base.endsWith('чь')) past = [s.replace(/е([^аеёиоуыэюя]*)$/, 'ё$1'), s + 'ла', s + 'ло', s + 'ли'];
       if (/расти$/.test(base)) past = ['рос', 'росла́', 'росло́', 'росли́'].map(x => base.slice(0, -5) + x);
     } else if (base.endsWith('нуть') && /^(мёрз|сох|гас|исчез|привык|достиг|погиб|возник|отвык|проник|замёрз|засох|погас|ослеп|оглох|промок|высох|окреп|прилип|потух|воскрес|иссяк|умолк|исчез|отвергнуть)/.test(base.replace(/нуть$/, '')) && !/(тянуть|вернуть|прыгнуть|крикнуть|улыбнуться|отдохнуть|проснуться|заснуть|уснуть|двинуть|кинуть|тронуть|глянуть|махнуть|толкнуть|шагнуть|моргнуть|чихнуть|зевнуть)$/.test(base)){
@@ -22423,6 +22568,78 @@ const RuMorph = (function(){
     if (!stemStressOnly && !(cls === 1 && !shift && !endStress && infEndStress && isV(last(stem))) && !shift && !(cls === 2 && endStress)) res.notes.push('Trọng âm ở các dạng chia có thể khác nguyên thể; bảng chỉ ghi trọng âm khi chắc chắn.');
     if (shift) res.notes.push('Trọng âm di động: ngôi «я» ở đuôi, các ngôi còn lại lùi về thân (люблю́ — лю́бишь).');
     return res;
+  }
+
+  /* ===== ĐỘNG TÍNH TỪ (причастие) =====
+     Vì sao cần: trong văn bản tiếng Nga thật, động tính từ dày đặc — «рабо́та
+     напи́сана», «сда́вшие экза́мен», «так называ́емые», «биле́ты ку́плены». Bộ
+     chia động từ chưa sinh chúng, nên bấm vào là không ra gì dù động từ gốc có
+     trong từ điển.
+
+     Dựng từ những dạng mà bộ chia ĐÃ sinh và đã được kiểm, chứ không tự mò
+     thân lần nữa:
+       chủ động hiện tại  ← ngôi họ (3pl):  чита́ют  → чита́ющий
+       bị động hiện tại   ← ngôi chúng tôi: чита́ем  → чита́емый
+       chủ động quá khứ   ← quá khứ đực:    чита́л   → чита́вший
+       bị động quá khứ    ← theo đuôi nguyên thể, xem ghi chú bên dưới
+
+     Những dạng này CHỈ dùng cho chỉ mục tra từ (dạng → từ gốc), không đưa vào
+     bảng chia hiển thị. Sinh thừa một dạng không tồn tại thì vô hại — không ai
+     bấm vào một chữ không có trong bài; còn sinh thiếu thì người học bấm vào
+     mà không ra gì. Nên ở đây tôi chọn rộng tay, khác hẳn với bảng chia hiển
+     thị, nơi thừa một dạng là dạy sai. */
+  function participles(lemma, pos){
+    const out = new Set();
+    const asp = /СВ/.test(pos || '') && !/НСВ|NSV/.test(pos || '') ? 'СВ'
+              : (/НСВ|NSV/.test(pos || '') ? 'НСВ' : null);
+    let v; try { v = verb(lemma, { aspect: asp }); } catch(e){ return out; }
+    if (!v) return out;
+    const raw = strip(lemma).toLowerCase();
+    const refl = /с[яь]$/.test(raw);
+    const base = refl ? raw.replace(/с[яь]$/, '') : raw;
+    const add = w => { if (!w) return; adjTail(w).forEach(f => out.add(f)); };
+
+    /* Một động tính từ biến cách như tính từ, nên sinh cả bảng. */
+    function adjTail(m){
+      const o = [m];
+      try {
+        const a = adj(m);
+        if (a) [a.m, a.f, a.n, a.pl].forEach(t => t && Object.values(t).forEach(f => o.push(strip(f))));
+      } catch(e){}
+      return refl ? o.map(x => x + 'ся') : o;
+    }
+
+    const they = strip((v.forms || [])[5] || '').replace(/с[яь]$/, '');
+    const we   = strip((v.forms || [])[3] || '').replace(/с[яь]$/, '');
+    const pastM = strip((v.past || [])[0] || '').replace(/с[яь]$/, '');
+
+    if (asp !== 'СВ' && /т$/.test(they)) add(they.slice(0, -1) + 'щий');       // чита́ют → чита́ющий
+    if (asp !== 'СВ' && /[ие]м$/.test(we)) add(we + 'ый');                    // чита́ем → чита́емый
+    if (pastM) add(/л$/.test(pastM) ? pastM.slice(0, -1) + 'вший' : pastM + 'ший');
+
+    /* Bị động quá khứ. Đuôi nguyên thể quyết định, và chỉ ba luật:
+         -ать/-ять/-еть → thân nguyên thể + нный   (сде́лать → сде́ланный)
+         -ыть/-нуть     → thân + тый               (откры́ть → откры́тый)
+         còn lại        → thân ngôi «tôi» + енный  (купи́ть → куплю́ → ку́пленный,
+                                                    перевести́ → переведу́ → переведённый)
+       Chữ ё và е quy về một khoá nên -енный khớp luôn cả -ённый. */
+    if (!refl){
+      let long = null;
+      if (/(ать|ять|еть)$/.test(base)) long = base.slice(0, -2) + 'нный';
+      else if (/ыть$/.test(base)) long = base.slice(0, -2) + 'тый';
+      else if (/нуть$/.test(base)) long = base.slice(0, -2) + 'тый';
+      else {
+        const i = strip((v.forms || [])[0] || '').replace(/с[яь]$/, '').replace(/[ую]$/, '');
+        if (i) long = i + 'енный';
+      }
+      if (long){
+        add(long);
+        /* Dạng ngắn: написан, написана, написано, написаны. */
+        const sh = long.replace(/нный$/, 'н').replace(/тый$/, 'т');
+        if (sh !== long) ['', 'а', 'о', 'ы'].forEach(e => out.add(sh + e));
+      }
+    }
+    return out;
   }
 
   /* ===== CẤU TẠO TỪ (gợi ý) ===== */
@@ -22488,6 +22705,37 @@ const RuMorph = (function(){
       if (PRON[w]){
         const P = PRON[w]; (P.cases || []).forEach(c => strip(c).split(/[\/(),]/).forEach(x => { x = x.trim().replace(/^(о|об|обо|ни о)\s+/, ''); if (x) out.add(x); }));
         (P.table || []).forEach(r => r.forEach(c => strip(c).split(/[\/]/).forEach(x => { x = x.trim().replace(/^(о|об|обо)\s+/, ''); if (x) out.add(x); })));
+      } else if (/tên riêng/.test(p)){
+        /* TÊN RIÊNG cũng biến cách — «в Москве́», «в Хано́е», «расска́з Че́хова»
+           — nhưng allForms trước đây không nhận pos này, nên từ gốc có trong
+           từ điển mà dạng biến cách thì không: phần lớn 464 chỗ thiếu tra từ
+           của tiếng Nga là chuyện này.
+
+           Không biến cách tất cả bằng một luật, vì tên riêng không cùng một
+           kiểu: ТРКИ và ИК là chữ viết tắt, Достое́вский biến như tính từ, họ
+           Nga kiểu -ов/-ин có cách 5 riêng. Nên đọc ghi chú trong pos — do
+           người soạn đánh dấu — chứ không đoán:
+             (không biến cách)       ТРКИ, ИК, Тет, Лан → không sinh dạng nào
+             (biến cách như tính từ) Достое́вский, Пу́шкинская
+             (họ)                    Че́хов, Пу́шкин, Ле́нин → cách 5 là -ым
+             còn lại                 biến cách như danh từ thường */
+        if (/không biến cách|bất biến/.test(p)){ /* chỉ có chính nó */ }
+        else if (/như tính từ/.test(p)){
+          /* Dựng lại dạng đực -ый/-ий để bảng tính từ chạy được: Пу́шкинская →
+             Пу́шкинский. Thân tận к/г/х/ж/ш/щ/ч thì lấy -ий. */
+          let base = w;
+          const ending = c => (/[гкхжшщч]/.test(c) ? 'ий' : 'ый');
+          if (/ая$/.test(base)) base = base.slice(0, -2) + ending(base.slice(-3, -2));
+          else if (/ое$/.test(base)) base = base.slice(0, -2) + ending(base.slice(-3, -2));
+          const a = adj(base);
+          if (a) [a.m, a.f, a.n, a.pl].forEach(t => t && Object.values(t).forEach(f => out.add(strip(f))));
+        } else {
+          const n = noun(lemma, { pos:'danh từ', vi });
+          [n.sg, n.pl].forEach(t => t && Object.values(t).forEach(f => f && strip(String(f)).split(/[\/,()]/).forEach(x => { x = x.trim(); if (x && x !== '-') out.add(x); })));
+          /* Họ Nga kiểu -ов/-ёв/-ев/-ин/-ын: cách 5 số ít là -ым, không phải
+             -ом — «с Че́ховым», chứ không «с Че́ховом». Luật kín, thêm thẳng. */
+          if (/họ/.test(p) && /(ов|ёв|ев|ин|ын)$/.test(w)) out.add(w + 'ым');
+        }
       } else if (/tính từ|причастие|so sánh|đại từ|số thứ tự/.test(p) && /(ый|ий|ой)$/.test(w)){
         const a = adj(lemma); if (a){ [a.m, a.f, a.n, a.pl].forEach(t => Object.values(t).forEach(f => out.add(strip(f)))); (a.short || []).forEach(f => out.add(strip(f))); if (a.cmp) out.add(strip(a.cmp)); }
       } else if (/danh từ/.test(p) || (!p && /[а-я]/.test(w) && !/(ть|ти|чь)(ся|сь)?$/.test(w))){
@@ -22496,13 +22744,14 @@ const RuMorph = (function(){
       } else if (/động từ|mệnh lệnh/.test(p) || /(ть|ти|чь)(ся|сь)?$/.test(w)){
         const v = verb(lemma, { aspect:/СВ/.test(p) && !/НСВ/.test(p) ? 'СВ' : (/НСВ|NSV/.test(p) ? 'НСВ' : null) });
         (v.forms || []).concat(v.past || [], v.imp || [], v.fut || [], v.ger ? [v.ger] : []).forEach(f => f && strip(f).split(/[\/]/).forEach(x => { x = x.trim(); if (x && x !== '—') out.add(x); }));
+        participles(lemma, p).forEach(f => out.add(f));
       }
     } catch(e){}
     out.add(w);
     return out;
   }
 
-  return { strip, stressIdx, putStress, noun, nounInfo, adj, verb, PRON, segment, rootKey, allForms, VERB_IRR, NOUN_IRR };
+  return { strip, stressIdx, putStress, noun, nounInfo, adj, verb, participles, PRON, segment, rootKey, allForms, VERB_IRR, NOUN_IRR };
 })();
 if (typeof module !== 'undefined') module.exports = RuMorph;
 
@@ -24031,17 +24280,17 @@ const VOCAB_RU = [
   {ru:'Байка́л', vi:'hồ Baikal — hồ nước ngọt sâu nhất thế giới', pos:'tên riêng'},
   {ru:'Ива́н', vi:'I-van (tên nam, phổ biến bậc nhất ở Nga)', pos:'tên riêng'},
   {ru:'Анто́н', vi:'An-tôn (tên nam)', pos:'tên riêng'},
-  {ru:'Достое́вский', vi:'Dostoyevsky (văn hào Nga)', pos:'tên riêng'},
-  {ru:'Че́хов', vi:'Chekhov (nhà văn, nhà viết kịch Nga)', pos:'tên riêng'},
-  {ru:'Пу́шкин', vi:'Pushkin (đại thi hào Nga)', pos:'tên riêng'},
-  {ru:'Пу́шкинская', vi:'phố Pushkinskaya; ga Pushkinskaya', pos:'tên riêng'},
-  {ru:'Ле́нин', vi:'Lenin', pos:'tên riêng'},
+  {ru:'Достое́вский', vi:'Dostoyevsky (văn hào Nga)', pos:'tên riêng (biến cách như tính từ)', note:'Họ kết thúc -ский biến cách như tính từ: рома́н Достое́вского, о Достое́вском.'},
+  {ru:'Че́хов', vi:'Chekhov (nhà văn, nhà viết kịch Nga)', pos:'tên riêng (họ)', note:'Họ kiểu -ов biến cách như danh từ, trừ cách 5: с Че́ховым (không phải -ом).'},
+  {ru:'Пу́шкин', vi:'Pushkin (đại thi hào Nga)', pos:'tên riêng (họ)', note:'Cách 5: Пу́шкиным. Phân biệt với thành phố Пу́шкин — địa danh thì cách 5 là Пу́шкином.'},
+  {ru:'Пу́шкинская', vi:'phố Pushkinskaya; ga Pushkinskaya', pos:'tên riêng (biến cách như tính từ)', note:'Tên phố, ga kết thúc -ская biến cách như tính từ giống cái: на Пу́шкинской.'},
+  {ru:'Ле́нин', vi:'Lenin', pos:'tên riêng (họ)', note:'Cách 5: Ле́ниным.'},
   {ru:'Маргари́та', vi:'Margarita (tên nữ; nhân vật của Bulgakov)', pos:'tên riêng'},
-  {ru:'Тет', vi:'Tết (Tết Nguyên đán của người Việt)', pos:'tên riêng'},
+  {ru:'Тет', vi:'Tết (Tết Nguyên đán của người Việt)', pos:'tên riêng (không biến cách)', note:'Người Nga viết nguyên dạng: на Тет, пе́ред Тет.'},
   {ru:'Минь', vi:'Minh (tên người Việt)', pos:'tên riêng'},
-  {ru:'Лан', vi:'Lan (tên nữ, người Việt)', pos:'tên riêng'},
-  {ru:'ТРКИ', vi:'kì thi năng lực tiếng Nga (ТРКИ-1 … ТРКИ-4)', pos:'tên riêng'},
-  {ru:'ИК', vi:'ngữ điệu (ИК-1 … ИК-7: bảy kiểu ngữ điệu của tiếng Nga)', pos:'tên riêng'},
+  {ru:'Лан', vi:'Lan (tên nữ, người Việt)', pos:'tên riêng (không biến cách)', note:'Tên nữ nước ngoài kết thúc bằng phụ âm thì không biến cách: я ви́дел Лан.'},
+  {ru:'ТРКИ', vi:'kì thi năng lực tiếng Nga (ТРКИ-1 … ТРКИ-4)', pos:'tên riêng (không biến cách)', note:'Viết tắt của «Тест по ру́сскому языку́ как иностра́нному».'},
+  {ru:'ИК', vi:'ngữ điệu (ИК-1 … ИК-7: bảy kiểu ngữ điệu của tiếng Nga)', pos:'tên riêng (không biến cách)', note:'Viết tắt của «интонацио́нная констру́кция».'},
 
 ];
 
@@ -79119,29 +79368,58 @@ function ruFormIndex(){
   const add = (form, key) => { const f = ruKey(form); if (!f) return; (idx[f] = idx[f] || []); if (idx[f].indexOf(key) < 0) idx[f].push(key); };
   Object.values(RU_LOOKUP).forEach(w => {
     const parts = String(w.ru).split(/\s*\/\s*/);
-    parts.forEach(part => {
+    /* Cặp thể viết chung một mục: «возвраща́ться / верну́ться» với pos «động từ
+       НСВ/СВ». Trước đây cả hai vế đều nhận nguyên chuỗi pos ấy, và phép thử
+       thể trong allForms thấy «НСВ» là dừng — nên vế HOÀN THÀNH bị chia như
+       chưa hoàn thành: «верну́вшись» không sinh ra, mà lại sinh một trạng động
+       từ không tồn tại. Tách pos theo vế: tiếng Nga luôn ghi НСВ trước СВ. */
+    const pairAsp = parts.length === 2 && /(НСВ|NSV)\s*\/\s*(СВ|SV)/.test(w.pos || '');
+    parts.forEach((part, i) => {
       const plain = ruPlain(part).trim();
       if (!plain) return;
       if (/\s/.test(plain)){ add(plain, w.key); plain.split(/\s+/).forEach(t => { if (t.length > 3) add(t.replace(/[^А-Яа-яЁё-]/g, ''), w.key); }); return; }
       add(plain, w.key);
-      if (_RM){ try { _RM.allForms(part.trim(), w.pos, w.vi).forEach(f => add(f, w.key)); } catch(e){} }
+      const pos = pairAsp ? String(w.pos).replace(/(НСВ|NSV)\s*\/\s*(СВ|SV)/, i === 0 ? 'НСВ' : 'СВ') : w.pos;
+      if (_RM){ try { _RM.allForms(part.trim(), pos, w.vi).forEach(f => add(f, w.key)); } catch(e){} }
     });
   });
   _ruFormIdx = idx; return idx;
 }
+/* Khoá mục từ, bỏ hoa–thường: cần vì từ đứng ĐẦU CÂU viết hoa. «С трениро́вки»
+   — khoá của giới từ ấy là «с» chữ thường, mà phép so khớp khít lại so đúng
+   chữ, nên bấm vào «С» thì không ra gì, còn bấm vào «В» thì rơi xuống chỉ mục
+   dạng và ra sai hẳn («увеличиваться на / в»). Dựng lười một lần. */
+let _ruByKey = null;
+function ruByKey(){
+  if (_ruByKey) return _ruByKey;
+  const m = {};
+  Object.keys(RU_LOOKUP).forEach(k => { const f = ruKey(k); if (!(f in m)) m[f] = k; });
+  _ruByKey = m; return m;
+}
 /* Tìm mục từ cho một từ bấm trong câu: đúng từ gốc → dạng biến đổi → cụm có chứa */
 function ruLemmatize(tok){
   const raw = ruPlain(String(tok).replace(/[^А-Яа-яЁё́\s-]/g, '').trim().replace(/\s+/g, ' '));
-  const plain = ruPlain(String(tok).replace(/[^А-Яа-яЁё́-]/g, ''));
+  const plain = ruPlain(String(tok).replace(/[^А-Яа-яЁё́-]/g, '')).replace(/^-+|-+$/g, '');
   const k = ruKey(plain);
   if (!k) return [];
   /* trùng khít khoá mục từ (và, không, ở…; cả cụm «ря́дом с») — bắt trước mọi phép suy dạng */
   if (RU_LOOKUP[raw]) return [raw];
   if (RU_LOOKUP[plain]) return [plain];
+  const folded = ruByKey()[k];
+  if (folded) return [folded];
   const exact = Object.values(RU_LOOKUP).filter(w => ruKey(w.ru) === k || String(w.ru).split(/\s*\/\s*/).some(p => ruKey(p) === k));
   if (exact.length) return exact.map(w => w.key);
   const hit = ruFormIndex()[k];
   if (hit && hit.length) return hit.filter(key => !/\s/.test(ruPlain(key))).concat(hit.filter(key => /\s/.test(ruPlain(key))));
+  /* Tên ghép bằng dấu nối: «Санкт-Петербу́рге». Phần sau mới là phần biến
+     cách, nên thử nó trước, rồi mới thử phần đầu. */
+  if (plain.indexOf('-') > 0){
+    const bits = plain.split('-').filter(x => x.length > 1);
+    for (const part of bits.slice().reverse()){
+      const r = ruLemmatize(part);
+      if (r.length) return r;
+    }
+  }
   return [];
 }
 try { window.__ruDict = { lemmatize: ruLemmatize, lookup: RU_LOOKUP, forms: ruFormIndex, tokens: ruTokens }; } catch(e){}
@@ -79203,7 +79481,13 @@ function ruTokens(str){
     if (!tok.trim()) return esc(tok);
     const m = tok.match(/^([^А-Яа-яЁё]*)([А-Яа-яЁё́-]+)([^А-Яа-яЁё]*)$/u);
     if (!m) return esc(tok);
-    return esc(m[1]) + `<span class="zc ru-tok" data-ruw="${esc(ruPlain(m[2]))}" title="Tra từ này">${esc(m[2])}</span>` + esc(m[3]);
+    /* «ИК-1», «ТРКИ-2»: dấu nối nằm trong dải chữ của biểu thức trên, còn chữ
+       số thì không, nên phần chữ bị cắt thành «ИК-» — kéo theo cả dấu nối vào
+       chữ bấm được rồi không tra ra gì. Đẩy dấu nối ra ngoài. */
+    const h = m[2].match(/^(-*)([\s\S]*?)(-*)$/);
+    const pre = m[1] + h[1], w = h[2], post = h[3] + m[3];
+    if (!w) return esc(tok);
+    return esc(pre) + `<span class="zc ru-tok" data-ruw="${esc(ruPlain(w))}" title="Tra từ này">${esc(w)}</span>` + esc(post);
   }).join('');
 }
 function ruSpeakBtn(text, cls){ return `<button class="${cls || 'icon-btn'}" data-ru-speak="${esc(ruPlain(text))}" title="Nghe">${SPK_ICO}</button>`; }
@@ -81472,51 +81756,137 @@ function jaSegKeys(){
    câu (。、！？「」) nằm ngoài dải nên tự khắc ngắt đoạn. */
 const JA_RUN = /[぀-ヿ一-鿿々ｦ-ﾟ]+|[^぀-ヿ一-鿿々ｦ-ﾟ]+/g;
 
-function jaSegment(str){
+/* ---------- furigana phải bóc ra TRƯỚC khi tách từ ----------
+   Bài đọc và câu trong khoá viết furigana theo quy ước của LangLab:
+   漢字[かんじ]. Bộ tách từ nhận nguyên chuỗi ấy thì vỡ, vì dấu [ ] nằm ngoài
+   dải chữ Nhật nên nó ngắt đoạn ở đúng chỗ ấy rồi đem ÂM ĐỌC ra tách như thể
+   là chữ của câu. Hậu quả thấy bằng mắt: bài đọc tiếng Nhật hiện ra
+   «人[ひと]が» kèm dấu ngoặc chứ không phải ruby, và bấm vào «ひ», «おお» hay
+   «ゅっぷん» — những mảnh vụn của âm đọc 十分[じゅっぷん] — thì tất nhiên
+   không ra gì. Phép đo độ phủ đếm đúng những mảnh vụn ấy là «thiếu từ», nên
+   con số 95,5% trước đây nói sai cả về lượng lẫn về bản chất.
+
+   Nên: bóc furigana ra, tách từ trên phần bề mặt, rồi gắn ruby lại theo vị
+   trí ký tự. Chuỗi không có furigana thì mọi thứ y như cũ — đúng trường hợp
+   văn bản người học dán vào màn Shadowing. */
+function jaRubyParse(str){
+  const s = String(str || '');
+  const re = /([^\s\[\]぀-ヿ]+)\[([^\]]*)\]/g;      /* giống jaRubyTok: âm đọc chỉ phủ phần chữ Hán */
+  const groups = [];
+  let plain = '', last = 0, m;
+  while ((m = re.exec(s))){
+    plain += s.slice(last, m.index);
+    const st = plain.length;
+    plain += m[1];
+    groups.push({ st, en:plain.length, read:m[2] });
+    last = m.index + m[0].length;
+  }
+  plain += s.slice(last);
+  return { plain, groups };
+}
+
+/* Chữ kana nhỏ không bao giờ MỞ ĐẦU một từ tiếng Nhật: ゃ ゅ ょ ぁ ぃ ぅ ぇ ぉ
+   っ và dấu kéo dài ー luôn dính vào chữ đứng trước. Đây là luật âm vị học, kín
+   — không phải danh sách phải nuôi. Không chặn thì bộ tách từ cắt ngay trước
+   chúng và sinh ra những chữ bấm được vô nghĩa như «ゅっぷん» hay «ゅう». */
+const JA_SMALL = /[ゃゅょぁぃぅぇぉっーャュョァィゥェォッ゛゜]/;
+
+/* Những vị trí KHÔNG được cắt: bên trong một nhóm ruby, và ngay trước một chữ
+   kana nhỏ. Cắt vào giữa 日本[にほん] thì không cách nào chia âm đọc ra hai
+   nửa, nên thà để nguyên cả nhóm làm một chữ. */
+function jaNoCut(groups, plain){
+  const bad = new Set();
+  groups.forEach(g => { for (let p = g.st + 1; p < g.en; p++) bad.add(p); });
+  const s = String(plain || '');
+  for (let p = 1; p < s.length; p++) if (JA_SMALL.test(s[p])) bad.add(p);
+  return bad;
+}
+
+/* Dựng lại ruby cho một khoảng [a,b) của chuỗi bề mặt. Vì đã chặn cắt giữa
+   nhóm nên mọi nhóm chạm vào khoảng này đều nằm gọn trong nó. */
+function jaRubyRange(plain, groups, a, b){
+  let html = '', p = a;
+  for (const g of groups){
+    if (g.en <= a || g.st >= b) continue;
+    if (g.st > p) html += esc(plain.slice(p, g.st));
+    const st = Math.max(g.st, a), en = Math.min(g.en, b);
+    const surf = plain.slice(st, en);
+    html += (st === g.st && en === g.en && g.read)
+      ? `<ruby>${esc(surf)}<rt>${esc(g.read)}</rt></ruby>`
+      : esc(surf);
+    p = en;
+  }
+  if (p < b) html += esc(plain.slice(p, b));
+  return html;
+}
+
+/* Số đếm ghép thẳng vào đơn vị: 六時, 三日, 五分, 八月, 二日. Tiếng Nhật không
+   có ranh giới nào giữa hai phần, và «六時» thì không ai đưa vào từ điển — chỉ
+   có «時». jaLemmatize đã biết luật ấy từ lâu, nhưng BỘ TÁCH TỪ thì chưa, nên
+   nó không nhận ra 「六時[ろくじ]に」 và nuốt cả cụm thành một khối chưa tra
+   được. Dạy lại cho bộ tách từ đúng luật mà bên tra từ đang dùng, để hai bên
+   nói cùng một thứ tiếng. Không bịa: chỉ nhận khi phần đơn vị có thật. */
+function jaNumCounter(cand, keys){
+  const m = String(cand).match(/^([〇一二三四五六七八九十百千万何数0-9０-９]+)(.{1,4})$/);
+  return !!(m && keys.has(m[2]));
+}
+
+/* Trả về [chữ, tra được, đầu, cuối] — hai số cuối là vị trí trong chuỗi bề
+   mặt, để bên gọi gắn lại ruby. */
+function jaSegment(str, noCut){
   const keys = jaSegKeys();
   const out = [];
   const runs = String(str || '').match(JA_RUN) || [];
+  const cutOk = p => !noCut || !noCut.has(p);
+  let base = 0;
   for (const run of runs){
-    if (!/[぀-ヿ一-鿿々]/.test(run)){ out.push([run, false]); continue; }
+    if (!/[぀-ヿ一-鿿々]/.test(run)){ out.push([run, false, base, base + run.length]); base += run.length; continue; }
     let i = 0;
     while (i < run.length){
       let hit = '';
       for (let len = Math.min(JA_MAXLEN, run.length - i); len >= 1; len--){
+        if (!cutOk(base + i + len)) continue;
         const cand = run.substr(i, len);
-        if (keys.has(cand)){ hit = cand; break; }
+        if (keys.has(cand) || jaNumCounter(cand, keys)){ hit = cand; break; }
       }
       /* Kính ngữ お và ご dính liền từ đứng sau: お願い, ご家族. Không nối lại
          thì «お願いします» bị xé thành お | 願 | い | します — bốn mảnh, mảnh
          nào bấm vào cũng không ra đúng nghĩa. */
       if (!hit && /^[おご]$/.test(run[i])){
         for (let len = Math.min(JA_MAXLEN - 1, run.length - i - 1); len >= 2; len--){
+          if (!cutOk(base + i + 1 + len)) continue;
           if (keys.has(run.substr(i + 1, len))){ hit = run.substr(i, len + 1); break; }
         }
       }
-      if (hit){ out.push([hit, true]); i += hit.length; continue; }
+      if (hit){ out.push([hit, true, base + i, base + i + hit.length]); i += hit.length; continue; }
       /* Không khớp: nuốt tới chỗ gần nhất mà từ điển nhận ra, rồi để cả đoạn
          ấy thành MỘT khối chưa tra được. */
       let j = i + 1;
       while (j < run.length){
+        if (!cutOk(base + j)){ j++; continue; }
         let found = false;
         for (let len = Math.min(JA_MAXLEN, run.length - j); len >= 2; len--)
-          if (keys.has(run.substr(j, len))){ found = true; break; }
+          if (cutOk(base + j + len) && keys.has(run.substr(j, len))){ found = true; break; }
         if (found) break;
         j++;
       }
-      out.push([run.slice(i, j), false]);
+      out.push([run.slice(i, j), false, base + i, base + j]);
       i = j;
     }
+    base += run.length;
   }
   return out;
 }
 
 function shJaTokens(text){
-  return jaSegment(text).map(([tok, ok]) => {
-    if (!/[぀-ヿ一-鿿々]/.test(tok)) return esc(tok);
+  const { plain, groups } = jaRubyParse(text);
+  const noCut = jaNoCut(groups, plain);
+  return jaSegment(plain, noCut).map(([tok, ok, a, b]) => {
+    const inner = jaRubyRange(plain, groups, a, b);
+    if (!/[぀-ヿ一-鿿々]/.test(tok)) return inner;
     return ok
-      ? `<span class="zc ja-tok" data-jaw="${esc(tok)}" title="Tra từ này">${esc(tok)}</span>`
-      : `<span class="zc ja-tok zc-x" data-jaw="${esc(tok)}" title="Chưa có trong từ điển">${esc(tok)}</span>`;
+      ? `<span class="zc ja-tok" data-jaw="${esc(tok)}" title="Tra từ này">${inner}</span>`
+      : `<span class="zc ja-tok zc-x" data-jaw="${esc(tok)}" title="Chưa có trong từ điển">${inner}</span>`;
   }).join('');
 }
 

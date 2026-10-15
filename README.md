@@ -315,6 +315,33 @@ của Viện Quốc ngữ Quốc gia Hàn Quốc — nguồn Hàn–Việt chín
 
 ---
 
+## Vòng tuần hoàn hằng tuần
+
+`.github/workflows/tuan-hoan.yml` chạy trên máy chủ GitHub, không cần bật máy ở
+nhà. Chia làm hai nửa, và chia có lí do.
+
+**Tự động mỗi tuần** (6 giờ sáng Chủ nhật, giờ Hà Nội) — chỉ **đo và kiểm**,
+không sửa gì, không ghi gì vào kho: dựng bản gộp, chạy cả 25 bộ kiểm thử, đo độ
+phủ tra từ của bảy thứ tiếng, rồi in ra danh sách từ còn thiếu xếp theo số lần
+gặp. Đó chính là bản danh sách việc cho tuần sau, đọc được ngay ở trang kết quả
+của lần chạy, hoặc tải về ở mục Artifacts.
+
+**Bấm nút khi cần** — thu mp3 cho phần còn thiếu rồi đẩy về kho. Phải bấm tay
+chứ không để tự động, vì nó ghi vào lịch sử kho và làm kho nặng thêm:
+`audio/tts` đã chừng 1 GB. `make_audio.py` tự bỏ qua tệp đã có nên một lần chạy
+chỉ thu đúng phần mới.
+
+Một chỗ phải nói thẳng: **máy không soạn từ mới thay người được.** Viết nghĩa
+tiếng Việt cho một từ là soạn nội dung, mà nội dung bịa ra thì tệ hơn không có.
+Quy trình này lo mọi thứ *quanh* nội dung — đo, kiểm, thu, dựng, báo cáo — còn
+phần nghĩa vẫn qua tay người soạn.
+
+Và từ mới **không phải chờ có mp3** mới dùng được: app có ba tầng đọc, chưa thu
+thì nó chuyển sang giọng máy của điện thoại. mp3 đuổi theo ở vòng sau.
+
+Lưu ý về bản APK: app chạy hoàn toàn ngoại tuyến, nên từ mới và mp3 mới chỉ đến
+điện thoại khi dựng lại APK — mỗi vòng ra một bản, chứ app không tự tải thêm.
+
 ## Lộ trình
 
 - [x] Khung ứng dụng đa ngôn ngữ

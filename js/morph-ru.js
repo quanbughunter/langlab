@@ -673,8 +673,19 @@ const RuMorph = (function(){
     else if (b.endsWith('нуть')){ stem = b.slice(0, -3); cls = 1; endStress = infEndStress; }
     else if (b.endsWith('ти')){ // нести, идти…
       const s = b.slice(0, -2); stem = s.endsWith('с') && /(нес|тряс|пас|спас)$/.test(s) ? s : (s.endsWith('с') ? s.slice(0, -1) + 'д' : s); cls = 1; endStress = true;
-      if (/(вес|бре|пле|ме|цве|расцве|обре|приобре|изобре)$/.test(s) && b.endsWith('сти')) stem = s.slice(0, -1) + 'т';
-      if (/(ве)$/.test(s) && b.endsWith('сти')) stem = s.slice(0, -1) + 'д';
+      /* Hai dòng cũ ở đây so khớp trên `s`, mà `s` của động từ -сти thì LUÔN
+         tận cùng bằng «с» — nên trong cả danh sách chỉ nhánh «вес» có thể
+         trúng, và mọi động từ -вести đều ra thân sai: перевести → перевет-у,
+         bảng chia hiện «перевету, переветут». Phải so trên phần TRƯỚC chữ
+         «с». Thứ tự quan trọng: «цве» cũng tận cùng bằng «ве» nhưng цвести →
+         цвету chứ không цведу; «обре» cũng tận cùng bằng «бре» nhưng обрести →
+         обрету chứ không обреду. */
+      if (b.endsWith('сти') && s.endsWith('с') && !/(нес|тряс|пас|спас)$/.test(s)){
+        const r = s.slice(0, -1);
+        if (/(цве|пле|ме)$/.test(r)) stem = r + 'т';          // цвести → цвету, плести → плету, мести → мету
+        else if (/обре$/.test(r)) stem = r + 'т';             // обрести, приобрести, изобрести → обрету
+        else if (/(ве|бре)$/.test(r)) stem = r + 'д';         // вести → веду, перевести → переведу, брести → бреду
+      }
       if (/грести$/.test(b)) stem = b.slice(0, -3) + 'б';
       if (/расти$/.test(b)) stem = b.slice(0, -2) + 'т';
       if (/везти$/.test(b)) stem = b.slice(0, -2);
@@ -761,7 +772,13 @@ const RuMorph = (function(){
       const m = base.endsWith('ти') && /[дт]$/.test(strip(stem)) ? st + 'л' : s;
       const mm = (m === s) ? (s.replace(/е([^аеёиоуыэюя]*)$/, 'ё$1')) : m;
       past = [mm, s + 'ла', s + 'ло', s + 'ли'];
-      if (base.endsWith('ти') && /[дт]$/.test(strip(stem))) past = [st + 'л', st + 'ла', st + 'ло', st + 'ли'];
+      /* Quá khứ giống đực của nhóm thân -д/-т không có đuôi, nên nguyên âm е
+         trong thân chuyển thành ё: вести → вёл, перевести → перевёл, цвести →
+         цвёл. Nhánh -нес/-вез bên trên đã làm đúng việc này (перенёс), nhánh
+         này thì bỏ sót nên ra «перевел». Chỉ đổi dạng giống đực; các dạng còn
+         lại giữ е (перевела́, перевело́). */
+      if (base.endsWith('ти') && /[дт]$/.test(strip(stem)))
+        past = [st.replace(/е([^аеёиоуыэюя]*)$/, 'ё$1') + 'л', st + 'ла', st + 'ло', st + 'ли'];
       if (base.endsWith('чь')) past = [s.replace(/е([^аеёиоуыэюя]*)$/, 'ё$1'), s + 'ла', s + 'ло', s + 'ли'];
       if (/расти$/.test(base)) past = ['рос', 'росла́', 'росло́', 'росли́'].map(x => base.slice(0, -5) + x);
     } else if (base.endsWith('нуть') && /^(мёрз|сох|гас|исчез|привык|достиг|погиб|возник|отвык|проник|замёрз|засох|погас|ослеп|оглох|промок|высох|окреп|прилип|потух|воскрес|иссяк|умолк|исчез|отвергнуть)/.test(base.replace(/нуть$/, '')) && !/(тянуть|вернуть|прыгнуть|крикнуть|улыбнуться|отдохнуть|проснуться|заснуть|уснуть|двинуть|кинуть|тронуть|глянуть|махнуть|толкнуть|шагнуть|моргнуть|чихнуть|зевнуть)$/.test(base)){
@@ -818,6 +835,78 @@ const RuMorph = (function(){
     if (!stemStressOnly && !(cls === 1 && !shift && !endStress && infEndStress && isV(last(stem))) && !shift && !(cls === 2 && endStress)) res.notes.push('Trọng âm ở các dạng chia có thể khác nguyên thể; bảng chỉ ghi trọng âm khi chắc chắn.');
     if (shift) res.notes.push('Trọng âm di động: ngôi «я» ở đuôi, các ngôi còn lại lùi về thân (люблю́ — лю́бишь).');
     return res;
+  }
+
+  /* ===== ĐỘNG TÍNH TỪ (причастие) =====
+     Vì sao cần: trong văn bản tiếng Nga thật, động tính từ dày đặc — «рабо́та
+     напи́сана», «сда́вшие экза́мен», «так называ́емые», «биле́ты ку́плены». Bộ
+     chia động từ chưa sinh chúng, nên bấm vào là không ra gì dù động từ gốc có
+     trong từ điển.
+
+     Dựng từ những dạng mà bộ chia ĐÃ sinh và đã được kiểm, chứ không tự mò
+     thân lần nữa:
+       chủ động hiện tại  ← ngôi họ (3pl):  чита́ют  → чита́ющий
+       bị động hiện tại   ← ngôi chúng tôi: чита́ем  → чита́емый
+       chủ động quá khứ   ← quá khứ đực:    чита́л   → чита́вший
+       bị động quá khứ    ← theo đuôi nguyên thể, xem ghi chú bên dưới
+
+     Những dạng này CHỈ dùng cho chỉ mục tra từ (dạng → từ gốc), không đưa vào
+     bảng chia hiển thị. Sinh thừa một dạng không tồn tại thì vô hại — không ai
+     bấm vào một chữ không có trong bài; còn sinh thiếu thì người học bấm vào
+     mà không ra gì. Nên ở đây tôi chọn rộng tay, khác hẳn với bảng chia hiển
+     thị, nơi thừa một dạng là dạy sai. */
+  function participles(lemma, pos){
+    const out = new Set();
+    const asp = /СВ/.test(pos || '') && !/НСВ|NSV/.test(pos || '') ? 'СВ'
+              : (/НСВ|NSV/.test(pos || '') ? 'НСВ' : null);
+    let v; try { v = verb(lemma, { aspect: asp }); } catch(e){ return out; }
+    if (!v) return out;
+    const raw = strip(lemma).toLowerCase();
+    const refl = /с[яь]$/.test(raw);
+    const base = refl ? raw.replace(/с[яь]$/, '') : raw;
+    const add = w => { if (!w) return; adjTail(w).forEach(f => out.add(f)); };
+
+    /* Một động tính từ biến cách như tính từ, nên sinh cả bảng. */
+    function adjTail(m){
+      const o = [m];
+      try {
+        const a = adj(m);
+        if (a) [a.m, a.f, a.n, a.pl].forEach(t => t && Object.values(t).forEach(f => o.push(strip(f))));
+      } catch(e){}
+      return refl ? o.map(x => x + 'ся') : o;
+    }
+
+    const they = strip((v.forms || [])[5] || '').replace(/с[яь]$/, '');
+    const we   = strip((v.forms || [])[3] || '').replace(/с[яь]$/, '');
+    const pastM = strip((v.past || [])[0] || '').replace(/с[яь]$/, '');
+
+    if (asp !== 'СВ' && /т$/.test(they)) add(they.slice(0, -1) + 'щий');       // чита́ют → чита́ющий
+    if (asp !== 'СВ' && /[ие]м$/.test(we)) add(we + 'ый');                    // чита́ем → чита́емый
+    if (pastM) add(/л$/.test(pastM) ? pastM.slice(0, -1) + 'вший' : pastM + 'ший');
+
+    /* Bị động quá khứ. Đuôi nguyên thể quyết định, và chỉ ba luật:
+         -ать/-ять/-еть → thân nguyên thể + нный   (сде́лать → сде́ланный)
+         -ыть/-нуть     → thân + тый               (откры́ть → откры́тый)
+         còn lại        → thân ngôi «tôi» + енный  (купи́ть → куплю́ → ку́пленный,
+                                                    перевести́ → переведу́ → переведённый)
+       Chữ ё và е quy về một khoá nên -енный khớp luôn cả -ённый. */
+    if (!refl){
+      let long = null;
+      if (/(ать|ять|еть)$/.test(base)) long = base.slice(0, -2) + 'нный';
+      else if (/ыть$/.test(base)) long = base.slice(0, -2) + 'тый';
+      else if (/нуть$/.test(base)) long = base.slice(0, -2) + 'тый';
+      else {
+        const i = strip((v.forms || [])[0] || '').replace(/с[яь]$/, '').replace(/[ую]$/, '');
+        if (i) long = i + 'енный';
+      }
+      if (long){
+        add(long);
+        /* Dạng ngắn: написан, написана, написано, написаны. */
+        const sh = long.replace(/нный$/, 'н').replace(/тый$/, 'т');
+        if (sh !== long) ['', 'а', 'о', 'ы'].forEach(e => out.add(sh + e));
+      }
+    }
+    return out;
   }
 
   /* ===== CẤU TẠO TỪ (gợi ý) ===== */
@@ -883,6 +972,37 @@ const RuMorph = (function(){
       if (PRON[w]){
         const P = PRON[w]; (P.cases || []).forEach(c => strip(c).split(/[\/(),]/).forEach(x => { x = x.trim().replace(/^(о|об|обо|ни о)\s+/, ''); if (x) out.add(x); }));
         (P.table || []).forEach(r => r.forEach(c => strip(c).split(/[\/]/).forEach(x => { x = x.trim().replace(/^(о|об|обо)\s+/, ''); if (x) out.add(x); })));
+      } else if (/tên riêng/.test(p)){
+        /* TÊN RIÊNG cũng biến cách — «в Москве́», «в Хано́е», «расска́з Че́хова»
+           — nhưng allForms trước đây không nhận pos này, nên từ gốc có trong
+           từ điển mà dạng biến cách thì không: phần lớn 464 chỗ thiếu tra từ
+           của tiếng Nga là chuyện này.
+
+           Không biến cách tất cả bằng một luật, vì tên riêng không cùng một
+           kiểu: ТРКИ và ИК là chữ viết tắt, Достое́вский biến như tính từ, họ
+           Nga kiểu -ов/-ин có cách 5 riêng. Nên đọc ghi chú trong pos — do
+           người soạn đánh dấu — chứ không đoán:
+             (không biến cách)       ТРКИ, ИК, Тет, Лан → không sinh dạng nào
+             (biến cách như tính từ) Достое́вский, Пу́шкинская
+             (họ)                    Че́хов, Пу́шкин, Ле́нин → cách 5 là -ым
+             còn lại                 biến cách như danh từ thường */
+        if (/không biến cách|bất biến/.test(p)){ /* chỉ có chính nó */ }
+        else if (/như tính từ/.test(p)){
+          /* Dựng lại dạng đực -ый/-ий để bảng tính từ chạy được: Пу́шкинская →
+             Пу́шкинский. Thân tận к/г/х/ж/ш/щ/ч thì lấy -ий. */
+          let base = w;
+          const ending = c => (/[гкхжшщч]/.test(c) ? 'ий' : 'ый');
+          if (/ая$/.test(base)) base = base.slice(0, -2) + ending(base.slice(-3, -2));
+          else if (/ое$/.test(base)) base = base.slice(0, -2) + ending(base.slice(-3, -2));
+          const a = adj(base);
+          if (a) [a.m, a.f, a.n, a.pl].forEach(t => t && Object.values(t).forEach(f => out.add(strip(f))));
+        } else {
+          const n = noun(lemma, { pos:'danh từ', vi });
+          [n.sg, n.pl].forEach(t => t && Object.values(t).forEach(f => f && strip(String(f)).split(/[\/,()]/).forEach(x => { x = x.trim(); if (x && x !== '-') out.add(x); })));
+          /* Họ Nga kiểu -ов/-ёв/-ев/-ин/-ын: cách 5 số ít là -ым, không phải
+             -ом — «с Че́ховым», chứ không «с Че́ховом». Luật kín, thêm thẳng. */
+          if (/họ/.test(p) && /(ов|ёв|ев|ин|ын)$/.test(w)) out.add(w + 'ым');
+        }
       } else if (/tính từ|причастие|so sánh|đại từ|số thứ tự/.test(p) && /(ый|ий|ой)$/.test(w)){
         const a = adj(lemma); if (a){ [a.m, a.f, a.n, a.pl].forEach(t => Object.values(t).forEach(f => out.add(strip(f)))); (a.short || []).forEach(f => out.add(strip(f))); if (a.cmp) out.add(strip(a.cmp)); }
       } else if (/danh từ/.test(p) || (!p && /[а-я]/.test(w) && !/(ть|ти|чь)(ся|сь)?$/.test(w))){
@@ -891,12 +1011,13 @@ const RuMorph = (function(){
       } else if (/động từ|mệnh lệnh/.test(p) || /(ть|ти|чь)(ся|сь)?$/.test(w)){
         const v = verb(lemma, { aspect:/СВ/.test(p) && !/НСВ/.test(p) ? 'СВ' : (/НСВ|NSV/.test(p) ? 'НСВ' : null) });
         (v.forms || []).concat(v.past || [], v.imp || [], v.fut || [], v.ger ? [v.ger] : []).forEach(f => f && strip(f).split(/[\/]/).forEach(x => { x = x.trim(); if (x && x !== '—') out.add(x); }));
+        participles(lemma, p).forEach(f => out.add(f));
       }
     } catch(e){}
     out.add(w);
     return out;
   }
 
-  return { strip, stressIdx, putStress, noun, nounInfo, adj, verb, PRON, segment, rootKey, allForms, VERB_IRR, NOUN_IRR };
+  return { strip, stressIdx, putStress, noun, nounInfo, adj, verb, participles, PRON, segment, rootKey, allForms, VERB_IRR, NOUN_IRR };
 })();
 if (typeof module !== 'undefined') module.exports = RuMorph;

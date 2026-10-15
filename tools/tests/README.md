@@ -6,10 +6,13 @@ Chạy từ **thư mục gốc của repo** (`langlab/`), sau khi đã `python3 
 ```bash
 python3 build.py
 npm i jsdom          # chỉ cần một lần
-for t in smoke zh-test hsk-test ru-test ja-test en-test fact-test sh-test rd-test hist-test asst-flow pic-test say-test dict-cover audio-test tts-test; do
+for t in smoke zh-test hsk-test ru-test ja-test en-test fact-test sh-test rd-test \
+         hist-test asst-flow pic-test say-test dict-cover word-cover audio-test \
+         tts-test lat-test tts-native back-native; do
   printf "%-12s " $t; node tools/tests/$t.js | tail -1
 done
 node tools/tests/morph-nouns.js && node tools/tests/morph-verbs.js && node tools/tests/morph-adj.js
+node tools/tests/morph-lat.js
 node tools/tests/worker-test.mjs
 ```
 
@@ -29,9 +32,14 @@ node tools/tests/worker-test.mjs
 | `pic-test.js` | Nghe & chọn tranh: dữ liệu, độ sát nhiễu, tranh, luồng làm bài |
 | `say-test.js` | Nút dừng đọc, chọn đúng giọng từng thứ tiếng |
 | `dict-cover.js` | Độ phủ từ điển cho từ khoá và thân bài đọc |
+| `word-cover.js` | Mọi từ trong câu ví dụ của cả bảy tiếng đều tra được |
 | `audio-test.js` | `tools/make_audio.py` và app phải băm ra cùng tên tệp mp3 |
 | `tts-test.js` | Ba cảnh mạng: chậm · thiếu tệp giữa chuỗi · môi trường câm |
+| `lat-test.js` | Tiếng Pháp và Tây Ban Nha: khoá, từ điển, bảng chia, bài tập |
+| `morph-lat.js` | engine hình thái Pháp / Tây Ban Nha (node thuần) |
 | `morph-*.js` | engine hình thái tiếng Nga (chạy bằng node thuần) |
+| `tts-native.js` | Lớp đệm giọng máy khi WebView không có `speechSynthesis` |
+| `back-native.js` | Nút quay lại / vuốt cạnh trong APK phải lùi, không thoát app |
 | `worker-test.mjs` | Cloudflare Worker dịch |
 
 Trước đây bộ test chỉ nằm trong máy ảo nên mất sạch mỗi lần máy ảo dựng lại.

@@ -73,6 +73,15 @@ echo         Thay bieu tuong mac dinh bang logo LangLab...
 call npx capacitor-assets generate --android
 if errorlevel 1 goto loi
 
+REM Cu chi vuot canh: plugin @capacitor/app dua cu back vao bo dinh tuyen cua
+REM app (xem js/back-native.js). Co trong manifest chi them hinh xem truoc luc
+REM vuot, va chi can cho may Android 13-14.
+echo         Bat hinh xem truoc khi vuot canh...
+cd ..
+python tools\sua-manifest.py
+if errorlevel 1 goto loi
+cd android-app
+
 echo.
 echo   [6/6] Bien dich APK...
 cd android
