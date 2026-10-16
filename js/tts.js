@@ -23,9 +23,24 @@ const ROOTS = ['audio/tts/', '../audio/tts/'];
    chuỗi ký tự nhưng đọc khác hẳn nhau, để chung một rổ là phát nhầm tiếng.
    Thư mục gốc vẫn được dò sau cùng, để bộ audio tiếng Hàn thu từ trước
    (nằm thẳng trong audio/tts/) vẫn dùng được, khỏi phải thu lại.            */
+/* Kho audio để ở nơi khác — xem audioBase trong js/config.js. Bản web không
+   mang nổi 937 MB mp3 vì GitHub Pages chặn cứng ở 1 GB, nên audio tách ra một
+   chỗ riêng. Trong APK thì KHÔNG dùng: tệp nằm sẵn trong gói và phải chạy được
+   lúc không có mạng, đi hỏi mạng chỉ tổ chậm. */
+function remoteRoot(){
+  if (typeof window === 'undefined') return '';
+  if (window.Capacitor) return '';
+  const b = String((window.LANGLAB_CONFIG && window.LANGLAB_CONFIG.audioBase) || '').trim();
+  return b ? b.replace(/\/+$/, '') + '/audio/tts/' : '';
+}
+
 function dirs(voice){
   const order = ROOTS.slice(root).concat(ROOTS.slice(0, root));
+  const xa = remoteRoot();
   const out = [];
+  /* Kho xa đứng TRƯỚC: khi đã khai audioBase thì bản web không còn tệp cục bộ
+     nữa, thử cục bộ trước chỉ tốn thêm một lượt 404 cho mỗi câu. */
+  if (xa){ if (voice) out.push(xa + voice + '/'); out.push(xa); }
   if (voice) order.forEach(r => out.push(r + voice + '/'));
   order.forEach(r => out.push(r));
   return out;

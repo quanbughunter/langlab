@@ -29,7 +29,13 @@ function hash(s){
 }
 
 let cfg = null;          // null = chưa hỏi, {ok:…} = đã biết
+let cfgAt = 0;           // lúc nào biết — xem status()
 let base = null;         // nơi gọi được: '' = cùng gốc (serve.py), hoặc URL Worker
+
+/* Hỏi hỏng thì bao lâu sau mới hỏi lại. KHÔNG nhớ mãi kết quả hỏng: một nhịp
+   mạng chập lúc mới mở app mà nhớ cả phiên thì Labi câm tới lúc tắt app đi mở
+   lại — đúng kiểu lỗi đã gặp ở tầng audio. Thành công thì nhớ luôn. */
+const CFG_RETRY = 15000;
 
 /* Các nơi có thể xử lý việc dịch, thử theo thứ tự:
    1. cùng gốc  '/_translate'      — máy chủ cục bộ khi mở bằng chay.bat
@@ -43,17 +49,20 @@ function endpoints(){
 }
 
 function status(cb){
-  if (cfg){ cb(cfg); return; }
+  /* Nhớ mãi kết quả TỐT, còn kết quả hỏng thì chỉ nhớ một lúc rồi hỏi lại. */
+  if (cfg && (cfg.ok || Date.now() - cfgAt < CFG_RETRY)){ cb(cfg); return; }
+  const ghi = c => { cfg = c; cfgAt = Date.now(); cb(c); };
+
   const eps = endpoints();
-  if (!eps.length){ cfg = { ok:false, reason:'offline' }; cb(cfg); return; }
+  if (!eps.length){ ghi({ ok:false, reason:'offline' }); return; }
 
   let i = 0;
   const tryNext = () => {
-    if (i >= eps.length){ cfg = { ok:false, reason:'no-server' }; cb(cfg); return; }
+    if (i >= eps.length){ ghi({ ok:false, reason:'no-server' }); return; }
     const ep = eps[i++];
     fetch(ep + '/_translate/status')
       .then(r => r.ok ? r.json() : Promise.reject())
-      .then(j => { if (j && j.ok){ base = ep; cfg = j; cb(j); } else { tryNext(); } })
+      .then(j => { if (j && j.ok){ base = ep; ghi(j); } else { tryNext(); } })
       .catch(tryNext);
   };
   tryNext();

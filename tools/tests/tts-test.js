@@ -154,6 +154,31 @@ const LINES = ['하나', '둘', '셋'];
       win.TTS.dirs('').every(x => x.indexOf('audio/tts/') === x.length - 10) || win.TTS.dirs('').join(' '));
   }
 
+  /* ---------- 6. kho audio để ở nơi khác (audioBase) ----------
+     GitHub Pages chặn cứng ở 1 GB mà riêng audio đã 937 MB, nên bản web phải
+     lấy mp3 từ chỗ khác. Trong APK thì KHÔNG: tệp nằm sẵn trong gói và phải
+     chạy được lúc không có mạng. */
+  {
+    const { win } = boot({ delay:10, has: () => true });
+    await wait(400);
+    check('chưa khai audioBase: chỉ dò thư mục cục bộ, y như cũ', () =>
+      win.TTS.dirs('ko').every(d => d.indexOf('http') < 0) || win.TTS.dirs('ko').join(' '));
+
+    win.LANGLAB_CONFIG = { audioBase: 'https://audio.example.com/' };
+    const d = win.TTS.dirs('ko');
+    check('khai audioBase: kho xa đứng TRƯỚC, không tốn lượt 404 cục bộ', () =>
+      d[0] === 'https://audio.example.com/audio/tts/ko/' || d.join(' '));
+    check('khai audioBase: vẫn giữ đường cục bộ làm phương án sau', () =>
+      d.some(x => x === 'audio/tts/ko/') || d.join(' '));
+    check('dấu gạch thừa ở cuối audioBase không sinh ra // trong đường dẫn', () =>
+      d[0].indexOf('com//') < 0 || d[0]);
+
+    win.Capacitor = {};
+    check('trong APK thì BỎ QUA audioBase — phải chạy được khi không có mạng', () =>
+      win.TTS.dirs('ko').every(x => x.indexOf('http') < 0) || win.TTS.dirs('ko').join(' '));
+    delete win.Capacitor; delete win.LANGLAB_CONFIG;
+  }
+
   console.log('\n' + pass + ' đạt / ' + fail + ' lỗi');
   process.exit(fail ? 1 : 0);
 })();

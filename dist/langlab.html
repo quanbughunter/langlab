@@ -8626,9 +8626,24 @@ const ROOTS = ['audio/tts/', '../audio/tts/'];
    chuỗi ký tự nhưng đọc khác hẳn nhau, để chung một rổ là phát nhầm tiếng.
    Thư mục gốc vẫn được dò sau cùng, để bộ audio tiếng Hàn thu từ trước
    (nằm thẳng trong audio/tts/) vẫn dùng được, khỏi phải thu lại.            */
+/* Kho audio để ở nơi khác — xem audioBase trong js/config.js. Bản web không
+   mang nổi 937 MB mp3 vì GitHub Pages chặn cứng ở 1 GB, nên audio tách ra một
+   chỗ riêng. Trong APK thì KHÔNG dùng: tệp nằm sẵn trong gói và phải chạy được
+   lúc không có mạng, đi hỏi mạng chỉ tổ chậm. */
+function remoteRoot(){
+  if (typeof window === 'undefined') return '';
+  if (window.Capacitor) return '';
+  const b = String((window.LANGLAB_CONFIG && window.LANGLAB_CONFIG.audioBase) || '').trim();
+  return b ? b.replace(/\/+$/, '') + '/audio/tts/' : '';
+}
+
 function dirs(voice){
   const order = ROOTS.slice(root).concat(ROOTS.slice(0, root));
+  const xa = remoteRoot();
   const out = [];
+  /* Kho xa đứng TRƯỚC: khi đã khai audioBase thì bản web không còn tệp cục bộ
+     nữa, thử cục bộ trước chỉ tốn thêm một lượt 404 cho mỗi câu. */
+  if (xa){ if (voice) out.push(xa + voice + '/'); out.push(xa); }
   if (voice) order.forEach(r => out.push(r + voice + '/'));
   order.forEach(r => out.push(r));
   return out;
@@ -8974,8 +8989,29 @@ if (typeof window !== 'undefined') window.TTS = TTS;
    Worker, không nằm ở đây.
    ============================================================ */
 
+/* ------------------------------------------------------------
+   audioBase — nơi để audio thu sẵn khi bản web không mang theo nó.
+
+   Vì sao có: GitHub Pages chặn cứng ở 1 GB cho site đã xuất bản, mà
+   riêng audio/tts đã ~937 MB. Thu thêm một lô mp3 nữa là vỡ trần và
+   bản web chết hẳn. Nên audio tách ra chỗ khác, còn đây là chỗ khai
+   báo nó nằm đâu. Ví dụ (R2 của Cloudflare, 10 GB miễn phí, không
+   tính phí truyền ra):
+
+     audioBase: "https://audio.langlab.workers.dev"
+
+   App sẽ tìm tệp ở  <audioBase>/audio/tts/<giọng>/<băm>.mp3
+
+   ĐỂ TRỐNG thì mọi thứ y như cũ: audio đi kèm site, và quy trình
+   Pages vẫn đẩy cả thư mục audio/ lên. Điền vào thì quy trình tự bỏ
+   audio ra khỏi bản web — một chỗ bật tắt duy nhất.
+
+   Bản APK KHÔNG dùng giá trị này: trong đó tệp nằm sẵn trong gói và
+   phải chạy được khi không có mạng.
+   ------------------------------------------------------------ */
 window.LANGLAB_CONFIG = {
-  translateWorker: "https://langlab-translate.nguyendinhquan7788266.workers.dev"
+  translateWorker: "https://langlab-translate.nguyendinhquan7788266.workers.dev",
+  audioBase: ""
 };
 
 </script>
@@ -9011,7 +9047,13 @@ function hash(s){
 }
 
 let cfg = null;          // null = chưa hỏi, {ok:…} = đã biết
+let cfgAt = 0;           // lúc nào biết — xem status()
 let base = null;         // nơi gọi được: '' = cùng gốc (serve.py), hoặc URL Worker
+
+/* Hỏi hỏng thì bao lâu sau mới hỏi lại. KHÔNG nhớ mãi kết quả hỏng: một nhịp
+   mạng chập lúc mới mở app mà nhớ cả phiên thì Labi câm tới lúc tắt app đi mở
+   lại — đúng kiểu lỗi đã gặp ở tầng audio. Thành công thì nhớ luôn. */
+const CFG_RETRY = 15000;
 
 /* Các nơi có thể xử lý việc dịch, thử theo thứ tự:
    1. cùng gốc  '/_translate'      — máy chủ cục bộ khi mở bằng chay.bat
@@ -9025,17 +9067,20 @@ function endpoints(){
 }
 
 function status(cb){
-  if (cfg){ cb(cfg); return; }
+  /* Nhớ mãi kết quả TỐT, còn kết quả hỏng thì chỉ nhớ một lúc rồi hỏi lại. */
+  if (cfg && (cfg.ok || Date.now() - cfgAt < CFG_RETRY)){ cb(cfg); return; }
+  const ghi = c => { cfg = c; cfgAt = Date.now(); cb(c); };
+
   const eps = endpoints();
-  if (!eps.length){ cfg = { ok:false, reason:'offline' }; cb(cfg); return; }
+  if (!eps.length){ ghi({ ok:false, reason:'offline' }); return; }
 
   let i = 0;
   const tryNext = () => {
-    if (i >= eps.length){ cfg = { ok:false, reason:'no-server' }; cb(cfg); return; }
+    if (i >= eps.length){ ghi({ ok:false, reason:'no-server' }); return; }
     const ep = eps[i++];
     fetch(ep + '/_translate/status')
       .then(r => r.ok ? r.json() : Promise.reject())
-      .then(j => { if (j && j.ok){ base = ep; cfg = j; cb(j); } else { tryNext(); } })
+      .then(j => { if (j && j.ok){ base = ep; ghi(j); } else { tryNext(); } })
       .catch(tryNext);
   };
   tryNext();

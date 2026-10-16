@@ -1,5 +1,17 @@
 # Đẩy LangLab lên GitHub Pages mỗi khi có commit mới trên nhánh main.
 # Bật một lần trong Settings → Pages → Source: GitHub Actions.
+#
+# TRẦN 1 GB: GitHub chặn CỨNG ở 1 GB cho site đã xuất bản. Tháng 10/2026 site
+# đã 969 MB, mà riêng audio/tts chiếm 937 MB — chỉ còn chừng 55 MB, tức khoảng
+# 4.500 tệp mp3 nữa là vỡ. Nên quy trình này:
+#
+#   1. chỉ đẩy đúng những gì bản web cần, bỏ mã dựng và vỏ Android ra;
+#   2. bỏ luôn audio/ nếu js/config.js đã khai audioBase — tức là audio đã
+#      chuyển sang chỗ khác (R2 chẳng hạn), bản web không mang theo nữa;
+#   3. ĐO lại rồi DỪNG nếu quá 950 MB, kèm lời nhắc phải làm gì.
+#
+# Dừng sớm có chủ ý: vỡ trần thật thì GitHub lẳng lặng không phục vụ site nữa,
+# mà không báo gì — thà hỏng ở đây, có dòng chữ giải thích.
 name: Deploy to GitHub Pages
 
 on:
@@ -16,6 +28,9 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+env:
+  TRAN_MB: 950        # ngưỡng cảnh báo, thấp hơn trần thật 1024 MB
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -24,9 +39,68 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Gom đúng phần bản web cần
+        id: gom
+        run: |
+          mkdir -p _site
+          # Mã dựng, vỏ Android, bản gộp dist/ và audio đĩa CD có bản quyền đều
+          # không phải thứ người học tải về.
+          LOAI=(
+            --exclude '.git/'        --exclude '.github/'
+            --exclude 'tools/'       --exclude 'worker/'
+            --exclude 'dist/'        --exclude 'cache/'
+            --exclude 'android-app/' --exclude 'audio/ko/'
+            --exclude '_site/'
+          )
+          # Một chỗ bật tắt duy nhất: audioBase trong js/config.js.
+          # ĐỌC THẲNG GIÁ TRỊ bằng node chứ không dò bằng grep: trong tệp ấy có
+          # một dòng ví dụ nằm trong chú thích, grep ăn luôn cả dòng ví dụ rồi
+          # tưởng là đã khai.
+          AUDIO_BASE=$(node -e '
+            global.window = {};
+            require("./js/config.js");
+            const c = global.window.LANGLAB_CONFIG || {};
+            process.stdout.write(String(c.audioBase || "").trim());
+          ')
+          if [ -n "$AUDIO_BASE" ]; then
+            echo "audioBase = $AUDIO_BASE → audio để ở kho riêng, không đẩy lên Pages."
+            LOAI+=(--exclude 'audio/')
+            echo "audio=xa" >> "$GITHUB_OUTPUT"
+          else
+            echo "js/config.js chưa khai audioBase → vẫn đẩy audio/ đi kèm bản web."
+            echo "audio=kem" >> "$GITHUB_OUTPUT"
+          fi
+          rsync -a "${LOAI[@]}" ./ _site/
+
+      - name: Đo xem có đụng trần 1 GB chưa
+        run: |
+          MB=$(du -sm _site | cut -f1)
+          SO=$(find _site -type f | wc -l)
+          echo "Site: ${MB} MB · ${SO} tệp (trần cứng của GitHub Pages là 1024 MB)"
+          {
+            echo "## Bản web"
+            echo ""
+            echo "| | |"
+            echo "|---|---|"
+            echo "| Dung lượng | **${MB} MB** / 1024 MB |"
+            echo "| Số tệp | ${SO} |"
+            echo "| Audio | ${{ steps.gom.outputs.audio == 'xa' && 'để ở kho riêng (audioBase)' || 'đi kèm bản web' }} |"
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$MB" -gt "${TRAN_MB}" ]; then
+            echo ""
+            echo "DỪNG: site ${MB} MB, đã quá ngưỡng ${TRAN_MB} MB và sắp đụng trần cứng 1024 MB."
+            echo "Vỡ trần thật thì GitHub lẳng lặng ngừng phục vụ site, không báo gì cả."
+            echo ""
+            echo "Cách xử lí: đưa audio sang kho riêng rồi điền URL vào audioBase"
+            echo "trong js/config.js — quy trình này sẽ tự bỏ audio/ ra khỏi bản web."
+            echo "Xem phần «Trần 1 GB của GitHub Pages» trong README.md."
+            exit 1
+          fi
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4

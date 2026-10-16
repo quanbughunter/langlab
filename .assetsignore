@@ -1,3 +1,12 @@
+# ĐÃ NGHỈ HƯU (16/10/2026). Worker tĩnh «langlab» đã gỡ khỏi Cloudflare: bản
+# web giờ do GitHub Pages phục vụ ở quanbughunter.github.io/langlab, và Worker
+# ấy chẳng những thừa mà còn dựng hỏng mãi — kho có hơn 63.000 tệp, vượt xa hạn
+# mức 20.000 tệp tài nguyên tĩnh của gói miễn phí.
+#
+# Giữ tệp này lại phòng khi về sau dựng lại Worker tĩnh: thiếu nó là lặp lại
+# đúng sự cố 28/09/2026 chép bên dưới. Không dựng lại thì xoá đi cũng được.
+# Worker DỊCH «langlab-translate» không liên quan gì tới tệp này và vẫn chạy.
+#
 # Những gì KHÔNG được đưa lên Cloudflare Worker làm tệp tĩnh.
 # Cú pháp giống .gitignore. Wrangler đọc tệp này ở gốc thư mục assets.
 #
@@ -19,6 +28,14 @@ dist/
 cache/
 *.bat
 *.py
+
+# Vỏ Android: mã dựng chứ không phải nội dung app. Trong đó có cả khoá ký —
+# không phải bí mật, nhưng chẳng có lý do gì để nó nằm trên web.
+android-app/
+
+# Audio thu sẵn: một mình nó đã hơn 60.000 tệp, gấp ba hạn mức tài nguyên tĩnh
+# của gói miễn phí. Chính nó làm Workers Builds hỏng.
+audio/tts/
 
 # Audio đĩa CD của giáo trình — CÓ BẢN QUYỀN, không bao giờ được lên mạng.
 # Đã có trong .gitignore nên không nằm trong repo, chặn ở đây là lớp khoá thứ hai.

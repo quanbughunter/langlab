@@ -53,7 +53,22 @@ không có trong repo.
 
 ---
 
-## Bước 3 — Host phần web bằng Cloudflare Pages
+## Bước 3 — Host phần web
+
+**Bản web giờ do GitHub Pages phục vụ**, ở <https://quanbughunter.github.io/langlab/>,
+tự đẩy lại mỗi lần push lên `main` (xem `.github/workflows/pages.yml`). Không
+phải làm gì thêm.
+
+Phần dưới đây giữ lại cho ai muốn dựng lại bằng Cloudflare. Lưu ý trước:
+`langlab.pages.dev` trong ví dụ **đã là của người khác**, phải đặt tên khác.
+Và một Worker tĩnh phục vụ cả kho này sẽ **dựng hỏng** ở gói miễn phí — kho có
+hơn 63.000 tệp, hạn mức là 20.000; muốn dựng được thì phải loại `audio/tts/`
+ra trong `.assetsignore`.
+
+<details>
+<summary>Cách cũ — Cloudflare Pages</summary>
+
+## Bước 3 (cũ) — Host phần web bằng Cloudflare Pages
 
 1. Trong **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
 2. Chọn repo `langlab` (cho Cloudflare quyền đọc repo nếu nó hỏi).
@@ -68,6 +83,8 @@ không có trong repo.
    ```
 
 Đó là link gửi cho mọi người. Mỗi lần bạn push code mới lên GitHub, Cloudflare tự dựng lại.
+
+</details>
 
 ---
 

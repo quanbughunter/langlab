@@ -315,6 +315,44 @@ của Viện Quốc ngữ Quốc gia Hàn Quốc — nguồn Hàn–Việt chín
 
 ---
 
+## Nơi LangLab đang chạy
+
+| | |
+|---|---|
+| Bản web | <https://quanbughunter.github.io/langlab/> — GitHub Pages, tự đẩy lại mỗi lần push lên `main` |
+| Phần dịch & Labi | Worker `langlab-translate` trên Cloudflare, khai ở `js/config.js` |
+| Bản APK | dựng bằng Actions, xem [`android-app/README.md`](android-app/README.md) |
+
+Trước đây còn một Worker tĩnh tên `langlab` phục vụ bản web song song với
+Pages. **Đã gỡ ngày 16/10/2026**: nó vừa thừa vừa dựng hỏng mãi, vì kho có hơn
+63.000 tệp trong khi hạn mức tài nguyên tĩnh của gói miễn phí là 20.000.
+Worker **dịch** là một Worker khác, vẫn chạy — gỡ nhầm nó là Labi câm.
+
+## Trần 1 GB của GitHub Pages
+
+GitHub chặn **cứng** ở 1 GB cho site đã xuất bản. Tháng 10/2026 site đã 969 MB,
+mà riêng `audio/tts` chiếm 937 MB — chỉ còn chừng 55 MB, tức khoảng 4.500 tệp
+mp3 nữa là vỡ. Vỡ trần thì GitHub lẳng lặng ngừng phục vụ site chứ không báo gì.
+
+Quy trình `.github/workflows/pages.yml` giờ **đo lại và dừng ở mốc 950 MB**, kèm
+lời nhắc phải làm gì — thà hỏng ở đó, có dòng chữ giải thích, còn hơn hỏng im lặng.
+
+Cách gỡ khi tới mốc: đưa audio sang kho riêng rồi điền URL vào `audioBase`
+trong [`js/config.js`](js/config.js). Một chỗ bật tắt duy nhất — quy trình đọc
+đúng giá trị ấy, thấy có thì tự bỏ `audio/` ra khỏi bản web, còn app thì tìm
+mp3 ở `<audioBase>/audio/tts/<giọng>/<băm>.mp3`.
+
+Chỗ để audio, xếp theo mức độ hợp:
+
+| | |
+|---|---|
+| **Cloudflare R2** | 10 GB miễn phí, **không tính phí truyền ra** — hợp nhất, mà tài khoản Cloudflare thì đã có sẵn |
+| Không để đâu cả | bỏ audio khỏi bản web, để nguyên trong APK. Bản web lùi về giọng trình duyệt. Không tốn gì, không phải dựng gì |
+| Kho GitHub thứ hai | cũng đụng đúng trần 1 GB ấy — chỉ là hoãn binh |
+
+**Bản APK không liên quan**: nó mang audio trong gói và phải chạy được khi
+không có mạng, nên `audioBase` bị bỏ qua hẳn trong APK.
+
 ## Vòng tuần hoàn hằng tuần
 
 `.github/workflows/tuan-hoan.yml` chạy trên máy chủ GitHub, không cần bật máy ở
