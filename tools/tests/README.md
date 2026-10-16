@@ -8,7 +8,7 @@ python3 build.py
 npm i jsdom          # chỉ cần một lần
 for t in smoke zh-test hsk-test ru-test ja-test en-test fact-test sh-test rd-test \
          hist-test asst-flow pic-test say-test dict-cover word-cover audio-test \
-         tts-test lat-test tts-native back-native; do
+         tts-test lat-test tts-native back-native ime-test quiz-test; do
   printf "%-12s " $t; node tools/tests/$t.js | tail -1
 done
 node tools/tests/morph-nouns.js && node tools/tests/morph-verbs.js && node tools/tests/morph-adj.js
@@ -40,6 +40,8 @@ node tools/tests/worker-test.mjs
 | `morph-*.js` | engine hình thái tiếng Nga (chạy bằng node thuần) |
 | `tts-native.js` | Lớp đệm giọng máy khi WebView không có `speechSynthesis` |
 | `back-native.js` | Nút quay lại / vuốt cạnh trong APK phải lùi, không thoát app |
+| `ime-test.js` | Gõ tiếng Việt có dấu (và Hàn/Nhật/Trung) không bị ô nhập vẽ lại cướp mất |
+| `quiz-test.js` | Bài tập: xáo lựa chọn, hỏi làm tiếp hay làm lại, đổi đề, lùi từng câu |
 | `worker-test.mjs` | Cloudflare Worker dịch |
 
 Trước đây bộ test chỉ nằm trong máy ảo nên mất sạch mỗi lần máy ảo dựng lại.

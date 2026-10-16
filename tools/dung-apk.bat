@@ -80,6 +80,13 @@ echo         Bat hinh xem truoc khi vuot canh...
 cd ..
 python tools\sua-manifest.py
 if errorlevel 1 goto loi
+
+REM Khoa ky debug tu sinh thi moi may mot khac, nen ban dung tren may nay se
+REM khong cai de duoc ban dung tren GitHub. Tro ca hai vao cung mot khoa
+REM co dinh trong kho thi hai ben ra cung mot chu ky.
+echo         Tro ban dung vao khoa ky co dinh...
+python tools\sua-ky.py
+if errorlevel 1 goto loi
 cd android-app
 
 echo.

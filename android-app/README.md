@@ -122,6 +122,37 @@ Lưu ý: chất lượng giọng lúc này là giọng TTS cài trong điện th
 gói giọng cho thứ tiếng nào thì thứ tiếng ấy sẽ không đọc được — cài thêm
 trong *Cài đặt → Ngôn ngữ → Đầu ra văn bản thành giọng nói*.
 
+## Khoá ký — vì sao phải cố định
+
+Android **không cho cài đè một app bằng khoá ký khác**. Mà `gradlew assembleDebug`
+thì ký bằng khoá ở `~/.android/debug.keystore`, và tệp ấy **tự sinh ra nếu chưa
+có**. Máy chủ GitHub mỗi lần chạy là một máy mới tinh, nên mỗi lần dựng lại ra
+một khoá khác: bản mới báo «Ứng dụng chưa được cài đặt», phải gỡ bản cũ đi cài
+lại — mà gỡ là mất sạch tiến độ học, vì app ghi tiến độ vào vùng riêng của nó.
+
+Nên bản dựng trỏ vào một khoá cố định nằm luôn trong kho:
+
+```
+android-app/keystore/langlab-debug.keystore
+```
+
+`tools/sua-ky.py` chèn khai báo ấy vào `app/build.gradle` sau mỗi lần
+`npx cap add android` (tệp ấy do Capacitor sinh ra nên không đưa lên kho được).
+Cả `dung-apk.bat` lẫn quy trình trên GitHub đều gọi nó, nên dựng ở đâu cũng ra
+cùng một chữ ký. Quy trình còn in vân tay SHA-256 của khoá ở cuối mỗi lần chạy
+để so lại cho nhanh.
+
+**Khoá này không phải bí mật.** Mật khẩu là chữ `android`, bí danh
+`androiddebugkey` — đúng quy ước khoá debug công khai của Android, ai cũng tạo
+được một cái y hệt. Để trong kho là cố ý, vì đó mới là chỗ cả máy mình lẫn máy
+chủ GitHub đều với tới. Đổi lại: bản ký bằng khoá này **không đăng Play được**.
+Muốn đăng Play thì phải tạo một khoá phát hành riêng, giữ kín, cất trong GitHub
+Secrets — việc ấy để sau, và lúc ấy phải đổi khoá thì app coi như một app khác,
+người dùng phải gỡ cài lại một lần nữa.
+
+Lần cài tới vẫn phải **gỡ bản cũ một lần cuối**, vì bản đang nằm trên máy được
+ký bằng khoá ngẫu nhiên của lần dựng trước. Từ đó về sau thì cài đè thẳng.
+
 ## Nút quay lại và cử chỉ vuốt cạnh
 
 Bản dựng đầu tiên vuốt cạnh là **thoát app** chứ không về trang trước. Không
@@ -165,7 +196,7 @@ mà Capacitor tự sinh, rồi soi cả đường đi — bắn `backButton` và
 `popstate` bắn ra mang đúng hình dạng `histDesc()`, chứng tỏ chuỗi plugin →
 `history.back()` → bộ định tuyến còn thông.
 
-## Hai thứ không bao giờ được đóng gói
+## Ba thứ không bao giờ được đóng gói
 
 `tools/gom-app.py` dùng **danh sách cho phép**, không phải danh sách loại trừ —
 vì quên một dòng trong danh sách loại trừ là lọt, còn danh sách cho phép thì
@@ -175,6 +206,9 @@ quên là thiếu, mà thiếu thì thấy ngay.
   nên khoá lọt vào đó là phát tán cho mọi người.
 - `audio/ko/` là 153 bản thu đĩa CD có bản quyền. Chỉ `audio/tts/` — do máy đọc
   — mới được phát hành.
+- `langlab-debug.keystore` không phải bí mật, nhưng nó là công cụ dựng chứ
+  không phải nội dung app. Lọt vào gói thì ai cài cũng moi ra được, mà chẳng
+  để làm gì.
 
 Script còn kiểm lại lần cuối sau khi gom, thấy tệp cấm là dừng hẳn.
 

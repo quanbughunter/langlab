@@ -52,3 +52,10 @@ android-app/package-lock.json
 *.aab
 *.keystore
 *.jks
+# ...NHUNG khoa ky cua ban dung thi PHAI nam trong kho. Khong co no thi may chu
+# GitHub moi lan dung lai tu sinh mot khoa khac, bản mới khong cai de duoc ban
+# cu — phai go di cai lai, ma go la mat sach tien do hoc. Khoa nay khong phai
+# bi mat: mat khau la chu «android», dung quy uoc debug cong khai cua Android,
+# ai cung tao duoc mot cai y het. Doi lai, ban ky bang no khong dang Play duoc.
+!android-app/keystore/
+!android-app/keystore/*.keystore

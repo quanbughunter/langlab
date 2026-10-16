@@ -56,22 +56,49 @@ const file = (s, k) => ROOTS[(k || 0) % ROOTS.length] + hash(s) + '.mp3';
    2. máy chủ cục bộ /_tts?text=…       — đọc được MỌI văn bản, tự lưu vào tầng 1
    3. giọng máy của trình duyệt         — chỉ khi hai tầng trên đều không có     */
 
-/* PROBE_MS: chờ bấy nhiêu mà im re, KHÔNG có cả loadstart lẫn error, thì coi
-   như môi trường không báo lỗi tệp. LOAD_MAX: đã bắt đầu nạp rồi thì cho hẳn
-   ngần này, đủ cho mạng di động chậm tải một tệp vài chục KB.               */
-const PROBE_MS = 900, LOAD_MAX = 8000;
+/* PROBE_MS: đã từng thấy môi trường bắn sự kiện media thì chờ bấy nhiêu là đủ.
+   PROBE_FIRST: lần phát ĐẦU TIÊN của phiên được chờ lâu hơn — trong APK, tệp
+   mp3 nằm trong gói gần 900 MB và Capacitor phải mở qua lớp phục vụ tài nguyên
+   riêng, lần đầu nguội có thể mất hơn một giây. LOAD_MAX: đã bắt đầu nạp rồi
+   thì cho hẳn ngần này, đủ cho mạng di động chậm tải một tệp vài chục KB.    */
+const PROBE_MS = 900, PROBE_FIRST = 1500, LOAD_MAX = 8000;
+
+/* Im lặng bao nhiêu lượt LIÊN TIẾP thì mới tạm nghỉ, và nghỉ bao lâu. */
+const HUSH_AFTER = 3, HUSH_MS = 60000;
 
 let el = null, root = 0, tried = 0, missing = {};
 let currentRate = 1;
 let server = null;                 // null = chưa dò, false = không có, true = có
+/* seenMedia: đã từng thấy môi trường này bắn loadstart hoặc playing chưa.
+   silentRuns: số lượt im lặng liên tiếp. hushUntil: tạm nghỉ tầng tệp tới lúc
+   nào. Ba biến này thay cho cái công tắc probed=false ngày trước — xem chú
+   thích dài ở hàm play(). */
+let seenMedia = false, silentRuns = 0, hushUntil = 0;
 
 const serverUrl = t => '/_tts?text=' + encodeURIComponent(norm(t));
+
+/* Trong APK thì không có máy chủ đọc cục bộ nào cả — chạy trong WebView của
+   Capacitor, không phải sau một server. Hỏi nó là chắc chắn 404, mà mỗi lần
+   404 lại tốn một nhịp chờ trước khi nhường cho giọng điện thoại. */
+function serverPossible(){
+  if (typeof window !== 'undefined' && window.Capacitor) return false;
+  return /^https?:$/.test(typeof location !== 'undefined' ? location.protocol : '');
+}
 
 function ensure(){
   if (el) return el;
   el = new Audio();
   el.preload = 'none';
   return el;
+}
+
+/* Cắt đứt lượt nạp đang dở và gỡ hết người nghe, để tệp mp3 nạp xong muộn
+   không bật lên chồng lên giọng máy đang đọc. */
+function hushAudio(){
+  if (!el) return;
+  el.onerror = null; el.onloadstart = null; el.onplaying = null; el.onended = null;
+  try { el.pause(); } catch(e){}
+  try { el.removeAttribute('src'); el.load(); } catch(e){}
 }
 
 /**
@@ -89,57 +116,84 @@ function play(text, opts){
   currentRate = opts.rate || 1;
   a.onended = () => { opts.onEnd && opts.onEnd(); };
 
-  // đã biết không có tệp tĩnh: đi thẳng máy chủ, hoặc nhường cho giọng máy
+  // đã biết chắc không có tệp cho câu này: nhường luôn
   if (missing[key]) return fromServer(text, opts);
 
-  // chưa hề thu tệp nào: khỏi dò từng thư mục cho mất công
-  if (probed === false){ missing[key] = 1; return fromServer(text, opts); }
+  /* Đang trong kỳ tạm nghỉ vì môi trường im lặng mấy lượt liền. Khác hẳn với
+     bản cũ: đây là tạm, hết giờ là dò lại. */
+  if (Date.now() < hushUntil) return fromServer(text, opts);
 
   tried = 0;
   let guard = null;
   const unguard = () => { if (guard){ clearTimeout(guard); guard = null; } };
 
-  /* Hai tình huống rất khác nhau mà nếu chỉ đo thời gian thì trông y hệt:
-       · môi trường không báo lỗi tệp (jsdom, vài WebView) — dò tiếp là vô ích
-       · mạng chậm, tệp CÓ thật nhưng nạp lâu — chờ thêm là nghe được
-     Phân biệt bằng loadstart: trình duyệt thật hễ nhận src là bắn sự kiện này,
-     nên thấy nó tức là môi trường bình thường, chỉ đường truyền chậm thôi.
-     Trước đây gộp làm một, mốc 0,7 giây trên mạng 3G bị hiểu thành «không có
-     tệp» rồi tắt hẳn tầng mp3 cho cả phiên — nghe được một câu rồi im.        */
-  let reports = false;                      // môi trường có bắn sự kiện media không
+  /* BA tình huống, mà nếu chỉ nhìn đồng hồ thì ba cái trông y hệt nhau:
+       · tệp KHÔNG có           — thẻ audio bắn error, dò thư mục khác
+       · tệp CÓ nhưng nạp lâu   — bắn loadstart rồi im một lúc, phải chờ
+       · môi trường không báo gì — không bắn cả loadstart lẫn error
+
+     Chỗ sai cũ nằm ở nhánh thứ ba: hễ im quá 0,9 giây là nó kết luận «môi
+     trường này không có tệp nào» rồi TẮT HẲN tầng mp3 cho cả phiên, vĩnh viễn,
+     không bao giờ dò lại. Trong APK thì lần phát đầu tiên hay chậm thật — gói
+     gần 900 MB, Capacitor mở tệp qua lớp phục vụ tài nguyên riêng — nên chỉ
+     cần lần đầu nguội là cả phiên mất giọng thu sẵn, nghe toàn giọng máy dù
+     57 nghìn tệp mp3 nằm sẵn trong gói.
+
+     Bản này tách hai việc vốn bị gộp làm một:
+       1. NHƯỜNG NHANH cho câu đang đọc — người học không phải ngồi chờ;
+       2. KHÔNG kết luận gì về cả phiên — hết giờ không phải bằng chứng là
+          không có tệp, nên lượt sau vẫn thử lại như thường.
+     Chỉ khi im lặng BA lượt liền mà chưa từng thấy môi trường bắn một sự kiện
+     media nào, mới tạm nghỉ một phút cho đỡ tốn — rồi lại dò tiếp.           */
+  let reports = false;                      // lượt này đã bắn loadstart chưa
   a.onloadstart = () => {
-    reports = true;
+    reports = true; seenMedia = true; silentRuns = 0;
     unguard();
-    guard = setTimeout(() => { guard = null; fail(false); }, LOAD_MAX);
+    guard = setTimeout(() => { guard = null; next(); }, LOAD_MAX);
   };
-  a.onplaying = unguard;
+  a.onplaying = () => {
+    seenMedia = true; silentRuns = 0; probed = true;
+    unguard();
+  };
 
   const start = src => {
     unguard();
     a.src = src;
     a.playbackRate = currentRate;
-    guard = setTimeout(() => { guard = null; fail(!reports); }, PROBE_MS);
+    guard = setTimeout(() => { guard = null; reports ? next() : silent(); },
+                       seenMedia ? PROBE_MS : PROBE_FIRST);
     try {
       const p = a.play();
-      if (p && p.catch) p.catch(a.onerror);
-    } catch (e){ setTimeout(a.onerror, 0); }
+      if (p && p.catch) p.catch(() => next());
+    } catch (e){ setTimeout(next, 0); }
   };
-  const fail = dead => {
+
+  /* Im lặng: KHÔNG đánh dấu missing[key] — tệp vẫn có thể có thật, chỉ là máy
+     chưa kịp trả lời. Đánh dấu vào đây là tự tay bỏ luôn câu ấy cho cả phiên. */
+  const silent = () => {
     unguard();
-    /* Im lặng mà chưa từng bắn loadstart = môi trường không báo lỗi tệp.
-       Dò tiếp cũng vô ích nên bỏ hẳn tầng tệp tĩnh cho cả phiên. */
-    if (dead){ probed = false; missing[key] = 1; fromServer(text, opts); return; }
-    if (tried < cands.length){ start(cands[tried++] + h + '.mp3'); return; }
-    missing[key] = 1;                       // lần sau khỏi dò lại cho nhanh
+    silentRuns++;
+    if (!seenMedia && silentRuns >= HUSH_AFTER) hushUntil = Date.now() + HUSH_MS;
     fromServer(text, opts);
   };
-  a.onerror = () => fail(false);
-  fail(false);                              // lượt gọi đầu chính là lần thử đầu tiên
+
+  const next = () => {
+    unguard();
+    if (tried < cands.length){ start(cands[tried++] + h + '.mp3'); return; }
+    missing[key] = 1;                       // đã dò hết thư mục và đều báo lỗi: đúng là không có
+    fromServer(text, opts);
+  };
+  a.onerror = () => next();
+  next();                                   // lượt gọi đầu chính là lần thử đầu tiên
   return true;
 }
 
 /** Nhờ máy chủ cục bộ tổng hợp — chỗ này mới là thứ đọc được văn bản tuỳ ý. */
 function fromServer(text, opts){
+  /* Trong APK thì chắc chắn không có máy chủ nào — hỏi cũng chỉ tốn thêm một
+     nhịp chờ. Cắt lượt nạp mp3 đang dở rồi nhường thẳng cho giọng điện thoại,
+     nếu không tệp nạp xong muộn sẽ bật lên chồng lên giọng máy. */
+  if (!serverPossible()){ server = false; hushAudio(); opts.onFail && opts.onFail(); return false; }
   if (server === false){ opts.onFail && opts.onFail(); return false; }
   const a = ensure();
   let g = null, done = false;
@@ -251,7 +305,10 @@ function probeStatic(cb){
   a.addEventListener('loadedmetadata', () => done(true));
   a.addEventListener('error', next);
   next();
-  setTimeout(() => done(false), 5000);
+  /* Hết giờ KHÔNG phải bằng chứng «không có tệp nào» — có thể chỉ là WebView
+     đang bận dựng trang 10 MB. Báo cho bên gọi là chưa dò ra, nhưng KHÔNG ghi
+     vào probed, để lần sau còn dò lại. */
+  setTimeout(() => { if (settled) return; settled = true; cb(false); }, 5000);
 }
 
 /** Dò máy chủ cục bộ. Chỉ gọi khi trang được mở qua http(s). */
@@ -278,6 +335,20 @@ function probe(cb){
 function ready(){ return probed === true || server === true; }
 function hasServer(){ return server === true; }
 
-return { hash, file, dirs, play, playSeq, speakText, stop, ready, probe, hasServer, norm, roots: ROOTS };
+/* Để trang Giới thiệu nói được đang nghe bằng đường nào — lần sau gặp chuyện
+   «nghe toàn giọng máy» thì đọc thẳng trên máy thật, khỏi phải đoán. */
+function stats(){
+  return {
+    tep: probed === true,                 // đã phát được ít nhất một tệp mp3
+    thayMedia: seenMedia,                 // môi trường có bắn sự kiện media không
+    imLienTiep: silentRuns,
+    tamNghi: Math.max(0, Math.round((hushUntil - Date.now()) / 1000)),
+    thieu: Object.keys(missing).length,   // số câu đã dò hết thư mục mà vẫn không có
+    mayChu: server === true,
+    goc: ROOTS[root] || ROOTS[0]
+  };
+}
+
+return { hash, file, dirs, play, playSeq, speakText, stop, ready, probe, hasServer, norm, stats, roots: ROOTS };
 })();
 if (typeof window !== 'undefined') window.TTS = TTS;

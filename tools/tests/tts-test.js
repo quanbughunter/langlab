@@ -37,10 +37,13 @@ function boot(cfg){
         const h = {}; let _src = '';
         const fire = (k, m) => { if (self[m]) self[m](); (h[k] || []).forEach(f => f()); };
         const self = { preload:'', playbackRate:1, pause(){}, play(){},
+          removeAttribute(){ _src = ''; }, load(){},
           get src(){ return _src; },
           set src(v){
             _src = v;
             if (cfg.mute) return;                       // môi trường câm: im hoàn toàn
+            /* WebView nguội: mấy lượt đầu im re, sau đó bình thường trở lại. */
+            if (cfg.silentFirst && cfg.silentFirst-- > 0) return;
             setTimeout(() => fire('loadstart', 'onloadstart'), 0);
             setTimeout(() => {
               // /_tts? là máy chủ đọc cục bộ — mặc định người dùng KHÔNG chạy nó
@@ -104,8 +107,40 @@ const LINES = ['하나', '둘', '셋'];
     win.TTS.playSeq(LINES, { voice:'ko', gap:10, onFail(){ if (ms < 0) ms = Date.now() - t0; } });
     await wait(3000);
     check('môi trường câm: nhường cho giọng máy chứ không treo', () => ms >= 0 || 'vẫn đang chờ');
-    check('môi trường câm: nhường trong vòng 2 giây, không dò hết từng thư mục', () =>
-      (ms >= 0 && ms < 2000) || (ms + ' ms'));
+    /* Mốc này nới từ 2 lên 2,5 giây, và nới có chủ ý. Lượt phát ĐẦU TIÊN của
+       phiên được chờ lâu hơn (1,5 giây) vì trong APK tệp mp3 nằm trong gói gần
+       900 MB, lần mở đầu nguội có thể chậm thật. Thà chờ thêm nửa giây ở một
+       câu còn hơn như bản cũ: hết 0,9 giây là tắt hẳn tầng mp3 cho CẢ PHIÊN,
+       nghe toàn giọng máy dù 57 nghìn tệp nằm sẵn trong gói. Lượt sau chỉ chờ
+       0,9 giây, và sau ba lượt im liền thì nghỉ hẳn một phút nên không tốn. */
+    check('môi trường câm: nhường trong vòng 2,5 giây, không dò hết từng thư mục', () =>
+      (ms >= 0 && ms < 2500) || (ms + ' ms'));
+  }
+
+  /* ---------- 5. WebView nguội: im hai lượt đầu rồi bình thường trở lại ----------
+     Đây chính là cảnh gặp trên máy thật. Bản cũ hễ im quá 0,9 giây là ghi
+     probed=false rồi TẮT HẲN tầng mp3 cho cả phiên — không bao giờ dò lại, nên
+     cả buổi học nghe toàn giọng máy. Bản này phải tự khỏi.                    */
+  {
+    const { win, log } = boot({ delay:20, silentFirst:2, has: () => true });
+    await wait(400);
+    win.TTS.play('하나', { voice:'ko', onFail(){ log.push('NHƯỜNG'); } });
+    await wait(2600);
+    check('WebView nguội: lượt đầu im thì nhường giọng máy, không treo', () =>
+      log.indexOf('NHƯỜNG') >= 0 || log.join(' | '));
+    log.length = 0;
+    win.TTS.play('둘', { voice:'ko', onFail(){ log.push('NHƯỜNG'); } });
+    await wait(1200);
+    check('WebView nguội: lượt SAU phải dùng lại mp3, không tắt tầng tệp vĩnh viễn', () =>
+      (log.some(x => x.startsWith('mp3')) && log.indexOf('NHƯỜNG') < 0) || log.join(' | '));
+    check('và câu đã từng im KHÔNG bị ghi sổ là «không có tệp»', () => {
+      log.length = 0;
+      win.TTS.play('하나', { voice:'ko', onFail(){ log.push('NHƯỜNG'); } });
+      return true;
+    });
+    await wait(1200);
+    check('câu lượt đầu bị im: thử lại thì vẫn ra mp3', () =>
+      log.some(x => x.startsWith('mp3')) || log.join(' | '));
   }
 
   /* ---------- 4. thư mục theo từng thứ tiếng ---------- */

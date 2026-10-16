@@ -71,7 +71,11 @@ ASSETS = [
 
 # Không bao giờ được đóng gói, dù có lọt vào danh sách trên đi nữa.
 NEVER = {'api-key.txt', 'logo-b2.png', 'logo-goc-co-vien.png',
-         'krdict-key.txt', 'tools/krdict-key.txt'}
+         'krdict-key.txt', 'tools/krdict-key.txt',
+         # Khoá ký không phải bí mật (mật khẩu là chữ «android», xem
+         # tools/sua-ky.py), nhưng nó là công cụ dựng chứ không phải nội dung
+         # app — lọt vào gói thì ai cài cũng moi ra được, mà chẳng để làm gì.
+         'langlab-debug.keystore'}
 
 
 def mb(n):

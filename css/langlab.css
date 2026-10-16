@@ -212,6 +212,21 @@ a{color:var(--accent)}
 .about-dev-mail:hover{text-decoration:underline}
 .about-note{color:var(--muted);font-size:13.5px;margin-top:10px}
 .about-foot{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);color:var(--faint);font-size:12.5px;line-height:1.6}
+
+/* Bài tập: thanh công cụ lúc đang làm, và thẻ hỏi khi quay lại giữa chừng */
+.qz-tools{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.qz-tools .pbtn.mini{padding:6px 12px;font-size:12.5px}
+.qz-resume{border:1px solid var(--line);border-radius:var(--r);padding:20px;background:var(--surface);text-align:center}
+.qz-resume h2{margin:0 0 6px;font-size:18px}
+.qz-resume p{margin:0 0 16px;color:var(--muted);font-size:14px}
+
+/* Nguồn phát âm — bảng chẩn đoán nhỏ ở trang Giới thiệu */
+.about-diag{border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;background:var(--surface)}
+.about-diag-h{margin:0 0 10px;font-size:14px;color:var(--ink)}
+.about-diag-row{display:flex;justify-content:space-between;gap:14px;padding:5px 0;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+.about-diag-row:first-of-type{border-top:0}
+.about-diag-row b{color:var(--ink);font-weight:600;text-align:right}
+.about-diag-note{margin:10px 0 0;font-size:12px;color:var(--faint);line-height:1.6}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
 /* thu hẹp trên màn nhỏ */

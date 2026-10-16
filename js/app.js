@@ -1506,8 +1506,38 @@ function aboutView(){
       </div>
     </section>
 
+    ${audioDiagHTML()}
+
     <p class="about-foot">© LangLab · Nguyễn Đình Quân. Ghi công dữ liệu mở: 국립국어원 (CC BY-SA) · Make Me a Hanzi (Arphic PL) · Hanzi Writer (MIT) · hanzi-writer-data-jp / AnimCJK (LGPL, Arphic PL) cho nét kana–kanji · cấu trúc JLPT theo jlpt.jp.</p>
   </div>`;
+}
+
+/* ---------- app đang nghe bằng đường nào ----------
+   Vì sao có mục này: có lần người dùng báo «nghe toàn giọng máy» dù 57 nghìn
+   tệp mp3 nằm sẵn trong gói APK, và không ai nhìn thấy được app đang đi đường
+   nào — phải mở tệp APK ra soi mới biết audio có thật. Bày ra đây thì lần sau
+   đọc một cái là biết, khỏi đoán. */
+function audioDiagHTML(){
+  let s = null;
+  try { s = (window.TTS && TTS.stats) ? TTS.stats() : null; } catch(e){}
+  if (!s) return '';
+  const nguon = s.tep ? 'mp3 thu sẵn'
+              : s.mayChu ? 'máy chủ đọc cục bộ'
+              : (window.__ttsNative ? 'giọng của điện thoại' : 'giọng của trình duyệt');
+  const row = (k, v) => `<div class="about-diag-row"><span>${esc(k)}</span><b>${esc(v)}</b></div>`;
+  return `
+    <section class="about-sec about-diag">
+      <h2 class="about-diag-h">Nguồn phát âm</h2>
+      ${row('Đang dùng', nguon)}
+      ${row('Đã phát được tệp mp3', s.tep ? 'rồi' : 'chưa')}
+      ${row('Môi trường có báo sự kiện media', s.thayMedia ? 'có' : 'chưa thấy')}
+      ${s.imLienTiep ? row('Số lượt im lặng liên tiếp', String(s.imLienTiep)) : ''}
+      ${s.tamNghi ? row('Đang tạm nghỉ tầng tệp', s.tamNghi + ' giây nữa') : ''}
+      ${s.thieu ? row('Câu đã dò mà không có tệp', String(s.thieu)) : ''}
+      ${row('Thư mục đang dò', s.goc)}
+      <p class="about-diag-note">«Đang dùng» chỉ đổi sang <b>mp3 thu sẵn</b> sau khi đã
+      phát trót lọt ít nhất một tệp. Bấm nghe một câu bất kỳ rồi quay lại đây là thấy.</p>
+    </section>`;
 }
 
 /* ============================================================
@@ -2008,6 +2038,29 @@ ${WP_TOOLS}
   showPanel(el);
 }
 
+/* ---------- bộ gõ nhiều nhịp (tiếng Việt, Hàn, Nhật, Trung) ----------
+   Gõ «as» ra «á», «dd» ra «đ»: bộ gõ gom nhiều phím thành một chữ, và trong
+   lúc gom nó giữ sẵn một đoạn CHƯA CHỐT ngay trong ô nhập. Hễ mình đụng vào ô
+   giữa chừng — đổi chiều cao, vẽ lại khung, gọi focus() — là đoạn chưa chốt bị
+   huỷ. Hậu quả: gõ tiếng Việt có dấu vào Labi thì mất dấu, mà gõ tiếng Hàn hay
+   tiếng Nhật vào ô tra từ cũng vậy.
+
+   Nên: trong lúc đang gom phím thì KHÔNG đụng vào ô nào cả. Gom xong
+   (compositionend) mới xử lí, bằng chính sự kiện input lẽ ra đã bị bỏ qua. */
+let _composing = false;
+document.addEventListener('compositionstart', () => { _composing = true; });
+document.addEventListener('compositionend', e => {
+  _composing = false;
+  const t = e.target;
+  /* Trình duyệt bắn input trước hay sau compositionend là tuỳ loại, nên cứ
+     chủ động bắn thêm một nhịp ở cuối. Các chỗ nghe input đều chỉ ghi lại giá
+     trị rồi vẽ lại, chạy hai lần cũng ra đúng một kết quả. */
+  setTimeout(() => { try { t.dispatchEvent(new Event('input', { bubbles:true })); } catch(err){} }, 0);
+});
+/* Phím Enter lúc đang gom phím là để CHỐT chữ, không phải để gửi. */
+function imeBusy(e){ return _composing || (e && (e.isComposing || e.keyCode === 229)); }
+if (typeof window !== 'undefined') window.__ime = { composing: () => _composing, busy: imeBusy };
+
 function autoGrow(ta){ ta.style.height = 'auto'; ta.style.height = Math.min(ta.scrollHeight, 160) + 'px'; }
 
 function mountAssistant(){
@@ -2016,8 +2069,14 @@ function mountAssistant(){
     const ta = $('#asstInput');
     if (ta){
       autoGrow(ta);
-      ta.addEventListener('input', () => autoGrow(ta));
-      ta.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); asstSend(); } });
+      /* Đổi chiều cao ô giữa lúc bộ gõ đang gom phím là huỷ mất đoạn chưa
+         chốt — đúng chỗ làm mất dấu tiếng Việt. Gom xong mới nới ô. */
+      ta.addEventListener('input', () => { if (!_composing) autoGrow(ta); });
+      ta.addEventListener('compositionend', () => autoGrow(ta));
+      ta.addEventListener('keydown', e => {
+        if (imeBusy(e)) return;                 // Enter lúc này là để chốt chữ
+        if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); asstSend(); }
+      });
       if (!A.busy) ta.focus();
     }
     const box = $('#asstMsgs'); if (box) box.scrollTop = box.scrollHeight;
@@ -3354,11 +3413,16 @@ function zhDistract(pool, key, val, n){
   for (const x of zhShuffle(pool)){ const v = x[key]; if (!seen[v]){ seen[v] = 1; out.push(v); if (out.length >= n) break; } }
   return out;
 }
+const ZH_QZ_TYPE = { mean:'Đoán nghĩa', char:'Chọn chữ', pinyin:'Chọn pinyin' };
+function zhQzType(){ return ZH_QZ_TYPE[state.zh.quizType] ? state.zh.quizType : 'all'; }
+
 function zhMakeQuestions(n){
   const pool = zhPool(zhPracLevel());
+  const want = zhQzType();
+  const types = want === 'all' ? ['mean','char','pinyin'] : [want];
   const qs = [], used = {}; let guard = 0;
   while (qs.length < n && guard++ < n * 40){
-    const w = zhPick(pool), type = zhPick(['mean','char','pinyin']);
+    const w = zhPick(pool), type = zhPick(types);
     const key = w.zh + '|' + type; if (used[key]) continue; used[key] = 1;
     let q;
     if (type === 'mean')
@@ -3379,11 +3443,25 @@ function zhFmtTime(s){ s = Math.max(0, s); const m = Math.floor(s / 60), ss = s 
 
 VIEWS.zh_quiz = function(){
   const Q = state.zh.quiz;
+  const typeChips = `<div class="level-strip compact" style="margin-top:8px">
+    ${[['all','Tất cả dạng']].concat(Object.keys(ZH_QZ_TYPE).map(k => [k, ZH_QZ_TYPE[k]]))
+      .map(([k, v]) => `<button class="level-chip" data-zh-qz-type="${k}"${zhQzType() === k ? ' aria-pressed="true"' : ''}>${esc(v)}</button>`).join('')}
+  </div>`;
+
+  /* Quay lại giữa chừng thì hỏi, đừng thả thẳng vào câu đang dở. */
+  if (Q && Q.qs && Q.i < Q.qs.length && Q.ask){
+    return `
+    <div class="page-head"><span class="eyebrow">Tiếng Trung · Bài tập</span><h1>Bài tập trắc nghiệm</h1></div>`
+      + qzResumeHTML(Q.i, Q.qs.length, 'data-zh-qz-resume="1"', 'data-zh-qz-start="1"', 'data-zh-qz-exit="1"');
+  }
+
   if (!Q || !Q.qs){
+    const ty = zhQzType();
     return `
     <div class="page-head"><span class="eyebrow">Tiếng Trung · Bài tập</span><h1>Bài tập trắc nghiệm</h1>
-      <p>10 câu ngẫu nhiên từ vốn từ ${zhPracLevel() === 'all' ? 'mọi cấp' : esc(zhLevelName(zhPracLevel()))} (${zhPool(zhPracLevel()).length} từ): đoán nghĩa, chọn chữ, chọn pinyin — có chấm điểm và giải thích.</p></div>
+      <p>10 câu ngẫu nhiên từ vốn từ ${zhPracLevel() === 'all' ? 'mọi cấp' : esc(zhLevelName(zhPracLevel()))} (${zhPool(zhPracLevel()).length} từ)${ty === 'all' ? ': đoán nghĩa, chọn chữ, chọn pinyin' : ' — chỉ dạng «' + esc(ZH_QZ_TYPE[ty]) + '»'} — có chấm điểm và giải thích. Mỗi lượt xáo lại cả thứ tự câu lẫn thứ tự lựa chọn.</p></div>
     ${zhLevelChips('data-zh-prac', zhPracLevel(), true)}
+    ${typeChips}
     <div class="stage-ctrl"><button class="pbtn primary" data-zh-qz-start="1">▶ Bắt đầu 10 câu</button></div>`;
   }
   if (Q.i >= Q.qs.length){
@@ -3392,11 +3470,13 @@ VIEWS.zh_quiz = function(){
     <div class="page-head"><span class="eyebrow">Tiếng Trung · Bài tập</span><h1>Kết quả: ${score}/${Q.qs.length}</h1>
       <p>Đúng ${pct}%. ${pct >= 80 ? 'Giỏi lắm!' : pct >= 50 ? 'Khá rồi, ôn thêm chút nhé.' : 'Cần luyện thêm nhé.'}</p></div>
     <div class="qz-review">${Q.qs.map((q, i) => `<div class="qz-rev ${Q.picked[i] === q.answer ? 'ok' : 'no'}"><span>${Q.picked[i] === q.answer ? '✓' : '✗'}</span> ${esc(q.explain)}</div>`).join('')}</div>
-    <div class="stage-ctrl"><button class="pbtn primary" data-zh-qz-start="1">↻ Làm lại</button></div>`;
+    <div class="stage-ctrl"><button class="pbtn primary" data-zh-qz-start="1">↻ Làm lại</button>
+      <button class="pbtn" data-zh-qz-exit="1">⚙ Chọn đề khác</button></div>`;
   }
   const q = Q.qs[Q.i], picked = Q.picked[Q.i];
   return `
-  <div class="page-head"><span class="eyebrow">Tiếng Trung · Bài tập</span><h1>Bài tập <span class="qz-count">${Q.i + 1}/${Q.qs.length}</span> <button class="mini" data-zh-qz-start="1" title="Bỏ đề này, sinh đề mới">↻ Đề khác</button></h1><p>${esc(q.prompt)}</p></div>
+  <div class="page-head"><span class="eyebrow">Tiếng Trung · Bài tập</span><h1>Bài tập <span class="qz-count">${Q.i + 1}/${Q.qs.length}</span></h1><p>${esc(q.prompt)}</p></div>
+  ${qzTools('data-zh-qz-start="1"', 'data-zh-qz-exit="1"')}
   <div class="qz-main">${q.main}</div>
   <div class="qz-opts">${q.opts.map(o => {
     let cls = 'qz-opt' + (q.oc ? ' ' + q.oc : '');
@@ -5427,8 +5507,72 @@ function zhMount(){
   });
 }
 
+/* ============================================================
+   KHUNG CHUNG CHO CÁC MÀN BÀI TẬP
+   ------------------------------------------------------------
+   Bốn màn bài tập — Anh, Trung, Pháp, Tây Ban Nha — viết rời nhau, mỗi màn
+   một kiểu dữ liệu riêng, nên không gộp thành một engine mà không đập đi xây
+   lại. Nhưng mấy thứ người học cần thì giống hệt nhau ở cả bốn, nên dựng
+   chung ở đây.
+   ============================================================ */
+
+function qzShuffle(a){
+  const o = a.slice();
+  for (let i = o.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); const t = o[i]; o[i] = o[j]; o[j] = t; }
+  return o;
+}
+
+/* Xáo thứ tự lựa chọn của MỘT câu và dời luôn chỉ số đáp án theo.
+   Vì sao cần: giữ nguyên thứ tự thì làm vài lượt là nhớ «đáp án nằm ở nút thứ
+   hai» chứ không nhớ kiến thức — đúng cái học vẹt mà bài tập sinh ra để
+   tránh. Trả về bản mới, KHÔNG sửa dữ liệu gốc: ngân hàng câu hỏi dùng chung
+   cho mọi lượt, sửa vào đó là hỏng các lượt sau. */
+function qzShuffleOpts(o, c){
+  if (!Array.isArray(o) || o.length < 2) return { o, c };
+  const order = qzShuffle(o.map((_, i) => i));
+  return { o: order.map(i => o[i]), c: order.indexOf(c) };
+}
+
+/* Thanh công cụ hiện trong lúc đang làm dở. */
+function qzTools(restartAttr, filterAttr){
+  return `<div class="qz-tools">
+    <button class="pbtn mini" ${restartAttr} title="Xáo lại và làm từ câu 1">↻ Làm lại từ đầu</button>
+    <button class="pbtn mini" ${filterAttr} title="Chọn cấp độ và dạng bài khác">⚙ Chọn đề khác</button>
+  </div>`;
+}
+
+/* Quay lại màn bài tập khi còn dở thì HỎI, chứ không lẳng lặng thả vào đúng
+   câu đang dở — người học nhiều khi quay lại là để làm lại từ đầu. */
+function qzResumeHTML(i, n, resumeAttr, restartAttr, filterAttr){
+  return `
+  <div class="qz-resume">
+    <h2>Còn dở một lượt</h2>
+    <p>Lượt trước dừng ở <b>câu ${i + 1} / ${n}</b>.</p>
+    <div class="fact-actions">
+      <button class="pbtn primary" ${resumeAttr}>Làm tiếp</button>
+      <button class="pbtn" ${restartAttr}>Làm lại từ đầu</button>
+      <button class="pbtn" ${filterAttr}>Chọn đề khác</button>
+    </div>
+  </div>`;
+}
+
+/* Rời màn bài tập giữa chừng thì ghi dấu, để lần quay lại còn biết mà hỏi. */
+const QZ_VIEWS = { en_quiz:'en', zh_quiz:'zh', fr_quiz:'fr', es_quiz:'es' };
+function qzStateOf(code){
+  if (code === 'en') return state.en && state.en.quiz;
+  if (code === 'zh') return state.zh && state.zh.quiz;
+  try { return latSt(code).quiz; } catch(e){ return null; }
+}
+function qzMarkLeft(prevView){
+  const code = QZ_VIEWS[prevView];
+  if (!code) return;
+  const Q = qzStateOf(code);
+  if (Q && Q.qs && Q.qs.length && !Q.done) Q.ask = true;
+}
+
 function go(v, lessonNo){
   if (v !== state.view) stopAudio();
+  if (v !== state.view) qzMarkLeft(state.view);
   state.view = v;
   if (lessonNo){ state.lesson = lessonNo; state.tab = 'vocab'; }
   render();
@@ -5542,12 +5686,22 @@ function tqInit(){
    Router SPA ghi vào History API để nút back lùi trong app thay vì thoát app. */
 let _histReady = false, _applyingHist = false, _curDesc = null;
 function wordIsOpen(){ return document.body.classList.contains('wp-open'); }
+/* Vị trí đang làm trong màn Bài tập. Có nó thì vuốt cạnh lùi về CÂU TRƯỚC
+   chứ không thoát hẳn khỏi màn — lỗi người dùng báo. Màn Pháp/Tây Ban Nha
+   không có con trỏ câu riêng: bấm xong là đẩy vào picked, nên vị trí chính
+   là số câu đã bấm. */
+function qzPos(code){
+  const Q = qzStateOf(code);
+  if (!Q || !Q.qs || !Q.qs.length || Q.done) return null;
+  return (code === 'en' || code === 'zh') ? (Q.i || 0) : Q.picked.length;
+}
 function histDesc(){
   const tok = (typeof wordState !== 'undefined' && wordState && wordState.token) || null;
-  return { v: state.view, lesson: state.lesson || null, zl: (state.zh && state.zh.lesson) || null, rl: (state.ru && state.ru.lesson) || null, jl: (state.ja && state.ja.lesson) || null, shl: (state.shadow && state.shadow.lang) || 'ko', shp: !!(state.shadow && state.shadow.sents && state.shadow.sents.length), rdl: (state.read && state.read.lang) || null, rdi: (state.read && state.read.idx != null) ? state.read.idx : null, pcl: (state.pic && state.pic.lang) || null, pci: (state.pic && state.pic.idx != null) ? state.pic.idx : null, word: wordIsOpen() ? (tok || 1) : null };
+  return { v: state.view, lesson: state.lesson || null, zl: (state.zh && state.zh.lesson) || null, rl: (state.ru && state.ru.lesson) || null, jl: (state.ja && state.ja.lesson) || null, shl: (state.shadow && state.shadow.lang) || 'ko', shp: !!(state.shadow && state.shadow.sents && state.shadow.sents.length), rdl: (state.read && state.read.lang) || null, rdi: (state.read && state.read.idx != null) ? state.read.idx : null, pcl: (state.pic && state.pic.lang) || null, pci: (state.pic && state.pic.idx != null) ? state.pic.idx : null, word: wordIsOpen() ? (tok || 1) : null,
+    qz: QZ_VIEWS[state.view] ? qzPos(QZ_VIEWS[state.view]) : null };
 }
 function descEq(a, b){
-  return !!a && !!b && a.v === b.v && (a.lesson || null) === (b.lesson || null) && (a.zl || null) === (b.zl || null) && (a.rl || null) === (b.rl || null) && (a.jl || null) === (b.jl || null) && (a.shl || 'ko') === (b.shl || 'ko') && !!a.shp === !!b.shp && (a.rdl || null) === (b.rdl || null) && (a.rdi == null ? null : a.rdi) === (b.rdi == null ? null : b.rdi) && (a.pcl || null) === (b.pcl || null) && (a.pci == null ? null : a.pci) === (b.pci == null ? null : b.pci) && !!a.word === !!b.word;
+  return !!a && !!b && a.v === b.v && (a.qz == null ? null : a.qz) === (b.qz == null ? null : b.qz) && (a.lesson || null) === (b.lesson || null) && (a.zl || null) === (b.zl || null) && (a.rl || null) === (b.rl || null) && (a.jl || null) === (b.jl || null) && (a.shl || 'ko') === (b.shl || 'ko') && !!a.shp === !!b.shp && (a.rdl || null) === (b.rdl || null) && (a.rdi == null ? null : a.rdi) === (b.rdi == null ? null : b.rdi) && (a.pcl || null) === (b.pcl || null) && (a.pci == null ? null : a.pci) === (b.pci == null ? null : b.pci) && !!a.word === !!b.word;
 }
 function syncHist(){
   if (!_histReady || _applyingHist) return;
@@ -5558,9 +5712,27 @@ function syncHist(){
   try { leavingModal ? history.replaceState(d, '') : history.pushState(d, ''); } catch (e) {}
 }
 function seedHist(){ _histReady = true; _curDesc = histDesc(); try { history.replaceState(_curDesc, ''); } catch (e) {} }
+/* Lùi một bước trong màn Bài tập = lùi một CÂU. Ở màn Pháp/Tây Ban Nha thì
+   lùi một câu đồng nghĩa với bỏ lựa chọn vừa bấm, vì bấm xong là sang câu. */
+function qzSeek(code, pos){
+  const Q = qzStateOf(code);
+  if (!Q || !Q.qs || !Q.qs.length || pos == null) return false;
+  if (code === 'en' || code === 'zh'){
+    const i = Math.max(0, Math.min(Q.qs.length - 1, pos));
+    if (i === Q.i && !Q.done) return false;
+    Q.i = i; Q.done = false; Q.ask = false; return true;
+  }
+  const n = Math.max(0, Math.min(Q.qs.length, pos));
+  if (n === Q.picked.length && !Q.done) return false;
+  Q.picked.length = n; Q.done = false; Q.ask = false; return true;
+}
+
 function applyHist(s){
   s = s || { v: 'home', lesson: null, word: null };
   _applyingHist = true;
+  if (s.v !== state.view) qzMarkLeft(state.view);
+  const qzCode = QZ_VIEWS[s.v];
+  const qzMoved = qzCode && s.qz != null && s.v === state.view ? qzSeek(qzCode, s.qz) : false;
   if (!s.word && wordIsOpen()) closeWord();
   else if (s.word && !wordIsOpen() && typeof s.word === 'string') openWord(s.word);
   const sh = state.shadow;
@@ -5569,7 +5741,7 @@ function applyHist(s){
   const rdChanged = !!rd && ((s.rdl || null) !== (rd.lang || null) || (s.rdi == null ? null : s.rdi) !== (rd.idx == null ? null : rd.idx));
   const pc = state.pic;
   const pcChanged = !!pc && ((s.pcl || null) !== (pc.lang || null) || (s.pci == null ? null : s.pci) !== (pc.idx == null ? null : pc.idx));
-  const changed = pcChanged || rdChanged || s.v !== state.view || (s.lesson || null) !== (state.lesson || null) || (s.zl || null) !== ((state.zh && state.zh.lesson) || null) || (s.rl || null) !== ((state.ru && state.ru.lesson) || null) || (s.jl || null) !== ((state.ja && state.ja.lesson) || null) || shChanged;
+  const changed = qzMoved || pcChanged || rdChanged || s.v !== state.view || (s.lesson || null) !== (state.lesson || null) || (s.zl || null) !== ((state.zh && state.zh.lesson) || null) || (s.rl || null) !== ((state.ru && state.ru.lesson) || null) || (s.jl || null) !== ((state.ja && state.ja.lesson) || null) || shChanged;
   if (changed){
     if (s.v !== state.view) stopAudio();
     state.view = s.v; state.lesson = s.lesson || null;
@@ -7076,9 +7248,16 @@ function enQzNorm(v){
     .replace(/\s*\/\s*/g, ' / ').replace(/\s+/g, ' ');
 }
 function enQzStart(){
-  const pool = enQzPool().slice();
-  for (let i = pool.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); const t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
-  state.en.quiz = { qs:pool.slice(0, Math.min(15, pool.length)), i:0, picked:[], done:false };
+  const pool = qzShuffle(enQzPool());
+  /* Xáo cả THỨ TỰ LỰA CHỌN của từng câu, không chỉ thứ tự câu. Ngân hàng câu
+     hỏi là mảng dùng chung nên phải chép ra bản riêng cho lượt này, sửa thẳng
+     vào đó là hỏng mọi lượt sau. */
+  const qs = pool.slice(0, Math.min(15, pool.length)).map(x => {
+    if (EN_QZ_CHOICE.indexOf(x.type) < 0 || !Array.isArray(x.o)) return x;
+    const s = qzShuffleOpts(x.o, x.c);
+    return Object.assign({}, x, { o:s.o, c:s.c });
+  });
+  state.en.quiz = { qs, i:0, picked:[], done:false, ask:false };
 }
 function enQzCorrect(q, v){
   if (v === undefined || v === null || v === '') return false;
@@ -7095,6 +7274,13 @@ VIEWS.en_quiz = function(){
     <h1>Bài tập tiếng Anh</h1>
     <p>Kho có <b>${_EEX.length}</b> câu thuộc <b>${Object.keys(EN_QZ_TYPE).length} dạng</b>. Ngoài các dạng ngữ pháp quen thuộc còn có sáu dạng luyện từ trong ngữ cảnh: <b>đoán nghĩa từ ngữ cảnh</b> (từ mới nằm trong câu có manh mối), <b>chọn từ hợp ngữ cảnh</b>, <b>nghĩa nào đúng ở đây</b> (một từ nhiều nghĩa), <b>từ lạc nhóm</b>, <b>ghép collocation</b> và <b>họ từ</b>. Mỗi câu đều có lời giải thích bằng tiếng Việt.</p>
   </div>`;
+
+  /* Quay lại giữa chừng: hỏi làm tiếp hay làm lại, chứ không thả thẳng vào
+     câu đang dở — nhiều khi quay lại chính là để làm lại từ đầu. */
+  if (Q && Q.qs.length && !Q.done && Q.ask){
+    return head + qzResumeHTML(Q.i, Q.qs.length,
+      'data-en-quizresume="1"', 'data-en-quizstart="1"', 'data-en-quizexit="1"');
+  }
 
   if (!Q || !Q.qs.length){
     const pool = enQzPool();
@@ -7140,7 +7326,7 @@ VIEWS.en_quiz = function(){
     ? `<div class="qz-opts">${q.o.map((o, i) => `<button class="qz-opt en${picked === i ? ' on' : ''}" data-en-quizpick="${i}">${esc(o)}</button>`).join('')}</div>`
     : `<div class="qz-input"><input id="enqzin" class="dict-q" type="text" placeholder="${q.type === 'order' ? 'Viết lại cả câu, không cần dấu chấm…' : 'Nhập đáp án…'}" value="${esc(picked || '')}" autocomplete="off" spellcheck="false"></div>`;
 
-  return head + `
+  return head + qzTools('data-en-quizstart="1"', 'data-en-quizexit="1"') + `
   <div class="qz-bar"><span>Câu ${Q.i + 1}/${Q.qs.length}</span><span class="qz-tag">${esc(EN_QZ_TYPE[q.type] || q.type)} · ${esc(q.tag)} · ${esc((q.lv || '').toUpperCase())}</span></div>
   <div class="qz-card">
     <div class="qz-q en" style="white-space:pre-line">${esc(q.q)}</div>
@@ -8525,6 +8711,12 @@ function latQuizView(id){
        Mỗi câu sai đều có lời giải thích kèm cả bảng chia hoặc cả bốn dạng của tính từ.</p>
   </div>`;
 
+  /* Quay lại giữa chừng thì hỏi, đừng thả thẳng vào câu đang dở. */
+  if (Q.qs.length && !Q.done && Q.ask){
+    return head + qzResumeHTML(Q.picked.length, Q.qs.length,
+      `data-lat-qzresume="${id}"`, `data-lat-qzstart="${id}"`, `data-lat-qzexit="${id}"`);
+  }
+
   if (!Q.qs.length){
     const n = latMakeQuiz(id, Q.lv, Q.type, 999, 1).length;
     return head
@@ -8567,7 +8759,7 @@ function latQuizView(id){
 
   const i = Q.picked.length;
   const q = Q.qs[i];
-  return head + `
+  return head + qzTools(`data-lat-qzstart="${id}"`, `data-lat-qzexit="${id}"`) + `
   <div class="qz-run">
     <div class="qz-prog"><span style="width:${Math.round(i / Q.qs.length * 100)}%"></span></div>
     <div class="qz-meta">Câu ${i + 1} / ${Q.qs.length} · ${esc(LAT_QZ_TYPE[q.type] || q.type)} · ${esc(q.tag)}</div>
@@ -8849,6 +9041,9 @@ function factClose(){
 /* ----- màn hình «Bạn có biết?» ----- */
 if (typeof window !== 'undefined') window.__rd = { list:rdList, lang:rdLang, all:() => _RD };
 window.__en = { lookup: (typeof EN_LOOKUP !== 'undefined' ? EN_LOOKUP : {}), lemma:enLemma, tokens:enTokens, ipa:enIpa, level:enLevel, lessons:enLessonList, phon:() => _EPA, course:() => _EC, entryEx:enEntryEx, exIndex:enExIndex, qzChoice:EN_QZ_CHOICE, qzTypes:EN_QZ_TYPE, quiz:() => state.en.quiz };
+/* Móc cho bộ kiểm thử màn Bài tập — mã app nằm trong IIFE nên bên ngoài không
+   với tới được, phải phơi ra đúng mấy thứ cần soi. */
+try { window.__qz = { enStart:enQzStart, st:qzStateOf, pos:qzPos, desc:histDesc, apply:applyHist, go, enBank:() => _EEX, shuffleOpts:qzShuffleOpts }; } catch(e){}
 window.__facts = { pick:factPick, lang:factLang, show:factShowBubble, schedule:factSchedule, on:factsOn, open:factOpen, pool:factPool, store, applyPos:factApplyPos, resetPos:factResetPos, clampPos:factClampPos };
 VIEWS.facts = function(){
   const lang = state.factsLang || factLang() || 'ko';
@@ -9019,15 +9214,21 @@ document.addEventListener('click', e => {
   const qzGo = t.closest('[data-lat-qzstart]');
   if (qzGo){ const id = qzGo.dataset.latQzstart, Q = latSt(id).quiz;
     Q.qs = latMakeQuiz(id, Q.lv, Q.type, 15, (Date.now() & 0x7fffffff) || 1);
-    Q.picked = []; Q.done = false; render(); return; }
+    Q.picked = []; Q.done = false; Q.ask = false; render(); syncHist(); return; }
+  const qzRe = t.closest('[data-lat-qzresume]');
+  if (qzRe){ latSt(qzRe.dataset.latQzresume).quiz.ask = false; render(); return; }
   const qzPk = t.closest('[data-lat-qzpick]');
   if (qzPk){ const [id, k] = two(qzPk.dataset.latQzpick), Q = latSt(id).quiz;
     Q.picked.push(+k);
     if (Q.picked.length >= Q.qs.length) Q.done = true;
-    render(); return; }
+    render();
+    /* Ghi từng câu vào lịch sử: vuốt cạnh lùi về CÂU TRƯỚC — ở màn này lùi
+       một câu đồng nghĩa với bỏ lựa chọn vừa bấm, xem applyHist. */
+    syncHist();
+    return; }
   const qzEx = t.closest('[data-lat-qzexit]');
   if (qzEx){ const id = qzEx.dataset.latQzexit, Q = latSt(id).quiz;
-    Q.qs = []; Q.picked = []; Q.done = false; render(); return; }
+    Q.qs = []; Q.picked = []; Q.done = false; Q.ask = false; render(); syncHist(); return; }
 
   const spLv = t.closest('[data-lat-splv]');
   if (spLv){ const [id, lv] = two(spLv.dataset.latSplv);
@@ -9329,10 +9530,15 @@ document.addEventListener('click', e => {
   const zSrs = t.closest('[data-zh-srs]');
   if (zSrs){ if (state.zh.srs){ state.zh.srs.i++; state.zh.srs.show = false; render(); } return; }
   if (t.closest('#zhFlip')){ const S = state.view === 'ru_srs' ? state.ru.srs : state.view === 'ja_srs' ? state.ja.srs : state.zh.srs; if (S){ S.show = !S.show; render(); } return; }
-  if (t.closest('[data-zh-qz-start]')){ state.zh.quiz = { qs: zhMakeQuestions(10), i:0, picked:[] }; render(); return; }
+  const zqTy = t.closest('[data-zh-qz-type]');
+  if (zqTy){ state.zh.quizType = zqTy.dataset.zhQzType; state.zh.quiz = null; render(); return; }
+  if (t.closest('[data-zh-qz-exit]')){ state.zh.quiz = null; render(); syncHist(); return; }
+  if (t.closest('[data-zh-qz-resume]') && state.zh.quiz){ state.zh.quiz.ask = false; render(); return; }
+  if (t.closest('[data-zh-qz-start]')){ state.zh.quiz = { qs: zhMakeQuestions(10), i:0, picked:[], ask:false }; render(); syncHist(); return; }
   const zqz = t.closest('[data-zh-qz]');
   if (zqz){ const Q = state.zh.quiz; if (Q && Q.picked[Q.i] == null){ Q.picked[Q.i] = zqz.dataset.zhQz; render(); } return; }
-  if (t.closest('[data-zh-qz-next]')){ if (state.zh.quiz){ state.zh.quiz.i++; render(); } return; }
+  /* Ghi từng câu vào lịch sử: vuốt cạnh lùi về CÂU TRƯỚC chứ không thoát màn. */
+  if (t.closest('[data-zh-qz-next]')){ if (state.zh.quiz){ state.zh.quiz.i++; render(); syncHist(); } return; }
   /* ----- tiếng Nga ----- */
 
   /* ----- Tiếng Anh ----- */
@@ -9379,8 +9585,9 @@ document.addEventListener('click', e => {
   if (enQl){ state.en.quizLevel = enQl.dataset.enQuizlevel; render(); return; }
   const enQt = t.closest('[data-en-quiztype]');
   if (enQt){ state.en.quizType = enQt.dataset.enQuiztype; render(); return; }
-  if (t.closest('[data-en-quizstart]')){ enQzStart(); render(); return; }
-  if (t.closest('[data-en-quizexit]')){ state.en.quiz = null; render(); return; }
+  if (t.closest('[data-en-quizstart]')){ enQzStart(); render(); syncHist(); return; }
+  if (t.closest('[data-en-quizexit]')){ state.en.quiz = null; render(); syncHist(); return; }
+  if (t.closest('[data-en-quizresume]') && state.en.quiz){ state.en.quiz.ask = false; render(); return; }
   const enQp = t.closest('[data-en-quizpick]');
   if (enQp && state.en.quiz){ state.en.quiz.picked[state.en.quiz.i] = +enQp.dataset.enQuizpick; render(); return; }
   const enQn = t.closest('[data-en-quiznav]');
@@ -9388,7 +9595,11 @@ document.addEventListener('click', e => {
     const inp = document.getElementById('enqzin');
     if (inp) state.en.quiz.picked[state.en.quiz.i] = inp.value;
     state.en.quiz.i = Math.max(0, Math.min(state.en.quiz.qs.length - 1, state.en.quiz.i + (+enQn.dataset.enQuiznav)));
-    render(); return;
+    render();
+    /* Ghi từng câu vào lịch sử: vuốt cạnh phải lùi về CÂU TRƯỚC chứ không
+       thoát hẳn khỏi màn bài tập. */
+    syncHist();
+    return;
   }
   if (t.closest('[data-en-quizsubmit]') && state.en.quiz){
     const inp = document.getElementById('enqzin');
@@ -9804,6 +10015,11 @@ document.addEventListener('change', e => {
 
 /* tìm nhanh trên thanh trên cùng + ô chuyển số */
 document.addEventListener('input', e => {
+  /* Đang gom phím thì để yên: mấy nhánh dưới đây vẽ lại khung rồi gọi focus(),
+     làm giữa chừng là bộ gõ mất đoạn chưa chốt. Chốt xong sẽ có một nhịp input
+     nữa (xem compositionend ở trên) và lúc ấy xử lí một thể. */
+  if (_composing) return;
+
   const latQ = e.target.closest ? e.target.closest('[data-lat-q]') : null;
   if (latQ){ const id = latQ.dataset.latQ; latSt(id).q = latQ.value; latSt(id).entry = null; renderKeep();
     const box = $('#latSearch'); if (box){ box.focus(); box.setSelectionRange(box.value.length, box.value.length); } return; }

@@ -82,7 +82,7 @@ jobs:
           for t in smoke zh-test hsk-test ru-test ja-test en-test fact-test \
                    sh-test rd-test hist-test asst-flow pic-test say-test \
                    dict-cover word-cover audio-test tts-test lat-test \
-                   tts-native back-native; do
+                   tts-native back-native ime-test quiz-test; do
             printf '%-12s ' "$t"
             if out=$(node "tools/tests/$t.js" 2>&1); then
               echo "$out" | tail -1

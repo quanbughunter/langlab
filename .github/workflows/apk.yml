@@ -118,6 +118,13 @@ jobs:
       - name: Bật hình xem trước khi vuốt cạnh
         run: python tools/sua-manifest.py
 
+      # Máy chủ GitHub mỗi lần chạy là một máy mới, mà khoá ký debug thì TỰ
+      # SINH nếu chưa có — nên mỗi bản dựng một chữ ký khác, và Android không
+      # cho cài đè bằng chữ ký khác. Trỏ vào khoá cố định trong kho để bản sau
+      # cài đè được bản trước, giữ nguyên tiến độ học.
+      - name: Dùng khoá ký cố định
+        run: python tools/sua-ky.py
+
       - name: Soi lại plugin quay lại đã vào gói chưa
         working-directory: android-app
         run: |
@@ -127,13 +134,23 @@ jobs:
             || { echo "Manifest chưa có cờ vuốt cạnh"; exit 1; }
           grep -q "__backNative" www/index.html \
             || { echo "Bản HTML chưa nhúng js/back-native.js"; exit 1; }
-          echo "OK: plugin, cờ manifest và lớp đệm đều có mặt."
+          grep -q "langlab-debug.keystore" android/app/build.gradle \
+            || { echo "Bản dựng chưa trỏ vào khoá ký cố định"; exit 1; }
+          echo "OK: plugin, cờ manifest, lớp đệm và khoá ký đều có mặt."
 
       - name: Biên dịch APK
         working-directory: android-app/android
         run: |
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon
+
+      # Vân tay chữ ký phải GIỐNG NHAU ở mọi lần dựng. Khác là bản mới không
+      # cài đè được bản cũ — in ra đây để lần sau so lại cho nhanh.
+      - name: In vân tay chữ ký
+        working-directory: android-app
+        run: |
+          keytool -list -v -keystore keystore/langlab-debug.keystore \
+            -storepass android 2>/dev/null | grep -E 'Alias|SHA256:' || true
 
       - name: Đặt tên tệp theo ngày
         id: ten
